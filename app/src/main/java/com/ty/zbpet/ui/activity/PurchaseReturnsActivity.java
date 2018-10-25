@@ -7,12 +7,14 @@ import com.ty.zbpet.R;
 
 /**
  * 采购退货
+ * @author TY
  */
-public class PurchaseReturnsActivity extends AppCompatActivity {
+public class PurchaseReturnsActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onBaseCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_purchase_returns);
+
+        initToolBar(R.string.label_purchase_returns,null);
     }
 }

@@ -16,6 +16,9 @@ import com.zhouyou.http.cache.model.CacheMode;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * @author TY
+ */
 public class MainApp extends Application {
 
     public static Context context;
@@ -24,7 +27,7 @@ public class MainApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        this.context = this;
+        context = this;
         initHttp();
     }
 
@@ -32,26 +35,28 @@ public class MainApp extends Application {
         EasyHttp.init(this);
         EasyHttp.getInstance()
                 .setBaseUrl("http://static.owspace.com/")
-                .debug("RxEasyTAG", true)// 打开该调试开关并设置TAG
+                // 打开该调试开关并设置TAG
+                .debug("RxEasyTAG", true)
                 //如果使用默认的60秒,以下三行也不需要设置
                 .setReadTimeOut(60 * 1000)
                 .setWriteTimeOut(60 * 100)
                 .setConnectTimeout(60 * 100)
-                .setRetryCount(3)//网络不好自动重试3次
+                //网络不好自动重试3次
+                .setRetryCount(3)
                 //可以全局统一设置超时重试间隔时间,默认为500ms,不需要可以设置为0
-                .setRetryDelay(500)//每次延时500ms重试
-                //可以全局统一设置超时重试间隔叠加时间,默认为0ms不叠加
-                .setRetryIncreaseDelay(500)//每次延时叠加500ms
+                .setRetryDelay(500)
+                //可以全局统一设置超时重试间隔叠加时间,默认为0ms不叠加,//每次延时叠加500ms
+                .setRetryIncreaseDelay(500)
                 //可以全局统一设置缓存模式,默认是不使用缓存,可以不传,具体请看CacheMode
                 .setCacheMode(CacheMode.NO_CACHE)
-                //可以全局统一设置缓存时间,默认永不过期
-                .setCacheTime(-1)//-1表示永久缓存,单位:秒 ，Okhttp和自定义RxCache缓存都起作用
-                //全局设置自定义缓存保存转换器，主要针对自定义RxCache缓存
-                .setCacheDiskConverter(new SerializableDiskConverter())//默认缓存使用序列化转化
-                //全局设置自定义缓存大小，默认50M
-                .setCacheMaxSize(100 * 1024 * 1024)//设置缓存大小为100M
-                //设置缓存版本，如果缓存有变化，修改版本后，缓存就不会被加载。特别是用于版本重大升级时缓存不能使用的情况
-                .setCacheVersion(1)//缓存版本为1
+                //可以全局统一设置缓存时间,默认永不过期,//-1表示永久缓存,单位:秒 ，Okhttp和自定义RxCache缓存都起作用
+                .setCacheTime(-1)
+                //全局设置自定义缓存保存转换器，主要针对自定义RxCache缓存,//默认缓存使用序列化转化
+                .setCacheDiskConverter(new SerializableDiskConverter())
+                //全局设置自定义缓存大小，默认50M,//设置缓存大小为100M
+                .setCacheMaxSize(100 * 1024 * 1024)
+                //设置缓存版本，如果缓存有变化，修改版本后，缓存就不会被加载。特别是用于版本重大升级时缓存不能使用的情况,//缓存版本为1
+                .setCacheVersion(1)
                 //.setHttpCache(new Cache())//设置Okhttp缓存，在缓存模式为DEFAULT才起作用
                 //可以设置https的证书,以下几种方案根据需要自己设置
                 .setCertificates()                                  //方法一：信任所有证书,不安全有风险

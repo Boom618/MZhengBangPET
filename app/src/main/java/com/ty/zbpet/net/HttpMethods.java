@@ -21,6 +21,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -29,10 +30,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * description:
  * author: XingZheng
  * date: 2016/11/22.
+ * @author TY
  */
 public class HttpMethods {
 
-    private static final int DEFAULT_TIMEOUT = 20;//默认超时时间
+    /**
+     * 默认超时时间
+     */
+    private static final int DEFAULT_TIMEOUT = 20;
     private Retrofit mRetrofit;
     private ApiService mService;
     private static Gson gson;
@@ -52,8 +57,11 @@ public class HttpMethods {
 
     private void init(String url) {
         //创建OKHttpClient
-        OkHttpClient.Builder client = new OkHttpClient.Builder();
-        client.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+        OkHttpClient.Builder client = new OkHttpClient.Builder()
+                .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+                // 日志拦截器
+                .addInterceptor(new HttpLoggingInterceptor());
+
         mRetrofit = new Retrofit.Builder()
                 .client(client.build())
                 .addConverterFactory(GsonConverterFactory.create(buildGson()))

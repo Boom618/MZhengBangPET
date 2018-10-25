@@ -25,3 +25,14 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext {
+    config = [
+            serviceUrlDevelop   :"\"http://192.168.11.2:3000/\"",    // 徐坤
+            serviceUrl          :"" ,                                //
+
+
+            nameDevelop     : "ZB_PET_Develop",
+            nameUrl         : "MZhengBangPET",
+    ]
+}

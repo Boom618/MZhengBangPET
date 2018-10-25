@@ -1,6 +1,7 @@
 package com.ty.zbpet.ui.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -37,6 +38,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.RequestBody;
 
+/**
+ * @author TY
+ * 外采详情
+ */
 public class PurchaseInStorageDetailActivity extends BaseActivity {
 
     @BindView(R.id.iv_back)
@@ -65,7 +70,7 @@ public class PurchaseInStorageDetailActivity extends BaseActivity {
     private final static int RESULT_SCAN_CODE = 2;
 
     @Override
-    protected void onBaseCreate() {
+    protected void onBaseCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_purchase_in_storage_detail);
         ButterKnife.bind(this);
         tvTitle.setText("外采入库");

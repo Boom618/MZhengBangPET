@@ -17,6 +17,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * @author TY
+ */
 public class MaterialInWarehouseAdapter extends RecyclerView.Adapter {
 
     private List<MaterialInWarehouseOrderList.DataBean.ListBean> infoList;
@@ -87,7 +90,7 @@ public class MaterialInWarehouseAdapter extends RecyclerView.Adapter {
         void onItemClick(int position, MaterialInWarehouseOrderList.DataBean.ListBean data);
     }
 
-    public void setOnItemClickLisener(OnItemClickListener lisener) {
-        this.mListener = lisener;
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mListener = listener;
     }
 }

@@ -1,5 +1,6 @@
 package com.ty.zbpet.ui.activity;
 
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -33,6 +34,8 @@ import okhttp3.RequestBody;
 
 /**
  * 原辅料——到货入库详情
+ *
+ * @author TY
  */
 public class ArrivalInStorageDetailActivity extends BaseActivity {
 
@@ -57,7 +60,7 @@ public class ArrivalInStorageDetailActivity extends BaseActivity {
     private String warehouseId;
 
     @Override
-    protected void onBaseCreate() {
+    protected void onBaseCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_arrival_in_storage_detail);
         ButterKnife.bind(this);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
@@ -121,6 +124,8 @@ public class ArrivalInStorageDetailActivity extends BaseActivity {
             case R.id.tv_time:
                 UIUtils.showTimeDialog(tvTime, this);
                 break;
+            default:
+                break;
         }
     }
 
@@ -136,7 +141,7 @@ public class ArrivalInStorageDetailActivity extends BaseActivity {
         return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), json);
     }
 
-    private void doPurchaseInRecallOut(RequestBody body){
+    private void doPurchaseInRecallOut(RequestBody body) {
         HttpMethods.getInstance().purchaseInRecallOut(new BaseSubscriber<ResponseInfo>() {
             @Override
             public void onError(ApiException e) {
@@ -147,6 +152,6 @@ public class ArrivalInStorageDetailActivity extends BaseActivity {
             public void onNext(ResponseInfo responseInfo) {
                 UIUtils.showToast(responseInfo.getMessage());
             }
-        },body);
+        }, body);
     }
 }

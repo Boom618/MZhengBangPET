@@ -19,6 +19,7 @@ import butterknife.ButterKnife;
 
 /**
  * 成品——采购入库待办列表
+ * @author TY
  */
 public class PurchaseInWarehouseAdapter extends RecyclerView.Adapter {
 
@@ -94,7 +95,7 @@ public class PurchaseInWarehouseAdapter extends RecyclerView.Adapter {
         void onItemClick(int position, GoodsPurchaseOrderList.DataBean.ListBean data);
     }
 
-    public void setOnItemClickLisener(OnItemClickListener lisener) {
+    public void setOnItemClickListener(OnItemClickListener lisener) {
         this.mListener = lisener;
     }
 }

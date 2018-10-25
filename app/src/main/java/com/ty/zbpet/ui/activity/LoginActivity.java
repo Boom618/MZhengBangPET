@@ -1,5 +1,6 @@
 package com.ty.zbpet.ui.activity;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -10,6 +11,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * @author TY
+ */
 public class LoginActivity extends BaseActivity {
 
     @BindView(R.id.et_company_no)
@@ -28,20 +32,22 @@ public class LoginActivity extends BaseActivity {
     RelativeLayout rlPhoneLogin;
 
     @Override
-    protected void onBaseCreate() {
+    protected void onBaseCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.btn_login,R.id.tv_switch_way})
-    public void onClick(View view){
-        switch (view.getId()){
+    @OnClick({R.id.btn_login, R.id.tv_switch_way})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.btn_login:
 
                 break;
 
             case R.id.tv_switch_way:
 
+                break;
+            default:
                 break;
         }
     }

@@ -25,6 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:maxLines="1"
             android:background="@drawable/shape_white_max_radius"
             android:drawableLeft="@mipmap/ic_search"
             android:drawablePadding="@dimen/space_10"
@@ -32,6 +33,14 @@
             android:padding="@dimen/space_7"
             android:textColor="@color/txt_minor_color"
             android:textSize="@dimen/text_14" />
+
+        <!--<android.support.v7.widget.SearchView-->
+            <!--android:id="@+id/search_view"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:iconifiedByDefault="false"-->
+            <!--app:queryHint="请输入搜索内容" />-->
+
 
         <RadioGroup
             android:id="@+id/rg"
@@ -51,10 +60,10 @@
                 android:button="@null"
                 android:checked="true"
                 android:gravity="center"
-                android:paddingBottom="@dimen/space_5"
-                android:paddingEnd="@dimen/space_10"
                 android:paddingStart="@dimen/space_10"
                 android:paddingTop="@dimen/space_5"
+                android:paddingEnd="@dimen/space_10"
+                android:paddingBottom="@dimen/space_5"
                 android:text="待办"
                 android:textColor="@drawable/rb_txt_selector_black2white" />
 
@@ -66,10 +75,10 @@
                 android:background="@drawable/rb_selector_bg"
                 android:button="@null"
                 android:gravity="center"
-                android:paddingBottom="@dimen/space_5"
-                android:paddingEnd="@dimen/space_10"
                 android:paddingStart="@dimen/space_10"
                 android:paddingTop="@dimen/space_5"
+                android:paddingEnd="@dimen/space_10"
+                android:paddingBottom="@dimen/space_5"
                 android:text="已办"
                 android:textColor="@drawable/rb_txt_selector_black2white" />
 
@@ -84,9 +93,7 @@
         android:layout_below="@+id/ll_top"
         />
 
-    <!--
-        <include layout="@layout/item_arrive_in_storage_complete" />
-    -->
+
 
 
 </RelativeLayout>

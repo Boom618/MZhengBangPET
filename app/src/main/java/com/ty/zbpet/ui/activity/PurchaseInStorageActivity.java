@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -23,8 +24,9 @@ import butterknife.ButterKnife;
 
 /**
  * 成品——外采入库
+ * @author TY
  */
-public class PurchaseInStorageActivity extends AppCompatActivity {
+public class PurchaseInStorageActivity extends BaseActivity {
 
     @BindView(R.id.iv_back)
     ImageView ivBack;
@@ -47,22 +49,26 @@ public class PurchaseInStorageActivity extends AppCompatActivity {
     private final static int COMPLETE = 1;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onBaseCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_purchase_in_storage);
         ButterKnife.bind(this);
 
         PurchaseInStorageNoDoingFragment noDoingFg=new PurchaseInStorageNoDoingFragment();
         PurchaseInStorageCompleteFragment completeFg=new PurchaseInStorageCompleteFragment();
+
         List<Fragment> fragmentList=new ArrayList<>();
         fragmentList.add(noDoingFg);
         fragmentList.add(completeFg);
+
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentList);
         viewpager.setAdapter(adapter);
         viewpager.addOnPageChangeListener(new PagerChangeListener());
         rg.setOnCheckedChangeListener(new RadioGroupListener());
+
         rg.check(R.id.rb_no_doing);
         viewpager.setCurrentItem(NO_DOING);
+
+        initToolBar(R.string.label_purchase_in_storage,null);
     }
 
     class PagerChangeListener extends ViewPager.SimpleOnPageChangeListener {
@@ -75,6 +81,8 @@ public class PurchaseInStorageActivity extends AppCompatActivity {
                     break;
                 case COMPLETE:
                     rg.check(R.id.rb_complete);
+                    break;
+                default:
                     break;
             }
         }
@@ -91,6 +99,8 @@ public class PurchaseInStorageActivity extends AppCompatActivity {
                     break;
                 case R.id.rb_complete:
                     viewpager.setCurrentItem(COMPLETE);
+                    break;
+                default:
                     break;
             }
         }

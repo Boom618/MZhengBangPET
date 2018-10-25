@@ -7,12 +7,14 @@ import com.ty.zbpet.R;
 
 /**
  * 领料出库
+ * @author TY
  */
-public class PickOutStorageActivity extends AppCompatActivity {
+public class PickOutStorageActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onBaseCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_pick_out_storage);
+
+        initToolBar(R.string.label_pick_out_storage,null);
     }
 }

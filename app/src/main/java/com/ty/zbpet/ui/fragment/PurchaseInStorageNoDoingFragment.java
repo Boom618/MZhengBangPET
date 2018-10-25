@@ -27,6 +27,7 @@ import butterknife.ButterKnife;
 
 /**
  * 成品——外采入库——未办
+ * @author TY
  */
 public class PurchaseInStorageNoDoingFragment extends Fragment {
 
@@ -74,7 +75,7 @@ public class PurchaseInStorageNoDoingFragment extends Fragment {
             recyclerView.setLayoutManager(manager);
             adapter = new PurchaseInWarehouseAdapter(ResourceUtil.getContext(), list);
             recyclerView.setAdapter(adapter);
-            adapter.setOnItemClickLisener(new PurchaseInWarehouseAdapter.OnItemClickListener() {
+            adapter.setOnItemClickListener(new PurchaseInWarehouseAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(int position, GoodsPurchaseOrderList.DataBean.ListBean data) {
                     Intent intent = new Intent(getActivity(), PurchaseInStorageDetailActivity.class);

@@ -3,7 +3,13 @@ package com.ty.zbpet.util;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.ty.zbpet.bean.MaterialInWarehouseOrderList;
 
+import java.util.ArrayList;
+
+/**
+ * @author TY
+ */
 public class Utils {
     /**
      * 将实体类转换成json字符串对象
@@ -27,4 +33,25 @@ public class Utils {
         }
         return "";
     }
+
+
+    public static ArrayList<MaterialInWarehouseOrderList.DataBean.ListBean> getData(String status) {
+        ArrayList<MaterialInWarehouseOrderList.DataBean.ListBean> list = new ArrayList<>();
+
+        int i = 0;
+        for (; i < 10; i++) {
+            MaterialInWarehouseOrderList.DataBean.ListBean bean = new MaterialInWarehouseOrderList.DataBean.ListBean();
+            bean.setOrderId("1000" + i);
+            bean.setOrderTime("2018-10-25");
+            bean.setSapOrderNo("SAP00000" + i);
+            bean.setState(status + i);
+            bean.setSupplierId(String.valueOf(i));
+            bean.setSupplierName("供应商 " + i);
+            bean.setType(status);
+
+            list.add(bean);
+        }
+        return list;
+    }
+
 }
