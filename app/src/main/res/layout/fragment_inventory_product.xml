@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    tools:context=".ui.activity.ProduceInStorageDetailActivity">
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="2dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/rg"
+        android:layout_marginStart="@dimen/space_10"
+        android:layout_marginTop="2dp"
+        android:background="@color/black" />
+
+    <TextView
+        android:id="@+id/warehouse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rg"
+        android:layout_marginStart="@dimen/space_10"
+        android:layout_toEndOf="@+id/line1"
+        android:text="@string/label_warehouse"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_18" />
+
+    <RelativeLayout
+        android:id="@+id/rl_warehouse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/warehouse"
+        android:layout_margin="@dimen/space_10"
+        android:background="@drawable/shape_white_min_radius"
+        android:padding="@dimen/space_5">
+
+        <TextView
+            android:id="@+id/tv_warehouse_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_10"
+            android:background="@drawable/shape_black_min_radius"
+            android:drawableLeft="@mipmap/ic_warehouse"
+            android:drawablePadding="@dimen/space_10"
+            android:drawableRight="@mipmap/ic_bottom"
+            android:gravity="center_vertical"
+            android:padding="@dimen/space_7"
+            android:text="正邦原料1号仓库"
+            android:textColor="@color/txt_main_color"
+            android:textSize="@dimen/text_14" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/line2"
+        android:layout_width="2dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/rl_warehouse"
+        android:layout_marginStart="@dimen/space_10"
+        android:layout_marginTop="2dp"
+        android:background="@color/black" />
+
+    <TextView
+        android:id="@+id/in_storage_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_warehouse"
+        android:layout_marginStart="@dimen/space_10"
+        android:layout_toEndOf="@+id/line1"
+        android:text="@string/label_in_storage_detail"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_18" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_in_storage_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/in_storage_detail"
+        android:layout_margin="@dimen/space_10" />
+
+    <View
+        android:id="@+id/line3"
+        android:layout_width="2dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/rv_in_storage_detail"
+        android:layout_marginStart="@dimen/space_10"
+        android:layout_marginTop="2dp"
+        android:background="@color/black" />
+
+    <TextView
+        android:id="@+id/in_storage_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rv_in_storage_detail"
+        android:layout_marginStart="@dimen/space_10"
+        android:layout_toEndOf="@+id/line1"
+        android:text="@string/label_in_storage_time"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_18" />
+
+    <RelativeLayout
+        android:id="@+id/rl_more"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/in_storage_time"
+        android:layout_margin="@dimen/space_10"
+        android:background="@drawable/shape_white_min_radius"
+        android:padding="@dimen/space_5">
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_10"
+            android:background="@drawable/shape_black_min_radius"
+            android:drawableLeft="@mipmap/ic_date"
+            android:drawablePadding="@dimen/space_10"
+            android:drawableRight="@mipmap/ic_bottom"
+            android:gravity="center_vertical"
+            android:padding="@dimen/space_7"
+            android:text="2018-08-31 14:18"
+            android:textColor="@color/txt_main_color"
+            android:textSize="@dimen/text_14" />
+
+        <EditText
+            android:id="@+id/et_desc"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_below="@+id/tv_time"
+            android:layout_marginEnd="@dimen/space_10"
+            android:layout_marginStart="@dimen/space_10"
+            android:background="@drawable/shape_gray_min_radius"
+            android:gravity="top"
+            android:hint="备注"
+            android:padding="@dimen/space_7"
+            android:textColor="@color/txt_minor_color"
+            android:textColorHint="@color/hint_color"
+            android:textSize="@dimen/text_14" />
+    </RelativeLayout>
+</RelativeLayout>

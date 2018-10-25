@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.activity.ProduceInStorageDetailActivity">
+
+    <include
+        android:id="@+id/top_layout"
+        layout="@layout/top_layout" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bg_color">
+
+            <EditText
+                android:id="@+id/et_batch_no"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_10"
+                android:background="@drawable/shape_white_min_radius"
+                android:hint="请输入物料批次号"
+                android:padding="@dimen/space_7"
+                android:textColor="@color/txt_minor_color"
+                android:textSize="@dimen/text_14" />
+
+            <View
+                android:id="@+id/line1"
+                android:layout_width="2dp"
+                android:layout_height="20dp"
+                android:layout_below="@+id/et_batch_no"
+                android:layout_marginStart="@dimen/space_10"
+                android:layout_marginTop="2dp"
+                android:background="@color/black" />
+
+            <TextView
+                android:id="@+id/in_storage_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_batch_no"
+                android:layout_marginStart="@dimen/space_10"
+                android:layout_toEndOf="@+id/line1"
+                android:text="@string/label_arrival_storage_detail"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_18" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_in_storage_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/in_storage_detail"
+                android:layout_margin="@dimen/space_10" />
+
+            <!-- <include android:id="@+id/item"
+                 layout="@layout/item_produce_in_storage_detail"/>-->
+
+            <View
+                android:id="@+id/line3"
+                android:layout_width="2dp"
+                android:layout_height="20dp"
+                android:layout_below="@+id/rv_in_storage_detail"
+                android:layout_marginStart="@dimen/space_10"
+                android:layout_marginTop="2dp"
+                android:background="@color/black" />
+
+            <TextView
+                android:id="@+id/in_storage_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rv_in_storage_detail"
+                android:layout_marginStart="@dimen/space_10"
+                android:layout_toEndOf="@+id/line1"
+                android:text="@string/label_in_storage_time"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_18" />
+
+            <RelativeLayout
+                android:id="@+id/rl_more"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/in_storage_time"
+                android:layout_margin="@dimen/space_10"
+                android:background="@drawable/shape_white_min_radius"
+                android:padding="@dimen/space_5">
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space_10"
+                    android:background="@drawable/shape_black_min_radius"
+                    android:drawableLeft="@mipmap/ic_date"
+                    android:drawablePadding="@dimen/space_10"
+                    android:drawableRight="@mipmap/ic_bottom"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/space_7"
+                    android:text="2018-08-31 14:18"
+                    android:textColor="@color/txt_main_color"
+                    android:textSize="@dimen/text_14" />
+
+                <EditText
+                    android:id="@+id/et_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_below="@+id/tv_time"
+                    android:layout_marginEnd="@dimen/space_10"
+                    android:layout_marginStart="@dimen/space_10"
+                    android:background="@drawable/shape_gray_min_radius"
+                    android:gravity="top"
+                    android:hint="备注"
+                    android:padding="@dimen/space_7"
+                    android:textColor="@color/txt_minor_color"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="@dimen/text_14" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+</LinearLayout>

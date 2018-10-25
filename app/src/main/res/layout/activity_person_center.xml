@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:orientation="vertical"
+    tools:context=".ui.activity.PersonCenterActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@mipmap/topback">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space_10"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_back" />
+
+        <TextView
+            android:id="@+id/tv_person_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/space_5"
+            android:layout_marginLeft="110dp"
+            android:text="张彦祖"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_18" />
+
+    </RelativeLayout>
+
+    <com.ty.zbpet.ui.widght.CircleImageView
+        android:id="@+id/iv_head"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginTop="-40dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_launcher"
+        app:civ_border_color="@android:color/transparent"
+        app:civ_border_width="1dp"
+        app:civ_fill_color="@color/white" />
+
+    <TextView
+        android:id="@+id/tv_user_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="110dp"
+        android:layout_marginTop="-35dp"
+        android:text="工号：2018262411"
+        android:textColor="@color/txt_minor_color"
+        android:textSize="@dimen/text_18" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginEnd="@dimen/space_15"
+        android:layout_marginStart="@dimen/space_15"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/shape_white_min_radius">
+
+        <View
+            android:id="@+id/line1"
+            android:layout_width="2dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="@dimen/space_10"
+            android:layout_marginTop="12dp"
+            android:background="@color/black"/>
+
+
+        <TextView
+            android:id="@+id/belong_company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_18"
+            android:text="@string/label_belong_company"
+            android:layout_toEndOf="@+id/line1"
+            android:layout_marginTop="@dimen/space_10"
+            android:layout_marginStart="@dimen/space_10"
+            />
+
+        <TextView
+            android:id="@+id/tv_belong_company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/txt_minor_color"
+            android:textSize="@dimen/text_16"
+            android:text="正邦上海宝山淞南分部03仓库"
+            android:layout_toEndOf="@+id/line1"
+            android:layout_below="@+id/belong_company"
+            android:layout_marginTop="@dimen/space_20"
+            android:layout_marginStart="@dimen/space_20"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginEnd="@dimen/space_15"
+        android:layout_marginStart="@dimen/space_15"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_white_min_radius">
+
+        <View
+            android:id="@+id/line2"
+            android:layout_width="2dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="@dimen/space_10"
+            android:layout_marginTop="12dp"
+            android:background="@color/black"/>
+
+
+        <TextView
+            android:id="@+id/phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_18"
+            android:text="@string/label_contact_phone"
+            android:layout_toEndOf="@+id/line2"
+            android:layout_marginTop="@dimen/space_10"
+            android:layout_marginStart="@dimen/space_10"
+            />
+
+        <TextView
+            android:id="@+id/tv_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/txt_minor_color"
+            android:textSize="@dimen/text_16"
+            android:text="17717516264"
+            android:layout_toEndOf="@+id/line2"
+            android:layout_below="@+id/phone"
+            android:layout_marginTop="@dimen/space_20"
+            android:layout_marginStart="@dimen/space_20"
+            />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/space_15"
+        android:layout_marginTop="@dimen/space_20"
+        android:gravity="right"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_modify_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:background="@drawable/btn_login_selector"
+            android:paddingEnd="@dimen/space_20"
+            android:paddingStart="@dimen/space_20"
+            android:text="@string/label_modify_pwd"
+            android:textColor="@drawable/btn_text_color"
+            android:textSize="@dimen/text_16" />
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginStart="@dimen/space_10"
+            android:background="@drawable/btn_login_selector"
+            android:paddingEnd="@dimen/space_20"
+            android:paddingStart="@dimen/space_20"
+            android:text="@string/label_cancel"
+            android:textColor="@drawable/btn_text_color"
+            android:textSize="@dimen/text_16" />
+    </LinearLayout>
+
+
+</LinearLayout>

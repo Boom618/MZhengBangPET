@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">MZhengBangPET</string>
+    <string name="label_title">正邦仓库管理系统</string>
+    <string name="label_material_inventory">原辅料库存</string>
+    <string name="label_arrival_storage">到货入库</string>
+    <string name="label_pick_out_storage">领料出库</string>
+    <string name="label_purchase_returns">采购退货</string>
+    <string name="label_product_inventory">成品库存</string>
+    <string name="label_purchase_in_storage">外采入库</string>
+    <string name="label_produce_in_storage">生产入库</string>
+    <string name="label_send_out_storage">发货出库</string>
+    <string name="label_return_in_storage">退货入库</string>
+    <string name="label_warehouse_manage">仓库管理</string>
+    <string name="label_inventory">盘点</string>
+    <string name="label_transfer_storage">移库</string>
+    <string name="label_person_center">个人中心</string>
+    <string name="label_check">质检</string>
+    <string name="company_name">正邦集团</string>
+    <string name="company_no">组织代码</string>
+    <string name="user_no">用户编号</string>
+    <string name="password">密码</string>
+    <string name="action_sign_in">登录</string>
+    <string name="action_sign_in_short">登录</string>
+    <string name="label_switch_phone">切换手机登录</string>
+    <string name="label_switch_company">切换组织代码登录</string>
+    <string name="phone">手机号</string>
+    <string name="label_modify_pwd">修改密码</string>
+    <string name="label_cancel">退出登录</string>
+    <string name="label_belong_company">归属企业</string>
+    <string name="label_contact_phone">联系电话</string>
+    <string name="label_warehouse">所在仓库</string>
+    <string name="label_in_storage_detail">入库明细</string>
+    <string name="label_in_storage_time">入库时间</string>
+    <string name="label_arrival_storage_detail">到货明细</string>
+    <string name="str_please_waiting">扫描中，请稍等</string>
+    <string name="str_busy">忙碌中，请稍等</string>
+    <string name="str_failed">解码失败,请重试</string>
+    <string name="cancel">取消</string>
+    <string name="title_select_time">选择时间</string>
+    <string name="label_commit">确定</string>
+    <string name="label_target_warehouse">目标仓库</string>
+
+</resources>

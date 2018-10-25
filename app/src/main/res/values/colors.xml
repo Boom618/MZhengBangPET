@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="viewfinder_laser">#FF03A9F4</color>
+    <color name="viewfinder_laser_transparent">#0003A9F4</color>
+    <color name="viewfinder_frame">@color/theme_color</color>
+
+    <color name="theme_color">#0B69B8</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <color name="main_color">@color/theme_color</color><!--主题颜色-->
+    <color name="bg_color">#F0F0F0</color><!--所有页面背景颜色-->
+    <color name="txt_main_color">#424242</color><!--主字体颜色-->
+    <color name="txt_minor_color">#8E8E93</color><!--次要字体颜色-->
+    <color name="type_text_bg_color">#fafafa</color><!--类型条目背景颜色-->
+    <color name="split_line">#f5f5f5</color><!--分割线颜色-->
+    <color name="pre_next_bg_color">#f5f5f5</color><!--上一页下一页背景颜色）（接收/入场检疫）-->
+
+    <color name="navigation_toolbar_color">@color/theme_color</color><!--状态栏颜色-->
+    <color name="toolbar_color">@color/theme_color</color><!--标题栏背景颜色-->
+    <color name="txt_title_color">@color/white</color><!--标题字体颜色-->
+
+    <color name="home_line_color">@color/theme_color</color><!--主界面菜单边框颜色-->
+    <color name="menu_normal_text_color">@color/theme_color</color><!--主界面菜单（未按下）字体颜色-->
+    <color name="menu_press_text_color">@color/white</color><!--主界面菜单（按下）字体颜色-->
+    <color name="home_menu_normal_bg_color">@color/white</color><!--主界面菜单（未按下）背景颜色-->
+    <color name="home_menu_press_bg_color">@color/theme_color</color><!--主界面菜单（按下）背景颜色-->
+
+    <color name="btn_line_color">@color/theme_color</color><!--按钮（未按下）边框颜色-->
+    <color name="btn_normal_text_color">@color/theme_color</color><!--按钮（未按下）字体颜色-->
+    <color name="btn_press_text_color">@color/white</color>
+    <color name="hint_color">#D1D1D4</color>
+    <color name="split_line_color">#979797</color>
+    <color name="btn_login_press_color">#ffffff</color>
+    <color name="btn_normal_color">#056DB4</color>
+    <color name="btn_login_text_press">#056DB4</color>
+    <color name="tag_line_color">#02508E</color>
+    <color name="orange_color">#FF9600</color>
+    <color name="green_color">#44DB5E</color><!--按钮（按下）字体颜色-->
+
+
+
+</resources>

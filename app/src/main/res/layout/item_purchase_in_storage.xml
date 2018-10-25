@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/rl_root"
+    android:background="@drawable/shape_white_min_radius">
+
+    <TextView
+        android:id="@+id/tv_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_10"
+        android:layout_marginTop="@dimen/space_10"
+        android:text="201808071024"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_18" />
+
+    <TextView
+        android:id="@+id/tv_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_no"
+        android:layout_marginStart="@dimen/space_10"
+        android:layout_marginTop="@dimen/space_5"
+        android:background="@drawable/shape_orange_radius"
+        android:padding="@dimen/space_5"
+        android:text="采购类型"
+        android:textColor="@color/orange_color"
+        android:textSize="@dimen/text_14" />
+
+    <TextView
+        android:id="@+id/tv_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_no"
+        android:layout_marginStart="@dimen/space_10"
+        android:layout_marginTop="@dimen/space_5"
+        android:layout_toEndOf="@id/tv_type"
+        android:background="@drawable/shape_green_radius"
+        android:padding="@dimen/space_5"
+        android:text="状态"
+        android:textColor="@color/green_color"
+        android:textSize="@dimen/text_14" />
+
+    <TextView
+        android:id="@+id/tv_arrival_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_status"
+        android:layout_marginStart="@dimen/space_10"
+        android:layout_marginTop="@dimen/space_5"
+        android:paddingStart="@dimen/space_5"
+        android:text="到货信息"
+        android:textColor="@color/txt_minor_color"
+        android:textSize="@dimen/text_14" />
+
+    <TextView
+        android:id="@+id/tv_supplier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_arrival_msg"
+        android:layout_marginBottom="@dimen/space_10"
+        android:layout_marginStart="@dimen/space_10"
+        android:layout_marginTop="@dimen/space_5"
+        android:paddingStart="@dimen/space_5"
+        android:text="正邦上海宝山淞南供应商"
+        android:textColor="@color/txt_minor_color"
+        android:textSize="@dimen/text_14" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/space_10"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_operator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ic_circle"
+            android:gravity="center"
+            android:padding="@dimen/space_5"
+            android:text="冲销"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_14" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space_5"
+            android:text="2018/08/21"
+            android:textColor="@color/txt_minor_color"
+            android:textSize="@dimen/text_12" />
+    </LinearLayout>
+
+
+</RelativeLayout>

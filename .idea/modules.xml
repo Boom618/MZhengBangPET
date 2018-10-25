@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/MZhengBangPET.iml" filepath="$PROJECT_DIR$/MZhengBangPET.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rxeasyhttp/rxeasyhttp.iml" filepath="$PROJECT_DIR$/rxeasyhttp/rxeasyhttp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/selectordialog/selectordialog.iml" filepath="$PROJECT_DIR$/selectordialog/selectordialog.iml" />
+    </modules>
+  </component>
+</project>
