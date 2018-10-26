@@ -19,6 +19,7 @@ import com.pda.scanner.ScanReader;
 import com.pda.scanner.Scanner;
 import com.ty.zbpet.R;
 import com.ty.zbpet.ui.adapter.BindBoxCodeAdapter;
+import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.DividerItemDecoration;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.UIUtils;
@@ -63,8 +64,6 @@ public class ScanBoxCodeActivity extends BaseActivity {
 
     @Override
     protected void onBaseCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_scan_box_code);
-        ButterKnife.bind(this);
         tvTitle.setText("箱码绑定");
         position = getIntent().getIntExtra("position", -1);
         ArrayList<String> codeList = getIntent().getStringArrayListExtra("boxCodeList");
@@ -80,6 +79,11 @@ public class ScanBoxCodeActivity extends BaseActivity {
         recyclerView.setLayoutManager(mLayoutManager);
         adapter = new BindBoxCodeAdapter(ResourceUtil.getContext(), this.boxCodeList);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    protected int getActivityLayout() {
+        return R.layout.activity_scan_box_code;
     }
 
     @OnClick({R.id.iv_back, R.id.tv_right})

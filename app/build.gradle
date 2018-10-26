@@ -27,7 +27,6 @@ android {
 
                 buildConfigField "String", "SERVICE_URL", ZBConfig.serviceUrlDevelop
 
-
 //                addManifestPlaceholders([
 //                        APP_NAME: ZBConfig.nameDevelop
 //                ])
@@ -77,6 +76,7 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
@@ -103,8 +103,10 @@ dependencies {
     //没有使用特殊 Header，可以不加这行
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-14'
 
-    implementation project(':rxeasyhttp')
     implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.zhy:base-rvadapter:3.0.3'
+
+    implementation project(':rxeasyhttp')
     implementation files('libs/pdasdk.jar')
     implementation project(':selectordialog')
 }

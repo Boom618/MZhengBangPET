@@ -14,6 +14,7 @@ import com.ty.zbpet.bean.PostArrivalInRecallOutInfo;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.adapter.MaterialInWarehouseDetailAdapter;
+import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.UIUtils;
@@ -61,8 +62,6 @@ public class ArrivalInStorageDetailActivity extends BaseActivity {
 
     @Override
     protected void onBaseCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_arrival_in_storage_detail);
-        ButterKnife.bind(this);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
         String now = sdf.format(new Date());
         tvTime.setText(now + ":00");
@@ -70,6 +69,13 @@ public class ArrivalInStorageDetailActivity extends BaseActivity {
         orderId = getIntent().getStringExtra("orderId");
         getMaterialInWarehouseOrderInfo();
 
+        initToolBar(R.string.label_purchase_detail, null);
+
+    }
+
+    @Override
+    protected int getActivityLayout() {
+        return R.layout.activity_arrival_in_storage_detail;
     }
 
     private void getMaterialInWarehouseOrderInfo() {

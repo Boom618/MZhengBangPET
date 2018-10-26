@@ -6,6 +6,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 
 import com.ty.zbpet.R;
+import com.ty.zbpet.ui.base.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,8 +34,12 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void onBaseCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
+
+    }
+
+    @Override
+    protected int getActivityLayout() {
+        return R.layout.activity_login;
     }
 
     @OnClick({R.id.btn_login, R.id.tv_switch_way})

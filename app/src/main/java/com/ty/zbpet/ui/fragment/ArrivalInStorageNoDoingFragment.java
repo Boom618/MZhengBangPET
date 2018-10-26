@@ -10,10 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ty.zbpet.R;
+import com.ty.zbpet.bean.MaterialData;
 import com.ty.zbpet.bean.MaterialInWarehouseOrderList;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.activity.ArrivalInStorageDetailActivity;
-import com.ty.zbpet.ui.adapter.MaterialInWarehouseAdapter;
+import com.ty.zbpet.ui.base.BaseResponse;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.UIUtils;
@@ -36,7 +37,7 @@ public class ArrivalInStorageNoDoingFragment extends Fragment {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    private MaterialInWarehouseAdapter adapter;
+    //private MaterialInWarehouseAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,7 +61,7 @@ public class ArrivalInStorageNoDoingFragment extends Fragment {
 
     private void getHttpData() {
 
-        HttpMethods.getInstance().getMaterialInWarehouseOrderList(new BaseSubscriber<MaterialInWarehouseOrderList>() {
+        HttpMethods.getInstance().getMaterialOrderList(new BaseSubscriber<BaseResponse<MaterialData>>() {
             @Override
             public void onError(ApiException e) {
                 UIUtils.showToast("原辅料——到货入库——待办 == onError ");
@@ -72,7 +73,7 @@ public class ArrivalInStorageNoDoingFragment extends Fragment {
             }
 
             @Override
-            public void onNext(MaterialInWarehouseOrderList materialInWarehouseOrderList) {
+            public void onNext(BaseResponse<MaterialData> materialInWarehouseOrderList) {
                 UIUtils.showToast("原辅料——到货入库——待办 == onNext ");
             }
 
@@ -86,21 +87,21 @@ public class ArrivalInStorageNoDoingFragment extends Fragment {
 
 
     private void refreshUI(List<MaterialInWarehouseOrderList.DataBean.ListBean> list) {
-        if (adapter == null) {
-            LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
-            recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
-            recyclerView.setLayoutManager(manager);
-            adapter = new MaterialInWarehouseAdapter(ResourceUtil.getContext(), list);
-            recyclerView.setAdapter(adapter);
-            adapter.setOnItemClickListener(new MaterialInWarehouseAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(int position, MaterialInWarehouseOrderList.DataBean.ListBean data) {
-                    Intent intent=new Intent(getActivity(), ArrivalInStorageDetailActivity.class);
-                    intent.putExtra("orderId",data.getOrderId());
-                    intent.putExtra("sapOrderNo",data.getSapOrderNo());
-                    startActivity(intent);
-                }
-            });
-        }
+//        if (adapter == null) {
+//            LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
+//            recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
+//            recyclerView.setLayoutManager(manager);
+//            adapter = new MaterialInWarehouseAdapter(ResourceUtil.getContext(), list);
+//            recyclerView.setAdapter(adapter);
+//            adapter.setOnItemClickListener(new MaterialInWarehouseAdapter.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(int position, MaterialInWarehouseOrderList.DataBean.ListBean data) {
+//                    Intent intent=new Intent(getActivity(), ArrivalInStorageDetailActivity.class);
+//                    intent.putExtra("orderId",data.getOrderId());
+//                    intent.putExtra("sapOrderNo",data.getSapOrderNo());
+//                    startActivity(intent);
+//                }
+//            });
+//        }
     }
 }

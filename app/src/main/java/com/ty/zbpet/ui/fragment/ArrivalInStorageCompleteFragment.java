@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.scwang.smartrefresh.header.DeliveryHeader;
 import com.scwang.smartrefresh.header.MaterialHeader;
@@ -24,10 +25,12 @@ import com.scwang.smartrefresh.layout.header.BezierRadarHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.ty.zbpet.R;
+import com.ty.zbpet.bean.MaterialData;
 import com.ty.zbpet.bean.MaterialInWarehouseOrderList;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.activity.ArrivalInStorageDetailActivity;
-import com.ty.zbpet.ui.adapter.MaterialInWarehouseAdapter;
+import com.ty.zbpet.ui.adapter.MaterialAdapter;
+import com.ty.zbpet.ui.base.EmptyLayout;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.UIUtils;
@@ -40,6 +43,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 原辅料——到货入库——已办
@@ -52,14 +60,20 @@ public class ArrivalInStorageCompleteFragment extends Fragment {
     RecyclerView recyclerView;
     @BindView(R.id.refreshLayout)
     RefreshLayout refreshLayout;
-    private MaterialInWarehouseAdapter adapter;
+
+
+    private EmptyLayout emptyLayout;
+
+    private MaterialAdapter materialAdapter;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recyclerview, container, false);
         ButterKnife.bind(this, view);
 
-        //getMaterialInWarehouseOrderList();
+        getMaterialInWarehouseOrderList();
+
         return view;
     }
 
@@ -94,8 +108,8 @@ public class ArrivalInStorageCompleteFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        ArrayList<MaterialInWarehouseOrderList.DataBean.ListBean> data = Utils.getData("已办");
-        refreshUI(data);
+        //ArrayList<MaterialInWarehouseOrderList.DataBean.ListBean> data = Utils.getData("已办");
+        //refreshUI(data);
 
         /**设置 Header
          * BezierRadarHeader  贝塞尔雷达
@@ -113,7 +127,9 @@ public class ArrivalInStorageCompleteFragment extends Fragment {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 // 传入 false 表示刷新失败
-                refreshLayout.finishRefresh(true);
+                refreshLayout.finishRefresh(1000);
+                // 刷新数据
+                getMaterialInWarehouseOrderList();
 
             }
         });
@@ -128,19 +144,24 @@ public class ArrivalInStorageCompleteFragment extends Fragment {
     }
 
     private void refreshUI(List<MaterialInWarehouseOrderList.DataBean.ListBean> list) {
-        if (adapter == null) {
+        if (materialAdapter == null) {
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             recyclerView.setLayoutManager(manager);
-            adapter = new MaterialInWarehouseAdapter(ResourceUtil.getContext(), list);
-            recyclerView.setAdapter(adapter);
-            adapter.setOnItemClickListener(new MaterialInWarehouseAdapter.OnItemClickListener() {
+            materialAdapter = new MaterialAdapter(this.getContext(), R.layout.item_arrive_in_storage_complete, list);
+            recyclerView.setAdapter(materialAdapter);
+            materialAdapter.setOnItemClickListener(new MaterialAdapter.OnItemClickListener() {
                 @Override
-                public void onItemClick(int position, MaterialInWarehouseOrderList.DataBean.ListBean data) {
+                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                     Intent intent = new Intent(getActivity(), ArrivalInStorageDetailActivity.class);
-                    intent.putExtra("orderId", data.getOrderId());
-                    intent.putExtra("sapOrderNo", data.getSapOrderNo());
+//                    intent.putExtra("orderId", data.getOrderId());
+//                    intent.putExtra("sapOrderNo", data.getSapOrderNo());
                     startActivity(intent);
+                }
+
+                @Override
+                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    return false;
                 }
             });
         }
@@ -149,5 +170,10 @@ public class ArrivalInStorageCompleteFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+
+        // 关闭网络请求
     }
+
+
+
 }

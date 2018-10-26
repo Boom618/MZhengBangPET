@@ -1,12 +1,12 @@
 package com.ty.zbpet.ui.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.ty.zbpet.R;
+import com.ty.zbpet.ui.base.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,10 +24,14 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onBaseCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         rlCheck.setVisibility(View.GONE);
         llStorage.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected int getActivityLayout() {
+        return R.layout.activity_main;
     }
 
     @OnClick({R.id.tv_arrival_in_storage, R.id.tv_pick_out_storage, R.id.tv_purchase_returns, R.id.tv_purchase_in_storage,

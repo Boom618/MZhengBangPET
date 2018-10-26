@@ -19,6 +19,7 @@ import com.ty.zbpet.bean.WarehouseInfo;
 import com.ty.zbpet.constant.ApiNameConstant;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.adapter.PurchaseInStorageDetailAdapter;
+import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.UIUtils;
@@ -71,15 +72,20 @@ public class PurchaseInStorageDetailActivity extends BaseActivity {
 
     @Override
     protected void onBaseCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_purchase_in_storage_detail);
-        ButterKnife.bind(this);
-        tvTitle.setText("外采入库");
+//        tvTitle.setText("外采入库");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
         String now = sdf.format(new Date());
         tvTime.setText(now + ":00");
         sapOrderNo = getIntent().getStringExtra("sapOrderNo");
         getWarehouseInfo();
         getGoodsPurchaseOrderInfo();
+
+        initToolBar(R.string.label_purchase_in_storage, null);
+    }
+
+    @Override
+    protected int getActivityLayout() {
+        return R.layout.activity_purchase_in_storage_detail;
     }
 
     private void getGoodsPurchaseOrderInfo() {
@@ -120,7 +126,7 @@ public class PurchaseInStorageDetailActivity extends BaseActivity {
                 if (warehouseInfo.getList() != null) {
                     for (WarehouseInfo.ListBean bean : warehouseInfo.getList()) {
                         warehouseNameList.add(bean.getWarehouseName());
-                        warehouseNoList.add(bean.getId()+"");
+                        warehouseNoList.add(bean.getId() + "");
                     }
                 }
             }
@@ -167,7 +173,7 @@ public class PurchaseInStorageDetailActivity extends BaseActivity {
             List<String> stringList = bean.getBoxCodeList();
             boxCodeInfo.setNumber(bean.getBoxNum());
             boxCodeInfo.setGoodsId(bean.getGoodsId());
-            if (stringList!=null&&stringList.size()>0){
+            if (stringList != null && stringList.size() > 0) {
                 boxCodeInfo.setBoxQrCode(bean.getBoxCodeList());
                 boxCodeInfoList.add(boxCodeInfo);
             }
@@ -175,7 +181,7 @@ public class PurchaseInStorageDetailActivity extends BaseActivity {
         }
         info.setDetails(boxCodeInfoList);
         String json = Utils.toJson(info, 1);
-        Log.e("TAG",json);
+        Log.e("TAG", json);
         return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), json);
     }
 
@@ -193,7 +199,7 @@ public class PurchaseInStorageDetailActivity extends BaseActivity {
         }, body);
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_right, R.id.tv_warehouse,R.id.tv_time})
+    @OnClick({R.id.iv_back, R.id.tv_right, R.id.tv_warehouse, R.id.tv_time})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -211,21 +217,29 @@ public class PurchaseInStorageDetailActivity extends BaseActivity {
             case R.id.tv_time:
                 UIUtils.showTimeDialog(tvTime, this);
                 break;
+            default:
+                break;
         }
     }
 
     public void selectWarehouse(final List<String> datas) {
         NormalSelectionDialog.Builder builder = new NormalSelectionDialog.Builder(this);
-        builder.setlTitleVisible(true)   //设置是否显示标题
-                .setTitleHeight(50)   //设置标题高度
-                .setTitleText("选择仓库")  //设置标题提示文本
-                .setTitleTextSize(14) //设置标题字体大小 sp
-                .setTitleTextColor(R.color.main_color) //设置标题文本颜色
-                .setItemHeight(40)  //设置item的高度
-                .setItemWidth(0.9f)  //屏幕宽度*0.9
-                .setItemTextColor(R.color.black)  //设置item字体颜色
-                .setItemTextSize(14)  //设置item字体大小
-                .setCancleButtonText("取消")  //设置最底部“取消”按钮文本
+        //设置是否显示标题
+        builder.setlTitleVisible(true)
+                //设置标题高度
+                .setTitleHeight(50)
+                .setTitleText("选择仓库")
+                .setTitleTextSize(14)
+                //设置标题文本颜色
+                .setTitleTextColor(R.color.main_color)
+                //设置item的高度
+                .setItemHeight(40)
+                //屏幕宽度*0.9
+                .setItemWidth(0.9f)
+                .setItemTextColor(R.color.black)
+                .setItemTextSize(14)
+                //设置最底部“取消”按钮文本
+                .setCancleButtonText("取消")
                 .setOnItemListener(new com.wevey.selector.dialog.DialogInterface.OnItemClickListener<NormalSelectionDialog>() {
 
                     @Override
@@ -235,7 +249,8 @@ public class PurchaseInStorageDetailActivity extends BaseActivity {
                         tvWarehouse.setText(datas.get(position));
                     }
                 })
-                .setCanceledOnTouchOutside(true)  //设置是否可点击其他地方取消dialog
+                //设置是否可点击其他地方取消dialog
+                .setCanceledOnTouchOutside(true)
                 .build()
                 .setDatas(datas)
                 .show();

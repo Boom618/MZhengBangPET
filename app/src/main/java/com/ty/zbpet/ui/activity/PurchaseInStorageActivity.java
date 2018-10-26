@@ -3,8 +3,6 @@ package com.ty.zbpet.ui.activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -13,6 +11,7 @@ import android.widget.TextView;
 
 import com.ty.zbpet.R;
 import com.ty.zbpet.ui.adapter.ViewPagerAdapter;
+import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.fragment.PurchaseInStorageCompleteFragment;
 import com.ty.zbpet.ui.fragment.PurchaseInStorageNoDoingFragment;
 
@@ -50,8 +49,6 @@ public class PurchaseInStorageActivity extends BaseActivity {
 
     @Override
     protected void onBaseCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_purchase_in_storage);
-        ButterKnife.bind(this);
 
         PurchaseInStorageNoDoingFragment noDoingFg=new PurchaseInStorageNoDoingFragment();
         PurchaseInStorageCompleteFragment completeFg=new PurchaseInStorageCompleteFragment();
@@ -69,6 +66,11 @@ public class PurchaseInStorageActivity extends BaseActivity {
         viewpager.setCurrentItem(NO_DOING);
 
         initToolBar(R.string.label_purchase_in_storage,null);
+    }
+
+    @Override
+    protected int getActivityLayout() {
+        return R.layout.activity_purchase_in_storage;
     }
 
     class PagerChangeListener extends ViewPager.SimpleOnPageChangeListener {

@@ -3,8 +3,6 @@ package com.ty.zbpet.ui.activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.SearchView;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -13,8 +11,10 @@ import android.widget.TextView;
 
 import com.ty.zbpet.R;
 import com.ty.zbpet.ui.adapter.ViewPagerAdapter;
+import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.fragment.ArrivalInStorageCompleteFragment;
 import com.ty.zbpet.ui.fragment.ArrivalInStorageNoDoingFragment;
+import com.ty.zbpet.ui.fragment.ZBContentFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,10 +51,9 @@ public class ArrivalInStorageActivity extends BaseActivity {
 
     @Override
     protected void onBaseCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_arrival_in_storage);
-        ButterKnife.bind(this);
 
-        ArrivalInStorageNoDoingFragment noDoingFg = new ArrivalInStorageNoDoingFragment();
+//        ArrivalInStorageNoDoingFragment noDoingFg = new ArrivalInStorageNoDoingFragment();
+        ZBContentFragment noDoingFg = ZBContentFragment.newInstance();
         ArrivalInStorageCompleteFragment completeFg = new ArrivalInStorageCompleteFragment();
 
         List<Fragment> fragmentList = new ArrayList<>();
@@ -71,6 +70,11 @@ public class ArrivalInStorageActivity extends BaseActivity {
         viewpager.setCurrentItem(NO_DOING);
 
         initToolBar(R.string.label_arrival_storage,null);
+    }
+
+    @Override
+    protected int getActivityLayout() {
+        return R.layout.activity_arrival_in_storage;
     }
 
     class PagerChangeListener extends ViewPager.SimpleOnPageChangeListener {

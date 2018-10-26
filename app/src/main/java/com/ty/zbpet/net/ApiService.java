@@ -2,11 +2,13 @@ package com.ty.zbpet.net;
 
 import com.ty.zbpet.bean.GoodsPurchaseOrderInfo;
 import com.ty.zbpet.bean.GoodsPurchaseOrderList;
+import com.ty.zbpet.bean.MaterialData;
 import com.ty.zbpet.bean.MaterialInWarehouseOrderInfo;
 import com.ty.zbpet.bean.MaterialInWarehouseOrderList;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.WarehouseInfo;
 import com.ty.zbpet.constant.ApiNameConstant;
+import com.ty.zbpet.ui.base.BaseResponse;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -24,6 +26,13 @@ public interface ApiService {
      */
     @POST(ApiNameConstant.GET_MATERIAL_INWAREHOUSE_ORDERLIST)
     Observable<MaterialInWarehouseOrderList> getMaterialInWarehouseOrderList();
+
+    /**
+     * 获取原辅料采购已办列表 -- 新方式
+     * @return
+     */
+    @POST(ApiNameConstant.GET_MATERIAL_INWAREHOUSE_ORDERLIST)
+    Observable<BaseResponse<MaterialData>> getMaterialOrderList();
 
     /**
      * 获取原辅料采购已办详情
