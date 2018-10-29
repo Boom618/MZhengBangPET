@@ -1,6 +1,5 @@
 package com.ty.zbpet.bean;
 
-import com.ty.zbpet.ui.base.BaseResponse;
 
 import java.io.Serializable;
 import java.util.List;

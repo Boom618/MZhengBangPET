@@ -12,14 +12,13 @@ import android.widget.TextView;
 import com.ty.zbpet.R;
 import com.ty.zbpet.ui.adapter.ViewPagerAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
-import com.ty.zbpet.ui.fragment.PurchaseInStorageCompleteFragment;
-import com.ty.zbpet.ui.fragment.PurchaseInStorageNoDoingFragment;
+import com.ty.zbpet.ui.fragment.product.PurchaseInStorageCompleteFragment;
+import com.ty.zbpet.ui.fragment.product.PurchaseInStorageNoDoingFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 成品——外采入库

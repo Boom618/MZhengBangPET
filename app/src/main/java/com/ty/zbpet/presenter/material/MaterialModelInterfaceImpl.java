@@ -11,10 +11,10 @@ import java.util.List;
  */
 public class MaterialModelInterfaceImpl implements MaterialModelInterface {
 
-    List<MaterialData> materialData = new LinkedList<MaterialData>();
+    List<MaterialData.ListBean> materialData = new LinkedList<>();
 
     @Override
-    public void saveMaterial(List<MaterialData> list) {
+    public void saveMaterial(List<MaterialData.ListBean> list) {
 
         materialData.addAll(list);
 

@@ -63,6 +63,23 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+    protected void initToolBar(int intId){
+        // 左边返回
+        findViewById(R.id.iv_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        // 中间标题
+        TextView topText = findViewById(R.id.tv_title);
+        topText.setText(intId);
+
+        // 隐藏右边
+        findViewById(R.id.tv_right).setVisibility(View.GONE);
+    }
+
 
     protected void initToolBar(int intId, View.OnClickListener listener){
 

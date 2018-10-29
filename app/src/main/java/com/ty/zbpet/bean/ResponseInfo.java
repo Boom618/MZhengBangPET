@@ -1,6 +1,10 @@
 package com.ty.zbpet.bean;
 
+/**
+ * @author TY
+ */
 public class ResponseInfo {
+
     private String message;
     private String tag;
 

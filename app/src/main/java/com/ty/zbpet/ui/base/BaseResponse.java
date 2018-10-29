@@ -7,16 +7,16 @@ import java.io.Serializable;
  */
 public class BaseResponse<T> implements Serializable {
 
-    private int code;
+    private String tag;
     private String message;
     private T data;
 
-    public int getCode() {
-        return code;
+    public String getCode() {
+        return tag;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public void setCode(String code) {
+        this.tag = code;
     }
 
     public String getMessage() {

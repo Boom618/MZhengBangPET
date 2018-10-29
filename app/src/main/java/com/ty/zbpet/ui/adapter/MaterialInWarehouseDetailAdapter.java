@@ -19,6 +19,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * @author TY
+ * 入库详情 - 到货明细 list adapter
+ */
 public class MaterialInWarehouseDetailAdapter extends RecyclerView.Adapter {
 
 

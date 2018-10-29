@@ -1,6 +1,7 @@
 package com.ty.zbpet.presenter.material;
 
 import com.ty.zbpet.bean.MaterialData;
+import com.ty.zbpet.bean.PickOutDetailInfo;
 import com.ty.zbpet.ui.base.BaseResponse;
 
 import java.util.List;
@@ -10,9 +11,13 @@ import java.util.List;
  *
  * UI 接口
  */
-public interface MaterialUiInterface {
+public interface MaterialUiInterface<T> {
 
-    void showMaterial(List<MaterialData> list);
+    /**
+     * Http 数据
+     * @param list
+     */
+    void showMaterial(List<T> list);
 
     void showLoading();
 

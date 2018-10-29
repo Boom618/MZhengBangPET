@@ -6,7 +6,7 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
   <component name="CMakeSettings">
@@ -16,58 +16,51 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51dfc920-365f-4efe-9d88-c2103c054b73" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/bean/MaterialData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/adapter/MaterialAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/base/BaseFragment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/base/BaseResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/base/BaseViewModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/base/EmptyLayout.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/ZBContentFragment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/view_empty.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/view_error.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/view_loading.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/zb_content_fragment.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/bean/PickOutDetailInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/presenter/material/PickOutPresenter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/adapter/PickOutAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/material/PickOutDoneFragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/material/PickOutTodoFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/jarAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskJars.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskJars.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_core_common_1_1_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_core_runtime_1_1_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_common_1_1_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_livedata_core_1_1_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_runtime_1_1_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_viewmodel_1_1_0.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/bean/MaterialData.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/bean/MaterialData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/bean/ResponseInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/bean/ResponseInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/constant/ApiNameConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/constant/ApiNameConstant.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/net/ApiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/net/ApiService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/net/HttpMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/net/HttpMethods.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/ArrivalInStorageActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/ArrivalInStorageActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/ArrivalInStorageDetailActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/ArrivalInStorageDetailActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/BaseActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/base/BaseActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/LoginActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/presenter/material/MaterialModelInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/presenter/material/MaterialModelInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/presenter/material/MaterialModelInterfaceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/presenter/material/MaterialModelInterfaceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/presenter/material/MaterialPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/presenter/material/MaterialPresenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/presenter/material/MaterialUiInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/presenter/material/MaterialUiInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/presenter/purchase/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/presenter/product/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/ArrivalInStorageActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/material/ArrivalInStorageActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/ArrivalInStorageDetailActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/material/ArrivalInStorageDetailActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/PickOutStorageActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/PickOutStorageActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/PickOutStorageActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/material/PickOutStorageActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/PurchaseInStorageActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/PurchaseInStorageActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/PurchaseInStorageDetailActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/PurchaseInStorageDetailActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/PurchaseReturnsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/PurchaseReturnsActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/ScanBoxCodeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/ScanBoxCodeActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/adapter/MaterialInWarehouseAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/adapter/MaterialInWarehouseAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/ArrivalInStorageCompleteFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/ArrivalInStorageCompleteFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/adapter/MaterialAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/adapter/MaterialAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/adapter/MaterialInWarehouseDetailAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/adapter/MaterialInWarehouseDetailAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/base/BaseActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/base/BaseActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/base/BaseFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/base/BaseFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/base/BaseResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/base/BaseResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/ArrivalInStorageCompleteFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/material/ArrivalInStorageCompleteFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/ArrivalInStorageNoDoingFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/ArrivalInStorageNoDoingFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_recyclerview.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_recyclerview.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/PurchaseInStorageCompleteFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/product/PurchaseInStorageCompleteFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/PurchaseInStorageNoDoingFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/product/PurchaseInStorageNoDoingFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/ZBContentFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/material/MaterialTodoFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_arrival_in_storage_detail.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_arrival_in_storage_detail.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_pick_out_storage.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_pick_out_storage.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_arrive_in_storage_detail.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_arrive_in_storage_detail.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rxeasyhttp/rxeasyhttp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/rxeasyhttp/rxeasyhttp.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/selectordialog/selectordialog.iml" beforeDir="false" afterPath="$PROJECT_DIR$/selectordialog/selectordialog.iml" afterDir="false" />
     </list>
     <ignored path=".idea/" />
     <ignored path=".gradle/" />
@@ -93,11 +86,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ArrivalInStorageCompleteFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/ArrivalInStorageCompleteFragment.java">
+      <file leaf-file-name="PickOutTodoFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/material/PickOutTodoFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="63" selection-start-line="63" selection-end-line="63" />
+            <state relative-caret-position="2024">
+              <caret line="90" column="4" selection-start-line="90" selection-start-column="4" selection-end-line="90" selection-end-column="4" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -105,36 +98,81 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="view_loading.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/view_loading.xml">
+      <file leaf-file-name="ApiNameConstant.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/constant/ApiNameConstant.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="269">
+              <caret line="31" column="45" selection-start-line="31" selection-start-column="45" selection-end-line="31" selection-end-column="45" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PickOutStorageActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/material/PickOutStorageActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="163">
+              <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
+              <folding>
+                <element signature="e#412#413#0" expanded="true" />
+                <element signature="e#469#470#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MaterialTodoFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/material/MaterialTodoFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2487">
+              <caret line="137" selection-start-line="137" selection-end-line="137" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PickOutDoneFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/material/PickOutDoneFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="25" column="3" selection-start-line="25" selection-start-column="3" selection-end-line="25" selection-end-column="3" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PickOutAdapter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/adapter/PickOutAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="301">
+              <caret line="24" column="5" lean-forward="true" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="item_arrive_in_storage_detail.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_arrive_in_storage_detail.xml">
           <provider editor-type-id="android-designer2">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
-              <folding>
-                <element signature="e#703#721#0" expanded="true" />
-                <element signature="e#1102#1119#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="300">
+              <caret line="63" column="44" lean-forward="true" selection-start-line="63" selection-start-column="44" selection-end-line="63" selection-end-column="44" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <file leaf-file-name="MaterialPresenter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/presenter/material/MaterialPresenter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="45" column="54" selection-start-line="45" selection-start-column="54" selection-end-line="45" selection-end-column="54" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BaseActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/base/BaseActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-306">
-              <caret line="16" column="22" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
+            <state relative-caret-position="575">
+              <caret line="28" column="13" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -142,48 +180,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CacheInterceptor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/rxeasyhttp/src/main/java/com/zhouyou/http/interceptor/CacheInterceptor.java">
+      <file leaf-file-name="MaterialUiInterface.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/presenter/material/MaterialUiInterface.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="274">
-              <caret line="78" selection-start-line="78" selection-end-line="78" />
+            <state relative-caret-position="161">
+              <caret line="11" column="8" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ZBContentFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/ZBContentFragment.java">
+      <file leaf-file-name="PickOutPresenter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/presenter/material/PickOutPresenter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="163">
-              <caret line="40" column="16" selection-start-line="40" selection-start-column="4" selection-end-line="40" selection-end-column="16" />
+            <state relative-caret-position="414">
+              <caret line="42" selection-start-line="42" selection-end-line="42" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1614#1615#0" expanded="true" />
-                <element signature="e#1665#1666#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BaseFragment.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/base/BaseFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="74" column="12" selection-start-line="74" selection-start-column="12" selection-end-line="74" selection-end-column="12" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MaterialAdapter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/adapter/MaterialAdapter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="24" column="50" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="50" />
-              <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#266#267#0" expanded="true" />
+                <element signature="e#303#304#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -201,36 +215,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>SearchView</find>
-      <find>etSearch</find>
-      <find>list</find>
-      <find>android.enableAapt2</find>
-      <find>productFlavors</find>
-      <find>multiple</find>
-      <find>support:appcomp</find>
-      <find>RefreshLayout</find>
-      <find>OKHttp</find>
-      <find>WaterDropHeader</find>
-      <find>getLayout</find>
-      <find>getlayout</find>
-      <find>getActivityLaout</find>
-      <find>外采入库</find>
+      <find>tv_operator</find>
+      <find>tv_date</find>
+      <find>到货入库</find>
+      <find>采购入库</find>
+      <find>ArrivalInStorageDetailActivity.class</find>
+      <find>refreshLayout</find>
+      <find>领</find>
+      <find>getMaterialInWarehouseOrderInfo</find>
+      <find>viewpage</find>
+      <find>layout_weight</find>
+      <find>rg</find>
+      <find>PagerChangeListener</find>
+      <find>NO_DOING</find>
+      <find>tod</find>
+      <find>todoRadio</find>
+      <find>rbNoDoing</find>
+      <find>PickOutStorageActivity</find>
+      <find>ivBack</find>
       <find>tvTitle</find>
-      <find>请输入物料</find>
-      <find>activity_purchase_in_storage_detail</find>
-      <find>备注</find>
-      <find>入库时间</find>
-      <find>label_in_storage_time</find>
-      <find>详情</find>
-      <find>rec</find>
-      <find>infoList</find>
-      <find>adapter</find>
-      <find>OnItemClickListener mListener</find>
-      <find>MaterialAdapter</find>
-      <find>mListener</find>
-      <find>getMaterialOrderList</find>
-      <find>getMaterialInWarehouseOrderList</find>
-      <find>连接</find>
+      <find>tvRight</find>
+      <find>etDesc</find>
+      <find>list</find>
+      <find>系统错误2</find>
+      <find>e.message</find>
+      <find>message()</find>
+      <find>OnPageChangeListener</find>
+      <find>implements OnPageChangeListener</find>
+      <find>stock/materialStock/mPurchaseInRecallOut</find>
+      <find>stock/materialStock/mReceiveOut</find>
+      <find>android:id=&quot;@+id/rl_detail&quot;</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -5652,55 +5666,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/SendOutStorageActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/PurchaseInStorageCompleteFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/constant/ApiNameConstant.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/bean/MaterialInWarehouseOrderList.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/PurchaseInStorageNoDoingFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/adapter/PurchaseInWarehouseAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/MainApp.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/util/UIUtils.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_arrival_in_storage.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/util/Utils.java" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/gradle.properties" />
-        <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/BaseActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/MainActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/PurchaseReturnsActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/PurchaseInStorageActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/base/BlankFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/base/BlankViewModel.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/base/BaseViewModel.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/base/BaseActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/blank_fragment.xml" />
         <option value="$PROJECT_DIR$/selectordialog/src/main/java/com/wevey/selector/dialog/NormalSelectionDialog.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/LoginActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/PickOutStorageActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/ScanBoxCodeActivity.java" />
         <option value="$PROJECT_DIR$/app/build/generated/source/apt/Develop/debug/com/ty/zbpet/ui/activity/PurchaseInStorageDetailActivity_ViewBinding.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/PurchaseInStorageDetailActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/ArrivalInStorageDetailActivity.java" />
         <option value="$PROJECT_DIR$/app/src/test/java/com/ty/zbpet/bean/MaterialDataTest.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/adapter/MaterialInWarehouseAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/ArrivalInStorageActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/adapter/MaterialAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/base/BaseResponse.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/bean/MaterialData.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/net/ApiService.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/net/HttpMethods.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/ArrivalInStorageNoDoingFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/base/BaseView.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/base/EmptyLayout.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/view_error.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/view_empty.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/view_loading.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_recyclerview.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/ZBContentFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/ArrivalInStorageCompleteFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/util/Utils.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/base/BaseResponse.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/bean/MaterialData.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/presenter/material/MaterialModelInterface.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/presenter/material/MaterialModelInterfaceImpl.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/ArrivalInStorageNoDoingFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/base/BaseFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/ArrivalInStorageCompleteFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/adapter/MaterialInWarehouseDetailAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_arrival_in_storage_detail.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/ZBContentFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/MaterialDoneFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/MaterialTodoFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/adapter/MaterialAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/base/BaseActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/ArrivalInStorageActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/ArrivalInStorageDetailActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/PickOutStorageActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/material/ArrivalInStorageActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/product/PurchaseInStorageNoDoingFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_pick_out_storage.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/net/ApiService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/bean/ResponseInfo.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/material/ArrivalInStorageDetailActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/material/PickOutStorageActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/constant/ApiNameConstant.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/net/HttpMethods.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/bean/PickOutDetailInfo.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/presenter/material/MaterialPresenter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/adapter/PickOutAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/material/PickOutDoneFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/material/MaterialTodoFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/presenter/material/PickOutPresenter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/material/PickOutTodoFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/presenter/material/MaterialUiInterface.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/item_arrive_in_storage_detail.xml" />
       </list>
     </option>
   </component>
@@ -5777,7 +5793,15 @@
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="zbpet" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="net" type="462c0819:PsiDirectoryNode" />
+              <item name="presenter" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MZhengBangPET" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="zbpet" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="presenter" type="462c0819:PsiDirectoryNode" />
+              <item name="material" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="MZhengBangPET" type="1abcf292:AndroidViewProjectNode" />
@@ -5785,6 +5809,23 @@
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="zbpet" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="ui" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MZhengBangPET" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="zbpet" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="ui" type="462c0819:PsiDirectoryNode" />
+              <item name="activity" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MZhengBangPET" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="zbpet" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="ui" type="462c0819:PsiDirectoryNode" />
+              <item name="activity" type="462c0819:PsiDirectoryNode" />
+              <item name="material" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="MZhengBangPET" type="1abcf292:AndroidViewProjectNode" />
@@ -5800,12 +5841,16 @@
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="zbpet" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="base" type="462c0819:PsiDirectoryNode" />
+              <item name="fragment" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="MZhengBangPET" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="zbpet" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="ui" type="462c0819:PsiDirectoryNode" />
+              <item name="fragment" type="462c0819:PsiDirectoryNode" />
+              <item name="material" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="MZhengBangPET" type="1abcf292:AndroidViewProjectNode" />
@@ -5818,6 +5863,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="OverrideImplement.combined" value="false" />
     <property name="SearchEverywhereHistoryKey" value="base&#9;PSI&#9;JAVA://com.ty.zbpet.ui.activity.BaseActivity" />
     <property name="android.project.structure.last.selected" value="SDK Location" />
     <property name="android.project.structure.proportion" value="0.15" />
@@ -5838,14 +5884,17 @@
     <key name="android.template.packageName">
       <recent name="com.ty.zbpet.ui.base" />
     </key>
-    <key name="android.template.parentActivityClass">
-      <recent name="" />
-    </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.ty.zbpet.ui.activity.material" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\Ty\MZhengBangPET\app\src\main\res\layout" />
+    </key>
+    <key name="android.template.parentActivityClass">
+      <recent name="" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -6010,14 +6059,14 @@
       <window_info anchor="bottom" id="Android Profiler" order="7" weight="0.53089243" />
       <window_info id="Build Variants" order="2" sideWeight="0.5008347" side_tool="true" weight="0.2496" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50053304" side_tool="true" weight="0.31464532" />
-      <window_info anchor="bottom" id="Logcat" order="7" weight="0.35926774" />
+      <window_info anchor="bottom" id="Logcat" order="7" weight="0.38901603" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.49946696" weight="0.31464532" />
+      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.49946696" visible="true" weight="0.31464532" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Device File Explorer" order="3" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3993135" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.37757438" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
@@ -6038,6 +6087,39 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
     </layout>
+    <layout-to-restore>
+      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.49946696" weight="0.31464532" />
+      <window_info id="Designer" order="2" />
+      <window_info anchor="right" id="PlantUML" order="3" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32951945" />
+      <window_info id="Build Variants" order="3" sideWeight="0.5008347" side_tool="true" weight="0.2496" />
+      <window_info id="Image Layers" order="4" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Android Profiler" order="8" weight="0.53089243" />
+      <window_info id="Favorites" order="5" side_tool="true" />
+      <window_info id="Captures" order="6" weight="0.25" />
+      <window_info id="Capture Tool" order="7" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50053304" side_tool="true" weight="0.31464532" />
+      <window_info anchor="right" id="Preview" order="5" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32951945" />
+      <window_info anchor="right" id="Device File Explorer" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Logcat" order="10" weight="0.29405034" />
+      <window_info anchor="bottom" id="Version Control" order="11" weight="0.5389016" />
+      <window_info anchor="bottom" id="Terminal" order="12" weight="0.35354692" />
+      <window_info anchor="right" id="Gradle" order="7" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49916527" visible="true" weight="0.24946696" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="8" />
+      <window_info anchor="right" id="Theme Preview" order="9" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.68421054" />
+    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -6046,179 +6128,76 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/ArrivalInStorageCompleteFragment.java</url>
-          <line>111</line>
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/material/ArrivalInStorageCompleteFragment.java</url>
+          <line>76</line>
           <properties />
-          <option name="timeStamp" value="4" />
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/net/HttpMethods.java</url>
+          <line>91</line>
+          <properties />
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/adapter/MaterialAdapter.java</url>
+          <line>45</line>
+          <properties />
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/adapter/MaterialAdapter.java</url>
+          <line>61</line>
+          <properties />
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/material/MaterialTodoFragment.java</url>
+          <line>110</line>
+          <properties />
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/material/ArrivalInStorageCompleteFragment.java</url>
+          <line>128</line>
+          <properties />
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="8" />
+      <option name="time" value="25" />
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="app">
+        <watch expression="HttpMethods.getInstance()" language="JAVA" />
+        <watch expression="mService.getMaterialInWarehouseOrderList()" language="JAVA" />
+        <watch expression="subscriber" />
+        <watch expression="list" language="JAVA" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="watch">
+      <expression>
+        <expression-string>list</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>mService.getMaterialInWarehouseOrderList()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>HttpMethods.getInstance()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/appcompat-v7-24.2.0.aar/d3d11487d8d060107965fd959e64ee66/res/values/values.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2255">
-          <caret line="295" column="18" selection-start-line="295" selection-start-column="18" selection-end-line="295" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/ScanBoxCodeActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="183" column="32" lean-forward="true" selection-start-line="183" selection-start-column="32" selection-end-line="183" selection-end-column="32" />
-          <folding>
-            <element signature="e#2755#2756#0" expanded="true" />
-            <element signature="e#2779#2780#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/PickOutStorageActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="18" selection-start-line="18" selection-end-line="18" />
-          <folding>
-            <element signature="e#472#473#0" expanded="true" />
-            <element signature="e#496#497#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/LoginActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="575">
-          <caret line="41" column="39" selection-start-line="41" selection-start-column="39" selection-end-line="41" selection-end-column="39" />
-          <folding>
-            <element signature="e#1013#1014#0" expanded="true" />
-            <element signature="e#1037#1038#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/selectordialog/src/main/java/com/wevey/selector/dialog/NormalSelectionDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="70" selection-start-line="70" selection-end-line="70" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_person_center.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-391">
-          <caret line="16" column="37" lean-forward="true" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build/generated/source/apt/Develop/debug/com/ty/zbpet/ui/activity/PurchaseInStorageDetailActivity_ViewBinding.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="24" column="30" lean-forward="true" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/custom_date_picker.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-943">
-          <caret line="10" column="31" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_purchase_in_storage_detail.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="601">
-          <caret line="114" column="52" selection-start-line="114" selection-start-column="52" selection-end-line="114" selection-end-column="52" />
-          <folding>
-            <element signature="e#5328#5359#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/ArrivalInStorageDetailActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="920">
-          <caret line="71" column="58" lean-forward="true" selection-start-line="71" selection-start-column="58" selection-end-line="71" selection-end-column="58" />
-          <folding>
-            <element signature="e#2259#2289#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/test/java/com/ty/zbpet/bean/MaterialDataTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="106" column="49" selection-start-line="106" selection-start-column="49" selection-end-line="106" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rxeasyhttp/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-411" />
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.zhy/base-rvadapter/3.0.3/3a91ce6694e4562c49a01244feb40445b6a14833/base-rvadapter-3.0.3-sources.jar!/com/zhy/adapter/recyclerview/base/ViewHolder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4255">
-          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.zhy/base-rvadapter/3.0.3/3a91ce6694e4562c49a01244feb40445b6a14833/base-rvadapter-3.0.3-sources.jar!/com/zhy/adapter/recyclerview/CommonAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="736">
-          <caret line="51" column="35" selection-start-line="51" selection-start-column="28" selection-end-line="51" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/MainApp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="82" selection-start-line="82" selection-end-line="82" />
-          <folding>
-            <element signature="e#3536#3537#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/util/ResourceUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="18" selection-start-line="18" selection-end-line="18" />
-          <folding>
-            <element signature="e#392#393#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/recyclerview-v7/27.1.1/ad225a74247e675db0b05ea4f8b17202acbb7f9d/recyclerview-v7-27.1.1-sources.jar!/android/support/v7/widget/LinearLayoutManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="154" selection-start-line="154" selection-end-line="154" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/support-fragment/27.1.1/94732bda44fba11302c58e459b7c1f47e7521bf9/support-fragment-27.1.1-sources.jar!/android/support/v4/app/Fragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
+        <state relative-caret-position="171">
           <caret line="600" selection-start-line="600" selection-end-line="600" />
           <folding>
             <element signature="e#22289#22290#0" expanded="true" />
@@ -6226,58 +6205,99 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/adapter/BindBoxCodeAdapter.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/util/ResourceUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="23" column="37" lean-forward="true" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
+        <state relative-caret-position="92">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
+          <folding>
+            <element signature="e#392#393#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/adapter/PurchaseInWarehouseAdapter.java">
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.reactivex.rxjava2/rxjava/2.2.0/ba88ed6468f28df009c013256be77ad72d313965/rxjava-2.2.0-sources.jar!/io/reactivex/internal/operators/observable/ObservableObserveOn.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="67">
-          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+        <state relative-caret-position="416">
+          <caret line="187" selection-start-line="187" selection-end-line="187" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/adapter/MaterialInWarehouseAdapter.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/base/BaseResponse.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="25" column="43" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="43" />
+        <state relative-caret-position="335">
+          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+          <folding>
+            <element signature="e#526#527#0" expanded="true" />
+            <element signature="e#553#554#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_arrival_in_storage_detail.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="23" column="25" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="25" />
+          <folding>
+            <element signature="e#1617#1634#0" expanded="true" />
+            <element signature="e#2014#2031#0" expanded="true" />
+            <element signature="e#2113#2151#0" expanded="true" />
+            <element signature="e#2234#2250#0" expanded="true" />
+            <element signature="e#2567#2584#0" expanded="true" />
+            <element signature="e#2963#2980#0" expanded="true" />
+            <element signature="e#3367#3384#0" expanded="true" />
+            <element signature="e#3466#3497#0" expanded="true" />
+            <element signature="e#3580#3596#0" expanded="true" />
+            <element signature="e#3874#3891#0" expanded="true" />
+            <element signature="e#3994#4010#0" expanded="true" />
+            <element signature="e#4240#4257#0" expanded="true" />
+            <element signature="e#4435#4452#0" expanded="true" />
+            <element signature="e#4605#4621#0" expanded="true" />
+            <element signature="e#4773#4789#0" expanded="true" />
+            <element signature="e#5072#5089#0" expanded="true" />
+            <element signature="e#5137#5154#0" expanded="true" />
+            <element signature="e#5344#5360#0" expanded="true" />
+            <element signature="e#5523#5539#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/shape_white_min_radius.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/selectordialog/src/main/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="531">
+          <caret line="38" column="29" selection-start-line="38" selection-start-column="17" selection-end-line="38" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build/generated/source/apt/Develop/debug/com/ty/zbpet/ui/fragment/ZBContentFragment_ViewBinding.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="18" column="39" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/adapter/MaterialInWarehouseDetailAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-46">
-          <caret line="30" column="5" lean-forward="true" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.zhy/base-rvadapter/3.0.3/3a91ce6694e4562c49a01244feb40445b6a14833/base-rvadapter-3.0.3-sources.jar!/com/zhy/adapter/recyclerview/MultiItemTypeAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="115" column="13" selection-start-line="115" selection-start-column="13" selection-end-line="115" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/PurchaseInStorageDetailActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2231">
-          <caret line="141" column="42" selection-start-line="141" selection-start-column="42" selection-end-line="141" selection-end-column="42" />
+        <state relative-caret-position="138">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
           <folding>
-            <element signature="e#2883#2884#0" expanded="true" />
-            <element signature="e#2950#2951#0" expanded="true" />
-            <element signature="e#5104#5676#0" expanded="true" />
-            <element signature="e#5675#5676#0" expanded="true" />
+            <element signature="e#1823#2322#0" expanded="true" />
+            <element signature="e#2321#2322#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/adapter/PurchaseInStorageDetailAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="25" column="37" selection-start-line="25" selection-start-column="37" selection-end-line="25" selection-end-column="37" />
         </state>
       </provider>
     </entry>
@@ -6286,223 +6306,110 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="58" column="43" lean-forward="true" selection-start-line="58" selection-start-column="43" selection-end-line="58" selection-end-column="43" />
+        <state relative-caret-position="139">
+          <caret line="67" column="40" selection-start-line="67" selection-start-column="29" selection-end-line="67" selection-end-column="40" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/net/ApiService.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_person_center.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="34" column="53" selection-start-line="34" selection-start-column="53" selection-end-line="34" selection-end-column="53" />
+        <state relative-caret-position="192">
+          <caret line="16" column="24" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/bean/MaterialInWarehouseOrderList.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/PurchaseInStorageDetailActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="184">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding>
-            <element signature="e#3252#3253#0" expanded="true" />
-            <element signature="e#3310#3311#0" expanded="true" />
-          </folding>
+          <caret line="45" column="13" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/bean/ResponseInfo.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/ProduceInStorageDetailActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        <state relative-caret-position="161">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/ArrivalInStorageNoDoingFragment.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/presenter/material/MaterialModelInterfaceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/top_layout.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="393">
-          <caret line="89" column="32" selection-start-line="89" selection-start-column="32" selection-end-line="89" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <caret line="25" column="33" selection-start-line="25" selection-start-column="25" selection-end-line="25" selection-end-column="33" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/bean/MaterialData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1309">
-          <caret line="13" column="32" lean-forward="true" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#253#254#0" expanded="true" />
-            <element signature="e#280#281#0" expanded="true" />
-            <element signature="e#328#329#0" expanded="true" />
-            <element signature="e#360#361#0" expanded="true" />
-            <element signature="e#896#897#0" expanded="true" />
-            <element signature="e#937#938#0" expanded="true" />
-            <element signature="e#993#994#0" expanded="true" />
-            <element signature="e#1045#1046#0" expanded="true" />
-            <element signature="e#1081#1082#0" expanded="true" />
-            <element signature="e#1117#1118#0" expanded="true" />
-            <element signature="e#1163#1164#0" expanded="true" />
-            <element signature="e#1205#1206#0" expanded="true" />
-            <element signature="e#1240#1241#0" expanded="true" />
-            <element signature="e#1275#1276#0" expanded="true" />
-            <element signature="e#1319#1320#0" expanded="true" />
-            <element signature="e#1359#1360#0" expanded="true" />
-            <element signature="e#1402#1403#0" expanded="true" />
-            <element signature="e#1445#1446#0" expanded="true" />
-            <element signature="e#1505#1506#0" expanded="true" />
-            <element signature="e#1561#1562#0" expanded="true" />
-            <element signature="e#1602#1603#0" expanded="true" />
-            <element signature="e#1643#1644#0" expanded="true" />
-            <element signature="e#1699#1700#0" expanded="true" />
-            <element signature="e#1751#1752#0" expanded="true" />
-            <element signature="e#1791#1792#0" expanded="true" />
-            <element signature="e#1831#1832#0" expanded="true" />
-            <element signature="e#1885#1886#0" expanded="true" />
-            <element signature="e#1935#1936#0" expanded="true" />
-            <element signature="e#1973#1974#0" expanded="true" />
-            <element signature="e#2011#2012#0" expanded="true" />
-            <element signature="e#2061#2062#0" expanded="true" />
-            <element signature="e#2107#2108#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/base/BaseResponse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="15" column="5" lean-forward="true" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/ArrivalInStorageActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="554">
-          <caret line="60" column="37" selection-start-line="60" selection-start-column="37" selection-end-line="60" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/net/HttpMethods.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="106" column="7" selection-start-line="106" selection-start-column="7" selection-end-line="106" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rxeasyhttp/src/main/java/com/zhouyou/http/interceptor/CacheInterceptor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="78" selection-start-line="78" selection-end-line="78" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rxeasyhttp/src/main/java/com/zhouyou/http/interceptor/HttpLoggingInterceptor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="763">
-          <caret line="143" selection-start-line="143" selection-end-line="143" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rxeasyhttp/src/main/java/com/zhouyou/http/exception/ApiException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/base/EmptyLayout.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="771" column="5" lean-forward="true" selection-start-line="771" selection-start-column="5" selection-end-line="771" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/view_error.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_pick_out_storage_complete.xml">
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="12" column="36" lean-forward="true" selection-start-line="12" selection-start-column="36" selection-end-line="12" selection-end-column="36" />
-          <folding>
-            <element signature="e#464#479#0" expanded="true" />
-            <element signature="e#864#879#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-1034" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/presenter/material/MaterialModelInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="14" column="45" selection-start-line="14" selection-start-column="45" selection-end-line="14" selection-end-column="45" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/view_empty.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_arrival_in_storage.xml">
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="552">
-          <caret line="24" column="39" lean-forward="true" selection-start-line="24" selection-start-column="39" selection-end-line="24" selection-end-column="39" />
-          <folding>
-            <element signature="e#465#480#0" expanded="true" />
-            <element signature="e#894#909#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="416">
+          <caret line="88" column="38" lean-forward="true" selection-start-line="88" selection-start-column="38" selection-end-line="88" selection-end-column="38" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="45" column="54" selection-start-line="45" selection-start-column="54" selection-end-line="45" selection-end-column="54" />
+        <state relative-caret-position="624">
+          <caret line="57" column="18" selection-start-line="57" selection-start-column="18" selection-end-line="57" selection-end-column="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_recyclerview.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/product/PurchaseInStorageNoDoingFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="11" column="52" lean-forward="true" selection-start-line="11" selection-start-column="52" selection-end-line="11" selection-end-column="52" />
+        <state relative-caret-position="575">
+          <caret line="48" column="40" selection-start-line="48" selection-start-column="40" selection-end-line="48" selection-end-column="40" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rxeasyhttp/src/main/java/com/zhouyou/http/subsciber/BaseSubscriber.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
-          <caret line="74" selection-start-line="74" selection-end-line="74" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/base/BaseView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="11" column="21" lean-forward="true" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/view_loading.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/product/PurchaseInStorageCompleteFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="184">
-          <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
-          <folding>
-            <element signature="e#703#721#0" expanded="true" />
-            <element signature="e#1102#1119#0" expanded="true" />
-          </folding>
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/ArrivalInStorageCompleteFragment.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/zb_content_fragment.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="63" selection-start-line="63" selection-end-line="63" />
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/base/BaseFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="463">
+          <caret line="42" column="29" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -6511,8 +6418,144 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/base/BaseActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-306">
-          <caret line="16" column="22" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
+        <state relative-caret-position="161">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build/generated/source/apt/Develop/debug/com/ty/zbpet/ui/activity/material/PickOutStorageActivity_ViewBinding.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="29" column="20" selection-start-line="29" selection-start-column="11" selection-end-line="29" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_pick_out_storage.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="46" column="43" selection-start-line="46" selection-start-column="33" selection-end-line="46" selection-end-column="43" />
+          <folding>
+            <element signature="e#1525#1542#0" expanded="true" />
+            <element signature="e#2027#2044#0" expanded="true" />
+            <element signature="e#2072#2088#0" expanded="true" />
+            <element signature="e#2116#2133#0" expanded="true" />
+            <element signature="e#2164#2180#0" expanded="true" />
+            <element signature="e#2605#2622#0" expanded="true" />
+            <element signature="e#2650#2666#0" expanded="true" />
+            <element signature="e#2694#2711#0" expanded="true" />
+            <element signature="e#2742#2758#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/material/ArrivalInStorageCompleteFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="61" column="20" lean-forward="true" selection-start-line="61" selection-start-column="20" selection-end-line="61" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/bean/ResponseInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="22" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.11.0/cf16b99519850b1adc3b259c90fd8566a0f592f3/okhttp-3.11.0-sources.jar!/okhttp3/RequestBody.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="27" column="22" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rxeasyhttp/src/main/java/com/zhouyou/http/subsciber/DownloadSubscriber.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-206">
+          <caret line="80" column="56" selection-start-line="80" selection-start-column="56" selection-end-line="80" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rxeasyhttp/src/main/java/com/zhouyou/http/interceptor/HttpLoggingInterceptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="155" column="61" lean-forward="true" selection-start-line="155" selection-start-column="52" selection-end-line="155" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/material/ArrivalInStorageDetailActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="57" column="44" lean-forward="true" selection-start-line="57" selection-start-column="44" selection-end-line="57" selection-end-column="44" />
+          <folding>
+            <element signature="e#2272#2302#0" expanded="true" />
+            <element signature="e#2304#2463#0" expanded="true" />
+            <element signature="e#2462#2463#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/support-core-ui/27.1.1/266c369a3227be5afec33e11c964472269ff2a7c/support-core-ui-27.1.1-sources.jar!/android/support/v4/view/ViewPager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2058">
+          <caret line="314" column="82" selection-start-line="314" selection-start-column="82" selection-end-line="314" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/bean/MaterialData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="22" column="24" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#243#244#0" expanded="true" />
+            <element signature="e#270#271#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/net/ApiService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="62" column="42" selection-start-line="62" selection-start-column="42" selection-end-line="62" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/net/HttpMethods.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="134" column="26" lean-forward="true" selection-start-line="134" selection-start-column="26" selection-end-line="134" selection-end-column="26" />
+          <folding>
+            <element signature="e#2521#2522#0" expanded="true" />
+            <element signature="e#2568#2569#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/bean/PickOutDetailInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="407">
+          <caret line="74" column="24" selection-start-line="74" selection-start-column="24" selection-end-line="74" selection-end-column="24" />
+          <folding>
+            <element signature="e#2414#2415#0" expanded="true" />
+            <element signature="e#2455#2456#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/material/ArrivalInStorageActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="67" column="43" selection-start-line="67" selection-start-column="43" selection-end-line="67" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -6521,33 +6564,118 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/adapter/MaterialAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="24" column="50" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="50" />
+        <state relative-caret-position="167">
+          <caret line="50" lean-forward="true" selection-start-line="50" selection-end-line="50" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/ZBContentFragment.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/constant/ApiNameConstant.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="31" column="45" selection-start-line="31" selection-start-column="45" selection-end-line="31" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.zhy/base-rvadapter/3.0.3/3a91ce6694e4562c49a01244feb40445b6a14833/base-rvadapter-3.0.3-sources.jar!/com/zhy/adapter/recyclerview/CommonAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-69">
+          <caret line="12" column="28" lean-forward="true" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/material/MaterialTodoFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2487">
+          <caret line="137" selection-start-line="137" selection-end-line="137" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/material/PickOutDoneFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="25" column="3" selection-start-line="25" selection-start-column="3" selection-end-line="25" selection-end-column="3" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/activity/material/PickOutStorageActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="163">
-          <caret line="40" column="16" selection-start-line="40" selection-start-column="4" selection-end-line="40" selection-end-column="16" />
+          <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1614#1615#0" expanded="true" />
-            <element signature="e#1665#1666#0" expanded="true" />
+            <element signature="e#412#413#0" expanded="true" />
+            <element signature="e#469#470#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/base/BaseFragment.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/presenter/material/PickOutPresenter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="74" column="12" selection-start-line="74" selection-start-column="12" selection-end-line="74" selection-end-column="12" />
+        <state relative-caret-position="414">
+          <caret line="42" selection-start-line="42" selection-end-line="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#266#267#0" expanded="true" />
+            <element signature="e#303#304#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/fragment/material/PickOutTodoFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2024">
+          <caret line="90" column="4" selection-start-line="90" selection-start-column="4" selection-end-line="90" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/presenter/material/MaterialPresenter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="28" column="13" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/presenter/material/MaterialUiInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="11" column="8" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ty/zbpet/ui/adapter/PickOutAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="24" column="5" lean-forward="true" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_arrive_in_storage_detail.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="63" column="44" lean-forward="true" selection-start-line="63" selection-start-column="44" selection-end-line="63" selection-end-column="44" />
         </state>
       </provider>
     </entry>

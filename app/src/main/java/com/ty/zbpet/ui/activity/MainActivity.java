@@ -6,6 +6,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.ty.zbpet.R;
+import com.ty.zbpet.ui.activity.material.ArrivalInStorageActivity;
+import com.ty.zbpet.ui.activity.material.PickOutStorageActivity;
 import com.ty.zbpet.ui.base.BaseActivity;
 
 import butterknife.BindView;

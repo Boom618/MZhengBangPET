@@ -10,10 +10,10 @@ import android.widget.TextView;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.MaterialData;
 import com.ty.zbpet.bean.MaterialInWarehouseOrderList;
+import com.ty.zbpet.ui.base.BaseResponse;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
-import org.greenrobot.eventbus.Logger;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class MaterialAdapter extends CommonAdapter {
 
-    private List<MaterialInWarehouseOrderList.DataBean.ListBean> infoList;
+    private List<MaterialData.ListBean> infoList;
 
 
     public MaterialAdapter(Context context, int layoutId, List datas) {
@@ -43,19 +43,27 @@ public class MaterialAdapter extends CommonAdapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
 
-        MaterialInWarehouseOrderList.DataBean.ListBean info = infoList.get(position);
+        MaterialData.ListBean info = infoList.get(position);
+
 
         TextView tvNo = holder.itemView.findViewById(R.id.tv_no);
         tvNo.setText(info.getSapOrderNo());
 
         TextView tvType = holder.itemView.findViewById(R.id.tv_type);
         tvType.setText(info.getType());
+        System.out.println("info.getType() = " + info.getType());
 
         TextView tvStatus = holder.itemView.findViewById(R.id.tv_status);
         tvStatus.setText(info.getState());
 
         TextView tv_supplier = holder.itemView.findViewById(R.id.tv_supplier);
         tv_supplier.setText(info.getSupplierName());
+
+        TextView tvOperator = holder.itemView.findViewById(R.id.tv_operator);
+        tvOperator.setText("冲销");
+        if (!"采购入库".equals(info.getType())) {
+            tvOperator.setText("入库");
+        }
 
         TextView tvDate = holder.itemView.findViewById(R.id.tv_date);
         tvDate.setText(info.getOrderTime());

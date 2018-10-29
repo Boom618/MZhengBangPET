@@ -5,7 +5,7 @@ package com.ty.zbpet.constant;
  */
 public class ApiNameConstant {
 
-    public static final String BASE_URL = "http://192.168.11.2:3000/";//徐坤
+    public static final String BASE_URL = "http://192.168.11.2:3099/";//徐坤
 
     public static final String BASE_URL1 = "http://192.168.11.24:3000/";//顾炎
 
@@ -24,6 +24,12 @@ public class ApiNameConstant {
      * 原辅料——采购入库冲销出库
      */
     public static final String PURCHASE_IN_RECALL_OUT = "stock/materialStock/mPurchaseInRecallOut";
+
+
+    /**
+     * 原料--- 领料出库详情 列表
+     */
+    public static final String PICK_OUT_DETAIL_INFO = "stock/materialStock/mReceiveOut";
 
     /**
      * 成品——外采入库待办列表

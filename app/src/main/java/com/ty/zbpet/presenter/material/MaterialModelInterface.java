@@ -12,5 +12,5 @@ import java.util.List;
  */
 public interface MaterialModelInterface {
 
-    void saveMaterial(List<MaterialData> list);
+    void saveMaterial(List<MaterialData.ListBean> list);
 }

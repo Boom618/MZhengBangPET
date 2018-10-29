@@ -16,26 +16,27 @@
         android:layout_height="match_parent">
 
         <RelativeLayout
+            android:paddingTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/bg_color">
 
-            <EditText
-                android:id="@+id/et_batch_no"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/space_10"
-                android:background="@drawable/shape_white_min_radius"
-                android:hint="请输入物料批次号"
-                android:padding="@dimen/space_7"
-                android:textColor="@color/txt_minor_color"
-                android:textSize="@dimen/text_14" />
+            <!--<EditText-->
+                <!--android:id="@+id/et_batch_no"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_margin="@dimen/space_10"-->
+                <!--android:background="@drawable/shape_white_min_radius"-->
+                <!--android:hint="请输入物料批次号"-->
+                <!--android:padding="@dimen/space_7"-->
+                <!--android:visibility="gone"-->
+                <!--android:textColor="@color/txt_minor_color"-->
+                <!--android:textSize="@dimen/text_14" />-->
 
             <View
                 android:id="@+id/line1"
                 android:layout_width="2dp"
                 android:layout_height="20dp"
-                android:layout_below="@+id/et_batch_no"
                 android:layout_marginStart="@dimen/space_10"
                 android:layout_marginTop="2dp"
                 android:background="@color/black" />
