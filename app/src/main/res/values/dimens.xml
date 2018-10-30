@@ -24,7 +24,6 @@
     <dimen name="space_8">8dp</dimen>
 
 
-
     <dimen name="icon_padding">10dp</dimen>
     <dimen name="item_padding">5dp</dimen>
     <dimen name="icon_person_width_height">14dp</dimen>
@@ -50,7 +49,8 @@
     <dimen name="max_margin">10dp</dimen>
     <dimen name="middle_margin">7dp</dimen>
     <dimen name="min_margin">5dp</dimen>
-    <dimen name="content_padding">5dp</dimen><!--控件的内边距-->l
+    <dimen name="content_padding">5dp</dimen><!--控件的内边距-->
+    l
     <dimen name="item_height">46dp</dimen>
     <dimen name="toolbar_height">52dp</dimen>
 
@@ -76,6 +76,7 @@
     <dimen name="space_70">70dp</dimen>
     <dimen name="space_1">1dp</dimen>
     <dimen name="space_26">26dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 
 
 </resources>

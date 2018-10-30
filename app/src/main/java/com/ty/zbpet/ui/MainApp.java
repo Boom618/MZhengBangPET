@@ -13,6 +13,7 @@ import com.zhouyou.http.EasyHttp;
 import com.zhouyou.http.cache.converter.SerializableDiskConverter;
 import com.zhouyou.http.cache.model.CacheMode;
 
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -75,6 +76,7 @@ public class MainApp extends Application {
                 //可以添加全局拦截器，不需要就不要加入，错误写法直接导致任何回调不执行
                 //.addInterceptor(new GzipRequestInterceptor())//开启post数据进行gzip后发送给服务器
                 // .addInterceptor(new CustomSignInterceptor())//添加参数签名拦截器
+                .addInterceptor(new HttpLoggingInterceptor())
                 .addConverterFactory(GsonConverterFactory.create(buildGson()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create());
     }

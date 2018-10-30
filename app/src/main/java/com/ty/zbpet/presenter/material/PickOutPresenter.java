@@ -17,9 +17,10 @@ public class PickOutPresenter {
     MaterialUiInterface pickOutUi;
 
     public PickOutPresenter(MaterialUiInterface pickOutUi) {
-        pickOutUi = pickOutUi;
+        this.pickOutUi = pickOutUi;
     }
 
+    // TODO 数据保存 、UI 加载
 
     public void fetchPickOut(){
 

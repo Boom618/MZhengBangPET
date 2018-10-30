@@ -104,9 +104,14 @@
             android:name=".ui.activity.PurchaseInStorageDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity android:name=".ui.activity.ScanBoxCodeActivity"
+        <activity
+            android:name=".ui.activity.ScanBoxCodeActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".ui.activity.material.PickOutStorageDetailActivity"
+            android:label="@string/title_activity_pick_out_storage_detail"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

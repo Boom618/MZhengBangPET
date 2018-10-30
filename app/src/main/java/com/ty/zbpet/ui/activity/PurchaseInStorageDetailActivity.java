@@ -24,6 +24,7 @@ import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.UIUtils;
 import com.ty.zbpet.util.Utils;
+import com.wevey.selector.dialog.DialogInterface;
 import com.wevey.selector.dialog.NormalSelectionDialog;
 import com.zhouyou.http.exception.ApiException;
 import com.zhouyou.http.subsciber.BaseSubscriber;
@@ -35,7 +36,6 @@ import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.RequestBody;
 
@@ -222,7 +222,12 @@ public class PurchaseInStorageDetailActivity extends BaseActivity {
         }
     }
 
+    /**
+     *
+     * @param datas
+     */
     public void selectWarehouse(final List<String> datas) {
+        UIUtils.showToast("选择仓库");
         NormalSelectionDialog.Builder builder = new NormalSelectionDialog.Builder(this);
         //设置是否显示标题
         builder.setlTitleVisible(true)
@@ -240,11 +245,9 @@ public class PurchaseInStorageDetailActivity extends BaseActivity {
                 .setItemTextSize(14)
                 //设置最底部“取消”按钮文本
                 .setCancleButtonText("取消")
-                .setOnItemListener(new com.wevey.selector.dialog.DialogInterface.OnItemClickListener<NormalSelectionDialog>() {
-
+                .setOnItemListener(new DialogInterface.OnItemClickListener<NormalSelectionDialog>() {
                     @Override
-                    public void onItemClick(NormalSelectionDialog dialog, View button, int
-                            position) {
+                    public void onItemClick(NormalSelectionDialog dialog, View button, int position) {
                         dialog.dismiss();
                         tvWarehouse.setText(datas.get(position));
                     }

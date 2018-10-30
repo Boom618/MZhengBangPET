@@ -86,6 +86,12 @@ public class MaterialTodoFragment extends BaseFragment implements MaterialUiInte
 
         materialPresenter.fetchMaterial();
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {

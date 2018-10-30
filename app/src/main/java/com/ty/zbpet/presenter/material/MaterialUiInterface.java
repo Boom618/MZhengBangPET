@@ -1,8 +1,5 @@
 package com.ty.zbpet.presenter.material;
 
-import com.ty.zbpet.bean.MaterialData;
-import com.ty.zbpet.bean.PickOutDetailInfo;
-import com.ty.zbpet.ui.base.BaseResponse;
 
 import java.util.List;
 

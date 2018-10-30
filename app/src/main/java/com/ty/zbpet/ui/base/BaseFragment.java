@@ -19,6 +19,14 @@ import butterknife.Unbinder;
  */
 public abstract class BaseFragment extends Fragment {
 
+    /**
+     * 功能列表：
+     * 1、ButterKnife 初始化、解绑
+     * 2、Layout
+     * 3、
+     */
+
+
     public BaseViewModel mViewModel;
 
     private Unbinder mUnbinder;

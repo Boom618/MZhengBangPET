@@ -6,7 +6,6 @@ import com.ty.zbpet.bean.GoodsPurchaseOrderInfo;
 import com.ty.zbpet.bean.GoodsPurchaseOrderList;
 import com.ty.zbpet.bean.MaterialData;
 import com.ty.zbpet.bean.MaterialInWarehouseOrderInfo;
-import com.ty.zbpet.bean.MaterialInWarehouseOrderList;
 import com.ty.zbpet.bean.PickOutDetailInfo;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.WarehouseInfo;
@@ -18,7 +17,6 @@ import com.ty.zbpet.net.gson.StringDefault0Adapter;
 import com.ty.zbpet.ui.base.BaseResponse;
 import com.zhouyou.http.subsciber.BaseSubscriber;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
