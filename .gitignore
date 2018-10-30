@@ -20,6 +20,10 @@
 *.rar
 *.gradle
 *.idea
-.app/app.iml
+app/app.iml
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+app/app.iml
+*.idea/*
+.gradle/*
+.idea/workspace.xml
