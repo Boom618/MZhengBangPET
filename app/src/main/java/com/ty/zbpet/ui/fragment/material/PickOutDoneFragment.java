@@ -8,7 +8,6 @@ import android.view.View;
 
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.ty.zbpet.R;
-import com.ty.zbpet.bean.MaterialData;
 import com.ty.zbpet.bean.PickOutDetailInfo;
 import com.ty.zbpet.presenter.material.MaterialPresenter;
 import com.ty.zbpet.presenter.material.MaterialUiInterface;
