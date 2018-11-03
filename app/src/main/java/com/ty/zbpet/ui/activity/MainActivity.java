@@ -1,5 +1,6 @@
 package com.ty.zbpet.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -44,6 +45,7 @@ public class MainActivity extends BaseActivity {
             case R.id.tv_arrival_in_storage:
                 //原辅料——到货入库
                 gotoActivity(ArrivalInStorageActivity.class);
+//                startActivity(new Intent(MainActivity.this,ScanBoxCodeActivity.class));
                 break;
             case R.id.tv_pick_out_storage:
                 //原辅料——领料出库

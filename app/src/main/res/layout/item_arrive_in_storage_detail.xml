@@ -123,6 +123,7 @@
             android:layout_marginEnd="@dimen/space_25"
             android:background="@color/orange_color"
             android:hint="请输入物料批次号"
+            android:maxLines="1"
             android:textColor="@color/txt_minor_color"
             android:textSize="@dimen/text_14" />
 

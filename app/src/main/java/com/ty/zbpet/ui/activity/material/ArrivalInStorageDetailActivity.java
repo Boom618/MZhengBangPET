@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bigkoo.pickerview.view.TimePickerView;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.MaterialInWarehouseOrderInfo;
 import com.ty.zbpet.bean.PostArrivalInRecallOutInfo;
@@ -42,8 +43,8 @@ public class ArrivalInStorageDetailActivity extends BaseActivity {
 
     @BindView(R.id.rv_in_storage_detail)
     RecyclerView recyclerView;
-    @BindView(R.id.tv_time)
-    TextView tvTime;
+    @BindView(R.id.pick_view)
+    TimePickerView pickView;
     @BindView(R.id.et_desc)
     EditText etDesc;
     private String sapOrderNo;
@@ -56,7 +57,7 @@ public class ArrivalInStorageDetailActivity extends BaseActivity {
     protected void onBaseCreate(Bundle savedInstanceState) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
         String now = sdf.format(new Date());
-        tvTime.setText(now + ":00");
+        //tvTime.setText(now + ":00");
         sapOrderNo = getIntent().getStringExtra("sapOrderNo");
         orderId = getIntent().getStringExtra("orderId");
         getMaterialInWarehouseOrderInfo();
@@ -122,7 +123,8 @@ public class ArrivalInStorageDetailActivity extends BaseActivity {
         info.setSapProcOrder(sapOrderNo);
         info.setWarehouseId(warehouseId);
         //info.setSapMaterialBatchNo(etBatchNo.getText().toString().trim());
-        info.setOutStoreDate(tvTime.getText().toString().trim());
+        // TODO 当前选择时间
+        //info.setOutStoreDate(tvTime.getText().toString().trim());
         info.setRemark(etDesc.getText().toString().trim());
         String json = Utils.toJson(info, 1);
         return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), json);

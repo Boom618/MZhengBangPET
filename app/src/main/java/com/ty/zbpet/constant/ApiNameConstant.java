@@ -10,12 +10,12 @@ public class ApiNameConstant {
     public static final String BASE_URL1 = "http://192.168.11.24:3000/";//顾炎
 
     /**
-     * 原辅料——采购已办列表
+     * 原辅料——采购已办 列表
      */
     public static final String GET_MATERIAL_INWAREHOUSE_ORDERLIST = "sap/zbSap/getMaterialInWarehouseOrderList";
 
     /**
-     * 原辅料——采购已办详情
+     * 原辅料——采购已办 详情
      */
     public static final String GET_MATERIAL_INWAREHOUSE_ORDERINFO = "sap/zbSap/getMaterialInWarehouseOrderInfo";
 

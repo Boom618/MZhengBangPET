@@ -28,11 +28,11 @@ task clean(type: Delete) {
 
 ext {
     config = [
-            serviceUrlDevelop   :"\"http://192.168.11.2:3000/\"",    // 徐坤
-            serviceUrl          :"" ,                                //
+            serviceDevelopUrl   :"\"http://192.168.11.2:3000/\"",    // 徐坤
+            serviceMasterUrl    :"" ,                                //
 
 
-            nameDevelop     : "ZB_PET_Develop",
-            nameUrl         : "MZhengBangPET",
+            nameDevelop     : "ZB_Develop",
+            nameMaster      : "MZhengBangPET",
     ]
 }

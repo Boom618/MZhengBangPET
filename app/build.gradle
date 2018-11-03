@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 def ZBConfig = rootProject.ext.config
 android {
     compileSdkVersion 27
-
+    buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "com.ty.zbpet"
         minSdkVersion 21
@@ -25,11 +25,12 @@ android {
                 applicationIdSuffix ".develop"
                 versionNameSuffix "-develop"
 
-                buildConfigField "String", "SERVICE_URL", ZBConfig.serviceUrlDevelop
+                buildConfigField "String", "SERVICE_URL", ZBConfig.serviceDevelopUrl
 
 //                addManifestPlaceholders([
 //                        APP_NAME: ZBConfig.nameDevelop
 //                ])
+                // manifestPlaceholders = [APP_NAME : ZBConfig.nameDevelop]
             }
 
             Master {
@@ -38,7 +39,7 @@ android {
                 applicationIdSuffix ".master"
                 versionNameSuffix "-master"
 
-                buildConfigField "String", "SERVICE_URL", ZBConfig.serviceUrl
+                buildConfigField "String", "SERVICE_URL", ZBConfig.serviceMasterUrl
 
             }
         }
@@ -98,6 +99,9 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+
+    // 时间选择框
+    implementation 'com.contrarywind:Android-PickerView:4.1.6'
 
     //1.1.0 API改动过大，老用户升级需谨慎 listView 刷新
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
