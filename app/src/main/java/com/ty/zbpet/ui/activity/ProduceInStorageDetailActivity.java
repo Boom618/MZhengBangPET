@@ -11,7 +11,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 生产入库详情
+ * 生产入库详情（采购退货 - 待办详情）
+ * @author TY
  */
 public class ProduceInStorageDetailActivity extends AppCompatActivity {
 

@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * @author TY on 2018/10/26.
+ * 到货入库 待办 list
  */
 public class MaterialData implements Serializable {
 

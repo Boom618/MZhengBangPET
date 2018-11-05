@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.ty.zbpet.bean.GoodsPurchaseOrderInfo;
 import com.ty.zbpet.bean.GoodsPurchaseOrderList;
 import com.ty.zbpet.bean.MaterialData;
-import com.ty.zbpet.bean.MaterialInWarehouseOrderInfo;
+import com.ty.zbpet.bean.MaterialDetailsData;
 import com.ty.zbpet.bean.PickOutDetailInfo;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.WarehouseInfo;
@@ -115,11 +115,22 @@ public class HttpMethods {
                 .subscribe(subscriber);
     }
 
+//    /**
+//     * 获取原辅料采购已办详情
+//     * @param subscriber
+//     */
+//    public void getMaterialInWarehouseOrderInfo(BaseSubscriber<MaterialInWarehouseOrderInfo> subscriber,String sapOrderNo){
+//        mService.getMaterialInWarehouseOrderInfo(sapOrderNo)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(subscriber);
+//    }
+
     /**
-     * 获取原辅料采购已办详情
+     * 获取原辅料采购已办详情（待办 list  详情）
      * @param subscriber
      */
-    public void getMaterialInWarehouseOrderInfo(BaseSubscriber<MaterialInWarehouseOrderInfo> subscriber,String sapOrderNo){
+    public void getMaterialInWarehouseOrderInfo(BaseSubscriber<BaseResponse<MaterialDetailsData>> subscriber, String sapOrderNo){
         mService.getMaterialInWarehouseOrderInfo(sapOrderNo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

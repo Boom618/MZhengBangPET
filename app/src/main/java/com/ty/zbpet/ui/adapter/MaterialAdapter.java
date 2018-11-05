@@ -3,17 +3,13 @@ package com.ty.zbpet.ui.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.MaterialData;
-import com.ty.zbpet.bean.MaterialInWarehouseOrderList;
-import com.ty.zbpet.ui.base.BaseResponse;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
-
 
 import java.util.List;
 

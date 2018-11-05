@@ -21,13 +21,13 @@ public class ApiNameConstant {
 
 
     /**
-     * 原辅料——采购入库冲销出库
+     * 原辅料——采购入库冲销出库（已办 保存）
      */
     public static final String PURCHASE_IN_RECALL_OUT = "stock/materialStock/mPurchaseInRecallOut";
 
 
     /**
-     * 原料--- 领料出库详情 列表
+     * 原料--- 领料出库详情 列表（）
      */
     public static final String PICK_OUT_DETAIL_INFO = "stock/materialStock/mReceiveOut";
 

@@ -17,7 +17,6 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.MaterialData;
-import com.ty.zbpet.bean.PickOutDetailInfo;
 import com.ty.zbpet.presenter.material.MaterialPresenter;
 import com.ty.zbpet.presenter.material.MaterialUiInterface;
 import com.ty.zbpet.ui.activity.material.ArrivalInStorageDetailActivity;
@@ -84,7 +83,7 @@ public class MaterialTodoFragment extends BaseFragment implements MaterialUiInte
     public void onStart() {
         super.onStart();
 
-        materialPresenter.fetchMaterial();
+        materialPresenter.fetchTODOMaterial();
 
     }
 
@@ -98,7 +97,7 @@ public class MaterialTodoFragment extends BaseFragment implements MaterialUiInte
                 // 传入 false 表示刷新失败
                 refreshLayout.finishRefresh(2000);
                 // 刷新数据
-                materialPresenter.fetchMaterial();
+                materialPresenter.fetchTODOMaterial();
 
             }
         });

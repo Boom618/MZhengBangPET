@@ -1,6 +1,7 @@
 package com.ty.zbpet.presenter.material;
 
 import com.ty.zbpet.bean.MaterialData;
+import com.ty.zbpet.bean.MaterialDetailsData;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
 import com.ty.zbpet.util.UIUtils;
@@ -11,7 +12,7 @@ import java.util.List;
 
 /**
  * @author PVer on 2018/10/28.
- *
+ * <p>
  * 采购入库 Presenter
  */
 public class MaterialPresenter {
@@ -33,9 +34,9 @@ public class MaterialPresenter {
     }
 
     /**
-     * 拉取数据  业务逻辑
+     * 原辅料 待办 list  业务逻辑
      */
-    public void fetchMaterial() {
+    public void fetchTODOMaterial() {
 
         materialUi.showLoading();
 
@@ -60,7 +61,6 @@ public class MaterialPresenter {
                     materialUi.showMaterial(list);
 
 
-
                     // 保存数据(数据库，缓存。。。)
                     materialModel.saveMaterial(list);
 
@@ -70,7 +70,38 @@ public class MaterialPresenter {
             }
         });
 
+    }
+
+    /**
+     * 原辅料 待办 list  详情
+     */
+    public void fetchTODOMaterialDetails(String sapOrderNo){
+
+        HttpMethods.getInstance().getMaterialInWarehouseOrderInfo(new BaseSubscriber<BaseResponse<MaterialDetailsData>>() {
+            @Override
+            public void onError(ApiException e) {
+                UIUtils.showToast(e.getMessage());
+            }
+
+            @Override
+            public void onNext(BaseResponse<MaterialDetailsData> info) {
+                if (info.getData() != null) {
+
+                    List<MaterialDetailsData.ListBean> DetailsLists = info.getData().getList();
+                    if (info != null && DetailsLists.size() != 0) {
+
+                        materialUi.showMaterial(DetailsLists);
+
+                    } else {
+                        UIUtils.showToast("没有信息");
+                    }
+                } else {
+                    UIUtils.showToast(info.getMessage());
+                }
+            }
+        }, sapOrderNo);
 
     }
+
 
 }
