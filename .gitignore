@@ -27,3 +27,5 @@ app/app.iml
 *.idea/*
 .gradle/*
 .idea/*
+app/app.iml
+MZhengBangPET.iml

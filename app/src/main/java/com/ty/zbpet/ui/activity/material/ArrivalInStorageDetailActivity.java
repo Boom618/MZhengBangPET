@@ -1,13 +1,18 @@
 package com.ty.zbpet.ui.activity.material;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.configure.PickerOptions;
+import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.MaterialDetailsData;
@@ -44,8 +49,8 @@ public class ArrivalInStorageDetailActivity extends BaseActivity implements Mate
 
     @BindView(R.id.rv_in_storage_detail)
     RecyclerView recyclerView;
-    //@BindView(R.id.pick_view)
-    TimePickerView pickView;
+    @BindView(R.id.tv_time)
+    TextView tvTime;
     @BindView(R.id.et_desc)
     EditText etDesc;
     private String sapOrderNo;
@@ -54,18 +59,41 @@ public class ArrivalInStorageDetailActivity extends BaseActivity implements Mate
     private String orderId;
     private String warehouseId;
 
+    // 时间控件
+    private TimePickerView pvTime;
+
+    private String selectTime;
+
     private MaterialPresenter materialPresenter = new MaterialPresenter(this);
 
     @Override
     protected void onBaseCreate(Bundle savedInstanceState) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
-        String now = sdf.format(new Date());
-        //tvTime.setText(now + ":00");
+        selectTime = sdf.format(new Date());
+        tvTime.setText(selectTime);
 //        PickerOptions options = new PickerOptions(2);
 //        pickView = findViewById(R.id.pick_view);
+
+        //getMaterialInWarehouseOrderInfo();
+
+
+    }
+
+    @Override
+    protected int getActivityLayout() {
+        return R.layout.activity_arrival_in_storage_detail;
+    }
+
+    @Override
+    protected void initOneData() {
+
         sapOrderNo = getIntent().getStringExtra("sapOrderNo");
         orderId = getIntent().getStringExtra("orderId");
-        //getMaterialInWarehouseOrderInfo();
+        materialPresenter.fetchTODOMaterialDetails(sapOrderNo);
+    }
+
+    @Override
+    protected void initTwoView() {
 
         initToolBar(R.string.label_purchase_detail, new View.OnClickListener() {
             @Override
@@ -76,12 +104,44 @@ public class ArrivalInStorageDetailActivity extends BaseActivity implements Mate
             }
         });
 
+
+        tvTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pvTime = new TimePickerBuilder(ArrivalInStorageDetailActivity.this, new OnTimeSelectListener() {
+                    @Override
+                    public void onTimeSelect(Date date, View v) {//选中事件回调
+                        selectTime = UIUtils.getTime(date);
+                        tvTime.setText(selectTime);
+                        UIUtils.showToast(selectTime);
+                    }
+                }).setType(new boolean[]{true, true, true, true, true, false})// 默认全部显示
+//                        .setCancelText("Cancel")//取消按钮文字
+//                        .setSubmitText("Sure")//确认按钮文字
+//                .setContentSize(18)//滚轮文字大小
+                        .setTitleSize(20)//标题文字大小
+                        .setTitleText("选择时间")//标题文字
+                        .setOutSideCancelable(false)//点击屏幕，点在控件外部范围时，是否取消显示
+                        .isCyclic(true)//是否循环滚动
+//                        .setTitleColor(Color.BLACK)//标题文字颜色
+//                        .setSubmitColor(Color.BLUE)//确定按钮文字颜色
+//                        .setCancelColor(Color.BLUE)//取消按钮文字颜色
+//                        .setTitleBgColor(0xFF666666)//标题背景颜色 Night mode
+//                        .setBgColor(0xFF333333)//滚轮背景颜色 Night mode
+//                .setDate(selectedDate)// 如果不设置的话，默认是系统时间*/
+//                .setRangDate(startDate,endDate)//起始终止年月日设定
+                        .setLabel("年", "月", "日", "时", "分", "秒")//默认设置为年月日时分秒
+                        .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
+                        .isDialog(false)//是否显示为对话框样式
+                        .build();
+
+                pvTime.show();
+            }
+        });
+
+
     }
 
-    @Override
-    protected int getActivityLayout() {
-        return R.layout.activity_arrival_in_storage_detail;
-    }
 
     private void getMaterialInWarehouseOrderInfo() {
 //        HttpMethods.getInstance().getMaterialInWarehouseOrderInfo(new BaseSubscriber<MaterialInWarehouseOrderInfo>() {
@@ -129,12 +189,13 @@ public class ArrivalInStorageDetailActivity extends BaseActivity implements Mate
         info.setWarehouseId(warehouseId);
         //info.setSapMaterialBatchNo(etBatchNo.getText().toString().trim());
         // TODO 当前选择时间
-        //info.setOutStoreDate(tvTime.getText().toString().trim());
+        info.setOutStoreDate(tvTime.getText().toString().trim());
         info.setRemark(etDesc.getText().toString().trim());
         String json = Utils.toJson(info, 1);
         return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), json);
     }
 
+    // 入库保存
     private void doPurchaseInRecallOut(RequestBody body) {
 
         HttpMethods.getInstance().purchaseInRecallOut(new BaseSubscriber<ResponseInfo>() {
@@ -152,12 +213,11 @@ public class ArrivalInStorageDetailActivity extends BaseActivity implements Mate
 
     @Override
     public void showMaterial(List<MaterialDetailsData.ListBean> DetailsLists) {
-        materialPresenter.fetchTODOMaterialDetails(sapOrderNo);
+
         // TODO warehouseId 值获取未完成
         //warehouseId = DetailsLists.getWarehouseId();
         list.clear();
         list.addAll(DetailsLists);
-
 
 
         if (adapter == null) {

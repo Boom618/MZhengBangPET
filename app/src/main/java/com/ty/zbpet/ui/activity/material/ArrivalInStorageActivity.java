@@ -9,11 +9,13 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
 import com.ty.zbpet.R;
 import com.ty.zbpet.ui.adapter.ViewPagerAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.fragment.material.ArrivalInStorageCompleteFragment;
 import com.ty.zbpet.ui.fragment.material.MaterialTodoFragment;
+import com.ty.zbpet.util.TLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,8 +53,13 @@ public class ArrivalInStorageActivity extends BaseActivity {
     protected void onBaseCreate(Bundle savedInstanceState) {
 
         //MaterialTodoFragment noDoingFg = new MaterialTodoFragment();
-        MaterialTodoFragment noDoingFg = MaterialTodoFragment.newInstance("noDoingFg");
         ArrivalInStorageCompleteFragment completeFg = new ArrivalInStorageCompleteFragment();
+        MaterialTodoFragment noDoingFg = MaterialTodoFragment.newInstance("noDoingFg");
+
+        Bundle bundle = noDoingFg.getArguments();
+        String someInt = bundle.getString("someInt");
+
+        TLog.d("someInt",someInt);
 
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(noDoingFg);
@@ -73,6 +80,16 @@ public class ArrivalInStorageActivity extends BaseActivity {
     @Override
     protected int getActivityLayout() {
         return R.layout.activity_arrival_in_storage;
+    }
+
+    @Override
+    protected void initOneData() {
+
+    }
+
+    @Override
+    protected void initTwoView() {
+
     }
 
     class PagerChangeListener extends ViewPager.SimpleOnPageChangeListener {

@@ -62,7 +62,7 @@ public class HttpMethods {
         OkHttpClient.Builder client = new OkHttpClient.Builder()
                 .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 // 日志拦截器
-                .addInterceptor(new HttpLoggingInterceptor());
+                .addInterceptor(new LogInterceptor());
 
         mRetrofit = new Retrofit.Builder()
                 .client(client.build())
@@ -141,7 +141,7 @@ public class HttpMethods {
      * 原料--领料出库详情 列表
      * @param subscriber
      */
-    public void pickOutDetail(BaseSubscriber<PickOutDetailInfo> subscriber){
+    public void pickOutDetail(BaseSubscriber<BaseResponse<PickOutDetailInfo>> subscriber){
         mService.pickOutDetailInfo()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

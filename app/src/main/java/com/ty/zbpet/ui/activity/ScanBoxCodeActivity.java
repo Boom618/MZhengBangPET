@@ -86,6 +86,16 @@ public class ScanBoxCodeActivity extends BaseActivity {
         return R.layout.activity_scan_box_code;
     }
 
+    @Override
+    protected void initOneData() {
+
+    }
+
+    @Override
+    protected void initTwoView() {
+
+    }
+
     @OnClick({R.id.iv_back, R.id.tv_right})
     public void onClick(View view) {
         switch (view.getId()) {

@@ -42,6 +42,16 @@ public class LoginActivity extends BaseActivity {
         return R.layout.activity_login;
     }
 
+    @Override
+    protected void initOneData() {
+
+    }
+
+    @Override
+    protected void initTwoView() {
+
+    }
+
     @OnClick({R.id.btn_login, R.id.tv_switch_way})
     public void onClick(View view) {
         switch (view.getId()) {

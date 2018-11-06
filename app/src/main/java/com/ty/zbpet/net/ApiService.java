@@ -58,7 +58,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.PICK_OUT_DETAIL_INFO)
-    Observable<PickOutDetailInfo> pickOutDetailInfo();
+    Observable<BaseResponse<PickOutDetailInfo>> pickOutDetailInfo();
 
     /**
      * 获取成品采购待办列表

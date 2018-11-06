@@ -102,6 +102,9 @@ dependencies {
 
     // 时间选择框
     implementation 'com.contrarywind:Android-PickerView:4.1.6'
+    // log
+    //implementation 'com.elvishew:xlog:1.6.1'
+    implementation 'com.orhanobut:logger:2.2.0'
 
     //1.1.0 API改动过大，老用户升级需谨慎 listView 刷新
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'

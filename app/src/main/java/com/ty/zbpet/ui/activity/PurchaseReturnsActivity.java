@@ -21,4 +21,14 @@ public class PurchaseReturnsActivity extends BaseActivity {
     protected int getActivityLayout() {
         return R.layout.activity_purchase_returns;
     }
+
+    @Override
+    protected void initOneData() {
+
+    }
+
+    @Override
+    protected void initTwoView() {
+
+    }
 }

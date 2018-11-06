@@ -4,6 +4,7 @@ import com.ty.zbpet.bean.MaterialData;
 import com.ty.zbpet.bean.MaterialDetailsData;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
+import com.ty.zbpet.util.CodeConstant;
 import com.ty.zbpet.util.UIUtils;
 import com.zhouyou.http.exception.ApiException;
 import com.zhouyou.http.subsciber.BaseSubscriber;
@@ -54,19 +55,23 @@ public class MaterialPresenter {
                 materialUi.hideLoading();
                 UIUtils.showToast("原辅料——到货入库——待办 == success ");
 
-                if (infoList != null && infoList.getData().getList().size() != 0) {
-                    List<MaterialData.ListBean> list = infoList.getData().getList();
+                if (CodeConstant.SERVICE_SUCCESS.equals(infoList.getCode())) {
 
-                    // 数据
-                    materialUi.showMaterial(list);
+                    if (infoList != null && infoList.getData().getList().size() != 0) {
+                        List<MaterialData.ListBean> list = infoList.getData().getList();
+
+                        // 数据
+                        materialUi.showMaterial(list);
 
 
-                    // 保存数据(数据库，缓存。。。)
-                    materialModel.saveMaterial(list);
+                        // 保存数据(数据库，缓存。。。)
+                        materialModel.saveMaterial(list);
 
-                } else {
-                    UIUtils.showToast("没有信息");
+                    } else {
+                        UIUtils.showToast("没有信息");
+                    }
                 }
+
             }
         });
 
@@ -75,7 +80,7 @@ public class MaterialPresenter {
     /**
      * 原辅料 待办 list  详情
      */
-    public void fetchTODOMaterialDetails(String sapOrderNo){
+    public void fetchTODOMaterialDetails(String sapOrderNo) {
 
         HttpMethods.getInstance().getMaterialInWarehouseOrderInfo(new BaseSubscriber<BaseResponse<MaterialDetailsData>>() {
             @Override

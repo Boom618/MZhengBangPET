@@ -72,6 +72,16 @@ public class PurchaseInStorageActivity extends BaseActivity {
         return R.layout.activity_purchase_in_storage;
     }
 
+    @Override
+    protected void initOneData() {
+
+    }
+
+    @Override
+    protected void initTwoView() {
+
+    }
+
     class PagerChangeListener extends ViewPager.SimpleOnPageChangeListener {
 
         @Override

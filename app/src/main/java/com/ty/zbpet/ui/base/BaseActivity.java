@@ -25,7 +25,21 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         mUnbinder = ButterKnife.bind(this);
 
+        initOneData();
+
         onBaseCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        initTwoView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     /**
@@ -39,6 +53,17 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @return
      */
     protected abstract int getActivityLayout();
+
+    /**
+     * 初始化 Data
+     *
+     */
+    protected abstract void initOneData();
+
+    /**
+     * 初始化 View
+     */
+    protected abstract void initTwoView();
 
 
     /**
@@ -101,10 +126,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
+
 
     @Override
     protected void onDestroy() {

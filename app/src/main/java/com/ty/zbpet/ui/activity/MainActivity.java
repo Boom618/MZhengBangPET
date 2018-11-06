@@ -37,6 +37,16 @@ public class MainActivity extends BaseActivity {
         return R.layout.activity_main;
     }
 
+    @Override
+    protected void initOneData() {
+
+    }
+
+    @Override
+    protected void initTwoView() {
+
+    }
+
     @OnClick({R.id.tv_arrival_in_storage, R.id.tv_pick_out_storage, R.id.tv_purchase_returns, R.id.tv_purchase_in_storage,
             R.id.tv_produce_in_storage, R.id.tv_send_out_storage, R.id.tv_return_in_storage, R.id.tv_inventory,
             R.id.tv_transfer_storage, R.id.tv_person_center, R.id.tv_quality_check, R.id.tv_check_person})

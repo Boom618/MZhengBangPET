@@ -21,7 +21,7 @@ public class PickOutAdapter extends CommonAdapter {
 
     public PickOutAdapter(Context context, int layoutId, List datas) {
         super(context, layoutId, datas);
-        list = datas;
+        this.list = datas;
     }
 
     @Override

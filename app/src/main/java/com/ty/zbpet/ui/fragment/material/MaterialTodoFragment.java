@@ -33,9 +33,10 @@ import butterknife.BindView;
 
 /**
  * A simple {@link Fragment} subclass.
- * @author TY
  *
- * 待办 Fragment
+ * @author TY
+ * <p>
+ * 待办 （ 入库 ） Fragment
  */
 public class MaterialTodoFragment extends BaseFragment implements MaterialUiInterface<MaterialData.ListBean> {
 
@@ -50,7 +51,6 @@ public class MaterialTodoFragment extends BaseFragment implements MaterialUiInte
     private MaterialPresenter materialPresenter = new MaterialPresenter(this);
 
     public static MaterialTodoFragment newInstance(String tag) {
-
         MaterialTodoFragment fragment = new MaterialTodoFragment();
         Bundle bundle = new Bundle();
         bundle.putString("someInt", tag);
@@ -62,6 +62,7 @@ public class MaterialTodoFragment extends BaseFragment implements MaterialUiInte
 
     /**
      * 加载的 inflater.inflate  的 View
+     *
      * @param view layout inflate 的 View
      */
     @Override
@@ -118,15 +119,16 @@ public class MaterialTodoFragment extends BaseFragment implements MaterialUiInte
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             recyclerView.setLayoutManager(manager);
-            adapter = new MaterialAdapter(ResourceUtil.getContext(), R.layout.item_arrive_in_storage_complete,list);
+            adapter = new MaterialAdapter(ResourceUtil.getContext(), R.layout.item_arrive_in_storage_complete, list);
             recyclerView.setAdapter(adapter);
             adapter.setOnItemClickListener(new MaterialAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    Intent intent=new Intent(getActivity(), ArrivalInStorageDetailActivity.class);
+                    Intent intent = new Intent(getActivity(), ArrivalInStorageDetailActivity.class);
                     // TODO 传参
-//                    intent.putExtra("orderId",list.get(position).getSupplierId());
+                    intent.putExtra("orderId", list.get(position).getSupplierId());
 //                    intent.putExtra("sapOrderNo",list.get(position).getMaterialId());
+                    intent.putExtra("sapOrderNo", list.get(position).getSapOrderNo());
                     startActivity(intent);
                 }
 
@@ -138,7 +140,6 @@ public class MaterialTodoFragment extends BaseFragment implements MaterialUiInte
             });
         }
     }
-
 
 
     @Override

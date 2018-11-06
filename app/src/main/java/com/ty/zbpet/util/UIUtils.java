@@ -1,6 +1,7 @@
 package com.ty.zbpet.util;
 
 import android.app.Activity;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +50,18 @@ public class UIUtils {
         // 允许循环滚动
         datePicker.setIsLoop(false);
         datePicker.show(now);
+    }
+
+
+    /**
+     * 时间戳 转 String
+     * @param date
+     * @return
+     */
+    public static String getTime(Date date) {//可根据需要自行截取数据显示
+        TLog.d("getTime()", "choice date millis: " + date.getTime());
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return format.format(date);
     }
 
 }

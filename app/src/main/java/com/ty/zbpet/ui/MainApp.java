@@ -5,6 +5,9 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
+import com.ty.zbpet.net.LogInterceptor;
 import com.ty.zbpet.net.gson.DoubleDefault0Adapter;
 import com.ty.zbpet.net.gson.IntegerDefault0Adapter;
 import com.ty.zbpet.net.gson.LongDefault0Adapter;
@@ -26,11 +29,21 @@ public class MainApp extends Application {
     private static Gson gson;
 
     @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+    }
+
+    @Override
     public void onCreate() {
         super.onCreate();
         context = this;
+        // 日志 logger 库
+        Logger.addLogAdapter(new AndroidLogAdapter());
+
         initHttp();
     }
+
+
 
     private void initHttp() {
         EasyHttp.init(this);
@@ -76,7 +89,8 @@ public class MainApp extends Application {
                 //可以添加全局拦截器，不需要就不要加入，错误写法直接导致任何回调不执行
                 //.addInterceptor(new GzipRequestInterceptor())//开启post数据进行gzip后发送给服务器
                 // .addInterceptor(new CustomSignInterceptor())//添加参数签名拦截器
-                .addInterceptor(new HttpLoggingInterceptor())
+                // .addInterceptor(new HttpLoggingInterceptor())
+                .addInterceptor(new LogInterceptor())
                 .addConverterFactory(GsonConverterFactory.create(buildGson()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create());
     }

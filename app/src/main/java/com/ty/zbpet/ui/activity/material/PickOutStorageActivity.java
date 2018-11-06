@@ -66,6 +66,16 @@ public class PickOutStorageActivity extends BaseActivity implements RadioGroup.O
     }
 
     @Override
+    protected void initOneData() {
+
+    }
+
+    @Override
+    protected void initTwoView() {
+
+    }
+
+    @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId) {
             case R.id.todo_radio:

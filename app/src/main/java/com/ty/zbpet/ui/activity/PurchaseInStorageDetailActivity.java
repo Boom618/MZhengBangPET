@@ -88,6 +88,16 @@ public class PurchaseInStorageDetailActivity extends BaseActivity {
         return R.layout.activity_purchase_in_storage_detail;
     }
 
+    @Override
+    protected void initOneData() {
+
+    }
+
+    @Override
+    protected void initTwoView() {
+
+    }
+
     private void getGoodsPurchaseOrderInfo() {
         HttpMethods.getInstance().getGoodsPurchaseOrderInfo(new BaseSubscriber<GoodsPurchaseOrderInfo>() {
             @Override

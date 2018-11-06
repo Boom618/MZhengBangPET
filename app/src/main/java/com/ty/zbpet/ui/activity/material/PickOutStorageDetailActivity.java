@@ -23,4 +23,14 @@ public class PickOutStorageDetailActivity extends BaseActivity {
         return R.layout.activity_arrival_in_storage_detail;
     }
 
+    @Override
+    protected void initOneData() {
+
+    }
+
+    @Override
+    protected void initTwoView() {
+
+    }
+
 }

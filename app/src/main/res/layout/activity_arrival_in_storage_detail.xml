@@ -91,31 +91,31 @@
                 android:background="@drawable/shape_white_min_radius"
                 android:padding="@dimen/space_5">
 
-                <!--<TextView-->
-                    <!--android:id="@+id/tv_time"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_margin="@dimen/space_10"-->
-                    <!--android:background="@drawable/shape_black_min_radius"-->
-                    <!--android:drawableLeft="@mipmap/ic_date"-->
-                    <!--android:drawablePadding="@dimen/space_10"-->
-                    <!--android:drawableRight="@mipmap/ic_bottom"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:padding="@dimen/space_7"-->
-                    <!--android:text="2018-08-31 14:18"-->
-                    <!--android:textColor="@color/txt_main_color"-->
-                    <!--android:textSize="@dimen/text_14" />-->
-                <TimePickerView
-                    android:id="@+id/pick_view"
-                    android:padding="@dimen/space_7"
+                <TextView
+                    android:id="@+id/tv_time"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space_10"
+                    android:background="@drawable/shape_black_min_radius"
+                    android:drawableLeft="@mipmap/ic_date"
+                    android:drawablePadding="@dimen/space_10"
+                    android:drawableRight="@mipmap/ic_bottom"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/space_7"
+                    android:text="2018-08-31 14:18"
+                    android:textColor="@color/txt_main_color"
+                    android:textSize="@dimen/text_14" />
+                <!--<TimePickerView-->
+                    <!--android:id="@+id/pick_view"-->
+                    <!--android:padding="@dimen/space_7"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content" />-->
 
                 <EditText
                     android:id="@+id/et_desc"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
-                    android:layout_below="@+id/pick_view"
+                    android:layout_below="@+id/tv_time"
                     android:layout_marginEnd="@dimen/space_10"
                     android:layout_marginStart="@dimen/space_10"
                     android:background="@drawable/shape_gray_min_radius"
