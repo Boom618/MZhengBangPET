@@ -43,6 +43,12 @@ public class ScanObservable {
         this.scanBox = scanBoxInterface;
     }
 
+    /**
+     * 扫码功能，采用 RxJava 不用考虑线程问题
+     * @param scanReader 扫码器
+     * @param position  不在列表中处理，可以不用传 Position ，扫码的结果保证在 mCache 缓存中了
+     * @return
+     */
     public Disposable scanBox(final Scanner scanReader, final int position) {
         /**
          * subscribeOn 只会调用一次，subscribeOn() 的线程控制可以从事件发出的开端就造成影响
@@ -78,8 +84,6 @@ public class ScanObservable {
                     @Override
                     public String apply(@NonNull byte[] bytes) throws Exception {
 
-                        TLog.e("map Observable thread is : " + Thread.currentThread().getName());
-
                         String utf8 = new String(bytes, Charset.forName(CodeConstant.CHARSET_UTF8));
                         if (utf8.contains(CodeConstant.UNICODE_STRING)) {
                             utf8 = new String(bytes, Charset.forName(CodeConstant.CHARSET_GBK));
@@ -101,7 +105,6 @@ public class ScanObservable {
                     @Override
                     public void accept(String s) throws Exception {
 
-                        TLog.e("subscribe Observable thread is : " + Thread.currentThread().getName());
                         scanBox.ScanSuccess(position,s);
                         mCache.put(CodeConstant.SCAN_BOX_KEY, s);
                         UIUtils.showToast("扫码成功 " + s);

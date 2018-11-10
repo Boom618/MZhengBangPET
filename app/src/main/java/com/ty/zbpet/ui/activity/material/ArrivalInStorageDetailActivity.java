@@ -98,6 +98,17 @@ public class ArrivalInStorageDetailActivity extends BaseActivity implements Mate
      */
     private int currentPosition = -1;
 
+    private Disposable disposable;
+    private Scanner scanner = ScanReader.getScannerInstance();
+    private ScanObservable scan = new ScanObservable(this);
+
+    /**
+     * 保存用户在输入框中的数据
+     */
+    private SparseArray<String> bulkNumArray = new SparseArray(10);
+    private SparseArray<String> carCodeArray = new SparseArray(10);
+    private SparseArray<String> batchNoArray = new SparseArray(10);
+
     private MaterialPresenter materialPresenter = new MaterialPresenter(this);
 
     @Override
@@ -268,15 +279,9 @@ public class ArrivalInStorageDetailActivity extends BaseActivity implements Mate
         }
     }
 
-    /**
-     * 保存用户在输入框中的数据
-     */
-    private SparseArray<String> bulkNumArray = new SparseArray(10);
-    private SparseArray<String> carCodeArray = new SparseArray(10);
-    private SparseArray<String> batchNoArray = new SparseArray(10);
 
     @Override
-    public void saveEditAndGetHasFocusPosition(String etType,Boolean hasFocus, int position, String textContent) {
+    public void saveEditAndGetHasFocusPosition(String etType, Boolean hasFocus, int position, String textContent) {
         // 用户在 EditText 中输入的数据
         currentPosition = position;
 
@@ -290,7 +295,7 @@ public class ArrivalInStorageDetailActivity extends BaseActivity implements Mate
             // 【情况 ② 】 无焦点 有内容 http 校验
             if (!TextUtils.isEmpty(textContent)) {
                 if (!hasFocus) {
-                    httpCheckCarCode(currentPosition,textContent);
+                    httpCheckCarCode(currentPosition, textContent);
                 }
             }
 
@@ -302,7 +307,6 @@ public class ArrivalInStorageDetailActivity extends BaseActivity implements Mate
         }
 
     }
-
 
 
     /**
@@ -317,8 +321,7 @@ public class ArrivalInStorageDetailActivity extends BaseActivity implements Mate
 
         if (keyCode == CodeConstant.KEY_CODE_131
                 || keyCode == CodeConstant.KEY_CODE_135
-                || keyCode == CodeConstant.KEY_CODE_139
-                || keyCode == 66) {
+                || keyCode == CodeConstant.KEY_CODE_139) {
 
             if (!currentFocus && currentPosition != -1) {
                 // 扫描
@@ -330,15 +333,12 @@ public class ArrivalInStorageDetailActivity extends BaseActivity implements Mate
         return super.onKeyDown(keyCode, event);
     }
 
-    private Disposable disposable;
-    private Scanner scanner = ScanReader.getScannerInstance();
-    private ScanObservable scan = new ScanObservable(this);
 
     private void doDeCode() {
 
         scanner.open(getApplicationContext());
 
-        disposable = scan.scanBox(scanner,currentPosition);
+        disposable = scan.scanBox(scanner, currentPosition);
 
     }
 
@@ -346,14 +346,14 @@ public class ArrivalInStorageDetailActivity extends BaseActivity implements Mate
      * scan.scanBox 成功回调
      * 【情况 ① 】
      * 有焦点 扫码  http 校验
+     *
      * @param carCode
      */
     @Override
-    public void ScanSuccess(int position,String carCode) {
+    public void ScanSuccess(int position, String carCode) {
+
         //  服务器校验 车库码
-
-        httpCheckCarCode(position,carCode);
-
+        httpCheckCarCode(position, carCode);
 
     }
 
