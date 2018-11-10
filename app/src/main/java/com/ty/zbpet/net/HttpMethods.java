@@ -19,11 +19,12 @@ import com.zhouyou.http.subsciber.BaseSubscriber;
 
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -135,6 +136,31 @@ public class HttpMethods {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
+    }
+
+
+    /**
+     * 待办 保存
+     * @param subscriber
+     * @param body
+     */
+    public void materialInSave(BaseSubscriber<ResponseInfo> subscriber,RequestBody body){
+        mService.materialPurchaseInSave(body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+
+    }
+
+    /**
+     * 车库码校验
+     */
+    public void checkCarCode(BaseSubscriber<ResponseInfo> subscriber, String id, String code){
+        mService.checkCarCode(id,code)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+
     }
 
     /**

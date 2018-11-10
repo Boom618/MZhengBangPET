@@ -1,10 +1,16 @@
 package com.ty.zbpet.util;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bigkoo.pickerview.builder.TimePickerBuilder;
+import com.bigkoo.pickerview.listener.OnTimeSelectListener;
+import com.bigkoo.pickerview.view.TimePickerView;
+import com.ty.zbpet.ui.activity.material.ArrivalInStorageDetailActivity;
 import com.ty.zbpet.ui.widght.CustomDatePicker;
 
 import java.text.SimpleDateFormat;
@@ -62,6 +68,44 @@ public class UIUtils {
         TLog.d("getTime()", "choice date millis: " + date.getTime());
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return format.format(date);
+    }
+
+    /**
+     * 时间弹窗
+     * @param context
+     * @param listener
+     */
+    public static void showPickDate(Context context,OnTimeSelectListener listener){
+        TimePickerView pvTime = new TimePickerBuilder(context, listener)
+                // 默认全部显示
+                .setType(new boolean[]{true, true, true, true, true, false})
+                //.setCancelText("Cancel")//取消按钮文字
+                // .setSubmitText("Sure")//确认按钮文字
+                //.setContentSize(18)//滚轮文字大小
+                //标题文字大小
+                .setTitleSize(20)
+                //标题文字
+                .setTitleText("选择时间")
+                //点击屏幕，点在控件外部范围时，是否取消显示
+                .setOutSideCancelable(true)
+                //是否循环滚动
+                .isCyclic(false)
+                // .setTitleColor(Color.BLACK)//标题文字颜色
+                // .setSubmitColor(Color.BLUE)//确定按钮文字颜色
+                // .setCancelColor(Color.BLUE)//取消按钮文字颜色
+                // .setTitleBgColor(0xFF666666)//标题背景颜色 Night mode
+                // .setBgColor(0xFF333333)//滚轮背景颜色 Night mode
+                // .setDate(selectedDate)// 如果不设置的话，默认是系统时间*/
+                // .setRangDate(startDate,endDate)//起始终止年月日设定
+                //默认设置为年月日时分秒
+                .setLabel("年", "月", "日", "时", "分", "秒")
+                //是否只显示中间选中项的label文字，false则每项item全部都带有label。
+                .isCenterLabel(false)
+                //是否显示为对话框样式
+                .isDialog(false)
+                .build();
+
+        pvTime.show();
     }
 
 }

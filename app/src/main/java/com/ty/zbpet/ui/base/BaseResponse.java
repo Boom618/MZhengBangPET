@@ -11,12 +11,12 @@ public class BaseResponse<T> implements Serializable {
     private String message;
     private T data;
 
-    public String getCode() {
+    public String getTag() {
         return tag;
     }
 
-    public void setCode(String code) {
-        this.tag = code;
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
     public String getMessage() {

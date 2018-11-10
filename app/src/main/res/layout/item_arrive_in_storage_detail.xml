@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -63,30 +64,54 @@
         android:paddingStart="@dimen/space_10"
         android:paddingEnd="@dimen/space_10"
         android:paddingBottom="@dimen/space_10"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <TextView
             android:id="@+id/tv_box_num"
-            android:layout_width="100dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:layout_marginStart="@dimen/space_25"
-            android:gravity="bottom"
+            android:layout_marginTop="@dimen/space_5"
+            android:layout_marginEnd="@dimen/space_25"
             android:padding="@dimen/space_5"
             android:textColor="@color/txt_main_color"
             android:textSize="@dimen/text_14" />
 
-        <TextView
-            android:id="@+id/et_bulk_num"
-            android:layout_width="100dp"
+        <LinearLayout
+            android:id="@+id/bulk_code"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="@dimen/space_20"
+            android:layout_below="@+id/tv_box_num"
+            android:layout_marginStart="@dimen/space_25"
+            android:layout_marginTop="@dimen/space_5"
             android:layout_marginEnd="@dimen/space_25"
-            android:layout_toEndOf="@+id/tv_box_num"
-            android:background="@null"
-            android:padding="@dimen/space_5"
-            android:textColor="@color/txt_main_color"
-            android:textSize="@dimen/text_14" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/bulk_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="@dimen/space_5"
+                android:background="@null"
+                android:padding="@dimen/space_5"
+                android:text="入库数量："
+                android:textColor="@color/txt_main_color"
+                android:textSize="@dimen/text_14" />
+
+            <EditText
+                android:id="@+id/et_bulk_num"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="00"
+                android:inputType="text"
+                android:lines="1"
+                android:textColor="@color/txt_main_color" />
+
+        </LinearLayout>
+
 
         <!-- <View
              android:layout_width="108dp"
@@ -99,32 +124,44 @@
              />-->
 
 
-        <TextView
-            android:id="@+id/tv_code"
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/et_code"
+            android:layout_width="269dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/et_bulk_num"
+            android:layout_below="@+id/bulk_code"
             android:layout_marginStart="@dimen/space_25"
             android:layout_marginTop="@dimen/space_5"
-            android:layout_marginEnd="@dimen/space_25"
+            android:hint="库位码"
+            android:inputType="text"
+            android:lines="1"
             android:padding="@dimen/space_5"
+            android:ellipsize="end"
             android:textColor="@color/txt_main_color"
             android:textSize="@dimen/text_14" />
 
-        <!--android:background="@drawable/shape_white_min_radius"-->
+        <ImageView
+            android:id="@+id/iv_del_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bulk_code"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/et_code"
+            android:src="@mipmap/delete" />
 
         <EditText
             android:id="@+id/et_batch_no"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_code"
+            android:layout_below="@+id/et_code"
             android:layout_marginStart="@dimen/space_25"
             android:layout_marginTop="@dimen/space_5"
             android:layout_marginEnd="@dimen/space_25"
-            android:background="@color/orange_color"
-            android:hint="请输入物料批次号"
-            android:maxLines="1"
-            android:textColor="@color/txt_minor_color"
+            android:hint="sap 物料批次号"
+            android:inputType="text"
+            android:lines="1"
+            android:padding="@dimen/space_5"
+            android:textColor="@color/txt_main_color"
             android:textSize="@dimen/text_14" />
 
     </RelativeLayout>

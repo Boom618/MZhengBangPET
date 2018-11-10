@@ -2,9 +2,11 @@ package com.ty.zbpet.presenter.material;
 
 import com.ty.zbpet.bean.MaterialData;
 import com.ty.zbpet.bean.MaterialDetailsData;
+import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
 import com.ty.zbpet.util.CodeConstant;
+import com.ty.zbpet.util.TLog;
 import com.ty.zbpet.util.UIUtils;
 import com.zhouyou.http.exception.ApiException;
 import com.zhouyou.http.subsciber.BaseSubscriber;
@@ -24,14 +26,33 @@ public class MaterialPresenter {
     MaterialUiInterface materialUi;
 
     /**
+     * 详情 接口
+     */
+    MaterialDetailInterface detailUi;
+
+    /**
      * model 数据接口
      */
     MaterialModelInterface materialModel = new MaterialModelInterfaceImpl();
 
     // API 网络
 
+    /**
+     * 接收 list UI 接口
+     *
+     * @param materialUiInterface
+     */
     public MaterialPresenter(MaterialUiInterface materialUiInterface) {
         this.materialUi = materialUiInterface;
+    }
+
+    /**
+     * 接收 object UI 接口
+     *
+     * @param detailUi
+     */
+    public MaterialPresenter(MaterialDetailInterface detailUi) {
+        this.detailUi = detailUi;
     }
 
     /**
@@ -55,7 +76,7 @@ public class MaterialPresenter {
                 materialUi.hideLoading();
                 UIUtils.showToast("原辅料——到货入库——待办 == success ");
 
-                if (CodeConstant.SERVICE_SUCCESS.equals(infoList.getCode())) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(infoList.getTag())) {
 
                     if (infoList != null && infoList.getData().getList().size() != 0) {
                         List<MaterialData.ListBean> list = infoList.getData().getList();
@@ -78,7 +99,7 @@ public class MaterialPresenter {
     }
 
     /**
-     * 原辅料 待办 list  详情
+     * 原辅料 待办 list  详情  MaterialPurchaseInData  MaterialDetailsData
      */
     public void fetchTODOMaterialDetails(String sapOrderNo) {
 
@@ -90,22 +111,47 @@ public class MaterialPresenter {
 
             @Override
             public void onNext(BaseResponse<MaterialDetailsData> info) {
-                if (info.getData() != null) {
 
-                    List<MaterialDetailsData.ListBean> DetailsLists = info.getData().getList();
-                    if (info != null && DetailsLists.size() != 0) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(info.getTag())) {
 
-                        materialUi.showMaterial(DetailsLists);
+                    MaterialDetailsData data = info.getData();
 
-                    } else {
-                        UIUtils.showToast("没有信息");
-                    }
+                    TLog.d(data);
+
+                    detailUi.detailObjData(data);
+
                 } else {
                     UIUtils.showToast(info.getMessage());
                 }
             }
         }, sapOrderNo);
+    }
 
+    /**
+     * 车库码校验
+     * @param id
+     * @param code
+     */
+    public void checkCarCode(String id,String code){
+
+        HttpMethods.getInstance().checkCarCode(new BaseSubscriber<ResponseInfo>() {
+            @Override
+            public void onError(ApiException e) {
+
+            }
+
+            @Override
+            public void onNext(ResponseInfo responseInfo) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    // 车库码合法
+
+
+                }else{
+                    UIUtils.showToast(responseInfo.getMessage());
+                }
+
+            }
+        },id, code);
     }
 
 

@@ -22,7 +22,9 @@ import com.ty.zbpet.ui.adapter.BindBoxCodeAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.DividerItemDecoration;
 import com.ty.zbpet.util.ResourceUtil;
+import com.ty.zbpet.util.TLog;
 import com.ty.zbpet.util.UIUtils;
+import com.ty.zbpet.util.scan.ScanObservable;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -31,6 +33,15 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author TY
@@ -55,7 +66,7 @@ public class ScanBoxCodeActivity extends BaseActivity {
             ToneGenerator.MAX_VOLUME);
     /**
      * 箱码数据
-      */
+     */
     private List<String> boxCodeList = new ArrayList<>();
     private BindBoxCodeAdapter adapter;
     private int position;
@@ -159,35 +170,37 @@ public class ScanBoxCodeActivity extends BaseActivity {
     };
 
     protected void doDeCode() {
-        if (busy) {
-            handler.sendMessage(handler.obtainMessage(MSG_SHOW_TIP, ResourceUtil.getString(R.string.str_busy)));
-            return;
-        }
+//        if (busy) {
+//            handler.sendMessage(handler.obtainMessage(MSG_SHOW_TIP, ResourceUtil.getString(R.string.str_busy)));
+//            return;
+//        }
 
-        busy = true;
-        new Thread() {
-            @Override
-            public void run() {
-                handler.sendMessage(handler.obtainMessage(MSG_SHOW_WAIT, ResourceUtil.getString(R.string.str_please_waiting)));
-                byte[] id = scanReader.decode(10 * 1000);
-                String resultStr;
-                if (id != null) {
-                    String utf8 = new String(id, Charset.forName("utf8"));
-                    if (utf8.contains("\ufffd")) {
-                        utf8 = new String(id, Charset.forName("gbk"));
-                    }
-                    resultStr = utf8 + "\n";
-                    toneGenerator.startTone(ToneGenerator.TONE_PROP_BEEP);
-                } else {
-                    resultStr = null;
-                    handler.sendMessage(handler.obtainMessage(MSG_SHOW_TIP, ResourceUtil.getString(R.string.str_failed)));
-                }
-                //解码完成
-                handler.sendMessage(handler.obtainMessage(MSG_UPDATE_ID, resultStr.replace("\n", "")));
-                handler.sendMessage(handler.obtainMessage(MSG_HIDE_WAIT, null));
-                busy = false;
-            }
-        }.start();
+//        busy = true;
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                handler.sendMessage(handler.obtainMessage(MSG_SHOW_WAIT, ResourceUtil.getString(R.string.str_please_waiting)));
+//                byte[] id = scanReader.decode(10 * 1000);
+//                String resultStr;
+//                if (id != null) {
+//                    String utf8 = new String(id, Charset.forName("utf8"));
+//                    if (utf8.contains("\ufffd")) {
+//                        utf8 = new String(id, Charset.forName("gbk"));
+//                    }
+//                    resultStr = utf8 + "\n";
+//                    toneGenerator.startTone(ToneGenerator.TONE_PROP_BEEP);
+//                } else {
+//                    resultStr = null;
+//                    handler.sendMessage(handler.obtainMessage(MSG_SHOW_TIP, ResourceUtil.getString(R.string.str_failed)));
+//                }
+//                //解码完成
+//                handler.sendMessage(handler.obtainMessage(MSG_UPDATE_ID, resultStr.replace("\n", "")));
+//                handler.sendMessage(handler.obtainMessage(MSG_HIDE_WAIT, null));
+//                busy = false;
+//            }
+//        }.start();
+
+       //ScanObservable.scanBox(scanReader);
 
     }
 

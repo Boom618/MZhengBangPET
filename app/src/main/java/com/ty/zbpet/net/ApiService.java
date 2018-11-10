@@ -14,6 +14,7 @@ import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -25,6 +26,7 @@ public interface ApiService {
 
     /**
      * 获取原辅料采购已办列表
+     *
      * @return
      */
     @POST(ApiNameConstant.GET_MATERIAL_INWAREHOUSE_ORDERLIST)
@@ -32,6 +34,7 @@ public interface ApiService {
 
     /**
      * 获取原辅料采购 待办 列表 -- 新方式 GET_MATERIAL_TODO_ORDER_LIST
+     *
      * @return
      */
     @POST(ApiNameConstant.GET_MATERIAL_INWAREHOUSE_ORDERLIST)
@@ -39,6 +42,7 @@ public interface ApiService {
 
     /**
      * 获取原辅料采购 待办 详情
+     *
      * @return
      */
     @FormUrlEncoded
@@ -46,7 +50,28 @@ public interface ApiService {
     Observable<BaseResponse<MaterialDetailsData>> getMaterialInWarehouseOrderInfo(@Field("sapOrderNo") String sapOrderNo);
 
     /**
+     * 待办 保存
+     *
+     * @param body
+     * @return
+     */
+    @POST(ApiNameConstant.PURCHASE_IN)
+    Observable<ResponseInfo> materialPurchaseInSave(@Body RequestBody body);
+
+
+    /**
+     * 车库码检验
+     * @param materialId
+     * @param carCode
+     * @return
+     */
+    @POST(ApiNameConstant.CHECK_CAR_CODE)
+    Observable<ResponseInfo> checkCarCode(@Field("materialId") String materialId,
+                                          @Field("carCode") String carCode);
+
+    /**
      * 原辅料采购冲销入库
+     *
      * @param
      * @return
      */
@@ -55,6 +80,7 @@ public interface ApiService {
 
     /**
      * 原料--- 领料出库详情
+     *
      * @return
      */
     @POST(ApiNameConstant.PICK_OUT_DETAIL_INFO)
@@ -62,6 +88,7 @@ public interface ApiService {
 
     /**
      * 获取成品采购待办列表
+     *
      * @return
      */
     @POST(ApiNameConstant.GET_GOODS_PURCHASE_ORDERLIST)
@@ -69,6 +96,7 @@ public interface ApiService {
 
     /**
      * 获取成品采购待办详情
+     *
      * @return
      */
     @FormUrlEncoded
@@ -77,6 +105,7 @@ public interface ApiService {
 
     /**
      * 获取仓库信息
+     *
      * @return
      */
     @GET(ApiNameConstant.GET_WAREHOUSE_INFO)
@@ -84,6 +113,7 @@ public interface ApiService {
 
     /**
      * 成品采购入库——待办
+     *
      * @param
      * @return
      */

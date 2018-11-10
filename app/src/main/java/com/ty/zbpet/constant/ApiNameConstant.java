@@ -10,20 +10,30 @@ public class ApiNameConstant {
     public static final String BASE_URL1 = "http://192.168.11.24:3000/";//顾炎
 
     /**
-     * 原辅料——采购已办 列表
+     * 原辅料——采购待办 列表
      */
     public static final String GET_MATERIAL_INWAREHOUSE_ORDERLIST = "sap/zbSap/getMaterialInWarehouseOrderList";
 
     /**
-     * 原辅料——采购已办 详情
+     * 原辅料——采购待办 详情
      */
     public static final String GET_MATERIAL_INWAREHOUSE_ORDERINFO = "sap/zbSap/getMaterialInWarehouseOrderInfo";
 
 
     /**
-     * 原辅料——采购入库冲销出库（已办 保存）
+     * 原辅料——采购入库（待办 保存）
+     */
+    public static final String PURCHASE_IN = "stock/materialStock/mPurchaseIn";
+
+    /**
+     * 原辅料——冲销出库（已办 保存）
      */
     public static final String PURCHASE_IN_RECALL_OUT = "stock/materialStock/mPurchaseInRecallOut";
+
+    /**
+     * 车库码校验
+     */
+    public static final String CHECK_CAR_CODE = "stock";
 
 
     /**

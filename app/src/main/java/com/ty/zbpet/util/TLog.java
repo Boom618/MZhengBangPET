@@ -24,9 +24,21 @@ public class TLog {
         }
     }
 
+    public static void d(Object obj){
+        if (DEBUG) {
+            Logger.d(TAG,obj);
+        }
+    }
+
     public static void d(String tag,String msg){
         if (DEBUG) {
             Logger.d(tag,msg);
+        }
+    }
+
+    public static void d(String tag,Object obj){
+        if (DEBUG) {
+            Logger.d(tag,obj);
         }
     }
 
@@ -37,9 +49,21 @@ public class TLog {
         }
     }
 
+    public static void e(Object obj){
+        if (DEBUG) {
+            Logger.e(TAG,obj);
+        }
+    }
+
     public static void e(String tag,String msg){
         if (DEBUG) {
             Logger.e(tag,msg);
+        }
+    }
+
+    public static void e(String tag,Object obj){
+        if (DEBUG) {
+            Logger.e(tag,obj);
         }
     }
 

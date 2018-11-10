@@ -12,6 +12,7 @@ import com.ty.zbpet.net.gson.DoubleDefault0Adapter;
 import com.ty.zbpet.net.gson.IntegerDefault0Adapter;
 import com.ty.zbpet.net.gson.LongDefault0Adapter;
 import com.ty.zbpet.net.gson.StringDefault0Adapter;
+import com.ty.zbpet.util.ACache;
 import com.zhouyou.http.EasyHttp;
 import com.zhouyou.http.cache.converter.SerializableDiskConverter;
 import com.zhouyou.http.cache.model.CacheMode;
@@ -27,6 +28,7 @@ public class MainApp extends Application {
 
     public static Context context;
     private static Gson gson;
+    public static ACache mCache;
 
     @Override
     public void onLowMemory() {
@@ -37,6 +39,8 @@ public class MainApp extends Application {
     public void onCreate() {
         super.onCreate();
         context = this;
+
+        mCache = ACache.get(context);
         // 日志 logger 库
         Logger.addLogAdapter(new AndroidLogAdapter());
 

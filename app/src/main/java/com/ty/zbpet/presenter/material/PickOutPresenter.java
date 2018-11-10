@@ -42,7 +42,7 @@ public class PickOutPresenter {
             public void onNext(BaseResponse<PickOutDetailInfo> pickOutDetailInfo) {
                 pickOutUi.hideLoading();
 
-                if (CodeConstant.SERVICE_SUCCESS.equals(pickOutDetailInfo.getCode())) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(pickOutDetailInfo.getTag())) {
 
                     List<PickOutDetailInfo.DetailsBean> list = pickOutDetailInfo.getData().getDetails();
 
