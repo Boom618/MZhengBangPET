@@ -10,7 +10,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.PickOutDetailInfo;
 import com.ty.zbpet.presenter.material.MaterialPresenter;
-import com.ty.zbpet.presenter.material.MaterialUiInterface;
+import com.ty.zbpet.presenter.material.MaterialUiListInterface;
 import com.ty.zbpet.ui.adapter.MaterialAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
 
@@ -23,7 +23,7 @@ import butterknife.BindView;
  * A simple {@link Fragment} subclass.
  * @author TY
  */
-public class PickOutDoneFragment extends BaseFragment implements MaterialUiInterface<PickOutDetailInfo.DetailsBean> {
+public class PickOutDoneFragment extends BaseFragment implements MaterialUiListInterface<PickOutDetailInfo.DetailsBean> {
 
 
     @BindView(R.id.recyclerView)

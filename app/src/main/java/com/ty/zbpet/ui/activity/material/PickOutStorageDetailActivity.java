@@ -1,9 +1,12 @@
 package com.ty.zbpet.ui.activity.material;
 
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 
 import com.ty.zbpet.R;
 import com.ty.zbpet.ui.base.BaseActivity;
+
+import butterknife.BindView;
 
 
 /**
@@ -13,6 +16,9 @@ import com.ty.zbpet.ui.base.BaseActivity;
  */
 public class PickOutStorageDetailActivity extends BaseActivity {
 
+    @BindView(R.id.rc_pick_out_list)
+    RecyclerView pickOutList;
+
     @Override
     protected void onBaseCreate(Bundle savedInstanceState) {
 
@@ -20,7 +26,8 @@ public class PickOutStorageDetailActivity extends BaseActivity {
 
     @Override
     protected int getActivityLayout() {
-        return R.layout.activity_arrival_in_storage_detail;
+        // activity_arrival_in_storage_detail
+        return R.layout.activity_pick_out_list;
     }
 
     @Override

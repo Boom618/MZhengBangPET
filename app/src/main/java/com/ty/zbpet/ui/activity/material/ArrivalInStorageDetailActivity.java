@@ -22,7 +22,7 @@ import com.ty.zbpet.bean.MaterialDetailsData;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.constant.ApiNameConstant;
 import com.ty.zbpet.net.HttpMethods;
-import com.ty.zbpet.presenter.material.MaterialDetailInterface;
+import com.ty.zbpet.presenter.material.MaterialUiObjlInterface;
 import com.ty.zbpet.presenter.material.MaterialPresenter;
 import com.ty.zbpet.ui.adapter.MaterialDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
@@ -66,7 +66,7 @@ import okhttp3.RequestBody;
  *
  * @author TY
  */
-public class ArrivalInStorageDetailActivity extends BaseActivity implements MaterialDetailInterface<MaterialDetailsData>
+public class ArrivalInStorageDetailActivity extends BaseActivity implements MaterialUiObjlInterface<MaterialDetailsData>
         , MaterialDetailAdapter.SaveEditListener, ScanBoxInterface {
 
     @BindView(R.id.rv_in_storage_detail)
@@ -295,7 +295,7 @@ public class ArrivalInStorageDetailActivity extends BaseActivity implements Mate
             // 【情况 ② 】 无焦点 有内容 http 校验
             if (!TextUtils.isEmpty(textContent)) {
                 if (!hasFocus) {
-                    httpCheckCarCode(currentPosition, textContent);
+                    //httpCheckCarCode(currentPosition, textContent);
                 }
             }
 
@@ -352,8 +352,10 @@ public class ArrivalInStorageDetailActivity extends BaseActivity implements Mate
     @Override
     public void ScanSuccess(int position, String carCode) {
 
+        adapter.notifyItemChanged(position);
+
         //  服务器校验 车库码
-        httpCheckCarCode(position, carCode);
+        //httpCheckCarCode(position, carCode);
 
     }
 
@@ -446,7 +448,7 @@ public class ArrivalInStorageDetailActivity extends BaseActivity implements Mate
         super.onDestroy();
 
         scanner.close();
-        disposable.dispose();
+        //disposable.dispose();
 
 
     }

@@ -26,14 +26,19 @@ public class ApiNameConstant {
     public static final String PURCHASE_IN = "stock/materialStock/mPurchaseIn";
 
     /**
-     * 原辅料——冲销出库（已办 保存）
-     */
-    public static final String PURCHASE_IN_RECALL_OUT = "stock/materialStock/mPurchaseInRecallOut";
-
-    /**
      * 车库码校验
      */
     public static final String CHECK_CAR_CODE = "stock";
+
+    /**
+     * 原辅料 -- 已办列表
+     */
+    public static final String GET_MATERIAL_PURCHASE_LIST = "stock/materialStock/getMaterialPurchaseList";
+
+    /**
+     * 原辅料——冲销出库（已办 保存）
+     */
+    public static final String PURCHASE_IN_RECALL_OUT = "stock/materialStock/mPurchaseInRecallOut";
 
 
     /**

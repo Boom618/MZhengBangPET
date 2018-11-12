@@ -8,7 +8,7 @@ import java.util.List;
  *
  * UI 接口
  */
-public interface MaterialUiInterface<T> {
+public interface MaterialUiListInterface<T> {
 
     /**
      * Http 数据

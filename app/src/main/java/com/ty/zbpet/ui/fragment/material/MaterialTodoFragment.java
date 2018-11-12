@@ -18,7 +18,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.MaterialData;
 import com.ty.zbpet.presenter.material.MaterialPresenter;
-import com.ty.zbpet.presenter.material.MaterialUiInterface;
+import com.ty.zbpet.presenter.material.MaterialUiListInterface;
 import com.ty.zbpet.ui.activity.material.ArrivalInStorageDetailActivity;
 import com.ty.zbpet.ui.adapter.MaterialAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
@@ -38,7 +38,7 @@ import butterknife.BindView;
  * <p>
  * 待办 （ 入库 ） Fragment
  */
-public class MaterialTodoFragment extends BaseFragment implements MaterialUiInterface<MaterialData.ListBean> {
+public class MaterialTodoFragment extends BaseFragment implements MaterialUiListInterface<MaterialData.ListBean> {
 
 
     @BindView(R.id.recyclerView)
@@ -125,9 +125,7 @@ public class MaterialTodoFragment extends BaseFragment implements MaterialUiInte
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                     Intent intent = new Intent(getActivity(), ArrivalInStorageDetailActivity.class);
-                    // TODO 传参
                     intent.putExtra("orderId", list.get(position).getSupplierId());
-//                    intent.putExtra("sapOrderNo",list.get(position).getMaterialId());
                     intent.putExtra("sapOrderNo", list.get(position).getSapOrderNo());
                     startActivity(intent);
                 }

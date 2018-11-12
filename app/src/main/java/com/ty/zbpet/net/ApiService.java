@@ -24,16 +24,9 @@ import retrofit2.http.POST;
  */
 public interface ApiService {
 
-    /**
-     * 获取原辅料采购已办列表
-     *
-     * @return
-     */
-    @POST(ApiNameConstant.GET_MATERIAL_INWAREHOUSE_ORDERLIST)
-    Observable<BaseResponse<MaterialData>> getMaterialInWarehouseOrderList();
 
     /**
-     * 获取原辅料采购 待办 列表 -- 新方式 GET_MATERIAL_TODO_ORDER_LIST
+     * 获取原辅料采购 待办 列表
      *
      * @return
      */
@@ -61,6 +54,7 @@ public interface ApiService {
 
     /**
      * 车库码检验
+     *
      * @param materialId
      * @param carCode
      * @return
@@ -68,6 +62,14 @@ public interface ApiService {
     @POST(ApiNameConstant.CHECK_CAR_CODE)
     Observable<ResponseInfo> checkCarCode(@Field("materialId") String materialId,
                                           @Field("carCode") String carCode);
+
+    /**
+     * 获取原辅料采购 已办列表
+     *
+     * @return
+     */
+    @POST(ApiNameConstant.GET_MATERIAL_PURCHASE_LIST)
+    Observable<BaseResponse<MaterialData>> getMaterialInWarehouseOrderList();
 
     /**
      * 原辅料采购冲销入库

@@ -5,7 +5,7 @@ package com.ty.zbpet.presenter.material;
  *
  * 列表详情 接受 Object
  */
-public interface MaterialDetailInterface<T> {
+public interface MaterialUiObjlInterface<T> {
 
 
     /**

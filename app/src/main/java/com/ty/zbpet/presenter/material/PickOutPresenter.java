@@ -17,9 +17,9 @@ import java.util.List;
  */
 public class PickOutPresenter {
 
-    MaterialUiInterface pickOutUi;
+    MaterialUiObjlInterface pickOutUi;
 
-    public PickOutPresenter(MaterialUiInterface pickOutUi) {
+    public PickOutPresenter(MaterialUiObjlInterface pickOutUi) {
         this.pickOutUi = pickOutUi;
     }
 
@@ -27,12 +27,10 @@ public class PickOutPresenter {
 
     public void fetchPickOut() {
 
-        pickOutUi.showLoading();
 
         HttpMethods.getInstance().pickOutDetail(new BaseSubscriber<BaseResponse<PickOutDetailInfo>>() {
             @Override
             public void onError(ApiException e) {
-                pickOutUi.hideLoading();
 
 
             }
@@ -40,13 +38,12 @@ public class PickOutPresenter {
 
             @Override
             public void onNext(BaseResponse<PickOutDetailInfo> pickOutDetailInfo) {
-                pickOutUi.hideLoading();
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(pickOutDetailInfo.getTag())) {
 
-                    List<PickOutDetailInfo.DetailsBean> list = pickOutDetailInfo.getData().getDetails();
-
-                    pickOutUi.showMaterial(list);
+                    //pickOutUi.showMaterial(list);
+                    PickOutDetailInfo data = pickOutDetailInfo.getData();
+                    pickOutUi.detailObjData(data);
 
                 }else{
                     UIUtils.showToast("失败 : =" + pickOutDetailInfo.getMessage());

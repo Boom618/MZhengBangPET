@@ -23,12 +23,12 @@ public class MaterialPresenter {
     /**
      * UI 接口
      */
-    MaterialUiInterface materialUi;
+    MaterialUiListInterface materialUi;
 
     /**
      * 详情 接口
      */
-    MaterialDetailInterface detailUi;
+    MaterialUiObjlInterface detailUi;
 
     /**
      * model 数据接口
@@ -42,7 +42,7 @@ public class MaterialPresenter {
      *
      * @param materialUiInterface
      */
-    public MaterialPresenter(MaterialUiInterface materialUiInterface) {
+    public MaterialPresenter(MaterialUiListInterface materialUiInterface) {
         this.materialUi = materialUiInterface;
     }
 
@@ -51,7 +51,7 @@ public class MaterialPresenter {
      *
      * @param detailUi
      */
-    public MaterialPresenter(MaterialDetailInterface detailUi) {
+    public MaterialPresenter(MaterialUiObjlInterface detailUi) {
         this.detailUi = detailUi;
     }
 

@@ -136,8 +136,6 @@ public class ArrivalInStorageCompleteFragment extends Fragment {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                     Intent intent = new Intent(getActivity(), ArrivalInStorageDetailActivity.class);
-//                    intent.putExtra("orderId", data.getOrderId());
-//                    intent.putExtra("sapOrderNo", data.getSapOrderNo());
                     intent.putExtra("orderId", list.get(position).getOrderId());
                     intent.putExtra("sapOrderNo", list.get(position).getSapOrderNo());
                     startActivity(intent);

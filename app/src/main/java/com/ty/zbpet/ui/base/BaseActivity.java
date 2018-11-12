@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.ty.zbpet.R;
+import com.ty.zbpet.util.ACache;
+import com.ty.zbpet.util.CodeConstant;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -17,6 +19,7 @@ import butterknife.Unbinder;
 public abstract class BaseActivity extends AppCompatActivity {
 
     private Unbinder mUnbinder;
+    private ACache mCache;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(getActivityLayout());
 
         mUnbinder = ButterKnife.bind(this);
+        mCache = ACache.get(getApplication());
 
         initOneData();
 
@@ -93,6 +97,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         findViewById(R.id.iv_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                mCache.put(CodeConstant.SCAN_BOX_POSITION,"-1");
+                mCache.put(CodeConstant.SCAN_BOX_KEY,"");
                 finish();
             }
         });
@@ -112,6 +119,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         findViewById(R.id.iv_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 finish();
             }
         });

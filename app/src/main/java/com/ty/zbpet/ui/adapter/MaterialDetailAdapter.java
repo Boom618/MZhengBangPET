@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -62,12 +63,18 @@ public class MaterialDetailAdapter extends CommonAdapter {
         // 通过设置tag，防止 position 紊乱
         etInNum.setTag(position);
         String numString = etInNum.getText().toString().trim();
+        etInNum.setText(numString);
         etInNum.setOnFocusChangeListener(new EditTextOnFocusChangeListener(CodeConstant.ET_BULK_NUM, position, numString));
 
         // 2、库位码
         final EditText etCode = itemView.findViewById(R.id.et_code);
         // TYPE_NULL 禁止手机软键盘  TYPE_CLASS_TEXT : 开启软键盘。
         etCode.setInputType(InputType.TYPE_NULL);
+        // ScanObservable.scanBox 扫码成功保存的 ID 和 Value
+        final String value = ACache.get(context).getAsString(CodeConstant.SCAN_BOX_KEY);
+
+        etCode.setText(value);
+
 
         // 清除车库码
         final ImageView ivDel = itemView.findViewById(R.id.iv_del_code);
@@ -75,6 +82,7 @@ public class MaterialDetailAdapter extends CommonAdapter {
             @Override
             public void onClick(View view) {
                 etCode.getText().clear();
+                ivDel.setVisibility(View.GONE);
             }
         });
 
@@ -90,15 +98,18 @@ public class MaterialDetailAdapter extends CommonAdapter {
                 // 方式一 ：手动输入值
                 //tempCode = etCode.getText().toString().trim();
                 // 方式二 ：扫码输入值
-                tempCode = ACache.get(context).getAsString(CodeConstant.SCAN_BOX_KEY);
+                //tempCode = ACache.get(context).getAsString(CodeConstant.SCAN_BOX_KEY);
+                if (TextUtils.isEmpty(value)) {
+                    return;
+                }
 
-                if (tempCode.length() > 0) {
+                if (value.length() > 0) {
                     ivDel.setVisibility(View.VISIBLE);
                 } else {
                     ivDel.setVisibility(View.GONE);
                 }
                 // 焦点改变 接口回调
-                listener.saveEditAndGetHasFocusPosition(CodeConstant.ET_CODE, hasFocus, position, tempCode);
+                listener.saveEditAndGetHasFocusPosition(CodeConstant.ET_CODE, hasFocus, position, value);
             }
         });
 
@@ -108,6 +119,7 @@ public class MaterialDetailAdapter extends CommonAdapter {
         EditText batchNo = itemView.findViewById(R.id.et_batch_no);
         batchNo.setTag(position);
         String batchNoStr = batchNo.getText().toString().trim();
+        batchNo.setText(batchNoStr);
         batchNo.setOnFocusChangeListener(new EditTextOnFocusChangeListener(CodeConstant.ET_BATCH_NO, position, batchNoStr));
 
     }
@@ -132,6 +144,12 @@ public class MaterialDetailAdapter extends CommonAdapter {
 
         @Override
         public void onFocusChange(View view, boolean hasFocus) {
+
+            if (CodeConstant.ET_BATCH_NO.equals(etType) && !hasFocus) {
+                // 关闭软键盘
+                InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
 
             listener.saveEditAndGetHasFocusPosition(etType, hasFocus, position, content);
         }

@@ -83,30 +83,9 @@ public class HttpMethods {
         return SingletonHolder.INSTANCE;
     }
 
-    /**
-     * 获取原辅料采购已办列表
-     * @param subscriber
-     */
-//    public void getMaterialInWarehouseOrderList(BaseSubscriber<MaterialInWarehouseOrderList> subscriber){
-//        mService.getMaterialInWarehouseOrderList()
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(subscriber);
-//    }
 
     /**
-     * 已办列表 新方式
-     * @param subscriber
-     */
-    public void getMaterialOrderListDone(BaseSubscriber<BaseResponse<MaterialData>> subscriber){
-        mService.getMaterialInWarehouseOrderList()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
-    }
-
-    /**
-     * 获取原辅料采购待办列表  -- 新方式
+     * 获取原辅料采购待办列表
      * @param subscriber
      */
     public void getMaterialOrderListTodo(BaseSubscriber<BaseResponse<MaterialData>> subscriber){
@@ -161,6 +140,17 @@ public class HttpMethods {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
 
+    }
+
+    /**
+     * 已办列表
+     * @param subscriber
+     */
+    public void getMaterialOrderListDone(BaseSubscriber<BaseResponse<MaterialData>> subscriber){
+        mService.getMaterialInWarehouseOrderList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
     }
 
     /**

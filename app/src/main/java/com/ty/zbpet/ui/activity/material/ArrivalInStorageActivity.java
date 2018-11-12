@@ -29,10 +29,6 @@ import butterknife.BindView;
  */
 public class ArrivalInStorageActivity extends BaseActivity {
 
-    @BindView(R.id.iv_back)
-    ImageView ivBack;
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
     @BindView(R.id.tv_right)
     TextView tvRight;
     @BindView(R.id.et_search)
@@ -52,14 +48,8 @@ public class ArrivalInStorageActivity extends BaseActivity {
     @Override
     protected void onBaseCreate(Bundle savedInstanceState) {
 
-        //MaterialTodoFragment noDoingFg = new MaterialTodoFragment();
         ArrivalInStorageCompleteFragment completeFg = new ArrivalInStorageCompleteFragment();
         MaterialTodoFragment noDoingFg = MaterialTodoFragment.newInstance("noDoingFg");
-
-        Bundle bundle = noDoingFg.getArguments();
-        String someInt = bundle.getString("someInt");
-
-        TLog.d("someInt",someInt);
 
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(noDoingFg);

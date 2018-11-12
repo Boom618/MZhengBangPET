@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:layout_editor_absoluteY="25dp">
+
+
+    <TextView
+        android:id="@+id/in_storage_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rv_in_storage_detail"
+        android:text="@string/label_in_storage_time"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_18"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="5dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_5"
+        android:background="@drawable/shape_black_min_radius"
+        android:drawableLeft="@mipmap/ic_date"
+        android:drawableRight="@mipmap/ic_bottom"
+        android:drawablePadding="@dimen/space_10"
+        android:gravity="center_vertical"
+        android:padding="@dimen/space_7"
+        android:text="2018-08-31 14:18"
+        android:textColor="@color/txt_main_color"
+        android:textSize="@dimen/text_14"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="24dp" />
+
+    <EditText
+        android:id="@+id/et_desc"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@+id/tv_time"
+        android:layout_margin="@dimen/space_5"
+        android:background="@drawable/shape_gray_min_radius"
+        android:gravity="top"
+        android:hint="备注"
+        android:padding="@dimen/space_7"
+        android:textColor="@color/txt_minor_color"
+        android:textColorHint="@color/hint_color"
+        android:textSize="@dimen/text_14"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="65dp" />
+
+</android.support.constraint.ConstraintLayout>

@@ -64,7 +64,7 @@
         android:paddingStart="@dimen/space_10"
         android:paddingEnd="@dimen/space_10"
         android:paddingBottom="@dimen/space_10"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tv_box_num"
@@ -126,26 +126,27 @@
 
         <EditText
             android:id="@+id/et_code"
-            android:layout_width="269dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/bulk_code"
-            android:layout_marginStart="@dimen/space_25"
-            android:layout_marginTop="@dimen/space_5"
+            android:layout_marginTop="5dp"
+            android:ellipsize="end"
             android:hint="库位码"
             android:inputType="text"
+            android:layout_marginEnd="@dimen/space_10"
             android:lines="1"
+            android:layout_alignRight="@+id/et_batch_no"
+            android:layout_alignLeft="@+id/et_batch_no"
             android:padding="@dimen/space_5"
-            android:ellipsize="end"
             android:textColor="@color/txt_main_color"
             android:textSize="@dimen/text_14" />
 
         <ImageView
             android:id="@+id/iv_del_code"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_below="@+id/bulk_code"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="8dp"
             android:layout_toRightOf="@+id/et_code"
             android:src="@mipmap/delete" />
 

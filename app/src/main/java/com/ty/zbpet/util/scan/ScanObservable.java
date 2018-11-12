@@ -65,12 +65,11 @@ public class ScanObservable {
                 byte[] id = scanReader.decode(1000);
                 if (null != id) {
                     emitter.onNext(id);
-                    toneGenerator.startTone(ToneGenerator.TONE_PROP_BEEP);
+                    //toneGenerator.startTone(ToneGenerator.TONE_PROP_BEEP);
                 } else {
 
-//                    toneGenerator.startTone(ToneGenerator.TONE_CDMA_ALERT_AUTOREDIAL_LITE);
-                    toneGenerator.startTone(ToneGenerator.TONE_CDMA_ABBR_ALERT);
-                    emitter.onError(new Throwable("车库码扫码失败"));
+                    //toneGenerator.startTone(ToneGenerator.TONE_CDMA_ABBR_ALERT);
+                    //emitter.onError(new Throwable("车库码为空"));
                 }
 
             }
@@ -97,6 +96,10 @@ public class ScanObservable {
                     @Override
                     public void accept(String s) throws Exception {
                         TLog.e("doOnNext: 保存成功：" + s + "\n");
+
+                        // 存 position ，解决第一次进来所有列表都是同样的值
+                        mCache.put(CodeConstant.SCAN_BOX_POSITION,position);
+                        mCache.put(CodeConstant.SCAN_BOX_KEY, s);
                     }
                 })
                 // 指定 Subscriber 的回调发生在主线程
@@ -106,13 +109,17 @@ public class ScanObservable {
                     public void accept(String s) throws Exception {
 
                         scanBox.ScanSuccess(position,s);
-                        mCache.put(CodeConstant.SCAN_BOX_KEY, s);
+
+                        // 存 position ，解决第一次进来所有列表都是同样的值
+                        //mCache.put(CodeConstant.SCAN_BOX_POSITION,position);
+                        //mCache.put(CodeConstant.SCAN_BOX_KEY, s);
                         UIUtils.showToast("扫码成功 " + s);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         TLog.e("失败：" + throwable.getMessage() + "\n");
+                        // toneGenerator.startTone(ToneGenerator.TONE_CDMA_ALERT_AUTOREDIAL_LITE);
                         UIUtils.showToast("扫码失败" + throwable.getMessage());
                     }
                 });

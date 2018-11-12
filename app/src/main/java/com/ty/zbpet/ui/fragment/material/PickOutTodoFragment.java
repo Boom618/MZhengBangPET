@@ -14,16 +14,15 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.PickOutDetailInfo;
-import com.ty.zbpet.presenter.material.MaterialUiInterface;
+import com.ty.zbpet.presenter.material.MaterialUiListInterface;
+import com.ty.zbpet.presenter.material.MaterialUiObjlInterface;
 import com.ty.zbpet.presenter.material.PickOutPresenter;
 import com.ty.zbpet.ui.activity.material.ArrivalInStorageDetailActivity;
-import com.ty.zbpet.ui.adapter.MaterialAdapter;
 import com.ty.zbpet.ui.adapter.PickOutAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.UIUtils;
-import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 
 import java.util.List;
 
@@ -36,7 +35,7 @@ import butterknife.BindView;
  * create an instance of this fragment.
  * @author TY
  */
-public class PickOutTodoFragment extends BaseFragment implements MaterialUiInterface<PickOutDetailInfo.DetailsBean> {
+public class PickOutTodoFragment extends BaseFragment implements MaterialUiObjlInterface<PickOutDetailInfo> {
 
 
     @BindView(R.id.recyclerView)
@@ -121,14 +120,15 @@ public class PickOutTodoFragment extends BaseFragment implements MaterialUiInter
 
 
     @Override
-    public void showMaterial(List<PickOutDetailInfo.DetailsBean> list) {
+    public void detailObjData(PickOutDetailInfo info) {
         LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
         recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
         recyclerView.setLayoutManager(manager);
 
         if (adapter == null) {
+            List<PickOutDetailInfo.DetailsBean> details = info.getDetails();
 
-            adapter = new PickOutAdapter(this.getContext(),R.layout.item_arrive_in_storage_complete,list);
+            adapter = new PickOutAdapter(this.getContext(),R.layout.item_arrive_in_storage_complete,details);
             recyclerView.setAdapter(adapter);
 
             adapter.setOnItemClickListener(new PickOutAdapter.OnItemClickListener() {
@@ -149,13 +149,4 @@ public class PickOutTodoFragment extends BaseFragment implements MaterialUiInter
 
     }
 
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
-    }
 }
