@@ -4,18 +4,15 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.orhanobut.logger.Logger;
 import com.ty.zbpet.R;
 import com.ty.zbpet.ui.adapter.ViewPagerAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
-import com.ty.zbpet.ui.fragment.material.ArrivalInStorageCompleteFragment;
+import com.ty.zbpet.ui.fragment.material.MaterialDoneFragment;
 import com.ty.zbpet.ui.fragment.material.MaterialTodoFragment;
-import com.ty.zbpet.util.TLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +45,7 @@ public class ArrivalInStorageActivity extends BaseActivity {
     @Override
     protected void onBaseCreate(Bundle savedInstanceState) {
 
-        ArrivalInStorageCompleteFragment completeFg = new ArrivalInStorageCompleteFragment();
+        MaterialDoneFragment completeFg = new MaterialDoneFragment();
         MaterialTodoFragment noDoingFg = MaterialTodoFragment.newInstance("noDoingFg");
 
         List<Fragment> fragmentList = new ArrayList<>();

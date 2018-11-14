@@ -33,7 +33,14 @@ public class ApiNameConstant {
     /**
      * 原辅料 -- 已办列表
      */
-    public static final String GET_MATERIAL_PURCHASE_LIST = "stock/materialStock/getMaterialPurchaseList";
+    //public static final String GET_MATERIAL_PURCHASE_LIST = "stock/materialStock/getMaterialPurchaseList";
+    public static final String GET_MATERIAL_PURCHASE_LIST = "stock/materialStock/getInWarehouseOrderList";
+
+    /**
+     * 原辅料 已办列表详情
+     */
+    public static final String GET_MATERIAL_PURCHASE_LIST_INFO = "stock/materialStock/getInWarehouseOrderInfo";
+
 
     /**
      * 原辅料——冲销出库（已办 保存）

@@ -34,6 +34,7 @@ import com.ty.zbpet.util.UIUtils;
 import com.ty.zbpet.util.Utils;
 import com.ty.zbpet.util.scan.ScanBoxInterface;
 import com.ty.zbpet.util.scan.ScanObservable;
+import com.weavey.utils.UiUtils;
 import com.zhouyou.http.exception.ApiException;
 import com.zhouyou.http.subsciber.BaseSubscriber;
 
@@ -192,6 +193,13 @@ public class ArrivalInStorageDetailActivity extends BaseActivity implements Mate
                 bean.setMaterialId(list.get(i).getMaterialId());
                 bean.setPositionId(list.get(i).getPositionId());
                 detail.add(bean);
+            }else if (null == bulkNum && null == carCode){
+                // 不处理
+                break;
+            }else{
+                // 车库数量和车库码必须一致
+                UIUtils.showToast("车库数量或车库码不全");
+                break;
             }
         }
 
@@ -284,6 +292,7 @@ public class ArrivalInStorageDetailActivity extends BaseActivity implements Mate
     public void saveEditAndGetHasFocusPosition(String etType, Boolean hasFocus, int position, String textContent) {
         // 用户在 EditText 中输入的数据
         currentPosition = position;
+        currentFocus = hasFocus;
 
         if (CodeConstant.ET_BULK_NUM.equals(etType)) {
             bulkNumArray.put(position, textContent);
@@ -323,7 +332,7 @@ public class ArrivalInStorageDetailActivity extends BaseActivity implements Mate
                 || keyCode == CodeConstant.KEY_CODE_135
                 || keyCode == CodeConstant.KEY_CODE_139) {
 
-            if (!currentFocus && currentPosition != -1) {
+            if (currentFocus && currentPosition != -1) {
                 // 扫描
                 doDeCode();
             }

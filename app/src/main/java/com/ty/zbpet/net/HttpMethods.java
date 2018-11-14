@@ -6,6 +6,7 @@ import com.ty.zbpet.bean.GoodsPurchaseOrderInfo;
 import com.ty.zbpet.bean.GoodsPurchaseOrderList;
 import com.ty.zbpet.bean.MaterialData;
 import com.ty.zbpet.bean.MaterialDetailsData;
+import com.ty.zbpet.bean.MaterialDoneData;
 import com.ty.zbpet.bean.PickOutDetailInfo;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.WarehouseInfo;
@@ -146,7 +147,7 @@ public class HttpMethods {
      * 已办列表
      * @param subscriber
      */
-    public void getMaterialOrderListDone(BaseSubscriber<BaseResponse<MaterialData>> subscriber){
+    public void getMaterialOrderListDone(BaseSubscriber<BaseResponse<MaterialDoneData>> subscriber){
         mService.getMaterialInWarehouseOrderList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

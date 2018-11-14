@@ -4,6 +4,7 @@ import com.ty.zbpet.bean.GoodsPurchaseOrderInfo;
 import com.ty.zbpet.bean.GoodsPurchaseOrderList;
 import com.ty.zbpet.bean.MaterialData;
 import com.ty.zbpet.bean.MaterialDetailsData;
+import com.ty.zbpet.bean.MaterialDoneData;
 import com.ty.zbpet.bean.PickOutDetailInfo;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.WarehouseInfo;
@@ -69,7 +70,15 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.GET_MATERIAL_PURCHASE_LIST)
-    Observable<BaseResponse<MaterialData>> getMaterialInWarehouseOrderList();
+    Observable<BaseResponse<MaterialDoneData>> getMaterialInWarehouseOrderList();
+
+    /**
+     * 获取原辅料采购 已办列表详情
+     *
+     * @return
+     */
+    @POST(ApiNameConstant.GET_MATERIAL_PURCHASE_LIST_INFO)
+    Observable<BaseResponse<MaterialData>> getMaterialInWarehouseOrderListInfo(@Field("mInWarehouseOrderId") String id);
 
     /**
      * 原辅料采购冲销入库

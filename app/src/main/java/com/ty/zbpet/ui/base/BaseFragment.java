@@ -10,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.ty.zbpet.util.ACache;
+import com.ty.zbpet.util.CodeConstant;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -31,6 +34,7 @@ public abstract class BaseFragment extends Fragment {
 
     private Unbinder mUnbinder;
 
+    private ACache mCache;
 
 
     @Override
@@ -40,15 +44,18 @@ public abstract class BaseFragment extends Fragment {
         View view = inflater.inflate(getFragmentLayout(), container, false);
 
         mUnbinder = ButterKnife.bind(this, view);
-        onBaseCreate(view);
-        return view;
+
+        mCache = ACache.get(view.getContext());
+        // onBaseCreate(view);
+        return onBaseCreate(view);
     }
 
     /**
      * 初始化 View
+     *
      * @param view
      */
-    protected  abstract void onBaseCreate(View view);
+    protected abstract View onBaseCreate(View view);
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -61,14 +68,25 @@ public abstract class BaseFragment extends Fragment {
 
     /**
      * Fragment Layout
+     *
      * @return
      */
     protected abstract int getFragmentLayout();
 
 
+    /**
+     * 重置 ACache 中保存的的数据
+     */
+    private void clearCache() {
+        mCache.put(CodeConstant.SCAN_BOX_POSITION, "-1");
+        mCache.put(CodeConstant.SCAN_BOX_KEY, "");
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
+
+        clearCache();
 
         mUnbinder.unbind();
     }

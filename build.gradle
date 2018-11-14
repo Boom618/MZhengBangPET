@@ -34,5 +34,36 @@ ext {
 
             nameDevelop     : "ZB_Develop",
             nameMaster      : "MZhengBangPET",
+
+            iconDevelop     : "",
     ]
+
+    minSdkVersion               = 21
+    targetSdkVersion            = 27
+    compileSdkVersion           = 27
+    buildToolsVersion           = '28.0.3'
+
+    supportLibraryVersion       = '27.1.1'
+    lifecycleVersion            = '1.1.1'
+    retrofit2Version            = '2.4.0'
+    okhttp3Version              = '3.11.0'
+    butterknifeVersion          = '8.8.1'
+    rx2Version                  = '2.2.0'
+    rx2AndroidVersion           = '2.0.2'
+    googleGsonVersion           = '2.8.5'
+    CircleProgressBarVersion = '2.0.0'
+    rvadapterVersion            = '3.0.3'
+    PickerViewVersion           = '4.1.6'
+    loggerVersion               = '2.2.0'
+    SmartRefreshVersion         = '1.1.0-alpha-14'
+    glideVersion                = '4.7.1'
+    rxeasyhttpVersion           = '2.1.2'
+    eventbusVersion             = '3.1.1'
+    //roundedimageviewVersion     = '2.3.0'
+    //dispatcherVersion           = '2.4.0'
+    //picture_libraryVersion      = 'v2.2.3'
+    //statusbarutilVersion        = '1.5.1'
+    //okhttpUtilsVersion          = '3.8.0'
+    //constraintVersion           = '1.1.3'
+    //flexboxVersion              = '1.0.0'
 }

@@ -14,7 +14,6 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.PickOutDetailInfo;
-import com.ty.zbpet.presenter.material.MaterialUiListInterface;
 import com.ty.zbpet.presenter.material.MaterialUiObjlInterface;
 import com.ty.zbpet.presenter.material.PickOutPresenter;
 import com.ty.zbpet.ui.activity.material.ArrivalInStorageDetailActivity;
@@ -77,6 +76,17 @@ public class PickOutTodoFragment extends BaseFragment implements MaterialUiObjlI
     }
 
     @Override
+    protected View onBaseCreate(View view) {
+
+        return view;
+    }
+
+    @Override
+    protected int getFragmentLayout() {
+        return R.layout.zb_content_fragment;
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
 
@@ -106,16 +116,6 @@ public class PickOutTodoFragment extends BaseFragment implements MaterialUiObjlI
             }
         });
 
-    }
-
-    @Override
-    protected void onBaseCreate(View view) {
-
-    }
-
-    @Override
-    protected int getFragmentLayout() {
-        return R.layout.zb_content_fragment;
     }
 
 

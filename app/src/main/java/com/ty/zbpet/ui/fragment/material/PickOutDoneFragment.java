@@ -52,8 +52,9 @@ public class PickOutDoneFragment extends BaseFragment implements MaterialUiListI
 
 
     @Override
-    protected void onBaseCreate(View view) {
+    protected View onBaseCreate(View view) {
 
+        return view;
     }
 
     @Override

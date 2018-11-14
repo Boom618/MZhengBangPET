@@ -2,6 +2,7 @@ package com.ty.zbpet.presenter.material;
 
 import com.ty.zbpet.bean.MaterialData;
 import com.ty.zbpet.bean.MaterialDetailsData;
+import com.ty.zbpet.bean.MaterialDoneData;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
@@ -23,12 +24,12 @@ public class MaterialPresenter {
     /**
      * UI 接口
      */
-    MaterialUiListInterface materialUi;
+    MaterialUiListInterface materialListUi;
 
     /**
      * 详情 接口
      */
-    MaterialUiObjlInterface detailUi;
+    MaterialUiObjlInterface materialObjUi;
 
     /**
      * model 数据接口
@@ -43,16 +44,16 @@ public class MaterialPresenter {
      * @param materialUiInterface
      */
     public MaterialPresenter(MaterialUiListInterface materialUiInterface) {
-        this.materialUi = materialUiInterface;
+        this.materialListUi = materialUiInterface;
     }
 
     /**
      * 接收 object UI 接口
      *
-     * @param detailUi
+     * @param materialObjUi
      */
-    public MaterialPresenter(MaterialUiObjlInterface detailUi) {
-        this.detailUi = detailUi;
+    public MaterialPresenter(MaterialUiObjlInterface materialObjUi) {
+        this.materialObjUi = materialObjUi;
     }
 
     /**
@@ -60,7 +61,7 @@ public class MaterialPresenter {
      */
     public void fetchTODOMaterial() {
 
-        materialUi.showLoading();
+        materialListUi.showLoading();
 
         // APi  获取数据
         HttpMethods.getInstance().getMaterialOrderListTodo(new BaseSubscriber<BaseResponse<MaterialData>>() {
@@ -73,7 +74,7 @@ public class MaterialPresenter {
 
             @Override
             public void onNext(BaseResponse<MaterialData> infoList) {
-                materialUi.hideLoading();
+                materialListUi.hideLoading();
                 UIUtils.showToast("原辅料——到货入库——待办 == success ");
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(infoList.getTag())) {
@@ -82,7 +83,7 @@ public class MaterialPresenter {
                         List<MaterialData.ListBean> list = infoList.getData().getList();
 
                         // 数据
-                        materialUi.showMaterial(list);
+                        materialListUi.showMaterial(list);
 
 
                         // 保存数据(数据库，缓存。。。)
@@ -118,7 +119,7 @@ public class MaterialPresenter {
 
                     TLog.d(data);
 
-                    detailUi.detailObjData(data);
+                    materialObjUi.detailObjData(data);
 
                 } else {
                     UIUtils.showToast(info.getMessage());
@@ -152,6 +153,37 @@ public class MaterialPresenter {
 
             }
         },id, code);
+    }
+
+    /**
+     * 原材料 已办 列表
+     */
+    public void fetchDoneMaterial(){
+        HttpMethods.getInstance().getMaterialOrderListDone(new BaseSubscriber<BaseResponse<MaterialDoneData>>() {
+            @Override
+            public void onError(ApiException e) {
+                UIUtils.showToast("原辅料——到货入库——已办 == onError ");
+                UIUtils.showToast(e.getMessage());
+            }
+
+            @Override
+            public void onNext(BaseResponse<MaterialDoneData> infoList) {
+                UIUtils.showToast("原辅料——到货入库——已办 == success ");
+
+                if (CodeConstant.SERVICE_SUCCESS.equals(infoList.getTag())) {
+                    if ( null != infoList && infoList.getData() != null) {
+                        List<MaterialDoneData.ListBean> list = infoList.getData().getList();
+                        if (list != null && list.size() != 0) {
+                            materialListUi.showMaterial(list);
+                        } else {
+                            UIUtils.showToast("没有信息");
+                        }
+                    }
+                }else {
+                    UIUtils.showToast(infoList.getMessage());
+                }
+            }
+        });
     }
 
 

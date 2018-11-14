@@ -66,12 +66,14 @@ public class MaterialTodoFragment extends BaseFragment implements MaterialUiList
      * @param view layout inflate 的 View
      */
     @Override
-    protected void onBaseCreate(View view) {
+    protected View onBaseCreate(View view) {
 
         // 设置 Header 样式
         refreshLayout.setRefreshHeader(new MaterialHeader(this.getContext()));
         // 设置 Footer 为 球脉冲 样式
         refreshLayout.setRefreshFooter(new BallPulseFooter(this.getContext()).setSpinnerStyle(SpinnerStyle.Scale));
+
+        return view;
 
     }
 
@@ -96,7 +98,7 @@ public class MaterialTodoFragment extends BaseFragment implements MaterialUiList
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 // 传入 false 表示刷新失败
-                refreshLayout.finishRefresh(2000);
+                refreshLayout.finishRefresh(1000);
                 // 刷新数据
                 materialPresenter.fetchTODOMaterial();
 
@@ -106,7 +108,7 @@ public class MaterialTodoFragment extends BaseFragment implements MaterialUiList
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 // 传入 false 表示刷新失败
-                refreshLayout.finishLoadMore(2000);
+                refreshLayout.finishLoadMore(1000);
                 UIUtils.showToast("没有更多数据了");
             }
         });

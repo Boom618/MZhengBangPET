@@ -98,8 +98,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                mCache.put(CodeConstant.SCAN_BOX_POSITION,"-1");
-                mCache.put(CodeConstant.SCAN_BOX_KEY,"");
+                clearCache();
                 finish();
             }
         });
@@ -110,6 +109,14 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         // 隐藏右边
         findViewById(R.id.tv_right).setVisibility(View.GONE);
+    }
+
+    /**
+     * 重置 ACache 中保存的的数据
+     */
+    private void clearCache(){
+        mCache.put(CodeConstant.SCAN_BOX_POSITION,"-1");
+        mCache.put(CodeConstant.SCAN_BOX_KEY,"");
     }
 
 
@@ -140,6 +147,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        clearCache();
 
         mUnbinder.unbind();
     }

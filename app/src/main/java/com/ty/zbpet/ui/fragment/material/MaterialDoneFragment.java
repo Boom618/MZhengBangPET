@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -18,9 +19,14 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.MaterialData;
+import com.ty.zbpet.bean.MaterialDoneData;
 import com.ty.zbpet.net.HttpMethods;
+import com.ty.zbpet.presenter.material.MaterialPresenter;
+import com.ty.zbpet.presenter.material.MaterialUiListInterface;
 import com.ty.zbpet.ui.activity.material.ArrivalInStorageDetailActivity;
 import com.ty.zbpet.ui.adapter.MaterialAdapter;
+import com.ty.zbpet.ui.adapter.MaterialDoneAdapter;
+import com.ty.zbpet.ui.base.BaseFragment;
 import com.ty.zbpet.ui.base.BaseResponse;
 import com.ty.zbpet.ui.base.EmptyLayout;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
@@ -39,7 +45,7 @@ import butterknife.ButterKnife;
  *
  * @author TY
  */
-public class ArrivalInStorageCompleteFragment extends Fragment {
+public class MaterialDoneFragment extends BaseFragment implements MaterialUiListInterface<MaterialDoneData.ListBean> {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -49,43 +55,20 @@ public class ArrivalInStorageCompleteFragment extends Fragment {
 
     private EmptyLayout emptyLayout;
 
-    private MaterialAdapter materialAdapter;
+    private MaterialDoneAdapter materialAdapter;
+
+    private MaterialPresenter materialPresenter = new MaterialPresenter(this);
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_recyclerview, container, false);
-        ButterKnife.bind(this, view);
-
-        getMaterialInWarehouseOrderList();
+    protected View onBaseCreate(View view) {
 
         return view;
     }
 
-    private void getMaterialInWarehouseOrderList() {
-        HttpMethods.getInstance().getMaterialOrderListDone(new BaseSubscriber<BaseResponse<MaterialData>>() {
-            @Override
-            public void onError(ApiException e) {
-                UIUtils.showToast("原辅料——到货入库——已办 == onError ");
-                UIUtils.showToast(e.getMessage());
-            }
-
-            @Override
-            public void onNext(BaseResponse<MaterialData> infoList) {
-                UIUtils.showToast("原辅料——到货入库——已办 == success ");
-
-                if (infoList.getData() != null) {
-                    List<MaterialData.ListBean> list = infoList.getData().getList();
-                    if (list != null && list.size() != 0) {
-                        refreshUI(list);
-                    } else {
-                        UIUtils.showToast("没有信息");
-                    }
-                } else {
-                    UIUtils.showToast(infoList.getMessage());
-                }
-            }
-        });
+    @Override
+    protected int getFragmentLayout() {
+        return R.layout.fragment_recyclerview;
     }
 
 
@@ -93,6 +76,8 @@ public class ArrivalInStorageCompleteFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
+        // 第一次获取数据
+        materialPresenter.fetchDoneMaterial();
         /**设置 Header
          * BezierRadarHeader  贝塞尔雷达
          * WaterDropHeader 苹果水滴
@@ -111,7 +96,8 @@ public class ArrivalInStorageCompleteFragment extends Fragment {
                 // 传入 false 表示刷新失败
                 refreshLayout.finishRefresh(1000);
                 // 刷新数据
-                getMaterialInWarehouseOrderList();
+                materialPresenter.fetchDoneMaterial();
+                materialAdapter = null;
 
             }
         });
@@ -119,25 +105,35 @@ public class ArrivalInStorageCompleteFragment extends Fragment {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 // 传入 false 表示刷新失败
-                refreshLayout.finishLoadMore(2000);
+                refreshLayout.finishLoadMore(1000);
                 UIUtils.showToast("没有更多数据了");
             }
         });
     }
 
-    private void refreshUI(final List<MaterialData.ListBean> list) {
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        // 关闭网络请求
+    }
+
+
+    @Override
+    public void showMaterial(final List<MaterialDoneData.ListBean> list) {
         if (materialAdapter == null) {
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             recyclerView.setLayoutManager(manager);
-            materialAdapter = new MaterialAdapter(this.getContext(), R.layout.item_arrive_in_storage_complete, list);
+            materialAdapter = new MaterialDoneAdapter(this.getContext(), R.layout.item_arrive_in_storage_complete, list);
             recyclerView.setAdapter(materialAdapter);
             materialAdapter.setOnItemClickListener(new MaterialAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                     Intent intent = new Intent(getActivity(), ArrivalInStorageDetailActivity.class);
-                    intent.putExtra("orderId", list.get(position).getOrderId());
-                    intent.putExtra("sapOrderNo", list.get(position).getSapOrderNo());
+                    intent.putExtra("orderId", list.get(position).getmInWarehouseOrderId());
+                    intent.putExtra("sapOrderNo", list.get(position).getmInWarehouseOrderNo());
                     startActivity(intent);
                 }
 
@@ -150,12 +146,12 @@ public class ArrivalInStorageCompleteFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void showLoading() {
 
-        // 关闭网络请求
     }
 
+    @Override
+    public void hideLoading() {
 
-
+    }
 }
