@@ -20,21 +20,15 @@ import butterknife.OnClick;
  */
 public class MainActivity extends BaseActivity {
 
-    @BindView(R.id.ll_storage)
-    LinearLayout llStorage;
-    @BindView(R.id.rl_check)
-    RelativeLayout rlCheck;
 
     @Override
     protected void onBaseCreate(Bundle savedInstanceState) {
-        ButterKnife.bind(this);
-        rlCheck.setVisibility(View.GONE);
-        llStorage.setVisibility(View.VISIBLE);
+
     }
 
     @Override
     protected int getActivityLayout() {
-        return R.layout.activity_main;
+        return R.layout.activity_main1;
     }
 
     @Override
@@ -49,7 +43,7 @@ public class MainActivity extends BaseActivity {
 
     @OnClick({R.id.tv_arrival_in_storage, R.id.tv_pick_out_storage, R.id.tv_purchase_returns, R.id.tv_purchase_in_storage,
             R.id.tv_produce_in_storage, R.id.tv_send_out_storage, R.id.tv_return_in_storage, R.id.tv_inventory,
-            R.id.tv_transfer_storage, R.id.tv_person_center, R.id.tv_quality_check, R.id.tv_check_person})
+            R.id.tv_transfer_storage, R.id.tv_person_center})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_arrival_in_storage:
@@ -93,14 +87,14 @@ public class MainActivity extends BaseActivity {
                 //个人中心
                 gotoActivity(PersonCenterActivity.class);
                 break;
-            case R.id.tv_quality_check:
-                //质检
-                gotoActivity(QualityCheckActivity.class);
-                break;
-            case R.id.tv_check_person:
-                //质检个人中心
-                gotoActivity(PersonCenterActivity.class);
-                break;
+//            case R.id.tv_quality_check:
+//                //质检
+//                gotoActivity(QualityCheckActivity.class);
+//                break;
+//            case R.id.tv_check_person:
+//                //质检个人中心
+//                gotoActivity(PersonCenterActivity.class);
+//                break;
             default:
                 break;
         }

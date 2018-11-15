@@ -1,7 +1,6 @@
 package com.ty.zbpet.presenter.material;
 
-import com.ty.zbpet.bean.MaterialData;
-import com.ty.zbpet.ui.base.BaseResponse;
+import com.ty.zbpet.bean.MaterialTodoData;
 
 import java.util.List;
 
@@ -12,5 +11,5 @@ import java.util.List;
  */
 public interface MaterialModelInterface {
 
-    void saveMaterial(List<MaterialData.ListBean> list);
+    void saveMaterial(List<MaterialTodoData.ListBean> list);
 }

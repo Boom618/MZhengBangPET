@@ -16,11 +16,11 @@ import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.ty.zbpet.R;
-import com.ty.zbpet.bean.MaterialData;
+import com.ty.zbpet.bean.MaterialTodoData;
 import com.ty.zbpet.presenter.material.MaterialPresenter;
 import com.ty.zbpet.presenter.material.MaterialUiListInterface;
-import com.ty.zbpet.ui.activity.material.ArrivalInStorageDetailActivity;
-import com.ty.zbpet.ui.adapter.MaterialAdapter;
+import com.ty.zbpet.ui.activity.material.ArrivalInTodoDetailActivity;
+import com.ty.zbpet.ui.adapter.MaterialTodoAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.ResourceUtil;
@@ -38,7 +38,7 @@ import butterknife.BindView;
  * <p>
  * 待办 （ 入库 ） Fragment
  */
-public class MaterialTodoFragment extends BaseFragment implements MaterialUiListInterface<MaterialData.ListBean> {
+public class MaterialTodoFragment extends BaseFragment implements MaterialUiListInterface<MaterialTodoData.ListBean> {
 
 
     @BindView(R.id.recyclerView)
@@ -46,7 +46,7 @@ public class MaterialTodoFragment extends BaseFragment implements MaterialUiList
     @BindView(R.id.refreshLayout)
     RefreshLayout refreshLayout;
 
-    private MaterialAdapter adapter;
+    private MaterialTodoAdapter adapter;
 
     private MaterialPresenter materialPresenter = new MaterialPresenter(this);
 
@@ -115,19 +115,19 @@ public class MaterialTodoFragment extends BaseFragment implements MaterialUiList
     }
 
     @Override
-    public void showMaterial(final List<MaterialData.ListBean> list) {
+    public void showMaterial(final List<MaterialTodoData.ListBean> list) {
 
         if (adapter == null) {
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             recyclerView.setLayoutManager(manager);
-            adapter = new MaterialAdapter(ResourceUtil.getContext(), R.layout.item_arrive_in_storage_complete, list);
+            adapter = new MaterialTodoAdapter(ResourceUtil.getContext(), R.layout.item_arrive_in_storage_complete, list);
             recyclerView.setAdapter(adapter);
-            adapter.setOnItemClickListener(new MaterialAdapter.OnItemClickListener() {
+            adapter.setOnItemClickListener(new MaterialTodoAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    Intent intent = new Intent(getActivity(), ArrivalInStorageDetailActivity.class);
-                    intent.putExtra("orderId", list.get(position).getSupplierId());
+                    Intent intent = new Intent(getActivity(), ArrivalInTodoDetailActivity.class);
+                    //intent.putExtra("orderId", list.get(position).getSupplierId());
                     intent.putExtra("sapOrderNo", list.get(position).getSapOrderNo());
                     startActivity(intent);
                 }

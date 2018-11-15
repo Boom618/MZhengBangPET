@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ty.zbpet.R;
-import com.ty.zbpet.bean.MaterialDetailsData;
+import com.ty.zbpet.bean.MaterialTodoDetailsData;
 import com.ty.zbpet.util.ACache;
 import com.ty.zbpet.util.CodeConstant;
 import com.zhy.adapter.recyclerview.CommonAdapter;
@@ -26,13 +26,13 @@ import java.util.List;
  * <p>
  * 到货入库 （待办/已办 详情）
  */
-public class MaterialDetailAdapter extends CommonAdapter {
+public class MaterialTodoDetailAdapter extends CommonAdapter {
 
-    private List<MaterialDetailsData.DetailsBean> infoList;
+    private List<MaterialTodoDetailsData.DetailsBean> infoList;
     private Context context;
 
 
-    public MaterialDetailAdapter(Context context, int layoutId, List datas) {
+    public MaterialTodoDetailAdapter(Context context, int layoutId, List datas) {
         super(context, layoutId, datas);
         this.context = context;
         this.infoList = datas;
@@ -47,7 +47,7 @@ public class MaterialDetailAdapter extends CommonAdapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
 
         View itemView = holder.itemView;
-        MaterialDetailsData.DetailsBean info = infoList.get(position);
+        MaterialTodoDetailsData.DetailsBean info = infoList.get(position);
 
         TextView tvName = itemView.findViewById(R.id.tv_name);
         tvName.setText(info.getMaterialName());

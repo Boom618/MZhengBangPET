@@ -2,15 +2,12 @@ package com.ty.zbpet.util;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
-import com.ty.zbpet.ui.activity.material.ArrivalInStorageDetailActivity;
 import com.ty.zbpet.ui.widght.CustomDatePicker;
 
 import java.text.SimpleDateFormat;

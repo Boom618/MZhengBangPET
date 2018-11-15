@@ -16,7 +16,7 @@ import com.ty.zbpet.R;
 import com.ty.zbpet.bean.PickOutDetailInfo;
 import com.ty.zbpet.presenter.material.MaterialUiObjlInterface;
 import com.ty.zbpet.presenter.material.PickOutPresenter;
-import com.ty.zbpet.ui.activity.material.ArrivalInStorageDetailActivity;
+import com.ty.zbpet.ui.activity.material.ArrivalInTodoDetailActivity;
 import com.ty.zbpet.ui.adapter.PickOutAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
@@ -134,7 +134,7 @@ public class PickOutTodoFragment extends BaseFragment implements MaterialUiObjlI
             adapter.setOnItemClickListener(new PickOutAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    Intent intent=new Intent(getActivity(), ArrivalInStorageDetailActivity.class);
+                    Intent intent=new Intent(getActivity(), ArrivalInTodoDetailActivity.class);
                     // TODO 传参 跳转
 
                     startActivity(intent);

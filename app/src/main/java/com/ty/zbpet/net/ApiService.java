@@ -2,8 +2,9 @@ package com.ty.zbpet.net;
 
 import com.ty.zbpet.bean.GoodsPurchaseOrderInfo;
 import com.ty.zbpet.bean.GoodsPurchaseOrderList;
-import com.ty.zbpet.bean.MaterialData;
-import com.ty.zbpet.bean.MaterialDetailsData;
+import com.ty.zbpet.bean.MaterialDoneDetailsData;
+import com.ty.zbpet.bean.MaterialTodoData;
+import com.ty.zbpet.bean.MaterialTodoDetailsData;
 import com.ty.zbpet.bean.MaterialDoneData;
 import com.ty.zbpet.bean.PickOutDetailInfo;
 import com.ty.zbpet.bean.ResponseInfo;
@@ -15,7 +16,6 @@ import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
-import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -32,16 +32,17 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.GET_MATERIAL_INWAREHOUSE_ORDERLIST)
-    Observable<BaseResponse<MaterialData>> getMaterialOrderList();
+    Observable<BaseResponse<MaterialTodoData>> getMaterialTodoList();
 
     /**
      * 获取原辅料采购 待办 详情
      *
+     * @param sapOrderNo
      * @return
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_MATERIAL_INWAREHOUSE_ORDERINFO)
-    Observable<BaseResponse<MaterialDetailsData>> getMaterialInWarehouseOrderInfo(@Field("sapOrderNo") String sapOrderNo);
+    Observable<BaseResponse<MaterialTodoDetailsData>> getMaterialTodoListDetail(@Field("sapOrderNo") String sapOrderNo);
 
     /**
      * 待办 保存
@@ -70,20 +71,21 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.GET_MATERIAL_PURCHASE_LIST)
-    Observable<BaseResponse<MaterialDoneData>> getMaterialInWarehouseOrderList();
+    Observable<BaseResponse<MaterialDoneData>> getMaterialDoneList();
 
     /**
      * 获取原辅料采购 已办列表详情
      *
+     * @param id
      * @return
      */
     @POST(ApiNameConstant.GET_MATERIAL_PURCHASE_LIST_INFO)
-    Observable<BaseResponse<MaterialData>> getMaterialInWarehouseOrderListInfo(@Field("mInWarehouseOrderId") String id);
+    Observable<BaseResponse<MaterialDoneDetailsData>> getMaterialDoneListDetail(@Field("mInWarehouseOrderId") String id);
 
     /**
      * 原辅料采购冲销入库
      *
-     * @param
+     * @param body
      * @return
      */
     @POST(ApiNameConstant.PURCHASE_IN_RECALL_OUT)

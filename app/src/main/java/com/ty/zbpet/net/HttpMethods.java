@@ -4,8 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.ty.zbpet.bean.GoodsPurchaseOrderInfo;
 import com.ty.zbpet.bean.GoodsPurchaseOrderList;
-import com.ty.zbpet.bean.MaterialData;
-import com.ty.zbpet.bean.MaterialDetailsData;
+import com.ty.zbpet.bean.MaterialDoneDetailsData;
+import com.ty.zbpet.bean.MaterialTodoData;
+import com.ty.zbpet.bean.MaterialTodoDetailsData;
 import com.ty.zbpet.bean.MaterialDoneData;
 import com.ty.zbpet.bean.PickOutDetailInfo;
 import com.ty.zbpet.bean.ResponseInfo;
@@ -20,8 +21,6 @@ import com.zhouyou.http.subsciber.BaseSubscriber;
 
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Observable;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
@@ -89,30 +88,19 @@ public class HttpMethods {
      * 获取原辅料采购待办列表
      * @param subscriber
      */
-    public void getMaterialOrderListTodo(BaseSubscriber<BaseResponse<MaterialData>> subscriber){
-        mService.getMaterialOrderList()
+    public void getMaterialTodoList(BaseSubscriber<BaseResponse<MaterialTodoData>> subscriber){
+        mService.getMaterialTodoList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
 
-//    /**
-//     * 获取原辅料采购已办详情
-//     * @param subscriber
-//     */
-//    public void getMaterialInWarehouseOrderInfo(BaseSubscriber<MaterialInWarehouseOrderInfo> subscriber,String sapOrderNo){
-//        mService.getMaterialInWarehouseOrderInfo(sapOrderNo)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(subscriber);
-//    }
-
     /**
-     * 获取原辅料采购已办详情（待办 list  详情）
+     * 获取原辅料采购 待办 详情
      * @param subscriber
      */
-    public void getMaterialInWarehouseOrderInfo(BaseSubscriber<BaseResponse<MaterialDetailsData>> subscriber, String sapOrderNo){
-        mService.getMaterialInWarehouseOrderInfo(sapOrderNo)
+    public void getMaterialTodoListDetail(BaseSubscriber<BaseResponse<MaterialTodoDetailsData>> subscriber, String sapOrderNo){
+        mService.getMaterialTodoListDetail(sapOrderNo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -147,8 +135,20 @@ public class HttpMethods {
      * 已办列表
      * @param subscriber
      */
-    public void getMaterialOrderListDone(BaseSubscriber<BaseResponse<MaterialDoneData>> subscriber){
-        mService.getMaterialInWarehouseOrderList()
+    public void getMaterialDoneList(BaseSubscriber<BaseResponse<MaterialDoneData>> subscriber){
+        mService.getMaterialDoneList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 已办详情
+     * @param subscriber
+     * @param id
+     */
+    public void getMaterialDoneListDetail(BaseSubscriber<BaseResponse<MaterialDoneDetailsData>> subscriber, String id){
+        mService.getMaterialDoneListDetail(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);

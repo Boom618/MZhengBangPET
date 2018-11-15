@@ -58,5 +58,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_pick_out_storage_detail">PickOutStorageDetailActivity</string>
     <string name="material_arrival_details">到货明细</string>
+    <string name="material_storage">入库</string>
+    <string name="material_reversal">冲销</string>
 
 </resources>

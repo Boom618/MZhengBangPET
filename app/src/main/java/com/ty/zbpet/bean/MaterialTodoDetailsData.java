@@ -8,7 +8,7 @@ import java.util.List;
  * 到货入库 待办 list 详情
  *
  */
-public class MaterialDetailsData implements Serializable {
+public class MaterialTodoDetailsData implements Serializable {
 
 
     /**

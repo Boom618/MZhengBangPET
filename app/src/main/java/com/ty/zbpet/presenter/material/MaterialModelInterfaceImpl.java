@@ -1,7 +1,6 @@
 package com.ty.zbpet.presenter.material;
 
-import com.ty.zbpet.bean.MaterialData;
-import com.ty.zbpet.ui.base.BaseResponse;
+import com.ty.zbpet.bean.MaterialTodoData;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -11,10 +10,10 @@ import java.util.List;
  */
 public class MaterialModelInterfaceImpl implements MaterialModelInterface {
 
-    List<MaterialData.ListBean> materialData = new LinkedList<>();
+    List<MaterialTodoData.ListBean> materialData = new LinkedList<>();
 
     @Override
-    public void saveMaterial(List<MaterialData.ListBean> list) {
+    public void saveMaterial(List<MaterialTodoData.ListBean> list) {
 
         materialData.addAll(list);
 

@@ -5,17 +5,22 @@ import android.support.v7.widget.RecyclerView;
 
 import com.ty.zbpet.R;
 import com.ty.zbpet.ui.base.BaseActivity;
+import com.ty.zbpet.presenter.material.MaterialUiListInterface;
+
+import java.util.List;
 
 import butterknife.BindView;
 
-
 /**
+ * @author TY on 2018/11/14.
  *
- * @author TY
- * 领料出库详情
+ * 已办 详情
+ *
  */
-public class PickOutStorageDetailActivity extends BaseActivity {
+public class ArrivalInDoneDetailActivity extends BaseActivity implements MaterialUiListInterface {
 
+    @BindView(R.id.rc_done_detail_list)
+    RecyclerView doneDetail;
 
 
     @Override
@@ -25,7 +30,6 @@ public class PickOutStorageDetailActivity extends BaseActivity {
 
     @Override
     protected int getActivityLayout() {
-        // activity_arrival_in_storage_detail
         return R.layout.activity_material_done_detail;
     }
 
@@ -39,4 +43,18 @@ public class PickOutStorageDetailActivity extends BaseActivity {
 
     }
 
+    @Override
+    public void showMaterial(List list) {
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
 }

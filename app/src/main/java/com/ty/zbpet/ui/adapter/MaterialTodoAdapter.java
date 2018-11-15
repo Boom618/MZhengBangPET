@@ -7,7 +7,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ty.zbpet.R;
-import com.ty.zbpet.bean.MaterialData;
+import com.ty.zbpet.bean.MaterialTodoData;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -18,12 +18,12 @@ import java.util.List;
  * <p>
  * 到货入库 Adapter
  */
-public class MaterialAdapter extends CommonAdapter {
+public class MaterialTodoAdapter extends CommonAdapter {
 
-    private List<MaterialData.ListBean> infoList;
+    private List<MaterialTodoData.ListBean> infoList;
 
 
-    public MaterialAdapter(Context context, int layoutId, List datas) {
+    public MaterialTodoAdapter(Context context, int layoutId, List datas) {
         super(context, layoutId, datas);
 
         infoList = datas;
@@ -39,7 +39,7 @@ public class MaterialAdapter extends CommonAdapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
 
-        MaterialData.ListBean info = infoList.get(position);
+        MaterialTodoData.ListBean info = infoList.get(position);
 
 
         TextView tvNo = holder.itemView.findViewById(R.id.tv_no);

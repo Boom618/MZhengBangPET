@@ -1,15 +1,10 @@
 package com.ty.zbpet.ui.fragment.material;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 
 import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -18,27 +13,20 @@ import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.ty.zbpet.R;
-import com.ty.zbpet.bean.MaterialData;
 import com.ty.zbpet.bean.MaterialDoneData;
-import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.presenter.material.MaterialPresenter;
 import com.ty.zbpet.presenter.material.MaterialUiListInterface;
-import com.ty.zbpet.ui.activity.material.ArrivalInStorageDetailActivity;
-import com.ty.zbpet.ui.adapter.MaterialAdapter;
+import com.ty.zbpet.ui.activity.material.ArrivalInTodoDetailActivity;
 import com.ty.zbpet.ui.adapter.MaterialDoneAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
-import com.ty.zbpet.ui.base.BaseResponse;
 import com.ty.zbpet.ui.base.EmptyLayout;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.UIUtils;
-import com.zhouyou.http.exception.ApiException;
-import com.zhouyou.http.subsciber.BaseSubscriber;
 
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 原辅料——到货入库——已办
@@ -126,14 +114,13 @@ public class MaterialDoneFragment extends BaseFragment implements MaterialUiList
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             recyclerView.setLayoutManager(manager);
-            materialAdapter = new MaterialDoneAdapter(this.getContext(), R.layout.item_arrive_in_storage_complete, list);
+            materialAdapter = new MaterialDoneAdapter(this.getContext(), R.layout.item_arrive_in_storage_complete_done, list);
             recyclerView.setAdapter(materialAdapter);
-            materialAdapter.setOnItemClickListener(new MaterialAdapter.OnItemClickListener() {
+            materialAdapter.setOnItemClickListener(new MaterialDoneAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    Intent intent = new Intent(getActivity(), ArrivalInStorageDetailActivity.class);
-                    intent.putExtra("orderId", list.get(position).getmInWarehouseOrderId());
-                    intent.putExtra("sapOrderNo", list.get(position).getmInWarehouseOrderNo());
+                    Intent intent = new Intent(getActivity(), ArrivalInTodoDetailActivity.class);
+                    intent.putExtra("mInWarehouseOrderId", list.get(position).getmInWarehouseOrderId());
                     startActivity(intent);
                 }
 

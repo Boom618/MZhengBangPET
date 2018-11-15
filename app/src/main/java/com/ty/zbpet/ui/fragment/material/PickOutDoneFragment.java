@@ -11,7 +11,7 @@ import com.ty.zbpet.R;
 import com.ty.zbpet.bean.PickOutDetailInfo;
 import com.ty.zbpet.presenter.material.MaterialPresenter;
 import com.ty.zbpet.presenter.material.MaterialUiListInterface;
-import com.ty.zbpet.ui.adapter.MaterialAdapter;
+import com.ty.zbpet.ui.adapter.MaterialTodoAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
 
 import java.util.List;
@@ -31,7 +31,7 @@ public class PickOutDoneFragment extends BaseFragment implements MaterialUiListI
     @BindView(R.id.refreshLayout)
     RefreshLayout refreshLayout;
 
-    private MaterialAdapter adapter;
+    private MaterialTodoAdapter adapter;
 
     private MaterialPresenter materialPresenter = new MaterialPresenter(this);
 

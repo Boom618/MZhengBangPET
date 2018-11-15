@@ -1,7 +1,7 @@
 package com.ty.zbpet.presenter.material;
 
-import com.ty.zbpet.bean.MaterialData;
-import com.ty.zbpet.bean.MaterialDetailsData;
+import com.ty.zbpet.bean.MaterialTodoData;
+import com.ty.zbpet.bean.MaterialTodoDetailsData;
 import com.ty.zbpet.bean.MaterialDoneData;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.net.HttpMethods;
@@ -36,7 +36,10 @@ public class MaterialPresenter {
      */
     MaterialModelInterface materialModel = new MaterialModelInterfaceImpl();
 
-    // API 网络
+    /**
+     * API 网络
+     */
+    HttpMethods httpMethods;
 
     /**
      * 接收 list UI 接口
@@ -45,6 +48,7 @@ public class MaterialPresenter {
      */
     public MaterialPresenter(MaterialUiListInterface materialUiInterface) {
         this.materialListUi = materialUiInterface;
+        httpMethods = HttpMethods.getInstance();
     }
 
     /**
@@ -54,6 +58,7 @@ public class MaterialPresenter {
      */
     public MaterialPresenter(MaterialUiObjlInterface materialObjUi) {
         this.materialObjUi = materialObjUi;
+        httpMethods = HttpMethods.getInstance();
     }
 
     /**
@@ -64,7 +69,7 @@ public class MaterialPresenter {
         materialListUi.showLoading();
 
         // APi  获取数据
-        HttpMethods.getInstance().getMaterialOrderListTodo(new BaseSubscriber<BaseResponse<MaterialData>>() {
+        httpMethods.getMaterialTodoList(new BaseSubscriber<BaseResponse<MaterialTodoData>>() {
 
             @Override
             public void onError(ApiException e) {
@@ -73,14 +78,14 @@ public class MaterialPresenter {
             }
 
             @Override
-            public void onNext(BaseResponse<MaterialData> infoList) {
+            public void onNext(BaseResponse<MaterialTodoData> infoList) {
                 materialListUi.hideLoading();
                 UIUtils.showToast("原辅料——到货入库——待办 == success ");
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(infoList.getTag())) {
 
                     if (infoList != null && infoList.getData().getList().size() != 0) {
-                        List<MaterialData.ListBean> list = infoList.getData().getList();
+                        List<MaterialTodoData.ListBean> list = infoList.getData().getList();
 
                         // 数据
                         materialListUi.showMaterial(list);
@@ -104,18 +109,18 @@ public class MaterialPresenter {
      */
     public void fetchTODOMaterialDetails(String sapOrderNo) {
 
-        HttpMethods.getInstance().getMaterialInWarehouseOrderInfo(new BaseSubscriber<BaseResponse<MaterialDetailsData>>() {
+        httpMethods.getMaterialTodoListDetail(new BaseSubscriber<BaseResponse<MaterialTodoDetailsData>>() {
             @Override
             public void onError(ApiException e) {
                 UIUtils.showToast(e.getMessage());
             }
 
             @Override
-            public void onNext(BaseResponse<MaterialDetailsData> info) {
+            public void onNext(BaseResponse<MaterialTodoDetailsData> info) {
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(info.getTag())) {
 
-                    MaterialDetailsData data = info.getData();
+                    MaterialTodoDetailsData data = info.getData();
 
                     TLog.d(data);
 
@@ -135,7 +140,7 @@ public class MaterialPresenter {
      */
     public void checkCarCode(String id,String code){
 
-        HttpMethods.getInstance().checkCarCode(new BaseSubscriber<ResponseInfo>() {
+        httpMethods.checkCarCode(new BaseSubscriber<ResponseInfo>() {
             @Override
             public void onError(ApiException e) {
 
@@ -159,7 +164,7 @@ public class MaterialPresenter {
      * 原材料 已办 列表
      */
     public void fetchDoneMaterial(){
-        HttpMethods.getInstance().getMaterialOrderListDone(new BaseSubscriber<BaseResponse<MaterialDoneData>>() {
+        httpMethods.getMaterialDoneList(new BaseSubscriber<BaseResponse<MaterialDoneData>>() {
             @Override
             public void onError(ApiException e) {
                 UIUtils.showToast("原辅料——到货入库——已办 == onError ");
@@ -184,6 +189,13 @@ public class MaterialPresenter {
                 }
             }
         });
+    }
+
+    /**
+     * 已办详情
+     */
+    public void fetchDoneMaterialDetails(){
+
     }
 
 

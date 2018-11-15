@@ -18,13 +18,13 @@ import com.google.gson.Gson;
 import com.pda.scanner.ScanReader;
 import com.pda.scanner.Scanner;
 import com.ty.zbpet.R;
-import com.ty.zbpet.bean.MaterialDetailsData;
+import com.ty.zbpet.bean.MaterialTodoDetailsData;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.constant.ApiNameConstant;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.presenter.material.MaterialUiObjlInterface;
 import com.ty.zbpet.presenter.material.MaterialPresenter;
-import com.ty.zbpet.ui.adapter.MaterialDetailAdapter;
+import com.ty.zbpet.ui.adapter.MaterialTodoDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.CodeConstant;
@@ -34,7 +34,6 @@ import com.ty.zbpet.util.UIUtils;
 import com.ty.zbpet.util.Utils;
 import com.ty.zbpet.util.scan.ScanBoxInterface;
 import com.ty.zbpet.util.scan.ScanObservable;
-import com.weavey.utils.UiUtils;
 import com.zhouyou.http.exception.ApiException;
 import com.zhouyou.http.subsciber.BaseSubscriber;
 
@@ -63,12 +62,12 @@ import okhttp3.ResponseBody;
 import okhttp3.RequestBody;
 
 /**
- * 原辅料——到货入库详情
+ * 原辅料——到货入库详情、待办
  *
  * @author TY
  */
-public class ArrivalInStorageDetailActivity extends BaseActivity implements MaterialUiObjlInterface<MaterialDetailsData>
-        , MaterialDetailAdapter.SaveEditListener, ScanBoxInterface {
+public class ArrivalInTodoDetailActivity extends BaseActivity implements MaterialUiObjlInterface<MaterialTodoDetailsData>
+        , MaterialTodoDetailAdapter.SaveEditListener, ScanBoxInterface {
 
     @BindView(R.id.rv_in_storage_detail)
     RecyclerView recyclerView;
@@ -77,10 +76,10 @@ public class ArrivalInStorageDetailActivity extends BaseActivity implements Mate
     @BindView(R.id.et_desc)
     EditText etDesc;
 
-    private MaterialDetailAdapter adapter;
-    private List<MaterialDetailsData.DetailsBean> list = new ArrayList<>();
+    private MaterialTodoDetailAdapter adapter;
+    private List<MaterialTodoDetailsData.DetailsBean> list = new ArrayList<>();
 
-    private String orderId;
+    private String mInWarehouseOrderId;
     private String sapOrderNo;
     private String warehouseId;
 
@@ -130,7 +129,6 @@ public class ArrivalInStorageDetailActivity extends BaseActivity implements Mate
     protected void initOneData() {
 
         sapOrderNo = getIntent().getStringExtra("sapOrderNo");
-        orderId = getIntent().getStringExtra("orderId");
 
         materialPresenter.fetchTODOMaterialDetails(sapOrderNo);
     }
@@ -152,7 +150,7 @@ public class ArrivalInStorageDetailActivity extends BaseActivity implements Mate
             @Override
             public void onClick(View view) {
 
-                UIUtils.showPickDate(ArrivalInStorageDetailActivity.this, new OnTimeSelectListener() {
+                UIUtils.showPickDate(ArrivalInTodoDetailActivity.this, new OnTimeSelectListener() {
                     @Override
                     public void onTimeSelect(Date date, View v) {
                         //选中事件回调
@@ -168,8 +166,8 @@ public class ArrivalInStorageDetailActivity extends BaseActivity implements Mate
 
     private RequestBody initParam() {
 
-        MaterialDetailsData requestBody = new MaterialDetailsData();
-        List<MaterialDetailsData.DetailsBean> detail = new ArrayList<>();
+        MaterialTodoDetailsData requestBody = new MaterialTodoDetailsData();
+        List<MaterialTodoDetailsData.DetailsBean> detail = new ArrayList<>();
 //        "warehouseId": "3",
 //         "inStoreDate": "2018-09-06",
 //         "sapProcOrder": "SAP00009",
@@ -181,7 +179,7 @@ public class ArrivalInStorageDetailActivity extends BaseActivity implements Mate
             String carCode = carCodeArray.get(i);
             String batchNo = batchNoArray.get(i);
 
-            MaterialDetailsData.DetailsBean bean = new MaterialDetailsData.DetailsBean();
+            MaterialTodoDetailsData.DetailsBean bean = new MaterialTodoDetailsData.DetailsBean();
             if (null != bulkNum && null != carCode) {
                 if (!bulkNum.isEmpty()) {
                     bean.setNumber(bulkNum);
@@ -198,7 +196,7 @@ public class ArrivalInStorageDetailActivity extends BaseActivity implements Mate
                 break;
             }else{
                 // 车库数量和车库码必须一致
-                UIUtils.showToast("车库数量或车库码不全");
+                UIUtils.showToast("车库数量或车库码信息不全");
                 break;
             }
         }
@@ -244,7 +242,7 @@ public class ArrivalInStorageDetailActivity extends BaseActivity implements Mate
 
 
     @Override
-    public void detailObjData(MaterialDetailsData obj) {
+    public void detailObjData(MaterialTodoDetailsData obj) {
 
         warehouseId = obj.getWarehouseId();
         list.clear();
@@ -255,10 +253,10 @@ public class ArrivalInStorageDetailActivity extends BaseActivity implements Mate
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             recyclerView.setLayoutManager(manager);
-            adapter = new MaterialDetailAdapter(this, R.layout.item_arrive_in_storage_detail, obj.getDetails());
+            adapter = new MaterialTodoDetailAdapter(this, R.layout.item_arrive_in_storage_detail, obj.getDetails());
             recyclerView.setAdapter(adapter);
 
-            adapter.setOnItemClickListener(new MaterialDetailAdapter.OnItemClickListener() {
+            adapter.setOnItemClickListener(new MaterialTodoDetailAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
 
