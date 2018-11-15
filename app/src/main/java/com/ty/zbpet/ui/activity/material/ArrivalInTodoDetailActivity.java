@@ -216,7 +216,7 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
     // 入库保存
     private void doPurchaseInRecallOut(RequestBody body) {
 
-        HttpMethods.getInstance().materialInSave(new BaseSubscriber<ResponseInfo>() {
+        HttpMethods.getInstance().materialTodoInSave(new BaseSubscriber<ResponseInfo>() {
             @Override
             public void onError(ApiException e) {
                 UIUtils.showToast(e.getMessage());
@@ -290,15 +290,15 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
     public void saveEditAndGetHasFocusPosition(String etType, Boolean hasFocus, int position, String textContent) {
         // 用户在 EditText 中输入的数据
         currentPosition = position;
-        currentFocus = hasFocus;
 
         if (CodeConstant.ET_BULK_NUM.equals(etType)) {
             bulkNumArray.put(position, textContent);
 
             // 车库码 需要判断合法性
         } else if (CodeConstant.ET_CODE.equals(etType)) {
-            String tempString = textContent;
+            currentFocus = hasFocus;
 
+            String tempString = textContent;
             // 【情况 ② 】 无焦点 有内容 http 校验
             if (!TextUtils.isEmpty(textContent)) {
                 if (!hasFocus) {
@@ -332,8 +332,8 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
 
             if (currentFocus && currentPosition != -1) {
                 // 扫描
-                doDeCode();
             }
+            doDeCode();
 
             return true;
         }

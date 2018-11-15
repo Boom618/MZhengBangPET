@@ -40,6 +40,27 @@
             android:name=".ui.activity.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".ui.activity.material.ArrivalInStorageActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".ui.activity.material.ArrivalInTodoDetailActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".ui.activity.material.ArrivalInDoneDetailActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".ui.activity.material.ArrivalInDoneDetailActivityK"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+
         <activity
             android:name=".ui.activity.PersonCenterActivity"
             android:screenOrientation="portrait"
@@ -68,10 +89,7 @@
             android:name=".ui.activity.PurchaseReturnsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity
-            android:name=".ui.activity.material.ArrivalInStorageActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+
         <activity
             android:name=".ui.activity.ReturnInStorageActivity"
             android:screenOrientation="portrait"
@@ -96,10 +114,8 @@
             android:name=".ui.activity.TransferStorageDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity
-            android:name=".ui.activity.material.ArrivalInTodoDetailActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+
         <activity
             android:name=".ui.activity.PurchaseInStorageDetailActivity"
             android:screenOrientation="portrait"
@@ -111,7 +127,7 @@
         <activity
             android:name=".ui.activity.material.PickOutStorageDetailActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
     </application>
 
 </manifest>

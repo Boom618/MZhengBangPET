@@ -57,13 +57,11 @@ public interface ApiService {
     /**
      * 车库码检验
      *
-     * @param materialId
-     * @param carCode
+     * @param positionNo
      * @return
      */
     @POST(ApiNameConstant.CHECK_CAR_CODE)
-    Observable<ResponseInfo> checkCarCode(@Field("materialId") String materialId,
-                                          @Field("carCode") String carCode);
+    Observable<ResponseInfo> checkCarCode(@Field("positionNo") String positionNo);
 
     /**
      * 获取原辅料采购 已办列表
@@ -79,6 +77,7 @@ public interface ApiService {
      * @param id
      * @return
      */
+    @FormUrlEncoded
     @POST(ApiNameConstant.GET_MATERIAL_PURCHASE_LIST_INFO)
     Observable<BaseResponse<MaterialDoneDetailsData>> getMaterialDoneListDetail(@Field("mInWarehouseOrderId") String id);
 

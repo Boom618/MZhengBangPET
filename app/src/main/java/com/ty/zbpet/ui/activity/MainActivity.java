@@ -1,18 +1,13 @@
 package com.ty.zbpet.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.ty.zbpet.R;
 import com.ty.zbpet.ui.activity.material.ArrivalInStorageActivity;
 import com.ty.zbpet.ui.activity.material.PickOutStorageActivity;
 import com.ty.zbpet.ui.base.BaseActivity;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**

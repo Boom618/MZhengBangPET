@@ -112,7 +112,7 @@ public class HttpMethods {
      * @param subscriber
      * @param body
      */
-    public void materialInSave(BaseSubscriber<ResponseInfo> subscriber,RequestBody body){
+    public void materialTodoInSave(BaseSubscriber<ResponseInfo> subscriber, RequestBody body){
         mService.materialPurchaseInSave(body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -123,8 +123,8 @@ public class HttpMethods {
     /**
      * 车库码校验
      */
-    public void checkCarCode(BaseSubscriber<ResponseInfo> subscriber, String id, String code){
-        mService.checkCarCode(id,code)
+    public void checkCarCode(BaseSubscriber<ResponseInfo> subscriber, String positionNo){
+        mService.checkCarCode(positionNo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -155,6 +155,18 @@ public class HttpMethods {
     }
 
     /**
+     * 原辅料到货冲销入库 已办 保存
+     * @param subscriber
+     * @param body
+     */
+    public void materialDoneInSave(BaseSubscriber<ResponseInfo> subscriber, RequestBody body){
+        mService.purchaseInRecallOut(body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
      * 原料--领料出库详情 列表
      * @param subscriber
      */
@@ -165,17 +177,6 @@ public class HttpMethods {
                 .subscribe(subscriber);
     }
 
-    /**
-     * 原辅料到货冲销入库
-     * @param subscriber
-     * @param body
-     */
-    public void purchaseInRecallOut(BaseSubscriber<ResponseInfo> subscriber, RequestBody body){
-        mService.purchaseInRecallOut(body)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
-    }
 
     /**
      * 获取成品采购已办列表

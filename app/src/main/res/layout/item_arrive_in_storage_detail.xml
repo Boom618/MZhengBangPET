@@ -147,6 +147,7 @@
             android:layout_height="24dp"
             android:layout_below="@+id/bulk_code"
             android:layout_marginTop="8dp"
+            android:visibility="gone"
             android:layout_toRightOf="@+id/et_code"
             android:src="@mipmap/delete" />
 

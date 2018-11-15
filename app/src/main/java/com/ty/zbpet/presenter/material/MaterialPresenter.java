@@ -1,5 +1,6 @@
 package com.ty.zbpet.presenter.material;
 
+import com.ty.zbpet.bean.MaterialDoneDetailsData;
 import com.ty.zbpet.bean.MaterialTodoData;
 import com.ty.zbpet.bean.MaterialTodoDetailsData;
 import com.ty.zbpet.bean.MaterialDoneData;
@@ -13,6 +14,8 @@ import com.zhouyou.http.exception.ApiException;
 import com.zhouyou.http.subsciber.BaseSubscriber;
 
 import java.util.List;
+
+import okhttp3.RequestBody;
 
 /**
  * @author PVer on 2018/10/28.
@@ -62,6 +65,16 @@ public class MaterialPresenter {
     }
 
     /**
+     * 接收 list UI 接口  And  mode 接口
+     * @param materialListUi
+     * @param materialModel
+     */
+    public MaterialPresenter(MaterialUiListInterface materialListUi,MaterialModelInterface materialModel){
+        this.materialListUi = materialListUi;
+        this.materialModel = materialModel;
+    }
+
+    /**
      * 原辅料 待办 list  业务逻辑
      */
     public void fetchTODOMaterial() {
@@ -92,7 +105,7 @@ public class MaterialPresenter {
 
 
                         // 保存数据(数据库，缓存。。。)
-                        materialModel.saveMaterial(list);
+                        //materialModel.saveMaterial();
 
                     } else {
                         UIUtils.showToast("没有信息");
@@ -135,10 +148,10 @@ public class MaterialPresenter {
 
     /**
      * 车库码校验
-     * @param id
-     * @param code
+     *
+     * @param positionNo
      */
-    public void checkCarCode(String id,String code){
+    public void checkCarCode(String positionNo) {
 
         httpMethods.checkCarCode(new BaseSubscriber<ResponseInfo>() {
             @Override
@@ -152,18 +165,26 @@ public class MaterialPresenter {
                     // 车库码合法
 
 
-                }else{
+                } else {
                     UIUtils.showToast(responseInfo.getMessage());
                 }
 
             }
-        },id, code);
+        }, positionNo);
+    }
+
+
+    /**
+     * 待办 保存
+     */
+    public void materialTodeInSave() {
+
     }
 
     /**
      * 原材料 已办 列表
      */
-    public void fetchDoneMaterial(){
+    public void fetchDoneMaterial() {
         httpMethods.getMaterialDoneList(new BaseSubscriber<BaseResponse<MaterialDoneData>>() {
             @Override
             public void onError(ApiException e) {
@@ -176,7 +197,7 @@ public class MaterialPresenter {
                 UIUtils.showToast("原辅料——到货入库——已办 == success ");
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(infoList.getTag())) {
-                    if ( null != infoList && infoList.getData() != null) {
+                    if (null != infoList && infoList.getData() != null) {
                         List<MaterialDoneData.ListBean> list = infoList.getData().getList();
                         if (list != null && list.size() != 0) {
                             materialListUi.showMaterial(list);
@@ -184,7 +205,7 @@ public class MaterialPresenter {
                             UIUtils.showToast("没有信息");
                         }
                     }
-                }else {
+                } else {
                     UIUtils.showToast(infoList.getMessage());
                 }
             }
@@ -194,9 +215,53 @@ public class MaterialPresenter {
     /**
      * 已办详情
      */
-    public void fetchDoneMaterialDetails(){
+    public void fetchDoneMaterialDetails(String id) {
+        httpMethods.getMaterialDoneListDetail(new BaseSubscriber<BaseResponse<MaterialDoneDetailsData>>() {
+            @Override
+            public void onError(ApiException e) {
+                UIUtils.showToast(e.getMessage());
+            }
 
+            @Override
+            public void onNext(BaseResponse<MaterialDoneDetailsData> infoList) {
+
+                if (CodeConstant.SERVICE_SUCCESS.equals(infoList.getTag())) {
+                    if (null != infoList && infoList.getData() != null) {
+                        List<MaterialDoneDetailsData.ListBean> list = infoList.getData().getList();
+                        if (list != null && list.size() != 0) {
+                            materialListUi.showMaterial(list);
+                        } else {
+                            UIUtils.showToast("没有信息");
+                        }
+                    }
+                } else {
+                    UIUtils.showToast(infoList.getMessage());
+                }
+            }
+        }, id);
     }
 
 
+    /**
+     *  已办 保存
+     * @param body
+     */
+//    public void materialDoneInSave(RequestBody body) {
+//        httpMethods.materialDoneInSave(new BaseSubscriber<ResponseInfo>() {
+//            @Override
+//            public void onError(ApiException e) {
+//
+//            }
+//
+//            @Override
+//            public void onNext(ResponseInfo responseInfo) {
+//
+//                materialModel.saveMaterial(responseInfo);
+//                UIUtils.showToast("onNext :" + responseInfo.getMessage());
+//
+//            }
+//
+//        }, body);
+//
+//    }
 }

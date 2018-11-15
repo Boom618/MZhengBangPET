@@ -1,15 +1,28 @@
 package com.ty.zbpet.presenter.material;
 
-import com.ty.zbpet.bean.MaterialTodoData;
+import com.ty.zbpet.bean.ResponseInfo;
 
-import java.util.List;
 
 /**
  * @author PVer on 2018/10/28.
- *
+ * <p>
  * Model 接口
  */
 public interface MaterialModelInterface {
 
-    void saveMaterial(List<MaterialTodoData.ListBean> list);
+
+
+    /**
+     * 保存数据
+     *
+     * @param responseInfo
+     */
+    void saveMaterial(ResponseInfo responseInfo);
+
+
+    /**
+     * 保存数据
+     * @param list
+     */
+    //void saveMaterial(List<T> list);
 }

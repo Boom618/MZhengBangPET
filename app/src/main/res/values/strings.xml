@@ -61,4 +61,6 @@
     <string name="material_storage">入库</string>
     <string name="material_reversal">冲销</string>
 
+    <string name="material_remark">备注</string>
+
 </resources>

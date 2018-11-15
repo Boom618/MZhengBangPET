@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 def ZBConfig = rootProject.ext
 static def releaseTime() {
@@ -166,4 +167,8 @@ dependencies {
 
     //implementation project(':selectordialog') 暂停维护,慎用
     implementation 'com.lai.weavey:dialog:2.0.1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }

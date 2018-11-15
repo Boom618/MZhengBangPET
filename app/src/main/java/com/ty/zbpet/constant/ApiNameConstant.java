@@ -12,12 +12,12 @@ public class ApiNameConstant {
     /**
      * 原辅料——采购待办 列表
      */
-    public static final String GET_MATERIAL_INWAREHOUSE_ORDERLIST = "sap/zbSap/getMaterialDoneList";
+    public static final String GET_MATERIAL_INWAREHOUSE_ORDERLIST = "sap/zbSap/getMaterialInWarehouseOrderList";
 
     /**
      * 原辅料——采购待办 详情
      */
-    public static final String GET_MATERIAL_INWAREHOUSE_ORDERINFO = "sap/zbSap/getMaterialTodoListDetail";
+    public static final String GET_MATERIAL_INWAREHOUSE_ORDERINFO = "sap/zbSap/getMaterialInWarehouseOrderInfo";
 
 
     /**
@@ -28,7 +28,7 @@ public class ApiNameConstant {
     /**
      * 车库码校验
      */
-    public static final String CHECK_CAR_CODE = "stock";
+    public static final String CHECK_CAR_CODE = "resources/warePositionInfo/getPositionList";
 
     /**
      * 原辅料 -- 已办列表

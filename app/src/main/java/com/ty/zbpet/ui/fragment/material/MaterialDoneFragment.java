@@ -16,6 +16,8 @@ import com.ty.zbpet.R;
 import com.ty.zbpet.bean.MaterialDoneData;
 import com.ty.zbpet.presenter.material.MaterialPresenter;
 import com.ty.zbpet.presenter.material.MaterialUiListInterface;
+import com.ty.zbpet.ui.activity.material.ArrivalInDoneDetailActivity;
+import com.ty.zbpet.ui.activity.material.ArrivalInDoneDetailActivityK;
 import com.ty.zbpet.ui.activity.material.ArrivalInTodoDetailActivity;
 import com.ty.zbpet.ui.adapter.MaterialDoneAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
@@ -119,8 +121,11 @@ public class MaterialDoneFragment extends BaseFragment implements MaterialUiList
             materialAdapter.setOnItemClickListener(new MaterialDoneAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    Intent intent = new Intent(getActivity(), ArrivalInTodoDetailActivity.class);
+                    Intent intent = new Intent(getActivity(), ArrivalInDoneDetailActivity.class);
+//                    Intent intent = new Intent(getActivity(), ArrivalInDoneDetailActivityK.class);
                     intent.putExtra("mInWarehouseOrderId", list.get(position).getmInWarehouseOrderId());
+                    intent.putExtra("sapOrderNo", list.get(position).getSapOrderNo());
+                    intent.putExtra("warehouseId", list.get(position).getWarehouseId());
                     startActivity(intent);
                 }
 

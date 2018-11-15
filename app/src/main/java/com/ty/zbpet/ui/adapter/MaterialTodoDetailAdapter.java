@@ -100,6 +100,7 @@ public class MaterialTodoDetailAdapter extends CommonAdapter {
                 // 方式二 ：扫码输入值
                 //tempCode = ACache.get(context).getAsString(CodeConstant.SCAN_BOX_KEY);
                 if (TextUtils.isEmpty(value)) {
+                    ivDel.setVisibility(View.GONE);
                     return;
                 }
 

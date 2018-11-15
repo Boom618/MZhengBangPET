@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/tpbackground"
@@ -127,8 +126,9 @@
 
     <TextView
         android:id="@+id/tv_purchase_in_storage"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_5"
         android:background="@mipmap/qsback"
         android:drawableTop="@mipmap/wcicon"
         android:drawablePadding="@dimen/space_3"
@@ -143,8 +143,9 @@
 
     <TextView
         android:id="@+id/tv_produce_in_storage"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_5"
         android:background="@mipmap/lsback"
         android:drawableTop="@mipmap/scicon"
         android:drawablePadding="@dimen/space_3"
@@ -160,8 +161,9 @@
 
     <TextView
         android:id="@+id/tv_send_out_storage"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_5"
         android:background="@mipmap/lsback"
         android:drawableTop="@mipmap/fhicon"
         android:drawablePadding="@dimen/space_3"
@@ -176,8 +178,9 @@
 
     <TextView
         android:id="@+id/tv_return_in_storage"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_5"
         android:background="@mipmap/qsback"
         android:drawableTop="@mipmap/thicon"
         android:drawablePadding="@dimen/space_3"

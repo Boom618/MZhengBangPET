@@ -1,14 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rc_done_detail_list"
+
+    <include
+        android:id="@+id/top_layout"
+        layout="@layout/top_layout" />
+
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </android.support.v7.widget.RecyclerView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bg_color"
+            android:paddingTop="20dp">
 
 
-</android.support.constraint.ConstraintLayout>
+            <View
+                android:id="@+id/line1"
+                android:layout_width="2dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="@dimen/space_10"
+                android:layout_marginTop="2dp"
+                android:background="@color/black" />
+
+            <TextView
+                android:id="@+id/in_storage_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_10"
+                android:layout_toEndOf="@+id/line1"
+                android:text="@string/label_arrival_storage_detail"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_18" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rc_done_detail_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/in_storage_detail"
+                android:layout_margin="@dimen/space_10" />
+
+            <View
+                android:id="@+id/line3"
+                android:layout_width="2dp"
+                android:layout_height="20dp"
+                android:layout_below="@+id/rc_done_detail_list"
+                android:layout_marginStart="@dimen/space_10"
+                android:layout_marginTop="2dp"
+                android:background="@color/black" />
+
+            <TextView
+                android:id="@+id/tv_remark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rc_done_detail_list"
+                android:layout_marginStart="@dimen/space_10"
+                android:layout_toEndOf="@+id/line1"
+                android:text="@string/material_remark"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_18" />
+
+            <EditText
+                android:id="@+id/et_desc"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_below="@+id/tv_remark"
+                android:layout_marginStart="@dimen/space_10"
+                android:layout_marginEnd="@dimen/space_10"
+                android:background="@drawable/shape_gray_min_radius"
+                android:gravity="top"
+                android:layout_marginTop="@dimen/text_16"
+                android:hint="备注"
+                android:padding="@dimen/space_7"
+                android:textColor="@color/txt_minor_color"
+                android:textColorHint="@color/hint_color"
+                android:textSize="@dimen/text_14" />
+
+        </RelativeLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>
+
