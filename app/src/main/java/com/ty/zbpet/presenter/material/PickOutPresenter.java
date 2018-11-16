@@ -8,8 +8,6 @@ import com.ty.zbpet.util.UIUtils;
 import com.zhouyou.http.exception.ApiException;
 import com.zhouyou.http.subsciber.BaseSubscriber;
 
-import java.util.List;
-
 /**
  * @author TY on 2018/10/29.
  * <p>
@@ -17,9 +15,9 @@ import java.util.List;
  */
 public class PickOutPresenter {
 
-    MaterialUiObjlInterface pickOutUi;
+    MaterialUiObjInterface pickOutUi;
 
-    public PickOutPresenter(MaterialUiObjlInterface pickOutUi) {
+    public PickOutPresenter(MaterialUiObjInterface pickOutUi) {
         this.pickOutUi = pickOutUi;
     }
 

@@ -1,10 +1,10 @@
 package com.ty.zbpet.presenter.material;
 
+import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.MaterialDoneDetailsData;
 import com.ty.zbpet.bean.MaterialTodoData;
 import com.ty.zbpet.bean.MaterialTodoDetailsData;
 import com.ty.zbpet.bean.MaterialDoneData;
-import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
 import com.ty.zbpet.util.CodeConstant;
@@ -14,8 +14,6 @@ import com.zhouyou.http.exception.ApiException;
 import com.zhouyou.http.subsciber.BaseSubscriber;
 
 import java.util.List;
-
-import okhttp3.RequestBody;
 
 /**
  * @author PVer on 2018/10/28.
@@ -32,7 +30,7 @@ public class MaterialPresenter {
     /**
      * 详情 接口
      */
-    MaterialUiObjlInterface materialObjUi;
+    MaterialUiObjInterface materialObjUi;
 
     /**
      * model 数据接口
@@ -59,17 +57,18 @@ public class MaterialPresenter {
      *
      * @param materialObjUi
      */
-    public MaterialPresenter(MaterialUiObjlInterface materialObjUi) {
+    public MaterialPresenter(MaterialUiObjInterface materialObjUi) {
         this.materialObjUi = materialObjUi;
         httpMethods = HttpMethods.getInstance();
     }
 
     /**
      * 接收 list UI 接口  And  mode 接口
+     *
      * @param materialListUi
      * @param materialModel
      */
-    public MaterialPresenter(MaterialUiListInterface materialListUi,MaterialModelInterface materialModel){
+    public MaterialPresenter(MaterialUiListInterface materialListUi, MaterialModelInterface materialModel) {
         this.materialListUi = materialListUi;
         this.materialModel = materialModel;
     }
@@ -86,14 +85,12 @@ public class MaterialPresenter {
 
             @Override
             public void onError(ApiException e) {
-                UIUtils.showToast("原辅料——到货入库——待办 == onError ");
                 UIUtils.showToast(e.getMessage());
             }
 
             @Override
             public void onNext(BaseResponse<MaterialTodoData> infoList) {
                 materialListUi.hideLoading();
-                UIUtils.showToast("原辅料——到货入库——待办 == success ");
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(infoList.getTag())) {
 
@@ -147,24 +144,23 @@ public class MaterialPresenter {
     }
 
     /**
-     * 车库码校验
+     * 库位码校验
      *
      * @param positionNo
      */
-    public void checkCarCode(String positionNo) {
+    public void checkCarCode(final int position, String positionNo) {
 
-        httpMethods.checkCarCode(new BaseSubscriber<ResponseInfo>() {
+        httpMethods.checkCarCode(new BaseSubscriber<CarPositionNoData>() {
             @Override
             public void onError(ApiException e) {
-
+                UIUtils.showToast(e.getMessage());
             }
 
             @Override
-            public void onNext(ResponseInfo responseInfo) {
+            public void onNext(CarPositionNoData responseInfo) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
-                    // 车库码合法
-
-
+                    // 库位码合法
+                    materialObjUi.showSuccess(position, responseInfo.getCount());
                 } else {
                     UIUtils.showToast(responseInfo.getMessage());
                 }
@@ -188,13 +184,11 @@ public class MaterialPresenter {
         httpMethods.getMaterialDoneList(new BaseSubscriber<BaseResponse<MaterialDoneData>>() {
             @Override
             public void onError(ApiException e) {
-                UIUtils.showToast("原辅料——到货入库——已办 == onError ");
                 UIUtils.showToast(e.getMessage());
             }
 
             @Override
             public void onNext(BaseResponse<MaterialDoneData> infoList) {
-                UIUtils.showToast("原辅料——到货入库——已办 == success ");
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(infoList.getTag())) {
                     if (null != infoList && infoList.getData() != null) {

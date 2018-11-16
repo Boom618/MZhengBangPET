@@ -14,15 +14,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
-import com.google.gson.Gson;
 import com.pda.scanner.ScanReader;
 import com.pda.scanner.Scanner;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.MaterialTodoDetailsData;
 import com.ty.zbpet.bean.ResponseInfo;
-import com.ty.zbpet.constant.ApiNameConstant;
 import com.ty.zbpet.net.HttpMethods;
-import com.ty.zbpet.presenter.material.MaterialUiObjlInterface;
+import com.ty.zbpet.presenter.material.MaterialUiObjInterface;
 import com.ty.zbpet.presenter.material.MaterialPresenter;
 import com.ty.zbpet.ui.adapter.MaterialTodoDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
@@ -44,21 +42,7 @@ import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
-import okhttp3.Call;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Request.Builder;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 import okhttp3.RequestBody;
 
 /**
@@ -66,7 +50,7 @@ import okhttp3.RequestBody;
  *
  * @author TY
  */
-public class ArrivalInTodoDetailActivity extends BaseActivity implements MaterialUiObjlInterface<MaterialTodoDetailsData>
+public class ArrivalInTodoDetailActivity extends BaseActivity implements MaterialUiObjInterface<MaterialTodoDetailsData>
         , MaterialTodoDetailAdapter.SaveEditListener, ScanBoxInterface {
 
     @BindView(R.id.rv_in_storage_detail)
@@ -79,7 +63,6 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
     private MaterialTodoDetailAdapter adapter;
     private List<MaterialTodoDetailsData.DetailsBean> list = new ArrayList<>();
 
-    private String mInWarehouseOrderId;
     private String sapOrderNo;
     private String warehouseId;
 
@@ -89,7 +72,7 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
     private String selectTime;
 
     /**
-     * 点击车库码输入框
+     * 点击库位码输入框
      */
     private Boolean currentFocus = false;
 
@@ -191,12 +174,12 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
                 bean.setMaterialId(list.get(i).getMaterialId());
                 bean.setPositionId(list.get(i).getPositionId());
                 detail.add(bean);
-            }else if (null == bulkNum && null == carCode){
+            } else if (null == bulkNum && null == carCode) {
                 // 不处理
                 break;
-            }else{
-                // 车库数量和车库码必须一致
-                UIUtils.showToast("车库数量或车库码信息不全");
+            } else {
+                // 车库数量和库位码必须一致
+                UIUtils.showToast("车库数量或库位码信息不全");
                 break;
             }
         }
@@ -213,7 +196,11 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
         return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), json);
     }
 
-    // 入库保存
+    /**
+     * 入库保存
+     * @param body
+     *
+     */
     private void doPurchaseInRecallOut(RequestBody body) {
 
         HttpMethods.getInstance().materialTodoInSave(new BaseSubscriber<ResponseInfo>() {
@@ -294,7 +281,7 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
         if (CodeConstant.ET_BULK_NUM.equals(etType)) {
             bulkNumArray.put(position, textContent);
 
-            // 车库码 需要判断合法性
+            // 库位码 需要判断合法性
         } else if (CodeConstant.ET_CODE.equals(etType)) {
             currentFocus = hasFocus;
 
@@ -302,7 +289,7 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
             // 【情况 ② 】 无焦点 有内容 http 校验
             if (!TextUtils.isEmpty(textContent)) {
                 if (!hasFocus) {
-                    //httpCheckCarCode(currentPosition, textContent);
+                    httpCheckCarCode(currentPosition, textContent);
                 }
             }
 
@@ -332,8 +319,9 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
 
             if (currentFocus && currentPosition != -1) {
                 // 扫描
+                doDeCode();
             }
-            doDeCode();
+
 
             return true;
         }
@@ -354,98 +342,124 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
      * 【情况 ① 】
      * 有焦点 扫码  http 校验
      *
-     * @param carCode
+     * @param positionNo
      */
     @Override
-    public void ScanSuccess(int position, String carCode) {
+    public void ScanSuccess(int position, String positionNo) {
+        UIUtils.showToast("库位码 ：" + positionNo);
+        //adapter.notifyItemChanged(position);
 
-        adapter.notifyItemChanged(position);
-
-        //  服务器校验 车库码
-        //httpCheckCarCode(position, carCode);
+        //  服务器校验 库位码
+        httpCheckCarCode(position, positionNo);
 
     }
 
+    @Override
+    public void showSuccess(int position,int count) {
+        if (count > 0) {
+            UIUtils.showToast("扫码成功 === showSuccess ");
+            adapter.notifyItemChanged(position);
+        }else {
+            UIUtils.showToast("请扫正确的库位码");
+        }
+    }
 
     /**
-     * Http 校验 车库码合法
+     * Http 校验 库位码合法
      *
-     * @return
+     * @param position   item 更新需要的 position
+     * @param positionNo 扫码的编号
+     *
      */
-    private void httpCheckCarCode(final int position, final String carCode) {
+    private void httpCheckCarCode(final int position, final String positionNo) {
 
-        Disposable observable = Observable.create(new ObservableOnSubscribe<Response>() {
+        materialPresenter.checkCarCode(position, positionNo);
 
-            @Override
-            public void subscribe(ObservableEmitter<Response> emitter) throws Exception {
-                // 1、数据请求
-                Gson gson = new Gson();
-
-                String string = "{id:'12',code:'3545435'}" + carCode;
-
-                String content = gson.toJson(string);
-                RequestBody body = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), content);
-
-                // 方式一 Retrofit 请求网络
+//        Disposable observable = Observable.create(new ObservableOnSubscribe<Response>() {
+//
+//            @Override
+//            public void subscribe(ObservableEmitter<Response> emitter) throws Exception {
+//                // 1、数据请求
+//                Gson gson = new Gson();
+//
+//                String string = positionNo;
+//
+//                String content = gson.toJson(string);
+//                RequestBody body = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), content);
+//
+//                // 方式一 Retrofit 请求网络
 //                Retrofit retrofit = new Retrofit.Builder()
 //                        .baseUrl(ApiNameConstant.CHECK_CAR_CODE)
 //                        .build();
 //
 //                ApiService apiService = retrofit.create(ApiService.class);
-//                Observable<ResponseInfo> infoObservable = apiService.checkCarCode("1234",carCode);
-
-
-                // 方式二 OkHttpClient 请求网络
-                Builder builder = new Builder()
-                        .url(ApiNameConstant.CHECK_CAR_CODE)
-                        .post(body);
-
-                Request request = builder.build();
-                Call call = new OkHttpClient().newCall(request);
-                Response response = call.execute();
-
-                emitter.onNext(response);
-
-            }
-        })
-                .map(new Function<Response, ResponseInfo>() {
-                    @Override
-                    public ResponseInfo apply(Response response) throws Exception {
-
-                        // 2、数据转换
-                        ResponseBody body = response.body();
-
-                        return new Gson().fromJson(body.string(), ResponseInfo.class);
-                    }
-                })
-                .doOnNext(new Consumer<ResponseInfo>() {
-                    @Override
-                    public void accept(ResponseInfo responseInfo) throws Exception {
-                        // 3、保存数据
-                    }
-                })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<ResponseInfo>() {
-                    @Override
-                    public void accept(ResponseInfo responseInfo) throws Exception {
-                        // 4、 数据成功 UI 处理
-                        if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
-                            UIUtils.showToast("车库码合法");
-                            // 更新列表 adapter
-                            adapter.notifyItemChanged(position);
-
-                        } else {
-                            UIUtils.showToast(responseInfo.getMessage());
-                        }
-
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        UIUtils.showToast(throwable.getMessage());
-                    }
-                });
+//                Observable<CarPositionNoData> infoObservable = apiService.checkCarCode(positionNo);
+//
+//                Disposable subscribe = infoObservable.subscribe(new Consumer<CarPositionNoData>() {
+//                    @Override
+//                    public void accept(CarPositionNoData responseInfo) throws Exception {
+//                        responseInfo.getTag();
+//                    }
+//
+//                }, new Consumer<Throwable>() {
+//                    @Override
+//                    public void accept(Throwable throwable) throws Exception {
+//                        UIUtils.showToast(throwable.getMessage());
+//                    }
+//                });
+//
+//
+//                // 方式二 OkHttpClient 请求网络
+//                Builder builder = new Builder()
+//                        .url(ApiNameConstant.CHECK_CAR_CODE)
+//                        .get();
+//
+//                Request request = builder.build();
+//                Call call = new OkHttpClient().newCall(request);
+//                Response response = call.execute();
+//
+//                emitter.onNext(response);
+//
+//            }
+//        })
+//                .map(new Function<Response, ResponseInfo>() {
+//                    @Override
+//                    public ResponseInfo apply(Response response) throws Exception {
+//
+//                        // 2、数据转换
+//                        ResponseBody body = response.body();
+//
+//                        return new Gson().fromJson(body.string(), ResponseInfo.class);
+//                    }
+//                })
+//                .doOnNext(new Consumer<ResponseInfo>() {
+//                    @Override
+//                    public void accept(ResponseInfo responseInfo) throws Exception {
+//                        // 3、保存数据
+//                    }
+//                })
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Consumer<ResponseInfo>() {
+//                    @Override
+//                    public void accept(ResponseInfo responseInfo) throws Exception {
+//                        // 4、 数据成功 UI 处理
+//                        if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+//                            UIUtils.showToast("库位码合法");
+//                            // 更新列表 adapter
+//                            adapter.notifyItemChanged(position);
+//
+//                        } else {
+//                            UIUtils.showToast(responseInfo.getMessage());
+//                        }
+//
+//                    }
+//                }, new Consumer<Throwable>() {
+//                    @Override
+//                    public void accept(Throwable throwable) throws Exception {
+//                        UIUtils.showToast(throwable.getMessage());
+//                    }
+//                });
 
     }
 
@@ -455,8 +469,6 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
         super.onDestroy();
 
         scanner.close();
-        //disposable.dispose();
-
 
     }
 }

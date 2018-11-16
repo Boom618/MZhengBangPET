@@ -26,7 +26,7 @@ public class ApiNameConstant {
     public static final String PURCHASE_IN = "stock/materialStock/mPurchaseIn";
 
     /**
-     * 车库码校验
+     * 库位码校验
      */
     public static final String CHECK_CAR_CODE = "resources/warePositionInfo/getPositionList";
 

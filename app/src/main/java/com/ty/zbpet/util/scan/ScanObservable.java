@@ -2,6 +2,7 @@ package com.ty.zbpet.util.scan;
 
 import android.media.AudioManager;
 import android.media.ToneGenerator;
+import android.util.Log;
 
 import com.pda.scanner.Scanner;
 import com.ty.zbpet.ui.MainApp;
@@ -45,8 +46,9 @@ public class ScanObservable {
 
     /**
      * 扫码功能，采用 RxJava 不用考虑线程问题
+     *
      * @param scanReader 扫码器
-     * @param position  不在列表中处理，可以不用传 Position ，扫码的结果保证在 mCache 缓存中了
+     * @param position   不在列表中处理，可以不用传 Position ，扫码的结果保证在 mCache 缓存中了
      * @return
      */
     public Disposable scanBox(final Scanner scanReader, final int position) {
@@ -65,11 +67,11 @@ public class ScanObservable {
                 byte[] id = scanReader.decode(1000);
                 if (null != id) {
                     emitter.onNext(id);
-                    //toneGenerator.startTone(ToneGenerator.TONE_PROP_BEEP);
+                    toneGenerator.startTone(ToneGenerator.TONE_PROP_BEEP);
                 } else {
 
                     //toneGenerator.startTone(ToneGenerator.TONE_CDMA_ABBR_ALERT);
-                    //emitter.onError(new Throwable("车库码为空"));
+                    //emitter.onError(new Throwable("库位码为空"));
                 }
 
             }
@@ -98,7 +100,7 @@ public class ScanObservable {
                         TLog.e("doOnNext: 保存成功：" + s + "\n");
 
                         // 存 position ，解决第一次进来所有列表都是同样的值
-                        mCache.put(CodeConstant.SCAN_BOX_POSITION,position);
+                        mCache.put(CodeConstant.SCAN_BOX_POSITION, position);
                         mCache.put(CodeConstant.SCAN_BOX_KEY, s);
                     }
                 })
@@ -108,7 +110,7 @@ public class ScanObservable {
                     @Override
                     public void accept(String s) throws Exception {
 
-                        scanBox.ScanSuccess(position,s);
+                        scanBox.ScanSuccess(position, s);
 
                         // 存 position ，解决第一次进来所有列表都是同样的值
                         //mCache.put(CodeConstant.SCAN_BOX_POSITION,position);
@@ -118,8 +120,8 @@ public class ScanObservable {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        TLog.e("失败：" + throwable.getMessage() + "\n");
-                        // toneGenerator.startTone(ToneGenerator.TONE_CDMA_ALERT_AUTOREDIAL_LITE);
+                        TLog.e("失败：", "TLog.e " + throwable.getMessage());
+                        toneGenerator.startTone(ToneGenerator.TONE_CDMA_ALERT_AUTOREDIAL_LITE);
                         UIUtils.showToast("扫码失败" + throwable.getMessage());
                     }
                 });

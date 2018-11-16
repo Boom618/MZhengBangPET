@@ -18,13 +18,13 @@ import okhttp3.Request;
  */
 public class LogInterceptor implements Interceptor {
 
-    public static String TAG = "LogInterceptor";
+    public static String TAG = "Url = ";
 
     @Override
     public okhttp3.Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         String requestMethod = request.method();
-        TLog.e(requestMethod + " : Url = " + request.url());
+        TLog.e(TAG,requestMethod + " : " + request.url());
         long startTime = System.currentTimeMillis();
 
         okhttp3.Response response = chain.proceed(chain.request());

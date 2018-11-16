@@ -76,7 +76,7 @@ public class MaterialTodoDetailAdapter extends CommonAdapter {
         etCode.setText(value);
 
 
-        // 清除车库码
+        // 清除库位码
         final ImageView ivDel = itemView.findViewById(R.id.iv_del_code);
         ivDel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,10 +99,9 @@ public class MaterialTodoDetailAdapter extends CommonAdapter {
                 //tempCode = etCode.getText().toString().trim();
                 // 方式二 ：扫码输入值
                 //tempCode = ACache.get(context).getAsString(CodeConstant.SCAN_BOX_KEY);
-                if (TextUtils.isEmpty(value)) {
-                    ivDel.setVisibility(View.GONE);
-                    return;
-                }
+//                if (TextUtils.isEmpty(value)) {
+//                    ivDel.setVisibility(View.GONE);
+//                }
 
                 if (value.length() > 0) {
                     ivDel.setVisibility(View.VISIBLE);

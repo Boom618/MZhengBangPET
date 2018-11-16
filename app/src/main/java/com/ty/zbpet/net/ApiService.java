@@ -1,5 +1,6 @@
 package com.ty.zbpet.net;
 
+import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.GoodsPurchaseOrderInfo;
 import com.ty.zbpet.bean.GoodsPurchaseOrderList;
 import com.ty.zbpet.bean.MaterialDoneDetailsData;
@@ -19,6 +20,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * @author TY
@@ -55,13 +57,13 @@ public interface ApiService {
 
 
     /**
-     * 车库码检验
+     * 库位码检验
      *
      * @param positionNo
      * @return
      */
-    @POST(ApiNameConstant.CHECK_CAR_CODE)
-    Observable<ResponseInfo> checkCarCode(@Field("positionNo") String positionNo);
+    @GET(ApiNameConstant.CHECK_CAR_CODE)
+    Observable<CarPositionNoData> checkCarCode(@Query("positionNo") String positionNo);
 
     /**
      * 获取原辅料采购 已办列表

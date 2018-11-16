@@ -113,17 +113,6 @@
         </LinearLayout>
 
 
-        <!-- <View
-             android:layout_width="108dp"
-             android:layout_height="1dp"
-             android:layout_alignParentEnd="true"
-             android:layout_marginEnd="@dimen/space_26"
-             android:layout_marginStart="@dimen/space_20"
-             android:layout_below="@+id/et_bulk_num"
-             android:background="@color/hint_color"
-             />-->
-
-
         <EditText
             android:id="@+id/et_code"
             android:layout_width="wrap_content"
@@ -132,7 +121,6 @@
             android:layout_marginTop="5dp"
             android:ellipsize="end"
             android:hint="库位码"
-            android:inputType="text"
             android:layout_marginEnd="@dimen/space_10"
             android:lines="1"
             android:layout_alignRight="@+id/et_batch_no"

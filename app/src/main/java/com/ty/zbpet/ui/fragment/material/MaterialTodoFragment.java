@@ -127,7 +127,6 @@ public class MaterialTodoFragment extends BaseFragment implements MaterialUiList
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                     Intent intent = new Intent(getActivity(), ArrivalInTodoDetailActivity.class);
-                    //intent.putExtra("orderId", list.get(position).getSupplierId());
                     intent.putExtra("sapOrderNo", list.get(position).getSapOrderNo());
                     startActivity(intent);
                 }

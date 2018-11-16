@@ -14,7 +14,7 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.PickOutDetailInfo;
-import com.ty.zbpet.presenter.material.MaterialUiObjlInterface;
+import com.ty.zbpet.presenter.material.MaterialUiObjInterface;
 import com.ty.zbpet.presenter.material.PickOutPresenter;
 import com.ty.zbpet.ui.activity.material.ArrivalInTodoDetailActivity;
 import com.ty.zbpet.ui.adapter.PickOutAdapter;
@@ -33,8 +33,10 @@ import butterknife.BindView;
  * Use the {@link PickOutTodoFragment#newInstance} factory method to
  * create an instance of this fragment.
  * @author TY
+ *
+ * 领料出库 待办
  */
-public class PickOutTodoFragment extends BaseFragment implements MaterialUiObjlInterface<PickOutDetailInfo> {
+public class PickOutTodoFragment extends BaseFragment implements MaterialUiObjInterface<PickOutDetailInfo> {
 
 
     @BindView(R.id.recyclerView)
@@ -146,6 +148,11 @@ public class PickOutTodoFragment extends BaseFragment implements MaterialUiObjlI
                 }
             });
         }
+
+    }
+
+    @Override
+    public void showSuccess(int position, int count) {
 
     }
 

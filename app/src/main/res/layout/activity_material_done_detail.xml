@@ -48,7 +48,6 @@
                 android:layout_margin="@dimen/space_10" />
 
             <View
-                android:id="@+id/line3"
                 android:layout_width="2dp"
                 android:layout_height="20dp"
                 android:layout_below="@+id/rc_done_detail_list"

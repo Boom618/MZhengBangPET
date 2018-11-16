@@ -2,6 +2,7 @@ package com.ty.zbpet.net;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.GoodsPurchaseOrderInfo;
 import com.ty.zbpet.bean.GoodsPurchaseOrderList;
 import com.ty.zbpet.bean.MaterialDoneDetailsData;
@@ -121,9 +122,9 @@ public class HttpMethods {
     }
 
     /**
-     * 车库码校验
+     * 库位码校验
      */
-    public void checkCarCode(BaseSubscriber<ResponseInfo> subscriber, String positionNo){
+    public void checkCarCode(BaseSubscriber<CarPositionNoData> subscriber, String positionNo){
         mService.checkCarCode(positionNo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
