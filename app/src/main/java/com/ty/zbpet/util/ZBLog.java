@@ -8,10 +8,10 @@ import com.ty.zbpet.BuildConfig;
  *
  * Ty Logger
  */
-public class TLog {
+public class ZBLog {
 
 
-    private static final String TAG = "TLog";
+    private static final String TAG = "ZBLog";
 
     /**
      * 是否开启 Logger

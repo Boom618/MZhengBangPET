@@ -2,14 +2,13 @@ package com.ty.zbpet.util.scan;
 
 import android.media.AudioManager;
 import android.media.ToneGenerator;
-import android.util.Log;
 
 import com.pda.scanner.Scanner;
 import com.ty.zbpet.ui.MainApp;
 import com.ty.zbpet.util.ACache;
 import com.ty.zbpet.util.CodeConstant;
-import com.ty.zbpet.util.TLog;
-import com.ty.zbpet.util.UIUtils;
+import com.ty.zbpet.util.ZBLog;
+import com.ty.zbpet.util.ZBUiUtils;
 
 import java.nio.charset.Charset;
 
@@ -89,15 +88,15 @@ public class ScanObservable {
                         if (utf8.contains(CodeConstant.UNICODE_STRING)) {
                             utf8 = new String(bytes, Charset.forName(CodeConstant.CHARSET_GBK));
                         }
-                        String resultStr = utf8 + "\n";
+                        //String resultStr = utf8 + "\n";
 
-                        return resultStr;
+                        return utf8;
                     }
                 })
                 .doOnNext(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
-                        TLog.e("doOnNext: 保存成功：" + s + "\n");
+                        ZBLog.e("doOnNext: 保存成功：" + s + "\n");
 
                         // 存 position ，解决第一次进来所有列表都是同样的值
                         mCache.put(CodeConstant.SCAN_BOX_POSITION, position);
@@ -115,14 +114,14 @@ public class ScanObservable {
                         // 存 position ，解决第一次进来所有列表都是同样的值
                         //mCache.put(CodeConstant.SCAN_BOX_POSITION,position);
                         //mCache.put(CodeConstant.SCAN_BOX_KEY, s);
-                        UIUtils.showToast("扫码成功 " + s);
+                        ZBUiUtils.showToast("扫码成功 " + s);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        TLog.e("失败：", "TLog.e " + throwable.getMessage());
+                        ZBLog.e("失败：", "TLog.e " + throwable.getMessage());
                         toneGenerator.startTone(ToneGenerator.TONE_CDMA_ALERT_AUTOREDIAL_LITE);
-                        UIUtils.showToast("扫码失败" + throwable.getMessage());
+                        ZBUiUtils.showToast("扫码失败" + throwable.getMessage());
                     }
                 });
 

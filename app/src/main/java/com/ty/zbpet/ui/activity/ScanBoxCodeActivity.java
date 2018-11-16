@@ -22,26 +22,13 @@ import com.ty.zbpet.ui.adapter.BindBoxCodeAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.DividerItemDecoration;
 import com.ty.zbpet.util.ResourceUtil;
-import com.ty.zbpet.util.TLog;
-import com.ty.zbpet.util.UIUtils;
-import com.ty.zbpet.util.scan.ScanObservable;
+import com.ty.zbpet.util.ZBUiUtils;
 
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author TY
@@ -142,19 +129,19 @@ public class ScanBoxCodeActivity extends BaseActivity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case MSG_SHOW_WAIT:
-                    UIUtils.showToast((String) msg.obj);
+                    ZBUiUtils.showToast((String) msg.obj);
                     break;
                 case MSG_HIDE_WAIT:
                     Log.e("TAG", "MSG_HIDE_WAIT====");
                     break;
                 case MSG_SHOW_TIP:
-                    UIUtils.showToast((String) msg.obj);
+                    ZBUiUtils.showToast((String) msg.obj);
                     break;
                 case MSG_UPDATE_ID:
                     String resultStr = (String) msg.obj;
                     if (!TextUtils.isEmpty(resultStr)) {
                         if (boxCodeList.contains(resultStr)) {
-                            UIUtils.showToast("箱码已扫过");
+                            ZBUiUtils.showToast("箱码已扫过");
                         } else {
                             boxCodeList.add(resultStr);
                             if (adapter != null) {

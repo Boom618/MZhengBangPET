@@ -22,8 +22,8 @@ import com.ty.zbpet.ui.adapter.PurchaseInStorageDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.ResourceUtil;
-import com.ty.zbpet.util.UIUtils;
-import com.ty.zbpet.util.Utils;
+import com.ty.zbpet.util.ZBUiUtils;
+import com.ty.zbpet.util.DataUtils;
 import com.wevey.selector.dialog.DialogInterface;
 import com.wevey.selector.dialog.NormalSelectionDialog;
 import com.zhouyou.http.exception.ApiException;
@@ -102,7 +102,7 @@ public class PurchaseInStorageDetailActivity extends BaseActivity {
         HttpMethods.getInstance().getGoodsPurchaseOrderInfo(new BaseSubscriber<GoodsPurchaseOrderInfo>() {
             @Override
             public void onError(ApiException e) {
-                UIUtils.showToast(e.getMessage());
+                ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
@@ -114,10 +114,10 @@ public class PurchaseInStorageDetailActivity extends BaseActivity {
                         list.addAll(infos);
                         refreshUI();
                     } else {
-                        UIUtils.showToast("没有信息");
+                        ZBUiUtils.showToast("没有信息");
                     }
                 } else {
-                    UIUtils.showToast(info.getMessage());
+                    ZBUiUtils.showToast(info.getMessage());
                 }
             }
         }, sapOrderNo);
@@ -127,7 +127,7 @@ public class PurchaseInStorageDetailActivity extends BaseActivity {
         new HttpMethods(ApiNameConstant.BASE_URL1).getWarehouseList(new BaseSubscriber<WarehouseInfo>() {
             @Override
             public void onError(ApiException e) {
-                UIUtils.showToast(e.getMessage());
+                ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
@@ -168,7 +168,7 @@ public class PurchaseInStorageDetailActivity extends BaseActivity {
         PostPurchaseInRecallOutInfo info = new PostPurchaseInRecallOutInfo();
         String warehouseName = tvWarehouse.getText().toString();
         if (TextUtils.isEmpty(warehouseName)) {
-            UIUtils.showToast("请选择仓库");
+            ZBUiUtils.showToast("请选择仓库");
             return null;
         }
         info.setWarehouseId(warehouseNoList.get(warehouseNameList.indexOf(warehouseName)));
@@ -190,7 +190,7 @@ public class PurchaseInStorageDetailActivity extends BaseActivity {
 
         }
         info.setDetails(boxCodeInfoList);
-        String json = Utils.toJson(info, 1);
+        String json = DataUtils.toJson(info, 1);
         Log.e("TAG", json);
         return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), json);
     }
@@ -199,12 +199,12 @@ public class PurchaseInStorageDetailActivity extends BaseActivity {
         HttpMethods.getInstance().doGoodsPurchaseInStorage(new BaseSubscriber<ResponseInfo>() {
             @Override
             public void onError(ApiException e) {
-                UIUtils.showToast(e.getMessage());
+                ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
             public void onNext(ResponseInfo responseInfo) {
-                UIUtils.showToast(responseInfo.getMessage());
+                ZBUiUtils.showToast(responseInfo.getMessage());
             }
         }, body);
     }
@@ -225,7 +225,7 @@ public class PurchaseInStorageDetailActivity extends BaseActivity {
                 break;
 
             case R.id.tv_time:
-                UIUtils.showTimeDialog(tvTime, this);
+                ZBUiUtils.showTimeDialog(tvTime, this);
                 break;
             default:
                 break;
@@ -237,7 +237,7 @@ public class PurchaseInStorageDetailActivity extends BaseActivity {
      * @param datas
      */
     public void selectWarehouse(final List<String> datas) {
-        UIUtils.showToast("选择仓库");
+        ZBUiUtils.showToast("选择仓库");
         NormalSelectionDialog.Builder builder = new NormalSelectionDialog.Builder(this);
         //设置是否显示标题
         builder.setlTitleVisible(true)

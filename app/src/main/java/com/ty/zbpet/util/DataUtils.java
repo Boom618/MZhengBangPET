@@ -7,7 +7,7 @@ import com.google.gson.GsonBuilder;
 /**
  * @author TY
  */
-public class Utils {
+public class DataUtils {
     /**
      * 将实体类转换成json字符串对象
      *

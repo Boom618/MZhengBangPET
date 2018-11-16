@@ -4,9 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
-import android.text.TextUtils;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +13,7 @@ import com.ty.zbpet.R;
 import com.ty.zbpet.bean.MaterialTodoDetailsData;
 import com.ty.zbpet.util.ACache;
 import com.ty.zbpet.util.CodeConstant;
+import com.ty.zbpet.util.ZBUiUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -91,8 +90,7 @@ public class MaterialTodoDetailAdapter extends CommonAdapter {
             public void onFocusChange(View view, boolean hasFocus) {
 
                 // 关闭软键盘
-                InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                ZBUiUtils.hideInputWindow(context,view);
 
                 String tempCode;
                 // 方式一 ：手动输入值
@@ -147,8 +145,7 @@ public class MaterialTodoDetailAdapter extends CommonAdapter {
 
             if (CodeConstant.ET_BATCH_NO.equals(etType) && !hasFocus) {
                 // 关闭软键盘
-                InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                ZBUiUtils.hideInputWindow(context,view);
             }
 
             listener.saveEditAndGetHasFocusPosition(etType, hasFocus, position, content);

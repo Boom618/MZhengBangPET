@@ -8,6 +8,9 @@ import android.util.TypedValue;
 import com.ty.zbpet.ui.MainApp;
 
 
+/**
+ * @author TY
+ */
 public class ResourceUtil {
 
     /**

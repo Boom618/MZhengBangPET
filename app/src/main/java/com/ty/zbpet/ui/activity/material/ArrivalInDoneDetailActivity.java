@@ -11,7 +11,6 @@ import com.ty.zbpet.bean.MaterialDoneDetailsData;
 import com.ty.zbpet.bean.MaterialDoneSaveData;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.net.HttpMethods;
-import com.ty.zbpet.presenter.material.MaterialModelInterface;
 import com.ty.zbpet.presenter.material.MaterialPresenter;
 import com.ty.zbpet.presenter.material.MaterialUiListInterface;
 import com.ty.zbpet.ui.adapter.MaterialDoneDetailAdapter;
@@ -19,9 +18,8 @@ import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.CodeConstant;
 import com.ty.zbpet.util.ResourceUtil;
-import com.ty.zbpet.util.TLog;
-import com.ty.zbpet.util.UIUtils;
-import com.ty.zbpet.util.Utils;
+import com.ty.zbpet.util.ZBUiUtils;
+import com.ty.zbpet.util.DataUtils;
 import com.zhouyou.http.exception.ApiException;
 import com.zhouyou.http.subsciber.BaseSubscriber;
 
@@ -95,17 +93,17 @@ public class ArrivalInDoneDetailActivity extends BaseActivity implements Materia
         HttpMethods.getInstance().materialDoneInSave(new BaseSubscriber<ResponseInfo>() {
             @Override
             public void onError(ApiException e) {
-                UIUtils.showToast(e.getMessage());
+                ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
             public void onNext(ResponseInfo responseInfo) {
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
-                    UIUtils.showToast(responseInfo.getMessage());
+                    ZBUiUtils.showToast(responseInfo.getMessage());
                     finish();
                 } else {
-                    UIUtils.showToast(responseInfo.getMessage());
+                    ZBUiUtils.showToast(responseInfo.getMessage());
                 }
             }
 
@@ -128,7 +126,7 @@ public class ArrivalInDoneDetailActivity extends BaseActivity implements Materia
         bean.setPositionId(positionId);
         bean.setRemark(etDesc.getText().toString().trim());
 
-        String json = Utils.toJson(bean, 1);
+        String json = DataUtils.toJson(bean, 1);
 
         return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), json);
 

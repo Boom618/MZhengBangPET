@@ -16,7 +16,7 @@ import com.ty.zbpet.ui.activity.PurchaseInStorageDetailActivity;
 import com.ty.zbpet.ui.adapter.PurchaseInWarehouseAdapter;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.ResourceUtil;
-import com.ty.zbpet.util.UIUtils;
+import com.ty.zbpet.util.ZBUiUtils;
 import com.zhouyou.http.exception.ApiException;
 import com.zhouyou.http.subsciber.BaseSubscriber;
 
@@ -49,7 +49,7 @@ public class PurchaseInStorageNoDoingFragment extends Fragment {
         HttpMethods.getInstance().getGoodsPurchaseOrderList(new BaseSubscriber<GoodsPurchaseOrderList>() {
             @Override
             public void onError(ApiException e) {
-                UIUtils.showToast(e.getMessage());
+                ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
@@ -59,10 +59,10 @@ public class PurchaseInStorageNoDoingFragment extends Fragment {
                     if (list != null && list.size() != 0) {
                         refreshUI(list);
                     } else {
-                        UIUtils.showToast("没有信息");
+                        ZBUiUtils.showToast("没有信息");
                     }
                 } else {
-                    UIUtils.showToast(infoList.getMessage());
+                    ZBUiUtils.showToast(infoList.getMessage());
                 }
             }
         });

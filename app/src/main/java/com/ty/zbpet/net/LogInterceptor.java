@@ -1,9 +1,6 @@
 package com.ty.zbpet.net;
 
-import android.util.Log;
-
-import com.orhanobut.logger.Logger;
-import com.ty.zbpet.util.TLog;
+import com.ty.zbpet.util.ZBLog;
 
 import java.io.IOException;
 
@@ -24,7 +21,7 @@ public class LogInterceptor implements Interceptor {
     public okhttp3.Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         String requestMethod = request.method();
-        TLog.e(TAG,requestMethod + " : " + request.url());
+        ZBLog.e(TAG,requestMethod + " : " + request.url());
         long startTime = System.currentTimeMillis();
 
         okhttp3.Response response = chain.proceed(chain.request());
@@ -34,9 +31,9 @@ public class LogInterceptor implements Interceptor {
         long duration = endTime - startTime;
         okhttp3.MediaType mediaType = response.body().contentType();
         String content = response.body().string();
-        TLog.d(TAG, "\n");
-        TLog.d(TAG, "----------Start----------------");
-        TLog.d(TAG, "| " + request.toString());
+        ZBLog.d(TAG, "\n");
+        ZBLog.d(TAG, "----------Start----------------");
+        ZBLog.d(TAG, "| " + request.toString());
         String method = request.method();
         if ("POST".equals(method)) {
             StringBuilder sb = new StringBuilder();
@@ -46,11 +43,11 @@ public class LogInterceptor implements Interceptor {
                     sb.append(body.encodedName(i) + "=" + body.encodedValue(i) + ",");
                 }
                 sb.delete(sb.length() - 1, sb.length());
-                TLog.d(TAG, "| RequestParams:{" + sb.toString() + "}");
+                ZBLog.d(TAG, "| RequestParams:{" + sb.toString() + "}");
             }
         }
-        TLog.d(TAG, "| Response:" + content);
-        TLog.d(TAG, "----------End:" + duration + "毫秒----------");
+        ZBLog.d(TAG, "| Response:" + content);
+        ZBLog.d(TAG, "----------End:" + duration + "毫秒----------");
         return response.newBuilder()
                 .body(okhttp3.ResponseBody.create(mediaType, content))
                 .build();

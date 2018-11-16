@@ -1,6 +1,5 @@
 package com.ty.zbpet.ui.activity.material;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +7,6 @@ import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,9 +25,9 @@ import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.CodeConstant;
 import com.ty.zbpet.util.ResourceUtil;
-import com.ty.zbpet.util.TLog;
-import com.ty.zbpet.util.UIUtils;
-import com.ty.zbpet.util.Utils;
+import com.ty.zbpet.util.ZBLog;
+import com.ty.zbpet.util.ZBUiUtils;
+import com.ty.zbpet.util.DataUtils;
 import com.ty.zbpet.util.scan.ScanBoxInterface;
 import com.ty.zbpet.util.scan.ScanObservable;
 import com.zhouyou.http.exception.ApiException;
@@ -133,13 +131,13 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
             @Override
             public void onClick(View view) {
 
-                UIUtils.showPickDate(ArrivalInTodoDetailActivity.this, new OnTimeSelectListener() {
+                ZBUiUtils.showPickDate(ArrivalInTodoDetailActivity.this, new OnTimeSelectListener() {
                     @Override
                     public void onTimeSelect(Date date, View v) {
                         //选中事件回调
-                        selectTime = UIUtils.getTime(date);
+                        selectTime = ZBUiUtils.getTime(date);
                         tvTime.setText(selectTime);
-                        UIUtils.showToast(selectTime);
+                        ZBUiUtils.showToast(selectTime);
                     }
                 });
             }
@@ -179,7 +177,7 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
                 break;
             } else {
                 // 车库数量和库位码必须一致
-                UIUtils.showToast("车库数量或库位码信息不全");
+                ZBUiUtils.showToast("车库数量或库位码信息不全");
                 break;
             }
         }
@@ -191,8 +189,8 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
         requestBody.setRemark(etDesc.getText().toString().trim());
 
 
-        String json = Utils.toJson(requestBody, 1);
-        TLog.e("JSON " + json);
+        String json = DataUtils.toJson(requestBody, 1);
+        ZBLog.e("JSON " + json);
         return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), json);
     }
 
@@ -206,14 +204,14 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
         HttpMethods.getInstance().materialTodoInSave(new BaseSubscriber<ResponseInfo>() {
             @Override
             public void onError(ApiException e) {
-                UIUtils.showToast(e.getMessage());
+                ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
             public void onNext(ResponseInfo responseInfo) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     // 入库成功（保存）
-                    UIUtils.showToast(responseInfo.getMessage());
+                    ZBUiUtils.showToast(responseInfo.getMessage());
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -221,7 +219,7 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
                         }
                     });
                 } else {
-                    UIUtils.showToast(responseInfo.getMessage());
+                    ZBUiUtils.showToast(responseInfo.getMessage());
                 }
             }
         }, body);
@@ -257,9 +255,8 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
                         ivArrow.setImageResource(R.mipmap.ic_expand);
                     }
 
-                    // 关闭软键盘
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    ZBUiUtils.hideInputWindow(ArrivalInTodoDetailActivity.this,view);
+
                 }
 
                 @Override
@@ -346,7 +343,7 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
      */
     @Override
     public void ScanSuccess(int position, String positionNo) {
-        UIUtils.showToast("库位码 ：" + positionNo);
+        ZBUiUtils.showToast("库位码 ：" + positionNo);
         //adapter.notifyItemChanged(position);
 
         //  服务器校验 库位码
@@ -357,10 +354,10 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
     @Override
     public void showSuccess(int position,int count) {
         if (count > 0) {
-            UIUtils.showToast("扫码成功 === showSuccess ");
+            ZBUiUtils.showToast("扫码成功 === showSuccess ");
             adapter.notifyItemChanged(position);
         }else {
-            UIUtils.showToast("请扫正确的库位码");
+            ZBUiUtils.showToast("请扫正确的库位码");
         }
     }
 

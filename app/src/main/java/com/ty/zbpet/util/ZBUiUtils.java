@@ -2,6 +2,8 @@ package com.ty.zbpet.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,7 +20,7 @@ import java.util.Locale;
 /**
  * @author TY
  */
-public class UIUtils {
+public class ZBUiUtils {
 
     public static void showToast(String msg) {
         Toast.makeText(ResourceUtil.getContext(), msg, Toast.LENGTH_SHORT).show();
@@ -31,7 +33,7 @@ public class UIUtils {
      * @param activity
      */
     public static void showTimeDialog(final TextView tvDate, Activity activity) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
+        SimpleDateFormat sdf = new SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA);
         String now = sdf.format(new Date());
         Calendar calendar = Calendar.getInstance();
         // Calendar.SECOND 秒
@@ -47,7 +49,7 @@ public class UIUtils {
                 }
                 tvDate.setText(time + ":" + s);
             }
-        }, "2010-01-01 00:00", "2999-01-01 00:00"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
+        }, CodeConstant.DATE_START_TIME, CodeConstant.DATE_END_TIME);
         // 显示时和分
         datePicker.showSpecificTime(true);
         // 允许循环滚动
@@ -58,21 +60,22 @@ public class UIUtils {
 
     /**
      * 时间戳 转 String
+     *
      * @param date
      * @return
      */
     public static String getTime(Date date) {//可根据需要自行截取数据显示
-        TLog.d("getTime()", "choice date millis: " + date.getTime());
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M_S,Locale.CHINA);
         return format.format(date);
     }
 
     /**
      * 时间弹窗
+     *
      * @param context
      * @param listener
      */
-    public static void showPickDate(Context context,OnTimeSelectListener listener){
+    public static void showPickDate(Context context, OnTimeSelectListener listener) {
         TimePickerView pvTime = new TimePickerBuilder(context, listener)
                 // 默认全部显示
                 .setType(new boolean[]{true, true, true, true, true, false})
@@ -103,6 +106,17 @@ public class UIUtils {
                 .build();
 
         pvTime.show();
+    }
+
+    /**
+     * 关闭软键盘
+     *
+     * @param context
+     * @param view
+     */
+    public static void hideInputWindow(Context context, View view) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
 }

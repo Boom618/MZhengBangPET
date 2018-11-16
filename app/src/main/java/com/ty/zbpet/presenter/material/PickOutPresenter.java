@@ -4,7 +4,7 @@ import com.ty.zbpet.bean.PickOutDetailInfo;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
 import com.ty.zbpet.util.CodeConstant;
-import com.ty.zbpet.util.UIUtils;
+import com.ty.zbpet.util.ZBUiUtils;
 import com.zhouyou.http.exception.ApiException;
 import com.zhouyou.http.subsciber.BaseSubscriber;
 
@@ -44,7 +44,7 @@ public class PickOutPresenter {
                     pickOutUi.detailObjData(data);
 
                 }else{
-                    UIUtils.showToast("失败 : =" + pickOutDetailInfo.getMessage());
+                    ZBUiUtils.showToast("失败 : =" + pickOutDetailInfo.getMessage());
                 }
 
 

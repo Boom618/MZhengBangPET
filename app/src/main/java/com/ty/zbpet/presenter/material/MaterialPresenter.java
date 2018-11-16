@@ -8,8 +8,8 @@ import com.ty.zbpet.bean.MaterialDoneData;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
 import com.ty.zbpet.util.CodeConstant;
-import com.ty.zbpet.util.TLog;
-import com.ty.zbpet.util.UIUtils;
+import com.ty.zbpet.util.ZBLog;
+import com.ty.zbpet.util.ZBUiUtils;
 import com.zhouyou.http.exception.ApiException;
 import com.zhouyou.http.subsciber.BaseSubscriber;
 
@@ -85,7 +85,7 @@ public class MaterialPresenter {
 
             @Override
             public void onError(ApiException e) {
-                UIUtils.showToast(e.getMessage());
+                ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
@@ -105,7 +105,7 @@ public class MaterialPresenter {
                         //materialModel.saveMaterial();
 
                     } else {
-                        UIUtils.showToast("没有信息");
+                        ZBUiUtils.showToast("没有信息");
                     }
                 }
 
@@ -122,7 +122,7 @@ public class MaterialPresenter {
         httpMethods.getMaterialTodoListDetail(new BaseSubscriber<BaseResponse<MaterialTodoDetailsData>>() {
             @Override
             public void onError(ApiException e) {
-                UIUtils.showToast(e.getMessage());
+                ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
@@ -132,12 +132,12 @@ public class MaterialPresenter {
 
                     MaterialTodoDetailsData data = info.getData();
 
-                    TLog.d(data);
+                    ZBLog.d(data);
 
                     materialObjUi.detailObjData(data);
 
                 } else {
-                    UIUtils.showToast(info.getMessage());
+                    ZBUiUtils.showToast(info.getMessage());
                 }
             }
         }, sapOrderNo);
@@ -153,7 +153,7 @@ public class MaterialPresenter {
         httpMethods.checkCarCode(new BaseSubscriber<CarPositionNoData>() {
             @Override
             public void onError(ApiException e) {
-                UIUtils.showToast(e.getMessage());
+                ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
@@ -162,7 +162,7 @@ public class MaterialPresenter {
                     // 库位码合法
                     materialObjUi.showSuccess(position, responseInfo.getCount());
                 } else {
-                    UIUtils.showToast(responseInfo.getMessage());
+                    ZBUiUtils.showToast(responseInfo.getMessage());
                 }
 
             }
@@ -184,7 +184,7 @@ public class MaterialPresenter {
         httpMethods.getMaterialDoneList(new BaseSubscriber<BaseResponse<MaterialDoneData>>() {
             @Override
             public void onError(ApiException e) {
-                UIUtils.showToast(e.getMessage());
+                ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
@@ -196,11 +196,11 @@ public class MaterialPresenter {
                         if (list != null && list.size() != 0) {
                             materialListUi.showMaterial(list);
                         } else {
-                            UIUtils.showToast("没有信息");
+                            ZBUiUtils.showToast("没有信息");
                         }
                     }
                 } else {
-                    UIUtils.showToast(infoList.getMessage());
+                    ZBUiUtils.showToast(infoList.getMessage());
                 }
             }
         });
@@ -213,7 +213,7 @@ public class MaterialPresenter {
         httpMethods.getMaterialDoneListDetail(new BaseSubscriber<BaseResponse<MaterialDoneDetailsData>>() {
             @Override
             public void onError(ApiException e) {
-                UIUtils.showToast(e.getMessage());
+                ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
@@ -225,11 +225,11 @@ public class MaterialPresenter {
                         if (list != null && list.size() != 0) {
                             materialListUi.showMaterial(list);
                         } else {
-                            UIUtils.showToast("没有信息");
+                            ZBUiUtils.showToast("没有信息");
                         }
                     }
                 } else {
-                    UIUtils.showToast(infoList.getMessage());
+                    ZBUiUtils.showToast(infoList.getMessage());
                 }
             }
         }, id);

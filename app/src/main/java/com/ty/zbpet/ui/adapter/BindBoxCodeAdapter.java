@@ -10,7 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ty.zbpet.R;
-import com.ty.zbpet.util.UIUtils;
+import com.ty.zbpet.util.ZBUiUtils;
 
 import java.util.List;
 
@@ -76,7 +76,7 @@ public class BindBoxCodeAdapter extends RecyclerView.Adapter {
      */
     private void deleteItem(int pos) {
         if (pos == info.size()) {
-            UIUtils.showToast("请重新添加数据！");
+            ZBUiUtils.showToast("请重新添加数据！");
             return;
         }
         try {
@@ -88,7 +88,7 @@ public class BindBoxCodeAdapter extends RecyclerView.Adapter {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            UIUtils.showToast("角标越界异常！");
+            ZBUiUtils.showToast("角标越界异常！");
         }
 
     }

@@ -17,14 +17,12 @@ import com.ty.zbpet.bean.MaterialDoneData;
 import com.ty.zbpet.presenter.material.MaterialPresenter;
 import com.ty.zbpet.presenter.material.MaterialUiListInterface;
 import com.ty.zbpet.ui.activity.material.ArrivalInDoneDetailActivity;
-import com.ty.zbpet.ui.activity.material.ArrivalInDoneDetailActivityK;
-import com.ty.zbpet.ui.activity.material.ArrivalInTodoDetailActivity;
 import com.ty.zbpet.ui.adapter.MaterialDoneAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
 import com.ty.zbpet.ui.base.EmptyLayout;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.ResourceUtil;
-import com.ty.zbpet.util.UIUtils;
+import com.ty.zbpet.util.ZBUiUtils;
 
 import java.util.List;
 
@@ -96,7 +94,7 @@ public class MaterialDoneFragment extends BaseFragment implements MaterialUiList
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 // 传入 false 表示刷新失败
                 refreshLayout.finishLoadMore(1000);
-                UIUtils.showToast("没有更多数据了");
+                ZBUiUtils.showToast("没有更多数据了");
             }
         });
     }
