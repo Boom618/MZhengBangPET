@@ -65,7 +65,7 @@ public class ZBUiUtils {
      * @return
      */
     public static String getTime(Date date) {//可根据需要自行截取数据显示
-        SimpleDateFormat format = new SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M_S,Locale.CHINA);
+        SimpleDateFormat format = new SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M_S, Locale.CHINA);
         return format.format(date);
     }
 
@@ -117,6 +117,14 @@ public class ZBUiUtils {
     public static void hideInputWindow(Context context, View view) {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    /**
+     * 选择仓库
+     *
+     */
+    public static void selectWarehouse() {
+
     }
 
 }

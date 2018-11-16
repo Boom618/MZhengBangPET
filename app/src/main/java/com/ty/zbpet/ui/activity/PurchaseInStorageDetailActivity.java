@@ -24,8 +24,6 @@ import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.ZBUiUtils;
 import com.ty.zbpet.util.DataUtils;
-import com.wevey.selector.dialog.DialogInterface;
-import com.wevey.selector.dialog.NormalSelectionDialog;
 import com.zhouyou.http.exception.ApiException;
 import com.zhouyou.http.subsciber.BaseSubscriber;
 
@@ -72,7 +70,6 @@ public class PurchaseInStorageDetailActivity extends BaseActivity {
 
     @Override
     protected void onBaseCreate(Bundle savedInstanceState) {
-//        tvTitle.setText("外采入库");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
         String now = sdf.format(new Date());
         tvTime.setText(now + ":00");
@@ -238,35 +235,36 @@ public class PurchaseInStorageDetailActivity extends BaseActivity {
      */
     public void selectWarehouse(final List<String> datas) {
         ZBUiUtils.showToast("选择仓库");
-        NormalSelectionDialog.Builder builder = new NormalSelectionDialog.Builder(this);
-        //设置是否显示标题
-        builder.setlTitleVisible(true)
-                //设置标题高度
-                .setTitleHeight(50)
-                .setTitleText("选择仓库")
-                .setTitleTextSize(14)
-                //设置标题文本颜色
-                .setTitleTextColor(R.color.main_color)
-                //设置item的高度
-                .setItemHeight(40)
-                //屏幕宽度*0.9
-                .setItemWidth(0.9f)
-                .setItemTextColor(R.color.black)
-                .setItemTextSize(14)
-                //设置最底部“取消”按钮文本
-                .setCancleButtonText("取消")
-                .setOnItemListener(new DialogInterface.OnItemClickListener<NormalSelectionDialog>() {
-                    @Override
-                    public void onItemClick(NormalSelectionDialog dialog, View button, int position) {
-                        dialog.dismiss();
-                        tvWarehouse.setText(datas.get(position));
-                    }
-                })
-                //设置是否可点击其他地方取消dialog
-                .setCanceledOnTouchOutside(true)
-                .build()
-                .setDatas(datas)
-                .show();
+        ZBUiUtils.selectWarehouse();
+//        NormalSelectionDialog.Builder builder = new NormalSelectionDialog.Builder(this);
+//        //设置是否显示标题
+//        builder.setlTitleVisible(true)
+//                //设置标题高度
+//                .setTitleHeight(50)
+//                .setTitleText("选择仓库")
+//                .setTitleTextSize(14)
+//                //设置标题文本颜色
+//                .setTitleTextColor(R.color.main_color)
+//                //设置item的高度
+//                .setItemHeight(40)
+//                //屏幕宽度*0.9
+//                .setItemWidth(0.9f)
+//                .setItemTextColor(R.color.black)
+//                .setItemTextSize(14)
+//                //设置最底部“取消”按钮文本
+//                .setCancleButtonText("取消")
+//                .setOnItemListener(new DialogInterface.OnItemClickListener<NormalSelectionDialog>() {
+//                    @Override
+//                    public void onItemClick(NormalSelectionDialog dialog, View button, int position) {
+//                        dialog.dismiss();
+//                        tvWarehouse.setText(datas.get(position));
+//                    }
+//                })
+//                //设置是否可点击其他地方取消dialog
+//                .setCanceledOnTouchOutside(true)
+//                .build()
+//                .setDatas(datas)
+//                .show();
     }
 
     @Override

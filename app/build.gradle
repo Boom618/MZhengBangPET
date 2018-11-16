@@ -2,9 +2,11 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 def ZBConfig = rootProject.ext
+
 static def releaseTime() {
     return new Date().format("yyyy-MM-dd-HH.mm", TimeZone.getTimeZone("GMT+8"))
 }
+
 android {
     compileSdkVersion ZBConfig.compileSdkVersion
     buildToolsVersion ZBConfig.buildToolsVersion
@@ -166,9 +168,8 @@ dependencies {
     implementation "com.zhouyou:rxeasyhttp:${ZBConfig.rxeasyhttpVersion}"
 
     //implementation project(':selectordialog') 暂停维护,慎用
-    implementation 'com.lai.weavey:dialog:2.0.1'
+    //implementation 'com.lai.weavey:dialog:2.0.1'
+    //implementation 'com.github.searchy2:CustomAlertViewDialogue:2.5.0'
+//    implementation 'com.afollestad.material-dialogs:core:2.0.0-beta5'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-}
-repositories {
-    mavenCentral()
 }
