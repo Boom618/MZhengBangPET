@@ -32,6 +32,7 @@ class MainActivity : BaseActivity(),View.OnClickListener {
 
     override fun initTwoView() {
         findViewById<TextView>(R.id.tv_arrival_in_storage).setOnClickListener(this)
+        findViewById<TextView>(R.id.tv_pick_out_storage).setOnClickListener(this)
 
     }
 

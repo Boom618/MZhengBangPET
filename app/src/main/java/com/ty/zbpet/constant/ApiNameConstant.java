@@ -49,6 +49,11 @@ public class ApiNameConstant {
 
 
     /**
+     * 领料出库 - 待办 列表
+     */
+    public static final String PICK_OUT_TODO_LIST = "sap/zbSap/getMaterialReceiveOrderList";
+
+    /**
      * 原料--- 领料出库详情 列表（）
      */
     public static final String PICK_OUT_DETAIL_INFO = "stock/materialStock/mReceiveOut";

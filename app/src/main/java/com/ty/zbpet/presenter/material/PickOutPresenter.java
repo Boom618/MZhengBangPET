@@ -1,5 +1,6 @@
 package com.ty.zbpet.presenter.material;
 
+import com.ty.zbpet.bean.MaterialTodoData;
 import com.ty.zbpet.bean.PickOutDetailInfo;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
@@ -8,6 +9,8 @@ import com.ty.zbpet.util.ZBUiUtils;
 import com.zhouyou.http.exception.ApiException;
 import com.zhouyou.http.subsciber.BaseSubscriber;
 
+import java.util.List;
+
 /**
  * @author TY on 2018/10/29.
  * <p>
@@ -15,18 +18,51 @@ import com.zhouyou.http.subsciber.BaseSubscriber;
  */
 public class PickOutPresenter {
 
-    MaterialUiObjInterface pickOutUi;
+    private MaterialUiListInterface listInterface;
+    private MaterialUiObjInterface objInterface;
 
-    public PickOutPresenter(MaterialUiObjInterface pickOutUi) {
-        this.pickOutUi = pickOutUi;
+    private HttpMethods  httpMethods;
+
+    public PickOutPresenter(MaterialUiObjInterface objInterface) {
+        this.objInterface = objInterface;
+        httpMethods = HttpMethods.getInstance();
     }
 
-    // TODO 数据保存 、UI 加载
+    public PickOutPresenter(MaterialUiListInterface listInterface) {
+        this.listInterface = listInterface;
+        httpMethods = HttpMethods.getInstance();
+    }
+
+    /**
+     * 待办列表
+     */
+    public void fetchPickOutTodoList(){
+        httpMethods.pickOutTodoList(new BaseSubscriber<BaseResponse<MaterialTodoData>>() {
+            @Override
+            public void onError(ApiException e) {
+                ZBUiUtils.showToast(e.getMessage());
+            }
+
+            @Override
+            public void onNext(BaseResponse<MaterialTodoData> response) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
+
+                    List<MaterialTodoData.ListBean> list = response.getData().getList();
+                    listInterface.showMaterial(list);
+
+                }else{
+                    ZBUiUtils.showToast("失败 : =" + response.getMessage());
+                }
+            }
+        });
+    }
+
+    //
 
     public void fetchPickOut() {
 
 
-        HttpMethods.getInstance().pickOutDetail(new BaseSubscriber<BaseResponse<PickOutDetailInfo>>() {
+        httpMethods.pickOutDetail(new BaseSubscriber<BaseResponse<PickOutDetailInfo>>() {
             @Override
             public void onError(ApiException e) {
 
@@ -41,7 +77,7 @@ public class PickOutPresenter {
 
                     //pickOutUi.showMaterial(list);
                     PickOutDetailInfo data = pickOutDetailInfo.getData();
-                    pickOutUi.detailObjData(data);
+                    objInterface.detailObjData(data);
 
                 }else{
                     ZBUiUtils.showToast("失败 : =" + pickOutDetailInfo.getMessage());

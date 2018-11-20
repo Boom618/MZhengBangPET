@@ -99,6 +99,7 @@ public class MaterialTodoFragment extends BaseFragment implements MaterialUiList
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 // 传入 false 表示刷新失败
                 refreshLayout.finishRefresh(1000);
+                adapter = null;
                 // 刷新数据
                 materialPresenter.fetchTODOMaterial();
 

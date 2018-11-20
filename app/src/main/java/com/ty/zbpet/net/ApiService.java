@@ -84,13 +84,21 @@ public interface ApiService {
     Observable<BaseResponse<MaterialDoneDetailsData>> getMaterialDoneListDetail(@Field("mInWarehouseOrderId") String id);
 
     /**
-     * 原辅料采购冲销入库
+     * 原辅料采购冲销入库(已办保存)
      *
      * @param body
      * @return
      */
     @POST(ApiNameConstant.PURCHASE_IN_RECALL_OUT)
     Observable<ResponseInfo> purchaseInRecallOut(@Body RequestBody body);
+
+
+    /**
+     * 领料出库 - 待办 列表
+     * @return
+     */
+    @POST(ApiNameConstant.PICK_OUT_TODO_LIST)
+    Observable<BaseResponse<MaterialTodoData>> pickOutTodoList();
 
     /**
      * 原料--- 领料出库详情

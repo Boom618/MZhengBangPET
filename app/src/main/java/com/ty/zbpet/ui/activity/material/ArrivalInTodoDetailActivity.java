@@ -102,7 +102,6 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
         selectTime = sdf.format(new Date());
         tvTime.setText(selectTime);
 
-
     }
 
     @Override
@@ -153,10 +152,6 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
 
         MaterialTodoDetailsData requestBody = new MaterialTodoDetailsData();
         List<MaterialTodoDetailsData.DetailsBean> detail = new ArrayList<>();
-//        "warehouseId": "3",
-//         "inStoreDate": "2018-09-06",
-//         "sapProcOrder": "SAP00009",
-//         "remark": "1",
 
         int size = list.size();
         for (int i = 0; i < size; i++) {

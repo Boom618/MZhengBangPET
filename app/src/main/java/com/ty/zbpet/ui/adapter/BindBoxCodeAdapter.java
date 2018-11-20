@@ -18,6 +18,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
+/**
+ * @author TY
+ */
 public class BindBoxCodeAdapter extends RecyclerView.Adapter {
 
     private List<String> info;

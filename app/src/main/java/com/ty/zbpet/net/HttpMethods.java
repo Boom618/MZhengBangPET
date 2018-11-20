@@ -168,6 +168,18 @@ public class HttpMethods {
     }
 
     /**
+     * 领料出库 待办列表
+     * @param subscriber
+     */
+    public void pickOutTodoList(BaseSubscriber<BaseResponse<MaterialTodoData>> subscriber){
+        mService.pickOutTodoList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+
+    }
+
+    /**
      * 原料--领料出库详情 列表
      * @param subscriber
      */

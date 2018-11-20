@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+/**
+ * @author TY
+ */
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     private List<Fragment> list;
