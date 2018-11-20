@@ -6,7 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import com.ty.zbpet.R;
 
 /**
- * 个人中心
+ * 质检个人中心
+ * @author TY
  */
 public class PersonCenterActivity extends AppCompatActivity {
 

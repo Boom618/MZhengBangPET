@@ -113,18 +113,30 @@
         </LinearLayout>
 
 
+        <TextView
+            android:id="@+id/select_supplier"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/text_28"
+            android:layout_below="@+id/bulk_code"
+            android:layout_alignLeft="@+id/et_batch_no"
+            android:layout_alignRight="@+id/et_batch_no"
+            android:layout_marginTop="5dp"
+            android:background="@color/green_color"
+            android:gravity="center"
+            android:text="@string/select_supplier" />
+
         <EditText
             android:id="@+id/et_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/bulk_code"
+            android:layout_below="@+id/select_supplier"
+            android:layout_alignLeft="@+id/et_batch_no"
+            android:layout_alignRight="@+id/et_batch_no"
             android:layout_marginTop="5dp"
+            android:layout_marginEnd="@dimen/space_10"
             android:ellipsize="end"
             android:hint="库位码"
-            android:layout_marginEnd="@dimen/space_10"
             android:lines="1"
-            android:layout_alignRight="@+id/et_batch_no"
-            android:layout_alignLeft="@+id/et_batch_no"
             android:padding="@dimen/space_5"
             android:textColor="@color/txt_main_color"
             android:textSize="@dimen/text_14" />
@@ -135,9 +147,9 @@
             android:layout_height="24dp"
             android:layout_below="@+id/bulk_code"
             android:layout_marginTop="8dp"
-            android:visibility="gone"
             android:layout_toRightOf="@+id/et_code"
-            android:src="@mipmap/delete" />
+            android:src="@mipmap/delete"
+            android:visibility="gone" />
 
         <EditText
             android:id="@+id/et_batch_no"

@@ -2,6 +2,7 @@ package com.ty.zbpet.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
@@ -10,11 +11,15 @@ import android.widget.Toast;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.ty.zbpet.ui.activity.material.ArrivalInTodoDetailActivity;
 import com.ty.zbpet.ui.widght.CustomDatePicker;
+import com.ty.zbpet.ui.widght.NormalSelectionDialog;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -120,10 +125,28 @@ public class ZBUiUtils {
     }
 
     /**
-     * 选择仓库
+     * 选择 Dialog
      *
+     * @param context
+     * @param data
+     * @param textView
      */
-    public static void selectWarehouse() {
+    public static void selectDialog(Context context, final List<String> data, final TextView textView) {
+
+        NormalSelectionDialog.Builder builder = new NormalSelectionDialog.Builder(context);
+
+        builder.setTitleText("选择供应商")
+                .setOnItemListener(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        textView.setText(data.get(which));
+
+                        dialog.dismiss();
+                    }
+                })
+                .build()
+                .setDatas(data)
+                .show();
 
     }
 

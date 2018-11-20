@@ -18,16 +18,16 @@ import com.ty.zbpet.R;
 import com.ty.zbpet.bean.MaterialTodoDetailsData;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.net.HttpMethods;
-import com.ty.zbpet.presenter.material.MaterialUiObjInterface;
 import com.ty.zbpet.presenter.material.MaterialPresenter;
+import com.ty.zbpet.presenter.material.MaterialUiObjInterface;
 import com.ty.zbpet.ui.adapter.MaterialTodoDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.CodeConstant;
+import com.ty.zbpet.util.DataUtils;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.ZBLog;
 import com.ty.zbpet.util.ZBUiUtils;
-import com.ty.zbpet.util.DataUtils;
 import com.ty.zbpet.util.scan.ScanBoxInterface;
 import com.ty.zbpet.util.scan.ScanObservable;
 import com.zhouyou.http.exception.ApiException;
@@ -45,11 +45,15 @@ import okhttp3.RequestBody;
 
 /**
  * 原辅料——到货入库详情、待办
+ * <p>
+ * MaterialUiObjInterface<MaterialTodoDetailsData> ：数据接口
+ * MaterialTodoDetailAdapter.SaveEditListener      ：输入框接口
+ * ScanBoxInterface                                ：扫码接口
  *
  * @author TY
  */
 public class ArrivalInTodoDetailActivity extends BaseActivity implements MaterialUiObjInterface<MaterialTodoDetailsData>
-        , MaterialTodoDetailAdapter.SaveEditListener, ScanBoxInterface {
+        , MaterialTodoDetailAdapter.SaveEditListener, ScanBoxInterface{
 
     @BindView(R.id.rv_in_storage_detail)
     RecyclerView recyclerView;
@@ -196,8 +200,8 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
 
     /**
      * 入库保存
-     * @param body
      *
+     * @param body
      */
     private void doPurchaseInRecallOut(RequestBody body) {
 
@@ -225,6 +229,32 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
         }, body);
     }
 
+    /**
+     * 获取供应商数据
+     *
+     * @return
+     */
+    public static ArrayList<String> getItems() {
+        ArrayList<String> arrayList = new ArrayList<>();
+
+        arrayList.add("供应商 1");
+        arrayList.add("供应商 2");
+        arrayList.add("供应商 3");
+//        arrayList.add("供应商 4");
+//        arrayList.add("供应商 5");
+//        arrayList.add("供应商 6");
+//        arrayList.add("供应商 7");
+//        arrayList.add("供应商 8");
+//        arrayList.add("供应商 9");
+//        arrayList.add("供应商 10");
+//        arrayList.add("供应商 11");
+//        arrayList.add("供应商 12");
+
+
+        return arrayList;
+
+    }
+
 
     @Override
     public void detailObjData(MaterialTodoDetailsData obj) {
@@ -247,15 +277,27 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
 
                     View rlDetail = holder.itemView.findViewById(R.id.rl_detail);
                     ImageView ivArrow = holder.itemView.findViewById(R.id.iv_arrow);
+
+                    final TextView tvSupplier = holder.itemView.findViewById(R.id.select_supplier);
+
                     if (rlDetail.getVisibility() == View.VISIBLE) {
                         rlDetail.setVisibility(View.GONE);
                         ivArrow.setImageResource(R.mipmap.ic_collapse);
                     } else {
                         rlDetail.setVisibility(View.VISIBLE);
                         ivArrow.setImageResource(R.mipmap.ic_expand);
+
+                        tvSupplier.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                ZBUiUtils.selectDialog(ArrivalInTodoDetailActivity.this,getItems(),tvSupplier);
+                            }
+                        });
+
                     }
 
-                    ZBUiUtils.hideInputWindow(ArrivalInTodoDetailActivity.this,view);
+                    ZBUiUtils.hideInputWindow(ArrivalInTodoDetailActivity.this, view);
 
                 }
 
@@ -352,11 +394,11 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
     }
 
     @Override
-    public void showSuccess(int position,int count) {
+    public void showSuccess(int position, int count) {
         if (count > 0) {
             ZBUiUtils.showToast("扫码成功 === showSuccess ");
             adapter.notifyItemChanged(position);
-        }else {
+        } else {
             ZBUiUtils.showToast("请扫正确的库位码");
         }
     }
@@ -366,97 +408,10 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
      *
      * @param position   item 更新需要的 position
      * @param positionNo 扫码的编号
-     *
      */
     private void httpCheckCarCode(final int position, final String positionNo) {
 
         materialPresenter.checkCarCode(position, positionNo);
-
-//        Disposable observable = Observable.create(new ObservableOnSubscribe<Response>() {
-//
-//            @Override
-//            public void subscribe(ObservableEmitter<Response> emitter) throws Exception {
-//                // 1、数据请求
-//                Gson gson = new Gson();
-//
-//                String string = positionNo;
-//
-//                String content = gson.toJson(string);
-//                RequestBody body = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), content);
-//
-//                // 方式一 Retrofit 请求网络
-//                Retrofit retrofit = new Retrofit.Builder()
-//                        .baseUrl(ApiNameConstant.CHECK_CAR_CODE)
-//                        .build();
-//
-//                ApiService apiService = retrofit.create(ApiService.class);
-//                Observable<CarPositionNoData> infoObservable = apiService.checkCarCode(positionNo);
-//
-//                Disposable subscribe = infoObservable.subscribe(new Consumer<CarPositionNoData>() {
-//                    @Override
-//                    public void accept(CarPositionNoData responseInfo) throws Exception {
-//                        responseInfo.getTag();
-//                    }
-//
-//                }, new Consumer<Throwable>() {
-//                    @Override
-//                    public void accept(Throwable throwable) throws Exception {
-//                        UIUtils.showToast(throwable.getMessage());
-//                    }
-//                });
-//
-//
-//                // 方式二 OkHttpClient 请求网络
-//                Builder builder = new Builder()
-//                        .url(ApiNameConstant.CHECK_CAR_CODE)
-//                        .get();
-//
-//                Request request = builder.build();
-//                Call call = new OkHttpClient().newCall(request);
-//                Response response = call.execute();
-//
-//                emitter.onNext(response);
-//
-//            }
-//        })
-//                .map(new Function<Response, ResponseInfo>() {
-//                    @Override
-//                    public ResponseInfo apply(Response response) throws Exception {
-//
-//                        // 2、数据转换
-//                        ResponseBody body = response.body();
-//
-//                        return new Gson().fromJson(body.string(), ResponseInfo.class);
-//                    }
-//                })
-//                .doOnNext(new Consumer<ResponseInfo>() {
-//                    @Override
-//                    public void accept(ResponseInfo responseInfo) throws Exception {
-//                        // 3、保存数据
-//                    }
-//                })
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Consumer<ResponseInfo>() {
-//                    @Override
-//                    public void accept(ResponseInfo responseInfo) throws Exception {
-//                        // 4、 数据成功 UI 处理
-//                        if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
-//                            UIUtils.showToast("库位码合法");
-//                            // 更新列表 adapter
-//                            adapter.notifyItemChanged(position);
-//
-//                        } else {
-//                            UIUtils.showToast(responseInfo.getMessage());
-//                        }
-//
-//                    }
-//                }, new Consumer<Throwable>() {
-//                    @Override
-//                    public void accept(Throwable throwable) throws Exception {
-//                        UIUtils.showToast(throwable.getMessage());
-//                    }
-//                });
 
     }
 

@@ -235,7 +235,7 @@ public class PurchaseInStorageDetailActivity extends BaseActivity {
      */
     public void selectWarehouse(final List<String> datas) {
         ZBUiUtils.showToast("选择仓库");
-        ZBUiUtils.selectWarehouse();
+        ZBUiUtils.selectDialog(this,datas,tvWarehouse);
 //        NormalSelectionDialog.Builder builder = new NormalSelectionDialog.Builder(this);
 //        //设置是否显示标题
 //        builder.setlTitleVisible(true)

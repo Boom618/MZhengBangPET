@@ -1,0 +1,78 @@
+package com.ty.zbpet.ui.activity
+
+import android.os.Bundle
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+
+import com.ty.zbpet.R
+import com.ty.zbpet.ui.activity.material.ArrivalInStorageActivity
+import com.ty.zbpet.ui.activity.material.PickOutStorageActivity
+import com.ty.zbpet.ui.base.BaseActivity
+
+import butterknife.OnClick
+
+/**
+ * @author TY
+ */
+class MainActivity : BaseActivity(),View.OnClickListener {
+
+
+    override fun onBaseCreate(savedInstanceState: Bundle?) {
+
+    }
+
+    override fun getActivityLayout(): Int {
+        return R.layout.activity_main1
+    }
+
+    override fun initOneData() {
+
+    }
+
+    override fun initTwoView() {
+        findViewById<TextView>(R.id.tv_arrival_in_storage).setOnClickListener(this)
+
+    }
+
+//    @OnClick(R.id.tv_arrival_in_storage, R.id.tv_pick_out_storage, R.id.tv_purchase_returns,
+//            R.id.tv_purchase_in_storage, R.id.tv_produce_in_storage, R.id.tv_send_out_storage,
+//            R.id.tv_return_in_storage, R.id.tv_inventory, R.id.tv_transfer_storage, R.id.tv_person_center)
+    override fun onClick(view: View) {
+        when (view.id) {
+            R.id.tv_arrival_in_storage ->
+                //原辅料——到货入库
+                gotoActivity(ArrivalInStorageActivity::class.java)
+            R.id.tv_pick_out_storage ->
+                //原辅料——领料出库
+                gotoActivity(PickOutStorageActivity::class.java)
+            R.id.tv_purchase_returns ->
+                //原辅料——采购退货
+                gotoActivity(PurchaseReturnsActivity::class.java)
+            R.id.tv_purchase_in_storage ->
+                //成品——外采入库
+                gotoActivity(PurchaseInStorageActivity::class.java)
+            R.id.tv_produce_in_storage ->
+                //成品——生产入库
+                gotoActivity(ProduceInStorageActivity::class.java)
+            R.id.tv_send_out_storage ->
+                //成品——发货出库
+                gotoActivity(SendOutStorageActivity::class.java)
+            R.id.tv_return_in_storage ->
+                //成品——退货入库
+                gotoActivity(ReturnInStorageActivity::class.java)
+            R.id.tv_inventory ->
+                //仓库管理——盘点
+                gotoActivity(InventoryActivity::class.java)
+            R.id.tv_transfer_storage ->
+                //仓库管理——移库
+                gotoActivity(TransferStorageActivity::class.java)
+            R.id.tv_person_center ->
+                //个人中心
+                gotoActivity(PersonCenterActivity::class.java)
+            else -> {
+            }
+        }
+    }
+
+}
