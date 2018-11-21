@@ -122,7 +122,7 @@ public class MaterialTodoFragment extends BaseFragment implements MaterialUiList
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             recyclerView.setLayoutManager(manager);
-            adapter = new MaterialTodoAdapter(ResourceUtil.getContext(), R.layout.item_arrive_in_storage_complete, list);
+            adapter = new MaterialTodoAdapter(ResourceUtil.getContext(), R.layout.item_material_todo, list);
             recyclerView.setAdapter(adapter);
             adapter.setOnItemClickListener(new MaterialTodoAdapter.OnItemClickListener() {
                 @Override

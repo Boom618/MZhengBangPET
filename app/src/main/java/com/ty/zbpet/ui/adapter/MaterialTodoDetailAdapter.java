@@ -52,7 +52,7 @@ public class MaterialTodoDetailAdapter extends CommonAdapter {
         tvName.setText(info.getMaterialName());
 
         TextView tvNum = itemView.findViewById(R.id.tv_num);
-        tvNum.setText(info.getOrderNumber() + info.getUnit());
+        tvNum.setText(info.getOrderNumber() + info.getUnitS());
 
         TextView tvBoxNum = itemView.findViewById(R.id.tv_box_num);
         tvBoxNum.setText("含量：" + info.getConcentration());

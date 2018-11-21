@@ -263,7 +263,7 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             recyclerView.setLayoutManager(manager);
-            adapter = new MaterialTodoDetailAdapter(this, R.layout.item_arrive_in_storage_detail, obj.getDetails());
+            adapter = new MaterialTodoDetailAdapter(this, R.layout.item_matterial_todo_detail, obj.getDetails());
             recyclerView.setAdapter(adapter);
 
             adapter.setOnItemClickListener(new MaterialTodoDetailAdapter.OnItemClickListener() {

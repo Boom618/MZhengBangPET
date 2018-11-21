@@ -38,35 +38,6 @@ public class PickOutAdapter extends CommonAdapter<PickOutDetailInfo.DetailsBean>
         holder.setText(R.id.tv_no, info.getNumber())
                 .setText(R.id.tv_type, info.getMaterialId());
 
-//        TextView tvType = holder.itemView.findViewById(R.id.tv_type);
-//        tvType.setText(info.getOutStoreDate());
-//        System.out.println("info.getType() = " + info.getOutStoreDate());
-//
-//        TextView tvStatus = holder.itemView.findViewById(R.id.tv_status);
-//        tvStatus.setText(info.getOutStoreDate());
-//
-//        TextView tv_supplier = holder.itemView.findViewById(R.id.tv_supplier);
-//        tv_supplier.setText(info.getOutStoreDate());
-//
-//        TextView tvOperator = holder.itemView.findViewById(R.id.tv_operator);
-//        tvOperator.setText("冲销");
-//        if (!"采购入库".equals(info.getOutStoreDate())) {
-//            tvOperator.setText("入库");
-//        }
-//
-//        TextView tvDate = holder.itemView.findViewById(R.id.tv_date);
-//        tvDate.setText(info.getOutStoreDate());
     }
 
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        super.onBindViewHolder(holder, position);
-    }
-
-    //    @Override
-//    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-//
-//
-//
-//    }
 }

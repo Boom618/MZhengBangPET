@@ -81,7 +81,7 @@ public class MaterialTodoDetailsData implements Serializable {
         private String positionId;
         private String supplierId;
         private String number;
-        private String unit;
+        private String unitS;
         private String materialId;
         private String orderNumber;
         private String concentration;
@@ -112,12 +112,12 @@ public class MaterialTodoDetailsData implements Serializable {
             this.number = number;
         }
 
-        public String getUnit() {
-            return unit;
+        public String getUnitS() {
+            return unitS;
         }
 
-        public void setUnit(String unit) {
-            this.unit = unit;
+        public void setUnitS(String unit) {
+            this.unitS = unit;
         }
 
         public String getMaterialId() {

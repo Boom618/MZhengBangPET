@@ -8,6 +8,8 @@ import com.ty.zbpet.bean.MaterialTodoData;
 import com.ty.zbpet.bean.MaterialTodoDetailsData;
 import com.ty.zbpet.bean.MaterialDoneData;
 import com.ty.zbpet.bean.PickOutDetailInfo;
+import com.ty.zbpet.bean.PickOutTodoData;
+import com.ty.zbpet.bean.PickOutTodoDetailsData;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.WarehouseInfo;
 import com.ty.zbpet.constant.ApiNameConstant;
@@ -33,7 +35,7 @@ public interface ApiService {
      *
      * @return
      */
-    @POST(ApiNameConstant.GET_MATERIAL_INWAREHOUSE_ORDERLIST)
+    @POST(ApiNameConstant.GET_MATERIAL_IN_WAREHOUSE_ORDER_LIST)
     Observable<BaseResponse<MaterialTodoData>> getMaterialTodoList();
 
     /**
@@ -43,7 +45,7 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST(ApiNameConstant.GET_MATERIAL_INWAREHOUSE_ORDERINFO)
+    @POST(ApiNameConstant.GET_MATERIAL_IN_WAREHOUSE_ORDER_INFO)
     Observable<BaseResponse<MaterialTodoDetailsData>> getMaterialTodoListDetail(@Field("sapOrderNo") String sapOrderNo);
 
     /**
@@ -98,7 +100,15 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.PICK_OUT_TODO_LIST)
-    Observable<BaseResponse<MaterialTodoData>> pickOutTodoList();
+    Observable<BaseResponse<PickOutTodoData>> pickOutTodoList();
+    /**
+     * 领料出库 - 待办 详情
+     * @param sapOrderNo
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiNameConstant.PICK_OUT_TODO_LIST_INFO)
+    Observable<BaseResponse<PickOutTodoDetailsData>> pickOutTodoListDetail(@Field("sapOrderNo") String sapOrderNo);
 
     /**
      * 原料--- 领料出库详情

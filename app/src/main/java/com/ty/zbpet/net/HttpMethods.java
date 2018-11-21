@@ -10,6 +10,8 @@ import com.ty.zbpet.bean.MaterialTodoData;
 import com.ty.zbpet.bean.MaterialTodoDetailsData;
 import com.ty.zbpet.bean.MaterialDoneData;
 import com.ty.zbpet.bean.PickOutDetailInfo;
+import com.ty.zbpet.bean.PickOutTodoData;
+import com.ty.zbpet.bean.PickOutTodoDetailsData;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.WarehouseInfo;
 import com.ty.zbpet.constant.ApiNameConstant;
@@ -34,6 +36,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * description:
  * author: XingZheng
  * date: 2016/11/22.
+ *
  * @author TY
  */
 public class HttpMethods {
@@ -45,7 +48,7 @@ public class HttpMethods {
     private Retrofit mRetrofit;
     private ApiService mService;
     private static Gson gson;
-    private String baseUrl= ApiNameConstant.BASE_URL;
+    private String baseUrl = ApiNameConstant.BASE_URL;
 
     public void setBaseUrl(String baseUrl) {
         this.baseUrl = baseUrl;
@@ -87,9 +90,10 @@ public class HttpMethods {
 
     /**
      * 获取原辅料采购待办列表
+     *
      * @param subscriber
      */
-    public void getMaterialTodoList(BaseSubscriber<BaseResponse<MaterialTodoData>> subscriber){
+    public void getMaterialTodoList(BaseSubscriber<BaseResponse<MaterialTodoData>> subscriber) {
         mService.getMaterialTodoList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -98,9 +102,10 @@ public class HttpMethods {
 
     /**
      * 获取原辅料采购 待办 详情
+     *
      * @param subscriber
      */
-    public void getMaterialTodoListDetail(BaseSubscriber<BaseResponse<MaterialTodoDetailsData>> subscriber, String sapOrderNo){
+    public void getMaterialTodoListDetail(BaseSubscriber<BaseResponse<MaterialTodoDetailsData>> subscriber, String sapOrderNo) {
         mService.getMaterialTodoListDetail(sapOrderNo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -110,10 +115,11 @@ public class HttpMethods {
 
     /**
      * 待办 保存
+     *
      * @param subscriber
      * @param body
      */
-    public void materialTodoInSave(BaseSubscriber<ResponseInfo> subscriber, RequestBody body){
+    public void materialTodoInSave(BaseSubscriber<ResponseInfo> subscriber, RequestBody body) {
         mService.materialPurchaseInSave(body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -124,7 +130,7 @@ public class HttpMethods {
     /**
      * 库位码校验
      */
-    public void checkCarCode(BaseSubscriber<CarPositionNoData> subscriber, String positionNo){
+    public void checkCarCode(BaseSubscriber<CarPositionNoData> subscriber, String positionNo) {
         mService.checkCarCode(positionNo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -134,9 +140,10 @@ public class HttpMethods {
 
     /**
      * 已办列表
+     *
      * @param subscriber
      */
-    public void getMaterialDoneList(BaseSubscriber<BaseResponse<MaterialDoneData>> subscriber){
+    public void getMaterialDoneList(BaseSubscriber<BaseResponse<MaterialDoneData>> subscriber) {
         mService.getMaterialDoneList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -145,10 +152,11 @@ public class HttpMethods {
 
     /**
      * 已办详情
+     *
      * @param subscriber
      * @param id
      */
-    public void getMaterialDoneListDetail(BaseSubscriber<BaseResponse<MaterialDoneDetailsData>> subscriber, String id){
+    public void getMaterialDoneListDetail(BaseSubscriber<BaseResponse<MaterialDoneDetailsData>> subscriber, String id) {
         mService.getMaterialDoneListDetail(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -157,10 +165,11 @@ public class HttpMethods {
 
     /**
      * 原辅料到货冲销入库 已办 保存
+     *
      * @param subscriber
      * @param body
      */
-    public void materialDoneInSave(BaseSubscriber<ResponseInfo> subscriber, RequestBody body){
+    public void materialDoneInSave(BaseSubscriber<ResponseInfo> subscriber, RequestBody body) {
         mService.purchaseInRecallOut(body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -169,9 +178,10 @@ public class HttpMethods {
 
     /**
      * 领料出库 待办列表
+     *
      * @param subscriber
      */
-    public void pickOutTodoList(BaseSubscriber<BaseResponse<MaterialTodoData>> subscriber){
+    public void pickOutTodoList(BaseSubscriber<BaseResponse<PickOutTodoData>> subscriber) {
         mService.pickOutTodoList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -180,10 +190,24 @@ public class HttpMethods {
     }
 
     /**
+     * 领料出库 待办详情
+     *
+     * @param subscriber
+     * @param sapOrderNo
+     */
+    public void pickOutTodoListDetails(BaseSubscriber<BaseResponse<PickOutTodoDetailsData>> subscriber, String sapOrderNo) {
+        mService.pickOutTodoListDetail(sapOrderNo)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
      * 原料--领料出库详情 列表
+     *
      * @param subscriber
      */
-    public void pickOutDetail(BaseSubscriber<BaseResponse<PickOutDetailInfo>> subscriber){
+    public void pickOutDetail(BaseSubscriber<BaseResponse<PickOutDetailInfo>> subscriber) {
         mService.pickOutDetailInfo()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -193,9 +217,10 @@ public class HttpMethods {
 
     /**
      * 获取成品采购已办列表
+     *
      * @param subscriber
      */
-    public void getGoodsPurchaseOrderList(BaseSubscriber<GoodsPurchaseOrderList> subscriber){
+    public void getGoodsPurchaseOrderList(BaseSubscriber<GoodsPurchaseOrderList> subscriber) {
         mService.getGoodsPurchaseOrderList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -204,9 +229,10 @@ public class HttpMethods {
 
     /**
      * 获取成品采购待办详情
+     *
      * @param subscriber
      */
-    public void getGoodsPurchaseOrderInfo(BaseSubscriber<GoodsPurchaseOrderInfo> subscriber, String sapOrderNo){
+    public void getGoodsPurchaseOrderInfo(BaseSubscriber<GoodsPurchaseOrderInfo> subscriber, String sapOrderNo) {
         mService.getGoodsPurchaseOrderInfo(sapOrderNo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -215,9 +241,10 @@ public class HttpMethods {
 
     /**
      * 获取仓库信息
+     *
      * @param subscriber
      */
-    public void getWarehouseList(BaseSubscriber<WarehouseInfo> subscriber){
+    public void getWarehouseList(BaseSubscriber<WarehouseInfo> subscriber) {
         mService.getWarehouseList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -226,9 +253,10 @@ public class HttpMethods {
 
     /**
      * 成品采购入库——待办
+     *
      * @param
      */
-    public void doGoodsPurchaseInStorage(BaseSubscriber<ResponseInfo> subscriber, RequestBody body){
+    public void doGoodsPurchaseInStorage(BaseSubscriber<ResponseInfo> subscriber, RequestBody body) {
         mService.doGoodsPurchaseInStorage(body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

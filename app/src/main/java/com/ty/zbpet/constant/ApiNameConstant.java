@@ -12,12 +12,12 @@ public class ApiNameConstant {
     /**
      * 原辅料——采购待办 列表
      */
-    public static final String GET_MATERIAL_INWAREHOUSE_ORDERLIST = "sap/zbSap/getMaterialInWarehouseOrderList";
+    public static final String GET_MATERIAL_IN_WAREHOUSE_ORDER_LIST = "sap/zbSap/getMaterialInWarehouseOrderList";
 
     /**
      * 原辅料——采购待办 详情
      */
-    public static final String GET_MATERIAL_INWAREHOUSE_ORDERINFO = "sap/zbSap/getMaterialInWarehouseOrderInfo";
+    public static final String GET_MATERIAL_IN_WAREHOUSE_ORDER_INFO = "sap/zbSap/getMaterialInWarehouseOrderInfo";
 
 
     /**
@@ -52,6 +52,11 @@ public class ApiNameConstant {
      * 领料出库 - 待办 列表
      */
     public static final String PICK_OUT_TODO_LIST = "sap/zbSap/getMaterialReceiveOrderList";
+
+    /**
+     * 领料出库 - 待办 详情
+     */
+    public static final String PICK_OUT_TODO_LIST_INFO = "sap/zbSap/getMaterialReceiveOrderInfo";
 
     /**
      * 原料--- 领料出库详情 列表（）

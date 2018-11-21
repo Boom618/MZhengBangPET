@@ -16,12 +16,13 @@ import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.ty.zbpet.R;
-import com.ty.zbpet.bean.MaterialTodoData;
+import com.ty.zbpet.bean.PickOutTodoData;
 import com.ty.zbpet.presenter.material.MaterialUiListInterface;
 import com.ty.zbpet.presenter.material.PickOutPresenter;
 import com.ty.zbpet.ui.activity.material.ArrivalInTodoDetailActivity;
-import com.ty.zbpet.ui.adapter.MaterialTodoAdapter;
+import com.ty.zbpet.ui.activity.material.PickOutTodoDetailActivity;
 import com.ty.zbpet.ui.adapter.PickOutAdapter;
+import com.ty.zbpet.ui.adapter.PickOutTodoAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.ResourceUtil;
@@ -41,7 +42,7 @@ import butterknife.BindView;
  * <p>
  * 领料出库 待办列表
  */
-public class PickOutTodoFragment extends BaseFragment implements MaterialUiListInterface<MaterialTodoData.ListBean> {
+public class PickOutTodoFragment extends BaseFragment implements MaterialUiListInterface<PickOutTodoData.ListBean> {
 
 
     @BindView(R.id.recyclerView)
@@ -49,7 +50,7 @@ public class PickOutTodoFragment extends BaseFragment implements MaterialUiListI
     @BindView(R.id.refreshLayout)
     RefreshLayout refreshLayout;
 
-    private MaterialTodoAdapter adapter;
+    private PickOutTodoAdapter adapter;
 
     private PickOutPresenter materialPresenter = new PickOutPresenter(this);
 
@@ -131,7 +132,7 @@ public class PickOutTodoFragment extends BaseFragment implements MaterialUiListI
 
 
     @Override
-    public void showMaterial(final List<MaterialTodoData.ListBean> list) {
+    public void showMaterial(final List<PickOutTodoData.ListBean> list) {
 
 
         if (adapter == null) {
@@ -139,13 +140,13 @@ public class PickOutTodoFragment extends BaseFragment implements MaterialUiListI
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             recyclerView.setLayoutManager(manager);
-            adapter = new MaterialTodoAdapter(this.getContext(), R.layout.item_arrive_in_storage_complete, list);
+            adapter = new PickOutTodoAdapter(getContext(), R.layout.item_pick_out_todo, list);
             recyclerView.setAdapter(adapter);
 
             adapter.setOnItemClickListener(new PickOutAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    Intent intent = new Intent(getActivity(), ArrivalInTodoDetailActivity.class);
+                    Intent intent = new Intent(getActivity(), PickOutTodoDetailActivity.class);
                     intent.putExtra("sapOrderNo", list.get(position).getSapOrderNo());
                     startActivity(intent);
                 }

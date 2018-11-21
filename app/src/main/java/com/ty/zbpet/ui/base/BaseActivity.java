@@ -2,6 +2,7 @@ package com.ty.zbpet.ui.base;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
@@ -22,7 +23,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private ACache mCache;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getActivityLayout());
 
@@ -93,11 +94,18 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void initToolBar(int intId){
+
+        initToolBar(intId,null);
+    }
+
+
+
+    protected void initToolBar(int intId, View.OnClickListener listener){
+
         // 左边返回
         findViewById(R.id.iv_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 clearCache();
                 finish();
             }
@@ -107,8 +115,41 @@ public abstract class BaseActivity extends AppCompatActivity {
         TextView topText = findViewById(R.id.tv_title);
         topText.setText(intId);
 
-        // 隐藏右边
-        findViewById(R.id.tv_right).setVisibility(View.GONE);
+        // 右边监听事件
+        TextView right = findViewById(R.id.tv_right);
+
+        if (null == listener) {
+            right.setVisibility(View.GONE);
+        }else{
+            right.setOnClickListener(listener);
+        }
+
+    }
+
+    /**
+     *
+     * @param intId         中间标题
+     * @param rightText     右边文字
+     * @param listener      右边 listener
+     */
+    protected void initToolBar(int intId,String rightText,View.OnClickListener listener){
+        // 左边返回
+        findViewById(R.id.iv_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearCache();
+                finish();
+            }
+        });
+
+        // 中间标题
+        TextView topText = findViewById(R.id.tv_title);
+        topText.setText(intId);
+
+        // 右边监听事件
+        TextView right = findViewById(R.id.tv_right);
+        right.setText(rightText);
+        right.setOnClickListener(listener);
     }
 
     /**
@@ -120,30 +161,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         // 库位码 内容
         mCache.put(CodeConstant.SCAN_BOX_KEY,"");
     }
-
-
-    protected void initToolBar(int intId, View.OnClickListener listener){
-
-        // 左边返回
-        findViewById(R.id.iv_back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                finish();
-            }
-        });
-
-        // 中间标题
-        TextView topText = findViewById(R.id.tv_title);
-        topText.setText(intId);
-
-        // 右边监听事件
-        TextView right = findViewById(R.id.tv_right);
-        right.setOnClickListener(listener);
-
-    }
-
 
 
     @Override
