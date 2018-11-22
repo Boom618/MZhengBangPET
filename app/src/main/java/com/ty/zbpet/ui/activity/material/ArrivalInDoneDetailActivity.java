@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.MaterialDoneDetailsData;
@@ -150,6 +151,27 @@ public class ArrivalInDoneDetailActivity extends BaseActivity implements Materia
 
             adapter = new MaterialDoneDetailAdapter(this, R.layout.item_material_done_detail, list);
             detailRc.setAdapter(adapter);
+
+            adapter.setOnItemClickListener(new MaterialDoneDetailAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    View rlDetail = holder.itemView.findViewById(R.id.view_gone);
+                    ImageView ivArrow = holder.itemView.findViewById(R.id.iv_arrow);
+
+                    if (rlDetail.getVisibility() == View.VISIBLE) {
+                        rlDetail.setVisibility(View.GONE);
+                        ivArrow.setImageResource(R.mipmap.ic_collapse);
+                    } else {
+                        rlDetail.setVisibility(View.VISIBLE);
+                        ivArrow.setImageResource(R.mipmap.ic_expand);
+                    }
+                }
+
+                @Override
+                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    return false;
+                }
+            });
         }
 
     }

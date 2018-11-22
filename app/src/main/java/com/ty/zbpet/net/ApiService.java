@@ -8,6 +8,8 @@ import com.ty.zbpet.bean.MaterialTodoData;
 import com.ty.zbpet.bean.MaterialTodoDetailsData;
 import com.ty.zbpet.bean.MaterialDoneData;
 import com.ty.zbpet.bean.PickOutDetailInfo;
+import com.ty.zbpet.bean.PickOutDoneData;
+import com.ty.zbpet.bean.PickOutDoneDetailsData;
 import com.ty.zbpet.bean.PickOutTodoData;
 import com.ty.zbpet.bean.PickOutTodoDetailsData;
 import com.ty.zbpet.bean.ResponseInfo;
@@ -29,6 +31,8 @@ import retrofit2.http.Query;
  */
 public interface ApiService {
 
+
+    /**--------------------------------- 到货入库 ----------------------------------------*/
 
     /**
      * 获取原辅料采购 待办 列表
@@ -94,6 +98,7 @@ public interface ApiService {
     @POST(ApiNameConstant.PURCHASE_IN_RECALL_OUT)
     Observable<ResponseInfo> purchaseInRecallOut(@Body RequestBody body);
 
+    /**--------------------------------- 领料出库 ----------------------------------------*/
 
     /**
      * 领料出库 - 待办 列表
@@ -109,6 +114,40 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiNameConstant.PICK_OUT_TODO_LIST_INFO)
     Observable<BaseResponse<PickOutTodoDetailsData>> pickOutTodoListDetail(@Field("sapOrderNo") String sapOrderNo);
+
+    /**
+     * 领料出库 - 待办详情 保存
+     * @param body
+     * @return
+     */
+    @POST(ApiNameConstant.PICK_OUT_TODO_LIST_SAVE)
+    Observable<ResponseInfo> pickOutTodoSave(@Body RequestBody body);
+
+    /**
+     * 领料出库 - 已办 列表
+     * @return
+     */
+    @POST(ApiNameConstant.PICK_OUT_DONE_LIST)
+    Observable<BaseResponse<PickOutDoneData>> pickOutDoneList();
+
+    /**
+     * 领料出库 - 已办列表 详情
+     * @param sapOrderNo
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiNameConstant.PICK_OUT_DONE_LIST_INFO)
+    Observable<BaseResponse<PickOutDoneDetailsData>> pickOutDoneListDetail(@Field("sapOrderNo") String sapOrderNo);
+
+
+    /**
+     * 领料出库 - 待办详情 保存
+     * @return
+     */
+    @POST(ApiNameConstant.PICK_OUT_DONE_LIST_SAVE)
+    Observable<ResponseInfo> pickOutDoneSave();
+
+    /**--------------------------------- 采购退货 ----------------------------------------*/
 
     /**
      * 原料--- 领料出库详情

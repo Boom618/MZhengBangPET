@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * @author TY on 2018/11/5.
  * <p>
- * 到货入库 （待办/已办 详情）
+ * 到货入库 （待办 详情）
  */
 public class MaterialTodoDetailAdapter extends CommonAdapter {
 
@@ -160,7 +160,7 @@ public class MaterialTodoDetailAdapter extends CommonAdapter {
         /**
          * 输入框的处理
          *
-         * @param etType      输入框标识
+         * @param etType      输入框标识  code  sap
          * @param hasFocus    有无焦点
          * @param position    位置
          * @param textContent 内容

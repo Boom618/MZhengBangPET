@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="@drawable/shape_white_min_radius"
     android:layout_height="wrap_content">
 
 
@@ -13,7 +14,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:src="@mipmap/ic_product"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tv_name"
@@ -26,7 +27,7 @@
         android:textColor="@color/txt_main_color"
         android:textSize="@dimen/text_14"
         app:layout_constraintLeft_toRightOf="@+id/iv_tag"
-        app:layout_constraintStart_toEndOf="@+id/iv_tag"/>
+        app:layout_constraintStart_toEndOf="@+id/iv_tag" />
 
 
     <TextView
@@ -39,9 +40,8 @@
         android:text="25"
         android:textColor="@color/txt_main_color"
         android:textSize="@dimen/text_14"
-        app:layout_constraintLeft_toRightOf="@+id/tv_name"/>
+        app:layout_constraintLeft_toRightOf="@+id/tv_name" />
 
-    <!--app:layout_constraintTop_toTopOf="parent"-->
     <TextView
         android:id="@+id/tv_num_unit"
         android:layout_width="wrap_content"
@@ -53,42 +53,60 @@
         android:text="箱"
         android:textColor="@color/txt_main_color"
         android:textSize="@dimen/text_14"
-        app:layout_constraintLeft_toRightOf="@+id/tv_num"
-        />
+        app:layout_constraintLeft_toRightOf="@+id/tv_num" />
 
-    <TextView
-        android:id="@+id/tv_bulk"
+    <ImageView
+        android:id="@+id/iv_arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="含量："
-        android:textColor="@color/txt_main_color"
-        android:textSize="@dimen/text_14"
-        app:layout_constraintLeft_toLeftOf="@+id/tv_name"
-        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="8dp"
+        android:src="@mipmap/ic_collapse"
+        app:layout_constraintRight_toRightOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_bulk_num"
-        android:layout_width="wrap_content"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/view_gone"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="2000"
-        android:textColor="@color/txt_main_color"
-        app:layout_constraintLeft_toLeftOf="@+id/tv_num"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_bulk"
-        app:layout_constraintLeft_toRightOf="@+id/tv_bulk" />
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name">
+
+        <TextView
+            android:id="@+id/tv_bulk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:text="含量："
+            android:textColor="@color/txt_main_color"
+            android:textSize="@dimen/text_14"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_bulk_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="2000"
+            android:textColor="@color/txt_main_color"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_bulk"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
 
-    <TextView
-        android:id="@+id/tv_code"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="库位码"
-        android:textColor="@color/txt_main_color"
-        android:textSize="@dimen/text_18"
-        app:layout_constraintLeft_toLeftOf="@+id/tv_name"
-        app:layout_constraintTop_toBottomOf="@+id/tv_bulk" />
+        <TextView
+            android:id="@+id/tv_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="库位码"
+            android:textColor="@color/txt_main_color"
+            android:textSize="@dimen/text_18"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_bulk"
+            app:layout_constraintTop_toBottomOf="@+id/tv_bulk" />
+    </android.support.constraint.ConstraintLayout>
 
 
 </android.support.constraint.ConstraintLayout>

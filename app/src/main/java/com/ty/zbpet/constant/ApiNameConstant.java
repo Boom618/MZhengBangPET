@@ -9,6 +9,8 @@ public class ApiNameConstant {
 
     public static final String BASE_URL1 = "http://192.168.11.24:3000/";//顾炎
 
+    /**--------------------------------- 到货入库 ----------------------------------------*/
+
     /**
      * 原辅料——采购待办 列表
      */
@@ -47,6 +49,7 @@ public class ApiNameConstant {
      */
     public static final String PURCHASE_IN_RECALL_OUT = "stock/materialStock/mPurchaseInRecallOut";
 
+    /**--------------------------------- 领料出库 ----------------------------------------*/
 
     /**
      * 领料出库 - 待办 列表
@@ -57,6 +60,29 @@ public class ApiNameConstant {
      * 领料出库 - 待办 详情
      */
     public static final String PICK_OUT_TODO_LIST_INFO = "sap/zbSap/getMaterialReceiveOrderInfo";
+
+    /**
+     * 领料出库 - 待办详情 保存
+     */
+    public static final String PICK_OUT_TODO_LIST_SAVE = "stock/materialStock/mReceiveOut";
+
+
+    /**
+     * 领料出库 - 已办列表
+     */
+    public static final String PICK_OUT_DONE_LIST = "stock/materialStock/getReceiveOutList";
+
+    /**
+     * 领料出库 - 已办列表 详情
+     */
+    public static final String PICK_OUT_DONE_LIST_INFO = "sap";
+
+    /**
+     * 领料出库 - 已办详情 保存
+     */
+    public static final String PICK_OUT_DONE_LIST_SAVE = "sap";
+
+    /**--------------------------------- 采购退货 ----------------------------------------*/
 
     /**
      * 原料--- 领料出库详情 列表（）

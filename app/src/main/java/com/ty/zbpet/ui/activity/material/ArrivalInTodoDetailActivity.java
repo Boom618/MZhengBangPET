@@ -53,7 +53,7 @@ import okhttp3.RequestBody;
  * @author TY
  */
 public class ArrivalInTodoDetailActivity extends BaseActivity implements MaterialUiObjInterface<MaterialTodoDetailsData>
-        , MaterialTodoDetailAdapter.SaveEditListener, ScanBoxInterface{
+        ,MaterialTodoDetailAdapter.SaveEditListener, ScanBoxInterface{
 
     @BindView(R.id.rv_in_storage_detail)
     RecyclerView recyclerView;

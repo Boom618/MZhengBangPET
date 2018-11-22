@@ -10,6 +10,8 @@ import com.ty.zbpet.bean.MaterialTodoData;
 import com.ty.zbpet.bean.MaterialTodoDetailsData;
 import com.ty.zbpet.bean.MaterialDoneData;
 import com.ty.zbpet.bean.PickOutDetailInfo;
+import com.ty.zbpet.bean.PickOutDoneData;
+import com.ty.zbpet.bean.PickOutDoneDetailsData;
 import com.ty.zbpet.bean.PickOutTodoData;
 import com.ty.zbpet.bean.PickOutTodoDetailsData;
 import com.ty.zbpet.bean.ResponseInfo;
@@ -87,6 +89,7 @@ public class HttpMethods {
         return SingletonHolder.INSTANCE;
     }
 
+    /**--------------------------------- 到货入库 ----------------------------------------*/
 
     /**
      * 获取原辅料采购待办列表
@@ -176,6 +179,8 @@ public class HttpMethods {
                 .subscribe(subscriber);
     }
 
+    /**--------------------------------- 领料出库 ----------------------------------------*/
+
     /**
      * 领料出库 待办列表
      *
@@ -201,6 +206,59 @@ public class HttpMethods {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
+    /**
+     * 领料出库 待办详情 保存
+     *
+     * @param subscriber
+     */
+    public void pickOutTodoSave(BaseSubscriber<ResponseInfo> subscriber,RequestBody body) {
+        mService.pickOutTodoSave(body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 领料出库 已办列表
+     *
+     * @param subscriber
+     */
+    public void pickOutDoneList(BaseSubscriber<BaseResponse<PickOutDoneData>> subscriber) {
+        mService.pickOutDoneList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+
+    }
+
+    /**
+     * 领料出库 已办详情
+     *
+     * @param subscriber
+     * @param sapOrderNo
+     */
+    public void pickOutDoneListDetails(BaseSubscriber<BaseResponse<PickOutDoneDetailsData>> subscriber, String sapOrderNo) {
+        mService.pickOutDoneListDetail(sapOrderNo)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 领料出库 已办详情 保存
+     *
+     * @param subscriber
+     */
+    public void pickOutDoneSave(BaseSubscriber<ResponseInfo> subscriber) {
+        mService.pickOutDoneSave()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+
+    /**--------------------------------- 采购退货 ----------------------------------------*/
 
     /**
      * 原料--领料出库详情 列表

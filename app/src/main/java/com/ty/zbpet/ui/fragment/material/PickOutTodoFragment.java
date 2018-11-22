@@ -19,7 +19,6 @@ import com.ty.zbpet.R;
 import com.ty.zbpet.bean.PickOutTodoData;
 import com.ty.zbpet.presenter.material.MaterialUiListInterface;
 import com.ty.zbpet.presenter.material.PickOutPresenter;
-import com.ty.zbpet.ui.activity.material.ArrivalInTodoDetailActivity;
 import com.ty.zbpet.ui.activity.material.PickOutTodoDetailActivity;
 import com.ty.zbpet.ui.adapter.PickOutAdapter;
 import com.ty.zbpet.ui.adapter.PickOutTodoAdapter;

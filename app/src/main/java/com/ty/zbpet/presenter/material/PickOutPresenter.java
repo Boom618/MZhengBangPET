@@ -1,6 +1,9 @@
 package com.ty.zbpet.presenter.material;
 
+import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.PickOutDetailInfo;
+import com.ty.zbpet.bean.PickOutDoneData;
+import com.ty.zbpet.bean.PickOutDoneDetailsData;
 import com.ty.zbpet.bean.PickOutTodoData;
 import com.ty.zbpet.bean.PickOutTodoDetailsData;
 import com.ty.zbpet.net.HttpMethods;
@@ -88,5 +91,80 @@ public class PickOutPresenter {
                 }
             }
         }, sapOrderNo);
+    }
+
+
+    /**
+     * 库位码校验
+     *
+     * @param positionNo
+     */
+    public void checkCarCode(final int position, String positionNo) {
+
+        httpMethods.checkCarCode(new BaseSubscriber<CarPositionNoData>() {
+            @Override
+            public void onError(ApiException e) {
+                ZBUiUtils.showToast(e.getMessage());
+            }
+
+            @Override
+            public void onNext(CarPositionNoData responseInfo) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    // 库位码合法
+                    objInterface.showSuccess(position, responseInfo.getCount());
+                } else {
+                    ZBUiUtils.showToast(responseInfo.getMessage());
+                }
+
+            }
+        }, positionNo);
+    }
+
+    /**
+     * 已办列表
+     */
+    public void fetchPickOutDoneList() {
+        httpMethods.pickOutDoneList(new BaseSubscriber<BaseResponse<PickOutDoneData>>() {
+            @Override
+            public void onError(ApiException e) {
+                ZBUiUtils.showToast(e.getMessage());
+            }
+
+            @Override
+            public void onNext(BaseResponse<PickOutDoneData> response) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
+
+                    List<PickOutDoneData.ListBean> list = response.getData().getList();
+                    listInterface.showMaterial(list);
+
+                } else {
+                    ZBUiUtils.showToast("失败 : =" + response.getMessage());
+                }
+            }
+        });
+    }
+
+    /**
+     * 已办详情
+     */
+    public void fetchPickOutDoneListDetails(String sapOrderNo) {
+        httpMethods.pickOutDoneListDetails(new BaseSubscriber<BaseResponse<PickOutDoneDetailsData>>() {
+            @Override
+            public void onError(ApiException e) {
+                ZBUiUtils.showToast(e.getMessage());
+            }
+
+            @Override
+            public void onNext(BaseResponse<PickOutDoneDetailsData> response) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
+                    List<PickOutDoneDetailsData.ListBean> list = response.getData().getList();
+
+                    listInterface.showMaterial(list);
+
+                } else {
+                    ZBUiUtils.showToast("失败 : =" + response.getMessage());
+                }
+            }
+        },sapOrderNo);
     }
 }
