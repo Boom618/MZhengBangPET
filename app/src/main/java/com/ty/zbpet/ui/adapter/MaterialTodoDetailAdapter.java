@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,6 +36,11 @@ public class MaterialTodoDetailAdapter extends CommonAdapter {
         super(context, layoutId, datas);
         this.context = context;
         this.infoList = datas;
+    }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return super.onCreateViewHolder(parent, viewType);
     }
 
     @Override

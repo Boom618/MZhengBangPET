@@ -102,12 +102,15 @@ public interface ApiService {
 
     /**
      * 领料出库 - 待办 列表
+     *
      * @return
      */
     @POST(ApiNameConstant.PICK_OUT_TODO_LIST)
     Observable<BaseResponse<PickOutTodoData>> pickOutTodoList();
+
     /**
      * 领料出库 - 待办 详情
+     *
      * @param sapOrderNo
      * @return
      */
@@ -117,6 +120,7 @@ public interface ApiService {
 
     /**
      * 领料出库 - 待办详情 保存
+     *
      * @param body
      * @return
      */
@@ -125,6 +129,7 @@ public interface ApiService {
 
     /**
      * 领料出库 - 已办 列表
+     *
      * @return
      */
     @POST(ApiNameConstant.PICK_OUT_DONE_LIST)
@@ -132,6 +137,7 @@ public interface ApiService {
 
     /**
      * 领料出库 - 已办列表 详情
+     *
      * @param sapOrderNo
      * @return
      */
@@ -141,7 +147,8 @@ public interface ApiService {
 
 
     /**
-     * 领料出库 - 待办详情 保存
+     * 领料出库 - 已办详情 保存
+     *
      * @return
      */
     @POST(ApiNameConstant.PICK_OUT_DONE_LIST_SAVE)
@@ -150,12 +157,65 @@ public interface ApiService {
     /**--------------------------------- 采购退货 ----------------------------------------*/
 
     /**
-     * 原料--- 领料出库详情
+     * 采购退货 待办列表
      *
      * @return
      */
-    @POST(ApiNameConstant.PICK_OUT_DETAIL_INFO)
-    Observable<BaseResponse<PickOutDetailInfo>> pickOutDetailInfo();
+    @POST(ApiNameConstant.GET_BACK_GOODS_TODO_LIST)
+    Observable<BaseResponse<?>> getBackTodoList();
+
+    /**
+     * 采购退货 待办列表 详情
+     *
+     * @param sapOrderNo
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiNameConstant.GET_BACK_GOODS_TODO_LIST_INFO)
+    Observable<BaseResponse<?>> getBackTodoListInfo(@Field("sapOrderNo") String sapOrderNo);
+
+    /**
+     * 采购退货 待办保存
+     *
+     * @param body
+     * @return
+     */
+    @POST(ApiNameConstant.GET_BACK_GOODS_TODO_SAVE)
+    Observable<ResponseInfo> getBackTodoSave(@Body RequestBody body);
+
+
+    /**
+     * 采购退货 已办列表
+     *
+     * @return
+     */
+    @POST(ApiNameConstant.GET_BACK_GOODS_DONE_LIST)
+    Observable<BaseResponse<?>> getBackDoneList();
+
+    /**
+     * 采购退货 已办列表 详情
+     *
+     * @param sapOrderNo
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiNameConstant.GET_BACK_GOODS_DONE_LIST_INFO)
+    Observable<BaseResponse<?>> getBackDoneListInfo(@Field("sapOrderNo") String sapOrderNo);
+
+    /**
+     * 采购退货 已办保存
+     *
+     * @param body
+     * @return
+     */
+    @POST(ApiNameConstant.GET_BACK_GOODS_DONE_SAVE)
+    Observable<ResponseInfo> getBackDoneSave(@Body RequestBody body);
+
+    /**----------------------------------------------------------------------------------*/
+    /**--------------------------------- 成品库存 ----------------------------------------*/
+    /**----------------------------------------------------------------------------------*/
+
+    /**--------------------------------- 外采入库 ----------------------------------------*/
 
     /**
      * 获取成品采购待办列表

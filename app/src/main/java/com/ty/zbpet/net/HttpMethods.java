@@ -212,7 +212,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void pickOutTodoSave(BaseSubscriber<ResponseInfo> subscriber,RequestBody body) {
+    public void pickOutTodoSave(BaseSubscriber<ResponseInfo> subscriber, RequestBody body) {
         mService.pickOutTodoSave(body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -260,19 +260,87 @@ public class HttpMethods {
 
     /**--------------------------------- 采购退货 ----------------------------------------*/
 
+
     /**
-     * 原料--领料出库详情 列表
+     * 采购退货 待办列表
      *
      * @param subscriber
      */
-    public void pickOutDetail(BaseSubscriber<BaseResponse<PickOutDetailInfo>> subscriber) {
-        mService.pickOutDetailInfo()
+    public void getBackTodoList(BaseSubscriber<BaseResponse<?>> subscriber) {
+        mService.getBackTodoList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
 
 
+    /**
+     * 采购退货 待办列表 详情
+     *
+     * @param subscriber
+     */
+    public void getBackTodoListInfo(BaseSubscriber<BaseResponse<?>> subscriber,String sapOrderNo) {
+        mService.getBackTodoListInfo(sapOrderNo)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 采购退货 待办保存
+     *
+     * @param subscriber
+     */
+    public void getBackTodoSave(BaseSubscriber<ResponseInfo> subscriber,RequestBody body) {
+        mService.getBackTodoSave(body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 采购退货 待办列表
+     *
+     * @param subscriber
+     */
+    public void getBackDoneList(BaseSubscriber<BaseResponse<?>> subscriber) {
+        mService.getBackDoneList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+
+    /**
+     * 采购退货 待办列表 详情
+     *
+     * @param subscriber
+     */
+    public void getBackDoneListInfo(BaseSubscriber<BaseResponse<?>> subscriber,String sapOrderNo) {
+        mService.getBackDoneListInfo(sapOrderNo)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 采购退货 待办保存
+     *
+     * @param subscriber
+     */
+    public void getBackDoneSave(BaseSubscriber<ResponseInfo> subscriber,RequestBody body) {
+        mService.getBackDoneSave(body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+
+    /**----------------------------------------------------------------------------------*/
+    /**--------------------------------- 成品库存 ----------------------------------------*/
+    /**----------------------------------------------------------------------------------*/
+
+    /**--------------------------------- 外采入库 ----------------------------------------*/
     /**
      * 获取成品采购已办列表
      *

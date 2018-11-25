@@ -106,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="00"
-                android:inputType="text"
+                android:inputType="number"
                 android:lines="1"
                 android:textColor="@color/txt_main_color" />
 

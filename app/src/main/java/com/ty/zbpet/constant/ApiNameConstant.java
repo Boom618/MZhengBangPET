@@ -80,14 +80,47 @@ public class ApiNameConstant {
     /**
      * 领料出库 - 已办详情 保存
      */
-    public static final String PICK_OUT_DONE_LIST_SAVE = "sap";
+    public static final String PICK_OUT_DONE_LIST_SAVE = "stock/materialStock/mReceiveRecallIn";
 
     /**--------------------------------- 采购退货 ----------------------------------------*/
 
+
     /**
-     * 原料--- 领料出库详情 列表（）
+     * 采购退货 待办列表
      */
-    public static final String PICK_OUT_DETAIL_INFO = "stock/materialStock/mReceiveOut";
+    public static final String GET_BACK_GOODS_TODO_LIST = "stock";
+
+    /**
+     * 采购退货 待办列表
+     */
+    public static final String GET_BACK_GOODS_TODO_LIST_INFO = "stock";
+
+    /**
+     * 采购退货 待办保存
+     */
+    public static final String GET_BACK_GOODS_TODO_SAVE = "stock/materialStock/mPurchaseReturnOut";
+
+
+    /**
+     * 采购退货 已办列表
+     */
+    public static final String GET_BACK_GOODS_DONE_LIST = "stock";
+
+    /**
+     * 采购退货 已办列表
+     */
+    public static final String GET_BACK_GOODS_DONE_LIST_INFO = "stock";
+
+    /**
+     * 采购退货 已办保存
+     */
+    public static final String GET_BACK_GOODS_DONE_SAVE = "stock/materialStock/mReturnRecallIn";
+
+    /**----------------------------------------------------------------------------------*/
+    /**--------------------------------- 成品库存 ----------------------------------------*/
+    /**----------------------------------------------------------------------------------*/
+
+    /**--------------------------------- 外采入库 ----------------------------------------*/
 
     /**
      * 成品——外采入库待办列表

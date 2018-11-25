@@ -97,7 +97,14 @@ android {
         preDexLibraries = false
 
     }
-
+//    compileOptions {
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//        targetCompatibility JavaVersion.VERSION_1_8
+//    }
+//
+    packagingOptions {
+        exclude 'META-INF/proguard/androidx-annotations.pro'
+    }
 //    ${variant.productFlavors[0].name}当前渠道名
 //    ${variant.productFlavors[0].versionName}当前版本名
 //    ${releaseTime()}当前时间
@@ -110,6 +117,7 @@ android {
 }
 
 dependencies {
+
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:${ZBConfig.supportLibraryVersion}"
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
@@ -164,7 +172,6 @@ dependencies {
     implementation "com.zhy:base-rvadapter:${ZBConfig.rvadapterVersion}"
     implementation files('libs/pdasdk.jar')
 
-    //implementation project(':rxeasyhttp')
     implementation "com.zhouyou:rxeasyhttp:${ZBConfig.rxeasyhttpVersion}"
 
     //implementation project(':selectordialog') 暂停维护,慎用
@@ -172,4 +179,10 @@ dependencies {
     //implementation 'com.github.searchy2:CustomAlertViewDialogue:2.5.0'
 //    implementation 'com.afollestad.material-dialogs:core:2.0.0-beta5'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    implementation "androidx.lifecycle:lifecycle-runtime:${ZBConfig.lifecycle_version}"
+    implementation "androidx.lifecycle:lifecycle-livedata:${ZBConfig.lifecycle_version}"
+//    implementation "androidx.lifecycle:lifecycle-extensions:${ZBConfig.lifecycle_version}"
+    // alternately - if using Java8, use the following instead of lifecycle-compiler
+    //implementation "androidx.lifecycle:lifecycle-common-java8:${ZBConfig.lifecycle_version}"
 }

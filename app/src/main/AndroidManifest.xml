@@ -26,6 +26,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <!-- .ui.activity.MainActivity -->
         <activity
             android:name=".ui.activity.MainActivity"
             android:screenOrientation="portrait"
@@ -35,7 +36,9 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+        <!--<activity android:name=".ui.lifecycle.LifecycleActivity" />-->
         <activity
             android:name=".ui.activity.LoginActivity"
             android:screenOrientation="portrait"
@@ -61,11 +64,6 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".ui.activity.material.PickOutTodoDetailActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-
-        <activity
-            android:name=".ui.activity.material.PickOutTodoDetailActivityK"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
