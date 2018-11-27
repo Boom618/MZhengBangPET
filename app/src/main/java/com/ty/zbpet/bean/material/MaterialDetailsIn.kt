@@ -20,6 +20,8 @@ class MaterialDetailsIn {
          * stockNumber : 1000
          * concentration : 80
          * supplierNo :
+         * positionNo 库位码
+         * supplierId :
          * supplierName :
          * ZKG :
          */
@@ -32,6 +34,8 @@ class MaterialDetailsIn {
         var stockNumber: String? = null
         var concentration: String? = null
         var supplierNo: String? = null
+        var supplierId: String? = null
+        var positionNo: String? = null
         var supplierName: String? = null
         var ZKG: String? = null
     }

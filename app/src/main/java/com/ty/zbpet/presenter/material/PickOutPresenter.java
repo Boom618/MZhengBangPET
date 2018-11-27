@@ -98,7 +98,7 @@ public class PickOutPresenter {
      *
      * @param positionNo
      */
-    public void checkCarCode(final int position, String positionNo) {
+    public void checkCarCode(final int position, final String positionNo) {
 
         httpMethods.checkCarCode(new BaseSubscriber<CarPositionNoData>() {
             @Override
@@ -110,7 +110,7 @@ public class PickOutPresenter {
             public void onNext(CarPositionNoData responseInfo) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     // 库位码合法
-                    objInterface.showSuccess(position, responseInfo.getCount());
+                    objInterface.showSuccess(position, positionNo,responseInfo.getCount());
                 } else {
                     ZBUiUtils.showToast(responseInfo.getMessage());
                 }

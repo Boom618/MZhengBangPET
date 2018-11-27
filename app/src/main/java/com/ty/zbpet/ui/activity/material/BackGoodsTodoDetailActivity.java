@@ -1,8 +1,10 @@
 package com.ty.zbpet.ui.activity.material;
 
 import android.os.Bundle;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.KeyEvent;
 import android.view.View;
@@ -16,10 +18,12 @@ import com.pda.scanner.Scanner;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.material.MaterialDetailsIn;
+import com.ty.zbpet.bean.material.MaterialTodoSave;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.presenter.material.BackGoodsPresenter;
 import com.ty.zbpet.presenter.material.MaterialUiObjInterface;
 import com.ty.zbpet.ui.adapter.material.BackGoodsTodoDetailAdapter;
+import com.ty.zbpet.ui.adapter.material.MaterialDiffUtil;
 import com.ty.zbpet.ui.adapter.material.PickingTodoDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
@@ -46,7 +50,7 @@ import okhttp3.RequestBody;
  * 采购退货 待办详情
  */
 public class BackGoodsTodoDetailActivity extends BaseActivity implements MaterialUiObjInterface<MaterialDetailsIn>
-        , ScanBoxInterface,BackGoodsTodoDetailAdapter.SaveEditListener {
+        , ScanBoxInterface, BackGoodsTodoDetailAdapter.SaveEditListener {
 
 
     private RecyclerView reView;
@@ -61,8 +65,7 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
     private String selectTime;
     private String sapOrderNo;
 
-    private String warehouseId;
-    private List<MaterialDetailsIn.ListBean> list = new ArrayList<>();
+    private List<MaterialDetailsIn.ListBean> oldList = new ArrayList<>();
 
     /**
      * 点击库位码输入框
@@ -151,7 +154,11 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
      */
     private void pickOutTodoSave(RequestBody body) {
 
-        HttpMethods.getInstance().pickOutTodoSave(new BaseSubscriber<ResponseInfo>() {
+        if (body == null) {
+            return;
+        }
+
+        HttpMethods.getInstance().getBackTodoSave(new BaseSubscriber<ResponseInfo>() {
             @Override
             public void onError(ApiException e) {
                 ZBUiUtils.showToast(e.getMessage());
@@ -172,45 +179,54 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
                     ZBUiUtils.showToast(responseInfo.getMessage());
                 }
             }
-        },body);
+        }, body);
     }
 
     /**
      * 保存 的 Body
+     *
      * @return
      */
     private RequestBody initTodoBody() {
 
-        MaterialDetailsIn requestBody = new MaterialDetailsIn();
-        List<MaterialDetailsIn.ListBean> detail = new ArrayList<>();
+        MaterialTodoSave requestBody = new MaterialTodoSave();
+        List<MaterialTodoSave.DetailsBean> detail = new ArrayList<>();
 
-        int size = list.size();
+        int size = oldList.size();
         for (int i = 0; i < size; i++) {
             String bulkNum = bulkNumArray.get(i);
             String carCode = carCodeArray.get(i);
             String batchNo = batchNoArray.get(i);
 
-            MaterialDetailsIn.ListBean bean = new MaterialDetailsIn.ListBean();
-            if (null != bulkNum && null != carCode) {
-                // TODO
-                bean.setMaterialId(list.get(i).getMaterialId());
+            MaterialTodoSave.DetailsBean bean = new MaterialTodoSave.DetailsBean();
+            if (!TextUtils.isEmpty(bulkNum) && !TextUtils.isEmpty(carCode)) {
+
+                bean.setMaterialId(oldList.get(i).getMaterialId());
+                bean.setSupplierId(oldList.get(i).getSupplierId());
+                bean.setPositionId("25");
+                bean.setNumber(bulkNum);
+                bean.setSapMaterialBatchNo(batchNo);
+
                 detail.add(bean);
             } else if (null == bulkNum && null == carCode) {
-                // 不处理
-                break;
+                // 跳出当前一列、不处理
+                continue;
             } else {
-                // 车库数量和库位码必须一致
+                // 车库数量或者库位码其中一项为空
                 ZBUiUtils.showToast("车库数量或库位码信息不全");
                 break;
             }
         }
+        // 没有合法的操作数据,不请求网络
+        if (detail.size() == 0) {
+            return null;
+        }
 
-        requestBody.setList(detail);
+        requestBody.setDetails(detail);
+        requestBody.setWarehouseId("10");
         requestBody.setSapOrderNo(sapOrderNo);
-//        requestBody.setWarehouseId(warehouseId);
-//        requestBody.setInStoreDate(tvTime.getText().toString().trim());
-        requestBody.setSapOrderNo(sapOrderNo);
-//        requestBody.setRemark(etDesc.getText().toString().trim());
+        requestBody.setOutWarehouseTime(tvTime.getText().toString().trim());
+        requestBody.setRemark(etDesc.getText().toString().trim());
 
 
         String json = DataUtils.toJson(requestBody, 1);
@@ -273,10 +289,17 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
     }
 
     @Override
-    public void showSuccess(int position, int count) {
+    public void showSuccess(int position, String positionNo, int count) {
         if (count > 0) {
             ZBUiUtils.showToast("扫码成功 === showSuccess ");
-            adapter.notifyItemChanged(position);
+
+            List<MaterialDetailsIn.ListBean> newList = oldList;
+
+            newList.get(position).setPositionNo(positionNo);
+            DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MaterialDiffUtil(oldList, newList));
+            diffResult.dispatchUpdatesTo(adapter);
+
+            //adapter.notifyItemChanged(position);
         } else {
             ZBUiUtils.showToast("请扫正确的库位码");
         }
@@ -286,15 +309,15 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
     @Override
     public void detailObjData(MaterialDetailsIn details) {
 
-        warehouseId = details.getSapOrderNo();
-        list.clear();
-        List<MaterialDetailsIn.ListBean> list = details.getList();
+        // oldList.clear();
+        // 提交保存 需要用到
+        oldList = details.getList();
 
         if (adapter == null) {
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             reView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             reView.setLayoutManager(manager);
-            adapter = new BackGoodsTodoDetailAdapter(this, R.layout.item_pick_out_todo_list_detail, list);
+            adapter = new BackGoodsTodoDetailAdapter(this, R.layout.item_pick_out_todo_list_detail, oldList);
             reView.setAdapter(adapter);
 
             adapter.setOnItemClickListener(new PickingTodoDetailAdapter.OnItemClickListener() {
@@ -329,17 +352,39 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
 
 
     /**
-     *
-     * @param etType      输入框标识
-     * @param hasFocus    有无焦点
-     * @param position    位置
-     * @param textContent 内容
+     * @param etType   输入框标识
+     * @param hasFocus 有无焦点
+     * @param position 位置
+     * @param editText 内容
      */
     @Override
-    public void saveEditAndGetHasFocusPosition(String etType, Boolean hasFocus, int position, String textContent) {
+    public void saveEditAndGetHasFocusPosition(String etType, Boolean hasFocus, int position, EditText editText) {
         // 用户在 EditText 中输入的数据
         currentPosition = position;
-        currentFocus = hasFocus;
+
+        String textContent = editText.getText().toString().trim();
+
+        if (CodeConstant.ET_BULK_NUM.equals(etType)) {
+            bulkNumArray.put(position, textContent);
+
+            // 库位码 需要判断合法性
+        } else if (CodeConstant.ET_CODE.equals(etType)) {
+            currentFocus = hasFocus;
+
+            String tempString = textContent;
+            // 【情况 ② 】 无焦点 有内容 http 校验
+            if (!TextUtils.isEmpty(textContent)) {
+                if (!hasFocus) {
+                    //httpCheckCarCode(currentPosition, textContent);
+                }
+            }
+
+            carCodeArray.put(position, tempString);
+
+        } else if (CodeConstant.ET_BATCH_NO.equals(etType)) {
+            batchNoArray.put(position, textContent);
+
+        }
 
     }
 }

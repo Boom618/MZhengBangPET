@@ -53,7 +53,7 @@ import okhttp3.RequestBody;
  * @author TY
  */
 public class ArrivalInTodoDetailActivity extends BaseActivity implements MaterialUiObjInterface<MaterialTodoDetailsData>
-        ,MaterialTodoDetailAdapter.SaveEditListener, ScanBoxInterface{
+        , MaterialTodoDetailAdapter.SaveEditListener, ScanBoxInterface {
 
     @BindView(R.id.rv_in_storage_detail)
     RecyclerView recyclerView;
@@ -235,15 +235,6 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
         arrayList.add("供应商 1");
         arrayList.add("供应商 2");
         arrayList.add("供应商 3");
-//        arrayList.add("供应商 4");
-//        arrayList.add("供应商 5");
-//        arrayList.add("供应商 6");
-//        arrayList.add("供应商 7");
-//        arrayList.add("供应商 8");
-//        arrayList.add("供应商 9");
-//        arrayList.add("供应商 10");
-//        arrayList.add("供应商 11");
-//        arrayList.add("供应商 12");
 
 
         return arrayList;
@@ -286,7 +277,7 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
                             @Override
                             public void onClick(View v) {
 
-                                ZBUiUtils.selectDialog(ArrivalInTodoDetailActivity.this,getItems(),tvSupplier);
+                                ZBUiUtils.selectDialog(ArrivalInTodoDetailActivity.this, getItems(), tvSupplier);
                             }
                         });
 
@@ -389,7 +380,7 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
     }
 
     @Override
-    public void showSuccess(int position, int count) {
+    public void showSuccess(int position, String positionNo, int count) {
         if (count > 0) {
             ZBUiUtils.showToast("扫码成功 === showSuccess ");
             adapter.notifyItemChanged(position);

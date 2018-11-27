@@ -46,7 +46,7 @@ import okhttp3.RequestBody;
  * 领料出库 待办详情
  */
 public class PickOutTodoDetailActivity extends BaseActivity implements MaterialUiObjInterface<PickOutTodoDetailsData>
-        , ScanBoxInterface,PickingTodoDetailAdapter.SaveEditListener {
+        , ScanBoxInterface, PickingTodoDetailAdapter.SaveEditListener {
 
 
     private RecyclerView reView;
@@ -166,7 +166,7 @@ public class PickOutTodoDetailActivity extends BaseActivity implements MaterialU
                     ZBUiUtils.showToast(responseInfo.getMessage());
                 }
             }
-        },body);
+        }, body);
     }
 
     private RequestBody initTodoBody() {
@@ -270,7 +270,7 @@ public class PickOutTodoDetailActivity extends BaseActivity implements MaterialU
     }
 
     @Override
-    public void showSuccess(int position, int count) {
+    public void showSuccess(int position, String positionNo, int count) {
         if (count > 0) {
             ZBUiUtils.showToast("扫码成功 === showSuccess ");
             adapter.notifyItemChanged(position);
@@ -327,7 +327,6 @@ public class PickOutTodoDetailActivity extends BaseActivity implements MaterialU
 
 
     /**
-     *
      * @param etType      输入框标识
      * @param hasFocus    有无焦点
      * @param position    位置

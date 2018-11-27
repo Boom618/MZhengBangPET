@@ -18,8 +18,9 @@ public interface MaterialUiObjInterface<T> {
     /**
      * 成功
      *
-     * @param position  库位码 的 position
+     * @param position   库位码 的 position
+     * @param positionNo 库位码
      * @param count      数量
      */
-    void showSuccess(int position, int count);
+    void showSuccess(int position, String positionNo, int count);
 }

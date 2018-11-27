@@ -111,6 +111,7 @@ public class BackGoodsTodoFragment extends BaseFragment implements MaterialUiLis
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                     Intent intent = new Intent(getActivity(), BackGoodsTodoDetailActivity.class);
                     intent.putExtra("sapOrderNo", list.get(position).getSapOrderNo());
+                    intent.putExtra("supplierId", list.get(position).getSupplierId());
                     startActivity(intent);
                 }
 

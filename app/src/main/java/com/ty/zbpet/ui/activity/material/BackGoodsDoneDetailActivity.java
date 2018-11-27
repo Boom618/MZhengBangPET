@@ -34,8 +34,7 @@ import java.util.Locale;
  * @author TY on 2018/11/22.
  * 采购退货 已办详情
  */
-public class BackGoodsDoneDetailActivity extends BaseActivity implements MaterialUiObjInterface<MaterialDetailsOut>
-        , BackGoodsDoneDetailAdapter.SaveEditListener {
+public class BackGoodsDoneDetailActivity extends BaseActivity implements MaterialUiObjInterface<MaterialDetailsOut> {
 
 
     private RecyclerView reView;
@@ -181,22 +180,10 @@ public class BackGoodsDoneDetailActivity extends BaseActivity implements Materia
 
     }
 
-
     @Override
-    public void showSuccess(int position, int count) {
+    public void showSuccess(int position, String positionNo, int count) {
 
     }
 
-    /**
-     * 输入框处理
-     *
-     * @param etType      输入框标识
-     * @param hasFocus    有无焦点
-     * @param position    位置
-     * @param textContent 内容
-     */
-    @Override
-    public void saveEditAndGetHasFocusPosition(String etType, Boolean hasFocus, int position, String textContent) {
 
-    }
 }

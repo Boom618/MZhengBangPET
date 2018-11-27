@@ -122,7 +122,7 @@ public class BackGoodsPresenter {
      *
      * @param positionNo
      */
-    public void checkCarCode(final int position, String positionNo) {
+    public void checkCarCode(final int position, final String positionNo) {
 
         httpMethods.checkCarCode(new BaseSubscriber<CarPositionNoData>() {
             @Override
@@ -134,7 +134,7 @@ public class BackGoodsPresenter {
             public void onNext(CarPositionNoData responseInfo) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     // 库位码合法
-                    materialObjUi.showSuccess(position, responseInfo.getCount());
+                    materialObjUi.showSuccess(position, positionNo,responseInfo.getCount());
                 } else {
                     ZBUiUtils.showToast(responseInfo.getMessage());
                 }
