@@ -3,7 +3,6 @@ package com.ty.zbpet.ui.activity.material;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.SparseArray;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,15 +15,12 @@ import com.ty.zbpet.bean.PickOutDoneDetailsData;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.presenter.material.MaterialUiListInterface;
-import com.ty.zbpet.presenter.material.MaterialUiObjInterface;
 import com.ty.zbpet.presenter.material.PickOutPresenter;
-import com.ty.zbpet.ui.adapter.PickingDoneDetailAdapter;
+import com.ty.zbpet.ui.adapter.material.PickingDoneDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.CodeConstant;
-import com.ty.zbpet.util.DataUtils;
 import com.ty.zbpet.util.ResourceUtil;
-import com.ty.zbpet.util.ZBLog;
 import com.ty.zbpet.util.ZBUiUtils;
 import com.zhouyou.http.exception.ApiException;
 import com.zhouyou.http.subsciber.BaseSubscriber;
@@ -34,8 +30,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
-import okhttp3.RequestBody;
 
 /**
  * @author TY on 2018/11/22.

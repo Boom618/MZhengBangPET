@@ -20,7 +20,7 @@ import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.presenter.material.MaterialPresenter;
 import com.ty.zbpet.presenter.material.MaterialUiObjInterface;
-import com.ty.zbpet.ui.adapter.MaterialTodoDetailAdapter;
+import com.ty.zbpet.ui.adapter.material.MaterialTodoDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.CodeConstant;

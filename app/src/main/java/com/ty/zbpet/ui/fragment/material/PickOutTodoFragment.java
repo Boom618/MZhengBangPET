@@ -16,12 +16,12 @@ import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.ty.zbpet.R;
-import com.ty.zbpet.bean.PickOutTodoData;
+import com.ty.zbpet.bean.material.MaterialTodoList;
 import com.ty.zbpet.presenter.material.MaterialUiListInterface;
 import com.ty.zbpet.presenter.material.PickOutPresenter;
 import com.ty.zbpet.ui.activity.material.PickOutTodoDetailActivity;
-import com.ty.zbpet.ui.adapter.PickOutAdapter;
-import com.ty.zbpet.ui.adapter.PickOutTodoAdapter;
+import com.ty.zbpet.ui.adapter.material.PickOutAdapter;
+import com.ty.zbpet.ui.adapter.material.PickOutTodoAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.ResourceUtil;
@@ -41,7 +41,7 @@ import butterknife.BindView;
  * <p>
  * 领料出库 待办列表
  */
-public class PickOutTodoFragment extends BaseFragment implements MaterialUiListInterface<PickOutTodoData.ListBean> {
+public class PickOutTodoFragment extends BaseFragment implements MaterialUiListInterface<MaterialTodoList.ListBean> {
 
 
     @BindView(R.id.recyclerView)
@@ -93,7 +93,7 @@ public class PickOutTodoFragment extends BaseFragment implements MaterialUiListI
 
     @Override
     protected int getFragmentLayout() {
-        return R.layout.zb_content_fragment;
+        return R.layout.zb_content_list_fragment;
     }
 
     @Override
@@ -112,7 +112,6 @@ public class PickOutTodoFragment extends BaseFragment implements MaterialUiListI
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 // 传入 false 表示刷新失败
                 refreshLayout.finishRefresh(1000);
-                adapter = null;
                 // 刷新数据
                 materialPresenter.fetchPickOutTodoList();
 
@@ -131,7 +130,7 @@ public class PickOutTodoFragment extends BaseFragment implements MaterialUiListI
 
 
     @Override
-    public void showMaterial(final List<PickOutTodoData.ListBean> list) {
+    public void showMaterial(final List<MaterialTodoList.ListBean> list) {
 
 
         if (adapter == null) {

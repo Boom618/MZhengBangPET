@@ -1,0 +1,147 @@
+package com.ty.zbpet.ui.fragment.material;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+
+import com.scwang.smartrefresh.header.MaterialHeader;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.ty.zbpet.R;
+import com.ty.zbpet.bean.material.MaterialDoneList;
+import com.ty.zbpet.presenter.material.BackGoodsPresenter;
+import com.ty.zbpet.presenter.material.MaterialUiListInterface;
+import com.ty.zbpet.ui.activity.material.BackGoodsDoneDetailActivity;
+import com.ty.zbpet.ui.adapter.material.BackGoodsDoneListAdapter;
+import com.ty.zbpet.ui.adapter.material.MaterialDoneAdapter;
+import com.ty.zbpet.ui.base.BaseFragment;
+import com.ty.zbpet.ui.widght.SpaceItemDecoration;
+import com.ty.zbpet.util.ResourceUtil;
+import com.ty.zbpet.util.ZBUiUtils;
+
+import java.util.List;
+
+import butterknife.BindView;
+
+/**
+ * @author TY on 2018/11/26.
+ *
+ * 采购退货 已办列表
+ */
+public class BackGoodsDoneFragment extends BaseFragment implements MaterialUiListInterface<MaterialDoneList.ListBean> {
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
+    @BindView(R.id.refreshLayout)
+    RefreshLayout refreshLayout;
+
+
+    private BackGoodsDoneListAdapter materialAdapter;
+
+
+    private BackGoodsPresenter presenter = new BackGoodsPresenter(this);
+
+    public static BackGoodsDoneFragment newInstance(String tag){
+        BackGoodsDoneFragment fragment = new BackGoodsDoneFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("someInt", tag);
+        fragment.setArguments(bundle);
+
+        return fragment;
+    }
+
+    @Override
+    protected View onBaseCreate(View view) {
+
+        return view;
+    }
+
+    @Override
+    protected int getFragmentLayout() {
+        return R.layout.fragment_recyclerview;
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // 第一次获取数据
+        presenter.fetchBackDoneList();
+
+        refreshLayout.setRefreshHeader(new MaterialHeader(this.getContext()));
+        //设置 Footer 为 球脉冲 样式
+        refreshLayout.setRefreshFooter(new BallPulseFooter(this.getContext()).setSpinnerStyle(SpinnerStyle.Scale));
+
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                // 传入 false 表示刷新失败
+                refreshLayout.finishRefresh(1000);
+                // 刷新数据
+                presenter.fetchBackDoneList();
+
+
+            }
+        });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                // 传入 false 表示刷新失败
+                refreshLayout.finishLoadMore(1000);
+                ZBUiUtils.showToast("没有更多数据了");
+            }
+        });
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        // 关闭网络请求
+    }
+
+
+    @Override
+    public void showMaterial(final List<MaterialDoneList.ListBean> list) {
+        if (materialAdapter == null) {
+            LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
+            recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
+            recyclerView.setLayoutManager(manager);
+            materialAdapter = new BackGoodsDoneListAdapter(this.getContext(), R.layout.item_material_done, list);
+            recyclerView.setAdapter(materialAdapter);
+            materialAdapter.setOnItemClickListener(new MaterialDoneAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    Intent intent = new Intent(getActivity(), BackGoodsDoneDetailActivity.class);
+                    intent.putExtra("mOutWarehouseOrderId", list.get(position).getMOutWarehouseOrderId());
+                    intent.putExtra("sapOrderNo", list.get(position).getSapOrderNo());
+                    intent.putExtra("warehouseId", list.get(position).getWarehouseId());
+                    startActivity(intent);
+                }
+
+                @Override
+                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    return false;
+                }
+            });
+        }
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+}

@@ -40,7 +40,7 @@
         </activity>
         <!--<activity android:name=".ui.lifecycle.LifecycleActivity" />-->
         <activity
-            android:name=".ui.activity.LoginActivity"
+            android:name=".ui.activity.system.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
@@ -68,11 +68,11 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <activity
-            android:name=".ui.activity.PersonCenterActivity"
+            android:name=".ui.activity.system.PersonCenterActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".ui.activity.QualityCheckActivity"
+            android:name=".ui.activity.system.QualityCheckActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
@@ -80,11 +80,11 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".ui.activity.ProduceInStorageActivity"
+            android:name=".ui.activity.product.ProduceInStorageActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".ui.activity.PurchaseInStorageActivity"
+            android:name=".ui.activity.product.PurchaseInStorageActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
@@ -92,7 +92,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".ui.activity.PurchaseReturnsActivity"
+            android:name=".ui.activity.material.BackGoodsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
@@ -101,35 +101,38 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".ui.activity.InventoryActivity"
+            android:name=".ui.activity.system.InventoryActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".ui.activity.TransferStorageActivity"
+            android:name=".ui.activity.system.TransferStorageActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".ui.activity.ProduceInStorageDetailActivity"
+            android:name=".ui.activity.product.ProduceInStorageDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".ui.activity.InventoryDetailActivity"
+            android:name=".ui.activity.system.InventoryDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".ui.activity.TransferStorageDetailActivity"
+            android:name=".ui.activity.system.TransferStorageDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
 
         <activity
-            android:name=".ui.activity.PurchaseInStorageDetailActivity"
+            android:name=".ui.activity.product.PurchaseInStorageDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".ui.activity.ScanBoxCodeActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity android:name=".ui.activity.material.BackGoodsTodoDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.material.BackGoodsDoneDetailActivity" />
 
     </application>
 

@@ -17,8 +17,16 @@
 ## 待完成 
 
 - Fragment 懒加载
+
 - 分页
+
 - RecycleView 细节处理
+
+- Adapter 绑定事件处理
+
+- ```java
+  RxEasyHttp_
+  ```
 
 
 ## 疑问

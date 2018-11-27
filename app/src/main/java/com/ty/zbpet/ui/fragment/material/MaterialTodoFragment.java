@@ -20,7 +20,7 @@ import com.ty.zbpet.bean.MaterialTodoData;
 import com.ty.zbpet.presenter.material.MaterialPresenter;
 import com.ty.zbpet.presenter.material.MaterialUiListInterface;
 import com.ty.zbpet.ui.activity.material.ArrivalInTodoDetailActivity;
-import com.ty.zbpet.ui.adapter.MaterialTodoAdapter;
+import com.ty.zbpet.ui.adapter.material.MaterialTodoAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.ResourceUtil;
@@ -79,7 +79,7 @@ public class MaterialTodoFragment extends BaseFragment implements MaterialUiList
 
     @Override
     protected int getFragmentLayout() {
-        return R.layout.zb_content_fragment;
+        return R.layout.zb_content_list_fragment;
     }
 
     @Override
@@ -99,7 +99,6 @@ public class MaterialTodoFragment extends BaseFragment implements MaterialUiList
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 // 传入 false 表示刷新失败
                 refreshLayout.finishRefresh(1000);
-                adapter = null;
                 // 刷新数据
                 materialPresenter.fetchTODOMaterial();
 

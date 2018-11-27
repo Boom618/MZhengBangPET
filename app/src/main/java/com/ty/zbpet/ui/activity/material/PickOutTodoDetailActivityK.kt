@@ -11,7 +11,7 @@
 //import com.ty.zbpet.bean.PickOutTodoDetailsData
 //import com.ty.zbpet.presenter.material.MaterialUiObjInterface
 //import com.ty.zbpet.presenter.material.PickOutPresenter
-//import com.ty.zbpet.ui.adapter.PickOutTodoDetailAdapter
+//import com.ty.zbpet.ui.adapter.material.PickOutTodoDetailAdapter
 //import com.ty.zbpet.ui.base.BaseActivity
 //import com.ty.zbpet.ui.widght.SpaceItemDecoration
 //import com.ty.zbpet.util.CodeConstant
@@ -27,6 +27,7 @@
 // *
 // * @author TY
 // * 领料出库 待办详情
+// * 有错误啊啊
 // */
 //class PickOutTodoDetailActivityK : BaseActivity(), MaterialUiObjInterface<PickOutTodoDetailsData>, ScanBoxInterface {
 //

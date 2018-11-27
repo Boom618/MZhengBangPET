@@ -19,9 +19,7 @@ import com.ty.zbpet.bean.PickOutTodoDetailsData;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.presenter.material.PickOutPresenter;
-import com.ty.zbpet.ui.adapter.MaterialTodoDetailAdapter;
-import com.ty.zbpet.ui.adapter.PickOutTodoDetailAdapter;
-import com.ty.zbpet.ui.adapter.PickingTodoDetailAdapter;
+import com.ty.zbpet.ui.adapter.material.PickingTodoDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.presenter.material.MaterialUiObjInterface;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
@@ -42,8 +40,6 @@ import java.util.List;
 import java.util.Locale;
 
 import okhttp3.RequestBody;
-
-import static com.ty.zbpet.ui.activity.material.ArrivalInTodoDetailActivity.getItems;
 
 /**
  * @author TY on 2018/11/22.

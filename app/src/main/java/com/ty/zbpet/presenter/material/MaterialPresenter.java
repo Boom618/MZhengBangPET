@@ -4,7 +4,7 @@ import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.MaterialDoneDetailsData;
 import com.ty.zbpet.bean.MaterialTodoData;
 import com.ty.zbpet.bean.MaterialTodoDetailsData;
-import com.ty.zbpet.bean.MaterialDoneData;
+import com.ty.zbpet.bean.material.MaterialDoneList;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
 import com.ty.zbpet.util.CodeConstant;
@@ -181,18 +181,18 @@ public class MaterialPresenter {
      * 原材料 已办 列表
      */
     public void fetchDoneMaterial() {
-        httpMethods.getMaterialDoneList(new BaseSubscriber<BaseResponse<MaterialDoneData>>() {
+        httpMethods.getMaterialDoneList(new BaseSubscriber<BaseResponse<MaterialDoneList>>() {
             @Override
             public void onError(ApiException e) {
                 ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
-            public void onNext(BaseResponse<MaterialDoneData> infoList) {
+            public void onNext(BaseResponse<MaterialDoneList> infoList) {
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(infoList.getTag())) {
                     if (null != infoList && infoList.getData() != null) {
-                        List<MaterialDoneData.ListBean> list = infoList.getData().getList();
+                        List<MaterialDoneList.ListBean> list = infoList.getData().getList();
                         if (list != null && list.size() != 0) {
                             materialListUi.showMaterial(list);
                         } else {
@@ -236,26 +236,4 @@ public class MaterialPresenter {
     }
 
 
-    /**
-     *  已办 保存
-     * @param body
-     */
-//    public void materialDoneInSave(RequestBody body) {
-//        httpMethods.materialDoneInSave(new BaseSubscriber<ResponseInfo>() {
-//            @Override
-//            public void onError(ApiException e) {
-//
-//            }
-//
-//            @Override
-//            public void onNext(ResponseInfo responseInfo) {
-//
-//                materialModel.saveMaterial(responseInfo);
-//                UIUtils.showToast("onNext :" + responseInfo.getMessage());
-//
-//            }
-//
-//        }, body);
-//
-//    }
 }

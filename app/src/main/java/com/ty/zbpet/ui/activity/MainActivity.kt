@@ -2,15 +2,18 @@ package com.ty.zbpet.ui.activity
 
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 
 import com.ty.zbpet.R
 import com.ty.zbpet.ui.activity.material.ArrivalInStorageActivity
+import com.ty.zbpet.ui.activity.material.BackGoodsActivity
 import com.ty.zbpet.ui.activity.material.PickOutStorageActivity
+import com.ty.zbpet.ui.activity.product.ProduceInStorageActivity
+import com.ty.zbpet.ui.activity.product.PurchaseInStorageActivity
+import com.ty.zbpet.ui.activity.system.InventoryActivity
+import com.ty.zbpet.ui.activity.system.PersonCenterActivity
+import com.ty.zbpet.ui.activity.system.TransferStorageActivity
 import com.ty.zbpet.ui.base.BaseActivity
-
-import butterknife.OnClick
 
 /**
  * @author TY
@@ -33,6 +36,7 @@ class MainActivity : BaseActivity(),View.OnClickListener {
     override fun initTwoView() {
         findViewById<TextView>(R.id.tv_arrival_in_storage).setOnClickListener(this)
         findViewById<TextView>(R.id.tv_pick_out_storage).setOnClickListener(this)
+        findViewById<TextView>(R.id.tv_purchase_returns).setOnClickListener(this)
 
     }
 
@@ -49,7 +53,7 @@ class MainActivity : BaseActivity(),View.OnClickListener {
                 gotoActivity(PickOutStorageActivity::class.java)
             R.id.tv_purchase_returns ->
                 //原辅料——采购退货
-                gotoActivity(PurchaseReturnsActivity::class.java)
+                gotoActivity(BackGoodsActivity::class.java)
             R.id.tv_purchase_in_storage ->
                 //成品——外采入库
                 gotoActivity(PurchaseInStorageActivity::class.java)

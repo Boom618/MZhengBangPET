@@ -20,8 +20,8 @@ import com.ty.zbpet.bean.PickOutDoneData;
 import com.ty.zbpet.presenter.material.MaterialUiListInterface;
 import com.ty.zbpet.presenter.material.PickOutPresenter;
 import com.ty.zbpet.ui.activity.material.PickOutTodoDetailActivity;
-import com.ty.zbpet.ui.adapter.PickOutAdapter;
-import com.ty.zbpet.ui.adapter.PickOutDoneAdapter;
+import com.ty.zbpet.ui.adapter.material.PickOutAdapter;
+import com.ty.zbpet.ui.adapter.material.PickOutDoneAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.ResourceUtil;
@@ -90,7 +90,6 @@ public class PickOutDoneFragment extends BaseFragment implements MaterialUiListI
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 // 传入 false 表示刷新失败
                 refreshLayout.finishRefresh(1000);
-                adapter = null;
                 // 刷新数据
                 presenter.fetchPickOutDoneList();
 
@@ -108,7 +107,7 @@ public class PickOutDoneFragment extends BaseFragment implements MaterialUiListI
 
     @Override
     protected int getFragmentLayout() {
-        return R.layout.zb_content_fragment;
+        return R.layout.zb_content_list_fragment;
     }
 
 

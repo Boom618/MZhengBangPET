@@ -34,7 +34,7 @@ public abstract class BaseFragment extends Fragment {
 
     private Unbinder mUnbinder;
 
-    private ACache mCache;
+    protected ACache mCache;
 
 
     @Override

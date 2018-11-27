@@ -8,14 +8,15 @@ import com.ty.zbpet.bean.GoodsPurchaseOrderList;
 import com.ty.zbpet.bean.MaterialDoneDetailsData;
 import com.ty.zbpet.bean.MaterialTodoData;
 import com.ty.zbpet.bean.MaterialTodoDetailsData;
-import com.ty.zbpet.bean.MaterialDoneData;
-import com.ty.zbpet.bean.PickOutDetailInfo;
 import com.ty.zbpet.bean.PickOutDoneData;
 import com.ty.zbpet.bean.PickOutDoneDetailsData;
-import com.ty.zbpet.bean.PickOutTodoData;
 import com.ty.zbpet.bean.PickOutTodoDetailsData;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.WarehouseInfo;
+import com.ty.zbpet.bean.material.MaterialDetailsIn;
+import com.ty.zbpet.bean.material.MaterialDetailsOut;
+import com.ty.zbpet.bean.material.MaterialDoneList;
+import com.ty.zbpet.bean.material.MaterialTodoList;
 import com.ty.zbpet.constant.ApiNameConstant;
 import com.ty.zbpet.net.gson.DoubleDefault0Adapter;
 import com.ty.zbpet.net.gson.IntegerDefault0Adapter;
@@ -146,7 +147,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getMaterialDoneList(BaseSubscriber<BaseResponse<MaterialDoneData>> subscriber) {
+    public void getMaterialDoneList(BaseSubscriber<BaseResponse<MaterialDoneList>> subscriber) {
         mService.getMaterialDoneList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -186,7 +187,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void pickOutTodoList(BaseSubscriber<BaseResponse<PickOutTodoData>> subscriber) {
+    public void pickOutTodoList(BaseSubscriber<BaseResponse<MaterialTodoList>> subscriber) {
         mService.pickOutTodoList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -266,7 +267,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getBackTodoList(BaseSubscriber<BaseResponse<?>> subscriber) {
+    public void getBackTodoList(BaseSubscriber<BaseResponse<MaterialTodoList>> subscriber) {
         mService.getBackTodoList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -279,7 +280,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getBackTodoListInfo(BaseSubscriber<BaseResponse<?>> subscriber,String sapOrderNo) {
+    public void getBackTodoListInfo(BaseSubscriber<BaseResponse<MaterialDetailsIn>> subscriber, String sapOrderNo) {
         mService.getBackTodoListInfo(sapOrderNo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -299,11 +300,11 @@ public class HttpMethods {
     }
 
     /**
-     * 采购退货 待办列表
+     * 采购退货 已办列表
      *
      * @param subscriber
      */
-    public void getBackDoneList(BaseSubscriber<BaseResponse<?>> subscriber) {
+    public void getBackDoneList(BaseSubscriber<BaseResponse<MaterialDoneList>> subscriber) {
         mService.getBackDoneList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -312,11 +313,11 @@ public class HttpMethods {
 
 
     /**
-     * 采购退货 待办列表 详情
+     * 采购退货 已办列表 详情
      *
      * @param subscriber
      */
-    public void getBackDoneListInfo(BaseSubscriber<BaseResponse<?>> subscriber,String sapOrderNo) {
+    public void getBackDoneListInfo(BaseSubscriber<BaseResponse<MaterialDetailsOut>> subscriber, String sapOrderNo) {
         mService.getBackDoneListInfo(sapOrderNo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -324,7 +325,7 @@ public class HttpMethods {
     }
 
     /**
-     * 采购退货 待办保存
+     * 采购退货 已办保存
      *
      * @param subscriber
      */
@@ -342,11 +343,11 @@ public class HttpMethods {
 
     /**--------------------------------- 外采入库 ----------------------------------------*/
     /**
-     * 获取成品采购已办列表
+     * 已办列表
      *
      * @param subscriber
      */
-    public void getGoodsPurchaseOrderList(BaseSubscriber<GoodsPurchaseOrderList> subscriber) {
+    public void getPurchaseOrderList(BaseSubscriber<GoodsPurchaseOrderList> subscriber) {
         mService.getGoodsPurchaseOrderList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -354,16 +355,295 @@ public class HttpMethods {
     }
 
     /**
-     * 获取成品采购待办详情
+     * 待办详情
      *
      * @param subscriber
      */
-    public void getGoodsPurchaseOrderInfo(BaseSubscriber<GoodsPurchaseOrderInfo> subscriber, String sapOrderNo) {
+    public void getPurchaseOrderInfo(BaseSubscriber<GoodsPurchaseOrderInfo> subscriber, String sapOrderNo) {
         mService.getGoodsPurchaseOrderInfo(sapOrderNo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
+    /**
+     * 待办保存
+     *
+     * @param subscriber
+     */
+    public void getPurchaseTodoSave(BaseSubscriber<ResponseInfo> subscriber,RequestBody body) {
+        mService.getPurchaseTodoSave(body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 已办列表
+     *
+     * @param subscriber
+     */
+    public void getPurchaseDoneList(BaseSubscriber<BaseResponse<MaterialDoneList>> subscriber) {
+        mService.getPurchaseDoneList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+
+    /**
+     *  已办列表 详情
+     *
+     * @param subscriber
+     */
+    public void getPurchaseDoneListInfo(BaseSubscriber<BaseResponse<PickOutDoneDetailsData>> subscriber,String sapOrderNo) {
+        mService.getPurchaseDoneListInfo(sapOrderNo)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 已办保存
+     *
+     * @param subscriber
+     */
+    public void getPurchaseDoneSave(BaseSubscriber<ResponseInfo> subscriber,RequestBody body) {
+        mService.getPurchaseDoneSave(body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**--------------------------------- 生产入库 ----------------------------------------*/
+
+    /**
+     * 已办列表
+     *
+     * @param subscriber
+     */
+    public void getProduceOrderList(BaseSubscriber<GoodsPurchaseOrderList> subscriber) {
+        mService.getProduceOrderList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 待办详情
+     *
+     * @param subscriber
+     */
+    public void getProduceOrderInfo(BaseSubscriber<GoodsPurchaseOrderInfo> subscriber, String sapOrderNo) {
+        mService.getProduceOrderInfo(sapOrderNo)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 待办保存
+     *
+     * @param subscriber
+     */
+    public void getProduceTodoSave(BaseSubscriber<ResponseInfo> subscriber,RequestBody body) {
+        mService.getProduceTodoSave(body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 已办列表
+     *
+     * @param subscriber
+     */
+    public void getProduceDoneList(BaseSubscriber<BaseResponse<MaterialDoneList>> subscriber) {
+        mService.getProduceDoneList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+
+    /**
+     *  已办列表 详情
+     *
+     * @param subscriber
+     */
+    public void getProduceDoneListInfo(BaseSubscriber<BaseResponse<PickOutDoneDetailsData>> subscriber,String sapOrderNo) {
+        mService.getProduceDoneListInfo(sapOrderNo)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 已办保存
+     *
+     * @param subscriber
+     */
+    public void getProduceDoneSave(BaseSubscriber<ResponseInfo> subscriber,RequestBody body) {
+        mService.getProduceDoneSave(body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+
+    /**--------------------------------- 发货出库 ----------------------------------------*/
+
+    /**
+     * 已办列表
+     *
+     * @param subscriber
+     */
+    public void getShipOrderList(BaseSubscriber<GoodsPurchaseOrderList> subscriber) {
+        mService.getShipOrderList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 待办详情
+     *
+     * @param subscriber
+     */
+    public void getShipOrderInfo(BaseSubscriber<GoodsPurchaseOrderInfo> subscriber, String sapOrderNo) {
+        mService.getShipOrderInfo(sapOrderNo)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 待办保存
+     *
+     * @param subscriber
+     */
+    public void getShipTodoSave(BaseSubscriber<ResponseInfo> subscriber,RequestBody body) {
+        mService.getShipTodoSave(body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 已办列表
+     *
+     * @param subscriber
+     */
+    public void getShipDoneList(BaseSubscriber<BaseResponse<MaterialDoneList>> subscriber) {
+        mService.getShipDoneList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+
+    /**
+     *  已办列表 详情
+     *
+     * @param subscriber
+     */
+    public void getShipDoneListInfo(BaseSubscriber<BaseResponse<PickOutDoneDetailsData>> subscriber,String sapOrderNo) {
+        mService.getShipDoneListInfo(sapOrderNo)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 已办保存
+     *
+     * @param subscriber
+     */
+    public void getShipDoneSave(BaseSubscriber<ResponseInfo> subscriber,RequestBody body) {
+        mService.getShipDoneSave(body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+
+    /**--------------------------------- 退货入库 ----------------------------------------*/
+
+    /**
+     * 已办列表
+     *
+     * @param subscriber
+     */
+    public void getReturnOrderList(BaseSubscriber<GoodsPurchaseOrderList> subscriber) {
+        mService.getReturnOrderList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 待办详情
+     *
+     * @param subscriber
+     */
+    public void getReturnOrderInfo(BaseSubscriber<GoodsPurchaseOrderInfo> subscriber, String sapOrderNo) {
+        mService.getReturnOrderInfo(sapOrderNo)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 待办保存
+     *
+     * @param subscriber
+     */
+    public void getReturnTodoSave(BaseSubscriber<ResponseInfo> subscriber,RequestBody body) {
+        mService.getReturnTodoSave(body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 已办列表
+     *
+     * @param subscriber
+     */
+    public void getReturnDoneList(BaseSubscriber<BaseResponse<MaterialDoneList>> subscriber) {
+        mService.getReturnDoneList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+
+    /**
+     *  已办列表 详情
+     *
+     * @param subscriber
+     */
+    public void getReturnDoneListInfo(BaseSubscriber<BaseResponse<PickOutDoneDetailsData>> subscriber,String sapOrderNo) {
+        mService.getReturnDoneListInfo(sapOrderNo)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 已办保存
+     *
+     * @param subscriber
+     */
+    public void getReturnDoneSave(BaseSubscriber<ResponseInfo> subscriber,RequestBody body) {
+        mService.getReturnDoneSave(body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+
+    /**--------------------------------- End ----------------------------------------*/
 
     /**
      * 获取仓库信息

@@ -13,11 +13,11 @@ import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.ty.zbpet.R;
-import com.ty.zbpet.bean.MaterialDoneData;
+import com.ty.zbpet.bean.material.MaterialDoneList;
 import com.ty.zbpet.presenter.material.MaterialPresenter;
 import com.ty.zbpet.presenter.material.MaterialUiListInterface;
 import com.ty.zbpet.ui.activity.material.ArrivalInDoneDetailActivity;
-import com.ty.zbpet.ui.adapter.MaterialDoneAdapter;
+import com.ty.zbpet.ui.adapter.material.MaterialDoneAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
 import com.ty.zbpet.ui.base.EmptyLayout;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
@@ -33,7 +33,7 @@ import butterknife.BindView;
  *
  * @author TY
  */
-public class MaterialDoneFragment extends BaseFragment implements MaterialUiListInterface<MaterialDoneData.ListBean> {
+public class MaterialDoneFragment extends BaseFragment implements MaterialUiListInterface<MaterialDoneList.ListBean> {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -50,7 +50,9 @@ public class MaterialDoneFragment extends BaseFragment implements MaterialUiList
 
     @Override
     protected View onBaseCreate(View view) {
-
+        refreshLayout.setRefreshHeader(new MaterialHeader(this.getContext()));
+        //设置 Footer 为 球脉冲 样式
+        refreshLayout.setRefreshFooter(new BallPulseFooter(this.getContext()).setSpinnerStyle(SpinnerStyle.Scale));
         return view;
     }
 
@@ -66,6 +68,13 @@ public class MaterialDoneFragment extends BaseFragment implements MaterialUiList
 
         // 第一次获取数据
         materialPresenter.fetchDoneMaterial();
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
         /**设置 Header
          * BezierRadarHeader  贝塞尔雷达
          * WaterDropHeader 苹果水滴
@@ -74,10 +83,6 @@ public class MaterialDoneFragment extends BaseFragment implements MaterialUiList
          * MaterialHeader 材料 5.0 样式
          * StoreHouseHeader 跑马灯
          */
-        refreshLayout.setRefreshHeader(new MaterialHeader(this.getContext()));
-        //设置 Footer 为 球脉冲 样式
-        refreshLayout.setRefreshFooter(new BallPulseFooter(this.getContext()).setSpinnerStyle(SpinnerStyle.Scale));
-
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
@@ -85,7 +90,7 @@ public class MaterialDoneFragment extends BaseFragment implements MaterialUiList
                 refreshLayout.finishRefresh(1000);
                 // 刷新数据
                 materialPresenter.fetchDoneMaterial();
-                materialAdapter = null;
+
 
             }
         });
@@ -99,7 +104,6 @@ public class MaterialDoneFragment extends BaseFragment implements MaterialUiList
         });
     }
 
-
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -109,7 +113,7 @@ public class MaterialDoneFragment extends BaseFragment implements MaterialUiList
 
 
     @Override
-    public void showMaterial(final List<MaterialDoneData.ListBean> list) {
+    public void showMaterial(final List<MaterialDoneList.ListBean> list) {
         if (materialAdapter == null) {
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
@@ -121,7 +125,7 @@ public class MaterialDoneFragment extends BaseFragment implements MaterialUiList
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                     Intent intent = new Intent(getActivity(), ArrivalInDoneDetailActivity.class);
 //                    Intent intent = new Intent(getActivity(), ArrivalInDoneDetailActivityK.class);
-                    intent.putExtra("mInWarehouseOrderId", list.get(position).getmInWarehouseOrderId());
+                    intent.putExtra("mInWarehouseOrderId", list.get(position).getMOutWarehouseOrderId());
                     intent.putExtra("sapOrderNo", list.get(position).getSapOrderNo());
                     intent.putExtra("warehouseId", list.get(position).getWarehouseId());
                     startActivity(intent);

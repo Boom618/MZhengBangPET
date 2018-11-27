@@ -1,11 +1,10 @@
 package com.ty.zbpet.presenter.material;
 
 import com.ty.zbpet.bean.CarPositionNoData;
-import com.ty.zbpet.bean.PickOutDetailInfo;
 import com.ty.zbpet.bean.PickOutDoneData;
 import com.ty.zbpet.bean.PickOutDoneDetailsData;
-import com.ty.zbpet.bean.PickOutTodoData;
 import com.ty.zbpet.bean.PickOutTodoDetailsData;
+import com.ty.zbpet.bean.material.MaterialTodoList;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
 import com.ty.zbpet.util.CodeConstant;
@@ -41,17 +40,17 @@ public class PickOutPresenter {
      * 待办列表
      */
     public void fetchPickOutTodoList() {
-        httpMethods.pickOutTodoList(new BaseSubscriber<BaseResponse<PickOutTodoData>>() {
+        httpMethods.pickOutTodoList(new BaseSubscriber<BaseResponse<MaterialTodoList>>() {
             @Override
             public void onError(ApiException e) {
                 ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
-            public void onNext(BaseResponse<PickOutTodoData> response) {
+            public void onNext(BaseResponse<MaterialTodoList> response) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
-                    List<PickOutTodoData.ListBean> list = response.getData().getList();
+                    List<MaterialTodoList.ListBean> list = response.getData().getList();
                     listInterface.showMaterial(list);
 
                 } else {
