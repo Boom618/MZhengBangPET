@@ -1,5 +1,7 @@
 package com.ty.zbpet.presenter.material;
 
+import com.ty.zbpet.bean.CarPositionNoData;
+
 /**
  * @author TY on 2018/11/7.
  * <p>
@@ -18,9 +20,8 @@ public interface MaterialUiObjInterface<T> {
     /**
      * 成功
      *
-     * @param position   库位码 的 position
-     * @param positionNo 库位码
-     * @param count      数量
+     * @param position 库位码 的 position
+     * @param carData  库位码信息
      */
-    void showSuccess(int position, String positionNo, int count);
+    void showCarSuccess(int position, CarPositionNoData carData);
 }

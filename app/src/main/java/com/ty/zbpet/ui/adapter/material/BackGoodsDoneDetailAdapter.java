@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * @author TY on 2018/11/22.
- *
+ * <p>
  * 领料出库 已办详情
  */
 public class BackGoodsDoneDetailAdapter extends CommonAdapter<MaterialDetailsOut.ListBean> {
@@ -37,13 +37,13 @@ public class BackGoodsDoneDetailAdapter extends CommonAdapter<MaterialDetailsOut
         batchNo.setInputType(InputType.TYPE_NULL);
 
         holder.setText(R.id.tv_name, list.getMaterialName())
-                .setText(R.id.tv_num, " 数量 + 单位 ")
-                .setText(R.id.tv_box_num, "含量： ？")
-                .setText(R.id.tv_box_num_unit, "ZKG ：? ")
+                .setText(R.id.tv_num, list.getGiveNumber() + list.getUnitS() + " ?")
+                .setText(R.id.tv_box_num, list.getConcentration() + "?")
+                .setText(R.id.tv_box_num_unit, list.getZKG() + "?")
                 .setText(R.id.bulk_num, "库存量：? ")
-                .setText(R.id.et_code, "库位码 ? ")
-                .setText(R.id.et_number, "数量 ？ ")
-                .setText(R.id.et_batch_no, "SAP 物料：? ");
+                .setText(R.id.et_code, list.getPositionNo()+ "?" )
+                .setText(R.id.et_number, list.getNumber()+ "?")
+                .setText(R.id.et_batch_no, list.getSapMaterialBatchNo()+ "?");
 
     }
 

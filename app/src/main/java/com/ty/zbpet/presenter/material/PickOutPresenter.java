@@ -110,7 +110,7 @@ public class PickOutPresenter {
             public void onNext(CarPositionNoData responseInfo) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     // 库位码合法
-                    objInterface.showSuccess(position, positionNo,responseInfo.getCount());
+                    objInterface.showCarSuccess(position, responseInfo);
                 } else {
                     ZBUiUtils.showToast(responseInfo.getMessage());
                 }

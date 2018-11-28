@@ -50,7 +50,13 @@ class MaterialDetailsOut {
         var productionDate: String? = null
         var createdAt: String? = null
         var updatedAt: String? = null
-        var unitS: Int = 0
+        var unitS: String? = null
+
+        var orderNumber: String? = null
+        var positionNo: String? = null
+        var number: String? = null
+        var sapMaterialBatchNo: String? = null
+        var ZKG: String? = null
     }
 
 

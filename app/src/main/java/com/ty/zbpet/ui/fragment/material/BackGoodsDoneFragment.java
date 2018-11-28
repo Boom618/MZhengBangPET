@@ -131,6 +131,9 @@ public class BackGoodsDoneFragment extends BaseFragment implements MaterialUiLis
                     return false;
                 }
             });
+        }else {
+            // 刷新列表
+            materialAdapter.notifyDataSetChanged();
         }
     }
 

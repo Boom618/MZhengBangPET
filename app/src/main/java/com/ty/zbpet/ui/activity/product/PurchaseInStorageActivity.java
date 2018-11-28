@@ -4,10 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import com.ty.zbpet.R;
 import com.ty.zbpet.ui.adapter.ViewPagerAdapter;
@@ -27,18 +24,8 @@ import butterknife.BindView;
  */
 public class PurchaseInStorageActivity extends BaseActivity {
 
-    @BindView(R.id.iv_back)
-    ImageView ivBack;
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
-    @BindView(R.id.tv_right)
-    TextView tvRight;
     @BindView(R.id.et_search)
     EditText etSearch;
-    @BindView(R.id.rb_no_doing)
-    RadioButton rbNoDoing;
-    @BindView(R.id.rb_complete)
-    RadioButton rbComplete;
     @BindView(R.id.rg)
     RadioGroup rg;
     @BindView(R.id.viewpager)
@@ -50,12 +37,12 @@ public class PurchaseInStorageActivity extends BaseActivity {
     @Override
     protected void onBaseCreate(Bundle savedInstanceState) {
 
-        PurchaseTodoFragment noDoingFg = new PurchaseTodoFragment();
-        PurchaseDoneFragment completeFg = new PurchaseDoneFragment();
+        PurchaseTodoFragment todoFragment = PurchaseTodoFragment.newInstance("todoFragment");
+        PurchaseDoneFragment doneFragment = PurchaseDoneFragment.newInstance("doneFragment");
 
         List<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(noDoingFg);
-        fragmentList.add(completeFg);
+        fragmentList.add(todoFragment);
+        fragmentList.add(doneFragment);
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentList);
         viewpager.setAdapter(adapter);

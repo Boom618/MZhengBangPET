@@ -1,7 +1,6 @@
 package com.ty.zbpet.presenter.material;
 
 import com.ty.zbpet.bean.CarPositionNoData;
-import com.ty.zbpet.bean.PickOutDoneDetailsData;
 import com.ty.zbpet.bean.material.MaterialDetailsIn;
 import com.ty.zbpet.bean.material.MaterialDetailsOut;
 import com.ty.zbpet.bean.material.MaterialDoneList;
@@ -134,7 +133,7 @@ public class BackGoodsPresenter {
             public void onNext(CarPositionNoData responseInfo) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     // 库位码合法
-                    materialObjUi.showSuccess(position, positionNo,responseInfo.getCount());
+                    materialObjUi.showCarSuccess(position, responseInfo);
                 } else {
                     ZBUiUtils.showToast(responseInfo.getMessage());
                 }

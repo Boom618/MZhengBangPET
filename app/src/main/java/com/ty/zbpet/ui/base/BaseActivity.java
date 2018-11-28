@@ -156,8 +156,6 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 重置 ACache 中保存的的数据
      */
     private void clearCache(){
-        // 库位码 list position
-        mCache.put(CodeConstant.SCAN_BOX_POSITION,"-1");
         // 库位码 内容
         mCache.put(CodeConstant.SCAN_BOX_KEY,"");
     }

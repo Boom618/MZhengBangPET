@@ -1,5 +1,7 @@
 package com.ty.zbpet.bean.material
 
+import java.util.ArrayList
+
 /**
  * @author TY on 2018/11/25.
  * 原料详情 bean 待办详情
@@ -8,7 +10,7 @@ class MaterialDetailsIn {
 
 
     var sapOrderNo: String? = null
-    var list: List<ListBean>? = null
+    var list: ArrayList<ListBean>? = null
 
     class ListBean {
         /**

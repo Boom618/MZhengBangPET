@@ -84,6 +84,7 @@ public class BackGoodsTodoFragment extends BaseFragment implements MaterialUiLis
                 refreshLayout.finishRefresh(1000);
                 // 刷新数据
                 presenter.fetchBackTodoList();
+                adapter.notifyDataSetChanged();
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {

@@ -2,6 +2,7 @@ package com.ty.zbpet.ui.adapter.material;
 
 import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
+import android.text.TextUtils;
 
 import com.ty.zbpet.bean.material.MaterialDetailsIn;
 
@@ -55,7 +56,13 @@ public class MaterialDiffUtil extends DiffUtil.Callback {
     @Override
     public boolean areContentsTheSame(int i, int i1) {
 
-        return false;
+        String oldNo = mOldList.get(i).getPositionNo();
+        String newNo = mNewList.get(i1).getPositionNo();
+        if (TextUtils.isEmpty(oldNo) && TextUtils.isEmpty(newNo)) {
+            return true;
+        }
+
+        return oldNo.equals(newNo);
     }
 
     /**
@@ -65,12 +72,14 @@ public class MaterialDiffUtil extends DiffUtil.Callback {
      * @param newItemPosition
      * @return
      */
-    @Nullable
-    @Override
-    public Object getChangePayload(int oldItemPosition, int newItemPosition) {
-
-
-
-        return super.getChangePayload(oldItemPosition, newItemPosition);
-    }
+//    @Nullable
+//    @Override
+//    public Object getChangePayload(int oldItemPosition, int newItemPosition) {
+//
+//
+//
+//
+//
+//        return super.getChangePayload(oldItemPosition, newItemPosition);
+//    }
 }

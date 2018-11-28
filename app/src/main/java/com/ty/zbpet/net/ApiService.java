@@ -224,7 +224,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.GET_GOODS_PURCHASE_ORDER_LIST)
-    Observable<GoodsPurchaseOrderList> getGoodsPurchaseOrderList();
+    Observable<BaseResponse<MaterialTodoList>> getGoodsPurchaseOrderList();
 
     /**
      * 待办详情

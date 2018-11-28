@@ -30,7 +30,6 @@ public class BackGoodsActivity extends BaseActivity {
     EditText etSearch;
     @BindView(R.id.rg)
     RadioGroup rg;
-
     @BindView(R.id.back_goods_viewpager)
     ViewPager viewPager;
 

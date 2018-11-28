@@ -40,16 +40,10 @@ import okhttp3.RequestBody;
 
 /**
  * @author TY
- * 外采详情
+ * 外采详情 待办
  */
 public class PurchaseInStorageDetailActivity extends BaseActivity {
 
-    @BindView(R.id.iv_back)
-    ImageView ivBack;
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
-    @BindView(R.id.tv_right)
-    TextView tvRight;
     @BindView(R.id.et_batch_no)
     EditText etBatchNo;
     @BindView(R.id.tv_warehouse)
@@ -237,35 +231,6 @@ public class PurchaseInStorageDetailActivity extends BaseActivity {
     public void selectWarehouse(final List<String> datas) {
         ZBUiUtils.showToast("选择仓库");
         ZBUiUtils.selectDialog(this,datas,tvWarehouse);
-//        NormalSelectionDialog.Builder builder = new NormalSelectionDialog.Builder(this);
-//        //设置是否显示标题
-//        builder.setlTitleVisible(true)
-//                //设置标题高度
-//                .setTitleHeight(50)
-//                .setTitleText("选择仓库")
-//                .setTitleTextSize(14)
-//                //设置标题文本颜色
-//                .setTitleTextColor(R.color.main_color)
-//                //设置item的高度
-//                .setItemHeight(40)
-//                //屏幕宽度*0.9
-//                .setItemWidth(0.9f)
-//                .setItemTextColor(R.color.black)
-//                .setItemTextSize(14)
-//                //设置最底部“取消”按钮文本
-//                .setCancleButtonText("取消")
-//                .setOnItemListener(new DialogInterface.OnItemClickListener<NormalSelectionDialog>() {
-//                    @Override
-//                    public void onItemClick(NormalSelectionDialog dialog, View button, int position) {
-//                        dialog.dismiss();
-//                        tvWarehouse.setText(datas.get(position));
-//                    }
-//                })
-//                //设置是否可点击其他地方取消dialog
-//                .setCanceledOnTouchOutside(true)
-//                .build()
-//                .setDatas(datas)
-//                .show();
     }
 
     @Override

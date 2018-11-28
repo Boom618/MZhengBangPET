@@ -160,7 +160,7 @@ public class MaterialPresenter {
             public void onNext(CarPositionNoData responseInfo) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     // 库位码合法
-                    materialObjUi.showSuccess(position, positionNo,responseInfo.getCount());
+                    materialObjUi.showCarSuccess(position, responseInfo);
                 } else {
                     ZBUiUtils.showToast(responseInfo.getMessage());
                 }

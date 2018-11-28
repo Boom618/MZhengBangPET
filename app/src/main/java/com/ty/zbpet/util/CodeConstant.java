@@ -35,7 +35,6 @@ public final class CodeConstant {
      * 扫码保存的信息
      */
     public static final String SCAN_BOX_KEY = "scan";
-    public static String SCAN_BOX_POSITION = "-1";
 
     /**
      * 扫码字符集

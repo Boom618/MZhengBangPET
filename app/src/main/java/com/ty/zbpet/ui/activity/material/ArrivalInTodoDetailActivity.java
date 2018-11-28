@@ -15,6 +15,7 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.pda.scanner.ScanReader;
 import com.pda.scanner.Scanner;
 import com.ty.zbpet.R;
+import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.MaterialTodoDetailsData;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.net.HttpMethods;
@@ -380,9 +381,9 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
     }
 
     @Override
-    public void showSuccess(int position, String positionNo, int count) {
-        if (count > 0) {
-            ZBUiUtils.showToast("扫码成功 === showSuccess ");
+    public void showCarSuccess(int position, CarPositionNoData carData) {
+        if (carData.getCount() > 0) {
+            ZBUiUtils.showToast("扫码成功 === showCarSuccess ");
             adapter.notifyItemChanged(position);
         } else {
             ZBUiUtils.showToast("请扫正确的库位码");

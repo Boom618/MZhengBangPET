@@ -2,6 +2,7 @@ package com.ty.zbpet.ui.adapter.material;
 
 import android.content.Context;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
@@ -18,7 +19,7 @@ import java.util.List;
 
 /**
  * @author TY on 2018/11/22.
- *
+ * <p>
  * 领料出库 待办详情
  */
 public class BackGoodsTodoDetailAdapter extends CommonAdapter<MaterialDetailsIn.ListBean> {
@@ -43,14 +44,20 @@ public class BackGoodsTodoDetailAdapter extends CommonAdapter<MaterialDetailsIn.
         // TYPE_NULL 禁止手机软键盘  TYPE_CLASS_TEXT : 开启软键盘。
         etCode.setInputType(InputType.TYPE_NULL);
         // ScanObservable.scanBox 扫码成功保存的 ID 和 Value
-        String value = ACache.get(context).getAsString(CodeConstant.SCAN_BOX_KEY);
-
-        etCode.setText(value);
+        String result = ACache.get(context).getAsString(CodeConstant.SCAN_BOX_KEY);
+        if (!TextUtils.isEmpty(result)) {
+            String[] split = result.split("@");
+            int id = Integer.valueOf(split[0]);
+            if (position == id) {
+                String value = split[1];
+                etCode.setText(value);
+            }
+        }
         etCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
                 // 关闭软键盘
-                ZBUiUtils.hideInputWindow(context,view);
+                ZBUiUtils.hideInputWindow(context, view);
                 // 焦点改变 接口回调
                 listener.saveEditAndGetHasFocusPosition(CodeConstant.ET_CODE, hasFocus, position, etCode);
             }
@@ -67,7 +74,7 @@ public class BackGoodsTodoDetailAdapter extends CommonAdapter<MaterialDetailsIn.
         EditText etSapNo = holder.itemView.findViewById(R.id.et_batch_no);
         String sapNo = etSapNo.getText().toString().trim();
         etSapNo.setText(sapNo);
-        etSapNo.setOnFocusChangeListener(new EditTextOnFocusChangeListener(CodeConstant.ET_BATCH_NO,position,etSapNo));
+        etSapNo.setOnFocusChangeListener(new EditTextOnFocusChangeListener(CodeConstant.ET_BATCH_NO, position, etSapNo));
 
     }
 
@@ -95,9 +102,8 @@ public class BackGoodsTodoDetailAdapter extends CommonAdapter<MaterialDetailsIn.
 
             if (CodeConstant.ET_BATCH_NO.equals(etType) && !hasFocus) {
                 // 关闭软键盘
-                ZBUiUtils.hideInputWindow(context,view);
+                ZBUiUtils.hideInputWindow(context, view);
             }
-
 
 
             listener.saveEditAndGetHasFocusPosition(etType, hasFocus, position, editText);
@@ -112,9 +118,9 @@ public class BackGoodsTodoDetailAdapter extends CommonAdapter<MaterialDetailsIn.
         /**
          * 输入框的处理
          *
-         * @param etType      输入框标识
-         * @param hasFocus    有无焦点
-         * @param position    位置
+         * @param etType   输入框标识
+         * @param hasFocus 有无焦点
+         * @param position 位置
          * @param editText 内容
          */
         void saveEditAndGetHasFocusPosition(String etType, Boolean hasFocus, int position, EditText editText);

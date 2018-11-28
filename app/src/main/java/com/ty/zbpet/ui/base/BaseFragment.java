@@ -78,7 +78,6 @@ public abstract class BaseFragment extends Fragment {
      * 重置 ACache 中保存的的数据
      */
     private void clearCache() {
-        mCache.put(CodeConstant.SCAN_BOX_POSITION, "-1");
         mCache.put(CodeConstant.SCAN_BOX_KEY, "");
     }
 

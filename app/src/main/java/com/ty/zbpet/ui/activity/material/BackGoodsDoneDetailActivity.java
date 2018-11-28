@@ -10,8 +10,10 @@ import android.widget.TextView;
 
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.ty.zbpet.R;
+import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.material.MaterialDetailsOut;
+import com.ty.zbpet.bean.material.MaterialDoneSave;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.presenter.material.BackGoodsPresenter;
 import com.ty.zbpet.presenter.material.MaterialUiObjInterface;
@@ -19,6 +21,7 @@ import com.ty.zbpet.ui.adapter.material.BackGoodsDoneDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.CodeConstant;
+import com.ty.zbpet.util.DataUtils;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.ZBUiUtils;
 import com.zhouyou.http.exception.ApiException;
@@ -29,6 +32,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import okhttp3.RequestBody;
 
 /**
  * @author TY on 2018/11/22.
@@ -44,7 +49,10 @@ public class BackGoodsDoneDetailActivity extends BaseActivity implements Materia
     private BackGoodsDoneDetailAdapter adapter;
 
     private String selectTime;
-    private String sapOrderNo;
+    /**
+     * 仓库 ID
+     */
+    private String warehouseId;
 
     private String mOutWarehouseOrderId;
     private List<MaterialDetailsOut.ListBean> list = new ArrayList<>();
@@ -65,7 +73,7 @@ public class BackGoodsDoneDetailActivity extends BaseActivity implements Materia
 
     @Override
     protected void initOneData() {
-        sapOrderNo = getIntent().getStringExtra("sapOrderNo");
+
         mOutWarehouseOrderId = getIntent().getStringExtra("mOutWarehouseOrderId");
 
         presenter.fetchBackDoneListInfo(mOutWarehouseOrderId);
@@ -78,7 +86,7 @@ public class BackGoodsDoneDetailActivity extends BaseActivity implements Materia
         initToolBar(R.string.pick_out_storage, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pickOutDoneSave();
+                BackGoodsDoneSave(initDoneBody());
             }
         });
 
@@ -110,9 +118,9 @@ public class BackGoodsDoneDetailActivity extends BaseActivity implements Materia
     /**
      * 出库 保存
      */
-    private void pickOutDoneSave() {
+    private void BackGoodsDoneSave(RequestBody body) {
 
-        HttpMethods.getInstance().pickOutDoneSave(new BaseSubscriber<ResponseInfo>() {
+        HttpMethods.getInstance().getBackDoneSave(new BaseSubscriber<ResponseInfo>() {
             @Override
             public void onError(ApiException e) {
                 ZBUiUtils.showToast(e.getMessage());
@@ -133,14 +141,29 @@ public class BackGoodsDoneDetailActivity extends BaseActivity implements Materia
                     ZBUiUtils.showToast(responseInfo.getMessage());
                 }
             }
-        });
+        }, body);
     }
 
+    private RequestBody initDoneBody() {
+
+        MaterialDoneSave requestBody = new MaterialDoneSave();
+
+        String remark = etDesc.getText().toString().trim();
+
+        requestBody.setInOutOrderId(mOutWarehouseOrderId);
+        requestBody.setWarehouseId(warehouseId);
+        requestBody.setOutTime(selectTime);
+        requestBody.setRemark(remark);
+        String json = DataUtils.toJson(requestBody, 1);
+
+        return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), json);
+    }
 
     @Override
     public void detailObjData(MaterialDetailsOut obj) {
 
         List<MaterialDetailsOut.ListBean> list = obj.getList();
+        warehouseId = list.get(0).getWarehouseId();
 
         if (adapter == null) {
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
@@ -181,7 +204,7 @@ public class BackGoodsDoneDetailActivity extends BaseActivity implements Materia
     }
 
     @Override
-    public void showSuccess(int position, String positionNo, int count) {
+    public void showCarSuccess(int position, CarPositionNoData carData) {
 
     }
 

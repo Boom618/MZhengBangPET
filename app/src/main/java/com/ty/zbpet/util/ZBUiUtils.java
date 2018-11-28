@@ -140,7 +140,6 @@ public class ZBUiUtils {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         textView.setText(data.get(which));
-
                         dialog.dismiss();
                     }
                 })

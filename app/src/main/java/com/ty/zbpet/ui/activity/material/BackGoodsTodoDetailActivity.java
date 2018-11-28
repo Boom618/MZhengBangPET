@@ -16,6 +16,7 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.pda.scanner.ScanReader;
 import com.pda.scanner.Scanner;
 import com.ty.zbpet.R;
+import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.material.MaterialDetailsIn;
 import com.ty.zbpet.bean.material.MaterialTodoSave;
@@ -65,7 +66,7 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
     private String selectTime;
     private String sapOrderNo;
 
-    private List<MaterialDetailsIn.ListBean> oldList = new ArrayList<>();
+    private ArrayList<MaterialDetailsIn.ListBean> oldList = new ArrayList<>();
 
     /**
      * 点击库位码输入框
@@ -87,6 +88,15 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
     private SparseArray<String> bulkNumArray = new SparseArray(10);
     private SparseArray<String> carCodeArray = new SparseArray(10);
     private SparseArray<String> batchNoArray = new SparseArray(10);
+    /**
+     * 库位码 ID
+     */
+    private SparseArray<String> positionId = new SparseArray(10);
+
+    /**
+     * 仓库 ID
+     */
+    private String warehouseId;
 
 
     @Override
@@ -183,7 +193,7 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
     }
 
     /**
-     * 保存 的 Body
+     * 构建保存 的 Body
      *
      * @return
      */
@@ -197,13 +207,15 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
             String bulkNum = bulkNumArray.get(i);
             String carCode = carCodeArray.get(i);
             String batchNo = batchNoArray.get(i);
+            String Id = positionId.get(i);
 
             MaterialTodoSave.DetailsBean bean = new MaterialTodoSave.DetailsBean();
             if (!TextUtils.isEmpty(bulkNum) && !TextUtils.isEmpty(carCode)) {
 
                 bean.setMaterialId(oldList.get(i).getMaterialId());
                 bean.setSupplierId(oldList.get(i).getSupplierId());
-                bean.setPositionId("25");
+                bean.setConcentration(oldList.get(i).getConcentration());
+                bean.setPositionId(Id);
                 bean.setNumber(bulkNum);
                 bean.setSapMaterialBatchNo(batchNo);
 
@@ -223,7 +235,7 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
         }
 
         requestBody.setDetails(detail);
-        requestBody.setWarehouseId("10");
+        requestBody.setWarehouseId(warehouseId);
         requestBody.setSapOrderNo(sapOrderNo);
         requestBody.setOutWarehouseTime(tvTime.getText().toString().trim());
         requestBody.setRemark(etDesc.getText().toString().trim());
@@ -272,6 +284,12 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
         ZBUiUtils.showToast("库位码 ：" + msg);
         //adapter.notifyItemChanged(position);
 
+//        ArrayList<MaterialDetailsIn.ListBean> newList = new ArrayList<>(oldList);
+//
+//        newList.get(position).setPositionNo(msg);
+//        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MaterialDiffUtil(oldList, newList));
+//        diffResult.dispatchUpdatesTo(adapter);
+
         //  服务器校验 库位码
         httpCheckCarCode(position, msg);
     }
@@ -289,17 +307,20 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
     }
 
     @Override
-    public void showSuccess(int position, String positionNo, int count) {
-        if (count > 0) {
-            ZBUiUtils.showToast("扫码成功 === showSuccess ");
+    public void showCarSuccess(int position, CarPositionNoData carData) {
+        if (carData.getCount() > 0) {
+            ZBUiUtils.showToast("扫码成功 === showCarSuccess ");
+            String carId = carData.getList().get(0).getId();
+            warehouseId = carData.getList().get(0).getWarehouseId();
+            positionId.put(position,carId);
 
-            List<MaterialDetailsIn.ListBean> newList = oldList;
+//            List<MaterialDetailsIn.ListBean> newList = oldList;
+//
+//            newList.get(position).setPositionNo(positionNo);
+//            DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MaterialDiffUtil(oldList, newList));
+//            diffResult.dispatchUpdatesTo(adapter);
 
-            newList.get(position).setPositionNo(positionNo);
-            DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MaterialDiffUtil(oldList, newList));
-            diffResult.dispatchUpdatesTo(adapter);
-
-            //adapter.notifyItemChanged(position);
+            adapter.notifyItemChanged(position);
         } else {
             ZBUiUtils.showToast("请扫正确的库位码");
         }

@@ -43,7 +43,7 @@
             android:background="@drawable/shape_rb_bg">
 
             <RadioButton
-                android:id="@+id/rb_camera"
+                android:id="@+id/rb_no_doing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/space_5"
@@ -60,7 +60,7 @@
                 />
 
             <RadioButton
-                android:id="@+id/rb_weather"
+                android:id="@+id/rb_complete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/space_5"
@@ -79,7 +79,13 @@
 
     </LinearLayout>
 
-    <include layout="@layout/item_produce_in_storage_complete" />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/back_goods_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_top" />
+
+    <!--<include layout="@layout/item_produce_in_storage_complete" />-->
 
 
 </RelativeLayout>

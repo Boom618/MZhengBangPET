@@ -347,7 +347,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getPurchaseOrderList(BaseSubscriber<GoodsPurchaseOrderList> subscriber) {
+    public void getPurchaseOrderList(BaseSubscriber<BaseResponse<MaterialTodoList>> subscriber) {
         mService.getGoodsPurchaseOrderList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -1,25 +1,22 @@
-package com.ty.zbpet.ui.adapter.material;
+package com.ty.zbpet.ui.adapter.product;
 
 import android.content.Context;
-import android.view.View;
 
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.material.MaterialDoneList;
-import com.ty.zbpet.bean.material.MaterialTodoList;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import java.util.List;
 
 /**
- * @author TY on 2018/11/26.
- *
- * 采购退货 已办列表
+ * 外采入库 已办列表
+ * @author TY
  */
-public class BackGoodsDoneListAdapter extends CommonAdapter<MaterialDoneList.ListBean> {
+public class PurchaseDoneListAdapter extends CommonAdapter<MaterialDoneList.ListBean> {
 
 
-    public BackGoodsDoneListAdapter(Context context, int layoutId, List<MaterialDoneList.ListBean> datas) {
+    public PurchaseDoneListAdapter(Context context, int layoutId, List<MaterialDoneList.ListBean> datas) {
         super(context, layoutId, datas);
     }
 

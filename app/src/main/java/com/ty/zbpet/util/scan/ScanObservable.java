@@ -98,9 +98,8 @@ public class ScanObservable {
                     public void accept(String s) throws Exception {
                         ZBLog.e("doOnNext: 保存成功：" + s + "\n");
 
-                        // 存 position ，解决第一次进来所有列表都是同样的值
-                        mCache.put(CodeConstant.SCAN_BOX_POSITION, position);
-                        mCache.put(CodeConstant.SCAN_BOX_KEY, s);
+                        // 存 position 和 解析出来的库位码值： 1@KWM565658908
+                        mCache.put(CodeConstant.SCAN_BOX_KEY, position + "@" + s);
                     }
                 })
                 // 指定 Subscriber 的回调发生在主线程
@@ -111,10 +110,6 @@ public class ScanObservable {
 
                         scanBox.ScanSuccess(position, s);
 
-                        // 存 position ，解决第一次进来所有列表都是同样的值
-                        //mCache.put(CodeConstant.SCAN_BOX_POSITION,position);
-                        //mCache.put(CodeConstant.SCAN_BOX_KEY, s);
-                        ZBUiUtils.showToast("扫码成功 " + s);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

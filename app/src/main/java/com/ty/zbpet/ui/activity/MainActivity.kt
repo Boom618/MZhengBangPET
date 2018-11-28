@@ -18,7 +18,7 @@ import com.ty.zbpet.ui.base.BaseActivity
 /**
  * @author TY
  */
-class MainActivity : BaseActivity(),View.OnClickListener {
+class MainActivity : BaseActivity(), View.OnClickListener {
 
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
@@ -38,11 +38,13 @@ class MainActivity : BaseActivity(),View.OnClickListener {
         findViewById<TextView>(R.id.tv_pick_out_storage).setOnClickListener(this)
         findViewById<TextView>(R.id.tv_purchase_returns).setOnClickListener(this)
 
+        findViewById<TextView>(R.id.tv_purchase_in_storage).setOnClickListener(this)
+        findViewById<TextView>(R.id.tv_produce_in_storage).setOnClickListener(this)
+        findViewById<TextView>(R.id.tv_send_out_storage).setOnClickListener(this)
+        findViewById<TextView>(R.id.tv_return_in_storage).setOnClickListener(this)
+
     }
 
-//    @OnClick(R.id.tv_arrival_in_storage, R.id.tv_pick_out_storage, R.id.tv_purchase_returns,
-//            R.id.tv_purchase_in_storage, R.id.tv_produce_in_storage, R.id.tv_send_out_storage,
-//            R.id.tv_return_in_storage, R.id.tv_inventory, R.id.tv_transfer_storage, R.id.tv_person_center)
     override fun onClick(view: View) {
         when (view.id) {
             R.id.tv_arrival_in_storage ->
