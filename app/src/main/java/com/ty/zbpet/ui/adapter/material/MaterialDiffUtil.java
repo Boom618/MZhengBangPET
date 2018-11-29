@@ -11,14 +11,13 @@ import java.util.List;
 /**
  * @author TY on 2018/11/27.
  * <p>
- * 待办详情 Different
+ * Different
  */
 public class MaterialDiffUtil extends DiffUtil.Callback {
 
-    private List<MaterialDetailsIn.ListBean> mOldList;
-    private List<MaterialDetailsIn.ListBean> mNewList;
+    private List<String> mOldList, mNewList;
 
-    public MaterialDiffUtil(List<MaterialDetailsIn.ListBean> mOldList, List<MaterialDetailsIn.ListBean> mNewList) {
+    public MaterialDiffUtil(List<String> mOldList, List<String> mNewList) {
         this.mOldList = mOldList;
         this.mNewList = mNewList;
     }
@@ -26,16 +25,16 @@ public class MaterialDiffUtil extends DiffUtil.Callback {
 
     @Override
     public int getOldListSize() {
-        return mOldList.size();
+        return mOldList == null ? 0 : mOldList.size();
     }
 
     @Override
     public int getNewListSize() {
-        return mNewList.size();
+        return mNewList == null ? 0 : mNewList.size();
     }
 
     /**
-     * id 相同
+     * 比较 ID
      *
      * @param i
      * @param i1
@@ -43,11 +42,11 @@ public class MaterialDiffUtil extends DiffUtil.Callback {
      */
     @Override
     public boolean areItemsTheSame(int i, int i1) {
-        return true;
+        return mOldList.get(i).getClass().equals(mNewList.get(i1).getClass());
     }
 
     /**
-     * 内容不同
+     * 比较 内容
      *
      * @param i
      * @param i1
@@ -56,13 +55,10 @@ public class MaterialDiffUtil extends DiffUtil.Callback {
     @Override
     public boolean areContentsTheSame(int i, int i1) {
 
-        String oldNo = mOldList.get(i).getPositionNo();
-        String newNo = mNewList.get(i1).getPositionNo();
-        if (TextUtils.isEmpty(oldNo) && TextUtils.isEmpty(newNo)) {
-            return true;
-        }
+        String oldStr = mOldList.get(i);
+        String newStr = mNewList.get(i1);
 
-        return oldNo.equals(newNo);
+        return oldStr.equals(newStr);
     }
 
     /**

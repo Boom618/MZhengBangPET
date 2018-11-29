@@ -75,7 +75,7 @@ public class ApiNameConstant {
     /**
      * 领料出库 - 已办列表 详情
      */
-    public static final String PICK_OUT_DONE_LIST_INFO = "sap";
+    public static final String PICK_OUT_DONE_LIST_INFO = "stock/materialStock/getMaterialBackOrderInfo";
 
     /**
      * 领料出库 - 已办详情 保存

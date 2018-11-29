@@ -54,7 +54,7 @@ public class BindBoxCodeAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return info.size();
+        return info == null ? 0 : info.size();
     }
 
     static class ItemHolder extends RecyclerView.ViewHolder {

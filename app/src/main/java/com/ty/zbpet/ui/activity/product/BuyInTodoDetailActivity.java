@@ -68,11 +68,21 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiOb
     private BuyInPresenter presenter = new BuyInPresenter(this);
 
     /**
+     * 箱码
+     */
+    private ArrayList<String> boxCodeList = new ArrayList<>();
+
+    /**
+     * 列表 ID
+     */
+    private int itemId = -1;
+
+    /**
      * 保存用户在输入框中的数据
      */
     private SparseArray<String> bulkNumArray = new SparseArray(10);
-    private SparseArray<String> carCodeArray = new SparseArray(10);
     private SparseArray<String> batchNoArray = new SparseArray(10);
+    private SparseArray<ArrayList<String>> carCodeArray = new SparseArray(10);
     /**
      * 库位码 ID
      */
@@ -191,16 +201,13 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiOb
         int size = oldList.size();
         for (int i = 0; i < size; i++) {
             String bulkNum = bulkNumArray.get(i);
-            String carCode = carCodeArray.get(i);
+            ArrayList<String> carCode = carCodeArray.get(i);
             String batchNo = batchNoArray.get(i);
             String Id = positionId.get(i);
 
             MaterialTodoSave.DetailsBean bean = new MaterialTodoSave.DetailsBean();
-            if (!TextUtils.isEmpty(bulkNum) && !TextUtils.isEmpty(carCode)) {
+            if (!TextUtils.isEmpty(bulkNum) && carCode.size() != 0) {
 
-//                bean.setMaterialId(oldList.get(i).getMaterialId());
-//                bean.setSupplierId(oldList.get(i).getSupplierId());
-//                bean.setConcentration(oldList.get(i).getConcentration());
                 bean.setPositionId(Id);
                 bean.setNumber(bulkNum);
                 bean.setSapMaterialBatchNo(batchNo);
@@ -263,9 +270,10 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiOb
                     bindingCode.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            itemId = position;
                             Intent intent = new Intent(BuyInTodoDetailActivity.this, ScanBoxCodeActivity.class);
-                            intent.putExtra("position", position);
-                            intent.putStringArrayListExtra("boxCodeList", null);
+                            intent.putExtra("itemId", itemId);
+                            intent.putStringArrayListExtra("boxCodeList", carCodeArray.get(itemId));
                             startActivityForResult(intent, REQUEST_SCAN_CODE);
                         }
                     });
@@ -289,8 +297,9 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiOb
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_SCAN_CODE && resultCode == RESULT_SCAN_CODE) {
-            int position = data.getIntExtra("position", -1);
-            List<String> codeList = data.getStringArrayListExtra("boxCodeList");
+            itemId = data.getIntExtra("itemId", -1);
+            boxCodeList = data.getStringArrayListExtra("boxCodeList");
+            carCodeArray.put(itemId,boxCodeList);
 //            if (codeList != null) {
 //                GoodsPurchaseOrderInfo.DataBean.ListBean listBean = list.get(position);
 //                listBean.setBoxCodeList(codeList);
