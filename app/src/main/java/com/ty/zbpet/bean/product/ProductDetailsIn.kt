@@ -2,46 +2,28 @@ package com.ty.zbpet.bean.product
 
 /**
  * @author TY on 2018/11/25.
- * 产品详情 bean 四个待办 保存
+ * 产品详情 bean 四个待办
  */
 class ProductDetailsIn {
 
 
-    /**
-     * warehouseId : 3
-     * inStoreDate : 2018-09-06
-     * sapPlantNo : SAP00009
-     * orderId : 666
-     * productionBatchNo : P00001
-     * remark : 1
-     * details : [{"positionId":"1","number":"4","goodsId":"1786","sapMaterialBatchNo":"sap物料批次号","goodsQrCodeStart":"qr00001","goodsQrCodeEnd":"qr00100","boxQrCode":["box001","box002","box003","box004"]}]
-     */
+    var list: List<ListBean>? = null
 
-    var warehouseId: String? = null
-    var inStoreDate: String? = null
-    var sapPlantNo: String? = null
-    var orderId: String? = null
-    var productionBatchNo: String? = null
-    var remark: String? = null
-    var details: List<DetailsBean>? = null
-
-    class DetailsBean {
+    class ListBean {
         /**
-         * positionId : 1
-         * number : 4
-         * goodsId : 1786
-         * sapMaterialBatchNo : sap物料批次号
-         * goodsQrCodeStart : qr00001
-         * goodsQrCodeEnd : qr00100
-         * boxQrCode : ["box001","box002","box003","box004"]
+         * sapOrderNo : SAP0001
+         * goodsName : 原辅料名称
+         * goodsId : 20
+         * goodsNo : 原辅料编号
+         * unitS : 瓶
+         * orderNumber : 100
          */
 
-        var positionId: String? = null
-        var number: String? = null
+        var sapOrderNo: String? = null
+        var goodsName: String? = null
         var goodsId: String? = null
-        var sapMaterialBatchNo: String? = null
-        var goodsQrCodeStart: String? = null
-        var goodsQrCodeEnd: String? = null
-        var boxQrCode: List<String>? = null
+        var goodsNo: String? = null
+        var unitS: String? = null
+        var orderNumber: String? = null
     }
 }

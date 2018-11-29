@@ -14,34 +14,26 @@ import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.ty.zbpet.R;
-import com.ty.zbpet.bean.GoodsPurchaseOrderList;
-import com.ty.zbpet.bean.material.MaterialTodoList;
-import com.ty.zbpet.net.HttpMethods;
-import com.ty.zbpet.presenter.material.BackGoodsPresenter;
+import com.ty.zbpet.bean.material.MaterialDoneList;
 import com.ty.zbpet.presenter.product.BuyInPresenter;
 import com.ty.zbpet.presenter.product.ProductUiListInterface;
-import com.ty.zbpet.ui.activity.material.BackGoodsTodoDetailActivity;
-import com.ty.zbpet.ui.activity.product.PurchaseInStorageDetailActivity;
-import com.ty.zbpet.ui.adapter.PurchaseInWarehouseAdapter;
+import com.ty.zbpet.ui.activity.product.BuyInDoneDetailActivity;
 import com.ty.zbpet.ui.adapter.material.BackGoodsTodoListAdapter;
-import com.ty.zbpet.ui.adapter.product.PurchaseTodoListAdapter;
+import com.ty.zbpet.ui.adapter.product.BuyInDoneListAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
-import com.ty.zbpet.ui.fragment.material.BackGoodsTodoFragment;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.ZBUiUtils;
-import com.zhouyou.http.exception.ApiException;
-import com.zhouyou.http.subsciber.BaseSubscriber;
 
 import java.util.List;
 
 import butterknife.BindView;
 
 /**
- * 成品——外采入库——未办
+ * 成品——外采入库——已办
  * @author TY
  */
-public class PurchaseTodoFragment extends BaseFragment implements ProductUiListInterface<MaterialTodoList.ListBean> {
+public class BuyInDoneFragment extends BaseFragment implements ProductUiListInterface<MaterialDoneList.ListBean> {
 
 
     @BindView(R.id.recyclerView)
@@ -51,10 +43,10 @@ public class PurchaseTodoFragment extends BaseFragment implements ProductUiListI
 
     private BuyInPresenter presenter = new BuyInPresenter(this);
 
-    private PurchaseTodoListAdapter adapter;
+    private BuyInDoneListAdapter adapter;
 
-    public static PurchaseTodoFragment newInstance(String tag){
-        PurchaseTodoFragment fragment = new PurchaseTodoFragment();
+    public static BuyInDoneFragment newInstance(String tag){
+        BuyInDoneFragment fragment = new BuyInDoneFragment();
         Bundle bundle = new Bundle();
         bundle.putString("someInt", tag);
         fragment.setArguments(bundle);
@@ -80,7 +72,7 @@ public class PurchaseTodoFragment extends BaseFragment implements ProductUiListI
     public void onStart() {
         super.onStart();
 
-        presenter.fetchBuyInTodoList();
+        presenter.fetchBuyInDoneList();
 
     }
 
@@ -94,7 +86,7 @@ public class PurchaseTodoFragment extends BaseFragment implements ProductUiListI
                 // 传入 false 表示刷新失败
                 refreshLayout.finishRefresh(1000);
                 // 刷新数据
-                presenter.fetchBuyInTodoList();
+                presenter.fetchBuyInDoneList();
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -108,21 +100,20 @@ public class PurchaseTodoFragment extends BaseFragment implements ProductUiListI
     }
 
     @Override
-    public void showProduct(final List<MaterialTodoList.ListBean> list) {
+    public void showProduct(final List<MaterialDoneList.ListBean> list) {
 
         if (adapter == null) {
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             recyclerView.setLayoutManager(manager);
-            adapter = new PurchaseTodoListAdapter(ResourceUtil.getContext(),R.layout.item_material_todo,list);
+            adapter = new BuyInDoneListAdapter(ResourceUtil.getContext(),R.layout.item_material_done,list);
             recyclerView.setAdapter(adapter);
 
             adapter.setOnItemClickListener(new BackGoodsTodoListAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    Intent intent = new Intent(getActivity(), BackGoodsTodoDetailActivity.class);
+                    Intent intent = new Intent(getActivity(), BuyInDoneDetailActivity.class);
                     intent.putExtra("sapOrderNo", list.get(position).getSapOrderNo());
-                    intent.putExtra("supplierId", list.get(position).getSupplierId());
                     startActivity(intent);
                 }
 
@@ -131,6 +122,9 @@ public class PurchaseTodoFragment extends BaseFragment implements ProductUiListI
                     return false;
                 }
             });
+
+        }else {
+            adapter.notifyDataSetChanged();
         }
     }
 

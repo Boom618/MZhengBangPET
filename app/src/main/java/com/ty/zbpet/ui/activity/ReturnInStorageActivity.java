@@ -6,13 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import com.ty.zbpet.R;
 
 /**
- * 退货入库
+ * 成品 退货入库
+ * @author TY
  */
 public class ReturnInStorageActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_return_in_storage);
     }
 }

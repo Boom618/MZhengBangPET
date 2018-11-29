@@ -1,7 +1,6 @@
 package com.ty.zbpet.ui.activity.material;
 
 import android.os.Bundle;
-import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -24,7 +23,6 @@ import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.presenter.material.BackGoodsPresenter;
 import com.ty.zbpet.presenter.material.MaterialUiObjInterface;
 import com.ty.zbpet.ui.adapter.material.BackGoodsTodoDetailAdapter;
-import com.ty.zbpet.ui.adapter.material.MaterialDiffUtil;
 import com.ty.zbpet.ui.adapter.material.PickingTodoDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
@@ -106,7 +104,7 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
 
     @Override
     protected int getActivityLayout() {
-        return R.layout.activity_pick_out_detail;
+        return R.layout.activity_content_detail_two;
     }
 
     @Override

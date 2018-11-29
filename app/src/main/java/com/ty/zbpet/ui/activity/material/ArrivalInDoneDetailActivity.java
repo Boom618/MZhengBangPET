@@ -9,8 +9,8 @@ import android.widget.ImageView;
 
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.MaterialDoneDetailsData;
-import com.ty.zbpet.bean.MaterialDoneSaveData;
 import com.ty.zbpet.bean.ResponseInfo;
+import com.ty.zbpet.bean.material.MaterialDoneSave;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.presenter.material.MaterialPresenter;
 import com.ty.zbpet.presenter.material.MaterialUiListInterface;
@@ -18,9 +18,9 @@ import com.ty.zbpet.ui.adapter.material.MaterialDoneDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.CodeConstant;
+import com.ty.zbpet.util.DataUtils;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.ZBUiUtils;
-import com.ty.zbpet.util.DataUtils;
 import com.zhouyou.http.exception.ApiException;
 import com.zhouyou.http.subsciber.BaseSubscriber;
 
@@ -119,7 +119,7 @@ public class ArrivalInDoneDetailActivity extends BaseActivity implements Materia
      */
     private RequestBody initRequestBody() {
 
-        MaterialDoneSaveData bean = new MaterialDoneSaveData();
+        MaterialDoneSave bean = new MaterialDoneSave();
 
         bean.setWarehouseId(warehouseId);
         bean.setInOutOrderId(mInWarehouseOrderId);

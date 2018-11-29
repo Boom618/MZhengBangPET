@@ -16,7 +16,7 @@ import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.ty.zbpet.R;
-import com.ty.zbpet.bean.MaterialTodoData;
+import com.ty.zbpet.bean.material.MaterialTodoList;
 import com.ty.zbpet.presenter.material.MaterialPresenter;
 import com.ty.zbpet.presenter.material.MaterialUiListInterface;
 import com.ty.zbpet.ui.activity.material.ArrivalInTodoDetailActivity;
@@ -38,7 +38,7 @@ import butterknife.BindView;
  * <p>
  * 待办 （ 入库 ） Fragment
  */
-public class MaterialTodoFragment extends BaseFragment implements MaterialUiListInterface<MaterialTodoData.ListBean> {
+public class MaterialTodoFragment extends BaseFragment implements MaterialUiListInterface<MaterialTodoList.ListBean> {
 
 
     @BindView(R.id.recyclerView)
@@ -115,7 +115,7 @@ public class MaterialTodoFragment extends BaseFragment implements MaterialUiList
     }
 
     @Override
-    public void showMaterial(final List<MaterialTodoData.ListBean> list) {
+    public void showMaterial(final List<MaterialTodoList.ListBean> list) {
 
         if (adapter == null) {
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());

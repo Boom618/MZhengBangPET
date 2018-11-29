@@ -9,7 +9,7 @@ import com.ty.zbpet.ui.activity.material.ArrivalInStorageActivity
 import com.ty.zbpet.ui.activity.material.BackGoodsActivity
 import com.ty.zbpet.ui.activity.material.PickOutStorageActivity
 import com.ty.zbpet.ui.activity.product.ProduceInStorageActivity
-import com.ty.zbpet.ui.activity.product.PurchaseInStorageActivity
+import com.ty.zbpet.ui.activity.product.BuyInStorageActivity
 import com.ty.zbpet.ui.activity.system.InventoryActivity
 import com.ty.zbpet.ui.activity.system.PersonCenterActivity
 import com.ty.zbpet.ui.activity.system.TransferStorageActivity
@@ -58,7 +58,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 gotoActivity(BackGoodsActivity::class.java)
             R.id.tv_purchase_in_storage ->
                 //成品——外采入库
-                gotoActivity(PurchaseInStorageActivity::class.java)
+                gotoActivity(BuyInStorageActivity::class.java)
             R.id.tv_produce_in_storage ->
                 //成品——生产入库
                 gotoActivity(ProduceInStorageActivity::class.java)

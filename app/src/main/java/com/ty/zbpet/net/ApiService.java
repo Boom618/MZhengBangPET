@@ -4,7 +4,6 @@ import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.GoodsPurchaseOrderInfo;
 import com.ty.zbpet.bean.GoodsPurchaseOrderList;
 import com.ty.zbpet.bean.MaterialDoneDetailsData;
-import com.ty.zbpet.bean.MaterialTodoData;
 import com.ty.zbpet.bean.MaterialTodoDetailsData;
 import com.ty.zbpet.bean.PickOutDoneData;
 import com.ty.zbpet.bean.PickOutDoneDetailsData;
@@ -15,10 +14,13 @@ import com.ty.zbpet.bean.material.MaterialDetailsIn;
 import com.ty.zbpet.bean.material.MaterialDetailsOut;
 import com.ty.zbpet.bean.material.MaterialDoneList;
 import com.ty.zbpet.bean.material.MaterialTodoList;
+import com.ty.zbpet.bean.product.ProductDetailsIn;
+import com.ty.zbpet.bean.product.ProductTodoSave;
 import com.ty.zbpet.constant.ApiNameConstant;
 import com.ty.zbpet.ui.base.BaseResponse;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -41,7 +43,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.GET_MATERIAL_IN_WAREHOUSE_ORDER_LIST)
-    Observable<BaseResponse<MaterialTodoData>> getMaterialTodoList();
+    Observable<BaseResponse<MaterialTodoList>> getMaterialTodoList();
 
     /**
      * 获取原辅料采购 待办 详情
@@ -224,7 +226,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.GET_GOODS_PURCHASE_ORDER_LIST)
-    Observable<BaseResponse<MaterialTodoList>> getGoodsPurchaseOrderList();
+    Single<BaseResponse<MaterialTodoList>> getGoodsPurchaseOrderList();
 
     /**
      * 待办详情
@@ -233,7 +235,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_GOODS_PURCHASE_ORDER_INFO)
-    Observable<GoodsPurchaseOrderInfo> getGoodsPurchaseOrderInfo(@Field("sapOrderNo") String sapOrderNo);
+    Observable<BaseResponse<ProductDetailsIn>> getGoodsPurchaseOrderInfo(@Field("sapOrderNo") String sapOrderNo);
 
 
     /**

@@ -7,7 +7,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ty.zbpet.R;
-import com.ty.zbpet.bean.MaterialTodoData;
+import com.ty.zbpet.bean.material.MaterialTodoList;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class MaterialTodoAdapter extends CommonAdapter {
 
-    private List<MaterialTodoData.ListBean> infoList;
+    private List<MaterialTodoList.ListBean> infoList;
 
 
     public MaterialTodoAdapter(Context context, int layoutId, List datas) {
@@ -39,7 +39,7 @@ public class MaterialTodoAdapter extends CommonAdapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
 
-        MaterialTodoData.ListBean info = infoList.get(position);
+        MaterialTodoList.ListBean info = infoList.get(position);
 
 
         TextView tvNo = holder.itemView.findViewById(R.id.tv_no);
@@ -64,8 +64,6 @@ public class MaterialTodoAdapter extends CommonAdapter {
         TextView tvDate = holder.itemView.findViewById(R.id.tv_date);
         tvDate.setText(info.getOrderTime());
 
-
-        RelativeLayout relativeLayout = holder.itemView.findViewById(R.id.ll_root);
 
     }
 }

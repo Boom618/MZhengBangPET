@@ -1,4 +1,4 @@
-package com.ty.zbpet.ui.activity.material;
+package com.ty.zbpet.ui.activity.product;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,16 +10,20 @@ import android.widget.TextView;
 
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.ty.zbpet.R;
-import com.ty.zbpet.bean.MaterialTodoDetailsData;
-import com.ty.zbpet.bean.PickOutDoneDetailsData;
+import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.ResponseInfo;
+import com.ty.zbpet.bean.material.MaterialDetailsOut;
+import com.ty.zbpet.bean.material.MaterialDoneSave;
+import com.ty.zbpet.bean.product.ProductDetailsOut;
 import com.ty.zbpet.net.HttpMethods;
-import com.ty.zbpet.presenter.material.MaterialUiListInterface;
-import com.ty.zbpet.presenter.material.PickOutPresenter;
-import com.ty.zbpet.ui.adapter.material.PickingDoneDetailAdapter;
+import com.ty.zbpet.presenter.material.BackGoodsPresenter;
+import com.ty.zbpet.presenter.material.MaterialUiObjInterface;
+import com.ty.zbpet.ui.adapter.material.BackGoodsDoneDetailAdapter;
+import com.ty.zbpet.ui.adapter.product.BuyInDoneDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.CodeConstant;
+import com.ty.zbpet.util.DataUtils;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.ZBUiUtils;
 import com.zhouyou.http.exception.ApiException;
@@ -31,27 +35,32 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import okhttp3.RequestBody;
+
 /**
  * @author TY on 2018/11/22.
- * 领料出库 已办详情
+ * 外采入库 已办详情
  */
-public class PickOutDoneDetailActivity extends BaseActivity implements MaterialUiListInterface<PickOutDoneDetailsData.ListBean> {
+public class BuyInDoneDetailActivity extends BaseActivity implements MaterialUiObjInterface<ProductDetailsOut> {
 
 
     private RecyclerView reView;
     private TextView tvTime;
     private EditText etDesc;
 
-    private PickingDoneDetailAdapter adapter;
+    private BuyInDoneDetailAdapter adapter;
 
     private String selectTime;
-    private String sapOrderNo;
-
+    /**
+     * 仓库 ID
+     */
     private String warehouseId;
-    private List<MaterialTodoDetailsData.DetailsBean> list = new ArrayList<>();
+
+    private String mOutWarehouseOrderId;
+    private List<MaterialDetailsOut.ListBean> list = new ArrayList<>();
 
 
-    private PickOutPresenter presenter = new PickOutPresenter(this);
+    private BackGoodsPresenter presenter = new BackGoodsPresenter(this);
 
 
     @Override
@@ -66,9 +75,10 @@ public class PickOutDoneDetailActivity extends BaseActivity implements MaterialU
 
     @Override
     protected void initOneData() {
-        sapOrderNo = getIntent().getStringExtra("sapOrderNo");
 
-        presenter.fetchPickOutDoneListDetails(sapOrderNo);
+        mOutWarehouseOrderId = getIntent().getStringExtra("mOutWarehouseOrderId");
+
+        presenter.fetchBackDoneListInfo(mOutWarehouseOrderId);
     }
 
     @Override
@@ -78,7 +88,7 @@ public class PickOutDoneDetailActivity extends BaseActivity implements MaterialU
         initToolBar(R.string.pick_out_storage, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pickOutDoneSave();
+                BackGoodsDoneSave(initDoneBody());
             }
         });
 
@@ -105,16 +115,14 @@ public class PickOutDoneDetailActivity extends BaseActivity implements MaterialU
                 });
             }
         });
-
-
     }
 
     /**
      * 出库 保存
      */
-    private void pickOutDoneSave() {
+    private void BackGoodsDoneSave(RequestBody body) {
 
-        HttpMethods.getInstance().pickOutDoneSave(new BaseSubscriber<ResponseInfo>() {
+        HttpMethods.getInstance().getBackDoneSave(new BaseSubscriber<ResponseInfo>() {
             @Override
             public void onError(ApiException e) {
                 ZBUiUtils.showToast(e.getMessage());
@@ -135,23 +143,37 @@ public class PickOutDoneDetailActivity extends BaseActivity implements MaterialU
                     ZBUiUtils.showToast(responseInfo.getMessage());
                 }
             }
-        });
+        }, body);
     }
 
+    private RequestBody initDoneBody() {
 
+        MaterialDoneSave requestBody = new MaterialDoneSave();
+
+        String remark = etDesc.getText().toString().trim();
+
+        requestBody.setInOutOrderId(mOutWarehouseOrderId);
+        requestBody.setWarehouseId(warehouseId);
+        requestBody.setOutTime(selectTime);
+        requestBody.setRemark(remark);
+        String json = DataUtils.toJson(requestBody, 1);
+
+        return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), json);
+    }
 
     @Override
-    public void showMaterial(List<PickOutDoneDetailsData.ListBean> list) {
+    public void detailObjData(ProductDetailsOut obj) {
 
+        List<ProductDetailsOut.ListBean> list = obj.getList();
 
         if (adapter == null) {
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             reView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             reView.setLayoutManager(manager);
-            adapter = new PickingDoneDetailAdapter(this, R.layout.item_pick_out_todo_list_detail, list);
+            adapter = new BuyInDoneDetailAdapter(this, R.layout.item_buy_in_todo_list_detail, list);
             reView.setAdapter(adapter);
 
-            adapter.setOnItemClickListener(new PickingDoneDetailAdapter.OnItemClickListener() {
+            adapter.setOnItemClickListener(new BackGoodsDoneDetailAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
 
@@ -182,15 +204,10 @@ public class PickOutDoneDetailActivity extends BaseActivity implements MaterialU
 
     }
 
-
-
     @Override
-    public void showLoading() {
+    public void showCarSuccess(int position, CarPositionNoData carData) {
 
     }
 
-    @Override
-    public void hideLoading() {
 
-    }
 }

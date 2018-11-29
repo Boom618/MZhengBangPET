@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/bg_color"
     android:orientation="vertical"
-    tools:context=".ui.activity.product.ProduceInStorageDetailActivity">
+    tools:context=".ui.activity.product.ProduceTodoDetailActivity">
 
     <include
         android:id="@+id/top_layout"

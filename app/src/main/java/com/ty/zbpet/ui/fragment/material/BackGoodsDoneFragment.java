@@ -31,7 +31,7 @@ import butterknife.BindView;
 
 /**
  * @author TY on 2018/11/26.
- *
+ * <p>
  * 采购退货 已办列表
  */
 public class BackGoodsDoneFragment extends BaseFragment implements MaterialUiListInterface<MaterialDoneList.ListBean> {
@@ -43,10 +43,15 @@ public class BackGoodsDoneFragment extends BaseFragment implements MaterialUiLis
 
     private BackGoodsDoneListAdapter materialAdapter;
 
+    /**
+     * 下拉刷新 flag
+     */
+    private boolean refresh = false;
+
 
     private BackGoodsPresenter presenter = new BackGoodsPresenter(this);
 
-    public static BackGoodsDoneFragment newInstance(String tag){
+    public static BackGoodsDoneFragment newInstance(String tag) {
         BackGoodsDoneFragment fragment = new BackGoodsDoneFragment();
         Bundle bundle = new Bundle();
         bundle.putString("someInt", tag);
@@ -85,6 +90,7 @@ public class BackGoodsDoneFragment extends BaseFragment implements MaterialUiLis
                 refreshLayout.finishRefresh(1000);
                 // 刷新数据
                 presenter.fetchBackDoneList();
+                refresh = true;
 
 
             }
@@ -110,10 +116,13 @@ public class BackGoodsDoneFragment extends BaseFragment implements MaterialUiLis
 
     @Override
     public void showMaterial(final List<MaterialDoneList.ListBean> list) {
-        if (materialAdapter == null) {
-            LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
-            recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
-            recyclerView.setLayoutManager(manager);
+        if (materialAdapter == null || refresh) {
+            refresh = false;
+            if (materialAdapter == null) {
+                LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
+                recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
+                recyclerView.setLayoutManager(manager);
+            }
             materialAdapter = new BackGoodsDoneListAdapter(this.getContext(), R.layout.item_material_done, list);
             recyclerView.setAdapter(materialAdapter);
             materialAdapter.setOnItemClickListener(new MaterialDoneAdapter.OnItemClickListener() {
@@ -131,7 +140,7 @@ public class BackGoodsDoneFragment extends BaseFragment implements MaterialUiLis
                     return false;
                 }
             });
-        }else {
+        } else {
             // 刷新列表
             materialAdapter.notifyDataSetChanged();
         }

@@ -2,9 +2,9 @@ package com.ty.zbpet.presenter.material;
 
 import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.MaterialDoneDetailsData;
-import com.ty.zbpet.bean.MaterialTodoData;
 import com.ty.zbpet.bean.MaterialTodoDetailsData;
 import com.ty.zbpet.bean.material.MaterialDoneList;
+import com.ty.zbpet.bean.material.MaterialTodoList;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
 import com.ty.zbpet.util.CodeConstant;
@@ -81,7 +81,7 @@ public class MaterialPresenter {
         materialListUi.showLoading();
 
         // APi  获取数据
-        httpMethods.getMaterialTodoList(new BaseSubscriber<BaseResponse<MaterialTodoData>>() {
+        httpMethods.getMaterialTodoList(new BaseSubscriber<BaseResponse<MaterialTodoList>>() {
 
             @Override
             public void onError(ApiException e) {
@@ -89,13 +89,13 @@ public class MaterialPresenter {
             }
 
             @Override
-            public void onNext(BaseResponse<MaterialTodoData> infoList) {
+            public void onNext(BaseResponse<MaterialTodoList> infoList) {
                 materialListUi.hideLoading();
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(infoList.getTag())) {
 
                     if (infoList != null && infoList.getData().getList().size() != 0) {
-                        List<MaterialTodoData.ListBean> list = infoList.getData().getList();
+                        List<MaterialTodoList.ListBean> list = infoList.getData().getList();
 
                         // 数据
                         materialListUi.showMaterial(list);

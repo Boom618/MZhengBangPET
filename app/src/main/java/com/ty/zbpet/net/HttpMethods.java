@@ -6,7 +6,6 @@ import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.GoodsPurchaseOrderInfo;
 import com.ty.zbpet.bean.GoodsPurchaseOrderList;
 import com.ty.zbpet.bean.MaterialDoneDetailsData;
-import com.ty.zbpet.bean.MaterialTodoData;
 import com.ty.zbpet.bean.MaterialTodoDetailsData;
 import com.ty.zbpet.bean.PickOutDoneData;
 import com.ty.zbpet.bean.PickOutDoneDetailsData;
@@ -17,6 +16,8 @@ import com.ty.zbpet.bean.material.MaterialDetailsIn;
 import com.ty.zbpet.bean.material.MaterialDetailsOut;
 import com.ty.zbpet.bean.material.MaterialDoneList;
 import com.ty.zbpet.bean.material.MaterialTodoList;
+import com.ty.zbpet.bean.product.ProductDetailsIn;
+import com.ty.zbpet.bean.product.ProductTodoSave;
 import com.ty.zbpet.constant.ApiNameConstant;
 import com.ty.zbpet.net.gson.DoubleDefault0Adapter;
 import com.ty.zbpet.net.gson.IntegerDefault0Adapter;
@@ -27,6 +28,7 @@ import com.zhouyou.http.subsciber.BaseSubscriber;
 
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
@@ -75,7 +77,7 @@ public class HttpMethods {
         mRetrofit = new Retrofit.Builder()
                 .client(client.build())
                 .addConverterFactory(GsonConverterFactory.create(buildGson()))
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .baseUrl(url)
                 .build();
         mService = mRetrofit.create(ApiService.class);
@@ -97,9 +99,8 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getMaterialTodoList(BaseSubscriber<BaseResponse<MaterialTodoData>> subscriber) {
+    public void getMaterialTodoList(BaseSubscriber<BaseResponse<MaterialTodoList>> subscriber) {
         mService.getMaterialTodoList()
-                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -269,7 +270,6 @@ public class HttpMethods {
      */
     public void getBackTodoList(BaseSubscriber<BaseResponse<MaterialTodoList>> subscriber) {
         mService.getBackTodoList()
-                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -347,9 +347,8 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getPurchaseOrderList(BaseSubscriber<BaseResponse<MaterialTodoList>> subscriber) {
+    public void getPurchaseOrderList(SingleObserver<BaseResponse<MaterialTodoList>> subscriber) {
         mService.getGoodsPurchaseOrderList()
-                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -359,7 +358,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getPurchaseOrderInfo(BaseSubscriber<GoodsPurchaseOrderInfo> subscriber, String sapOrderNo) {
+    public void getPurchaseOrderInfo(BaseSubscriber<BaseResponse<ProductDetailsIn>> subscriber, String sapOrderNo) {
         mService.getGoodsPurchaseOrderInfo(sapOrderNo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -385,14 +384,13 @@ public class HttpMethods {
      */
     public void getPurchaseDoneList(BaseSubscriber<BaseResponse<MaterialDoneList>> subscriber) {
         mService.getPurchaseDoneList()
-                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
 
 
     /**
-     *  已办列表 详情
+     *  已办详情
      *
      * @param subscriber
      */

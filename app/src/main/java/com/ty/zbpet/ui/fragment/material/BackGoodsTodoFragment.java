@@ -38,6 +38,8 @@ public class BackGoodsTodoFragment extends BaseFragment implements MaterialUiLis
     @BindView(R.id.refreshLayout)
     RefreshLayout refreshLayout;
 
+    private boolean refresh = false;
+
     private BackGoodsPresenter presenter = new BackGoodsPresenter(this);
 
     private BackGoodsTodoListAdapter adapter;
@@ -84,7 +86,7 @@ public class BackGoodsTodoFragment extends BaseFragment implements MaterialUiLis
                 refreshLayout.finishRefresh(1000);
                 // 刷新数据
                 presenter.fetchBackTodoList();
-                adapter.notifyDataSetChanged();
+                refresh = true;
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -100,10 +102,13 @@ public class BackGoodsTodoFragment extends BaseFragment implements MaterialUiLis
     @Override
     public void showMaterial(final List<MaterialTodoList.ListBean> list) {
 
-        if (adapter == null) {
-            LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
-            recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
-            recyclerView.setLayoutManager(manager);
+        if (adapter == null || refresh ) {
+            refresh = false;
+            if (adapter == null) {
+                LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
+                recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
+                recyclerView.setLayoutManager(manager);
+            }
             adapter = new BackGoodsTodoListAdapter(ResourceUtil.getContext(),R.layout.item_material_todo,list);
             recyclerView.setAdapter(adapter);
 

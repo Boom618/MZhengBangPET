@@ -68,7 +68,7 @@ public class BackGoodsDoneDetailActivity extends BaseActivity implements Materia
 
     @Override
     protected int getActivityLayout() {
-        return R.layout.activity_pick_out_detail;
+        return R.layout.activity_content_detail_two;
     }
 
     @Override

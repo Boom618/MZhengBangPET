@@ -125,18 +125,21 @@ public class ApiNameConstant {
     /**
      * 待办列表
      */
-    public static final String GET_GOODS_PURCHASE_ORDER_LIST = "sap/zbSap/getPurchaseOrderList";
+    public static final String GET_GOODS_PURCHASE_ORDER_LIST = "sap/zbSap/getGoodsPurchaseOrderList";
 
     /**
      * 待办详情
      */
-    public static final String GET_GOODS_PURCHASE_ORDER_INFO = "sap/zbSap/getPurchaseOrderInfo";
+    public static final String GET_GOODS_PURCHASE_ORDER_INFO = "sap/zbSap/getGoodsPurchaseOrderInfo";
 
 
     /**
      * 待办保存
      */
-    public static final String GET_PURCHASE_TODO_SAVE = "stock/materialStock/mPurchaseReturnOut";
+    public static final String GET_PURCHASE_TODO_SAVE = "stock/goodsStock/gPurchaseIn";
+
+    // 原
+    public static final String GOODS_PURCHASE_INSTORAGE = "/stock/goodsStock/gPurchaseIn";
 
 
     /**
@@ -269,8 +272,5 @@ public class ApiNameConstant {
     public static final String GET_WAREHOUSE_INFO = "baseInfo/warehouseInfo/getWarehouseList";
 
 
-    /**
-     * 成品采购入库——待办
-     */
-    public static final String GOODS_PURCHASE_INSTORAGE = " /stock/goodsStock/gPurchaseIn";
+
 }

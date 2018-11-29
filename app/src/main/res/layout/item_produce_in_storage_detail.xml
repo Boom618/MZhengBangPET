@@ -109,11 +109,23 @@
             android:textColorHint="@color/hint_color"
             android:textSize="@dimen/text_14" />
 
+        <EditText
+            android:id="@+id/et_sap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et_real_bulk_num"
+            android:layout_marginEnd="@dimen/space_25"
+            android:layout_marginStart="@dimen/space_25"
+            android:hint="SAP 物料"
+            android:textColor="@color/txt_minor_color"
+            android:textColorHint="@color/hint_color"
+            android:textSize="@dimen/text_14" />
+
         <Button
             android:id="@+id/btn_binding_code"
             android:layout_width="match_parent"
             android:layout_height="32dp"
-            android:layout_below="@+id/et_real_bulk_num"
+            android:layout_below="@+id/et_sap"
             android:layout_marginBottom="@dimen/space_10"
             android:layout_marginEnd="@dimen/space_25"
             android:layout_marginStart="@dimen/space_25"

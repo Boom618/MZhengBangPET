@@ -12,6 +12,9 @@
 - select dialog
 - 编写 lifecycle、ViewModel、LiveData 测试页面
 - 加班整理正邦业务
+- 列表刷新
+- 页面销毁关闭请求
+- 网络配置（Single）
 
 
 ## 待完成 
@@ -23,6 +26,8 @@
 - RecycleView 细节处理
 
 - Adapter 绑定事件处理
+
+- 列表分页加载
 
 - ```java
   RxEasyHttp_

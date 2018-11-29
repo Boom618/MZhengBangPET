@@ -9,8 +9,8 @@ import android.widget.RadioGroup;
 import com.ty.zbpet.R;
 import com.ty.zbpet.ui.adapter.ViewPagerAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
-import com.ty.zbpet.ui.fragment.product.PurchaseDoneFragment;
-import com.ty.zbpet.ui.fragment.product.PurchaseTodoFragment;
+import com.ty.zbpet.ui.fragment.product.BuyInDoneFragment;
+import com.ty.zbpet.ui.fragment.product.BuyInTodoFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ import butterknife.BindView;
  *
  * @author TY
  */
-public class PurchaseInStorageActivity extends BaseActivity {
+public class BuyInStorageActivity extends BaseActivity {
 
     @BindView(R.id.et_search)
     EditText etSearch;
@@ -37,8 +37,8 @@ public class PurchaseInStorageActivity extends BaseActivity {
     @Override
     protected void onBaseCreate(Bundle savedInstanceState) {
 
-        PurchaseTodoFragment todoFragment = PurchaseTodoFragment.newInstance("todoFragment");
-        PurchaseDoneFragment doneFragment = PurchaseDoneFragment.newInstance("doneFragment");
+        BuyInTodoFragment todoFragment = BuyInTodoFragment.newInstance("todoFragment");
+        BuyInDoneFragment doneFragment = BuyInDoneFragment.newInstance("doneFragment");
 
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(todoFragment);

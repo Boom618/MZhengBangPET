@@ -13,10 +13,10 @@ import java.util.List;
  * 外采入库 已办列表
  * @author TY
  */
-public class PurchaseDoneListAdapter extends CommonAdapter<MaterialDoneList.ListBean> {
+public class BuyInDoneListAdapter extends CommonAdapter<MaterialDoneList.ListBean> {
 
 
-    public PurchaseDoneListAdapter(Context context, int layoutId, List<MaterialDoneList.ListBean> datas) {
+    public BuyInDoneListAdapter(Context context, int layoutId, List<MaterialDoneList.ListBean> datas) {
         super(context, layoutId, datas);
     }
 
