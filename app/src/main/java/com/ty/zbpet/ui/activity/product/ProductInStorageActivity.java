@@ -9,8 +9,8 @@ import android.widget.RadioGroup;
 import com.ty.zbpet.R;
 import com.ty.zbpet.ui.adapter.ViewPagerAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
-import com.ty.zbpet.ui.fragment.material.BackGoodsDoneFragment;
-import com.ty.zbpet.ui.fragment.material.BackGoodsTodoFragment;
+import com.ty.zbpet.ui.fragment.product.ProductDoneFragment;
+import com.ty.zbpet.ui.fragment.product.ProductTodoFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import butterknife.BindView;
  * 生产入库
  * @author TY
  */
-public class ProduceInStorageActivity extends BaseActivity {
+public class ProductInStorageActivity extends BaseActivity {
 
     @BindView(R.id.et_search)
     EditText etSearch;
@@ -37,8 +37,8 @@ public class ProduceInStorageActivity extends BaseActivity {
     @Override
     protected void onBaseCreate(Bundle savedInstanceState) {
 
-        BackGoodsTodoFragment todoFragment = BackGoodsTodoFragment.newInstance("todoFragment");
-        BackGoodsDoneFragment doneFragment = BackGoodsDoneFragment.newInstance("doneFragment");
+        ProductTodoFragment todoFragment = ProductTodoFragment.newInstance("todoFragment");
+        ProductDoneFragment doneFragment = ProductDoneFragment.newInstance("doneFragment");
 
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(todoFragment);
@@ -46,8 +46,8 @@ public class ProduceInStorageActivity extends BaseActivity {
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentList);
         viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new ProduceInStorageActivity.PagerChangeListener());
-        rg.setOnCheckedChangeListener(new ProduceInStorageActivity.RadioGroupListener());
+        viewPager.addOnPageChangeListener(new ProductInStorageActivity.PagerChangeListener());
+        rg.setOnCheckedChangeListener(new ProductInStorageActivity.RadioGroupListener());
 
         // 默认待办 Fragment
         rg.check(R.id.rb_no_doing);

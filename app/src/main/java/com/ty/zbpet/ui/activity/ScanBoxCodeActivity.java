@@ -48,6 +48,7 @@ public class ScanBoxCodeActivity extends BaseActivity implements ScanBoxInterfac
     private final static int REQUEST_SCAN_CODE = 1;
     private final static int RESULT_SCAN_CODE = 2;
 
+    private boolean state;
     private Scanner scanReader = ScanReader.getScannerInstance();
     private ScanObservable scanObservable = new ScanObservable(this);
 
@@ -64,10 +65,8 @@ public class ScanBoxCodeActivity extends BaseActivity implements ScanBoxInterfac
     @Override
     protected void initOneData() {
         itemId = getIntent().getIntExtra("itemId", -1);
+        state = getIntent().getBooleanExtra(CodeConstant.PAGE_STATE, false);
         boxCodeList = getIntent().getStringArrayListExtra("boxCodeList");
-        if (boxCodeList == null) {
-            boxCodeList = new ArrayList<>();
-        }
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(ResourceUtil.getContext());
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST
@@ -119,7 +118,7 @@ public class ScanBoxCodeActivity extends BaseActivity implements ScanBoxInterfac
                 || keyCode == CodeConstant.KEY_CODE_139) {
 
             // 扫描
-            if (isOpen) {
+            if (isOpen && state) {
                 scanObservable.scanBox(scanReader, -1);
             }
             return true;
@@ -153,13 +152,13 @@ public class ScanBoxCodeActivity extends BaseActivity implements ScanBoxInterfac
                         if (boxCodeList.contains(positionNo)) {
                             ZBUiUtils.showToast("该库位码扫码过");
                         } else {
+
                             ArrayList<String> oldList = new ArrayList<>(boxCodeList);
                             boxCodeList.add(positionNo);
                             if (adapter != null) {
+
                                 DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MaterialDiffUtil(oldList, boxCodeList));
                                 diffResult.dispatchUpdatesTo(adapter);
-                                //adapter.notifyDataSetChanged();
-
                             }
                         }
                     }

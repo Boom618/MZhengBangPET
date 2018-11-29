@@ -17,6 +17,7 @@ import com.ty.zbpet.R;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.material.MaterialTodoSave;
 import com.ty.zbpet.bean.product.ProductDetailsIn;
+import com.ty.zbpet.bean.product.ProductTodoSave;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.presenter.product.BuyInPresenter;
 import com.ty.zbpet.presenter.product.ProductUiObjInterface;
@@ -194,25 +195,30 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiOb
      */
     private RequestBody initTodoBody() {
 
-        MaterialTodoSave requestBody = new MaterialTodoSave();
-        List<MaterialTodoSave.DetailsBean> detail = new ArrayList<>();
+        ProductTodoSave requestBody = new ProductTodoSave();
+
+        List<ProductTodoSave.DetailsBean> detail = new ArrayList<>();
+
+
 
         int size = oldList.size();
         for (int i = 0; i < size; i++) {
+            List<String> boxQrCode = carCodeArray.get(i);
             String bulkNum = bulkNumArray.get(i);
-            ArrayList<String> carCode = carCodeArray.get(i);
             String batchNo = batchNoArray.get(i);
             String Id = positionId.get(i);
 
-            MaterialTodoSave.DetailsBean bean = new MaterialTodoSave.DetailsBean();
-            if (!TextUtils.isEmpty(bulkNum) && carCode.size() != 0) {
+            ProductTodoSave.DetailsBean bean = new ProductTodoSave.DetailsBean();
+            if (!TextUtils.isEmpty(bulkNum) && boxQrCode.size() != 0) {
 
                 bean.setPositionId(Id);
                 bean.setNumber(bulkNum);
                 bean.setSapMaterialBatchNo(batchNo);
 
+                bean.setBoxQrCode(boxQrCode);
+
                 detail.add(bean);
-            } else if (null == bulkNum && null == carCode) {
+            } else if (null == bulkNum && null == boxQrCode) {
                 // 跳出当前一列、不处理
                 continue;
             } else {
@@ -227,9 +233,10 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiOb
         }
 
         requestBody.setDetails(detail);
-        requestBody.setWarehouseId(warehouseId);
-        requestBody.setSapOrderNo(sapOrderNo);
-        requestBody.setOutWarehouseTime(tvTime.getText().toString().trim());
+        requestBody.setInStoreDate(tvTime.getText().toString().trim());
+        requestBody.setWarehouseId("仓库ID");
+        requestBody.setSapPlantNo("管联单据");
+        requestBody.setProductionBatchNo("生产批次号");
         requestBody.setRemark(etDesc.getText().toString().trim());
 
 
@@ -272,6 +279,7 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiOb
                             itemId = position;
                             Intent intent = new Intent(BuyInTodoDetailActivity.this, ScanBoxCodeActivity.class);
                             intent.putExtra("itemId", itemId);
+                            intent.putExtra(CodeConstant.PAGE_STATE,true);
                             intent.putStringArrayListExtra("boxCodeList", carCodeArray.get(itemId));
                             startActivityForResult(intent, REQUEST_SCAN_CODE);
                         }

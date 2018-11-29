@@ -15,10 +15,11 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.product.ProductDoneList;
-import com.ty.zbpet.presenter.product.BuyInPresenter;
+import com.ty.zbpet.presenter.product.ProducePresenter;
 import com.ty.zbpet.presenter.product.ProductUiObjInterface;
 import com.ty.zbpet.ui.activity.product.BuyInDoneDetailActivity;
 import com.ty.zbpet.ui.adapter.product.BuyInDoneListAdapter;
+import com.ty.zbpet.ui.adapter.product.ProductDoneListAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.ResourceUtil;
@@ -29,10 +30,10 @@ import java.util.List;
 import butterknife.BindView;
 
 /**
- * 成品——外采入库——已办
+ * 成品——生产入库——已办
  * @author TY
  */
-public class BuyInDoneFragment extends BaseFragment implements ProductUiObjInterface<ProductDoneList> {
+public class ProductDoneFragment extends BaseFragment implements ProductUiObjInterface<ProductDoneList> {
 
 
     @BindView(R.id.recyclerView)
@@ -40,12 +41,12 @@ public class BuyInDoneFragment extends BaseFragment implements ProductUiObjInter
     @BindView(R.id.refreshLayout)
     RefreshLayout refreshLayout;
 
-    private BuyInPresenter presenter = new BuyInPresenter(this);
+    private ProducePresenter presenter = new ProducePresenter(this);
 
-    private BuyInDoneListAdapter adapter;
+    private ProductDoneListAdapter adapter;
 
-    public static BuyInDoneFragment newInstance(String tag){
-        BuyInDoneFragment fragment = new BuyInDoneFragment();
+    public static ProductDoneFragment newInstance(String tag){
+        ProductDoneFragment fragment = new ProductDoneFragment();
         Bundle bundle = new Bundle();
         bundle.putString("someInt", tag);
         fragment.setArguments(bundle);
@@ -71,7 +72,7 @@ public class BuyInDoneFragment extends BaseFragment implements ProductUiObjInter
     public void onStart() {
         super.onStart();
 
-        presenter.fetchBuyInDoneList("1");
+        presenter.fetchProductDoneList("1");
 
     }
 
@@ -85,7 +86,7 @@ public class BuyInDoneFragment extends BaseFragment implements ProductUiObjInter
                 // 传入 false 表示刷新失败
                 refreshLayout.finishRefresh(1000);
                 // 刷新数据
-                presenter.fetchBuyInDoneList("1");
+                presenter.fetchProductDoneList("1");
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -107,7 +108,7 @@ public class BuyInDoneFragment extends BaseFragment implements ProductUiObjInter
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             recyclerView.setLayoutManager(manager);
-            adapter = new BuyInDoneListAdapter(ResourceUtil.getContext(),R.layout.activity_content_list_two,list);
+            adapter = new ProductDoneListAdapter(ResourceUtil.getContext(),R.layout.item_produce_in_storage_complete,list);
             recyclerView.setAdapter(adapter);
 
             adapter.setOnItemClickListener(new BuyInDoneListAdapter.OnItemClickListener() {

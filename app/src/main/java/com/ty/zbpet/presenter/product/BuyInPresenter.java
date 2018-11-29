@@ -1,15 +1,10 @@
 package com.ty.zbpet.presenter.product;
 
-import com.ty.zbpet.bean.CarPositionNoData;
-import com.ty.zbpet.bean.PickOutDoneData;
 import com.ty.zbpet.bean.PickOutDoneDetailsData;
-import com.ty.zbpet.bean.PickOutTodoDetailsData;
-import com.ty.zbpet.bean.material.MaterialDoneList;
-import com.ty.zbpet.bean.material.MaterialTodoList;
 import com.ty.zbpet.bean.product.ProductDetailsIn;
+import com.ty.zbpet.bean.product.ProductDetailsOut;
 import com.ty.zbpet.bean.product.ProductDoneList;
 import com.ty.zbpet.bean.product.ProductTodoList;
-import com.ty.zbpet.bean.product.ProductTodoSave;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
 import com.ty.zbpet.util.CodeConstant;
@@ -145,25 +140,32 @@ public class BuyInPresenter {
     /**
      * 已办详情
      */
-    public void fetchBuyInDoneListDetails(String sapOrderNo) {
-        httpMethods.getPurchaseDoneListInfo(new BaseSubscriber<BaseResponse<PickOutDoneDetailsData>>() {
+    public void fetchBuyInDoneListDetails(String orderId) {
+        httpMethods.getPurchaseDoneListInfo(new SingleObserver<BaseResponse<ProductDetailsOut>>() {
+
             @Override
-            public void onError(ApiException e) {
-                ZBUiUtils.showToast(e.getMessage());
+            public void onSubscribe(Disposable d) {
+                disposable = d;
             }
 
             @Override
-            public void onNext(BaseResponse<PickOutDoneDetailsData> response) {
-                if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
-                    List<PickOutDoneDetailsData.ListBean> list = response.getData().getList();
+            public void onSuccess(BaseResponse<ProductDetailsOut> response) {
 
-                    listInterface.showProduct(list);
+                if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
+                    ProductDetailsOut data = response.getData();
+
+                    objInterface.detailObjData(data);
 
                 } else {
                     ZBUiUtils.showToast("失败 : =" + response.getMessage());
                 }
             }
-        }, sapOrderNo);
+
+            @Override
+            public void onError(Throwable e) {
+                ZBUiUtils.showToast(e.getMessage());
+            }
+        }, orderId);
     }
 
 

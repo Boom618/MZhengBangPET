@@ -80,7 +80,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".ui.activity.product.ProduceInStorageActivity"
+            android:name=".ui.activity.product.ProductInStorageActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
@@ -109,7 +109,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".ui.activity.product.ProduceTodoDetailActivity"
+            android:name=".ui.activity.product.ProductTodoDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
@@ -131,6 +131,7 @@
         <activity android:name=".ui.activity.product.BuyInTodoDetailActivity" />
         <activity android:name=".ui.activity.product.BuyInDoneDetailActivity" />
         <activity android:name=".ui.activity.material.PickOutDoneDetailActivity" />
+        <activity android:name=".ui.activity.product.ProductDoneDetailActivity" />
 
     </application>
 

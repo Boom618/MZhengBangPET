@@ -17,9 +17,9 @@ import com.ty.zbpet.bean.material.MaterialDetailsOut;
 import com.ty.zbpet.bean.material.MaterialDoneList;
 import com.ty.zbpet.bean.material.MaterialTodoList;
 import com.ty.zbpet.bean.product.ProductDetailsIn;
+import com.ty.zbpet.bean.product.ProductDetailsOut;
 import com.ty.zbpet.bean.product.ProductDoneList;
 import com.ty.zbpet.bean.product.ProductTodoList;
-import com.ty.zbpet.bean.product.ProductTodoSave;
 import com.ty.zbpet.constant.ApiNameConstant;
 import com.ty.zbpet.net.gson.DoubleDefault0Adapter;
 import com.ty.zbpet.net.gson.IntegerDefault0Adapter;
@@ -328,7 +328,7 @@ public class HttpMethods {
 
     /**--------------------------------- 外采入库 ----------------------------------------*/
     /**
-     * 已办列表
+     * 待办列表
      *
      * @param subscriber
      */
@@ -377,8 +377,8 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getPurchaseDoneListInfo(BaseSubscriber<BaseResponse<PickOutDoneDetailsData>> subscriber, String sapOrderNo) {
-        mService.getPurchaseDoneListInfo(sapOrderNo)
+    public void getPurchaseDoneListInfo(SingleObserver<BaseResponse<ProductDetailsOut>> subscriber, String orderId) {
+        mService.getPurchaseDoneListInfo(orderId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -401,7 +401,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getProduceOrderList(BaseSubscriber<GoodsPurchaseOrderList> subscriber) {
+    public void getProductTodoList(SingleObserver<BaseResponse<ProductTodoList>> subscriber) {
         mService.getProduceOrderList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -412,7 +412,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getProduceOrderInfo(BaseSubscriber<GoodsPurchaseOrderInfo> subscriber, String sapOrderNo) {
+    public void getProduceOrderInfo(SingleObserver<BaseResponse<ProductDetailsIn>> subscriber, String sapOrderNo) {
         mService.getProduceOrderInfo(sapOrderNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -434,7 +434,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getProduceDoneList(BaseSubscriber<BaseResponse<MaterialDoneList>> subscriber) {
+    public void getProduceDoneList(SingleObserver<BaseResponse<ProductDoneList>> subscriber) {
         mService.getProduceDoneList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -446,8 +446,8 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getProduceDoneListInfo(BaseSubscriber<BaseResponse<PickOutDoneDetailsData>> subscriber, String sapOrderNo) {
-        mService.getProduceDoneListInfo(sapOrderNo)
+    public void getProduceDoneInfo(SingleObserver<BaseResponse<ProductDetailsOut>> subscriber, String sapOrderNo) {
+        mService.getProduceDoneInfo(sapOrderNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }

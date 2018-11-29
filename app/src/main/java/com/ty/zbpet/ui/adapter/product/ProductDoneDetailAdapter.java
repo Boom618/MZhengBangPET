@@ -13,19 +13,18 @@ import java.util.List;
 /**
  * @author TY on 2018/11/22.
  *
- * 外采入库 已办详情
+ * 生产入库 已办详情
  */
-public class BuyInDoneDetailAdapter extends CommonAdapter<ProductDetailsOut.ListBean> {
+public class ProductDoneDetailAdapter extends CommonAdapter<ProductDetailsOut.ListBean> {
 
-    public BuyInDoneDetailAdapter(Context context, int layoutId, List<ProductDetailsOut.ListBean> datas) {
+
+    public ProductDoneDetailAdapter(Context context, int layoutId, List<ProductDetailsOut.ListBean> datas) {
         super(context, layoutId, datas);
     }
 
     @Override
     protected void convert(ViewHolder holder, ProductDetailsOut.ListBean list, final int position) {
         holder.setText(R.id.tv_name, list.getGoodsName())
-                .setText(R.id.et_number,list.getNumber() + "")
-                .setText(R.id.et_batch_no,"皮吃好")
                 .setText(R.id.tv_num, list.getNumber() + "  " + list.getUnitS());
 
     }

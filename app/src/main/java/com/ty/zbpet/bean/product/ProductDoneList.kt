@@ -28,7 +28,7 @@ class ProductDoneList {
          * updatedAt : 2018-09-14T06:42:46.000Z
          */
 
-        var id: Int = 0
+        var id: String? = null
         var inWarhouseOrderNo: String? = null
         var companyNo: String? = null
         var sapOrderNo: String? = null

@@ -15,9 +15,9 @@ import com.ty.zbpet.bean.material.MaterialDetailsOut;
 import com.ty.zbpet.bean.material.MaterialDoneList;
 import com.ty.zbpet.bean.material.MaterialTodoList;
 import com.ty.zbpet.bean.product.ProductDetailsIn;
+import com.ty.zbpet.bean.product.ProductDetailsOut;
 import com.ty.zbpet.bean.product.ProductDoneList;
 import com.ty.zbpet.bean.product.ProductTodoList;
-import com.ty.zbpet.bean.product.ProductTodoSave;
 import com.ty.zbpet.constant.ApiNameConstant;
 import com.ty.zbpet.ui.base.BaseResponse;
 
@@ -261,14 +261,14 @@ public interface ApiService {
     Single<BaseResponse<ProductDoneList>> getPurchaseDoneList(@Field("type") String type);
 
     /**
-     * 采购退货 已办列表 详情
+     * 外采入库 已办列表 详情
      *
-     * @param sapOrderNo
+     * @param orderId
      * @return
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_PURCHASE_DONE_LIST_INFO)
-    Observable<BaseResponse<PickOutDoneDetailsData>> getPurchaseDoneListInfo(@Field("sapOrderNo") String sapOrderNo);
+    Single<BaseResponse<ProductDetailsOut>> getPurchaseDoneListInfo(@Field("orderId") String orderId);
 
     /**
      * 采购退货 已办保存
@@ -283,25 +283,25 @@ public interface ApiService {
     /**--------------------------------- 生产入库 ----------------------------------------*/
 
     /**
-     * 待办列表
+     * 生产入库 待办列表
      *
      * @return
      */
     @POST(ApiNameConstant.GET_PRODUCE_ORDER_LIST)
-    Observable<GoodsPurchaseOrderList> getProduceOrderList();
+    Single<BaseResponse<ProductTodoList>> getProduceOrderList();
 
     /**
-     * 待办详情
+     * 生产入库 待办详情
      * @param sapOrderNo
      * @return
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_PRODUCE_ORDER_INFO)
-    Observable<GoodsPurchaseOrderInfo> getProduceOrderInfo(@Field("sapOrderNo") String sapOrderNo);
+    Single<BaseResponse<ProductDetailsIn>> getProduceOrderInfo(@Field("sapOrderNo") String sapOrderNo);
 
 
     /**
-     * 采购退货 待办保存
+     * 生产入库 待办保存
      *
      * @param body
      * @return
@@ -311,25 +311,25 @@ public interface ApiService {
 
 
     /**
-     * 采购退货 已办列表
+     * 生产入库 已办列表
      *
      * @return
      */
     @POST(ApiNameConstant.GET_PRODUCE_DONE_LIST)
-    Observable<BaseResponse<MaterialDoneList>> getProduceDoneList();
+    Single<BaseResponse<ProductDoneList>> getProduceDoneList();
 
     /**
-     * 采购退货 已办列表 详情
+     * 生产入库 已办列表 详情
      *
      * @param sapOrderNo
      * @return
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_PRODUCE_DONE_LIST_INFO)
-    Observable<BaseResponse<PickOutDoneDetailsData>> getProduceDoneListInfo(@Field("sapOrderNo") String sapOrderNo);
+    Single<BaseResponse<ProductDetailsOut>> getProduceDoneInfo(@Field("sapOrderNo") String sapOrderNo);
 
     /**
-     * 采购退货 已办保存
+     * 生产入库 已办保存
      *
      * @param body
      * @return
@@ -341,7 +341,7 @@ public interface ApiService {
     /**--------------------------------- 发货出库 ----------------------------------------*/
 
     /**
-     * 待办列表
+     * 发货出库 待办列表
      *
      * @return
      */
@@ -349,7 +349,7 @@ public interface ApiService {
     Observable<GoodsPurchaseOrderList> getShipOrderList();
 
     /**
-     * 待办详情
+     * 发货出库 待办详情
      * @param sapOrderNo
      * @return
      */
@@ -359,7 +359,7 @@ public interface ApiService {
 
 
     /**
-     * 采购退货 待办保存
+     * 发货出库 待办保存
      *
      * @param body
      * @return
@@ -369,7 +369,7 @@ public interface ApiService {
 
 
     /**
-     * 采购退货 已办列表
+     * 发货出库 已办列表
      *
      * @return
      */
@@ -377,7 +377,7 @@ public interface ApiService {
     Observable<BaseResponse<MaterialDoneList>> getShipDoneList();
 
     /**
-     * 采购退货 已办列表 详情
+     * 发货出库 已办列表 详情
      *
      * @param sapOrderNo
      * @return
@@ -387,7 +387,7 @@ public interface ApiService {
     Observable<BaseResponse<PickOutDoneDetailsData>> getShipDoneListInfo(@Field("sapOrderNo") String sapOrderNo);
 
     /**
-     * 采购退货 已办保存
+     * 发货出库 已办保存
      *
      * @param body
      * @return
@@ -398,7 +398,7 @@ public interface ApiService {
 
     /**--------------------------------- 退货入库 ----------------------------------------*/
     /**
-     * 待办列表
+     * 退货入库 待办列表
      *
      * @return
      */
@@ -406,7 +406,7 @@ public interface ApiService {
     Observable<GoodsPurchaseOrderList> getReturnOrderList();
 
     /**
-     * 待办详情
+     * 退货入库 待办详情
      * @param sapOrderNo
      * @return
      */
@@ -416,7 +416,7 @@ public interface ApiService {
 
 
     /**
-     * 采购退货 待办保存
+     * 退货入库 待办保存
      *
      * @param body
      * @return
@@ -426,7 +426,7 @@ public interface ApiService {
 
 
     /**
-     * 采购退货 已办列表
+     * 退货入库 已办列表
      *
      * @return
      */
@@ -434,7 +434,7 @@ public interface ApiService {
     Observable<BaseResponse<MaterialDoneList>> getReturnDoneList();
 
     /**
-     * 采购退货 已办列表 详情
+     * 退货入库 已办列表 详情
      *
      * @param sapOrderNo
      * @return
@@ -444,7 +444,7 @@ public interface ApiService {
     Observable<BaseResponse<PickOutDoneDetailsData>> getReturnDoneListInfo(@Field("sapOrderNo") String sapOrderNo);
 
     /**
-     * 采购退货 已办保存
+     * 退货入库 已办保存
      *
      * @param body
      * @return

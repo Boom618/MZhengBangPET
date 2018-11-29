@@ -150,7 +150,7 @@ public class ApiNameConstant {
     /**
      * 已办详情
      */
-    public static final String GET_PURCHASE_DONE_LIST_INFO = "stock";
+    public static final String GET_PURCHASE_DONE_LIST_INFO = "stock/goodsStock/getGoodsInWarehouseOrderInfo";
 
     /**
      * 已办保存

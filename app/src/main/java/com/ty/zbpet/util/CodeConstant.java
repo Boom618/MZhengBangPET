@@ -43,4 +43,9 @@ public final class CodeConstant {
     public static final String CHARSET_UTF8 = "utf8";
     public static final String CHARSET_GBK = "gbk";
 
+    /**
+     * 区分箱码绑定页面
+     */
+    public static final String PAGE_STATE = "state";
+
 }

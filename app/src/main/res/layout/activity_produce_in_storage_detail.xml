@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.activity.product.ProduceTodoDetailActivity">
+    tools:context=".ui.activity.product.ProductTodoDetailActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -101,7 +101,7 @@
             android:layout_margin="@dimen/space_10" />
 
         <include android:id="@+id/item"
-            layout="@layout/item_produce_in_storage_detail"/>
+            layout="@layout/item_produce_detail_todo"/>
 
         <View
             android:id="@+id/line3"
