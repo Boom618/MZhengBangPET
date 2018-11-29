@@ -123,7 +123,7 @@ public class BackGoodsDoneFragment extends BaseFragment implements MaterialUiLis
                 recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
                 recyclerView.setLayoutManager(manager);
             }
-            materialAdapter = new BackGoodsDoneListAdapter(this.getContext(), R.layout.item_material_done, list);
+            materialAdapter = new BackGoodsDoneListAdapter(this.getContext(), R.layout.activity_content_list_three, list);
             recyclerView.setAdapter(materialAdapter);
             materialAdapter.setOnItemClickListener(new MaterialDoneAdapter.OnItemClickListener() {
                 @Override

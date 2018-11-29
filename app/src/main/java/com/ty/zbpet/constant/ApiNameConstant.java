@@ -145,7 +145,7 @@ public class ApiNameConstant {
     /**
      * 已办列表
      */
-    public static final String GET_PURCHASE_DONE_LIST = "stock";
+    public static final String GET_PURCHASE_DONE_LIST = "stock/goodsStock/getGoodsInWarehouseOrderList";
 
     /**
      * 已办详情

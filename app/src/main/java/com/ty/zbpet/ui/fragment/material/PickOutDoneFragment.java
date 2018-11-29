@@ -19,7 +19,7 @@ import com.ty.zbpet.R;
 import com.ty.zbpet.bean.PickOutDoneData;
 import com.ty.zbpet.presenter.material.MaterialUiListInterface;
 import com.ty.zbpet.presenter.material.PickOutPresenter;
-import com.ty.zbpet.ui.activity.material.PickOutTodoDetailActivity;
+import com.ty.zbpet.ui.activity.material.PickOutDoneDetailActivity;
 import com.ty.zbpet.ui.adapter.material.PickOutAdapter;
 import com.ty.zbpet.ui.adapter.material.PickOutDoneAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
@@ -125,7 +125,7 @@ public class PickOutDoneFragment extends BaseFragment implements MaterialUiListI
             adapter.setOnItemClickListener(new PickOutAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    Intent intent = new Intent(getActivity(), PickOutTodoDetailActivity.class);
+                    Intent intent = new Intent(getActivity(), PickOutDoneDetailActivity.class);
                     intent.putExtra("sapOrderNo", list.get(position).getSapOrderNo());
                     startActivity(intent);
                 }

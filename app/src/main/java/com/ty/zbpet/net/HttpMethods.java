@@ -17,6 +17,8 @@ import com.ty.zbpet.bean.material.MaterialDetailsOut;
 import com.ty.zbpet.bean.material.MaterialDoneList;
 import com.ty.zbpet.bean.material.MaterialTodoList;
 import com.ty.zbpet.bean.product.ProductDetailsIn;
+import com.ty.zbpet.bean.product.ProductDoneList;
+import com.ty.zbpet.bean.product.ProductTodoList;
 import com.ty.zbpet.bean.product.ProductTodoSave;
 import com.ty.zbpet.constant.ApiNameConstant;
 import com.ty.zbpet.net.gson.DoubleDefault0Adapter;
@@ -330,7 +332,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getPurchaseOrderList(SingleObserver<BaseResponse<MaterialTodoList>> subscriber) {
+    public void getPurchaseOrderList(SingleObserver<BaseResponse<ProductTodoList>> subscriber) {
         mService.getGoodsPurchaseOrderList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -363,8 +365,8 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getPurchaseDoneList(BaseSubscriber<BaseResponse<MaterialDoneList>> subscriber) {
-        mService.getPurchaseDoneList()
+    public void getPurchaseDoneList(SingleObserver<BaseResponse<ProductDoneList>> subscriber, String type) {
+        mService.getPurchaseDoneList(type)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }

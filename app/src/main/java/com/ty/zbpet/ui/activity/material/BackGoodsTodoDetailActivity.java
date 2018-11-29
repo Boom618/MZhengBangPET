@@ -23,7 +23,6 @@ import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.presenter.material.BackGoodsPresenter;
 import com.ty.zbpet.presenter.material.MaterialUiObjInterface;
 import com.ty.zbpet.ui.adapter.material.BackGoodsTodoDetailAdapter;
-import com.ty.zbpet.ui.adapter.material.PickingTodoDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.CodeConstant;
@@ -104,7 +103,7 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
 
     @Override
     protected int getActivityLayout() {
-        return R.layout.activity_content_detail_two;
+        return R.layout.activity_content_row_two;
     }
 
     @Override
@@ -336,10 +335,10 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             reView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             reView.setLayoutManager(manager);
-            adapter = new BackGoodsTodoDetailAdapter(this, R.layout.item_pick_out_todo_list_detail, oldList);
+            adapter = new BackGoodsTodoDetailAdapter(this, R.layout.item_material_detail_three_todo, oldList);
             reView.setAdapter(adapter);
 
-            adapter.setOnItemClickListener(new PickingTodoDetailAdapter.OnItemClickListener() {
+            adapter.setOnItemClickListener(new BackGoodsTodoDetailAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
 

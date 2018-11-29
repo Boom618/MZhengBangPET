@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.material.MaterialTodoList;
+import com.ty.zbpet.bean.product.ProductTodoList;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -13,15 +14,15 @@ import java.util.List;
  * 外采入库 待办列表
  * @author TY
  */
-public class BuyInTodoListAdapter extends CommonAdapter<MaterialTodoList.ListBean> {
+public class BuyInTodoListAdapter extends CommonAdapter<ProductTodoList.ListBean> {
 
 
-    public BuyInTodoListAdapter(Context context, int layoutId, List<MaterialTodoList.ListBean> datas) {
+    public BuyInTodoListAdapter(Context context, int layoutId, List<ProductTodoList.ListBean> datas) {
         super(context, layoutId, datas);
     }
 
     @Override
-    protected void convert(ViewHolder holder, MaterialTodoList.ListBean list, int position) {
+    protected void convert(ViewHolder holder, ProductTodoList.ListBean list, int position) {
         holder.setText(R.id.tv_operator, "入库")
                 .setText(R.id.tv_no, list.getSapOrderNo())
                 .setText(R.id.tv_type, list.getType())

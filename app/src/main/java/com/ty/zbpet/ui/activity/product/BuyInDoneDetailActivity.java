@@ -10,15 +10,13 @@ import android.widget.TextView;
 
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.ty.zbpet.R;
-import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.material.MaterialDetailsOut;
 import com.ty.zbpet.bean.material.MaterialDoneSave;
 import com.ty.zbpet.bean.product.ProductDetailsOut;
 import com.ty.zbpet.net.HttpMethods;
-import com.ty.zbpet.presenter.material.BackGoodsPresenter;
-import com.ty.zbpet.presenter.material.MaterialUiObjInterface;
-import com.ty.zbpet.ui.adapter.material.BackGoodsDoneDetailAdapter;
+import com.ty.zbpet.presenter.product.BuyInPresenter;
+import com.ty.zbpet.presenter.product.ProductUiObjInterface;
 import com.ty.zbpet.ui.adapter.product.BuyInDoneDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
@@ -41,7 +39,7 @@ import okhttp3.RequestBody;
  * @author TY on 2018/11/22.
  * 外采入库 已办详情
  */
-public class BuyInDoneDetailActivity extends BaseActivity implements MaterialUiObjInterface<ProductDetailsOut> {
+public class BuyInDoneDetailActivity extends BaseActivity implements ProductUiObjInterface<ProductDetailsOut> {
 
 
     private RecyclerView reView;
@@ -60,7 +58,7 @@ public class BuyInDoneDetailActivity extends BaseActivity implements MaterialUiO
     private List<MaterialDetailsOut.ListBean> list = new ArrayList<>();
 
 
-    private BackGoodsPresenter presenter = new BackGoodsPresenter(this);
+    private BuyInPresenter presenter = new BuyInPresenter(this);
 
 
     @Override
@@ -70,7 +68,7 @@ public class BuyInDoneDetailActivity extends BaseActivity implements MaterialUiO
 
     @Override
     protected int getActivityLayout() {
-        return R.layout.activity_content_detail_two;
+        return R.layout.activity_content_row_two;
     }
 
     @Override
@@ -78,7 +76,7 @@ public class BuyInDoneDetailActivity extends BaseActivity implements MaterialUiO
 
         mOutWarehouseOrderId = getIntent().getStringExtra("mOutWarehouseOrderId");
 
-        presenter.fetchBackDoneListInfo(mOutWarehouseOrderId);
+        presenter.fetchBuyInDoneListDetails(mOutWarehouseOrderId);
     }
 
     @Override
@@ -170,10 +168,10 @@ public class BuyInDoneDetailActivity extends BaseActivity implements MaterialUiO
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             reView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             reView.setLayoutManager(manager);
-            adapter = new BuyInDoneDetailAdapter(this, R.layout.item_buy_in_todo_list_detail, list);
+            adapter = new BuyInDoneDetailAdapter(this, R.layout.item_product_detail_two_done, list);
             reView.setAdapter(adapter);
 
-            adapter.setOnItemClickListener(new BackGoodsDoneDetailAdapter.OnItemClickListener() {
+            adapter.setOnItemClickListener(new BuyInDoneDetailAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
 
@@ -203,11 +201,4 @@ public class BuyInDoneDetailActivity extends BaseActivity implements MaterialUiO
         }
 
     }
-
-    @Override
-    public void showCarSuccess(int position, CarPositionNoData carData) {
-
-    }
-
-
 }

@@ -93,7 +93,7 @@ public class PickOutTodoDetailActivity extends BaseActivity implements MaterialU
 
     @Override
     protected int getActivityLayout() {
-        return R.layout.activity_content_detail_two;
+        return R.layout.activity_content_row_two;
     }
 
     @Override
@@ -292,7 +292,7 @@ public class PickOutTodoDetailActivity extends BaseActivity implements MaterialU
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             reView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             reView.setLayoutManager(manager);
-            adapter = new PickingTodoDetailAdapter(this, R.layout.item_pick_out_todo_list_detail, list);
+            adapter = new PickingTodoDetailAdapter(this, R.layout.item_material_detail_three_todo, list);
             reView.setAdapter(adapter);
 
             adapter.setOnItemClickListener(new PickingTodoDetailAdapter.OnItemClickListener() {

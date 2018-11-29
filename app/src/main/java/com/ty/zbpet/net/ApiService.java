@@ -15,6 +15,8 @@ import com.ty.zbpet.bean.material.MaterialDetailsOut;
 import com.ty.zbpet.bean.material.MaterialDoneList;
 import com.ty.zbpet.bean.material.MaterialTodoList;
 import com.ty.zbpet.bean.product.ProductDetailsIn;
+import com.ty.zbpet.bean.product.ProductDoneList;
+import com.ty.zbpet.bean.product.ProductTodoList;
 import com.ty.zbpet.bean.product.ProductTodoSave;
 import com.ty.zbpet.constant.ApiNameConstant;
 import com.ty.zbpet.ui.base.BaseResponse;
@@ -226,7 +228,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.GET_GOODS_PURCHASE_ORDER_LIST)
-    Single<BaseResponse<MaterialTodoList>> getGoodsPurchaseOrderList();
+    Single<BaseResponse<ProductTodoList>> getGoodsPurchaseOrderList();
 
     /**
      * 待办详情
@@ -251,10 +253,12 @@ public interface ApiService {
     /**
      * 采购退货 已办列表
      *
+     * @param type
      * @return
      */
+    @FormUrlEncoded
     @POST(ApiNameConstant.GET_PURCHASE_DONE_LIST)
-    Observable<BaseResponse<MaterialDoneList>> getPurchaseDoneList();
+    Single<BaseResponse<ProductDoneList>> getPurchaseDoneList(@Field("type") String type);
 
     /**
      * 采购退货 已办列表 详情

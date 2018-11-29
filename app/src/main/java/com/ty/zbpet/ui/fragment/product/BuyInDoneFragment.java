@@ -14,11 +14,10 @@ import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.ty.zbpet.R;
-import com.ty.zbpet.bean.material.MaterialDoneList;
+import com.ty.zbpet.bean.product.ProductDoneList;
 import com.ty.zbpet.presenter.product.BuyInPresenter;
-import com.ty.zbpet.presenter.product.ProductUiListInterface;
+import com.ty.zbpet.presenter.product.ProductUiObjInterface;
 import com.ty.zbpet.ui.activity.product.BuyInDoneDetailActivity;
-import com.ty.zbpet.ui.adapter.material.BackGoodsTodoListAdapter;
 import com.ty.zbpet.ui.adapter.product.BuyInDoneListAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
@@ -33,7 +32,7 @@ import butterknife.BindView;
  * 成品——外采入库——已办
  * @author TY
  */
-public class BuyInDoneFragment extends BaseFragment implements ProductUiListInterface<MaterialDoneList.ListBean> {
+public class BuyInDoneFragment extends BaseFragment implements ProductUiObjInterface<ProductDoneList> {
 
 
     @BindView(R.id.recyclerView)
@@ -62,9 +61,9 @@ public class BuyInDoneFragment extends BaseFragment implements ProductUiListInte
     @Override
     protected View onBaseCreate(View view) {
         // 设置 Header 样式
-        refreshLayout.setRefreshHeader(new MaterialHeader(getContext()));
+        refreshLayout.setRefreshHeader(new MaterialHeader(view.getContext()));
         // 设置 Footer 为 球脉冲 样式
-        refreshLayout.setRefreshFooter(new BallPulseFooter(getContext()).setSpinnerStyle(SpinnerStyle.Scale));
+        refreshLayout.setRefreshFooter(new BallPulseFooter(view.getContext()).setSpinnerStyle(SpinnerStyle.Scale));
         return view;
     }
 
@@ -72,7 +71,7 @@ public class BuyInDoneFragment extends BaseFragment implements ProductUiListInte
     public void onStart() {
         super.onStart();
 
-        presenter.fetchBuyInDoneList();
+        presenter.fetchBuyInDoneList("1");
 
     }
 
@@ -86,7 +85,7 @@ public class BuyInDoneFragment extends BaseFragment implements ProductUiListInte
                 // 传入 false 表示刷新失败
                 refreshLayout.finishRefresh(1000);
                 // 刷新数据
-                presenter.fetchBuyInDoneList();
+                presenter.fetchBuyInDoneList("1");
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -100,16 +99,18 @@ public class BuyInDoneFragment extends BaseFragment implements ProductUiListInte
     }
 
     @Override
-    public void showProduct(final List<MaterialDoneList.ListBean> list) {
+    public void detailObjData(final ProductDoneList obj) {
+
+        final List<ProductDoneList.ListBean> list = obj.getList();
 
         if (adapter == null) {
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             recyclerView.setLayoutManager(manager);
-            adapter = new BuyInDoneListAdapter(ResourceUtil.getContext(),R.layout.item_material_done,list);
+            adapter = new BuyInDoneListAdapter(ResourceUtil.getContext(),R.layout.activity_content_list_two,list);
             recyclerView.setAdapter(adapter);
 
-            adapter.setOnItemClickListener(new BackGoodsTodoListAdapter.OnItemClickListener() {
+            adapter.setOnItemClickListener(new BuyInDoneListAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                     Intent intent = new Intent(getActivity(), BuyInDoneDetailActivity.class);

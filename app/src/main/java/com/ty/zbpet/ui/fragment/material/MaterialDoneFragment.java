@@ -118,7 +118,7 @@ public class MaterialDoneFragment extends BaseFragment implements MaterialUiList
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             recyclerView.setLayoutManager(manager);
-            materialAdapter = new MaterialDoneAdapter(this.getContext(), R.layout.item_material_done, list);
+            materialAdapter = new MaterialDoneAdapter(this.getContext(), R.layout.activity_content_list_three, list);
             recyclerView.setAdapter(materialAdapter);
             materialAdapter.setOnItemClickListener(new MaterialDoneAdapter.OnItemClickListener() {
                 @Override

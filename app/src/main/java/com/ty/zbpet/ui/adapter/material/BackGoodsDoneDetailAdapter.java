@@ -31,11 +31,6 @@ public class BackGoodsDoneDetailAdapter extends CommonAdapter<MaterialDetailsOut
     @Override
     protected void convert(ViewHolder holder, MaterialDetailsOut.ListBean list, final int position) {
 
-        EditText number = holder.itemView.findViewById(R.id.et_number);
-        EditText batchNo = holder.itemView.findViewById(R.id.et_batch_no);
-        number.setInputType(InputType.TYPE_NULL);
-        batchNo.setInputType(InputType.TYPE_NULL);
-
         holder.setText(R.id.tv_name, list.getMaterialName())
                 .setText(R.id.tv_num, list.getGiveNumber() + list.getUnitS() + " ?")
                 .setText(R.id.tv_box_num, list.getConcentration() + "?")

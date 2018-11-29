@@ -19,7 +19,6 @@ import com.ty.zbpet.bean.material.MaterialTodoSave;
 import com.ty.zbpet.bean.product.ProductDetailsIn;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.presenter.product.BuyInPresenter;
-import com.ty.zbpet.presenter.product.ProductUiListInterface;
 import com.ty.zbpet.presenter.product.ProductUiObjInterface;
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity;
 import com.ty.zbpet.ui.adapter.product.BuyInTodoDetailAdapter;
@@ -101,7 +100,7 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiOb
 
     @Override
     protected int getActivityLayout() {
-        return R.layout.activity_content_detail_two;
+        return R.layout.activity_content_row_two;
     }
 
     @Override
@@ -135,7 +134,7 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiOb
         selectTime = format.format(new Date());
 
         tvTime.setText(selectTime);
-        backGoods.setText("退货明细");
+        backGoods.setText("到货明细");
 
         tvTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -248,7 +247,7 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiOb
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             reView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             reView.setLayoutManager(manager);
-            adapter = new BuyInTodoDetailAdapter(this, R.layout.item_buy_in_todo_list_detail, list);
+            adapter = new BuyInTodoDetailAdapter(this, R.layout.item_product_detail_two_todo, list);
             reView.setAdapter(adapter);
 
             adapter.setOnItemClickListener(new BuyInTodoDetailAdapter.OnItemClickListener() {

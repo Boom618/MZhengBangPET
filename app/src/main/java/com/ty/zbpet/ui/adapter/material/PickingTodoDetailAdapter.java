@@ -34,8 +34,8 @@ public class PickingTodoDetailAdapter extends CommonAdapter<PickOutTodoDetailsDa
         holder.setText(R.id.tv_name, list.getMaterialName())
                 .setText(R.id.tv_num, list.getOrderNumber() + "  " + list.getUnitS())
                 .setText(R.id.tv_box_num, "含量：" + list.getConcentration())
-                .setText(R.id.tv_box_num_unit, "ZKG ：? ")
-                .setText(R.id.bulk_num, "库存量：? ");
+                .setText(R.id.tv_box_num_unit, "ZKG ：?? ")
+                .setText(R.id.bulk_num, "库存量：?? ");
 
         // 1、库位码
         EditText etCode = holder.itemView.findViewById(R.id.et_code);

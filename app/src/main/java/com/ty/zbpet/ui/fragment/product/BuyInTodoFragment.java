@@ -15,6 +15,7 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.material.MaterialTodoList;
+import com.ty.zbpet.bean.product.ProductTodoList;
 import com.ty.zbpet.presenter.product.BuyInPresenter;
 import com.ty.zbpet.presenter.product.ProductUiListInterface;
 import com.ty.zbpet.ui.activity.product.BuyInTodoDetailActivity;
@@ -34,7 +35,7 @@ import butterknife.BindView;
  *
  * @author TY
  */
-public class BuyInTodoFragment extends BaseFragment implements ProductUiListInterface<MaterialTodoList.ListBean> {
+public class BuyInTodoFragment extends BaseFragment implements ProductUiListInterface<ProductTodoList.ListBean> {
 
 
     @BindView(R.id.recyclerView)
@@ -101,7 +102,7 @@ public class BuyInTodoFragment extends BaseFragment implements ProductUiListInte
     }
 
     @Override
-    public void showProduct(final List<MaterialTodoList.ListBean> list) {
+    public void showProduct(final List<ProductTodoList.ListBean> list) {
 
         if (adapter == null) {
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());

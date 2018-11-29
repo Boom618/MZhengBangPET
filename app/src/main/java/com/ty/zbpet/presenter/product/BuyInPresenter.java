@@ -7,6 +7,8 @@ import com.ty.zbpet.bean.PickOutTodoDetailsData;
 import com.ty.zbpet.bean.material.MaterialDoneList;
 import com.ty.zbpet.bean.material.MaterialTodoList;
 import com.ty.zbpet.bean.product.ProductDetailsIn;
+import com.ty.zbpet.bean.product.ProductDoneList;
+import com.ty.zbpet.bean.product.ProductTodoList;
 import com.ty.zbpet.bean.product.ProductTodoSave;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
@@ -45,7 +47,7 @@ public class BuyInPresenter {
     }
 
 
-    public void dispose(){
+    public void dispose() {
         if (disposable != null) {
             disposable.dispose();
         }
@@ -55,17 +57,17 @@ public class BuyInPresenter {
      * 待办列表
      */
     public void fetchBuyInTodoList() {
-        httpMethods.getPurchaseOrderList(new SingleObserver<BaseResponse<MaterialTodoList>>() {
+        httpMethods.getPurchaseOrderList(new SingleObserver<BaseResponse<ProductTodoList>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;
             }
 
             @Override
-            public void onSuccess(BaseResponse<MaterialTodoList> response) {
+            public void onSuccess(BaseResponse<ProductTodoList> response) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
-                    List<MaterialTodoList.ListBean> list = response.getData().getList();
+                    List<ProductTodoList.ListBean> list = response.getData().getList();
                     listInterface.showProduct(list);
 
                 } else {
@@ -93,9 +95,7 @@ public class BuyInPresenter {
             @Override
             public void onError(ApiException e) {
                 ZBUiUtils.showToast("失败 : =" + e.getMessage());
-
             }
-
 
             @Override
             public void onNext(BaseResponse<ProductDetailsIn> response) {
@@ -114,53 +114,32 @@ public class BuyInPresenter {
 
 
     /**
-     * 库位码校验
-     *
-     * @param positionNo
-     */
-    public void checkCarCode(final int position, final String positionNo) {
-
-        httpMethods.checkCarCode(new BaseSubscriber<CarPositionNoData>() {
-            @Override
-            public void onError(ApiException e) {
-                ZBUiUtils.showToast(e.getMessage());
-            }
-
-            @Override
-            public void onNext(CarPositionNoData responseInfo) {
-                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
-                    // 库位码合法
-
-                } else {
-                    ZBUiUtils.showToast(responseInfo.getMessage());
-                }
-
-            }
-        }, positionNo);
-    }
-
-    /**
      * 已办列表
      */
-    public void fetchBuyInDoneList() {
-        httpMethods.getPurchaseDoneList(new BaseSubscriber<BaseResponse<MaterialDoneList>>() {
+    public void fetchBuyInDoneList(String type) {
+        httpMethods.getPurchaseDoneList(new SingleObserver<BaseResponse<ProductDoneList>>() {
             @Override
-            public void onError(ApiException e) {
-                ZBUiUtils.showToast(e.getMessage());
+            public void onSubscribe(Disposable d) {
+                disposable = d;
             }
 
             @Override
-            public void onNext(BaseResponse<MaterialDoneList> response) {
+            public void onSuccess(BaseResponse<ProductDoneList> response) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
-                    List<MaterialDoneList.ListBean> list = response.getData().getList();
-                    listInterface.showProduct(list);
+                    ProductDoneList data = response.getData();
+                    objInterface.detailObjData(data);
 
                 } else {
                     ZBUiUtils.showToast("失败 : =" + response.getMessage());
                 }
             }
-        });
+
+            @Override
+            public void onError(Throwable e) {
+                ZBUiUtils.showToast(e.getMessage());
+            }
+        }, type);
     }
 
     /**
