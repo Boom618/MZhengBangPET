@@ -1,20 +1,31 @@
 package com.ty.zbpet.bean.product
 
 /**
- * @author TY on 2018/11/25.
- * 产品详情 bean
+ * @author TY on 2018/11/30.
+ * 生产入库 待办详情
  */
-class ProductDetailsIn {
+class ProductTodoDetails {
 
 
+    var warehouseList: List<WarehouseListBean>? = null
     var list: List<ListBean>? = null
+
+    class WarehouseListBean {
+        /**
+         * warehouseId : 3
+         * warehouseName : 仓库002
+         */
+
+        var warehouseId: String? = null
+        var warehouseName: String? = null
+    }
 
     class ListBean {
         /**
          * sapOrderNo : SAP0001
-         * goodsName : 原辅料名称
+         * goodsName : 产品名称
          * goodsId : 20
-         * goodsNo : 原辅料编号
+         * goodsNo : 产品编号
          * unitS : 瓶
          * orderNumber : 100
          */

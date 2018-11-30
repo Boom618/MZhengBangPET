@@ -16,9 +16,11 @@ import com.ty.zbpet.bean.material.MaterialDetailsIn;
 import com.ty.zbpet.bean.material.MaterialDetailsOut;
 import com.ty.zbpet.bean.material.MaterialDoneList;
 import com.ty.zbpet.bean.material.MaterialTodoList;
+import com.ty.zbpet.bean.product.BuyInTodoDetails;
 import com.ty.zbpet.bean.product.ProductDetailsIn;
 import com.ty.zbpet.bean.product.ProductDetailsOut;
 import com.ty.zbpet.bean.product.ProductDoneList;
+import com.ty.zbpet.bean.product.ProductTodoDetails;
 import com.ty.zbpet.bean.product.ProductTodoList;
 import com.ty.zbpet.constant.ApiNameConstant;
 import com.ty.zbpet.net.gson.DoubleDefault0Adapter;
@@ -328,7 +330,7 @@ public class HttpMethods {
 
     /**--------------------------------- 外采入库 ----------------------------------------*/
     /**
-     * 待办列表
+     * 外采入库 待办列表
      *
      * @param subscriber
      */
@@ -339,18 +341,18 @@ public class HttpMethods {
     }
 
     /**
-     * 待办详情
+     * 外采入库 待办详情
      *
      * @param subscriber
      */
-    public void getPurchaseOrderInfo(BaseSubscriber<BaseResponse<ProductDetailsIn>> subscriber, String sapOrderNo) {
+    public void getPurchaseOrderInfo(SingleObserver<BaseResponse<ProductDetailsIn>> subscriber, String sapOrderNo) {
         mService.getGoodsPurchaseOrderInfo(sapOrderNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
 
     /**
-     * 待办保存
+     * 外采入库 待办保存
      *
      * @param subscriber
      */
@@ -361,7 +363,7 @@ public class HttpMethods {
     }
 
     /**
-     * 已办列表
+     * 外采入库 已办列表
      *
      * @param subscriber
      */
@@ -373,7 +375,7 @@ public class HttpMethods {
 
 
     /**
-     * 已办详情
+     * 外采入库 已办详情
      *
      * @param subscriber
      */
@@ -384,7 +386,7 @@ public class HttpMethods {
     }
 
     /**
-     * 已办保存
+     * 外采入库 已办保存
      *
      * @param subscriber
      */
@@ -397,7 +399,7 @@ public class HttpMethods {
     /**--------------------------------- 生产入库 ----------------------------------------*/
 
     /**
-     * 已办列表
+     * 生产入库 待办列表
      *
      * @param subscriber
      */
@@ -408,18 +410,18 @@ public class HttpMethods {
     }
 
     /**
-     * 待办详情
+     * 生产入库 待办详情
      *
      * @param subscriber
      */
-    public void getProduceOrderInfo(SingleObserver<BaseResponse<ProductDetailsIn>> subscriber, String sapOrderNo) {
+    public void getProduceOrderInfo(SingleObserver<BaseResponse<ProductTodoDetails>> subscriber, String sapOrderNo) {
         mService.getProduceOrderInfo(sapOrderNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
 
     /**
-     * 待办保存
+     * 生产入库 待办保存
      *
      * @param subscriber
      */
@@ -430,7 +432,7 @@ public class HttpMethods {
     }
 
     /**
-     * 已办列表
+     * 生产入库 已办列表
      *
      * @param subscriber
      */
@@ -442,7 +444,7 @@ public class HttpMethods {
 
 
     /**
-     * 已办列表 详情
+     * 生产入库 已办详情
      *
      * @param subscriber
      */
@@ -453,7 +455,7 @@ public class HttpMethods {
     }
 
     /**
-     * 已办保存
+     * 生产入库 已办保存
      *
      * @param subscriber
      */
@@ -467,7 +469,7 @@ public class HttpMethods {
     /**--------------------------------- 发货出库 ----------------------------------------*/
 
     /**
-     * 已办列表
+     * 发货出库 已办列表
      *
      * @param subscriber
      */
@@ -478,7 +480,7 @@ public class HttpMethods {
     }
 
     /**
-     * 待办详情
+     * 发货出库 待办详情
      *
      * @param subscriber
      */
@@ -489,7 +491,7 @@ public class HttpMethods {
     }
 
     /**
-     * 待办保存
+     * 发货出库 待办保存
      *
      * @param subscriber
      */
@@ -500,19 +502,19 @@ public class HttpMethods {
     }
 
     /**
-     * 已办列表
+     * 发货出库 已办列表
      *
      * @param subscriber
      */
-    public void getShipDoneList(BaseSubscriber<BaseResponse<MaterialDoneList>> subscriber) {
-        mService.getShipDoneList()
+    public void getShipDoneList(SingleObserver<BaseResponse<ProductDoneList>> subscriber, String type) {
+        mService.getShipDoneList(type)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
 
 
     /**
-     * 已办列表 详情
+     * 发货出库 已办详情
      *
      * @param subscriber
      */
@@ -523,7 +525,7 @@ public class HttpMethods {
     }
 
     /**
-     * 已办保存
+     * 发货出库 已办保存
      *
      * @param subscriber
      */
@@ -537,7 +539,7 @@ public class HttpMethods {
     /**--------------------------------- 退货入库 ----------------------------------------*/
 
     /**
-     * 已办列表
+     * 退货入库 已办列表
      *
      * @param subscriber
      */
@@ -548,7 +550,7 @@ public class HttpMethods {
     }
 
     /**
-     * 待办详情
+     * 退货入库 待办详情
      *
      * @param subscriber
      */
@@ -559,7 +561,7 @@ public class HttpMethods {
     }
 
     /**
-     * 待办保存
+     * 退货入库 待办保存
      *
      * @param subscriber
      */
@@ -570,7 +572,7 @@ public class HttpMethods {
     }
 
     /**
-     * 已办列表
+     * 退货入库 已办列表
      *
      * @param subscriber
      */
@@ -582,7 +584,7 @@ public class HttpMethods {
 
 
     /**
-     * 已办列表 详情
+     * 退货入库 已办详情
      *
      * @param subscriber
      */
@@ -593,7 +595,7 @@ public class HttpMethods {
     }
 
     /**
-     * 已办保存
+     * 退货入库 已办保存
      *
      * @param subscriber
      */

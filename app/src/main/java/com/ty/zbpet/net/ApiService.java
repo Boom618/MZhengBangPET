@@ -14,9 +14,11 @@ import com.ty.zbpet.bean.material.MaterialDetailsIn;
 import com.ty.zbpet.bean.material.MaterialDetailsOut;
 import com.ty.zbpet.bean.material.MaterialDoneList;
 import com.ty.zbpet.bean.material.MaterialTodoList;
+import com.ty.zbpet.bean.product.BuyInTodoDetails;
 import com.ty.zbpet.bean.product.ProductDetailsIn;
 import com.ty.zbpet.bean.product.ProductDetailsOut;
 import com.ty.zbpet.bean.product.ProductDoneList;
+import com.ty.zbpet.bean.product.ProductTodoDetails;
 import com.ty.zbpet.bean.product.ProductTodoList;
 import com.ty.zbpet.constant.ApiNameConstant;
 import com.ty.zbpet.ui.base.BaseResponse;
@@ -237,7 +239,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_GOODS_PURCHASE_ORDER_INFO)
-    Observable<BaseResponse<ProductDetailsIn>> getGoodsPurchaseOrderInfo(@Field("sapOrderNo") String sapOrderNo);
+    Single<BaseResponse<ProductDetailsIn>> getGoodsPurchaseOrderInfo(@Field("sapOrderNo") String sapOrderNo);
 
 
     /**
@@ -297,7 +299,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_PRODUCE_ORDER_INFO)
-    Single<BaseResponse<ProductDetailsIn>> getProduceOrderInfo(@Field("sapOrderNo") String sapOrderNo);
+    Single<BaseResponse<ProductTodoDetails>> getProduceOrderInfo(@Field("sapOrderNo") String sapOrderNo);
 
 
     /**
@@ -373,8 +375,9 @@ public interface ApiService {
      *
      * @return
      */
+    @FormUrlEncoded
     @POST(ApiNameConstant.GET_SHIP_DONE_LIST)
-    Observable<BaseResponse<MaterialDoneList>> getShipDoneList();
+    Single<BaseResponse<ProductDoneList>> getShipDoneList(@Field("type") String type);
 
     /**
      * 发货出库 已办列表 详情

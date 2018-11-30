@@ -67,6 +67,9 @@ public class ScanBoxCodeActivity extends BaseActivity implements ScanBoxInterfac
         itemId = getIntent().getIntExtra("itemId", -1);
         state = getIntent().getBooleanExtra(CodeConstant.PAGE_STATE, false);
         boxCodeList = getIntent().getStringArrayListExtra("boxCodeList");
+        if (boxCodeList == null) {
+            boxCodeList = new ArrayList<>();
+        }
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(ResourceUtil.getContext());
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST

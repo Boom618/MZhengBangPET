@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.ResponseInfo;
-import com.ty.zbpet.bean.material.MaterialTodoSave;
+import com.ty.zbpet.bean.product.BuyInTodoDetails;
 import com.ty.zbpet.bean.product.ProductDetailsIn;
 import com.ty.zbpet.bean.product.ProductTodoSave;
 import com.ty.zbpet.net.HttpMethods;
@@ -45,7 +45,7 @@ import okhttp3.RequestBody;
  * @author TY on 2018/11/22.
  * 外采入库 待办详情
  */
-public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiObjInterface<ProductDetailsIn> {
+public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiObjInterface<BuyInTodoDetails> {
 
 
     private RecyclerView reView;
@@ -247,9 +247,9 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiOb
 
 
     @Override
-    public void detailObjData(ProductDetailsIn details) {
+    public void detailObjData(BuyInTodoDetails details) {
 
-        List<ProductDetailsIn.ListBean> list = details.getList();
+        final List<BuyInTodoDetails.ListBean> list = details.getList();
         if (adapter == null) {
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             reView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
@@ -259,11 +259,12 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiOb
 
             adapter.setOnItemClickListener(new BuyInTodoDetailAdapter.OnItemClickListener() {
                 @Override
-                public void onItemClick(View view, RecyclerView.ViewHolder holder, final int position) {
+                public void onItemClick(final View view, RecyclerView.ViewHolder holder, final int position) {
 
                     View rlDetail = holder.itemView.findViewById(R.id.gone_view);
                     ImageView ivArrow = holder.itemView.findViewById(R.id.iv_arrow);
                     Button bindingCode = holder.itemView.findViewById(R.id.btn_binding_code);
+                    final TextView selectHouse = holder.itemView.findViewById(R.id.tv_select_ware);
 
                     if (rlDetail.getVisibility() == View.VISIBLE) {
                         rlDetail.setVisibility(View.GONE);
@@ -282,6 +283,21 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiOb
                             intent.putExtra(CodeConstant.PAGE_STATE,true);
                             intent.putStringArrayListExtra("boxCodeList", carCodeArray.get(itemId));
                             startActivityForResult(intent, REQUEST_SCAN_CODE);
+                        }
+                    });
+
+                    List<BuyInTodoDetails.ListBean.WarehouseListBean> warehouseList = list.get(position).getWarehouseList();
+                    final ArrayList<String> houseName = new ArrayList<>();
+
+                    int size = warehouseList.size();
+                    for (int i = 0; i < size; i++) {
+                        houseName.add(warehouseList.get(i).getWarehouseName());
+                    }
+
+                    selectHouse.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ZBUiUtils.selectDialog(view.getContext(),houseName,selectHouse);
                         }
                     });
 

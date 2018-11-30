@@ -1,6 +1,7 @@
 package com.ty.zbpet.presenter.product;
 
 import com.ty.zbpet.bean.PickOutDoneDetailsData;
+import com.ty.zbpet.bean.product.BuyInTodoDetails;
 import com.ty.zbpet.bean.product.ProductDetailsIn;
 import com.ty.zbpet.bean.product.ProductDetailsOut;
 import com.ty.zbpet.bean.product.ProductDoneList;
@@ -85,16 +86,14 @@ public class BuyInPresenter {
      */
     public void fetchBuyInTodoListDetails(String sapOrderNo) {
 
-
-        httpMethods.getPurchaseOrderInfo(new BaseSubscriber<BaseResponse<ProductDetailsIn>>() {
+        httpMethods.getPurchaseOrderInfo(new SingleObserver<BaseResponse<ProductDetailsIn>>() {
             @Override
-            public void onError(ApiException e) {
-                ZBUiUtils.showToast("失败 : =" + e.getMessage());
+            public void onSubscribe(Disposable d) {
+                disposable = d;
             }
 
             @Override
-            public void onNext(BaseResponse<ProductDetailsIn> response) {
-
+            public void onSuccess(BaseResponse<ProductDetailsIn> response) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
                     ProductDetailsIn data = response.getData();
@@ -104,9 +103,13 @@ public class BuyInPresenter {
                     ZBUiUtils.showToast("失败 : =" + response.getMessage());
                 }
             }
+
+            @Override
+            public void onError(Throwable e) {
+                ZBUiUtils.showToast("失败 : =" + e.getMessage());
+            }
         }, sapOrderNo);
     }
-
 
     /**
      * 已办列表

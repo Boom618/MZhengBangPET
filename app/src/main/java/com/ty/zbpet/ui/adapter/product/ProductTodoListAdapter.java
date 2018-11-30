@@ -24,7 +24,7 @@ public class ProductTodoListAdapter extends CommonAdapter<ProductTodoList.ListBe
     protected void convert(ViewHolder holder, ProductTodoList.ListBean list, int position) {
         holder.setText(R.id.tv_operator, "入库")
                 .setText(R.id.tv_no, list.getSapOrderNo())
-                .setText(R.id.tv_produce_msg, "生产信息")
+                .setText(R.id.tv_produce_msg, list.getProductInfo() + "？")
                 .setText(R.id.tv_date, list.getOrderTime())
                 .setText(R.id.tv_status, list.getState());
     }

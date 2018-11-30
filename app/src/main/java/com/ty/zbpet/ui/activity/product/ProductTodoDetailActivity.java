@@ -17,8 +17,9 @@ import com.ty.zbpet.R;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.material.MaterialTodoSave;
 import com.ty.zbpet.bean.product.ProductDetailsIn;
+import com.ty.zbpet.bean.product.ProductTodoDetails;
 import com.ty.zbpet.net.HttpMethods;
-import com.ty.zbpet.presenter.product.BuyInPresenter;
+import com.ty.zbpet.presenter.product.ProducePresenter;
 import com.ty.zbpet.presenter.product.ProductUiObjInterface;
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity;
 import com.ty.zbpet.ui.adapter.product.ProductTodoDetailAdapter;
@@ -42,14 +43,16 @@ import okhttp3.RequestBody;
 
 /**
  * 生产入库 待办详情
+ *
  * @author TY
  */
-public class ProductTodoDetailActivity extends BaseActivity implements ProductUiObjInterface<ProductDetailsIn> {
+public class ProductTodoDetailActivity extends BaseActivity implements ProductUiObjInterface<ProductTodoDetails> {
 
 
     private RecyclerView reView;
     private TextView tvTime;
     private TextView backGoods;
+    private TextView selectHouse;
     private TextView tvPath;
     private TextView tvType;
     private EditText etDesc;
@@ -59,19 +62,20 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
     private String selectTime;
     private String sapOrderNo;
 
-    private ArrayList<ProductDetailsIn.ListBean> oldList = new ArrayList<>();
+    private List<ProductTodoDetails.ListBean> oldList = new ArrayList<>();
+    private List<ProductTodoDetails.WarehouseListBean> houseList = new ArrayList<>();
 
     private final static int REQUEST_SCAN_CODE = 1;
     private final static int RESULT_SCAN_CODE = 2;
 
-    private BuyInPresenter presenter = new BuyInPresenter(this);
+    private ProducePresenter presenter = new ProducePresenter(this);
 
     /**
      * 保存用户在输入框中的数据
      */
     private SparseArray<String> bulkNumArray = new SparseArray(10);
-    private SparseArray<String> carCodeArray = new SparseArray(10);
     private SparseArray<String> batchNoArray = new SparseArray(10);
+    private SparseArray<ArrayList<String>> carCodeArray = new SparseArray(10);
     /**
      * 库位码 ID
      */
@@ -81,6 +85,16 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
      * 仓库 ID
      */
     private String warehouseId;
+
+    /**
+     * 列表 ID
+     */
+    private int itemId = -1;
+
+    /**
+     * 箱码
+     */
+    private ArrayList<String> boxCodeList = new ArrayList<>();
 
 
     @Override
@@ -97,7 +111,7 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
     protected void initOneData() {
         sapOrderNo = getIntent().getStringExtra("sapOrderNo");
 
-        presenter.fetchBuyInTodoListDetails(sapOrderNo);
+        presenter.fetchProductTodoInfo(sapOrderNo);
     }
 
     @Override
@@ -115,6 +129,7 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
         reView = findViewById(R.id.rv_in_storage_detail);
         tvTime = findViewById(R.id.tv_time);
         backGoods = findViewById(R.id.in_storage_detail);
+        selectHouse = findViewById(R.id.tv_house);
 
         tvPath = findViewById(R.id.tv_path);
         tvType = findViewById(R.id.tv_type);
@@ -124,7 +139,8 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
         selectTime = format.format(new Date());
 
         tvTime.setText(selectTime);
-        backGoods.setText("退货明细");
+        backGoods.setText("入库明细");
+
 
         tvTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,7 +156,6 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
                 });
             }
         });
-
 
     }
 
@@ -189,20 +204,20 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
 
         int size = oldList.size();
         for (int i = 0; i < size; i++) {
+            List<String> boxQrCode = carCodeArray.get(i);
             String bulkNum = bulkNumArray.get(i);
-            String carCode = carCodeArray.get(i);
             String batchNo = batchNoArray.get(i);
             String Id = positionId.get(i);
 
             MaterialTodoSave.DetailsBean bean = new MaterialTodoSave.DetailsBean();
-            if (!TextUtils.isEmpty(bulkNum) && !TextUtils.isEmpty(carCode)) {
+            if (!TextUtils.isEmpty(bulkNum) && boxQrCode.size() > 0) {
 
                 bean.setPositionId(Id);
                 bean.setNumber(bulkNum);
                 bean.setSapMaterialBatchNo(batchNo);
 
                 detail.add(bean);
-            } else if (null == bulkNum && null == carCode) {
+            } else if (null == bulkNum && null == boxQrCode) {
                 // 跳出当前一列、不处理
                 continue;
             } else {
@@ -230,22 +245,36 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
 
 
     @Override
-    public void detailObjData(ProductDetailsIn details) {
+    public void detailObjData(ProductTodoDetails details) {
 
-        List<ProductDetailsIn.ListBean> list = details.getList();
+        houseList = details.getWarehouseList();
+        oldList = details.getList();
+
+        int size = houseList.size();
+        final ArrayList<String> houseName = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            houseName.add(houseList.get(i).getWarehouseName());
+        }
+        selectHouse.setText(houseName.get(0));
+        selectHouse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ZBUiUtils.selectDialog(v.getContext(), houseName, selectHouse);
+            }
+        });
 
         if (adapter == null) {
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             reView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             reView.setLayoutManager(manager);
-            adapter = new ProductTodoDetailAdapter(this, R.layout.item_produce_detail_todo, list);
+            adapter = new ProductTodoDetailAdapter(this, R.layout.item_produce_detail_todo, oldList);
             reView.setAdapter(adapter);
 
             adapter.setOnItemClickListener(new ProductTodoDetailAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, final int position) {
 
-                    View rlDetail = holder.itemView.findViewById(R.id.gone_view);
+                    View rlDetail = holder.itemView.findViewById(R.id.rl_detail);
                     ImageView ivArrow = holder.itemView.findViewById(R.id.iv_arrow);
                     Button bindingCode = holder.itemView.findViewById(R.id.btn_binding_code);
 
@@ -260,9 +289,11 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
                     bindingCode.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            itemId = position;
                             Intent intent = new Intent(ProductTodoDetailActivity.this, ScanBoxCodeActivity.class);
-                            intent.putExtra("position", position);
-                            intent.putStringArrayListExtra("boxCodeList", null);
+                            intent.putExtra("itemId", itemId);
+                            intent.putExtra(CodeConstant.PAGE_STATE, true);
+                            intent.putStringArrayListExtra("boxCodeList", carCodeArray.get(itemId));
                             startActivityForResult(intent, REQUEST_SCAN_CODE);
                         }
                     });
@@ -283,12 +314,12 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
     }
 
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_SCAN_CODE && resultCode == RESULT_SCAN_CODE) {
-            int position = data.getIntExtra("position", -1);
-            List<String> codeList = data.getStringArrayListExtra("boxCodeList");
+            itemId = data.getIntExtra("itemId", -1);
+            boxCodeList = data.getStringArrayListExtra("boxCodeList");
+            carCodeArray.put(itemId, boxCodeList);
         }
     }
 
