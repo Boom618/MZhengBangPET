@@ -16,7 +16,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.product.ProductTodoList;
 import com.ty.zbpet.presenter.product.ProductUiListInterface;
-import com.ty.zbpet.presenter.product.SendOutPresenter;
+import com.ty.zbpet.presenter.product.ReturnPresenter;
 import com.ty.zbpet.ui.activity.product.SendOutTodoDetailActivity;
 import com.ty.zbpet.ui.adapter.product.SendOutTodoListAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
@@ -29,11 +29,11 @@ import java.util.List;
 import butterknife.BindView;
 
 /**
- * 成品——发货出库——未办
+ * 成品——退货入库——未办
  *
  * @author TY
  */
-public class SendOutTodoFragment extends BaseFragment implements ProductUiListInterface<ProductTodoList.ListBean> {
+public class ReturnGoodsTodoFragment extends BaseFragment implements ProductUiListInterface<ProductTodoList.ListBean> {
 
 
     @BindView(R.id.recyclerView)
@@ -41,12 +41,12 @@ public class SendOutTodoFragment extends BaseFragment implements ProductUiListIn
     @BindView(R.id.refreshLayout)
     RefreshLayout refreshLayout;
 
-    private SendOutPresenter presenter = new SendOutPresenter(this);
+    private ReturnPresenter presenter = new ReturnPresenter(this);
 
     private SendOutTodoListAdapter adapter;
 
-    public static SendOutTodoFragment newInstance(String tag) {
-        SendOutTodoFragment fragment = new SendOutTodoFragment();
+    public static ReturnGoodsTodoFragment newInstance(String tag) {
+        ReturnGoodsTodoFragment fragment = new ReturnGoodsTodoFragment();
         Bundle bundle = new Bundle();
         bundle.putString("someInt", tag);
         fragment.setArguments(bundle);
@@ -72,7 +72,7 @@ public class SendOutTodoFragment extends BaseFragment implements ProductUiListIn
     public void onStart() {
         super.onStart();
 
-        presenter.fetchSendOutTodoList();
+        presenter.fetchReturnGoodsTodoList();
 
     }
 
@@ -86,7 +86,7 @@ public class SendOutTodoFragment extends BaseFragment implements ProductUiListIn
                 // 传入 false 表示刷新失败
                 refreshLayout.finishRefresh(1000);
                 // 刷新数据
-                presenter.fetchSendOutTodoList();
+                presenter.fetchReturnGoodsTodoList();
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -109,20 +109,20 @@ public class SendOutTodoFragment extends BaseFragment implements ProductUiListIn
             adapter = new SendOutTodoListAdapter(ResourceUtil.getContext(), R.layout.item_send_out_list_todo, list);
             recyclerView.setAdapter(adapter);
 
-            adapter.setOnItemClickListener(new SendOutTodoListAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    Intent intent = new Intent(getActivity(), SendOutTodoDetailActivity.class);
-                    intent.putExtra("sapOrderNo", list.get(position).getSapOrderNo());
-                    intent.putExtra("supplierId", list.get(position).getSupplierId());
-                    startActivity(intent);
-                }
-
-                @Override
-                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    return false;
-                }
-            });
+//            adapter.setOnItemClickListener(new SendOutTodoListAdapter.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+//                    Intent intent = new Intent(getActivity(), SendOutTodoDetailActivity.class);
+//                    intent.putExtra("sapOrderNo", list.get(position).getSapOrderNo());
+//                    intent.putExtra("supplierId", list.get(position).getSupplierId());
+//                    startActivity(intent);
+//                }
+//
+//                @Override
+//                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+//                    return false;
+//                }
+//            });
         } else {
             adapter.notifyDataSetChanged();
         }

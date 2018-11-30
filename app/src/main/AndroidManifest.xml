@@ -97,7 +97,7 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <activity
-            android:name=".ui.activity.ReturnInStorageActivity"
+            android:name=".ui.activity.product.ReturnGoodsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity

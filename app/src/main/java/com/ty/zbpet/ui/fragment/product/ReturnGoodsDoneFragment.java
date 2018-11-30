@@ -14,11 +14,12 @@ import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.ty.zbpet.R;
-import com.ty.zbpet.bean.product.ProductTodoList;
-import com.ty.zbpet.presenter.product.ProductUiListInterface;
+import com.ty.zbpet.bean.product.ProductDoneList;
+import com.ty.zbpet.presenter.product.ProductUiObjInterface;
+import com.ty.zbpet.presenter.product.ReturnPresenter;
 import com.ty.zbpet.presenter.product.SendOutPresenter;
-import com.ty.zbpet.ui.activity.product.SendOutTodoDetailActivity;
-import com.ty.zbpet.ui.adapter.product.SendOutTodoListAdapter;
+import com.ty.zbpet.ui.activity.product.SendOutDoneDetailActivity;
+import com.ty.zbpet.ui.adapter.product.SendOutDoneListAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.ResourceUtil;
@@ -29,11 +30,10 @@ import java.util.List;
 import butterknife.BindView;
 
 /**
- * 成品——发货出库——未办
- *
+ * 成品——退货入库——已办
  * @author TY
  */
-public class SendOutTodoFragment extends BaseFragment implements ProductUiListInterface<ProductTodoList.ListBean> {
+public class ReturnGoodsDoneFragment extends BaseFragment implements ProductUiObjInterface<ProductDoneList> {
 
 
     @BindView(R.id.recyclerView)
@@ -41,12 +41,12 @@ public class SendOutTodoFragment extends BaseFragment implements ProductUiListIn
     @BindView(R.id.refreshLayout)
     RefreshLayout refreshLayout;
 
-    private SendOutPresenter presenter = new SendOutPresenter(this);
+    private ReturnPresenter presenter = new ReturnPresenter(this);
 
-    private SendOutTodoListAdapter adapter;
+    private SendOutDoneListAdapter adapter;
 
-    public static SendOutTodoFragment newInstance(String tag) {
-        SendOutTodoFragment fragment = new SendOutTodoFragment();
+    public static ReturnGoodsDoneFragment newInstance(String tag){
+        ReturnGoodsDoneFragment fragment = new ReturnGoodsDoneFragment();
         Bundle bundle = new Bundle();
         bundle.putString("someInt", tag);
         fragment.setArguments(bundle);
@@ -62,9 +62,9 @@ public class SendOutTodoFragment extends BaseFragment implements ProductUiListIn
     @Override
     protected View onBaseCreate(View view) {
         // 设置 Header 样式
-        refreshLayout.setRefreshHeader(new MaterialHeader(getContext()));
+        refreshLayout.setRefreshHeader(new MaterialHeader(view.getContext()));
         // 设置 Footer 为 球脉冲 样式
-        refreshLayout.setRefreshFooter(new BallPulseFooter(getContext()).setSpinnerStyle(SpinnerStyle.Scale));
+        refreshLayout.setRefreshFooter(new BallPulseFooter(view.getContext()).setSpinnerStyle(SpinnerStyle.Scale));
         return view;
     }
 
@@ -72,7 +72,7 @@ public class SendOutTodoFragment extends BaseFragment implements ProductUiListIn
     public void onStart() {
         super.onStart();
 
-        presenter.fetchSendOutTodoList();
+        presenter.fetchReturnGoodsDoneList("1");
 
     }
 
@@ -86,7 +86,7 @@ public class SendOutTodoFragment extends BaseFragment implements ProductUiListIn
                 // 传入 false 表示刷新失败
                 refreshLayout.finishRefresh(1000);
                 // 刷新数据
-                presenter.fetchSendOutTodoList();
+                presenter.fetchReturnGoodsDoneList("1");
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -100,37 +100,34 @@ public class SendOutTodoFragment extends BaseFragment implements ProductUiListIn
     }
 
     @Override
-    public void showProduct(final List<ProductTodoList.ListBean> list) {
+    public void detailObjData(final ProductDoneList obj) {
+
+        final List<ProductDoneList.ListBean> list = obj.getList();
 
         if (adapter == null) {
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             recyclerView.setLayoutManager(manager);
-            adapter = new SendOutTodoListAdapter(ResourceUtil.getContext(), R.layout.item_send_out_list_todo, list);
+            adapter = new SendOutDoneListAdapter(ResourceUtil.getContext(),R.layout.item_produce_in_storage_complete,list);
             recyclerView.setAdapter(adapter);
 
-            adapter.setOnItemClickListener(new SendOutTodoListAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    Intent intent = new Intent(getActivity(), SendOutTodoDetailActivity.class);
-                    intent.putExtra("sapOrderNo", list.get(position).getSapOrderNo());
-                    intent.putExtra("supplierId", list.get(position).getSupplierId());
-                    startActivity(intent);
-                }
+//            adapter.setOnItemClickListener(new SendOutDoneListAdapter.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+//                    Intent intent = new Intent(getActivity(), SendOutDoneDetailActivity.class);
+//                    intent.putExtra("orderId", list.get(position).getId());
+//                    startActivity(intent);
+//                }
+//
+//                @Override
+//                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+//                    return false;
+//                }
+//            });
 
-                @Override
-                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    return false;
-                }
-            });
-        } else {
+        }else {
             adapter.notifyDataSetChanged();
         }
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        presenter.dispose();
-    }
 }

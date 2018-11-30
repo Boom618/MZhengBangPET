@@ -9,6 +9,8 @@ import android.widget.RadioGroup;
 import com.ty.zbpet.R;
 import com.ty.zbpet.ui.adapter.ViewPagerAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
+import com.ty.zbpet.ui.fragment.product.ReturnGoodsDoneFragment;
+import com.ty.zbpet.ui.fragment.product.ReturnGoodsTodoFragment;
 import com.ty.zbpet.ui.fragment.product.SendOutDoneFragment;
 import com.ty.zbpet.ui.fragment.product.SendOutTodoFragment;
 
@@ -18,11 +20,10 @@ import java.util.List;
 import butterknife.BindView;
 
 /**
- * 发货出库
- *
+ * 成品 退货入库
  * @author TY
  */
-public class SendOutActivity extends BaseActivity {
+public class ReturnGoodsActivity extends BaseActivity {
 
     @BindView(R.id.et_search)
     EditText etSearch;
@@ -37,8 +38,8 @@ public class SendOutActivity extends BaseActivity {
     @Override
     protected void onBaseCreate(Bundle savedInstanceState) {
 
-        SendOutTodoFragment todoFragment = SendOutTodoFragment.newInstance("todoFragment");
-        SendOutDoneFragment doneFragment = SendOutDoneFragment.newInstance("doneFragment");
+        ReturnGoodsTodoFragment todoFragment = ReturnGoodsTodoFragment.newInstance("todoFragment");
+        ReturnGoodsDoneFragment doneFragment = ReturnGoodsDoneFragment.newInstance("doneFragment");
 
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(todoFragment);
@@ -46,8 +47,8 @@ public class SendOutActivity extends BaseActivity {
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentList);
         viewpager.setAdapter(adapter);
-        viewpager.addOnPageChangeListener(new SendOutActivity.PagerChangeListener());
-        rg.setOnCheckedChangeListener(new SendOutActivity.RadioGroupListener());
+        viewpager.addOnPageChangeListener(new ReturnGoodsActivity.PagerChangeListener());
+        rg.setOnCheckedChangeListener(new ReturnGoodsActivity.RadioGroupListener());
 
         rg.check(R.id.rb_no_doing);
         viewpager.setCurrentItem(NO_DOING);
