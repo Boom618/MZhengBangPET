@@ -198,12 +198,12 @@ public class ApiNameConstant {
     /**
      * 发货出库 待办列表
      */
-    public static final String GET_SHIP_ORDER_LIST = "sap/zbSap/getPurchaseOrderList";
+    public static final String GET_SHIP_ORDER_LIST = "sap/zbSap/getBuyInOrderList";
 
     /**
      * 发货出库 待办详情
      */
-    public static final String GET_SHIP_ORDER_INFO = "sap/zbSap/getPurchaseOrderInfo";
+    public static final String GET_SHIP_ORDER_INFO = "sap/zbSap/getBuyInOrderInfo";
 
 
     /**
@@ -234,12 +234,12 @@ public class ApiNameConstant {
     /**
      * 退货入库 待办列表
      */
-    public static final String GET_RETURN_ORDER_LIST = "sap/zbSap/getPurchaseOrderList";
+    public static final String GET_RETURN_ORDER_LIST = "sap/zbSap/getBuyInOrderList";
 
     /**
      * 退货入库 待办详情
      */
-    public static final String GET_RETURN_ORDER_INFO = "sap/zbSap/getPurchaseOrderInfo";
+    public static final String GET_RETURN_ORDER_INFO = "sap/zbSap/getBuyInOrderInfo";
 
 
     /**

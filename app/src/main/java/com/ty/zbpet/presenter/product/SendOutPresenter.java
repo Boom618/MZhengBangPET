@@ -3,6 +3,7 @@ package com.ty.zbpet.presenter.product;
 import com.ty.zbpet.bean.product.BuyInTodoDetails;
 import com.ty.zbpet.bean.product.ProductDetailsOut;
 import com.ty.zbpet.bean.product.ProductDoneList;
+import com.ty.zbpet.bean.product.ProductTodoDetails;
 import com.ty.zbpet.bean.product.ProductTodoList;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
@@ -16,28 +17,26 @@ import io.reactivex.disposables.Disposable;
 
 /**
  * @author TY on 2018/11/26.
- * <p>
- * 外采入库 presenter
+ *
+ * 发货出库 presenter
  */
-public class BuyInPresenter {
+public class SendOutPresenter {
 
     private ProductUiListInterface listInterface;
     private ProductUiObjInterface objInterface;
 
     private HttpMethods httpMethods;
-
     private Disposable disposable;
 
-    public BuyInPresenter(ProductUiListInterface listInterface) {
+    public SendOutPresenter(ProductUiListInterface listInterface){
         this.listInterface = listInterface;
         httpMethods = HttpMethods.getInstance();
     }
 
-    public BuyInPresenter(ProductUiObjInterface objInterface) {
+    public SendOutPresenter(ProductUiObjInterface objInterface){
         this.objInterface = objInterface;
         httpMethods = HttpMethods.getInstance();
     }
-
 
     public void dispose() {
         if (disposable != null) {
@@ -45,11 +44,12 @@ public class BuyInPresenter {
         }
     }
 
+
     /**
      * 待办列表
      */
-    public void fetchBuyInTodoList() {
-        httpMethods.getBuyInOrderList(new SingleObserver<BaseResponse<ProductTodoList>>() {
+    public void fetchSendOutTodoList() {
+        httpMethods.getProductTodoList(new SingleObserver<BaseResponse<ProductTodoList>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;
@@ -78,9 +78,10 @@ public class BuyInPresenter {
     /**
      * 待办详情
      *
-     * @param sapOrderNo
+     * @param sapOrderNo BuyInTodoDetails
      */
-    public void fetchBuyInTodoListDetails(String sapOrderNo) {
+    public void fetchSendOutTodoInfo(String sapOrderNo) {
+
 
         httpMethods.getBuyInOrderInfo(new SingleObserver<BaseResponse<BuyInTodoDetails>>() {
             @Override
@@ -110,8 +111,8 @@ public class BuyInPresenter {
     /**
      * 已办列表
      */
-    public void fetchBuyInDoneList(String type) {
-        httpMethods.getBuyInDoneList(new SingleObserver<BaseResponse<ProductDoneList>>() {
+    public void fetchSendOutDoneList(String type) {
+        httpMethods.getShipDoneList(new SingleObserver<BaseResponse<ProductDoneList>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;
@@ -122,7 +123,11 @@ public class BuyInPresenter {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
                     ProductDoneList data = response.getData();
-                    objInterface.detailObjData(data);
+                    if (data.getCount() == 0) {
+                        ZBUiUtils.showToast("没有数据");
+                    }else {
+                        objInterface.detailObjData(data);
+                    }
 
                 } else {
                     ZBUiUtils.showToast("失败 : =" + response.getMessage());
@@ -131,16 +136,16 @@ public class BuyInPresenter {
 
             @Override
             public void onError(Throwable e) {
-                ZBUiUtils.showToast(e.getMessage());
+
             }
-        }, type);
+        },type);
     }
 
     /**
      * 已办详情
      */
-    public void fetchBuyInDoneListDetails(String orderId) {
-        httpMethods.getBuyInDoneListInfo(new SingleObserver<BaseResponse<ProductDetailsOut>>() {
+    public void fetchSendOutDoneInfo(String orderId) {
+        httpMethods.getShipDoneListInfo(new SingleObserver<BaseResponse<ProductDetailsOut>>() {
 
             @Override
             public void onSubscribe(Disposable d) {

@@ -132,6 +132,8 @@
         <activity android:name=".ui.activity.product.BuyInDoneDetailActivity" />
         <activity android:name=".ui.activity.material.PickOutDoneDetailActivity" />
         <activity android:name=".ui.activity.product.ProductDoneDetailActivity" />
+        <activity android:name=".ui.activity.product.SendOutTodoDetailActivity" />
+        <activity android:name=".ui.activity.product.SendOutDoneDetailActivity" />
 
     </application>
 

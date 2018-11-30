@@ -69,7 +69,7 @@
 //        tvTime.setText(now + ":00");
 //        sapOrderNo = getIntent().getStringExtra("sapOrderNo");
 //        getWarehouseInfo();
-////        getGoodsPurchaseOrderInfo();
+////        getBuyInOrderInfo();
 //
 //        initToolBar(R.string.label_purchase_in_storage);
 //    }
@@ -89,8 +89,8 @@
 //
 //    }
 //
-////    private void getGoodsPurchaseOrderInfo() {
-////        HttpMethods.getInstance().getPurchaseOrderInfo(new BaseSubscriber<GoodsPurchaseOrderInfo>() {
+////    private void getBuyInOrderInfo() {
+////        HttpMethods.getInstance().getBuyInOrderInfo(new BaseSubscriber<GoodsPurchaseOrderInfo>() {
 ////            @Override
 ////            public void onError(ApiException e) {
 ////                ZBUiUtils.showToast(e.getMessage());

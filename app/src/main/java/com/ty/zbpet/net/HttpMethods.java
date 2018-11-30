@@ -17,7 +17,6 @@ import com.ty.zbpet.bean.material.MaterialDetailsOut;
 import com.ty.zbpet.bean.material.MaterialDoneList;
 import com.ty.zbpet.bean.material.MaterialTodoList;
 import com.ty.zbpet.bean.product.BuyInTodoDetails;
-import com.ty.zbpet.bean.product.ProductDetailsIn;
 import com.ty.zbpet.bean.product.ProductDetailsOut;
 import com.ty.zbpet.bean.product.ProductDoneList;
 import com.ty.zbpet.bean.product.ProductTodoDetails;
@@ -334,8 +333,8 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getPurchaseOrderList(SingleObserver<BaseResponse<ProductTodoList>> subscriber) {
-        mService.getGoodsPurchaseOrderList()
+    public void getBuyInOrderList(SingleObserver<BaseResponse<ProductTodoList>> subscriber) {
+        mService.getBuyInOrderList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -345,8 +344,8 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getPurchaseOrderInfo(SingleObserver<BaseResponse<ProductDetailsIn>> subscriber, String sapOrderNo) {
-        mService.getGoodsPurchaseOrderInfo(sapOrderNo)
+    public void getBuyInOrderInfo(SingleObserver<BaseResponse<BuyInTodoDetails>> subscriber, String sapOrderNo) {
+        mService.getBuyInOrderInfo(sapOrderNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -356,8 +355,8 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getPurchaseTodoSave(BaseSubscriber<ResponseInfo> subscriber, RequestBody body) {
-        mService.getPurchaseTodoSave(body)
+    public void getBuyInTodoSave(BaseSubscriber<ResponseInfo> subscriber, RequestBody body) {
+        mService.getBuyInTodoSave(body)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -367,8 +366,8 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getPurchaseDoneList(SingleObserver<BaseResponse<ProductDoneList>> subscriber, String type) {
-        mService.getPurchaseDoneList(type)
+    public void getBuyInDoneList(SingleObserver<BaseResponse<ProductDoneList>> subscriber, String type) {
+        mService.getBuyInDoneList(type)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -379,8 +378,8 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getPurchaseDoneListInfo(SingleObserver<BaseResponse<ProductDetailsOut>> subscriber, String orderId) {
-        mService.getPurchaseDoneListInfo(orderId)
+    public void getBuyInDoneListInfo(SingleObserver<BaseResponse<ProductDetailsOut>> subscriber, String orderId) {
+        mService.getBuyInDoneListInfo(orderId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -390,8 +389,8 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getPurchaseDoneSave(BaseSubscriber<ResponseInfo> subscriber, RequestBody body) {
-        mService.getPurchaseDoneSave(body)
+    public void getBuyInDoneSave(BaseSubscriber<ResponseInfo> subscriber, RequestBody body) {
+        mService.getBuyInDoneSave(body)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -518,7 +517,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getShipDoneListInfo(BaseSubscriber<BaseResponse<PickOutDoneDetailsData>> subscriber, String sapOrderNo) {
+    public void getShipDoneListInfo(SingleObserver<BaseResponse<ProductDetailsOut>> subscriber, String sapOrderNo) {
         mService.getShipDoneListInfo(sapOrderNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);

@@ -3,7 +3,6 @@ package com.ty.zbpet.ui.activity.product;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 
@@ -12,6 +11,8 @@ import com.ty.zbpet.ui.adapter.ViewPagerAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.fragment.product.BuyInDoneFragment;
 import com.ty.zbpet.ui.fragment.product.BuyInTodoFragment;
+import com.ty.zbpet.ui.fragment.product.SendOutDoneFragment;
+import com.ty.zbpet.ui.fragment.product.SendOutTodoFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,10 +39,8 @@ public class SendOutActivity extends BaseActivity {
     @Override
     protected void onBaseCreate(Bundle savedInstanceState) {
 
-        // activity_send_out_storage
-
-        BuyInTodoFragment todoFragment = BuyInTodoFragment.newInstance("todoFragment");
-        BuyInDoneFragment doneFragment = BuyInDoneFragment.newInstance("doneFragment");
+        SendOutTodoFragment todoFragment = SendOutTodoFragment.newInstance("todoFragment");
+        SendOutDoneFragment doneFragment = SendOutDoneFragment.newInstance("doneFragment");
 
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(todoFragment);
@@ -55,7 +54,7 @@ public class SendOutActivity extends BaseActivity {
         rg.check(R.id.rb_no_doing);
         viewpager.setCurrentItem(NO_DOING);
 
-        initToolBar(R.string.label_purchase_in_storage);
+        initToolBar(R.string.label_send_out_storage);
     }
 
     @Override

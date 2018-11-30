@@ -230,7 +230,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.GET_GOODS_PURCHASE_ORDER_LIST)
-    Single<BaseResponse<ProductTodoList>> getGoodsPurchaseOrderList();
+    Single<BaseResponse<ProductTodoList>> getBuyInOrderList();
 
     /**
      * 待办详情
@@ -239,7 +239,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_GOODS_PURCHASE_ORDER_INFO)
-    Single<BaseResponse<ProductDetailsIn>> getGoodsPurchaseOrderInfo(@Field("sapOrderNo") String sapOrderNo);
+    Single<BaseResponse<BuyInTodoDetails>> getBuyInOrderInfo(@Field("sapOrderNo") String sapOrderNo);
 
 
     /**
@@ -249,7 +249,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.GET_PURCHASE_TODO_SAVE)
-    Observable<ResponseInfo> getPurchaseTodoSave(@Body RequestBody body);
+    Observable<ResponseInfo> getBuyInTodoSave(@Body RequestBody body);
 
 
     /**
@@ -260,7 +260,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_PURCHASE_DONE_LIST)
-    Single<BaseResponse<ProductDoneList>> getPurchaseDoneList(@Field("type") String type);
+    Single<BaseResponse<ProductDoneList>> getBuyInDoneList(@Field("type") String type);
 
     /**
      * 外采入库 已办列表 详情
@@ -270,7 +270,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_PURCHASE_DONE_LIST_INFO)
-    Single<BaseResponse<ProductDetailsOut>> getPurchaseDoneListInfo(@Field("orderId") String orderId);
+    Single<BaseResponse<ProductDetailsOut>> getBuyInDoneListInfo(@Field("orderId") String orderId);
 
     /**
      * 采购退货 已办保存
@@ -279,7 +279,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.GET_PURCHASE_DONE_SAVE)
-    Observable<ResponseInfo> getPurchaseDoneSave(@Body RequestBody body);
+    Observable<ResponseInfo> getBuyInDoneSave(@Body RequestBody body);
 
 
     /**--------------------------------- 生产入库 ----------------------------------------*/
@@ -387,7 +387,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_SHIP_DONE_LIST_INFO)
-    Observable<BaseResponse<PickOutDoneDetailsData>> getShipDoneListInfo(@Field("sapOrderNo") String sapOrderNo);
+    Single<BaseResponse<ProductDetailsOut>> getShipDoneListInfo(@Field("sapOrderNo") String sapOrderNo);
 
     /**
      * 发货出库 已办保存

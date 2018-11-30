@@ -79,7 +79,7 @@
 
     </LinearLayout>
 
-    <include layout="@layout/item_send_out_storage_complete" />
+    <include layout="@layout/item_send_out_list_todo" />
 
 
 </RelativeLayout>

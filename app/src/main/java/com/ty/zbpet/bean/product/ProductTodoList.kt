@@ -18,6 +18,7 @@ class ProductTodoList {
          * supplierNo : 20180910
          * receiveInfo : 领料信息
          * productInfo : 生产信息
+         * customerInfo : 客户信息
          * backInfo : 退货信息
          * orderTime : 2018-10-11 10:01:00
          */
@@ -30,6 +31,7 @@ class ProductTodoList {
         var supplierNo: String? = null
         var receiveInfo: String? = null
         var productInfo: String? = null
+        var customerInfo: String? = null
         var backInfo: String? = null
         var orderTime: String? = null
     }
