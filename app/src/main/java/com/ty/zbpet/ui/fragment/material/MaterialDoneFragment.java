@@ -21,6 +21,7 @@ import com.ty.zbpet.ui.adapter.material.MaterialDoneAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
 import com.ty.zbpet.ui.base.EmptyLayout;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
+import com.ty.zbpet.util.CodeConstant;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.ZBUiUtils;
 
@@ -42,6 +43,11 @@ public class MaterialDoneFragment extends BaseFragment implements MaterialUiList
 
 
     private EmptyLayout emptyLayout;
+
+    /**
+     * 下拉刷新 flag
+     */
+    private boolean refresh = false;
 
     private MaterialDoneAdapter materialAdapter;
 
@@ -67,7 +73,7 @@ public class MaterialDoneFragment extends BaseFragment implements MaterialUiList
         super.onStart();
 
         // 第一次获取数据
-        materialPresenter.fetchDoneMaterial();
+        materialPresenter.fetchDoneMaterial(CodeConstant.BUY_IN_TYPE);
 
     }
 
@@ -89,7 +95,8 @@ public class MaterialDoneFragment extends BaseFragment implements MaterialUiList
                 // 传入 false 表示刷新失败
                 refreshLayout.finishRefresh(1000);
                 // 刷新数据
-                materialPresenter.fetchDoneMaterial();
+                materialPresenter.fetchDoneMaterial(CodeConstant.BUY_IN_TYPE);
+                refresh = true;
 
 
             }
@@ -114,10 +121,14 @@ public class MaterialDoneFragment extends BaseFragment implements MaterialUiList
 
     @Override
     public void showMaterial(final List<MaterialDoneList.ListBean> list) {
-        if (materialAdapter == null) {
-            LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
-            recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
-            recyclerView.setLayoutManager(manager);
+        if (materialAdapter == null || refresh) {
+            refresh = false;
+            if (materialAdapter == null) {
+                LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
+                recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
+                recyclerView.setLayoutManager(manager);
+            }
+
             materialAdapter = new MaterialDoneAdapter(this.getContext(), R.layout.activity_content_list_three, list);
             recyclerView.setAdapter(materialAdapter);
             materialAdapter.setOnItemClickListener(new MaterialDoneAdapter.OnItemClickListener() {
@@ -125,7 +136,7 @@ public class MaterialDoneFragment extends BaseFragment implements MaterialUiList
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                     Intent intent = new Intent(getActivity(), ArrivalInDoneDetailActivity.class);
 //                    Intent intent = new Intent(getActivity(), ArrivalInDoneDetailActivityK.class);
-                    intent.putExtra("mInWarehouseOrderId", list.get(position).getMOutWarehouseOrderId());
+                    intent.putExtra("mInWarehouseOrderId", list.get(position).getMInWarehouseOrderId());
                     intent.putExtra("sapOrderNo", list.get(position).getSapOrderNo());
                     intent.putExtra("warehouseId", list.get(position).getWarehouseId());
                     startActivity(intent);

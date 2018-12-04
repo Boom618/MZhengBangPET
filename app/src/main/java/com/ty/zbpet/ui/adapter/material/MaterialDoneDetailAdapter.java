@@ -27,7 +27,9 @@ public class MaterialDoneDetailAdapter extends CommonAdapter<MaterialDoneDetails
 
         holder.setText(R.id.tv_name, listBean.getMaterialName())
                 .setText(R.id.tv_num, listBean.getNumber())
-                .setText(R.id.tv_bulk_num, listBean.getPurchaseNumber())
+                .setText(R.id.tv_zkg, "ZKG ?")
+                .setText(R.id.tv_count_number, "入库数量 ？")
+                .setText(R.id.tv_sap, " SAP 物料")
                 .setText(R.id.tv_code, listBean.getPositionNo());
 
     }

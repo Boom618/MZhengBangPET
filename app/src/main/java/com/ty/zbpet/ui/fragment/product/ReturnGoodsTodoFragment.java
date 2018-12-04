@@ -17,7 +17,8 @@ import com.ty.zbpet.R;
 import com.ty.zbpet.bean.product.ProductTodoList;
 import com.ty.zbpet.presenter.product.ProductUiListInterface;
 import com.ty.zbpet.presenter.product.ReturnPresenter;
-import com.ty.zbpet.ui.activity.product.SendOutTodoDetailActivity;
+import com.ty.zbpet.ui.activity.product.ReturnGoodsTodoDetailActivity;
+import com.ty.zbpet.ui.adapter.product.ReturnGoodsTodoListAdapter;
 import com.ty.zbpet.ui.adapter.product.SendOutTodoListAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
@@ -43,7 +44,7 @@ public class ReturnGoodsTodoFragment extends BaseFragment implements ProductUiLi
 
     private ReturnPresenter presenter = new ReturnPresenter(this);
 
-    private SendOutTodoListAdapter adapter;
+    private ReturnGoodsTodoListAdapter adapter;
 
     public static ReturnGoodsTodoFragment newInstance(String tag) {
         ReturnGoodsTodoFragment fragment = new ReturnGoodsTodoFragment();
@@ -106,23 +107,23 @@ public class ReturnGoodsTodoFragment extends BaseFragment implements ProductUiLi
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             recyclerView.setLayoutManager(manager);
-            adapter = new SendOutTodoListAdapter(ResourceUtil.getContext(), R.layout.item_send_out_list_todo, list);
+            adapter = new ReturnGoodsTodoListAdapter(ResourceUtil.getContext(), R.layout.item_send_out_list_todo, list);
             recyclerView.setAdapter(adapter);
 
-//            adapter.setOnItemClickListener(new SendOutTodoListAdapter.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-//                    Intent intent = new Intent(getActivity(), SendOutTodoDetailActivity.class);
-//                    intent.putExtra("sapOrderNo", list.get(position).getSapOrderNo());
-//                    intent.putExtra("supplierId", list.get(position).getSupplierId());
-//                    startActivity(intent);
-//                }
-//
-//                @Override
-//                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-//                    return false;
-//                }
-//            });
+            adapter.setOnItemClickListener(new ReturnGoodsTodoListAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    Intent intent = new Intent(getActivity(), ReturnGoodsTodoDetailActivity.class);
+                    intent.putExtra("sapOrderNo", list.get(position).getSapOrderNo());
+                    intent.putExtra("supplierId", list.get(position).getSupplierId());
+                    startActivity(intent);
+                }
+
+                @Override
+                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    return false;
+                }
+            });
         } else {
             adapter.notifyDataSetChanged();
         }

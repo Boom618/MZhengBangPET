@@ -152,7 +152,7 @@ public class BuyInDoneDetailActivity extends BaseActivity implements ProductUiOb
 
         String remark = etDesc.getText().toString().trim();
 
-        requestBody.setInOutOrderId(orderId);
+        requestBody.setOrderId(orderId);
         requestBody.setWarehouseId(warehouseId);
         requestBody.setOutTime(selectTime);
         requestBody.setRemark(remark);

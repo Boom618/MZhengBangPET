@@ -1,18 +1,19 @@
 package com.ty.zbpet.presenter.material;
 
 import com.ty.zbpet.bean.CarPositionNoData;
-import com.ty.zbpet.bean.PickOutDoneData;
-import com.ty.zbpet.bean.PickOutDoneDetailsData;
-import com.ty.zbpet.bean.PickOutTodoDetailsData;
+import com.ty.zbpet.bean.material.MaterialDetailsIn;
+import com.ty.zbpet.bean.material.MaterialDetailsOut;
+import com.ty.zbpet.bean.material.MaterialDoneList;
 import com.ty.zbpet.bean.material.MaterialTodoList;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
 import com.ty.zbpet.util.CodeConstant;
 import com.ty.zbpet.util.ZBUiUtils;
-import com.zhouyou.http.exception.ApiException;
-import com.zhouyou.http.subsciber.BaseSubscriber;
 
 import java.util.List;
+
+import io.reactivex.SingleObserver;
+import io.reactivex.disposables.Disposable;
 
 /**
  * @author TY on 2018/10/29.
@@ -25,6 +26,7 @@ public class PickOutPresenter {
     private MaterialUiObjInterface objInterface;
 
     private HttpMethods httpMethods;
+    private Disposable disposable;
 
     public PickOutPresenter(MaterialUiObjInterface objInterface) {
         this.objInterface = objInterface;
@@ -36,18 +38,30 @@ public class PickOutPresenter {
         httpMethods = HttpMethods.getInstance();
     }
 
+    public void dispose() {
+        if (disposable != null) {
+            disposable.dispose();
+        }
+    }
+
     /**
      * 待办列表
      */
     public void fetchPickOutTodoList() {
-        httpMethods.pickOutTodoList(new BaseSubscriber<BaseResponse<MaterialTodoList>>() {
+        httpMethods.pickOutTodoList(new SingleObserver<BaseResponse<MaterialTodoList>>() {
+
             @Override
-            public void onError(ApiException e) {
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
-            public void onNext(BaseResponse<MaterialTodoList> response) {
+            public void onSuccess(BaseResponse<MaterialTodoList> response) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
                     List<MaterialTodoList.ListBean> list = response.getData().getList();
@@ -69,20 +83,26 @@ public class PickOutPresenter {
     public void fetchPickOutTodoListDetails(String sapOrderNo) {
 
 
-        httpMethods.pickOutTodoListDetails(new BaseSubscriber<BaseResponse<PickOutTodoDetailsData>>() {
+        httpMethods.pickOutTodoListDetails(new SingleObserver<BaseResponse<MaterialDetailsIn>>() {
+
             @Override
-            public void onError(ApiException e) {
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onError(Throwable e) {
                 ZBUiUtils.showToast("失败 : =" + e.getMessage());
 
             }
 
 
             @Override
-            public void onNext(BaseResponse<PickOutTodoDetailsData> pickOutDetailInfo) {
+            public void onSuccess(BaseResponse<MaterialDetailsIn> pickOutDetailInfo) {
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(pickOutDetailInfo.getTag())) {
 
-                    PickOutTodoDetailsData data = pickOutDetailInfo.getData();
+                    MaterialDetailsIn data = pickOutDetailInfo.getData();
                     objInterface.detailObjData(data);
 
                 } else {
@@ -100,14 +120,20 @@ public class PickOutPresenter {
      */
     public void checkCarCode(final int position, final String positionNo) {
 
-        httpMethods.checkCarCode(new BaseSubscriber<CarPositionNoData>() {
+        httpMethods.checkCarCode(new SingleObserver<CarPositionNoData>() {
+
             @Override
-            public void onError(ApiException e) {
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
-            public void onNext(CarPositionNoData responseInfo) {
+            public void onSuccess(CarPositionNoData responseInfo) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     // 库位码合法
                     objInterface.showCarSuccess(position, responseInfo);
@@ -122,41 +148,52 @@ public class PickOutPresenter {
     /**
      * 已办列表
      */
-    public void fetchPickOutDoneList() {
-        httpMethods.pickOutDoneList(new BaseSubscriber<BaseResponse<PickOutDoneData>>() {
+    public void fetchPickOutDoneList(String type) {
+        httpMethods.pickOutDoneList(new SingleObserver<BaseResponse<MaterialDoneList>>() {
             @Override
-            public void onError(ApiException e) {
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
-            public void onNext(BaseResponse<PickOutDoneData> response) {
+            public void onSuccess(BaseResponse<MaterialDoneList> response) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
-                    List<PickOutDoneData.ListBean> list = response.getData().getList();
+                    List<MaterialDoneList.ListBean> list = response.getData().getList();
                     listInterface.showMaterial(list);
 
                 } else {
                     ZBUiUtils.showToast("失败 : =" + response.getMessage());
                 }
             }
-        });
+        },type);
     }
 
     /**
      * 已办详情
      */
     public void fetchPickOutDoneListDetails(String sapOrderNo) {
-        httpMethods.pickOutDoneListDetails(new BaseSubscriber<BaseResponse<PickOutDoneDetailsData>>() {
+        httpMethods.pickOutDoneListDetails(new SingleObserver<BaseResponse<MaterialDetailsOut>>() {
+
             @Override
-            public void onError(ApiException e) {
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
-            public void onNext(BaseResponse<PickOutDoneDetailsData> response) {
+            public void onSuccess(BaseResponse<MaterialDetailsOut> response) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
-                    List<PickOutDoneDetailsData.ListBean> list = response.getData().getList();
+                    List<MaterialDetailsOut.ListBean> list = response.getData().getList();
 
                     listInterface.showMaterial(list);
 
@@ -164,6 +201,6 @@ public class PickOutPresenter {
                     ZBUiUtils.showToast("失败 : =" + response.getMessage());
                 }
             }
-        },sapOrderNo);
+        }, sapOrderNo);
     }
 }

@@ -6,10 +6,6 @@ import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.GoodsPurchaseOrderInfo;
 import com.ty.zbpet.bean.GoodsPurchaseOrderList;
 import com.ty.zbpet.bean.MaterialDoneDetailsData;
-import com.ty.zbpet.bean.MaterialTodoDetailsData;
-import com.ty.zbpet.bean.PickOutDoneData;
-import com.ty.zbpet.bean.PickOutDoneDetailsData;
-import com.ty.zbpet.bean.PickOutTodoDetailsData;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.WarehouseInfo;
 import com.ty.zbpet.bean.material.MaterialDetailsIn;
@@ -102,7 +98,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getMaterialTodoList(BaseSubscriber<BaseResponse<MaterialTodoList>> subscriber) {
+    public void getMaterialTodoList(SingleObserver<BaseResponse<MaterialTodoList>> subscriber) {
         mService.getMaterialTodoList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -113,7 +109,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getMaterialTodoListDetail(BaseSubscriber<BaseResponse<MaterialTodoDetailsData>> subscriber, String sapOrderNo) {
+    public void getMaterialTodoListDetail(SingleObserver<BaseResponse<MaterialDetailsIn>> subscriber, String sapOrderNo) {
         mService.getMaterialTodoListDetail(sapOrderNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -136,7 +132,7 @@ public class HttpMethods {
     /**
      * 库位码校验
      */
-    public void checkCarCode(BaseSubscriber<CarPositionNoData> subscriber, String positionNo) {
+    public void checkCarCode(SingleObserver<CarPositionNoData> subscriber, String positionNo) {
         mService.checkCarCode(positionNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -148,8 +144,8 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getMaterialDoneList(BaseSubscriber<BaseResponse<MaterialDoneList>> subscriber) {
-        mService.getMaterialDoneList()
+    public void getMaterialDoneList(SingleObserver<BaseResponse<MaterialDoneList>> subscriber, String type) {
+        mService.getMaterialDoneList(type)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -160,7 +156,7 @@ public class HttpMethods {
      * @param subscriber
      * @param id
      */
-    public void getMaterialDoneListDetail(BaseSubscriber<BaseResponse<MaterialDoneDetailsData>> subscriber, String id) {
+    public void getMaterialDoneListDetail(SingleObserver<BaseResponse<MaterialDoneDetailsData>> subscriber, String id) {
         mService.getMaterialDoneListDetail(id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -185,7 +181,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void pickOutTodoList(BaseSubscriber<BaseResponse<MaterialTodoList>> subscriber) {
+    public void pickOutTodoList(SingleObserver<BaseResponse<MaterialTodoList>> subscriber) {
         mService.pickOutTodoList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -198,7 +194,7 @@ public class HttpMethods {
      * @param subscriber
      * @param sapOrderNo
      */
-    public void pickOutTodoListDetails(BaseSubscriber<BaseResponse<PickOutTodoDetailsData>> subscriber, String sapOrderNo) {
+    public void pickOutTodoListDetails(SingleObserver<BaseResponse<MaterialDetailsIn>> subscriber, String sapOrderNo) {
         mService.pickOutTodoListDetail(sapOrderNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -209,7 +205,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void pickOutTodoSave(BaseSubscriber<ResponseInfo> subscriber, RequestBody body) {
+    public void pickOutTodoSave(SingleObserver<ResponseInfo> subscriber, RequestBody body) {
         mService.pickOutTodoSave(body)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -220,8 +216,8 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void pickOutDoneList(BaseSubscriber<BaseResponse<PickOutDoneData>> subscriber) {
-        mService.pickOutDoneList()
+    public void pickOutDoneList(SingleObserver<BaseResponse<MaterialDoneList>> subscriber, String type) {
+        mService.pickOutDoneList(type)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
 
@@ -233,7 +229,7 @@ public class HttpMethods {
      * @param subscriber
      * @param sapOrderNo
      */
-    public void pickOutDoneListDetails(BaseSubscriber<BaseResponse<PickOutDoneDetailsData>> subscriber, String sapOrderNo) {
+    public void pickOutDoneListDetails(SingleObserver<BaseResponse<MaterialDetailsOut>> subscriber, String sapOrderNo) {
         mService.pickOutDoneListDetail(sapOrderNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -244,8 +240,8 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void pickOutDoneSave(BaseSubscriber<ResponseInfo> subscriber) {
-        mService.pickOutDoneSave()
+    public void pickOutDoneSave(BaseSubscriber<ResponseInfo> subscriber, RequestBody body) {
+        mService.pickOutDoneSave(body)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -587,7 +583,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getReturnDoneListInfo(BaseSubscriber<BaseResponse<PickOutDoneDetailsData>> subscriber, String sapOrderNo) {
+    public void getReturnDoneListInfo(BaseSubscriber<BaseResponse<MaterialDoneDetailsData>> subscriber, String sapOrderNo) {
         mService.getReturnDoneListInfo(sapOrderNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);

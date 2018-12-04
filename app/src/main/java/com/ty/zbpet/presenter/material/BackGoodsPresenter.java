@@ -14,6 +14,9 @@ import com.zhouyou.http.subsciber.BaseSubscriber;
 
 import java.util.List;
 
+import io.reactivex.SingleObserver;
+import io.reactivex.disposables.Disposable;
+
 /**
  * @author TY on 2018/11/25.
  * <p>
@@ -41,6 +44,8 @@ public class BackGoodsPresenter {
      */
     private HttpMethods httpMethods;
 
+    private Disposable disposable;
+
     /**
      * 接收 list UI 接口
      *
@@ -59,6 +64,12 @@ public class BackGoodsPresenter {
     public BackGoodsPresenter(MaterialUiObjInterface materialObjUi) {
         this.materialObjUi = materialObjUi;
         httpMethods = HttpMethods.getInstance();
+    }
+
+    public void dispose(){
+        if (disposable != null) {
+            disposable.dispose();
+        }
     }
 
     /**
@@ -123,14 +134,20 @@ public class BackGoodsPresenter {
      */
     public void checkCarCode(final int position, final String positionNo) {
 
-        httpMethods.checkCarCode(new BaseSubscriber<CarPositionNoData>() {
+        httpMethods.checkCarCode(new SingleObserver<CarPositionNoData>() {
+
             @Override
-            public void onError(ApiException e) {
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
-            public void onNext(CarPositionNoData responseInfo) {
+            public void onSuccess(CarPositionNoData responseInfo) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     // 库位码合法
                     materialObjUi.showCarSuccess(position, responseInfo);

@@ -2,7 +2,7 @@ package com.ty.zbpet.presenter.material;
 
 import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.MaterialDoneDetailsData;
-import com.ty.zbpet.bean.MaterialTodoDetailsData;
+import com.ty.zbpet.bean.material.MaterialDetailsIn;
 import com.ty.zbpet.bean.material.MaterialDoneList;
 import com.ty.zbpet.bean.material.MaterialTodoList;
 import com.ty.zbpet.net.HttpMethods;
@@ -14,6 +14,9 @@ import com.zhouyou.http.exception.ApiException;
 import com.zhouyou.http.subsciber.BaseSubscriber;
 
 import java.util.List;
+
+import io.reactivex.SingleObserver;
+import io.reactivex.disposables.Disposable;
 
 /**
  * @author PVer on 2018/10/28.
@@ -41,6 +44,8 @@ public class MaterialPresenter {
      * API 网络
      */
     HttpMethods httpMethods;
+
+    Disposable disposable;
 
     /**
      * 接收 list UI 接口
@@ -73,6 +78,12 @@ public class MaterialPresenter {
         this.materialModel = materialModel;
     }
 
+    public void dispose(){
+        if (disposable != null) {
+            disposable.dispose();
+        }
+    }
+
     /**
      * 原辅料 待办 list  业务逻辑
      */
@@ -81,15 +92,19 @@ public class MaterialPresenter {
         materialListUi.showLoading();
 
         // APi  获取数据
-        httpMethods.getMaterialTodoList(new BaseSubscriber<BaseResponse<MaterialTodoList>>() {
+        httpMethods.getMaterialTodoList(new SingleObserver<BaseResponse<MaterialTodoList>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
 
             @Override
-            public void onError(ApiException e) {
+            public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
-            public void onNext(BaseResponse<MaterialTodoList> infoList) {
+            public void onSuccess(BaseResponse<MaterialTodoList> infoList) {
                 materialListUi.hideLoading();
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(infoList.getTag())) {
@@ -105,7 +120,7 @@ public class MaterialPresenter {
                         //materialModel.saveMaterial();
 
                     } else {
-                        ZBUiUtils.showToast("没有信息");
+                        ZBUiUtils.showToast("没有采购入库待办数据");
                     }
                 }
 
@@ -119,18 +134,24 @@ public class MaterialPresenter {
      */
     public void fetchTODOMaterialDetails(String sapOrderNo) {
 
-        httpMethods.getMaterialTodoListDetail(new BaseSubscriber<BaseResponse<MaterialTodoDetailsData>>() {
+        httpMethods.getMaterialTodoListDetail(new SingleObserver<BaseResponse<MaterialDetailsIn>>() {
+
             @Override
-            public void onError(ApiException e) {
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
-            public void onNext(BaseResponse<MaterialTodoDetailsData> info) {
+            public void onSuccess(BaseResponse<MaterialDetailsIn> info) {
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(info.getTag())) {
 
-                    MaterialTodoDetailsData data = info.getData();
+                    MaterialDetailsIn data = info.getData();
 
                     ZBLog.d(data);
 
@@ -150,14 +171,20 @@ public class MaterialPresenter {
      */
     public void checkCarCode(final int position, final String positionNo) {
 
-        httpMethods.checkCarCode(new BaseSubscriber<CarPositionNoData>() {
+        httpMethods.checkCarCode(new SingleObserver<CarPositionNoData>() {
+
             @Override
-            public void onError(ApiException e) {
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
-            public void onNext(CarPositionNoData responseInfo) {
+            public void onSuccess(CarPositionNoData responseInfo) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     // 库位码合法
                     materialObjUi.showCarSuccess(position, responseInfo);
@@ -180,15 +207,21 @@ public class MaterialPresenter {
     /**
      * 原材料 已办 列表
      */
-    public void fetchDoneMaterial() {
-        httpMethods.getMaterialDoneList(new BaseSubscriber<BaseResponse<MaterialDoneList>>() {
+    public void fetchDoneMaterial(String type) {
+        httpMethods.getMaterialDoneList(new SingleObserver<BaseResponse<MaterialDoneList>>() {
+
             @Override
-            public void onError(ApiException e) {
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
-            public void onNext(BaseResponse<MaterialDoneList> infoList) {
+            public void onSuccess(BaseResponse<MaterialDoneList> infoList) {
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(infoList.getTag())) {
                     if (null != infoList && infoList.getData() != null) {
@@ -196,28 +229,34 @@ public class MaterialPresenter {
                         if (list != null && list.size() != 0) {
                             materialListUi.showMaterial(list);
                         } else {
-                            ZBUiUtils.showToast("没有信息");
+                            ZBUiUtils.showToast("没有采购入库已办数据");
                         }
                     }
                 } else {
                     ZBUiUtils.showToast(infoList.getMessage());
                 }
             }
-        });
+        },type);
     }
 
     /**
      * 已办详情
      */
     public void fetchDoneMaterialDetails(String id) {
-        httpMethods.getMaterialDoneListDetail(new BaseSubscriber<BaseResponse<MaterialDoneDetailsData>>() {
+        httpMethods.getMaterialDoneListDetail(new SingleObserver<BaseResponse<MaterialDoneDetailsData>>() {
+
             @Override
-            public void onError(ApiException e) {
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
-            public void onNext(BaseResponse<MaterialDoneDetailsData> infoList) {
+            public void onSuccess(BaseResponse<MaterialDoneDetailsData> infoList) {
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(infoList.getTag())) {
                     if (null != infoList && infoList.getData() != null) {
@@ -225,7 +264,7 @@ public class MaterialPresenter {
                         if (list != null && list.size() != 0) {
                             materialListUi.showMaterial(list);
                         } else {
-                            ZBUiUtils.showToast("没有信息");
+                            ZBUiUtils.showToast("没有采购入库已办详情数据");
                         }
                     }
                 } else {

@@ -25,9 +25,9 @@ public class MaterialDoneAdapter extends CommonAdapter<MaterialDoneList.ListBean
     protected void convert(ViewHolder holder, MaterialDoneList.ListBean listBean, int position) {
 
         holder.setText(R.id.tv_no, listBean.getSapOrderNo())
-                .setText(R.id.tv_status, listBean.getState())
+                .setText(R.id.tv_status, listBean.getState() + "")
                 .setText(R.id.tv_type, "type :" + listBean.getType())
-                .setText(R.id.tv_date, listBean.getOutTime())
+                .setText(R.id.tv_date, listBean.getInTime())
                 .setText(R.id.tv_supplier, "供应商：? ");
 
     }

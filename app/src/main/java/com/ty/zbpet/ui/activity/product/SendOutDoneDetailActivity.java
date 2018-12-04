@@ -21,6 +21,7 @@ import com.ty.zbpet.presenter.product.ProductUiObjInterface;
 import com.ty.zbpet.presenter.product.SendOutPresenter;
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity;
 import com.ty.zbpet.ui.adapter.product.ProductDoneDetailAdapter;
+import com.ty.zbpet.ui.adapter.product.SendOutDoneDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.CodeConstant;
@@ -49,7 +50,7 @@ public class SendOutDoneDetailActivity extends BaseActivity implements ProductUi
     private TextView tvTime;
     private EditText etDesc;
 
-    private ProductDoneDetailAdapter adapter;
+    private SendOutDoneDetailAdapter adapter;
 
     private String selectTime;
     /**
@@ -153,7 +154,7 @@ public class SendOutDoneDetailActivity extends BaseActivity implements ProductUi
 
         String remark = etDesc.getText().toString().trim();
 
-        requestBody.setInOutOrderId(orderId);
+        requestBody.setOrderId(orderId);
         requestBody.setWarehouseId(warehouseId);
         requestBody.setOutTime(selectTime);
         requestBody.setRemark(remark);
@@ -171,10 +172,10 @@ public class SendOutDoneDetailActivity extends BaseActivity implements ProductUi
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             reView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             reView.setLayoutManager(manager);
-            adapter = new ProductDoneDetailAdapter(this, R.layout.item_produce_detail_done, list);
+            adapter = new SendOutDoneDetailAdapter(this, R.layout.item_produce_detail_done, list);
             reView.setAdapter(adapter);
 
-            adapter.setOnItemClickListener(new ProductDoneDetailAdapter.OnItemClickListener() {
+            adapter.setOnItemClickListener(new SendOutDoneDetailAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
 

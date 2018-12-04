@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import io.reactivex.SingleObserver;
+import io.reactivex.disposables.Disposable;
 
 /**
  * @author TY
@@ -51,6 +53,8 @@ public class ScanBoxCodeActivity extends BaseActivity implements ScanBoxInterfac
     private boolean state;
     private Scanner scanReader = ScanReader.getScannerInstance();
     private ScanObservable scanObservable = new ScanObservable(this);
+
+    private Disposable disposable;
 
     @Override
     protected void onBaseCreate(Bundle savedInstanceState) {
@@ -111,6 +115,7 @@ public class ScanBoxCodeActivity extends BaseActivity implements ScanBoxInterfac
     protected void onDestroy() {
         super.onDestroy();
         scanReader.close();
+        disposable.dispose();
     }
 
     @Override
@@ -140,14 +145,20 @@ public class ScanBoxCodeActivity extends BaseActivity implements ScanBoxInterfac
     @Override
     public void ScanSuccess(int position, final String positionNo) {
 
-        HttpMethods.getInstance().checkCarCode(new BaseSubscriber<CarPositionNoData>() {
+        HttpMethods.getInstance().checkCarCode(new SingleObserver<CarPositionNoData>() {
+
             @Override
-            public void onError(ApiException e) {
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
-            public void onNext(CarPositionNoData responseInfo) {
+            public void onSuccess(CarPositionNoData responseInfo) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     // 库位码校验
                     if (responseInfo.getList().size() > -1) {

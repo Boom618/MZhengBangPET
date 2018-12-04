@@ -150,7 +150,7 @@ public class BackGoodsDoneDetailActivity extends BaseActivity implements Materia
 
         String remark = etDesc.getText().toString().trim();
 
-        requestBody.setInOutOrderId(mOutWarehouseOrderId);
+        requestBody.setOrderId(mOutWarehouseOrderId);
         requestBody.setWarehouseId(warehouseId);
         requestBody.setOutTime(selectTime);
         requestBody.setRemark(remark);

@@ -29,20 +29,43 @@ class MaterialDoneList {
          * supplierName :
          */
 
-        var sapOrderNo: String? = null
-        var mOutWarehouseOrderNo: String? = null
+//        var sapOrderNo: String? = null
+//        var mOutWarehouseOrderNo: String? = null
+//        var state: String? = null
+//        var type: String? = null
+//        var companyNo: String? = null
+//        var warehouseId: String? = null
+//        var outTime: String? = null
+//        var materialName: String? = null
+//        var mOutWarehouseOrderId: String? = null
+//        var recallOrderId: String? = null
+//        var userId: String? = null
+//        var creator: String? = null
+//        var createdAt: String? = null
+//        var updatedAt: String? = null
+
+
+        var mInWarehouseOrderNo: String? = null
+        var mOutWarehouseOrderId: String? = null
+        var companyNo: String? = null
+        var supplierId: String? = null
+        var warehouseId: String? = null
+        var supplierNo: String? = null
+        var arrivalOrderNo: String? = null
+        var amount: String? = null
         var state: String? = null
         var type: String? = null
-        var companyNo: String? = null
-        var warehouseId: String? = null
+        var inTime: String? = null
         var outTime: String? = null
-        var materialName: String? = null
-        var mOutWarehouseOrderId: String? = null
-        var recallOrderId: String? = null
         var userId: String? = null
         var creator: String? = null
+        var recallOrderId: String? = null
+        var sapOrderNo: String? = null
         var createdAt: String? = null
         var updatedAt: String? = null
+        var mInWarehouseOrderId: String? = null
+        var supplierName: String? = null
+        var materialName: String? = null
 
     }
 }

@@ -4,10 +4,6 @@ import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.GoodsPurchaseOrderInfo;
 import com.ty.zbpet.bean.GoodsPurchaseOrderList;
 import com.ty.zbpet.bean.MaterialDoneDetailsData;
-import com.ty.zbpet.bean.MaterialTodoDetailsData;
-import com.ty.zbpet.bean.PickOutDoneData;
-import com.ty.zbpet.bean.PickOutDoneDetailsData;
-import com.ty.zbpet.bean.PickOutTodoDetailsData;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.WarehouseInfo;
 import com.ty.zbpet.bean.material.MaterialDetailsIn;
@@ -15,7 +11,6 @@ import com.ty.zbpet.bean.material.MaterialDetailsOut;
 import com.ty.zbpet.bean.material.MaterialDoneList;
 import com.ty.zbpet.bean.material.MaterialTodoList;
 import com.ty.zbpet.bean.product.BuyInTodoDetails;
-import com.ty.zbpet.bean.product.ProductDetailsIn;
 import com.ty.zbpet.bean.product.ProductDetailsOut;
 import com.ty.zbpet.bean.product.ProductDoneList;
 import com.ty.zbpet.bean.product.ProductTodoDetails;
@@ -47,7 +42,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.GET_MATERIAL_IN_WAREHOUSE_ORDER_LIST)
-    Observable<BaseResponse<MaterialTodoList>> getMaterialTodoList();
+    Single<BaseResponse<MaterialTodoList>> getMaterialTodoList();
 
     /**
      * 获取原辅料采购 待办 详情
@@ -57,7 +52,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_MATERIAL_IN_WAREHOUSE_ORDER_INFO)
-    Observable<BaseResponse<MaterialTodoDetailsData>> getMaterialTodoListDetail(@Field("sapOrderNo") String sapOrderNo);
+    Single<BaseResponse<MaterialDetailsIn>> getMaterialTodoListDetail(@Field("sapOrderNo") String sapOrderNo);
 
     /**
      * 待办 保存
@@ -76,15 +71,17 @@ public interface ApiService {
      * @return
      */
     @GET(ApiNameConstant.CHECK_CAR_CODE)
-    Observable<CarPositionNoData> checkCarCode(@Query("positionNo") String positionNo);
+    Single<CarPositionNoData> checkCarCode(@Query("positionNo") String positionNo);
 
     /**
      * 获取原辅料采购 已办列表
      *
+     * @param type
      * @return
      */
+    @FormUrlEncoded
     @POST(ApiNameConstant.GET_MATERIAL_PURCHASE_LIST)
-    Observable<BaseResponse<MaterialDoneList>> getMaterialDoneList();
+    Single<BaseResponse<MaterialDoneList>> getMaterialDoneList(@Field("type") String type);
 
     /**
      * 获取原辅料采购 已办列表详情
@@ -94,7 +91,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_MATERIAL_PURCHASE_LIST_INFO)
-    Observable<BaseResponse<MaterialDoneDetailsData>> getMaterialDoneListDetail(@Field("mInWarehouseOrderId") String id);
+    Single<BaseResponse<MaterialDoneDetailsData>> getMaterialDoneListDetail(@Field("orderId") String id);
 
     /**
      * 原辅料采购冲销入库(已办保存)
@@ -113,7 +110,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.PICK_OUT_TODO_LIST)
-    Observable<BaseResponse<MaterialTodoList>> pickOutTodoList();
+    Single<BaseResponse<MaterialTodoList>> pickOutTodoList();
 
     /**
      * 领料出库 - 待办 详情
@@ -123,7 +120,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.PICK_OUT_TODO_LIST_INFO)
-    Observable<BaseResponse<PickOutTodoDetailsData>> pickOutTodoListDetail(@Field("sapOrderNo") String sapOrderNo);
+    Single<BaseResponse<MaterialDetailsIn>> pickOutTodoListDetail(@Field("sapOrderNo") String sapOrderNo);
 
     /**
      * 领料出库 - 待办详情 保存
@@ -132,34 +129,37 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.PICK_OUT_TODO_LIST_SAVE)
-    Observable<ResponseInfo> pickOutTodoSave(@Body RequestBody body);
+    Single<ResponseInfo> pickOutTodoSave(@Body RequestBody body);
 
     /**
      * 领料出库 - 已办 列表
      *
+     * @param type
      * @return
      */
+    @FormUrlEncoded
     @POST(ApiNameConstant.PICK_OUT_DONE_LIST)
-    Observable<BaseResponse<PickOutDoneData>> pickOutDoneList();
+    Single<BaseResponse<MaterialDoneList>> pickOutDoneList(@Field("type") String type);
 
     /**
-     * 领料出库 - 已办列表 详情
+     * 领料出库 - 已办详情
      *
-     * @param sapOrderNo
+     * @param orderId
      * @return
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.PICK_OUT_DONE_LIST_INFO)
-    Observable<BaseResponse<PickOutDoneDetailsData>> pickOutDoneListDetail(@Field("sapOrderNo") String sapOrderNo);
+    Single<BaseResponse<MaterialDetailsOut>> pickOutDoneListDetail(@Field("orderId") String orderId);
 
 
     /**
      * 领料出库 - 已办详情 保存
      *
+     * @param body
      * @return
      */
     @POST(ApiNameConstant.PICK_OUT_DONE_LIST_SAVE)
-    Observable<ResponseInfo> pickOutDoneSave();
+    Observable<ResponseInfo> pickOutDoneSave(@Body RequestBody body);
 
     /**--------------------------------- 采购退货 ----------------------------------------*/
 
@@ -234,6 +234,7 @@ public interface ApiService {
 
     /**
      * 待办详情
+     *
      * @param sapOrderNo
      * @return
      */
@@ -294,6 +295,7 @@ public interface ApiService {
 
     /**
      * 生产入库 待办详情
+     *
      * @param sapOrderNo
      * @return
      */
@@ -352,6 +354,7 @@ public interface ApiService {
 
     /**
      * 发货出库 待办详情
+     *
      * @param sapOrderNo
      * @return
      */
@@ -410,6 +413,7 @@ public interface ApiService {
 
     /**
      * 退货入库 待办详情
+     *
      * @param sapOrderNo
      * @return
      */
@@ -444,7 +448,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_RETURN_DONE_LIST_INFO)
-    Observable<BaseResponse<PickOutDoneDetailsData>> getReturnDoneListInfo(@Field("sapOrderNo") String sapOrderNo);
+    Observable<BaseResponse<MaterialDoneDetailsData>> getReturnDoneListInfo(@Field("sapOrderNo") String sapOrderNo);
 
     /**
      * 退货入库 已办保存
@@ -454,8 +458,6 @@ public interface ApiService {
      */
     @POST(ApiNameConstant.GET_RETURN_DONE_SAVE)
     Observable<ResponseInfo> getReturnDoneSave(@Body RequestBody body);
-
-
 
 
     /**--------------------------------- End ----------------------------------------*/

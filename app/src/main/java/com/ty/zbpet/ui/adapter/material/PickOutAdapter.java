@@ -1,8 +1,6 @@
 package com.ty.zbpet.ui.adapter.material;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.ty.zbpet.R;

@@ -11,9 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ty.zbpet.R;
-import com.ty.zbpet.bean.MaterialTodoDetailsData;
+import com.ty.zbpet.bean.material.MaterialDetailsIn;
 import com.ty.zbpet.util.ACache;
 import com.ty.zbpet.util.CodeConstant;
+import com.ty.zbpet.util.ViewSetValue;
 import com.ty.zbpet.util.ZBUiUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
@@ -28,7 +29,7 @@ import java.util.List;
  */
 public class MaterialTodoDetailAdapter extends CommonAdapter {
 
-    private List<MaterialTodoDetailsData.DetailsBean> infoList;
+    private List<MaterialDetailsIn.ListBean> infoList;
     private Context context;
 
 
@@ -52,7 +53,7 @@ public class MaterialTodoDetailAdapter extends CommonAdapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
 
         View itemView = holder.itemView;
-        MaterialTodoDetailsData.DetailsBean info = infoList.get(position);
+        MaterialDetailsIn.ListBean info = infoList.get(position);
 
         TextView tvName = itemView.findViewById(R.id.tv_name);
         tvName.setText(info.getMaterialName());
@@ -63,13 +64,13 @@ public class MaterialTodoDetailAdapter extends CommonAdapter {
         TextView tvBoxNum = itemView.findViewById(R.id.tv_box_num);
         tvBoxNum.setText("含量：" + info.getConcentration());
 
-        // 1、入库数量
-        EditText etInNum = itemView.findViewById(R.id.et_bulk_num);
-        // 通过设置tag，防止 position 紊乱
-        etInNum.setTag(position);
-        String numString = etInNum.getText().toString().trim();
-        etInNum.setText(numString);
-        etInNum.setOnFocusChangeListener(new EditTextOnFocusChangeListener(CodeConstant.ET_BULK_NUM, position, numString));
+        // 1 ZKG
+        EditText zkg = itemView.findViewById(R.id.et_zkg);
+
+        String zkgString = ACache.get(context).getAsString(CodeConstant.ET_ZKG);
+        ViewSetValue.setValue(zkgString, position, zkg);
+
+        zkg.setOnFocusChangeListener(new EditTextOnFocusChangeListener(CodeConstant.ET_ZKG, position, zkg));
 
         // 2、库位码
         final EditText etCode = itemView.findViewById(R.id.et_code);
@@ -78,53 +79,47 @@ public class MaterialTodoDetailAdapter extends CommonAdapter {
         // ScanObservable.scanBox 扫码成功保存的 ID 和 Value
         final String value = ACache.get(context).getAsString(CodeConstant.SCAN_BOX_KEY);
 
-        etCode.setText(value);
+        ViewSetValue.setValue(value, position, etCode);
 
 
-        // 清除库位码
-        final ImageView ivDel = itemView.findViewById(R.id.iv_del_code);
-        ivDel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                etCode.getText().clear();
-                ivDel.setVisibility(View.GONE);
-            }
-        });
+//        // 清除库位码
+//        final ImageView ivDel = itemView.findViewById(R.id.iv_del_code);
+//        ivDel.setVisibility(View.GONE);
+//        ivDel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                etCode.getText().clear();
+//                ivDel.setVisibility(View.GONE);
+//            }
+//        });
 
         etCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
 
                 // 关闭软键盘
-                ZBUiUtils.hideInputWindow(context,view);
+                ZBUiUtils.hideInputWindow(context, view);
 
-                String tempCode;
-                // 方式一 ：手动输入值
-                //tempCode = etCode.getText().toString().trim();
-                // 方式二 ：扫码输入值
-                //tempCode = ACache.get(context).getAsString(CodeConstant.SCAN_BOX_KEY);
-//                if (TextUtils.isEmpty(value)) {
-//                    ivDel.setVisibility(View.GONE);
-//                }
-
-                if (value.length() > 0) {
-                    ivDel.setVisibility(View.VISIBLE);
-                } else {
-                    ivDel.setVisibility(View.GONE);
-                }
-                // 焦点改变 接口回调
-                listener.saveEditAndGetHasFocusPosition(CodeConstant.ET_CODE, hasFocus, position, value);
+                listener.saveEditAndGetHasFocusPosition(CodeConstant.ET_CODE, hasFocus, position, etCode);
             }
         });
 
         etCode.setTag(position);
 
-        // 3、sap 物料批次号
+        // 3、入库数量
+        EditText etInNum = itemView.findViewById(R.id.et_bulk_num);
+        // 通过设置tag，防止 position 紊乱
+        etInNum.setTag(position);
+        String numString = etInNum.getText().toString().trim();
+        etInNum.setText(numString);
+        etInNum.setOnFocusChangeListener(new EditTextOnFocusChangeListener(CodeConstant.ET_BULK_NUM, position, etInNum));
+
+        // 4、sap 物料批次号
         EditText batchNo = itemView.findViewById(R.id.et_batch_no);
-        batchNo.setTag(position);
-        String batchNoStr = batchNo.getText().toString().trim();
-        batchNo.setText(batchNoStr);
-        batchNo.setOnFocusChangeListener(new EditTextOnFocusChangeListener(CodeConstant.ET_BATCH_NO, position, batchNoStr));
+//        batchNo.setTag(position);
+//        String batchNoStr = batchNo.getText().toString().trim();
+//        batchNo.setText(batchNoStr);
+        batchNo.setOnFocusChangeListener(new EditTextOnFocusChangeListener(CodeConstant.ET_BATCH_NO, position, batchNo));
 
     }
 
@@ -138,12 +133,12 @@ public class MaterialTodoDetailAdapter extends CommonAdapter {
 
         private String etType;
         private int position;
-        private String content;
+        private EditText editText;
 
-        public EditTextOnFocusChangeListener(String etType, int position, String content) {
+        public EditTextOnFocusChangeListener(String etType, int position, EditText editText) {
             this.etType = etType;
             this.position = position;
-            this.content = content;
+            this.editText = editText;
         }
 
         @Override
@@ -151,10 +146,12 @@ public class MaterialTodoDetailAdapter extends CommonAdapter {
 
             if (CodeConstant.ET_BATCH_NO.equals(etType) && !hasFocus) {
                 // 关闭软键盘
-                ZBUiUtils.hideInputWindow(context,view);
+                ZBUiUtils.hideInputWindow(context, view);
+            }
+            if (!hasFocus) {
+                listener.saveEditAndGetHasFocusPosition(etType, hasFocus, position, editText);
             }
 
-            listener.saveEditAndGetHasFocusPosition(etType, hasFocus, position, content);
         }
     }
 
@@ -166,12 +163,12 @@ public class MaterialTodoDetailAdapter extends CommonAdapter {
         /**
          * 输入框的处理
          *
-         * @param etType      输入框标识  code  sap
-         * @param hasFocus    有无焦点
-         * @param position    位置
-         * @param textContent 内容
+         * @param etType   输入框标识  code  sap
+         * @param hasFocus 有无焦点
+         * @param position 位置
+         * @param editText 内容控件
          */
-        void saveEditAndGetHasFocusPosition(String etType, Boolean hasFocus, int position, String textContent);
+        void saveEditAndGetHasFocusPosition(String etType, Boolean hasFocus, int position, EditText editText);
 
     }
 }

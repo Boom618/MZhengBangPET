@@ -16,14 +16,17 @@ import com.pda.scanner.ScanReader;
 import com.pda.scanner.Scanner;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.CarPositionNoData;
-import com.ty.zbpet.bean.MaterialTodoDetailsData;
 import com.ty.zbpet.bean.ResponseInfo;
+import com.ty.zbpet.bean.material.MaterialDetailsIn;
+import com.ty.zbpet.bean.material.MaterialTodoSave;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.presenter.material.MaterialPresenter;
 import com.ty.zbpet.presenter.material.MaterialUiObjInterface;
+import com.ty.zbpet.ui.MainApp;
 import com.ty.zbpet.ui.adapter.material.MaterialTodoDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
+import com.ty.zbpet.util.ACache;
 import com.ty.zbpet.util.CodeConstant;
 import com.ty.zbpet.util.DataUtils;
 import com.ty.zbpet.util.ResourceUtil;
@@ -53,7 +56,7 @@ import okhttp3.RequestBody;
  *
  * @author TY
  */
-public class ArrivalInTodoDetailActivity extends BaseActivity implements MaterialUiObjInterface<MaterialTodoDetailsData>
+public class ArrivalInTodoDetailActivity extends BaseActivity implements MaterialUiObjInterface<MaterialDetailsIn>
         , MaterialTodoDetailAdapter.SaveEditListener, ScanBoxInterface {
 
     @BindView(R.id.rv_in_storage_detail)
@@ -64,9 +67,10 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
     EditText etDesc;
 
     private MaterialTodoDetailAdapter adapter;
-    private List<MaterialTodoDetailsData.DetailsBean> list = new ArrayList<>();
+    private List<MaterialDetailsIn.ListBean> list = new ArrayList<>();
 
     private String sapOrderNo;
+    private String supplierId; // 供应商 ID
     private String warehouseId;
 
     /**
@@ -95,6 +99,11 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
     private SparseArray<String> carCodeArray = new SparseArray(10);
     private SparseArray<String> batchNoArray = new SparseArray(10);
 
+    /**
+     * 库位码 ID
+     */
+    private SparseArray<String> positionId = new SparseArray(10);
+
     private MaterialPresenter materialPresenter = new MaterialPresenter(this);
 
     @Override
@@ -114,6 +123,7 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
     protected void initOneData() {
 
         sapOrderNo = getIntent().getStringExtra("sapOrderNo");
+        supplierId = getIntent().getStringExtra("supplierId");
 
         materialPresenter.fetchTODOMaterialDetails(sapOrderNo);
     }
@@ -151,8 +161,8 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
 
     private RequestBody initParam() {
 
-        MaterialTodoDetailsData requestBody = new MaterialTodoDetailsData();
-        List<MaterialTodoDetailsData.DetailsBean> detail = new ArrayList<>();
+        MaterialTodoSave requestBody = new MaterialTodoSave();
+        List<MaterialTodoSave.DetailsBean> detail = new ArrayList<>();
 
         int size = list.size();
         for (int i = 0; i < size; i++) {
@@ -160,7 +170,9 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
             String carCode = carCodeArray.get(i);
             String batchNo = batchNoArray.get(i);
 
-            MaterialTodoDetailsData.DetailsBean bean = new MaterialTodoDetailsData.DetailsBean();
+            String Id = positionId.get(i);
+
+            MaterialTodoSave.DetailsBean bean = new MaterialTodoSave.DetailsBean();
             if (null != bulkNum && null != carCode) {
                 if (!bulkNum.isEmpty()) {
                     bean.setNumber(bulkNum);
@@ -169,24 +181,30 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
                 } else if (!batchNo.isEmpty()) {
                     bean.setSapMaterialBatchNo(batchNo);
                 }
+                bean.setPositionId(Id);
+                bean.setSupplierId(supplierId);
+                bean.setSupplierNo(list.get(i).getSupplierNo());
                 bean.setMaterialId(list.get(i).getMaterialId());
-                bean.setPositionId(list.get(i).getPositionId());
+                bean.setConcentration(list.get(i).getConcentration());
+
                 detail.add(bean);
             } else if (null == bulkNum && null == carCode) {
                 // 不处理
-                break;
+                continue;
             } else {
                 // 车库数量和库位码必须一致
                 ZBUiUtils.showToast("车库数量或库位码信息不全");
                 break;
             }
         }
+        String remark = etDesc.getText().toString().trim();
+        String time = tvTime.getText().toString().trim();
 
         requestBody.setDetails(detail);
         requestBody.setWarehouseId(warehouseId);
-        requestBody.setInStoreDate(tvTime.getText().toString().trim());
+        requestBody.setInTime(time);
         requestBody.setSapOrderNo(sapOrderNo);
-        requestBody.setRemark(etDesc.getText().toString().trim());
+        requestBody.setRemark(remark);
 
 
         String json = DataUtils.toJson(requestBody, 1);
@@ -225,37 +243,18 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
         }, body);
     }
 
-    /**
-     * 获取供应商数据
-     *
-     * @return
-     */
-    public static ArrayList<String> getItems() {
-        ArrayList<String> arrayList = new ArrayList<>();
-
-        arrayList.add("供应商 1");
-        arrayList.add("供应商 2");
-        arrayList.add("供应商 3");
-
-
-        return arrayList;
-
-    }
-
-
     @Override
-    public void detailObjData(MaterialTodoDetailsData obj) {
+    public void detailObjData(MaterialDetailsIn obj) {
 
-        warehouseId = obj.getWarehouseId();
         list.clear();
-        list.addAll(obj.getDetails());
+        list.addAll(obj.getList());
 
 
         if (adapter == null) {
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             recyclerView.setLayoutManager(manager);
-            adapter = new MaterialTodoDetailAdapter(this, R.layout.item_matterial_todo_detail, obj.getDetails());
+            adapter = new MaterialTodoDetailAdapter(this, R.layout.item_matterial_todo_detail, obj.getList());
             recyclerView.setAdapter(adapter);
 
             adapter.setOnItemClickListener(new MaterialTodoDetailAdapter.OnItemClickListener() {
@@ -265,22 +264,12 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
                     View rlDetail = holder.itemView.findViewById(R.id.rl_detail);
                     ImageView ivArrow = holder.itemView.findViewById(R.id.iv_arrow);
 
-                    final TextView tvSupplier = holder.itemView.findViewById(R.id.select_supplier);
-
                     if (rlDetail.getVisibility() == View.VISIBLE) {
                         rlDetail.setVisibility(View.GONE);
                         ivArrow.setImageResource(R.mipmap.ic_collapse);
                     } else {
                         rlDetail.setVisibility(View.VISIBLE);
                         ivArrow.setImageResource(R.mipmap.ic_expand);
-
-                        tvSupplier.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                                ZBUiUtils.selectDialog(ArrivalInTodoDetailActivity.this, getItems(), tvSupplier);
-                            }
-                        });
 
                     }
 
@@ -300,26 +289,30 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
 
 
     @Override
-    public void saveEditAndGetHasFocusPosition(String etType, Boolean hasFocus, int position, String textContent) {
+    public void saveEditAndGetHasFocusPosition(String etType, Boolean hasFocus, int position, EditText editText) {
         // 用户在 EditText 中输入的数据
         currentPosition = position;
+        String textContent = editText.getText().toString().trim();
 
-        if (CodeConstant.ET_BULK_NUM.equals(etType)) {
+        if (CodeConstant.ET_ZKG.equals(etType)) {
+            // 和 库位码 一样的存值方法
+            MainApp.mCache.put(CodeConstant.ET_ZKG, position + "@" + textContent);
+
+        } else if (CodeConstant.ET_BULK_NUM.equals(etType)) {
             bulkNumArray.put(position, textContent);
 
             // 库位码 需要判断合法性
         } else if (CodeConstant.ET_CODE.equals(etType)) {
             currentFocus = hasFocus;
 
-            String tempString = textContent;
             // 【情况 ② 】 无焦点 有内容 http 校验
             if (!TextUtils.isEmpty(textContent)) {
                 if (!hasFocus) {
-                    httpCheckCarCode(currentPosition, textContent);
+                    //httpCheckCarCode(currentPosition, textContent);
                 }
             }
 
-            carCodeArray.put(position, tempString);
+            carCodeArray.put(position, textContent);
 
         } else if (CodeConstant.ET_BATCH_NO.equals(etType)) {
             batchNoArray.put(position, textContent);
@@ -384,6 +377,10 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
     public void showCarSuccess(int position, CarPositionNoData carData) {
         if (carData.getCount() > 0) {
             ZBUiUtils.showToast("扫码成功 === showCarSuccess ");
+            String carId = carData.getList().get(0).getId();
+            warehouseId = carData.getList().get(0).getWarehouseId();
+            positionId.put(position, carId);
+
             adapter.notifyItemChanged(position);
         } else {
             ZBUiUtils.showToast("请扫正确的库位码");

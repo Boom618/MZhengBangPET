@@ -9,12 +9,15 @@ import com.ty.zbpet.util.ACache;
 import com.ty.zbpet.util.CodeConstant;
 import com.ty.zbpet.util.ZBLog;
 import com.ty.zbpet.util.ZBUiUtils;
+import com.zhouyou.http.subsciber.BaseSubscriber;
 
 import java.nio.charset.Charset;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Single;
+import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
@@ -56,7 +59,7 @@ public class ScanObservable {
          * observeOn 观察者（订阅的角色）可以多次指定线程，observeOn() 控制的是它后面的线程
          *
          * 【注意】
-         *  没有 AndroidSchedulers.mainThread ，不能 Toast
+         *  没有在 AndroidSchedulers.mainThread ，不能 Toast
          *
          */
         Disposable disposable = Observable.create(new ObservableOnSubscribe<byte[]>() {
@@ -67,10 +70,6 @@ public class ScanObservable {
                 if (null != id) {
                     emitter.onNext(id);
                     toneGenerator.startTone(ToneGenerator.TONE_PROP_BEEP);
-                } else {
-
-                    //toneGenerator.startTone(ToneGenerator.TONE_CDMA_ABBR_ALERT);
-                    //emitter.onError(new Throwable("库位码为空"));
                 }
 
             }
@@ -114,7 +113,6 @@ public class ScanObservable {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        ZBLog.e("失败：", "TLog.e " + throwable.getMessage());
                         toneGenerator.startTone(ToneGenerator.TONE_CDMA_ALERT_AUTOREDIAL_LITE);
                         ZBUiUtils.showToast("扫码失败" + throwable.getMessage());
                     }

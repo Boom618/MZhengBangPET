@@ -32,18 +32,18 @@ class MaterialDetailsOut {
          * unitS : 1
          */
 
-        var id: Int = 0
+        var id: String? = null
         var mOutWarehouseOrderNo: String? = null
-        var mOutWarehouseOrderId: Int = 0
-        var state: Int = 0
+        var mOutWarehouseOrderId: String? = null
+        var state: String? = null
         var materialNo: String? = null
-        var materialId: Int = 0
+        var materialId: String? = null
         var materialName: String? = null
         var concentration: String? = null
         var requiredNumber: String? = null
-        var giveNumber: Int = 0
-        var positionId: Int = 0
-        var supplierId: Int = 0
+        var giveNumber: String? = null
+        var positionId: String? = null
+        var supplierId: String? = null
         var warehouseId: String? = null
         var productionBatch: String? = null
         var expirationDate: String? = null

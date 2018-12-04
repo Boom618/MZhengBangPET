@@ -153,7 +153,7 @@ public class ProductDoneDetailActivity extends BaseActivity implements ProductUi
 
         String remark = etDesc.getText().toString().trim();
 
-        requestBody.setInOutOrderId(orderId);
+        requestBody.setOrderId(orderId);
         requestBody.setWarehouseId(warehouseId);
         requestBody.setOutTime(selectTime);
         requestBody.setRemark(remark);

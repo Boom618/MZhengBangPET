@@ -7,10 +7,10 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.ty.zbpet.R;
-import com.ty.zbpet.bean.PickOutTodoDetailsData;
 import com.ty.zbpet.bean.material.MaterialDetailsIn;
 import com.ty.zbpet.util.ACache;
 import com.ty.zbpet.util.CodeConstant;
+import com.ty.zbpet.util.ViewSetValue;
 import com.ty.zbpet.util.ZBUiUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
@@ -45,14 +45,10 @@ public class BackGoodsTodoDetailAdapter extends CommonAdapter<MaterialDetailsIn.
         etCode.setInputType(InputType.TYPE_NULL);
         // ScanObservable.scanBox 扫码成功保存的 ID 和 Value
         String result = ACache.get(context).getAsString(CodeConstant.SCAN_BOX_KEY);
-        if (!TextUtils.isEmpty(result)) {
-            String[] split = result.split("@");
-            int id = Integer.valueOf(split[0]);
-            if (position == id) {
-                String value = split[1];
-                etCode.setText(value);
-            }
-        }
+
+        // 库位码设置
+        ViewSetValue.setValue(result, position, etCode);
+
         etCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {

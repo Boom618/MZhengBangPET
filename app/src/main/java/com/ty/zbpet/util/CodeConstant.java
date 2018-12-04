@@ -15,13 +15,16 @@ public final class CodeConstant {
     // 服务器返回成功标识
     public static final String SERVICE_SUCCESS = "success";
 
-    // 入库数量 EditText
-    public static final String ET_BULK_NUM = "et_bulk_num";
+    /**
+     * 待办详情中的输入信息
+     * ZKG 单位
+     * 库位码
+     * sap 物料批次号
+     */
 
-    // 库位码 EditText
+    public static final String ET_ZKG = "et_zkg";
     public static final String ET_CODE = "et_code";
-
-    // sap 物料批次号 EditText
+    public static final String ET_BULK_NUM = "et_bulk_num";
     public static final String ET_BATCH_NO = "et_batch_no";
 
     /**
@@ -47,5 +50,11 @@ public final class CodeConstant {
      * 区分箱码绑定页面
      */
     public static final String PAGE_STATE = "state";
+
+    /**
+     * 原材料的入库 已办列表
+     */
+    public static final String BUY_IN_TYPE = "1";
+    public static final String PICK_OUT_TYPE = "20";
 
 }

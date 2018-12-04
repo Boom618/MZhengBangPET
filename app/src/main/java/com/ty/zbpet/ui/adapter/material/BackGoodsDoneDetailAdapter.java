@@ -1,16 +1,9 @@
 package com.ty.zbpet.ui.adapter.material;
 
 import android.content.Context;
-import android.text.InputType;
-import android.view.View;
-import android.widget.EditText;
 
 import com.ty.zbpet.R;
-import com.ty.zbpet.bean.PickOutDoneDetailsData;
 import com.ty.zbpet.bean.material.MaterialDetailsOut;
-import com.ty.zbpet.util.ACache;
-import com.ty.zbpet.util.CodeConstant;
-import com.ty.zbpet.util.ZBUiUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 

@@ -9,14 +9,15 @@ class MaterialTodoSave {
 
     /**
      * warehouseId : 3
-     * outWarehouseTime : 2018-09-06
+     * outTime : 2018-09-06
      * sapProcOrder : SAP00009
      * remark : 1
      * details : [{"positionId":"1","supplierId":"12","number":"200","materialId":"1","positionNo":"234567","sapMaterialBatchNo":"sap物料批次号","concentration":"80"},{"positionId":"4","supplierId":"12","number":"300","materialId":"12","positionNo":"234567","sapMaterialBatchNo":"sap物料批次号","concentration":"90"}]
      */
 
     var warehouseId: String? = null
-    var outWarehouseTime: String? = null
+    var outTime: String? = null
+    var inTime: String? = null
     var sapOrderNo: String? = null
     var remark: String? = null
     var details: List<DetailsBean>? = null
@@ -25,6 +26,7 @@ class MaterialTodoSave {
         /**
          * positionId : 1
          * supplierId : 12
+         * supplierNo : 供应商信息
          * number : 200
          * materialId : 1
          * positionNo : 库位码
@@ -34,6 +36,7 @@ class MaterialTodoSave {
 
         var positionId: String? = null
         var supplierId: String? = null
+        var supplierNo: String? = null
         var number: String? = null
         var materialId: String? = null
         var positionNo: String? = null

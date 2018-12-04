@@ -16,7 +16,6 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.material.MaterialTodoSave;
-import com.ty.zbpet.bean.product.ProductDetailsIn;
 import com.ty.zbpet.bean.product.ProductTodoDetails;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.presenter.product.ProducePresenter;
@@ -234,7 +233,7 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
         requestBody.setDetails(detail);
         requestBody.setWarehouseId(warehouseId);
         requestBody.setSapOrderNo(sapOrderNo);
-        requestBody.setOutWarehouseTime(tvTime.getText().toString().trim());
+        requestBody.setOutTime(tvTime.getText().toString().trim());
         requestBody.setRemark(etDesc.getText().toString().trim());
 
 

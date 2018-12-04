@@ -122,7 +122,7 @@ public class ArrivalInDoneDetailActivity extends BaseActivity implements Materia
         MaterialDoneSave bean = new MaterialDoneSave();
 
         bean.setWarehouseId(warehouseId);
-        bean.setInOutOrderId(mInWarehouseOrderId);
+        bean.setOrderId(mInWarehouseOrderId);
         bean.setSapProcOrder(sapProcOrder);
         bean.setPositionId(positionId);
         bean.setRemark(etDesc.getText().toString().trim());

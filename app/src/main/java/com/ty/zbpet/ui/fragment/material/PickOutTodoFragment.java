@@ -146,6 +146,7 @@ public class PickOutTodoFragment extends BaseFragment implements MaterialUiListI
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                     Intent intent = new Intent(getActivity(), PickOutTodoDetailActivity.class);
                     intent.putExtra("sapOrderNo", list.get(position).getSapOrderNo());
+                    intent.putExtra("supplierId", list.get(position).getSupplierId());
                     startActivity(intent);
                 }
 

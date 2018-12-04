@@ -1,28 +1,30 @@
-package com.ty.zbpet.ui.activity.material;
+package com.ty.zbpet.ui.activity.product;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.SparseArray;
-import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
-import com.pda.scanner.ScanReader;
-import com.pda.scanner.Scanner;
 import com.ty.zbpet.R;
-import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.ResponseInfo;
-import com.ty.zbpet.bean.material.MaterialDetailsIn;
-import com.ty.zbpet.bean.material.MaterialTodoSave;
+import com.ty.zbpet.bean.product.BuyInTodoDetails;
+import com.ty.zbpet.bean.product.ProductDetailsIn;
+import com.ty.zbpet.bean.product.ProductTodoSave;
 import com.ty.zbpet.net.HttpMethods;
-import com.ty.zbpet.presenter.material.BackGoodsPresenter;
-import com.ty.zbpet.presenter.material.MaterialUiObjInterface;
-import com.ty.zbpet.ui.adapter.material.BackGoodsTodoDetailAdapter;
+import com.ty.zbpet.presenter.product.BuyInPresenter;
+import com.ty.zbpet.presenter.product.ProductUiObjInterface;
+import com.ty.zbpet.presenter.product.ReturnPresenter;
+import com.ty.zbpet.ui.activity.ScanBoxCodeActivity;
+import com.ty.zbpet.ui.adapter.product.BuyInTodoDetailAdapter;
+import com.ty.zbpet.ui.adapter.product.ReturnGoodsTodoDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.CodeConstant;
@@ -30,8 +32,6 @@ import com.ty.zbpet.util.DataUtils;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.ZBLog;
 import com.ty.zbpet.util.ZBUiUtils;
-import com.ty.zbpet.util.scan.ScanBoxInterface;
-import com.ty.zbpet.util.scan.ScanObservable;
 import com.zhouyou.http.exception.ApiException;
 import com.zhouyou.http.subsciber.BaseSubscriber;
 
@@ -45,10 +45,9 @@ import okhttp3.RequestBody;
 
 /**
  * @author TY on 2018/11/22.
- * 采购退货 待办详情
+ * 退货入库 待办详情
  */
-public class BackGoodsTodoDetailActivity extends BaseActivity implements MaterialUiObjInterface<MaterialDetailsIn>
-        , ScanBoxInterface, BackGoodsTodoDetailAdapter.SaveEditListener {
+public class ReturnGoodsTodoDetailActivity extends BaseActivity implements ProductUiObjInterface<BuyInTodoDetails> {
 
 
     private RecyclerView reView;
@@ -58,33 +57,34 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
     private TextView tvType;
     private EditText etDesc;
 
-    private BackGoodsTodoDetailAdapter adapter;
+    private ReturnGoodsTodoDetailAdapter adapter;
 
     private String selectTime;
     private String sapOrderNo;
 
-    private ArrayList<MaterialDetailsIn.ListBean> oldList = new ArrayList<>();
+    private ArrayList<ProductDetailsIn.ListBean> oldList = new ArrayList<>();
+
+    private final static int REQUEST_SCAN_CODE = 1;
+    private final static int RESULT_SCAN_CODE = 2;
+
+    private ReturnPresenter presenter = new ReturnPresenter(this);
 
     /**
-     * 点击库位码输入框
+     * 箱码
      */
-    private Boolean currentFocus = false;
+    private ArrayList<String> boxCodeList = new ArrayList<>();
 
     /**
-     * list 中 Position
+     * 列表 ID
      */
-    private int currentPosition = -1;
-
-    private Scanner scanner = ScanReader.getScannerInstance();
-    private ScanObservable scanObservable = new ScanObservable(this);
-    private BackGoodsPresenter presenter = new BackGoodsPresenter(this);
+    private int itemId = -1;
 
     /**
      * 保存用户在输入框中的数据
      */
     private SparseArray<String> bulkNumArray = new SparseArray(10);
-    private SparseArray<String> carCodeArray = new SparseArray(10);
     private SparseArray<String> batchNoArray = new SparseArray(10);
+    private SparseArray<ArrayList<String>> carCodeArray = new SparseArray(10);
     /**
      * 库位码 ID
      */
@@ -110,17 +110,18 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
     protected void initOneData() {
         sapOrderNo = getIntent().getStringExtra("sapOrderNo");
 
-        presenter.fetchBackTodoListInfo(sapOrderNo);
+        //presenter.fetchBuyInTodoListDetails(sapOrderNo);
     }
 
     @Override
     protected void initTwoView() {
 
+        // in_storage_detail 到货明细
 
-        initToolBar(R.string.back_goods, new View.OnClickListener() {
+        initToolBar(R.string.label_purchase_in_storage, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pickOutTodoSave(initTodoBody());
+                BuyInTodoSave(initTodoBody());
             }
         });
 
@@ -136,7 +137,7 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
         selectTime = format.format(new Date());
 
         tvTime.setText(selectTime);
-        backGoods.setText("退货明细");
+        backGoods.setText("到货明细");
 
         tvTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,7 +160,7 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
     /**
      * 出库 保存
      */
-    private void pickOutTodoSave(RequestBody body) {
+    private void BuyInTodoSave(RequestBody body) {
 
         if (body == null) {
             return;
@@ -190,34 +191,36 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
     }
 
     /**
-     * 构建保存 的 Body
+     * 构建 保存 的 Body
      *
      * @return
      */
     private RequestBody initTodoBody() {
 
-        MaterialTodoSave requestBody = new MaterialTodoSave();
-        List<MaterialTodoSave.DetailsBean> detail = new ArrayList<>();
+        ProductTodoSave requestBody = new ProductTodoSave();
+
+        List<ProductTodoSave.DetailsBean> detail = new ArrayList<>();
+
+
 
         int size = oldList.size();
         for (int i = 0; i < size; i++) {
+            List<String> boxQrCode = carCodeArray.get(i);
             String bulkNum = bulkNumArray.get(i);
-            String carCode = carCodeArray.get(i);
             String batchNo = batchNoArray.get(i);
             String Id = positionId.get(i);
 
-            MaterialTodoSave.DetailsBean bean = new MaterialTodoSave.DetailsBean();
-            if (!TextUtils.isEmpty(bulkNum) && !TextUtils.isEmpty(carCode)) {
+            ProductTodoSave.DetailsBean bean = new ProductTodoSave.DetailsBean();
+            if (!TextUtils.isEmpty(bulkNum) && boxQrCode.size() != 0) {
 
-                bean.setMaterialId(oldList.get(i).getMaterialId());
-                bean.setSupplierId(oldList.get(i).getSupplierId());
-                bean.setConcentration(oldList.get(i).getConcentration());
                 bean.setPositionId(Id);
                 bean.setNumber(bulkNum);
                 bean.setSapMaterialBatchNo(batchNo);
 
+                bean.setBoxQrCode(boxQrCode);
+
                 detail.add(bean);
-            } else if (null == bulkNum && null == carCode) {
+            } else if (null == bulkNum && null == boxQrCode) {
                 // 跳出当前一列、不处理
                 continue;
             } else {
@@ -232,9 +235,10 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
         }
 
         requestBody.setDetails(detail);
-        requestBody.setWarehouseId(warehouseId);
-        requestBody.setSapOrderNo(sapOrderNo);
-        requestBody.setOutTime(tvTime.getText().toString().trim());
+        requestBody.setInStoreDate(tvTime.getText().toString().trim());
+        requestBody.setWarehouseId("仓库ID");
+        requestBody.setSapPlantNo("管联单据");
+        requestBody.setProductionBatchNo("生产批次号");
         requestBody.setRemark(etDesc.getText().toString().trim());
 
 
@@ -243,94 +247,26 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
         return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), json);
     }
 
-    /**
-     * 扫描
-     *
-     * @param keyCode
-     * @param event
-     * @return
-     */
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-
-        if (keyCode == CodeConstant.KEY_CODE_131
-                || keyCode == CodeConstant.KEY_CODE_135
-                || keyCode == CodeConstant.KEY_CODE_139) {
-
-            if (currentFocus && currentPosition != -1) {
-                // 扫描
-                doDeCode();
-            }
-
-
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    private void doDeCode() {
-
-        scanner.open(getApplicationContext());
-
-        scanObservable.scanBox(scanner, currentPosition);
-
-    }
 
     @Override
-    public void ScanSuccess(int position, String msg) {
-        ZBUiUtils.showToast("库位码 ：" + msg);
+    public void detailObjData(BuyInTodoDetails details) {
 
-        //  服务器校验 库位码
-        httpCheckCarCode(position, msg);
-    }
-
-    /**
-     * Http 校验 库位码合法
-     *
-     * @param position   item 更新需要的 position
-     * @param positionNo 扫码的编号
-     */
-    private void httpCheckCarCode(final int position, final String positionNo) {
-
-        presenter.checkCarCode(position, positionNo);
-
-    }
-
-    @Override
-    public void showCarSuccess(int position, CarPositionNoData carData) {
-        if (carData.getCount() > 0) {
-            ZBUiUtils.showToast("扫码成功 === showCarSuccess ");
-            String carId = carData.getList().get(0).getId();
-            warehouseId = carData.getList().get(0).getWarehouseId();
-            positionId.put(position,carId);
-
-            adapter.notifyItemChanged(position);
-        } else {
-            ZBUiUtils.showToast("请扫正确的库位码");
-        }
-    }
-
-
-    @Override
-    public void detailObjData(MaterialDetailsIn details) {
-
-        // oldList.clear();
-        // 提交保存 需要用到
-        oldList = details.getList();
-
+        final List<BuyInTodoDetails.ListBean> list = details.getList();
         if (adapter == null) {
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             reView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             reView.setLayoutManager(manager);
-            adapter = new BackGoodsTodoDetailAdapter(this, R.layout.item_material_detail_three_todo, oldList);
+            adapter = new ReturnGoodsTodoDetailAdapter(this, R.layout.item_product_detail_two_todo, list);
             reView.setAdapter(adapter);
 
-            adapter.setOnItemClickListener(new BackGoodsTodoDetailAdapter.OnItemClickListener() {
+            adapter.setOnItemClickListener(new ReturnGoodsTodoDetailAdapter.OnItemClickListener() {
                 @Override
-                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                public void onItemClick(final View view, RecyclerView.ViewHolder holder, final int position) {
 
                     View rlDetail = holder.itemView.findViewById(R.id.gone_view);
                     ImageView ivArrow = holder.itemView.findViewById(R.id.iv_arrow);
+                    Button bindingCode = holder.itemView.findViewById(R.id.btn_binding_code);
+                    final TextView selectHouse = holder.itemView.findViewById(R.id.tv_select_ware);
 
                     if (rlDetail.getVisibility() == View.VISIBLE) {
                         rlDetail.setVisibility(View.GONE);
@@ -339,6 +275,33 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
                         rlDetail.setVisibility(View.VISIBLE);
                         ivArrow.setImageResource(R.mipmap.ic_expand);
                     }
+
+                    bindingCode.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            itemId = position;
+                            Intent intent = new Intent(ReturnGoodsTodoDetailActivity.this, ScanBoxCodeActivity.class);
+                            intent.putExtra("itemId", itemId);
+                            intent.putExtra(CodeConstant.PAGE_STATE,true);
+                            intent.putStringArrayListExtra("boxCodeList", carCodeArray.get(itemId));
+                            startActivityForResult(intent, REQUEST_SCAN_CODE);
+                        }
+                    });
+
+                    List<BuyInTodoDetails.ListBean.WarehouseListBean> warehouseList = list.get(position).getWarehouseList();
+                    final ArrayList<String> houseName = new ArrayList<>();
+
+                    int size = warehouseList.size();
+                    for (int i = 0; i < size; i++) {
+                        houseName.add(warehouseList.get(i).getWarehouseName());
+                    }
+
+                    selectHouse.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ZBUiUtils.selectDialog(view.getContext(),houseName,selectHouse);
+                        }
+                    });
 
                     ZBUiUtils.hideInputWindow(view.getContext(), view);
 
@@ -356,40 +319,22 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
     }
 
 
-    /**
-     * @param etType   输入框标识
-     * @param hasFocus 有无焦点
-     * @param position 位置
-     * @param editText 内容
-     */
     @Override
-    public void saveEditAndGetHasFocusPosition(String etType, Boolean hasFocus, int position, EditText editText) {
-        // 用户在 EditText 中输入的数据
-        currentPosition = position;
-
-        String textContent = editText.getText().toString().trim();
-
-        if (CodeConstant.ET_BULK_NUM.equals(etType)) {
-            bulkNumArray.put(position, textContent);
-
-            // 库位码 需要判断合法性
-        } else if (CodeConstant.ET_CODE.equals(etType)) {
-            currentFocus = hasFocus;
-
-            String tempString = textContent;
-            // 【情况 ② 】 无焦点 有内容 http 校验
-            if (!TextUtils.isEmpty(textContent)) {
-                if (!hasFocus) {
-                    //httpCheckCarCode(currentPosition, textContent);
-                }
-            }
-
-            carCodeArray.put(position, tempString);
-
-        } else if (CodeConstant.ET_BATCH_NO.equals(etType)) {
-            batchNoArray.put(position, textContent);
-
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_SCAN_CODE && resultCode == RESULT_SCAN_CODE) {
+            itemId = data.getIntExtra("itemId", -1);
+            boxCodeList = data.getStringArrayListExtra("boxCodeList");
+            carCodeArray.put(itemId,boxCodeList);
+//            if (codeList != null) {
+//                GoodsPurchaseOrderInfo.DataBean.ListBean listBean = list.get(position);
+//                listBean.setBoxCodeList(codeList);
+//                listBean.setBoxNum(codeList.size() + "");
+//                listCopy.addAll(list);
+//                list.clear();
+//                list.addAll(listCopy);
+//                adapter.notifyDataSetChanged();
+//            }
         }
-
     }
+
 }

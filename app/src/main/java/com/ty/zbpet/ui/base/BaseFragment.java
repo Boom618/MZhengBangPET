@@ -79,6 +79,7 @@ public abstract class BaseFragment extends Fragment {
      */
     private void clearCache() {
         mCache.put(CodeConstant.SCAN_BOX_KEY, "");
+        mCache.put(CodeConstant.ET_ZKG,"");
     }
 
     @Override

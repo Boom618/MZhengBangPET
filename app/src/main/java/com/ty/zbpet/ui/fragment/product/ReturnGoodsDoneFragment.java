@@ -17,9 +17,8 @@ import com.ty.zbpet.R;
 import com.ty.zbpet.bean.product.ProductDoneList;
 import com.ty.zbpet.presenter.product.ProductUiObjInterface;
 import com.ty.zbpet.presenter.product.ReturnPresenter;
-import com.ty.zbpet.presenter.product.SendOutPresenter;
-import com.ty.zbpet.ui.activity.product.SendOutDoneDetailActivity;
-import com.ty.zbpet.ui.adapter.product.SendOutDoneListAdapter;
+import com.ty.zbpet.ui.activity.product.ReturnGoodsDoneDetailActivity;
+import com.ty.zbpet.ui.adapter.product.ReturnGoodsDoneListAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.ResourceUtil;
@@ -43,7 +42,7 @@ public class ReturnGoodsDoneFragment extends BaseFragment implements ProductUiOb
 
     private ReturnPresenter presenter = new ReturnPresenter(this);
 
-    private SendOutDoneListAdapter adapter;
+    private ReturnGoodsDoneListAdapter adapter;
 
     public static ReturnGoodsDoneFragment newInstance(String tag){
         ReturnGoodsDoneFragment fragment = new ReturnGoodsDoneFragment();
@@ -108,22 +107,22 @@ public class ReturnGoodsDoneFragment extends BaseFragment implements ProductUiOb
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             recyclerView.setLayoutManager(manager);
-            adapter = new SendOutDoneListAdapter(ResourceUtil.getContext(),R.layout.item_produce_in_storage_complete,list);
+            adapter = new ReturnGoodsDoneListAdapter(ResourceUtil.getContext(),R.layout.item_produce_in_storage_complete,list);
             recyclerView.setAdapter(adapter);
 
-//            adapter.setOnItemClickListener(new SendOutDoneListAdapter.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-//                    Intent intent = new Intent(getActivity(), SendOutDoneDetailActivity.class);
-//                    intent.putExtra("orderId", list.get(position).getId());
-//                    startActivity(intent);
-//                }
-//
-//                @Override
-//                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-//                    return false;
-//                }
-//            });
+            adapter.setOnItemClickListener(new ReturnGoodsDoneListAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    Intent intent = new Intent(getActivity(), ReturnGoodsDoneDetailActivity.class);
+                    intent.putExtra("orderId", list.get(position).getId());
+                    startActivity(intent);
+                }
+
+                @Override
+                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    return false;
+                }
+            });
 
         }else {
             adapter.notifyDataSetChanged();

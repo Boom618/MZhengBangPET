@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * @author TY on 2018/11/26.
- *
+ * <p>
  * 采购退货 已办列表
  */
 public class BackGoodsDoneListAdapter extends CommonAdapter<MaterialDoneList.ListBean> {
@@ -27,10 +27,10 @@ public class BackGoodsDoneListAdapter extends CommonAdapter<MaterialDoneList.Lis
     protected void convert(ViewHolder holder, MaterialDoneList.ListBean list, int position) {
         holder.setText(R.id.tv_operator, "冲销")
                 .setText(R.id.tv_no, list.getSapOrderNo())
-                .setText(R.id.tv_type, list.getType())
-                .setText(R.id.tv_supplier, list.getMaterialName())
-                .setText(R.id.tv_date, list.getOutTime())
-                .setText(R.id.tv_status, list.getState());
+                .setText(R.id.tv_type, list.getType() + "")
+                .setText(R.id.tv_supplier, list.getSupplierName())
+                .setText(R.id.tv_date, list.getInTime())
+                .setText(R.id.tv_status, list.getState() + "");
     }
 
 }

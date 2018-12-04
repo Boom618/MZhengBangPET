@@ -16,7 +16,7 @@ import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.ty.zbpet.R;
-import com.ty.zbpet.bean.PickOutDoneData;
+import com.ty.zbpet.bean.material.MaterialDoneList;
 import com.ty.zbpet.presenter.material.MaterialUiListInterface;
 import com.ty.zbpet.presenter.material.PickOutPresenter;
 import com.ty.zbpet.ui.activity.material.PickOutDoneDetailActivity;
@@ -24,6 +24,7 @@ import com.ty.zbpet.ui.adapter.material.PickOutAdapter;
 import com.ty.zbpet.ui.adapter.material.PickOutDoneAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
+import com.ty.zbpet.util.CodeConstant;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.ZBUiUtils;
 
@@ -34,10 +35,11 @@ import butterknife.BindView;
 
 /**
  * A simple {@link Fragment} subclass.
+ *
  * @author TY
  * 领料出库 已办列表
  */
-public class PickOutDoneFragment extends BaseFragment implements MaterialUiListInterface<PickOutDoneData.ListBean> {
+public class PickOutDoneFragment extends BaseFragment implements MaterialUiListInterface<MaterialDoneList.ListBean> {
 
 
     @BindView(R.id.recyclerView)
@@ -51,10 +53,10 @@ public class PickOutDoneFragment extends BaseFragment implements MaterialUiListI
 
     private static final String ARG_PARAM = "ARG_PARAM";
 
-    public PickOutDoneFragment() {
-        // Required empty public constructor
-
-    }
+    /**
+     * 下拉刷新 flag
+     */
+    private boolean refresh = false;
 
     public static PickOutDoneFragment newInstance(String tag) {
         PickOutDoneFragment fragment = new PickOutDoneFragment();
@@ -78,7 +80,7 @@ public class PickOutDoneFragment extends BaseFragment implements MaterialUiListI
     public void onStart() {
         super.onStart();
 
-        presenter.fetchPickOutDoneList();
+        presenter.fetchPickOutDoneList(CodeConstant.PICK_OUT_TYPE);
     }
 
     @Override
@@ -91,7 +93,8 @@ public class PickOutDoneFragment extends BaseFragment implements MaterialUiListI
                 // 传入 false 表示刷新失败
                 refreshLayout.finishRefresh(1000);
                 // 刷新数据
-                presenter.fetchPickOutDoneList();
+                presenter.fetchPickOutDoneList(CodeConstant.PICK_OUT_TYPE);
+                refresh = true;
 
             }
         });
@@ -112,13 +115,15 @@ public class PickOutDoneFragment extends BaseFragment implements MaterialUiListI
 
 
     @Override
-    public void showMaterial(final List<PickOutDoneData.ListBean> list) {
+    public void showMaterial(final List<MaterialDoneList.ListBean> list) {
 
-        if (adapter == null) {
-
-            LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
-            recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
-            recyclerView.setLayoutManager(manager);
+        if (adapter == null || refresh) {
+            refresh = false;
+            if (adapter == null) {
+                LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
+                recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
+                recyclerView.setLayoutManager(manager);
+            }
             adapter = new PickOutDoneAdapter(getContext(), R.layout.item_pick_out_done, list);
             recyclerView.setAdapter(adapter);
 
@@ -127,6 +132,7 @@ public class PickOutDoneFragment extends BaseFragment implements MaterialUiListI
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                     Intent intent = new Intent(getActivity(), PickOutDoneDetailActivity.class);
                     intent.putExtra("sapOrderNo", list.get(position).getSapOrderNo());
+                    intent.putExtra("mOutWarehouseOrderId", list.get(position).getMOutWarehouseOrderId());
                     startActivity(intent);
                 }
 
