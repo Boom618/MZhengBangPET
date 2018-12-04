@@ -194,10 +194,12 @@ public interface ApiService {
     /**
      * 采购退货 已办列表
      *
+     * @param type
      * @return
      */
+    @FormUrlEncoded
     @POST(ApiNameConstant.GET_BACK_GOODS_DONE_LIST)
-    Observable<BaseResponse<MaterialDoneList>> getBackDoneList();
+    Observable<BaseResponse<MaterialDoneList>> getBackDoneList(@Field("type") String type);
 
     /**
      * 采购退货 已办详情

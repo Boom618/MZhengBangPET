@@ -22,6 +22,7 @@ import com.ty.zbpet.ui.adapter.material.BackGoodsDoneListAdapter;
 import com.ty.zbpet.ui.adapter.material.MaterialDoneAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
+import com.ty.zbpet.util.CodeConstant;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.ZBUiUtils;
 
@@ -77,7 +78,7 @@ public class BackGoodsDoneFragment extends BaseFragment implements MaterialUiLis
         super.onStart();
 
         // 第一次获取数据
-        presenter.fetchBackDoneList();
+        presenter.fetchBackDoneList(CodeConstant.BACK_GOODS_TYPE);
 
         refreshLayout.setRefreshHeader(new MaterialHeader(this.getContext()));
         //设置 Footer 为 球脉冲 样式
@@ -89,7 +90,7 @@ public class BackGoodsDoneFragment extends BaseFragment implements MaterialUiLis
                 // 传入 false 表示刷新失败
                 refreshLayout.finishRefresh(1000);
                 // 刷新数据
-                presenter.fetchBackDoneList();
+                presenter.fetchBackDoneList(CodeConstant.BACK_GOODS_TYPE);
                 refresh = true;
 
 

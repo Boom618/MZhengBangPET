@@ -162,7 +162,7 @@ public class BackGoodsPresenter {
     /**
      * 已办 列表
      */
-    public void fetchBackDoneList() {
+    public void fetchBackDoneList(String type) {
         httpMethods.getBackDoneList(new BaseSubscriber<BaseResponse<MaterialDoneList>>() {
             @Override
             public void onError(ApiException e) {
@@ -185,7 +185,7 @@ public class BackGoodsPresenter {
                     ZBUiUtils.showToast(infoList.getMessage());
                 }
             }
-        });
+        },type);
     }
 
     /**

@@ -289,8 +289,8 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getBackDoneList(BaseSubscriber<BaseResponse<MaterialDoneList>> subscriber) {
-        mService.getBackDoneList()
+    public void getBackDoneList(BaseSubscriber<BaseResponse<MaterialDoneList>> subscriber,String type) {
+        mService.getBackDoneList(type)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }

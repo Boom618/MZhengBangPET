@@ -56,5 +56,6 @@ public final class CodeConstant {
      */
     public static final String BUY_IN_TYPE = "1";
     public static final String PICK_OUT_TYPE = "20";
+    public static final String BACK_GOODS_TYPE = "21";
 
 }

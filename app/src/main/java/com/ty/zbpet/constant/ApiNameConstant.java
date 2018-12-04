@@ -104,12 +104,12 @@ public class ApiNameConstant {
     /**
      * 采购退货 已办列表
      */
-    public static final String GET_BACK_GOODS_DONE_LIST = "stock/materialStock/getMaterialBackOrderList";
+    public static final String GET_BACK_GOODS_DONE_LIST = "stock/materialStock/getMaterialOutOrderList";
 
     /**
      * 采购退货 已办详情
      */
-    public static final String GET_BACK_GOODS_DONE_LIST_INFO = "stock/materialStock/getMaterialBackOrderInfo";
+    public static final String GET_BACK_GOODS_DONE_LIST_INFO = "stock/materialStock/getMaterialOutOrderInfo";
 
     /**
      * 采购退货 已办保存
