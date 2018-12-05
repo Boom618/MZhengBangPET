@@ -329,12 +329,12 @@ public interface ApiService {
     /**
      * 生产入库 已办列表 详情
      *
-     * @param sapOrderNo
+     * @param orderId
      * @return
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_PRODUCE_DONE_LIST_INFO)
-    Single<BaseResponse<ProductDetailsOut>> getProduceDoneInfo(@Field("sapOrderNo") String sapOrderNo);
+    Single<BaseResponse<ProductDetailsOut>> getProduceDoneInfo(@Field("orderId") String orderId);
 
     /**
      * 生产入库 已办保存
@@ -354,7 +354,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.GET_SHIP_ORDER_LIST)
-    Observable<GoodsPurchaseOrderList> getShipOrderList();
+    Single<BaseResponse<ProductTodoList>> getShipOrderList();
 
     /**
      * 发货出库 待办详情
@@ -364,7 +364,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_SHIP_ORDER_INFO)
-    Observable<GoodsPurchaseOrderInfo> getShipOrderInfo(@Field("sapOrderNo") String sapOrderNo);
+    Single<BaseResponse<ProductTodoDetails>> getShipOrderInfo(@Field("sapOrderNo") String sapOrderNo);
 
 
     /**
@@ -374,7 +374,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.GET_SHIP_TODO_SAVE)
-    Observable<ResponseInfo> getShipTodoSave(@Body RequestBody body);
+    Single<ResponseInfo> getShipTodoSave(@Body RequestBody body);
 
 
     /**

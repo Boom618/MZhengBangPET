@@ -3,6 +3,7 @@ package com.ty.zbpet.ui.adapter.diffadapter;
 import android.support.v7.util.DiffUtil;
 
 import com.ty.zbpet.bean.product.ProductDetailsIn;
+import com.ty.zbpet.bean.product.ProductTodoDetails;
 
 import java.util.List;
 
@@ -13,9 +14,9 @@ import java.util.List;
  */
 public class SendOutDiffUtil extends DiffUtil.Callback {
 
-    private List<ProductDetailsIn.ListBean> oldList, newList;
+    private List<ProductTodoDetails.ListBean> oldList, newList;
 
-    public SendOutDiffUtil(List<ProductDetailsIn.ListBean> oldList, List<ProductDetailsIn.ListBean> newList) {
+    public SendOutDiffUtil(List<ProductTodoDetails.ListBean> oldList, List<ProductTodoDetails.ListBean> newList) {
         this.oldList = oldList;
         this.newList = newList;
     }
@@ -40,8 +41,8 @@ public class SendOutDiffUtil extends DiffUtil.Callback {
     @Override
     public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
 
-        ProductDetailsIn.ListBean oldBean = oldList.get(oldItemPosition);
-        ProductDetailsIn.ListBean newBean = newList.get(newItemPosition);
+        ProductTodoDetails.ListBean oldBean = oldList.get(oldItemPosition);
+        ProductTodoDetails.ListBean newBean = newList.get(newItemPosition);
 
         return oldBean.equals(newBean);
     }

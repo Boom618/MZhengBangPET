@@ -3,6 +3,7 @@ package com.ty.zbpet.presenter.product;
 import com.ty.zbpet.bean.product.ProductDetailsIn;
 import com.ty.zbpet.bean.product.ProductDetailsOut;
 import com.ty.zbpet.bean.product.ProductDoneList;
+import com.ty.zbpet.bean.product.ProductTodoDetails;
 import com.ty.zbpet.bean.product.ProductTodoList;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
@@ -48,7 +49,7 @@ public class SendOutPresenter {
      * 待办列表
      */
     public void fetchSendOutTodoList() {
-        httpMethods.getProductTodoList(new SingleObserver<BaseResponse<ProductTodoList>>() {
+        httpMethods.getShipOrderList(new SingleObserver<BaseResponse<ProductTodoList>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;
@@ -82,17 +83,17 @@ public class SendOutPresenter {
     public void fetchSendOutTodoInfo(String sapOrderNo) {
 
 
-        httpMethods.getBuyInOrderInfo(new SingleObserver<BaseResponse<ProductDetailsIn>>() {
+        httpMethods.getShipOrderInfo(new SingleObserver<BaseResponse<ProductTodoDetails>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;
             }
 
             @Override
-            public void onSuccess(BaseResponse<ProductDetailsIn> response) {
+            public void onSuccess(BaseResponse<ProductTodoDetails> response) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
-                    ProductDetailsIn data = response.getData();
+                    ProductTodoDetails data = response.getData();
                     //objInterface.detailObjData(data);
                     listInterface.showProduct(data.getList());
 

@@ -258,8 +258,8 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
                 bean.setGoodsId(goodsId);
                 bean.setGoodsNo(goodsNo);
 
-                bean.setGoodsQrCodeStart(startCode);
-                bean.setGoodsQrCodeEnd(endCode);
+                bean.setStartQrCode(startCode);
+                bean.setEndQrCode(endCode);
                 bean.setOrderNumber(orderNumber);
 
                 bean.setWarehouseId(warehouseId);

@@ -57,17 +57,18 @@
         android:id="@+id/rl_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible"
+        android:visibility="gone"
         android:paddingBottom="@dimen/space_10"
         android:paddingEnd="@dimen/space_10"
         android:paddingStart="@dimen/space_10">
 
         <EditText
-            android:id="@+id/tv_box_num"
+            android:id="@+id/et_box_num"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_25"
             android:hint="入库数量"
+            android:inputType="number"
             android:textColor="@color/txt_minor_color"
             android:textColorHint="@color/hint_color"
             android:textSize="@dimen/text_14" />
@@ -79,32 +80,34 @@
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="@dimen/space_25"
             android:layout_marginStart="@dimen/space_20"
-            android:layout_toEndOf="@+id/tv_box_num"
+            android:layout_toEndOf="@+id/et_box_num"
             android:hint="文本"
             android:textColor="@color/txt_minor_color"
             android:textColorHint="@color/hint_color"
             android:textSize="@dimen/text_14" />
 
         <EditText
-            android:id="@+id/et_in_start_code"
+            android:id="@+id/et_start_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_box_num"
+            android:layout_below="@+id/et_bulk_num"
             android:layout_marginEnd="@dimen/space_25"
             android:layout_marginStart="@dimen/space_25"
             android:hint="成品起始值"
+            android:inputType="number"
             android:textColor="@color/txt_minor_color"
             android:textColorHint="@color/hint_color"
             android:textSize="@dimen/text_14" />
 
         <EditText
-            android:id="@+id/et_real_bulk_num"
+            android:id="@+id/et_end_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/et_in_start_code"
+            android:layout_below="@+id/et_start_code"
             android:layout_marginEnd="@dimen/space_25"
             android:layout_marginStart="@dimen/space_25"
             android:hint="成品结束值"
+            android:inputType="number"
             android:textColor="@color/txt_minor_color"
             android:textColorHint="@color/hint_color"
             android:textSize="@dimen/text_14" />
@@ -113,7 +116,7 @@
             android:id="@+id/et_sap"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/et_real_bulk_num"
+            android:layout_below="@+id/et_end_code"
             android:layout_marginEnd="@dimen/space_25"
             android:layout_marginStart="@dimen/space_25"
             android:hint="SAP 物料"

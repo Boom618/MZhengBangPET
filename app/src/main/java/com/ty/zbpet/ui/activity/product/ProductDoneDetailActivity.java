@@ -13,8 +13,9 @@ import android.widget.TextView;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.ResponseInfo;
-import com.ty.zbpet.bean.material.MaterialDoneSave;
+import com.ty.zbpet.bean.UserInfo;
 import com.ty.zbpet.bean.product.ProductDetailsOut;
+import com.ty.zbpet.bean.product.ProductDoneSave;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.presenter.product.ProducePresenter;
 import com.ty.zbpet.presenter.product.ProductUiObjInterface;
@@ -48,6 +49,9 @@ public class ProductDoneDetailActivity extends BaseActivity implements ProductUi
     private TextView tvTime;
     private EditText etDesc;
 
+    private TextView titleName;
+    private TextView selectHouse;
+
     private ProductDoneDetailAdapter adapter;
 
     private String selectTime;
@@ -57,11 +61,17 @@ public class ProductDoneDetailActivity extends BaseActivity implements ProductUi
     private String warehouseId;
 
     private String orderId;
+    private String sapOrderNo;
     private List<ProductDetailsOut.ListBean> list = new ArrayList<>();
 
 
     private ProducePresenter presenter = new ProducePresenter(this);
 
+
+    /**
+     * 用户信息
+     */
+    private UserInfo userInfo = DataUtils.getUserInfo();
 
     @Override
     protected void onBaseCreate(Bundle savedInstanceState) {
@@ -70,13 +80,14 @@ public class ProductDoneDetailActivity extends BaseActivity implements ProductUi
 
     @Override
     protected int getActivityLayout() {
-        return R.layout.activity_content_row_two;
+        return R.layout.activity_content_row_three;
     }
 
     @Override
     protected void initOneData() {
 
         orderId = getIntent().getStringExtra("orderId");
+        sapOrderNo = getIntent().getStringExtra("sapOrderNo");
 
         presenter.fetchProductDoneInfo(orderId);
     }
@@ -88,13 +99,18 @@ public class ProductDoneDetailActivity extends BaseActivity implements ProductUi
         initToolBar(R.string.pick_out_storage, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProductDoneSave(initDoneBody());
+                productDoneSave(initDoneBody());
             }
         });
 
         reView = findViewById(R.id.rv_in_storage_detail);
         tvTime = findViewById(R.id.tv_time);
         etDesc = findViewById(R.id.et_desc);
+        titleName = findViewById(R.id.in_storage_detail);
+        selectHouse = findViewById(R.id.tv_house);
+
+        titleName.setText("入库明细");
+        selectHouse.setText(userInfo.getWarehouseList().get(0).getWarehouseName());
 
         SimpleDateFormat format = new SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA);
         selectTime = format.format(new Date());
@@ -120,9 +136,9 @@ public class ProductDoneDetailActivity extends BaseActivity implements ProductUi
     /**
      * 冲销 保存
      */
-    private void ProductDoneSave(RequestBody body) {
+    private void productDoneSave(RequestBody body) {
 
-        HttpMethods.getInstance().getBackDoneSave(new BaseSubscriber<ResponseInfo>() {
+        HttpMethods.getInstance().getProduceDoneSave(new BaseSubscriber<ResponseInfo>() {
             @Override
             public void onError(ApiException e) {
                 ZBUiUtils.showToast(e.getMessage());
@@ -148,12 +164,33 @@ public class ProductDoneDetailActivity extends BaseActivity implements ProductUi
 
     private RequestBody initDoneBody() {
 
-        MaterialDoneSave requestBody = new MaterialDoneSave();
+        ProductDoneSave requestBody = new ProductDoneSave();
+
+        int size = list.size();
+        ArrayList<ProductDoneSave.DetailsBean> beans = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            ProductDoneSave.DetailsBean detailsBean = new ProductDoneSave.DetailsBean();
+
+            ArrayList<String> boxQrCodeList = list.get(i).getBoxQrCodeList();
+            String goodsId = list.get(i).getGoodsId();
+            String goodsNo = list.get(i).getGoodsNo();
+            String warehouseId = list.get(i).getWarehouseId();
+
+            detailsBean.setBoxQrCodeList(boxQrCodeList);
+            detailsBean.setWarehouseId(warehouseId);
+
+            detailsBean.setGoodsId(goodsId);
+            detailsBean.setGoodsNo(goodsNo);
+
+            List<UserInfo.WarehouseListBean> warehouseList = userInfo.getWarehouseList();
+            detailsBean.setWarehouseList(warehouseList);
+        }
 
         String remark = etDesc.getText().toString().trim();
 
+        requestBody.setDetails(beans);
         requestBody.setOrderId(orderId);
-        requestBody.setWarehouseId(warehouseId);
+        requestBody.setSapOrderNo(sapOrderNo);
         requestBody.setOutTime(selectTime);
         requestBody.setRemark(remark);
         String json = DataUtils.toJson(requestBody, 1);
@@ -164,7 +201,7 @@ public class ProductDoneDetailActivity extends BaseActivity implements ProductUi
     @Override
     public void detailObjData(ProductDetailsOut obj) {
 
-        List<ProductDetailsOut.ListBean> list = obj.getList();
+        list = obj.getList();
 
         if (adapter == null) {
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
@@ -177,8 +214,10 @@ public class ProductDoneDetailActivity extends BaseActivity implements ProductUi
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
 
-                    View rlDetail = holder.itemView.findViewById(R.id.gone_view);
+                    View rlDetail = holder.itemView.findViewById(R.id.rl_detail);
                     ImageView ivArrow = holder.itemView.findViewById(R.id.iv_arrow);
+
+                    final ArrayList<String> boxQrCodeList = list.get(position).getBoxQrCodeList();
 
                     Button bindingCode = holder.itemView.findViewById(R.id.btn_binding_code);
 
@@ -196,6 +235,7 @@ public class ProductDoneDetailActivity extends BaseActivity implements ProductUi
                         public void onClick(View v) {
                             Intent intent = new Intent(ProductDoneDetailActivity.this, ScanBoxCodeActivity.class);
                             intent.putExtra(CodeConstant.PAGE_STATE,false);
+                            intent.putStringArrayListExtra("boxCodeList", boxQrCodeList);
                             startActivity(intent);
                         }
                     });

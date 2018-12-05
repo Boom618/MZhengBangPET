@@ -127,6 +127,7 @@ public class ProductDoneFragment extends BaseFragment implements ProductUiObjInt
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                     Intent intent = new Intent(getActivity(), ProductDoneDetailActivity.class);
                     intent.putExtra("orderId", list.get(position).getId());
+                    intent.putExtra("sapOrderNo", list.get(position).getSapOrderNo());
                     startActivity(intent);
                 }
 

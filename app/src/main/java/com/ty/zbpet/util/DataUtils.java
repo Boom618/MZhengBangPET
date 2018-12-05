@@ -54,7 +54,7 @@ public class DataUtils {
                 bean.setWarehouseName("仓库002");
                 bean.setWarehouseNo("CK201808000003");
                 userList.add(bean);
-            }else {
+            } else {
                 UserInfo.WarehouseListBean bean = new UserInfo.WarehouseListBean();
                 bean.setWarehouseId("10");
                 bean.setWarehouseName("仓库001");
@@ -76,21 +76,19 @@ public class DataUtils {
      * SparseArray<SparseArray<Integer>> 采用这种结构是 key 必须唯一
      * <p>
      * SparseArray<Integer> 中
-     * key 代表 item 中的 position 位置
-     * which 代表 仓库选中的位置
      *
-     * @param position
-     * @param which
+     * @param position 代表 item 中的 position 位置
+     * @param which    代表仓库选中的位置
      */
     public static void setHouseId(int position, int which) {
 
         sparseArray.put(position, which);
-        houseId.put(CodeConstant.SELECT_HOUSE_SA, sparseArray);
+        houseId.put(CodeConstant.SELECT_HOUSE_BUY_IN, sparseArray);
     }
 
     public static SparseArray<Integer> getHouseId() {
 
-        SparseArray<Integer> houseIdSArray = houseId.get(CodeConstant.SELECT_HOUSE_SA);
+        SparseArray<Integer> houseIdSArray = houseId.get(CodeConstant.SELECT_HOUSE_BUY_IN);
 
         // 取值:选择的是哪个仓库
         //int which = houseIdSArray.get(position);
@@ -98,8 +96,8 @@ public class DataUtils {
         return houseIdSArray;
     }
 
-    public static void clearHouseId(){
-        houseId.put(CodeConstant.SELECT_HOUSE_SA,null);
+    public static void clearHouseId() {
+        houseId.put(CodeConstant.SELECT_HOUSE_BUY_IN, null);
     }
 
 }

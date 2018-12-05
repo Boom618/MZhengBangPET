@@ -37,7 +37,9 @@
         android:id="@+id/tv_house"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/space_15"
+        android:layout_marginTop="@dimen/space_15"
+        android:layout_marginStart="@dimen/space_15"
+        android:layout_marginEnd="@dimen/space_15"
         android:background="@drawable/shape_white_min_radius"
         android:drawableStart="@mipmap/ic_date"
         android:drawableEnd="@mipmap/ic_bottom"
@@ -56,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/bg_color"
-            android:paddingTop="20dp">
+            android:paddingTop="8dp">
 
             <View
                 android:id="@+id/line1"

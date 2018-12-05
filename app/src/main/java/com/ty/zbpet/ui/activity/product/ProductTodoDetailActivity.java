@@ -15,8 +15,9 @@ import android.widget.TextView;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.ResponseInfo;
-import com.ty.zbpet.bean.material.MaterialTodoSave;
+import com.ty.zbpet.bean.UserInfo;
 import com.ty.zbpet.bean.product.ProductTodoDetails;
+import com.ty.zbpet.bean.product.ProductTodoSave;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.presenter.product.ProducePresenter;
 import com.ty.zbpet.presenter.product.ProductUiObjInterface;
@@ -45,7 +46,8 @@ import okhttp3.RequestBody;
  *
  * @author TY
  */
-public class ProductTodoDetailActivity extends BaseActivity implements ProductUiObjInterface<ProductTodoDetails> {
+public class ProductTodoDetailActivity extends BaseActivity implements ProductUiObjInterface<ProductTodoDetails>
+        , ProductTodoDetailAdapter.SaveEditListener {
 
 
     private RecyclerView reView;
@@ -70,10 +72,18 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
     private ProducePresenter presenter = new ProducePresenter(this);
 
     /**
+     * 用户信息
+     */
+    private UserInfo userInfo;
+
+    /**
      * 保存用户在输入框中的数据
      */
-    private SparseArray<String> bulkNumArray = new SparseArray(10);
-    private SparseArray<String> batchNoArray = new SparseArray(10);
+    private SparseArray<String> numberArray = new SparseArray(10);
+    private SparseArray<String> contentArray = new SparseArray(10);
+    private SparseArray<String> startCodeArray = new SparseArray(10);
+    private SparseArray<String> endCodeArray = new SparseArray(10);
+    private SparseArray<String> sapArray = new SparseArray(10);
     private SparseArray<ArrayList<String>> carCodeArray = new SparseArray(10);
     /**
      * 库位码 ID
@@ -156,10 +166,32 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
             }
         });
 
+        // 仓库默认值设置
+        DataUtils.setHouseId(0, 0);
+
+        userInfo = DataUtils.getUserInfo();
+        List<UserInfo.WarehouseListBean> warehouseList = userInfo.getWarehouseList();
+
+        int size = warehouseList.size();
+        final ArrayList<String> houseName = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            houseName.add(warehouseList.get(i).getWarehouseName());
+        }
+        selectHouse.setText(houseName.get(0));
+
+        selectHouse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ZBUiUtils.selectDialog(v.getContext(), 0, houseName, selectHouse);
+            }
+        });
+
     }
 
     /**
      * 出库 保存
+     *
+     * @param body 参数
      */
     private void ProductTodoSave(RequestBody body) {
 
@@ -167,7 +199,7 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
             return;
         }
 
-        HttpMethods.getInstance().getBackTodoSave(new BaseSubscriber<ResponseInfo>() {
+        HttpMethods.getInstance().getProduceTodoSave(new BaseSubscriber<ResponseInfo>() {
             @Override
             public void onError(ApiException e) {
                 ZBUiUtils.showToast(e.getMessage());
@@ -198,25 +230,57 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
      */
     private RequestBody initTodoBody() {
 
-        MaterialTodoSave requestBody = new MaterialTodoSave();
-        List<MaterialTodoSave.DetailsBean> detail = new ArrayList<>();
+        ProductTodoSave requestBody = new ProductTodoSave();
+        List<ProductTodoSave.DetailsBean> detail = new ArrayList<>();
+
+        SparseArray<Integer> houseId = DataUtils.getHouseId();
+
+        List<UserInfo.WarehouseListBean> warehouseList = userInfo.getWarehouseList();
+
+        // 仓库信息
+        // 仓库 ID 扫箱码获取
+        // warehouseId = warehouseList.get(integer).getWarehouseId();
+        String warehouseNo;
+        String warehouseName;
+        if (houseId == null) {
+            warehouseNo = warehouseList.get(0).getWarehouseNo();
+            warehouseName = warehouseList.get(0).getWarehouseName();
+        } else {
+            Integer integer = houseId.get(0);
+            warehouseNo = warehouseList.get(integer).getWarehouseNo();
+            warehouseName = warehouseList.get(integer).getWarehouseName();
+        }
 
         int size = oldList.size();
         for (int i = 0; i < size; i++) {
             List<String> boxQrCode = carCodeArray.get(i);
-            String bulkNum = bulkNumArray.get(i);
-            String batchNo = batchNoArray.get(i);
+            String bulkNum = numberArray.get(i);
+            String content = contentArray.get(i);
+            String startCode = startCodeArray.get(i);
+            String endCode = endCodeArray.get(i);
+            String sap = sapArray.get(i);
+
             String Id = positionId.get(i);
 
-            MaterialTodoSave.DetailsBean bean = new MaterialTodoSave.DetailsBean();
+            ProductTodoSave.DetailsBean bean = new ProductTodoSave.DetailsBean();
             if (!TextUtils.isEmpty(bulkNum) && boxQrCode.size() > 0) {
+
+                String goodsId = oldList.get(i).getGoodsId();
 
                 bean.setPositionId(Id);
                 bean.setNumber(bulkNum);
-                bean.setSapMaterialBatchNo(batchNo);
+                bean.setContent(content);
+
+                bean.setSapMaterialBatchNo(sap);
+                bean.setStartQrCode(startCode);
+                bean.setEndQrCode(endCode);
+
+                bean.setGoodsId(goodsId);
+                bean.setBoxQrCode(boxQrCode);
+
 
                 detail.add(bean);
-            } else{
+            } else {
                 // 跳出当前一列、不处理
                 continue;
             }
@@ -227,11 +291,18 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
             return null;
         }
 
+        String remark = etDesc.getText().toString().trim();
+        String time = tvTime.getText().toString().trim();
+
         requestBody.setDetails(detail);
+
         requestBody.setWarehouseId(warehouseId);
+        requestBody.setWarehouseNo(warehouseNo);
+        requestBody.setWarehouseName(warehouseName);
+
         requestBody.setSapOrderNo(sapOrderNo);
-        requestBody.setOutTime(tvTime.getText().toString().trim());
-        requestBody.setRemark(etDesc.getText().toString().trim());
+        requestBody.setInTime(time);
+        requestBody.setRemark(remark);
 
 
         String json = DataUtils.toJson(requestBody, 1);
@@ -243,21 +314,7 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
     @Override
     public void detailObjData(ProductTodoDetails details) {
 
-        houseList = details.getWarehouseList();
         oldList = details.getList();
-
-        int size = houseList.size();
-        final ArrayList<String> houseName = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            houseName.add(houseList.get(i).getWarehouseName());
-        }
-        selectHouse.setText(houseName.get(0));
-        selectHouse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ZBUiUtils.selectDialog(v.getContext(), houseName, selectHouse);
-            }
-        });
 
         if (adapter == null) {
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
@@ -314,9 +371,28 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_SCAN_CODE && resultCode == RESULT_SCAN_CODE) {
             itemId = data.getIntExtra("itemId", -1);
+            warehouseId = data.getStringExtra("warehouseId");
             boxCodeList = data.getStringArrayListExtra("boxCodeList");
             carCodeArray.put(itemId, boxCodeList);
         }
     }
 
+    @Override
+    public void saveEditAndGetHasFocusPosition(String etType, Boolean hasFocus, int position, EditText editText) {
+
+        String textContent = editText.getText().toString().trim();
+
+        if (CodeConstant.ET_NUMBER.equals(etType)) {
+            numberArray.put(position, textContent);
+        } else if (CodeConstant.ET_CONTENT.equals(etType)) {
+            contentArray.put(position, textContent);
+        } else if (CodeConstant.ET_BATCH_NO.equals(etType)) {
+            sapArray.put(position, textContent);
+        } else if (CodeConstant.ET_START_CODE.equals(etType)) {
+            startCodeArray.put(position, textContent);
+        } else if (CodeConstant.ET_END_CODE.equals(etType)) {
+            endCodeArray.put(position, textContent);
+        }
+
+    }
 }

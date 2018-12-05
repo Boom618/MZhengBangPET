@@ -38,8 +38,10 @@ class ProductDetailsOut {
         var goodsName: String? = null
         var startQrCode: String? = null
         var endQrCode: String? = null
+        var content: String? = null
         var number: String? = null
         var orderNumber: String? = null
+        var sapMaterialBatchNo: String? = null
         var productionDate: String? = null
         var expirationDate: String? = null
         var sapStorageNo: String? = null

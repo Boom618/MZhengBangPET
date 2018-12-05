@@ -25,7 +25,12 @@ public class ProductDoneDetailAdapter extends CommonAdapter<ProductDetailsOut.Li
     @Override
     protected void convert(ViewHolder holder, ProductDetailsOut.ListBean list, final int position) {
         holder.setText(R.id.tv_name, list.getGoodsName())
-                .setText(R.id.tv_num, list.getNumber() + "  " + list.getUnitS());
+                .setText(R.id.tv_content,list.getContent())
+                .setText(R.id.tv_start_code,list.getStartQrCode())
+                .setText(R.id.tv_end_code,list.getEndQrCode())
+                .setText(R.id.tv_box_num,list.getNumber())
+                .setText(R.id.tv_sap,list.getSapMaterialBatchNo())
+                .setText(R.id.tv_num, list.getNumber());
 
     }
 

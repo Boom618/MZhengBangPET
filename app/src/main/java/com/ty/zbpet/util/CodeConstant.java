@@ -31,9 +31,12 @@ public final class CodeConstant {
 
     /**
      * 开始 结束码
+     * 数量 文本
      */
     public static final String ET_START_CODE = "start_code ";
     public static final String ET_END_CODE = "end_code";
+    public static final String ET_NUMBER = "number";
+    public static final String ET_CONTENT = "content";
     /**
      * 按键码 131 or 135 : K3A手柄键   139 : G3A F1键
      */
@@ -76,7 +79,8 @@ public final class CodeConstant {
      * 选择的是哪个仓库
      */
     //public static final String SELECT_HOUSE_ID = "house_id";
-    public static final int SELECT_HOUSE_SA = 100;
+    public static final int SELECT_HOUSE_BUY_IN = 100;
+    public static final int SELECT_HOUSE_PRODUCT = 200;
 
 
 }

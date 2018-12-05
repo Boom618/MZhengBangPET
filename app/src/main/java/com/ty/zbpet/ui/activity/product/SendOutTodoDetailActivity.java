@@ -18,6 +18,7 @@ import com.ty.zbpet.R;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.UserInfo;
 import com.ty.zbpet.bean.product.ProductDetailsIn;
+import com.ty.zbpet.bean.product.ProductTodoDetails;
 import com.ty.zbpet.bean.product.ProductTodoSave;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.presenter.product.ProductUiListInterface;
@@ -48,7 +49,7 @@ import okhttp3.RequestBody;
  *
  * @author TY
  */
-public class SendOutTodoDetailActivity extends BaseActivity implements ProductUiListInterface<ProductDetailsIn.ListBean> {
+public class SendOutTodoDetailActivity extends BaseActivity implements ProductUiListInterface<ProductTodoDetails.ListBean> {
 
 
     private RecyclerView reView;
@@ -64,7 +65,7 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
     private String selectTime;
     private String sapOrderNo;
 
-    private List<ProductDetailsIn.ListBean> oldList = new ArrayList<>();
+    private List<ProductTodoDetails.ListBean> oldList = new ArrayList<>();
 
     private final static int REQUEST_SCAN_CODE = 1;
     private final static int RESULT_SCAN_CODE = 2;
@@ -160,8 +161,8 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
         addShip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<ProductDetailsIn.ListBean> tempList = new ArrayList<>(oldList);
-                ProductDetailsIn.ListBean bean = new ProductDetailsIn.ListBean();
+                List<ProductTodoDetails.ListBean> tempList = new ArrayList<>(oldList);
+                ProductTodoDetails.ListBean bean = new ProductTodoDetails.ListBean();
 
                 bean.setSapOrderNo("SAP0001");
                 bean.setGoodsName("新 40+30）g*100");
@@ -169,7 +170,8 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
                 bean.setGoodsNo("90000933");
                 bean.setUnitS("件");
                 bean.setOrderNumber("100");
-                bean.setWarehouseList(oldList.get(0).getWarehouseList());
+                //bean.setWarehouseList(oldList.get(0).getWarehouseList());
+
 
                 tempList.add(bean);
 
@@ -282,7 +284,7 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
 
 
     @Override
-    public void showProduct(List<ProductDetailsIn.ListBean> list) {
+    public void showProduct(List<ProductTodoDetails.ListBean> list) {
 
         oldList = list;
 

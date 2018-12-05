@@ -25,6 +25,10 @@ class ProductTodoSave {
     var remark: String? = null
     var details: List<DetailsBean>? = null
 
+    // 生产入库 仓库在外层
+    var warehouseNo: String? = null
+    var warehouseName: String? = null
+
     class DetailsBean {
         /**
          * positionId : 1
@@ -42,10 +46,12 @@ class ProductTodoSave {
         var goodsId: String? = null
         var goodsNo: String? = null
         var sapMaterialBatchNo: String? = null
-        var goodsQrCodeStart: String? = null
-        var goodsQrCodeEnd: String? = null
+        var startQrCode: String? = null
+        var endQrCode: String? = null
+        var content: String? = null
         var boxQrCode: List<String>? = null
 
+        // 外采入库 仓库在 list 中
         var warehouseId: String? = null
         var warehouseNo: String? = null
         var warehouseName: String? = null
