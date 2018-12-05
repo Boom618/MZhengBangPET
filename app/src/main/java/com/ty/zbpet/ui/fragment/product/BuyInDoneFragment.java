@@ -21,6 +21,7 @@ import com.ty.zbpet.ui.activity.product.BuyInDoneDetailActivity;
 import com.ty.zbpet.ui.adapter.product.BuyInDoneListAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
+import com.ty.zbpet.util.CodeConstant;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.ZBUiUtils;
 
@@ -43,6 +44,11 @@ public class BuyInDoneFragment extends BaseFragment implements ProductUiObjInter
     private BuyInPresenter presenter = new BuyInPresenter(this);
 
     private BuyInDoneListAdapter adapter;
+
+    /**
+     * 下拉刷新 flag
+     */
+    private boolean refresh = false;
 
     public static BuyInDoneFragment newInstance(String tag){
         BuyInDoneFragment fragment = new BuyInDoneFragment();
@@ -71,7 +77,7 @@ public class BuyInDoneFragment extends BaseFragment implements ProductUiObjInter
     public void onStart() {
         super.onStart();
 
-        presenter.fetchBuyInDoneList("1");
+        presenter.fetchBuyInDoneList(CodeConstant.BUY_IN_TYPE);
 
     }
 
@@ -85,7 +91,8 @@ public class BuyInDoneFragment extends BaseFragment implements ProductUiObjInter
                 // 传入 false 表示刷新失败
                 refreshLayout.finishRefresh(1000);
                 // 刷新数据
-                presenter.fetchBuyInDoneList("1");
+                presenter.fetchBuyInDoneList(CodeConstant.BUY_IN_TYPE);
+                refresh = true;
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -103,10 +110,13 @@ public class BuyInDoneFragment extends BaseFragment implements ProductUiObjInter
 
         final List<ProductDoneList.ListBean> list = obj.getList();
 
-        if (adapter == null) {
-            LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
-            recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
-            recyclerView.setLayoutManager(manager);
+        if (adapter == null || refresh) {
+            refresh = false;
+            if (adapter == null) {
+                LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
+                recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
+                recyclerView.setLayoutManager(manager);
+            }
             adapter = new BuyInDoneListAdapter(ResourceUtil.getContext(),R.layout.activity_content_list_two,list);
             recyclerView.setAdapter(adapter);
 
@@ -115,6 +125,7 @@ public class BuyInDoneFragment extends BaseFragment implements ProductUiObjInter
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                     Intent intent = new Intent(getActivity(), BuyInDoneDetailActivity.class);
                     intent.putExtra("orderId", list.get(position).getId());
+                    intent.putExtra("sapOrderNo", list.get(position).getSapOrderNo());
                     startActivity(intent);
                 }
 

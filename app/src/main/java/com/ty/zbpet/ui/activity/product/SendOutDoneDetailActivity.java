@@ -16,11 +16,9 @@ import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.material.MaterialDoneSave;
 import com.ty.zbpet.bean.product.ProductDetailsOut;
 import com.ty.zbpet.net.HttpMethods;
-import com.ty.zbpet.presenter.product.BuyInPresenter;
 import com.ty.zbpet.presenter.product.ProductUiObjInterface;
 import com.ty.zbpet.presenter.product.SendOutPresenter;
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity;
-import com.ty.zbpet.ui.adapter.product.ProductDoneDetailAdapter;
 import com.ty.zbpet.ui.adapter.product.SendOutDoneDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
@@ -90,7 +88,7 @@ public class SendOutDoneDetailActivity extends BaseActivity implements ProductUi
         initToolBar(R.string.pick_out_storage, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BuyInDoneSave(initDoneBody());
+                SendOutDoneSave(initDoneBody());
             }
         });
 
@@ -122,9 +120,9 @@ public class SendOutDoneDetailActivity extends BaseActivity implements ProductUi
     /**
      * 冲销 保存
      */
-    private void BuyInDoneSave(RequestBody body) {
+    private void SendOutDoneSave(RequestBody body) {
 
-        HttpMethods.getInstance().getBackDoneSave(new BaseSubscriber<ResponseInfo>() {
+        HttpMethods.getInstance().getShipDoneSave(new BaseSubscriber<ResponseInfo>() {
             @Override
             public void onError(ApiException e) {
                 ZBUiUtils.showToast(e.getMessage());

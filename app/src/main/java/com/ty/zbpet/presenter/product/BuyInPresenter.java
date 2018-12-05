@@ -1,6 +1,6 @@
 package com.ty.zbpet.presenter.product;
 
-import com.ty.zbpet.bean.product.BuyInTodoDetails;
+import com.ty.zbpet.bean.product.ProductDetailsIn;
 import com.ty.zbpet.bean.product.ProductDetailsOut;
 import com.ty.zbpet.bean.product.ProductDoneList;
 import com.ty.zbpet.bean.product.ProductTodoList;
@@ -82,18 +82,20 @@ public class BuyInPresenter {
      */
     public void fetchBuyInTodoListDetails(String sapOrderNo) {
 
-        httpMethods.getBuyInOrderInfo(new SingleObserver<BaseResponse<BuyInTodoDetails>>() {
+        httpMethods.getBuyInOrderInfo(new SingleObserver<BaseResponse<ProductDetailsIn>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;
             }
 
             @Override
-            public void onSuccess(BaseResponse<BuyInTodoDetails> response) {
+            public void onSuccess(BaseResponse<ProductDetailsIn> response) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
-                    BuyInTodoDetails data = response.getData();
-                    objInterface.detailObjData(data);
+                    ProductDetailsIn data = response.getData();
+                    List<ProductDetailsIn.ListBean> list = response.getData().getList();
+//                    objInterface.detailObjData(data);
+                    listInterface.showProduct(list);
 
                 } else {
                     ZBUiUtils.showToast("失败 : =" + response.getMessage());

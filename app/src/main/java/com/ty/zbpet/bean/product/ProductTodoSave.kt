@@ -18,8 +18,8 @@ class ProductTodoSave {
      */
 
     var warehouseId: String? = null
-    var inStoreDate: String? = null
-    var sapPlantNo: String? = null
+    var inTime: String? = null
+    var sapOrderNo: String? = null
     var orderId: String? = null
     var productionBatchNo: String? = null
     var remark: String? = null
@@ -38,10 +38,16 @@ class ProductTodoSave {
 
         var positionId: String? = null
         var number: String? = null
+        var orderNumber: String? = null
         var goodsId: String? = null
+        var goodsNo: String? = null
         var sapMaterialBatchNo: String? = null
         var goodsQrCodeStart: String? = null
         var goodsQrCodeEnd: String? = null
         var boxQrCode: List<String>? = null
+
+        var warehouseId: String? = null
+        var warehouseNo: String? = null
+        var warehouseName: String? = null
     }
 }

@@ -3,7 +3,7 @@ package com.ty.zbpet.ui.adapter.product;
 import android.content.Context;
 
 import com.ty.zbpet.R;
-import com.ty.zbpet.bean.product.BuyInTodoDetails;
+import com.ty.zbpet.bean.product.ProductDetailsIn;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -14,17 +14,17 @@ import java.util.List;
  * <p>
  * 发货出库 待办详情
  */
-public class SendOutTodoDetailAdapter extends CommonAdapter<BuyInTodoDetails.ListBean> {
+public class SendOutTodoDetailAdapter extends CommonAdapter<ProductDetailsIn.ListBean> {
 
 
-    public SendOutTodoDetailAdapter(Context context, int layoutId, List<BuyInTodoDetails.ListBean> datas) {
+    public SendOutTodoDetailAdapter(Context context, int layoutId, List<ProductDetailsIn.ListBean> datas) {
         super(context, layoutId, datas);
     }
 
     @Override
-    protected void convert(ViewHolder holder, BuyInTodoDetails.ListBean list, final int position) {
+    protected void convert(ViewHolder holder, ProductDetailsIn.ListBean list, final int position) {
         holder.setText(R.id.tv_name, list.getGoodsName())
-                .setText(R.id.tv_select_ware, list.getWarehouseList().get(0).getWarehouseName())
+                .setText(R.id.tv_select_ware, "===  商品1 =")
                 .setText(R.id.tv_num, list.getOrderNumber() + "  " + list.getUnitS());
 
     }

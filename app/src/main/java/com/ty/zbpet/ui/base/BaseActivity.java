@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.ty.zbpet.R;
 import com.ty.zbpet.util.ACache;
 import com.ty.zbpet.util.CodeConstant;
+import com.ty.zbpet.util.DataUtils;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -159,6 +160,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         // 库位码 内容
         mCache.put(CodeConstant.SCAN_BOX_KEY,"");
         mCache.put(CodeConstant.ET_ZKG,"");
+
+        DataUtils.clearHouseId();
     }
 
 

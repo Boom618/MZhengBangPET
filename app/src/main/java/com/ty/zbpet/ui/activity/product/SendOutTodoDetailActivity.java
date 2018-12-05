@@ -2,6 +2,7 @@ package com.ty.zbpet.ui.activity.product;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -15,20 +16,14 @@ import android.widget.TextView;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.ResponseInfo;
-import com.ty.zbpet.bean.material.MaterialTodoSave;
-import com.ty.zbpet.bean.product.BuyInTodoDetails;
+import com.ty.zbpet.bean.UserInfo;
 import com.ty.zbpet.bean.product.ProductDetailsIn;
-import com.ty.zbpet.bean.product.ProductTodoDetails;
 import com.ty.zbpet.bean.product.ProductTodoSave;
 import com.ty.zbpet.net.HttpMethods;
-import com.ty.zbpet.presenter.product.BuyInPresenter;
-import com.ty.zbpet.presenter.product.ProducePresenter;
 import com.ty.zbpet.presenter.product.ProductUiListInterface;
-import com.ty.zbpet.presenter.product.ProductUiObjInterface;
 import com.ty.zbpet.presenter.product.SendOutPresenter;
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity;
-import com.ty.zbpet.ui.adapter.product.BuyInTodoDetailAdapter;
-import com.ty.zbpet.ui.adapter.product.ProductTodoDetailAdapter;
+import com.ty.zbpet.ui.adapter.diffadapter.SendOutDiffUtil;
 import com.ty.zbpet.ui.adapter.product.SendOutTodoDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
@@ -53,7 +48,7 @@ import okhttp3.RequestBody;
  *
  * @author TY
  */
-public class SendOutTodoDetailActivity extends BaseActivity implements ProductUiObjInterface<BuyInTodoDetails> {
+public class SendOutTodoDetailActivity extends BaseActivity implements ProductUiListInterface<ProductDetailsIn.ListBean> {
 
 
     private RecyclerView reView;
@@ -69,7 +64,7 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
     private String selectTime;
     private String sapOrderNo;
 
-    private ArrayList<ProductDetailsIn.ListBean> oldList = new ArrayList<>();
+    private List<ProductDetailsIn.ListBean> oldList = new ArrayList<>();
 
     private final static int REQUEST_SCAN_CODE = 1;
     private final static int RESULT_SCAN_CODE = 2;
@@ -128,7 +123,7 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
         initToolBar(R.string.label_send_out_storage, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BuyInTodoSave(initTodoBody());
+                SendOutTodoSave(initTodoBody());
             }
         });
 
@@ -165,6 +160,27 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
         addShip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                List<ProductDetailsIn.ListBean> tempList = new ArrayList<>(oldList);
+                ProductDetailsIn.ListBean bean = new ProductDetailsIn.ListBean();
+
+                bean.setSapOrderNo("SAP0001");
+                bean.setGoodsName("新 40+30）g*100");
+                bean.setGoodsId("20");
+                bean.setGoodsNo("90000933");
+                bean.setUnitS("件");
+                bean.setOrderNumber("100");
+                bean.setWarehouseList(oldList.get(0).getWarehouseList());
+
+                tempList.add(bean);
+
+                DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new SendOutDiffUtil(oldList, tempList),false);
+                diffResult.dispatchUpdatesTo(adapter);
+
+                // 清除原数据,更新原数据,清除临时保存数据
+                oldList.clear();
+                oldList.addAll(tempList);
+                tempList.clear();
+
                 ZBUiUtils.showToast("添加发货出库");
             }
         });
@@ -175,7 +191,7 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
     /**
      * 出库 保存
      */
-    private void BuyInTodoSave(RequestBody body) {
+    private void SendOutTodoSave(RequestBody body) {
 
         if (body == null) {
             return;
@@ -248,12 +264,15 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
             return null;
         }
 
+        String remark = etDesc.getText().toString().trim();
+        String time = tvTime.getText().toString().trim();
+
         requestBody.setDetails(detail);
-        requestBody.setInStoreDate(tvTime.getText().toString().trim());
         requestBody.setWarehouseId("仓库ID");
-        requestBody.setSapPlantNo("管联单据");
+        requestBody.setSapOrderNo("管联单据");
         requestBody.setProductionBatchNo("生产批次号");
-        requestBody.setRemark(etDesc.getText().toString().trim());
+        requestBody.setInTime(time);
+        requestBody.setRemark(remark);
 
 
         String json = DataUtils.toJson(requestBody, 1);
@@ -263,9 +282,10 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
 
 
     @Override
-    public void detailObjData(BuyInTodoDetails details) {
+    public void showProduct(List<ProductDetailsIn.ListBean> list) {
 
-        final List<BuyInTodoDetails.ListBean> list = details.getList();
+        oldList = list;
+
         if (adapter == null) {
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             reView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
@@ -280,7 +300,8 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
                     View rlDetail = holder.itemView.findViewById(R.id.gone_view);
                     ImageView ivArrow = holder.itemView.findViewById(R.id.iv_arrow);
                     Button bindingCode = holder.itemView.findViewById(R.id.btn_binding_code);
-                    final TextView selectHouse = holder.itemView.findViewById(R.id.tv_select_ware);
+                    bindingCode.setText("箱码出库");
+                    final TextView selectGoods = holder.itemView.findViewById(R.id.tv_select_ware);
 
                     if (rlDetail.getVisibility() == View.VISIBLE) {
                         rlDetail.setVisibility(View.GONE);
@@ -302,7 +323,10 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
                         }
                     });
 
-                    List<BuyInTodoDetails.ListBean.WarehouseListBean> warehouseList = list.get(position).getWarehouseList();
+                    //List<BuyInTodoDetails.ListBean.WarehouseListBean> warehouseList = list.get(position).getWarehouseList();
+                    UserInfo userInfo = DataUtils.getUserInfo();
+
+                    List<UserInfo.WarehouseListBean> warehouseList = userInfo.getWarehouseList();
                     final ArrayList<String> houseName = new ArrayList<>();
 
                     int size = warehouseList.size();
@@ -310,10 +334,10 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
                         houseName.add(warehouseList.get(i).getWarehouseName());
                     }
 
-                    selectHouse.setOnClickListener(new View.OnClickListener() {
+                    selectGoods.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            ZBUiUtils.selectDialog(view.getContext(), houseName, selectHouse);
+                            ZBUiUtils.selectDialog(view.getContext(), houseName, selectGoods);
                         }
                     });
 

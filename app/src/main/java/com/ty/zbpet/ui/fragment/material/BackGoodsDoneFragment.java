@@ -64,6 +64,10 @@ public class BackGoodsDoneFragment extends BaseFragment implements MaterialUiLis
     @Override
     protected View onBaseCreate(View view) {
 
+        refreshLayout.setRefreshHeader(new MaterialHeader(this.getContext()));
+        //设置 Footer 为 球脉冲 样式
+        refreshLayout.setRefreshFooter(new BallPulseFooter(this.getContext()).setSpinnerStyle(SpinnerStyle.Scale));
+
         return view;
     }
 
@@ -80,9 +84,11 @@ public class BackGoodsDoneFragment extends BaseFragment implements MaterialUiLis
         // 第一次获取数据
         presenter.fetchBackDoneList(CodeConstant.BACK_GOODS_TYPE);
 
-        refreshLayout.setRefreshHeader(new MaterialHeader(this.getContext()));
-        //设置 Footer 为 球脉冲 样式
-        refreshLayout.setRefreshFooter(new BallPulseFooter(this.getContext()).setSpinnerStyle(SpinnerStyle.Scale));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
 
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override

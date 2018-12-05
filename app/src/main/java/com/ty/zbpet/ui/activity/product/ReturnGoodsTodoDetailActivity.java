@@ -15,15 +15,13 @@ import android.widget.TextView;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.ResponseInfo;
-import com.ty.zbpet.bean.product.BuyInTodoDetails;
+import com.ty.zbpet.bean.UserInfo;
 import com.ty.zbpet.bean.product.ProductDetailsIn;
 import com.ty.zbpet.bean.product.ProductTodoSave;
 import com.ty.zbpet.net.HttpMethods;
-import com.ty.zbpet.presenter.product.BuyInPresenter;
 import com.ty.zbpet.presenter.product.ProductUiObjInterface;
 import com.ty.zbpet.presenter.product.ReturnPresenter;
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity;
-import com.ty.zbpet.ui.adapter.product.BuyInTodoDetailAdapter;
 import com.ty.zbpet.ui.adapter.product.ReturnGoodsTodoDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
@@ -47,7 +45,7 @@ import okhttp3.RequestBody;
  * @author TY on 2018/11/22.
  * 退货入库 待办详情
  */
-public class ReturnGoodsTodoDetailActivity extends BaseActivity implements ProductUiObjInterface<BuyInTodoDetails> {
+public class ReturnGoodsTodoDetailActivity extends BaseActivity implements ProductUiObjInterface<ProductDetailsIn> {
 
 
     private RecyclerView reView;
@@ -121,7 +119,7 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
         initToolBar(R.string.label_purchase_in_storage, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BuyInTodoSave(initTodoBody());
+                ReturnGoodsTodoSave(initTodoBody());
             }
         });
 
@@ -160,7 +158,7 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
     /**
      * 出库 保存
      */
-    private void BuyInTodoSave(RequestBody body) {
+    private void ReturnGoodsTodoSave(RequestBody body) {
 
         if (body == null) {
             return;
@@ -233,13 +231,15 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
         if (detail.size() == 0) {
             return null;
         }
+        String remark = etDesc.getText().toString().trim();
+        String time = tvTime.getText().toString().trim();
 
         requestBody.setDetails(detail);
-        requestBody.setInStoreDate(tvTime.getText().toString().trim());
         requestBody.setWarehouseId("仓库ID");
-        requestBody.setSapPlantNo("管联单据");
+        requestBody.setSapOrderNo("管联单据");
         requestBody.setProductionBatchNo("生产批次号");
-        requestBody.setRemark(etDesc.getText().toString().trim());
+        requestBody.setInTime(time);
+        requestBody.setRemark(remark);
 
 
         String json = DataUtils.toJson(requestBody, 1);
@@ -249,9 +249,9 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
 
 
     @Override
-    public void detailObjData(BuyInTodoDetails details) {
+    public void detailObjData(ProductDetailsIn details) {
 
-        final List<BuyInTodoDetails.ListBean> list = details.getList();
+        final List<ProductDetailsIn.ListBean> list = details.getList();
         if (adapter == null) {
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             reView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
@@ -288,7 +288,10 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
                         }
                     });
 
-                    List<BuyInTodoDetails.ListBean.WarehouseListBean> warehouseList = list.get(position).getWarehouseList();
+                    //List<BuyInTodoDetails.ListBean.WarehouseListBean> warehouseList = list.get(position).getWarehouseList();
+                    UserInfo userInfo = DataUtils.getUserInfo();
+
+                    List<UserInfo.WarehouseListBean> warehouseList = userInfo.getWarehouseList();
                     final ArrayList<String> houseName = new ArrayList<>();
 
                     int size = warehouseList.size();

@@ -1,5 +1,6 @@
 package com.ty.zbpet.presenter.product;
 
+import com.ty.zbpet.bean.material.MaterialDoneList;
 import com.ty.zbpet.bean.product.ProductDoneList;
 import com.ty.zbpet.bean.product.ProductTodoList;
 import com.ty.zbpet.net.HttpMethods;
@@ -78,17 +79,17 @@ public class ReturnPresenter {
      * 已办列表
      */
     public void fetchReturnGoodsDoneList(String type) {
-        httpMethods.getShipDoneList(new SingleObserver<BaseResponse<ProductDoneList>>() {
+        httpMethods.getReturnDoneList(new SingleObserver<BaseResponse<MaterialDoneList>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;
             }
 
             @Override
-            public void onSuccess(BaseResponse<ProductDoneList> response) {
+            public void onSuccess(BaseResponse<MaterialDoneList> response) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
-                    ProductDoneList data = response.getData();
+                    MaterialDoneList data = response.getData();
                     if (data.getCount() == 0) {
                         ZBUiUtils.showToast("没有数据");
                     }else {

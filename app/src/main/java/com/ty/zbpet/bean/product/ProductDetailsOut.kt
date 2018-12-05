@@ -1,5 +1,7 @@
 package com.ty.zbpet.bean.product
 
+import java.util.ArrayList
+
 /**
  * @author TY on 2018/11/28.
  *
@@ -27,20 +29,25 @@ class ProductDetailsOut {
          * boxQrCodeList : ["123456789012345678903","123456789012345678914"]
          */
 
-        var id: Int = 0
-        var inWarehouseOrderId: Int = 0
+        var id: String? = null
+        var inWarehouseOrderId: String? = null
+        var warehouseId: String? = null
         var positionId: String? = null
-        var goodsId: Int = 0
+        var goodsId: String? = null
+        var goodsNo: String? = null
         var goodsName: String? = null
-        var goodsNo: Int = 0
-        var number: Int = 0
+        var startQrCode: String? = null
+        var endQrCode: String? = null
+        var number: String? = null
+        var orderNumber: String? = null
         var productionDate: String? = null
         var expirationDate: String? = null
         var sapStorageNo: String? = null
-        var state: Int = 0
+        var state: String? = null
         var createdAt: String? = null
         var updatedAt: String? = null
         var unitS: String? = null
-        var boxQrCodeList: List<String>? = null
+        var orderId: String? = null
+        var boxQrCodeList: ArrayList<String>? = null
     }
 }

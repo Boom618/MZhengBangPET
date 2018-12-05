@@ -12,7 +12,7 @@ import com.ty.zbpet.bean.material.MaterialDetailsIn;
 import com.ty.zbpet.bean.material.MaterialDetailsOut;
 import com.ty.zbpet.bean.material.MaterialDoneList;
 import com.ty.zbpet.bean.material.MaterialTodoList;
-import com.ty.zbpet.bean.product.BuyInTodoDetails;
+import com.ty.zbpet.bean.product.ProductDetailsIn;
 import com.ty.zbpet.bean.product.ProductDetailsOut;
 import com.ty.zbpet.bean.product.ProductDoneList;
 import com.ty.zbpet.bean.product.ProductTodoDetails;
@@ -340,7 +340,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getBuyInOrderInfo(SingleObserver<BaseResponse<BuyInTodoDetails>> subscriber, String sapOrderNo) {
+    public void getBuyInOrderInfo(SingleObserver<BaseResponse<ProductDetailsIn>> subscriber, String sapOrderNo) {
         mService.getBuyInOrderInfo(sapOrderNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -431,8 +431,8 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getProduceDoneList(SingleObserver<BaseResponse<ProductDoneList>> subscriber) {
-        mService.getProduceDoneList()
+    public void getProduceDoneList(SingleObserver<BaseResponse<ProductDoneList>> subscriber,String type) {
+        mService.getProduceDoneList(type)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -571,8 +571,8 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getReturnDoneList(BaseSubscriber<BaseResponse<MaterialDoneList>> subscriber) {
-        mService.getReturnDoneList()
+    public void getReturnDoneList(SingleObserver<BaseResponse<MaterialDoneList>> subscriber,String type) {
+        mService.getReturnDoneList(type)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -583,8 +583,8 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getReturnDoneListInfo(BaseSubscriber<BaseResponse<MaterialDoneDetailsData>> subscriber, String sapOrderNo) {
-        mService.getReturnDoneListInfo(sapOrderNo)
+    public void getReturnDoneListInfo(BaseSubscriber<BaseResponse<MaterialDoneDetailsData>> subscriber, String orderId) {
+        mService.getReturnDoneListInfo(orderId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }

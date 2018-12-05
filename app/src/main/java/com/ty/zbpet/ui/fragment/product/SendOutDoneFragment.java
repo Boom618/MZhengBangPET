@@ -15,16 +15,13 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.product.ProductDoneList;
-import com.ty.zbpet.presenter.product.ProducePresenter;
 import com.ty.zbpet.presenter.product.ProductUiObjInterface;
 import com.ty.zbpet.presenter.product.SendOutPresenter;
-import com.ty.zbpet.ui.activity.product.BuyInDoneDetailActivity;
 import com.ty.zbpet.ui.activity.product.SendOutDoneDetailActivity;
-import com.ty.zbpet.ui.adapter.product.BuyInDoneListAdapter;
-import com.ty.zbpet.ui.adapter.product.ProductDoneListAdapter;
 import com.ty.zbpet.ui.adapter.product.SendOutDoneListAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
+import com.ty.zbpet.util.CodeConstant;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.ZBUiUtils;
 
@@ -47,6 +44,11 @@ public class SendOutDoneFragment extends BaseFragment implements ProductUiObjInt
     private SendOutPresenter presenter = new SendOutPresenter(this);
 
     private SendOutDoneListAdapter adapter;
+
+    /**
+     * 下拉刷新 flag
+     */
+    private boolean refresh = false;
 
     public static SendOutDoneFragment newInstance(String tag){
         SendOutDoneFragment fragment = new SendOutDoneFragment();
@@ -75,7 +77,7 @@ public class SendOutDoneFragment extends BaseFragment implements ProductUiObjInt
     public void onStart() {
         super.onStart();
 
-        presenter.fetchSendOutDoneList("1");
+        presenter.fetchSendOutDoneList(CodeConstant.PICK_OUT_TYPE);
 
     }
 
@@ -89,7 +91,8 @@ public class SendOutDoneFragment extends BaseFragment implements ProductUiObjInt
                 // 传入 false 表示刷新失败
                 refreshLayout.finishRefresh(1000);
                 // 刷新数据
-                presenter.fetchSendOutDoneList("1");
+                presenter.fetchSendOutDoneList(CodeConstant.PICK_OUT_TYPE);
+                refresh = true;
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -107,10 +110,13 @@ public class SendOutDoneFragment extends BaseFragment implements ProductUiObjInt
 
         final List<ProductDoneList.ListBean> list = obj.getList();
 
-        if (adapter == null) {
-            LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
-            recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
-            recyclerView.setLayoutManager(manager);
+        if (adapter == null || refresh) {
+            refresh = false;
+            if (adapter == null) {
+                LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
+                recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
+                recyclerView.setLayoutManager(manager);
+            }
             adapter = new SendOutDoneListAdapter(ResourceUtil.getContext(),R.layout.item_produce_in_storage_complete,list);
             recyclerView.setAdapter(adapter);
 

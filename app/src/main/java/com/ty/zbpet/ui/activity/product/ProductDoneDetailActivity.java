@@ -16,10 +16,9 @@ import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.material.MaterialDoneSave;
 import com.ty.zbpet.bean.product.ProductDetailsOut;
 import com.ty.zbpet.net.HttpMethods;
-import com.ty.zbpet.presenter.product.BuyInPresenter;
+import com.ty.zbpet.presenter.product.ProducePresenter;
 import com.ty.zbpet.presenter.product.ProductUiObjInterface;
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity;
-import com.ty.zbpet.ui.adapter.product.BuyInDoneDetailAdapter;
 import com.ty.zbpet.ui.adapter.product.ProductDoneDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
@@ -61,7 +60,7 @@ public class ProductDoneDetailActivity extends BaseActivity implements ProductUi
     private List<ProductDetailsOut.ListBean> list = new ArrayList<>();
 
 
-    private BuyInPresenter presenter = new BuyInPresenter(this);
+    private ProducePresenter presenter = new ProducePresenter(this);
 
 
     @Override
@@ -79,7 +78,7 @@ public class ProductDoneDetailActivity extends BaseActivity implements ProductUi
 
         orderId = getIntent().getStringExtra("orderId");
 
-        presenter.fetchBuyInDoneListDetails(orderId);
+        presenter.fetchProductDoneInfo(orderId);
     }
 
     @Override
@@ -89,7 +88,7 @@ public class ProductDoneDetailActivity extends BaseActivity implements ProductUi
         initToolBar(R.string.pick_out_storage, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BuyInDoneSave(initDoneBody());
+                ProductDoneSave(initDoneBody());
             }
         });
 
@@ -121,7 +120,7 @@ public class ProductDoneDetailActivity extends BaseActivity implements ProductUi
     /**
      * 冲销 保存
      */
-    private void BuyInDoneSave(RequestBody body) {
+    private void ProductDoneSave(RequestBody body) {
 
         HttpMethods.getInstance().getBackDoneSave(new BaseSubscriber<ResponseInfo>() {
             @Override

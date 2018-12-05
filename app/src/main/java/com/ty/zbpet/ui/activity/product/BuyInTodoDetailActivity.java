@@ -15,12 +15,13 @@ import android.widget.TextView;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.ResponseInfo;
-import com.ty.zbpet.bean.product.BuyInTodoDetails;
+import com.ty.zbpet.bean.UserInfo;
 import com.ty.zbpet.bean.product.ProductDetailsIn;
 import com.ty.zbpet.bean.product.ProductTodoSave;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.presenter.product.BuyInPresenter;
-import com.ty.zbpet.presenter.product.ProductUiObjInterface;
+import com.ty.zbpet.presenter.product.ProductUiListInterface;
+import com.ty.zbpet.ui.MainApp;
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity;
 import com.ty.zbpet.ui.adapter.product.BuyInTodoDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
@@ -28,6 +29,7 @@ import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.CodeConstant;
 import com.ty.zbpet.util.DataUtils;
 import com.ty.zbpet.util.ResourceUtil;
+import com.ty.zbpet.util.ViewSetValue;
 import com.ty.zbpet.util.ZBLog;
 import com.ty.zbpet.util.ZBUiUtils;
 import com.zhouyou.http.exception.ApiException;
@@ -45,7 +47,8 @@ import okhttp3.RequestBody;
  * @author TY on 2018/11/22.
  * 外采入库 待办详情
  */
-public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiObjInterface<BuyInTodoDetails> {
+public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiListInterface<ProductDetailsIn.ListBean>
+        , BuyInTodoDetailAdapter.SaveEditListener {
 
 
     private RecyclerView reView;
@@ -60,7 +63,7 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiOb
     private String selectTime;
     private String sapOrderNo;
 
-    private ArrayList<ProductDetailsIn.ListBean> oldList = new ArrayList<>();
+    private List<ProductDetailsIn.ListBean> oldList = new ArrayList<>();
 
     private final static int REQUEST_SCAN_CODE = 1;
     private final static int RESULT_SCAN_CODE = 2;
@@ -82,6 +85,8 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiOb
      */
     private SparseArray<String> bulkNumArray = new SparseArray(10);
     private SparseArray<String> batchNoArray = new SparseArray(10);
+    private SparseArray<String> startCodeArray = new SparseArray(10);
+    private SparseArray<String> endCodeArray = new SparseArray(10);
     private SparseArray<ArrayList<String>> carCodeArray = new SparseArray(10);
     /**
      * 库位码 ID
@@ -92,11 +97,15 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiOb
      * 仓库 ID
      */
     private String warehouseId;
+    private String supplierId;
 
+    /**
+     * 用户信息
+     */
+    private UserInfo userInfo;
 
     @Override
     protected void onBaseCreate(Bundle savedInstanceState) {
-
     }
 
     @Override
@@ -107,6 +116,7 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiOb
     @Override
     protected void initOneData() {
         sapOrderNo = getIntent().getStringExtra("sapOrderNo");
+        supplierId = getIntent().getStringExtra("supplierId");
 
         presenter.fetchBuyInTodoListDetails(sapOrderNo);
     }
@@ -130,6 +140,7 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiOb
         tvPath = findViewById(R.id.tv_path);
         tvType = findViewById(R.id.tv_type);
         etDesc = findViewById(R.id.et_desc);
+        findViewById(R.id.add_ship).setVisibility(View.GONE);
 
         SimpleDateFormat format = new SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA);
         selectTime = format.format(new Date());
@@ -164,7 +175,7 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiOb
             return;
         }
 
-        HttpMethods.getInstance().getBackTodoSave(new BaseSubscriber<ResponseInfo>() {
+        HttpMethods.getInstance().getBuyInTodoSave(new BaseSubscriber<ResponseInfo>() {
             @Override
             public void onError(ApiException e) {
                 ZBUiUtils.showToast(e.getMessage());
@@ -199,6 +210,10 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiOb
 
         List<ProductTodoSave.DetailsBean> detail = new ArrayList<>();
 
+        //String result = MainApp.mCache.getAsString(CodeConstant.SELECT_HOUSE_ID);
+        SparseArray<Integer> houseId = DataUtils.getHouseId();
+
+        List<UserInfo.WarehouseListBean> warehouseList = userInfo.getWarehouseList();
 
 
         int size = oldList.size();
@@ -208,36 +223,73 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiOb
             String batchNo = batchNoArray.get(i);
             String Id = positionId.get(i);
 
+            // 仓库信息
+            String warehouseId;
+            String warehouseNo;
+            String warehouseName;
+
+            // houseId == null ： 是判断用户全部没有选择仓库信息,默认都是第一个，
+            // houseId.get(i) == null : 是判断用户部分没选择仓库信息默认第一个
+            if (houseId == null || houseId.get(i) == null) {
+                warehouseId = warehouseList.get(0).getWarehouseId();
+                warehouseNo = warehouseList.get(0).getWarehouseNo();
+                warehouseName = warehouseList.get(0).getWarehouseName();
+            } else {
+                Integer which = houseId.get(i);
+                warehouseId = warehouseList.get(which).getWarehouseId();
+                warehouseNo = warehouseList.get(which).getWarehouseNo();
+                warehouseName = warehouseList.get(which).getWarehouseName();
+            }
+
+
             ProductTodoSave.DetailsBean bean = new ProductTodoSave.DetailsBean();
             if (!TextUtils.isEmpty(bulkNum) && boxQrCode.size() != 0) {
+                String goodsId = oldList.get(i).getGoodsId();
+                String goodsNo = oldList.get(i).getGoodsNo();
+                String orderNumber = oldList.get(i).getOrderNumber();
+
+                String startCode = startCodeArray.get(i);
+                String endCode = endCodeArray.get(i);
 
                 bean.setPositionId(Id);
                 bean.setNumber(bulkNum);
                 bean.setSapMaterialBatchNo(batchNo);
 
+                bean.setGoodsId(goodsId);
+                bean.setGoodsNo(goodsNo);
+
+                bean.setGoodsQrCodeStart(startCode);
+                bean.setGoodsQrCodeEnd(endCode);
+                bean.setOrderNumber(orderNumber);
+
+                bean.setWarehouseId(warehouseId);
+                bean.setWarehouseNo(warehouseNo);
+                bean.setWarehouseName(warehouseName);
+
                 bean.setBoxQrCode(boxQrCode);
 
                 detail.add(bean);
-            } else if (null == bulkNum && null == boxQrCode) {
+            } else {
                 // 跳出当前一列、不处理
                 continue;
-            } else {
-                // 车库数量或者库位码其中一项为空
-                ZBUiUtils.showToast("车库数量或库位码信息不全");
-                break;
             }
         }
         // 没有合法的操作数据,不请求网络
         if (detail.size() == 0) {
+            ZBUiUtils.showToast("请完善您要保存的信息");
             return null;
         }
 
+        // warehouseId,inTime,sapOrderNo,productionBatchNo,remark
+
+        String remark = etDesc.getText().toString().trim();
+        String time = tvTime.getText().toString().trim();
+
         requestBody.setDetails(detail);
-        requestBody.setInStoreDate(tvTime.getText().toString().trim());
-        requestBody.setWarehouseId("仓库ID");
-        requestBody.setSapPlantNo("管联单据");
-        requestBody.setProductionBatchNo("生产批次号");
-        requestBody.setRemark(etDesc.getText().toString().trim());
+        requestBody.setInTime(time);
+        requestBody.setWarehouseId(this.warehouseId);
+        requestBody.setSapOrderNo(sapOrderNo);
+        requestBody.setRemark(remark);
 
 
         String json = DataUtils.toJson(requestBody, 1);
@@ -247,9 +299,12 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiOb
 
 
     @Override
-    public void detailObjData(BuyInTodoDetails details) {
+    public void showProduct(List<ProductDetailsIn.ListBean> list) {
 
-        final List<BuyInTodoDetails.ListBean> list = details.getList();
+        // BuyInTodoDetails  含仓库信息 bean
+        // ProductDetailsIn  不含仓库信息 bean
+        oldList = list;
+
         if (adapter == null) {
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             reView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
@@ -280,13 +335,16 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiOb
                             itemId = position;
                             Intent intent = new Intent(BuyInTodoDetailActivity.this, ScanBoxCodeActivity.class);
                             intent.putExtra("itemId", itemId);
-                            intent.putExtra(CodeConstant.PAGE_STATE,true);
+                            intent.putExtra(CodeConstant.PAGE_STATE, true);
                             intent.putStringArrayListExtra("boxCodeList", carCodeArray.get(itemId));
                             startActivityForResult(intent, REQUEST_SCAN_CODE);
                         }
                     });
 
-                    List<BuyInTodoDetails.ListBean.WarehouseListBean> warehouseList = list.get(position).getWarehouseList();
+                    //List<BuyInTodoDetails.ListBean.WarehouseListBean> warehouseList = list.get(position).getWarehouseList();
+                    userInfo = DataUtils.getUserInfo();
+
+                    List<UserInfo.WarehouseListBean> warehouseList = userInfo.getWarehouseList();
                     final ArrayList<String> houseName = new ArrayList<>();
 
                     int size = warehouseList.size();
@@ -297,7 +355,8 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiOb
                     selectHouse.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            ZBUiUtils.selectDialog(view.getContext(),houseName,selectHouse);
+                            ZBUiUtils.selectDialog(view.getContext(), position, houseName, selectHouse);
+
                         }
                     });
 
@@ -316,23 +375,46 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiOb
 
     }
 
-
+    /**
+     * 扫码 成功的数据
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_SCAN_CODE && resultCode == RESULT_SCAN_CODE) {
             itemId = data.getIntExtra("itemId", -1);
+            warehouseId = data.getStringExtra("warehouseId");
             boxCodeList = data.getStringArrayListExtra("boxCodeList");
-            carCodeArray.put(itemId,boxCodeList);
-//            if (codeList != null) {
-//                GoodsPurchaseOrderInfo.DataBean.ListBean listBean = list.get(position);
-//                listBean.setBoxCodeList(codeList);
-//                listBean.setBoxNum(codeList.size() + "");
-//                listCopy.addAll(list);
-//                list.clear();
-//                list.addAll(listCopy);
-//                adapter.notifyDataSetChanged();
-//            }
+            carCodeArray.put(itemId, boxCodeList);
         }
+    }
+
+    /**
+     * 保存用户在列表中输入的信息
+     *
+     * @param etType   输入框标识
+     * @param hasFocus 有无焦点
+     * @param position 位置
+     * @param editText 控件
+     */
+    @Override
+    public void saveEditAndGetHasFocusPosition(String etType, Boolean hasFocus, int position, EditText editText) {
+
+        String textContent = editText.getText().toString().trim();
+
+        if (CodeConstant.ET_BULK_NUM.equals(etType)) {
+            bulkNumArray.put(position, textContent);
+        } else if (CodeConstant.ET_BATCH_NO.equals(etType)) {
+            batchNoArray.put(position, textContent);
+        } else if (CodeConstant.ET_START_CODE.equals(etType)) {
+            startCodeArray.put(position, textContent);
+        } else if (CodeConstant.ET_END_CODE.equals(etType)) {
+            endCodeArray.put(position, textContent);
+        }
+
     }
 
 }

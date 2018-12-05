@@ -1,8 +1,13 @@
 package com.ty.zbpet.util;
 
+import android.util.SparseArray;
+
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.ty.zbpet.bean.UserInfo;
+
+import java.util.ArrayList;
 
 /**
  * @author TY
@@ -34,26 +39,67 @@ public class DataUtils {
 
     /**
      * 假数据 处理
-     * @param status
+     *
      * @return
      */
-//    public static ArrayList<MaterialInWarehouseOrderList.DataBean.ListBean> getData(String status) {
-//        ArrayList<MaterialInWarehouseOrderList.DataBean.ListBean> list = new ArrayList<>();
-//
-//        int i = 0;
-//        for (; i < 10; i++) {
-//            MaterialInWarehouseOrderList.DataBean.ListBean bean = new MaterialInWarehouseOrderList.DataBean.ListBean();
-//            bean.setOrderId("1000" + i);
-//            bean.setOrderTime("2018-10-25");
-//            bean.setSapOrderNo("SAP00000" + i);
-//            bean.setState(status + i);
-//            bean.setSupplierId(String.valueOf(i));
-//            bean.setSupplierName("供应商 " + i);
-//            bean.setType(status);
-//
-//            list.add(bean);
-//        }
-//        return list;
-//    }
+    public static UserInfo getUserInfo() {
+
+        UserInfo userInfo = new UserInfo();
+
+        ArrayList<UserInfo.WarehouseListBean> userList = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            if (i == 0) {
+                UserInfo.WarehouseListBean bean = new UserInfo.WarehouseListBean();
+                bean.setWarehouseId("3");
+                bean.setWarehouseName("仓库002");
+                bean.setWarehouseNo("CK201808000003");
+                userList.add(bean);
+            }else {
+                UserInfo.WarehouseListBean bean = new UserInfo.WarehouseListBean();
+                bean.setWarehouseId("10");
+                bean.setWarehouseName("仓库001");
+                bean.setWarehouseNo("CK201808000008");
+                userList.add(bean);
+            }
+        }
+
+        userInfo.setUserName("正邦用户");
+        userInfo.setWarehouseList(userList);
+
+        return userInfo;
+    }
+
+    private static SparseArray<SparseArray<Integer>> houseId = new SparseArray(5);
+    private static SparseArray<Integer> sparseArray = new SparseArray<>(20);
+
+    /**
+     * SparseArray<SparseArray<Integer>> 采用这种结构是 key 必须唯一
+     * <p>
+     * SparseArray<Integer> 中
+     * key 代表 item 中的 position 位置
+     * which 代表 仓库选中的位置
+     *
+     * @param position
+     * @param which
+     */
+    public static void setHouseId(int position, int which) {
+
+        sparseArray.put(position, which);
+        houseId.put(CodeConstant.SELECT_HOUSE_SA, sparseArray);
+    }
+
+    public static SparseArray<Integer> getHouseId() {
+
+        SparseArray<Integer> houseIdSArray = houseId.get(CodeConstant.SELECT_HOUSE_SA);
+
+        // 取值:选择的是哪个仓库
+        //int which = houseIdSArray.get(position);
+
+        return houseIdSArray;
+    }
+
+    public static void clearHouseId(){
+        houseId.put(CodeConstant.SELECT_HOUSE_SA,null);
+    }
 
 }

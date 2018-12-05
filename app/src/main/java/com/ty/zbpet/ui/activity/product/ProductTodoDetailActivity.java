@@ -118,10 +118,10 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
 
         // in_storage_detail 到货明细
 
-        initToolBar(R.string.label_purchase_in_storage, new View.OnClickListener() {
+        initToolBar(R.string.label_produce_in_storage, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BuyInTodoSave(initTodoBody());
+                ProductTodoSave(initTodoBody());
             }
         });
 
@@ -161,7 +161,7 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
     /**
      * 出库 保存
      */
-    private void BuyInTodoSave(RequestBody body) {
+    private void ProductTodoSave(RequestBody body) {
 
         if (body == null) {
             return;
@@ -216,17 +216,14 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
                 bean.setSapMaterialBatchNo(batchNo);
 
                 detail.add(bean);
-            } else if (null == bulkNum && null == boxQrCode) {
+            } else{
                 // 跳出当前一列、不处理
                 continue;
-            } else {
-                // 车库数量或者库位码其中一项为空
-                ZBUiUtils.showToast("车库数量或库位码信息不全");
-                break;
             }
         }
         // 没有合法的操作数据,不请求网络
         if (detail.size() == 0) {
+            ZBUiUtils.showToast("请完善您要保存的信息");
             return null;
         }
 

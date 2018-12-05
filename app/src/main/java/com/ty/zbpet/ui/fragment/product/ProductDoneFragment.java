@@ -18,10 +18,12 @@ import com.ty.zbpet.bean.product.ProductDoneList;
 import com.ty.zbpet.presenter.product.ProducePresenter;
 import com.ty.zbpet.presenter.product.ProductUiObjInterface;
 import com.ty.zbpet.ui.activity.product.BuyInDoneDetailActivity;
+import com.ty.zbpet.ui.activity.product.ProductDoneDetailActivity;
 import com.ty.zbpet.ui.adapter.product.BuyInDoneListAdapter;
 import com.ty.zbpet.ui.adapter.product.ProductDoneListAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
+import com.ty.zbpet.util.CodeConstant;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.ZBUiUtils;
 
@@ -44,6 +46,11 @@ public class ProductDoneFragment extends BaseFragment implements ProductUiObjInt
     private ProducePresenter presenter = new ProducePresenter(this);
 
     private ProductDoneListAdapter adapter;
+
+    /**
+     * 下拉刷新 flag
+     */
+    private boolean refresh = false;
 
     public static ProductDoneFragment newInstance(String tag){
         ProductDoneFragment fragment = new ProductDoneFragment();
@@ -72,7 +79,7 @@ public class ProductDoneFragment extends BaseFragment implements ProductUiObjInt
     public void onStart() {
         super.onStart();
 
-        presenter.fetchProductDoneList("1");
+        presenter.fetchProductDoneList(CodeConstant.PRODUCT_TYPE);
 
     }
 
@@ -86,7 +93,8 @@ public class ProductDoneFragment extends BaseFragment implements ProductUiObjInt
                 // 传入 false 表示刷新失败
                 refreshLayout.finishRefresh(1000);
                 // 刷新数据
-                presenter.fetchProductDoneList("1");
+                presenter.fetchProductDoneList(CodeConstant.PRODUCT_TYPE);
+                refresh = true;
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -104,17 +112,20 @@ public class ProductDoneFragment extends BaseFragment implements ProductUiObjInt
 
         final List<ProductDoneList.ListBean> list = obj.getList();
 
-        if (adapter == null) {
-            LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
-            recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
-            recyclerView.setLayoutManager(manager);
+        if (adapter == null || refresh) {
+            refresh = false;
+            if (adapter == null) {
+                LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
+                recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
+                recyclerView.setLayoutManager(manager);
+            }
             adapter = new ProductDoneListAdapter(ResourceUtil.getContext(),R.layout.item_produce_in_storage_complete,list);
             recyclerView.setAdapter(adapter);
 
             adapter.setOnItemClickListener(new BuyInDoneListAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    Intent intent = new Intent(getActivity(), BuyInDoneDetailActivity.class);
+                    Intent intent = new Intent(getActivity(), ProductDoneDetailActivity.class);
                     intent.putExtra("orderId", list.get(position).getId());
                     startActivity(intent);
                 }

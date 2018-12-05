@@ -13,7 +13,7 @@ import com.ty.zbpet.R;
 import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.adapter.BindBoxCodeAdapter;
-import com.ty.zbpet.ui.adapter.material.MaterialDiffUtil;
+import com.ty.zbpet.ui.adapter.diffadapter.MaterialDiffUtil;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.DividerItemDecoration;
 import com.ty.zbpet.util.CodeConstant;
@@ -21,11 +21,8 @@ import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.ZBUiUtils;
 import com.ty.zbpet.util.scan.ScanBoxInterface;
 import com.ty.zbpet.util.scan.ScanObservable;
-import com.zhouyou.http.exception.ApiException;
-import com.zhouyou.http.subsciber.BaseSubscriber;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import io.reactivex.SingleObserver;
@@ -47,6 +44,10 @@ public class ScanBoxCodeActivity extends BaseActivity implements ScanBoxInterfac
     private ArrayList<String> boxCodeList = new ArrayList<>();
     private BindBoxCodeAdapter adapter;
     private int itemId;
+    /**
+     * 库位码 ID
+     */
+    private String warehouseId;
     private final static int REQUEST_SCAN_CODE = 1;
     private final static int RESULT_SCAN_CODE = 2;
 
@@ -54,7 +55,6 @@ public class ScanBoxCodeActivity extends BaseActivity implements ScanBoxInterfac
     private Scanner scanReader = ScanReader.getScannerInstance();
     private ScanObservable scanObservable = new ScanObservable(this);
 
-    private Disposable disposable;
 
     @Override
     protected void onBaseCreate(Bundle savedInstanceState) {
@@ -89,17 +89,23 @@ public class ScanBoxCodeActivity extends BaseActivity implements ScanBoxInterfac
         //初始化扫描仪
         isOpen = scanInit();
 
-        initToolBar(R.string.box_binding_list, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 保存箱码数据
-                Intent intent = new Intent();
-                intent.putExtra("itemId", itemId);
-                intent.putStringArrayListExtra("boxCodeList", boxCodeList);
-                setResult(RESULT_SCAN_CODE, intent);
-                finish();
-            }
-        });
+        if (state) {
+            initToolBar(R.string.box_binding_list, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // 保存箱码数据
+                    Intent intent = new Intent();
+                    intent.putExtra("itemId", itemId);
+                    intent.putExtra("warehouseId", warehouseId);
+                    intent.putStringArrayListExtra("boxCodeList", boxCodeList);
+                    setResult(RESULT_SCAN_CODE, intent);
+                    finish();
+                }
+            });
+        }else{
+            initToolBar(R.string.box_binding_list);
+        }
+
     }
 
     @Override
@@ -115,7 +121,6 @@ public class ScanBoxCodeActivity extends BaseActivity implements ScanBoxInterfac
     protected void onDestroy() {
         super.onDestroy();
         scanReader.close();
-        disposable.dispose();
     }
 
     @Override
@@ -149,7 +154,6 @@ public class ScanBoxCodeActivity extends BaseActivity implements ScanBoxInterfac
 
             @Override
             public void onSubscribe(Disposable d) {
-                disposable = d;
             }
 
             @Override
@@ -166,7 +170,7 @@ public class ScanBoxCodeActivity extends BaseActivity implements ScanBoxInterfac
                         if (boxCodeList.contains(positionNo)) {
                             ZBUiUtils.showToast("该库位码扫码过");
                         } else {
-
+                            warehouseId = responseInfo.getList().get(0).getWarehouseId();
                             ArrayList<String> oldList = new ArrayList<>(boxCodeList);
                             boxCodeList.add(positionNo);
                             if (adapter != null) {

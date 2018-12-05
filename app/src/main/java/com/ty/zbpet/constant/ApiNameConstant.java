@@ -155,14 +155,14 @@ public class ApiNameConstant {
     /**
      * 外采入库 已办保存
      */
-    public static final String GET_PURCHASE_DONE_SAVE = "stock/materialStock/mReturnRecallIn";
+    public static final String GET_PURCHASE_DONE_SAVE = "stock/goodsStock/gPurchaseRecallOut";
 
     /**--------------------------------- 生产入库 ----------------------------------------*/
 
     /**
      * 生产入库 待办列表
      */
-    public static final String GET_PRODUCE_ORDER_LIST = "sap/zbSap/getGoodsPurchaseOrderList";
+    public static final String GET_PRODUCE_ORDER_LIST = "sap/zbSap/getGoodsProductionOrderList";
 
     /**
      * 生产入库 待办详情
@@ -173,23 +173,23 @@ public class ApiNameConstant {
     /**
      * 生产入库 待办保存
      */
-    public static final String GET_PRODUCE_TODO_SAVE = "stock/materialStock/mPurchaseReturnOut";
+    public static final String GET_PRODUCE_TODO_SAVE = "stock/goodsStock/gProductionIn";
 
 
     /**
      * 生产入库 已办列表
      */
-    public static final String GET_PRODUCE_DONE_LIST = "stock";
+    public static final String GET_PRODUCE_DONE_LIST = "stock/goodsStock/getGoodsInWarehouseOrderList";
 
     /**
      * 生产入库 已办详情
      */
-    public static final String GET_PRODUCE_DONE_LIST_INFO = "stock";
+    public static final String GET_PRODUCE_DONE_LIST_INFO = "stock/goodsStock/getGoodsInWarehouseOrderInfo";
 
     /**
      * 生产入库 已办保存
      */
-    public static final String GET_PRODUCE_DONE_SAVE = "stock/materialStock/mReturnRecallIn";
+    public static final String GET_PRODUCE_DONE_SAVE = "stock/goodsStock/gProductionRecallOut";
 
 
 
@@ -198,18 +198,18 @@ public class ApiNameConstant {
     /**
      * 发货出库 待办列表
      */
-    public static final String GET_SHIP_ORDER_LIST = "sap/zbSap/getBuyInOrderList";
+    public static final String GET_SHIP_ORDER_LIST = "sap/zbSap/getGoodsSendOrderList";
 
     /**
      * 发货出库 待办详情
      */
-    public static final String GET_SHIP_ORDER_INFO = "sap/zbSap/getBuyInOrderInfo";
+    public static final String GET_SHIP_ORDER_INFO = "sap/zbSap/getGoodsSendOrderInfo";
 
 
     /**
      * 发货出库 待办保存
      */
-    public static final String GET_SHIP_TODO_SAVE = "stock/materialStock/mPurchaseReturnOut";
+    public static final String GET_SHIP_TODO_SAVE = "stock/goodsStock/gSendOut";
 
 
     /**
@@ -225,7 +225,7 @@ public class ApiNameConstant {
     /**
      * 发货出库 已办保存
      */
-    public static final String GET_SHIP_DONE_SAVE = "stock/materialStock/mReturnRecallIn";
+    public static final String GET_SHIP_DONE_SAVE = "stock/goodsStock/gSendRecallIn";
 
 
 
@@ -234,34 +234,34 @@ public class ApiNameConstant {
     /**
      * 退货入库 待办列表
      */
-    public static final String GET_RETURN_ORDER_LIST = "sap/zbSap/getBuyInOrderList";
+    public static final String GET_RETURN_ORDER_LIST = "sap/zbSap/getGoodsBackOrderList";
 
     /**
      * 退货入库 待办详情
      */
-    public static final String GET_RETURN_ORDER_INFO = "sap/zbSap/getBuyInOrderInfo";
+    public static final String GET_RETURN_ORDER_INFO = "sap/zbSap/getGoodsBackOrderInfo";
 
 
     /**
      * 退货入库 待办保存
      */
-    public static final String GET_RETURN_TODO_SAVE = "stock/materialStock/mPurchaseReturnOut";
+    public static final String GET_RETURN_TODO_SAVE = "stock/goodsStock/gSaleReturnIn";
 
 
     /**
      * 退货入库 已办列表
      */
-    public static final String GET_RETURN_DONE_LIST = "stock";
+    public static final String GET_RETURN_DONE_LIST = "stock/goodsStock/getGoodsInWarehouseOrderList";
 
     /**
      * 退货入库 已办详情
      */
-    public static final String GET_RETURN_DONE_LIST_INFO = "stock";
+    public static final String GET_RETURN_DONE_LIST_INFO = "stock/goodsStock/getGoodsInWarehouseOrderInfo";
 
     /**
      * 退货入库 已办保存
      */
-    public static final String GET_RETURN_DONE_SAVE = "stock/materialStock/mReturnRecallIn";
+    public static final String GET_RETURN_DONE_SAVE = "stock/goodsStock/gSaleReturnRecallOut";
 
 
     /**--------------------------------- end ----------------------------------------*/

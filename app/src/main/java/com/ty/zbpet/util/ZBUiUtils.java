@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.ty.zbpet.ui.MainApp;
 import com.ty.zbpet.ui.activity.material.ArrivalInTodoDetailActivity;
 import com.ty.zbpet.ui.widght.CustomDatePicker;
 import com.ty.zbpet.ui.widght.NormalSelectionDialog;
@@ -140,6 +141,36 @@ public class ZBUiUtils {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         textView.setText(data.get(which));
+                        dialog.dismiss();
+                    }
+                })
+                .build()
+                .setDatas(data)
+                .show();
+
+    }
+
+    /**
+     * 选择 Dialog
+     *
+     * @param context
+     * @param position 列表中的哪一列
+     * @param data
+     * @param textView
+     */
+    public static void selectDialog(Context context, final int position, final List<String> data, final TextView textView) {
+
+        NormalSelectionDialog.Builder builder = new NormalSelectionDialog.Builder(context);
+
+        builder.setTitleText("选择供应商")
+                .setOnItemListener(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        textView.setText(data.get(which));
+
+                        //MainApp.mCache.put(CodeConstant.SELECT_HOUSE_ID, String.valueOf(which));
+                        DataUtils.setHouseId(position, which);
+
                         dialog.dismiss();
                     }
                 })

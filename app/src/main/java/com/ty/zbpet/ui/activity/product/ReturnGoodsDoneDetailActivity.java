@@ -19,7 +19,6 @@ import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.presenter.product.ProductUiObjInterface;
 import com.ty.zbpet.presenter.product.ReturnPresenter;
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity;
-import com.ty.zbpet.ui.adapter.product.BuyInDoneDetailAdapter;
 import com.ty.zbpet.ui.adapter.product.ReturnGoodsDoneDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
@@ -89,7 +88,7 @@ public class ReturnGoodsDoneDetailActivity extends BaseActivity implements Produ
         initToolBar(R.string.pick_out_storage, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BuyInDoneSave(initDoneBody());
+                ReturnGoodsDoneSave(initDoneBody());
             }
         });
 
@@ -121,7 +120,7 @@ public class ReturnGoodsDoneDetailActivity extends BaseActivity implements Produ
     /**
      * 冲销 保存
      */
-    private void BuyInDoneSave(RequestBody body) {
+    private void ReturnGoodsDoneSave(RequestBody body) {
 
         HttpMethods.getInstance().getBackDoneSave(new BaseSubscriber<ResponseInfo>() {
             @Override

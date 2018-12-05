@@ -1,17 +1,13 @@
-package com.ty.zbpet.ui.adapter.material;
+package com.ty.zbpet.ui.adapter.diffadapter;
 
-import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
-import android.text.TextUtils;
-
-import com.ty.zbpet.bean.material.MaterialDetailsIn;
 
 import java.util.List;
 
 /**
  * @author TY on 2018/11/27.
  * <p>
- * Different
+ * Different 扫码更新列表
  */
 public class MaterialDiffUtil extends DiffUtil.Callback {
 

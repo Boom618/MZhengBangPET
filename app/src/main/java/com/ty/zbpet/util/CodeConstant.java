@@ -16,6 +16,8 @@ public final class CodeConstant {
     public static final String SERVICE_SUCCESS = "success";
 
     /**
+     * 原辅料：
+     * <p>
      * 待办详情中的输入信息
      * ZKG 单位
      * 库位码
@@ -27,6 +29,11 @@ public final class CodeConstant {
     public static final String ET_BULK_NUM = "et_bulk_num";
     public static final String ET_BATCH_NO = "et_batch_no";
 
+    /**
+     * 开始 结束码
+     */
+    public static final String ET_START_CODE = "start_code ";
+    public static final String ET_END_CODE = "end_code";
     /**
      * 按键码 131 or 135 : K3A手柄键   139 : G3A F1键
      */
@@ -57,5 +64,19 @@ public final class CodeConstant {
     public static final String BUY_IN_TYPE = "1";
     public static final String PICK_OUT_TYPE = "20";
     public static final String BACK_GOODS_TYPE = "21";
+
+    /**
+     * 成品  已办列表
+     */
+    public static final String PRODUCT_TYPE = "2";
+    public static final String RETURN_TYPE = "3";
+
+    /**
+     * 成品
+     * 选择的是哪个仓库
+     */
+    //public static final String SELECT_HOUSE_ID = "house_id";
+    public static final int SELECT_HOUSE_SA = 100;
+
 
 }

@@ -133,7 +133,7 @@ public class ProducePresenter {
             public void onError(Throwable e) {
 
             }
-        });
+        },type);
     }
 
     /**

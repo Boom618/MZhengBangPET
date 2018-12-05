@@ -21,6 +21,7 @@ import com.ty.zbpet.ui.activity.product.ReturnGoodsDoneDetailActivity;
 import com.ty.zbpet.ui.adapter.product.ReturnGoodsDoneListAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
+import com.ty.zbpet.util.CodeConstant;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.ZBUiUtils;
 
@@ -30,6 +31,7 @@ import butterknife.BindView;
 
 /**
  * 成品——退货入库——已办
+ *
  * @author TY
  */
 public class ReturnGoodsDoneFragment extends BaseFragment implements ProductUiObjInterface<ProductDoneList> {
@@ -44,7 +46,12 @@ public class ReturnGoodsDoneFragment extends BaseFragment implements ProductUiOb
 
     private ReturnGoodsDoneListAdapter adapter;
 
-    public static ReturnGoodsDoneFragment newInstance(String tag){
+    /**
+     * 下拉刷新 flag
+     */
+    private boolean refresh = false;
+
+    public static ReturnGoodsDoneFragment newInstance(String tag) {
         ReturnGoodsDoneFragment fragment = new ReturnGoodsDoneFragment();
         Bundle bundle = new Bundle();
         bundle.putString("someInt", tag);
@@ -71,7 +78,7 @@ public class ReturnGoodsDoneFragment extends BaseFragment implements ProductUiOb
     public void onStart() {
         super.onStart();
 
-        presenter.fetchReturnGoodsDoneList("1");
+        presenter.fetchReturnGoodsDoneList(CodeConstant.RETURN_TYPE);
 
     }
 
@@ -85,7 +92,8 @@ public class ReturnGoodsDoneFragment extends BaseFragment implements ProductUiOb
                 // 传入 false 表示刷新失败
                 refreshLayout.finishRefresh(1000);
                 // 刷新数据
-                presenter.fetchReturnGoodsDoneList("1");
+                presenter.fetchReturnGoodsDoneList(CodeConstant.RETURN_TYPE);
+                refresh = true;
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -103,11 +111,14 @@ public class ReturnGoodsDoneFragment extends BaseFragment implements ProductUiOb
 
         final List<ProductDoneList.ListBean> list = obj.getList();
 
-        if (adapter == null) {
-            LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
-            recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
-            recyclerView.setLayoutManager(manager);
-            adapter = new ReturnGoodsDoneListAdapter(ResourceUtil.getContext(),R.layout.item_produce_in_storage_complete,list);
+        if (adapter == null || refresh) {
+            refresh = false;
+            if (adapter == null) {
+                LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
+                recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
+                recyclerView.setLayoutManager(manager);
+            }
+            adapter = new ReturnGoodsDoneListAdapter(ResourceUtil.getContext(), R.layout.item_produce_in_storage_complete, list);
             recyclerView.setAdapter(adapter);
 
             adapter.setOnItemClickListener(new ReturnGoodsDoneListAdapter.OnItemClickListener() {
@@ -124,7 +135,7 @@ public class ReturnGoodsDoneFragment extends BaseFragment implements ProductUiOb
                 }
             });
 
-        }else {
+        } else {
             adapter.notifyDataSetChanged();
         }
     }

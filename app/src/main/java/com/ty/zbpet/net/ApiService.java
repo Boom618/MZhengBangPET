@@ -10,7 +10,7 @@ import com.ty.zbpet.bean.material.MaterialDetailsIn;
 import com.ty.zbpet.bean.material.MaterialDetailsOut;
 import com.ty.zbpet.bean.material.MaterialDoneList;
 import com.ty.zbpet.bean.material.MaterialTodoList;
-import com.ty.zbpet.bean.product.BuyInTodoDetails;
+import com.ty.zbpet.bean.product.ProductDetailsIn;
 import com.ty.zbpet.bean.product.ProductDetailsOut;
 import com.ty.zbpet.bean.product.ProductDoneList;
 import com.ty.zbpet.bean.product.ProductTodoDetails;
@@ -227,7 +227,7 @@ public interface ApiService {
     /**--------------------------------- 外采入库 ----------------------------------------*/
 
     /**
-     * 待办列表
+     * 外采入库 待办列表
      *
      * @return
      */
@@ -235,18 +235,18 @@ public interface ApiService {
     Single<BaseResponse<ProductTodoList>> getBuyInOrderList();
 
     /**
-     * 待办详情
+     * 外采入库 待办详情
      *
      * @param sapOrderNo
      * @return
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_GOODS_PURCHASE_ORDER_INFO)
-    Single<BaseResponse<BuyInTodoDetails>> getBuyInOrderInfo(@Field("sapOrderNo") String sapOrderNo);
+    Single<BaseResponse<ProductDetailsIn>> getBuyInOrderInfo(@Field("sapOrderNo") String sapOrderNo);
 
 
     /**
-     * 采购退货 待办保存
+     * 外采入库 待办保存
      *
      * @param body
      * @return
@@ -256,7 +256,7 @@ public interface ApiService {
 
 
     /**
-     * 采购退货 已办列表
+     * 外采入库 已办列表
      *
      * @param type
      * @return
@@ -319,10 +319,12 @@ public interface ApiService {
     /**
      * 生产入库 已办列表
      *
+     * @param type
      * @return
      */
+    @FormUrlEncoded
     @POST(ApiNameConstant.GET_PRODUCE_DONE_LIST)
-    Single<BaseResponse<ProductDoneList>> getProduceDoneList();
+    Single<BaseResponse<ProductDoneList>> getProduceDoneList(@Field("type") String type);
 
     /**
      * 生产入库 已办列表 详情
@@ -378,6 +380,7 @@ public interface ApiService {
     /**
      * 发货出库 已办列表
      *
+     * @param type
      * @return
      */
     @FormUrlEncoded
@@ -437,20 +440,22 @@ public interface ApiService {
     /**
      * 退货入库 已办列表
      *
+     * @param type
      * @return
      */
+    @FormUrlEncoded
     @POST(ApiNameConstant.GET_RETURN_DONE_LIST)
-    Observable<BaseResponse<MaterialDoneList>> getReturnDoneList();
+    Single<BaseResponse<MaterialDoneList>> getReturnDoneList(@Field("type") String type);
 
     /**
      * 退货入库 已办列表 详情
      *
-     * @param sapOrderNo
+     * @param orderId
      * @return
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_RETURN_DONE_LIST_INFO)
-    Observable<BaseResponse<MaterialDoneDetailsData>> getReturnDoneListInfo(@Field("sapOrderNo") String sapOrderNo);
+    Observable<BaseResponse<MaterialDoneDetailsData>> getReturnDoneListInfo(@Field("orderId") String orderId);
 
     /**
      * 退货入库 已办保存

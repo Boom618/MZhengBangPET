@@ -26,7 +26,7 @@ public class SendOutTodoListAdapter extends CommonAdapter<ProductTodoList.ListBe
                 .setText(R.id.tv_no, list.getSapOrderNo())
                 .setText(R.id.tv_client_msg, list.getCustomerInfo() + "客户 ？")
                 .setText(R.id.tv_send_msg, list.getProductInfo() + " 发货 ？")
-                .setText(R.id.tv_product_msg, list.getProductInfo() + "成品 ？")
+                .setText(R.id.tv_product_msg, list.getProductInfo() + " 成品 ？")
                 .setText(R.id.tv_date, list.getOrderTime())
                 .setText(R.id.tv_status, list.getState());
     }
