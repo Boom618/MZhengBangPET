@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_marginStart="@dimen/space_10"
     android:layout_marginEnd="@dimen/space_10"
+    android:paddingBottom="@dimen/space_8"
     android:background="@drawable/shape_white_min_radius"
     android:layout_height="wrap_content">
 
@@ -88,22 +89,21 @@
             android:id="@+id/tv_warehouse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_28"
-            android:drawablePadding="@dimen/space_10"
-            android:gravity="center_vertical"
-            android:padding="@dimen/space_5"
+            android:layout_marginStart="@dimen/text_28"
+            android:layout_marginTop="@dimen/text_28"
             android:text="所在仓库"
             android:textColor="@color/txt_main_color"
             android:textSize="@dimen/text_14"
-            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
 
         <EditText
             android:id="@+id/et_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/text_28"
+            android:layout_marginTop="@dimen/text_16"
             android:layout_margin="@dimen/text_28"
             android:ellipsize="end"
             android:hint="出库数量：2000"
@@ -112,7 +112,6 @@
             android:padding="@dimen/space_5"
             android:textColor="@color/txt_main_color"
             android:textSize="@dimen/text_14"
-            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_select_ware" />
 
@@ -124,8 +123,7 @@
             android:layout_marginEnd="@dimen/space_25"
             android:hint="成品起始值"
             android:inputType="number"
-            android:textColor="@color/txt_minor_color"
-            android:textColorHint="@color/hint_color"
+            android:textColor="@color/txt_main_color"
             android:textSize="@dimen/text_14"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
@@ -139,8 +137,7 @@
             android:layout_marginEnd="@dimen/space_25"
             android:hint="成品结束值"
             android:inputType="number"
-            android:textColor="@color/txt_minor_color"
-            android:textColorHint="@color/hint_color"
+            android:textColor="@color/txt_main_color"
             android:textSize="@dimen/text_14"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
@@ -148,7 +145,7 @@
 
 
         <EditText
-            android:id="@+id/et_batch_no"
+            android:id="@+id/et_sap"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_25"
@@ -177,7 +174,7 @@
             android:textColor="@color/white"
             android:textColorHint="@color/hint_color"
             android:textSize="@dimen/text_16"
-            app:layout_constraintTop_toBottomOf="@+id/et_batch_no" />
+            app:layout_constraintTop_toBottomOf="@+id/et_sap" />
 
 
     </android.support.constraint.ConstraintLayout>

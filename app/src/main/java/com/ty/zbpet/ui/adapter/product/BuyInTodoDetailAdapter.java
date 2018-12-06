@@ -31,7 +31,7 @@ public class BuyInTodoDetailAdapter extends CommonAdapter<ProductDetailsIn.ListB
         String warehouseName = DataUtils.getUserInfo().getWarehouseList().get(0).getWarehouseName();
 
         holder.setText(R.id.tv_name, list.getGoodsName())
-                .setText(R.id.tv_num, list.getOrderNumber() + "/?" + list.getUnitS())
+                .setText(R.id.tv_num, "/?" + list.getUnitS())// list.getOrderNumber() +
                 .setText(R.id.tv_select_ware, warehouseName);
 
 
@@ -48,7 +48,7 @@ public class BuyInTodoDetailAdapter extends CommonAdapter<ProductDetailsIn.ListB
         endCode.setOnFocusChangeListener(new EditTextOnFocusChangeListener(CodeConstant.ET_END_CODE, position, endCode));
 
         // sap 物料批次号
-        EditText batchNo = holder.itemView.findViewById(R.id.et_batch_no);
+        EditText batchNo = holder.itemView.findViewById(R.id.et_sap);
         batchNo.setOnFocusChangeListener(new EditTextOnFocusChangeListener(CodeConstant.ET_BATCH_NO, position, batchNo));
     }
 

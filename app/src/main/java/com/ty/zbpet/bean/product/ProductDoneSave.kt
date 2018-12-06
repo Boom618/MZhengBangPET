@@ -57,7 +57,7 @@ class ProductDoneSave {
         var createdAt: String? = null
         var updatedAt: String? = null
         var orderId: String? = null
-        var boxQrCodeList: List<String>? = null
+        var boxQrCode: List<String>? = null
 
 
         var warehouseList: List<UserInfo.WarehouseListBean>? = null

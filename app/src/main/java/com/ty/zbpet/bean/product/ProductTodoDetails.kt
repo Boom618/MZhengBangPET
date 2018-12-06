@@ -37,5 +37,11 @@ class ProductTodoDetails {
         var unitS: String? = null
         var orderNumber: String? = null
         var sendNumber: String? = null
+
+        // 退货入库 信息
+        var surplusNumber: String? = null
+        var warehouseId: String? = null
+        var warehouseName: String? = null
+
     }
 }

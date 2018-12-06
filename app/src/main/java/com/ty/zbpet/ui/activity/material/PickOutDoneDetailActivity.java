@@ -162,6 +162,7 @@ public class PickOutDoneDetailActivity extends BaseActivity implements MaterialU
         requestBody.setOrderId(mOutWarehouseOrderId);
         requestBody.setWarehouseId(warehouseId);
         requestBody.setOutTime(selectTime);
+        requestBody.setOrderId(orderId);
         requestBody.setRemark(remark);
         String json = DataUtils.toJson(requestBody, 1);
 

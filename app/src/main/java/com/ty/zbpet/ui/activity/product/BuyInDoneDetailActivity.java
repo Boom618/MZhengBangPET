@@ -14,7 +14,6 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.UserInfo;
-import com.ty.zbpet.bean.material.MaterialDoneSave;
 import com.ty.zbpet.bean.product.ProductDetailsOut;
 import com.ty.zbpet.bean.product.ProductDoneSave;
 import com.ty.zbpet.net.HttpMethods;
@@ -98,7 +97,7 @@ public class BuyInDoneDetailActivity extends BaseActivity implements ProductUiOb
         initToolBar(R.string.pick_out_storage, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BuyInDoneSave(initDoneBody());
+                buyInDoneSave(initDoneBody());
             }
         });
 
@@ -131,7 +130,7 @@ public class BuyInDoneDetailActivity extends BaseActivity implements ProductUiOb
     /**
      * 冲销 保存
      */
-    private void BuyInDoneSave(RequestBody body) {
+    private void buyInDoneSave(RequestBody body) {
 
         HttpMethods.getInstance().getBuyInDoneSave(new BaseSubscriber<ResponseInfo>() {
             @Override
@@ -167,12 +166,14 @@ public class BuyInDoneDetailActivity extends BaseActivity implements ProductUiOb
         for (int i = 0; i < size; i++) {
             ProductDoneSave.DetailsBean detailsBean = new ProductDoneSave.DetailsBean();
 
-            ArrayList<String> boxQrCodeList = list.get(i).getBoxQrCodeList();
+            ArrayList<String> boxQrCodeList = list.get(i).getBoxQrCode();
             String goodsId = list.get(i).getGoodsId();
             String goodsNo = list.get(i).getGoodsNo();
             String warehouseId = list.get(i).getWarehouseId();
+            String number = list.get(i).getNumber();
 
-            detailsBean.setBoxQrCodeList(boxQrCodeList);
+            detailsBean.setNumber(number);
+            detailsBean.setBoxQrCode(boxQrCodeList);
             detailsBean.setWarehouseId(warehouseId);
 
             detailsBean.setGoodsId(goodsId);
@@ -180,6 +181,7 @@ public class BuyInDoneDetailActivity extends BaseActivity implements ProductUiOb
 
             List<UserInfo.WarehouseListBean> warehouseList = userInfo.getWarehouseList();
             detailsBean.setWarehouseList(warehouseList);
+            beans.add(detailsBean);
         }
 
         // warehouseId,outTime,orderId,sapOrderNo,remark,details:[]
@@ -214,7 +216,7 @@ public class BuyInDoneDetailActivity extends BaseActivity implements ProductUiOb
                     View rlDetail = holder.itemView.findViewById(R.id.gone_view);
                     ImageView ivArrow = holder.itemView.findViewById(R.id.iv_arrow);
 
-                    final ArrayList<String> boxQrCodeList = list.get(position).getBoxQrCodeList();
+                    final ArrayList<String> boxQrCodeList = list.get(position).getBoxQrCode();
 
                     Button bindingCode = holder.itemView.findViewById(R.id.btn_binding_code);
 

@@ -29,10 +29,10 @@ public class BuyInDoneDetailAdapter extends CommonAdapter<ProductDetailsOut.List
     @Override
     protected void convert(ViewHolder holder, ProductDetailsOut.ListBean list, final int position) {
         holder.setText(R.id.tv_name, list.getGoodsName())
-                .setText(R.id.et_number,list.getNumber() + "")
+                .setText(R.id.tv_number,list.getNumber() + "")
                 .setText(R.id.tv_start_code,  "开始码")
                 .setText(R.id.tv_end_code, "结束码")
-                .setText(R.id.et_batch_no,"皮吃好")
+                .setText(R.id.tv_sap,"SAP 物料")
                 .setText(R.id.tv_select_ware,warehouseList.get(0).getWarehouseName())
                 .setText(R.id.tv_num, list.getNumber() + "  " + list.getUnitS());
 

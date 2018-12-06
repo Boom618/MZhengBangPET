@@ -17,8 +17,10 @@ import com.ty.zbpet.R;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.UserInfo;
 import com.ty.zbpet.bean.product.ProductDetailsIn;
+import com.ty.zbpet.bean.product.ProductTodoDetails;
 import com.ty.zbpet.bean.product.ProductTodoSave;
 import com.ty.zbpet.net.HttpMethods;
+import com.ty.zbpet.presenter.product.ProductUiListInterface;
 import com.ty.zbpet.presenter.product.ProductUiObjInterface;
 import com.ty.zbpet.presenter.product.ReturnPresenter;
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity;
@@ -45,12 +47,12 @@ import okhttp3.RequestBody;
  * @author TY on 2018/11/22.
  * 退货入库 待办详情
  */
-public class ReturnGoodsTodoDetailActivity extends BaseActivity implements ProductUiObjInterface<ProductDetailsIn> {
+public class ReturnGoodsTodoDetailActivity extends BaseActivity implements ProductUiListInterface<ProductTodoDetails.ListBean>,ReturnGoodsTodoDetailAdapter.SaveEditListener {
 
 
     private RecyclerView reView;
     private TextView tvTime;
-    private TextView backGoods;
+    private TextView titleName;
     private TextView tvPath;
     private TextView tvType;
     private EditText etDesc;
@@ -60,7 +62,7 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
     private String selectTime;
     private String sapOrderNo;
 
-    private ArrayList<ProductDetailsIn.ListBean> oldList = new ArrayList<>();
+    private List<ProductTodoDetails.ListBean> oldList = new ArrayList<>();
 
     private final static int REQUEST_SCAN_CODE = 1;
     private final static int RESULT_SCAN_CODE = 2;
@@ -80,8 +82,10 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
     /**
      * 保存用户在输入框中的数据
      */
-    private SparseArray<String> bulkNumArray = new SparseArray(10);
-    private SparseArray<String> batchNoArray = new SparseArray(10);
+    private SparseArray<String> numberArray = new SparseArray(10);
+    private SparseArray<String> startCodeArray = new SparseArray(10);
+    private SparseArray<String> endCodeArray = new SparseArray(10);
+    private SparseArray<String> sapArray = new SparseArray(10);
     private SparseArray<ArrayList<String>> carCodeArray = new SparseArray(10);
     /**
      * 库位码 ID
@@ -108,13 +112,11 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
     protected void initOneData() {
         sapOrderNo = getIntent().getStringExtra("sapOrderNo");
 
-        //presenter.fetchBuyInTodoListDetails(sapOrderNo);
+        presenter.fetchReturnOrderInfo(sapOrderNo);
     }
 
     @Override
     protected void initTwoView() {
-
-        // in_storage_detail 到货明细
 
         initToolBar(R.string.label_return_sell, new View.OnClickListener() {
             @Override
@@ -125,7 +127,7 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
 
         reView = findViewById(R.id.rv_in_storage_detail);
         tvTime = findViewById(R.id.tv_time);
-        backGoods = findViewById(R.id.in_storage_detail);
+        titleName = findViewById(R.id.in_storage_detail);
 
         tvPath = findViewById(R.id.tv_path);
         tvType = findViewById(R.id.tv_type);
@@ -136,7 +138,7 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
         selectTime = format.format(new Date());
 
         tvTime.setText(selectTime);
-        backGoods.setText("到货明细");
+        titleName.setText("退货明细");
 
         tvTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,40 +206,40 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
         int size = oldList.size();
         for (int i = 0; i < size; i++) {
             List<String> boxQrCode = carCodeArray.get(i);
-            String bulkNum = bulkNumArray.get(i);
-            String batchNo = batchNoArray.get(i);
-            String Id = positionId.get(i);
+            String number = numberArray.get(i);
+            String startCode = startCodeArray.get(i);
+            String endCode = endCodeArray.get(i);
+            String sap = sapArray.get(i);
+            String id = positionId.get(i);
 
             ProductTodoSave.DetailsBean bean = new ProductTodoSave.DetailsBean();
-            if (!TextUtils.isEmpty(bulkNum) && boxQrCode.size() != 0) {
+            if (!TextUtils.isEmpty(number) && boxQrCode != null) {
 
-                bean.setPositionId(Id);
-                bean.setNumber(bulkNum);
-                bean.setSapMaterialBatchNo(batchNo);
+                bean.setPositionId(id);
+                bean.setNumber(number);
+                bean.setStartQrCode(startCode);
+                bean.setEndQrCode(endCode);
+                bean.setSapMaterialBatchNo(sap);
 
                 bean.setBoxQrCode(boxQrCode);
 
                 detail.add(bean);
-            } else if (null == bulkNum && null == boxQrCode) {
-                // 跳出当前一列、不处理
+            } else{
+                // 跳出当前循环、不处理
                 continue;
-            } else {
-                // 车库数量或者库位码其中一项为空
-                ZBUiUtils.showToast("车库数量或库位码信息不全");
-                break;
             }
         }
         // 没有合法的操作数据,不请求网络
         if (detail.size() == 0) {
+            ZBUiUtils.showToast("请完善您要保存的信息");
             return null;
         }
         String remark = etDesc.getText().toString().trim();
         String time = tvTime.getText().toString().trim();
 
         requestBody.setDetails(detail);
-        requestBody.setWarehouseId("仓库ID");
-        requestBody.setSapOrderNo("管联单据");
-        requestBody.setProductionBatchNo("生产批次号");
+        requestBody.setWarehouseId(warehouseId);
+        requestBody.setSapOrderNo(sapOrderNo);
         requestBody.setInTime(time);
         requestBody.setRemark(remark);
 
@@ -249,9 +251,8 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
 
 
     @Override
-    public void detailObjData(ProductDetailsIn details) {
-
-        final List<ProductDetailsIn.ListBean> list = details.getList();
+    public void showProduct(List<ProductTodoDetails.ListBean> list) {
+        oldList = list;
         if (adapter == null) {
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             reView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
@@ -288,7 +289,6 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
                         }
                     });
 
-                    //List<BuyInTodoDetails.ListBean.WarehouseListBean> warehouseList = list.get(position).getWarehouseList();
                     UserInfo userInfo = DataUtils.getUserInfo();
 
                     List<UserInfo.WarehouseListBean> warehouseList = userInfo.getWarehouseList();
@@ -326,17 +326,24 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_SCAN_CODE && resultCode == RESULT_SCAN_CODE) {
             itemId = data.getIntExtra("itemId", -1);
+            warehouseId = data.getStringExtra("warehouseId");
             boxCodeList = data.getStringArrayListExtra("boxCodeList");
             carCodeArray.put(itemId, boxCodeList);
-//            if (codeList != null) {
-//                GoodsPurchaseOrderInfo.DataBean.ListBean listBean = list.get(position);
-//                listBean.setBoxCodeList(codeList);
-//                listBean.setBoxNum(codeList.size() + "");
-//                listCopy.addAll(list);
-//                list.clear();
-//                list.addAll(listCopy);
-//                adapter.notifyDataSetChanged();
-//            }
+        }
+    }
+
+    @Override
+    public void saveEditAndGetHasFocusPosition(String etType, Boolean hasFocus, int position, EditText editText) {
+        String textContent = editText.getText().toString().trim();
+
+        if (CodeConstant.ET_NUMBER.equals(etType)) {
+            numberArray.put(position, textContent);
+        } else if (CodeConstant.ET_BATCH_NO.equals(etType)) {
+            sapArray.put(position, textContent);
+        } else if (CodeConstant.ET_START_CODE.equals(etType)) {
+            startCodeArray.put(position, textContent);
+        } else if (CodeConstant.ET_END_CODE.equals(etType)) {
+            endCodeArray.put(position, textContent);
         }
     }
 

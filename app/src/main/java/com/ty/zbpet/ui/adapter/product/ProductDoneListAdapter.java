@@ -25,7 +25,7 @@ public class ProductDoneListAdapter extends CommonAdapter<ProductDoneList.ListBe
     protected void convert(ViewHolder holder, ProductDoneList.ListBean list, int position) {
         holder.setText(R.id.tv_operator, "冲销")
                 .setText(R.id.tv_no, list.getSapOrderNo())
-                .setText(R.id.tv_produce_msg, "生产信息")
+                .setText(R.id.tv_produce_msg, "生产信息 ?")
                 .setText(R.id.tv_date, list.getInTime())
                 .setText(R.id.tv_status, list.getState() + "");
     }

@@ -50,6 +50,6 @@ class ProductDetailsOut {
         var updatedAt: String? = null
         var unitS: String? = null
         var orderId: String? = null
-        var boxQrCodeList: ArrayList<String>? = null
+        var boxQrCode: ArrayList<String>? = null
     }
 }

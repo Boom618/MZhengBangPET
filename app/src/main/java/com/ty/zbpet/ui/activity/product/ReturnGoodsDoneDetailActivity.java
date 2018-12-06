@@ -13,8 +13,10 @@ import android.widget.TextView;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.ResponseInfo;
+import com.ty.zbpet.bean.UserInfo;
 import com.ty.zbpet.bean.material.MaterialDoneSave;
 import com.ty.zbpet.bean.product.ProductDetailsOut;
+import com.ty.zbpet.bean.product.ProductDoneSave;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.presenter.product.ProductUiObjInterface;
 import com.ty.zbpet.presenter.product.ReturnPresenter;
@@ -57,6 +59,7 @@ public class ReturnGoodsDoneDetailActivity extends BaseActivity implements Produ
     private String warehouseId;
 
     private String orderId;
+    private String sapOrderNo;
     private List<ProductDetailsOut.ListBean> list = new ArrayList<>();
 
 
@@ -77,6 +80,7 @@ public class ReturnGoodsDoneDetailActivity extends BaseActivity implements Produ
     protected void initOneData() {
 
         orderId = getIntent().getStringExtra("orderId");
+        sapOrderNo = getIntent().getStringExtra("sapOrderNo");
 
     }
 
@@ -93,7 +97,7 @@ public class ReturnGoodsDoneDetailActivity extends BaseActivity implements Produ
         initToolBar(R.string.pick_out_storage, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ReturnGoodsDoneSave(initDoneBody());
+                returnGoodsDoneSave(initDoneBody());
             }
         });
 
@@ -125,7 +129,7 @@ public class ReturnGoodsDoneDetailActivity extends BaseActivity implements Produ
     /**
      * 冲销 保存
      */
-    private void ReturnGoodsDoneSave(RequestBody body) {
+    private void returnGoodsDoneSave(RequestBody body) {
 
         HttpMethods.getInstance().getBackDoneSave(new BaseSubscriber<ResponseInfo>() {
             @Override
@@ -153,12 +157,34 @@ public class ReturnGoodsDoneDetailActivity extends BaseActivity implements Produ
 
     private RequestBody initDoneBody() {
 
-        MaterialDoneSave requestBody = new MaterialDoneSave();
+        ProductDoneSave requestBody = new ProductDoneSave();
+
+        int size = list.size();
+        ArrayList<ProductDoneSave.DetailsBean> beans = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            ProductDoneSave.DetailsBean detailsBean = new ProductDoneSave.DetailsBean();
+
+            ArrayList<String> boxQrCodeList = list.get(i).getBoxQrCode();
+            String goodsId = list.get(i).getGoodsId();
+            String goodsNo = list.get(i).getGoodsNo();
+            String warehouseId = list.get(i).getWarehouseId();
+            String number = list.get(i).getNumber();
+
+            detailsBean.setNumber(number);
+            detailsBean.setBoxQrCode(boxQrCodeList);
+            detailsBean.setWarehouseId(warehouseId);
+
+            detailsBean.setGoodsId(goodsId);
+            detailsBean.setGoodsNo(goodsNo);
+
+            beans.add(detailsBean);
+        }
 
         String remark = etDesc.getText().toString().trim();
 
+        requestBody.setDetails(beans);
         requestBody.setOrderId(orderId);
-        requestBody.setWarehouseId(warehouseId);
+        requestBody.setSapOrderNo(sapOrderNo);
         requestBody.setOutTime(selectTime);
         requestBody.setRemark(remark);
         String json = DataUtils.toJson(requestBody, 1);

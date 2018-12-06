@@ -6,6 +6,7 @@ import android.widget.EditText;
 
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.product.ProductDetailsIn;
+import com.ty.zbpet.bean.product.ProductTodoDetails;
 import com.ty.zbpet.util.CodeConstant;
 import com.ty.zbpet.util.ZBUiUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
@@ -18,27 +19,44 @@ import java.util.List;
  * <p>
  * 退货入库 待办详情
  */
-public class ReturnGoodsTodoDetailAdapter extends CommonAdapter<ProductDetailsIn.ListBean> {
+public class ReturnGoodsTodoDetailAdapter extends CommonAdapter<ProductTodoDetails.ListBean> {
 
 
-    public ReturnGoodsTodoDetailAdapter(Context context, int layoutId, List<ProductDetailsIn.ListBean> datas) {
+    public ReturnGoodsTodoDetailAdapter(Context context, int layoutId, List<ProductTodoDetails.ListBean> datas) {
         super(context, layoutId, datas);
     }
 
     @Override
-    protected void convert(ViewHolder holder, ProductDetailsIn.ListBean list, final int position) {
+    protected void convert(ViewHolder holder, ProductTodoDetails.ListBean list, final int position) {
         // 共用 一个布局：下拉选择隐藏,应发数量显示
         holder.itemView.findViewById(R.id.tv_select_ware).setVisibility(View.INVISIBLE);
         holder.itemView.findViewById(R.id.tv_warehouse).setVisibility(View.VISIBLE);
 
 
         holder.setText(R.id.tv_name, list.getGoodsName())
-                .setText(R.id.tv_warehouse,  " ? 号仓")
+                .setText(R.id.tv_warehouse, "所在仓库：" + list.getWarehouseName())
                 .setText(R.id.tv_num, list.getOrderNumber() + "  " + list.getUnitS());
+
+        // 退货入库数量
+        EditText number = holder.itemView.findViewById(R.id.et_number);
+        number.setOnFocusChangeListener(new EditTextOnFocusChangeListener(CodeConstant.ET_NUMBER, position, number));
+
+        // 开始码
+        EditText startCode = holder.itemView.findViewById(R.id.et_start_code);
+        startCode.setOnFocusChangeListener(new EditTextOnFocusChangeListener(CodeConstant.ET_START_CODE, position, number));
+
+        // 结束值
+        EditText endCode = holder.itemView.findViewById(R.id.et_end_code);
+        endCode.setOnFocusChangeListener(new EditTextOnFocusChangeListener(CodeConstant.ET_END_CODE, position, endCode));
+
+        // sap 物料
+        EditText sap = holder.itemView.findViewById(R.id.et_sap);
+        sap.setOnFocusChangeListener(new EditTextOnFocusChangeListener(CodeConstant.ET_BATCH_NO, position, sap));
+
 
     }
 
-    SaveEditListener listener = (SaveEditListener)mContext;
+    SaveEditListener listener = (SaveEditListener) mContext;
 
 
     class EditTextOnFocusChangeListener implements View.OnFocusChangeListener {

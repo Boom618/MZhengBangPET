@@ -47,7 +47,7 @@ public class ArrivalInDoneDetailActivity extends BaseActivity implements Materia
     private String orderId;
     private String mInWarehouseOrderId;
     private String warehouseId;
-    private String sapProcOrder;
+    private String sapOrderNo;
     private String positionId;
 
     private MaterialDoneDetailAdapter adapter;
@@ -68,9 +68,8 @@ public class ArrivalInDoneDetailActivity extends BaseActivity implements Materia
     protected void initOneData() {
 
         mInWarehouseOrderId = getIntent().getStringExtra("mInWarehouseOrderId");
-        sapProcOrder = getIntent().getStringExtra("sapOrderNo");
+        sapOrderNo = getIntent().getStringExtra("sapOrderNo");
         warehouseId = getIntent().getStringExtra("warehouseId");
-
         orderId = getIntent().getStringExtra("orderId");
     }
 
@@ -125,7 +124,7 @@ public class ArrivalInDoneDetailActivity extends BaseActivity implements Materia
 
         bean.setWarehouseId(warehouseId);
         bean.setOrderId(mInWarehouseOrderId);
-        bean.setSapProcOrder(sapProcOrder);
+        bean.setSapOrderNo(sapOrderNo);
         bean.setPositionId(positionId);
         bean.setOrderId(orderId);
         bean.setRemark(etDesc.getText().toString().trim());

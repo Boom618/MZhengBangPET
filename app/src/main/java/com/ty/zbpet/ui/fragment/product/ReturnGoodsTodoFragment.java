@@ -19,7 +19,6 @@ import com.ty.zbpet.presenter.product.ProductUiListInterface;
 import com.ty.zbpet.presenter.product.ReturnPresenter;
 import com.ty.zbpet.ui.activity.product.ReturnGoodsTodoDetailActivity;
 import com.ty.zbpet.ui.adapter.product.ReturnGoodsTodoListAdapter;
-import com.ty.zbpet.ui.adapter.product.SendOutTodoListAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.ResourceUtil;
@@ -113,7 +112,7 @@ public class ReturnGoodsTodoFragment extends BaseFragment implements ProductUiLi
             adapter.setOnItemClickListener(new ReturnGoodsTodoListAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    Intent intent = new Intent(getActivity(), ReturnGoodsTodoDetailActivity.class);
+                    Intent intent = new Intent(ResourceUtil.getContext(), ReturnGoodsTodoDetailActivity.class);
                     intent.putExtra("sapOrderNo", list.get(position).getSapOrderNo());
                     intent.putExtra("supplierId", list.get(position).getSupplierId());
                     startActivity(intent);

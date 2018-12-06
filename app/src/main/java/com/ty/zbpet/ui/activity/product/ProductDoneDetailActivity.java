@@ -171,12 +171,14 @@ public class ProductDoneDetailActivity extends BaseActivity implements ProductUi
         for (int i = 0; i < size; i++) {
             ProductDoneSave.DetailsBean detailsBean = new ProductDoneSave.DetailsBean();
 
-            ArrayList<String> boxQrCodeList = list.get(i).getBoxQrCodeList();
+            ArrayList<String> boxQrCodeList = list.get(i).getBoxQrCode();
             String goodsId = list.get(i).getGoodsId();
             String goodsNo = list.get(i).getGoodsNo();
             String warehouseId = list.get(i).getWarehouseId();
+            String number = list.get(i).getNumber();
 
-            detailsBean.setBoxQrCodeList(boxQrCodeList);
+            detailsBean.setNumber(number);
+            detailsBean.setBoxQrCode(boxQrCodeList);
             detailsBean.setWarehouseId(warehouseId);
 
             detailsBean.setGoodsId(goodsId);
@@ -184,6 +186,7 @@ public class ProductDoneDetailActivity extends BaseActivity implements ProductUi
 
             List<UserInfo.WarehouseListBean> warehouseList = userInfo.getWarehouseList();
             detailsBean.setWarehouseList(warehouseList);
+            beans.add(detailsBean);
         }
 
         String remark = etDesc.getText().toString().trim();
@@ -217,7 +220,7 @@ public class ProductDoneDetailActivity extends BaseActivity implements ProductUi
                     View rlDetail = holder.itemView.findViewById(R.id.rl_detail);
                     ImageView ivArrow = holder.itemView.findViewById(R.id.iv_arrow);
 
-                    final ArrayList<String> boxQrCodeList = list.get(position).getBoxQrCodeList();
+                    final ArrayList<String> boxQrCodeList = list.get(position).getBoxQrCode();
 
                     Button bindingCode = holder.itemView.findViewById(R.id.btn_binding_code);
 

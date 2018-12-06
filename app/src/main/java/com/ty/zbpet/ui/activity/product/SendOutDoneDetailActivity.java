@@ -13,8 +13,10 @@ import android.widget.TextView;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.ResponseInfo;
+import com.ty.zbpet.bean.UserInfo;
 import com.ty.zbpet.bean.material.MaterialDoneSave;
 import com.ty.zbpet.bean.product.ProductDetailsOut;
+import com.ty.zbpet.bean.product.ProductDoneSave;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.presenter.product.ProductUiObjInterface;
 import com.ty.zbpet.presenter.product.SendOutPresenter;
@@ -46,6 +48,7 @@ public class SendOutDoneDetailActivity extends BaseActivity implements ProductUi
 
     private RecyclerView reView;
     private TextView tvTime;
+    private TextView titleName;
     private EditText etDesc;
 
     private SendOutDoneDetailAdapter adapter;
@@ -56,7 +59,14 @@ public class SendOutDoneDetailActivity extends BaseActivity implements ProductUi
      */
     private String warehouseId;
 
+    /**
+     * 请求详情 orderId
+     */
     private String orderId;
+    /**
+     * 冲销 sapOrderNo
+     */
+    private String sapOrderNo;
     private List<ProductDetailsOut.ListBean> list = new ArrayList<>();
 
 
@@ -77,6 +87,7 @@ public class SendOutDoneDetailActivity extends BaseActivity implements ProductUi
     protected void initOneData() {
 
         orderId = getIntent().getStringExtra("orderId");
+        sapOrderNo = getIntent().getStringExtra("sapOrderNo");
 
         presenter.fetchSendOutDoneInfo(orderId);
     }
@@ -88,19 +99,21 @@ public class SendOutDoneDetailActivity extends BaseActivity implements ProductUi
         initToolBar(R.string.pick_out_storage, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SendOutDoneSave(initDoneBody());
+                sendOutDoneSave(initDoneBody());
             }
         });
 
         reView = findViewById(R.id.rv_in_storage_detail);
         tvTime = findViewById(R.id.tv_time);
         etDesc = findViewById(R.id.et_desc);
+        titleName = findViewById(R.id.in_storage_detail);
         findViewById(R.id.add_ship).setVisibility(View.GONE);
 
         SimpleDateFormat format = new SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA);
         selectTime = format.format(new Date());
 
         tvTime.setText(selectTime);
+        titleName.setText("发货明细");
 
         tvTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,7 +134,7 @@ public class SendOutDoneDetailActivity extends BaseActivity implements ProductUi
     /**
      * 冲销 保存
      */
-    private void SendOutDoneSave(RequestBody body) {
+    private void sendOutDoneSave(RequestBody body) {
 
         HttpMethods.getInstance().getShipDoneSave(new BaseSubscriber<ResponseInfo>() {
             @Override
@@ -149,12 +162,33 @@ public class SendOutDoneDetailActivity extends BaseActivity implements ProductUi
 
     private RequestBody initDoneBody() {
 
-        MaterialDoneSave requestBody = new MaterialDoneSave();
+        ProductDoneSave requestBody = new ProductDoneSave();
+
+        int size = list.size();
+        ArrayList<ProductDoneSave.DetailsBean> beans = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            ProductDoneSave.DetailsBean detailsBean = new ProductDoneSave.DetailsBean();
+
+            ArrayList<String> boxQrCodeList = list.get(i).getBoxQrCode();
+            String goodsId = list.get(i).getGoodsId();
+            String goodsNo = list.get(i).getGoodsNo();
+            String warehouseId = list.get(i).getWarehouseId();
+            String number = list.get(i).getNumber();
+
+            detailsBean.setNumber(number);
+            detailsBean.setBoxQrCode(boxQrCodeList);
+            detailsBean.setWarehouseId(warehouseId);
+
+            detailsBean.setGoodsId(goodsId);
+            detailsBean.setGoodsNo(goodsNo);
+            beans.add(detailsBean);
+        }
 
         String remark = etDesc.getText().toString().trim();
 
+        requestBody.setDetails(beans);
         requestBody.setOrderId(orderId);
-        requestBody.setWarehouseId(warehouseId);
+        requestBody.setSapOrderNo(sapOrderNo);
         requestBody.setOutTime(selectTime);
         requestBody.setRemark(remark);
         String json = DataUtils.toJson(requestBody, 1);
@@ -165,7 +199,7 @@ public class SendOutDoneDetailActivity extends BaseActivity implements ProductUi
     @Override
     public void detailObjData(ProductDetailsOut obj) {
 
-        List<ProductDetailsOut.ListBean> list = obj.getList();
+        list = obj.getList();
 
         if (adapter == null) {
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
@@ -180,6 +214,7 @@ public class SendOutDoneDetailActivity extends BaseActivity implements ProductUi
 
                     View rlDetail = holder.itemView.findViewById(R.id.gone_view);
                     ImageView ivArrow = holder.itemView.findViewById(R.id.iv_arrow);
+                    final ArrayList<String> boxQrCodeList = list.get(position).getBoxQrCode();
 
                     Button bindingCode = holder.itemView.findViewById(R.id.btn_binding_code);
 
@@ -197,6 +232,7 @@ public class SendOutDoneDetailActivity extends BaseActivity implements ProductUi
                         public void onClick(View v) {
                             Intent intent = new Intent(SendOutDoneDetailActivity.this, ScanBoxCodeActivity.class);
                             intent.putExtra(CodeConstant.PAGE_STATE, false);
+                            intent.putStringArrayListExtra("boxCodeList", boxQrCodeList);
                             startActivity(intent);
                         }
                     });

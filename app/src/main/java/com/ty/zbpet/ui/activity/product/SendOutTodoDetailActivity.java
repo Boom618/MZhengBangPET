@@ -136,7 +136,7 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
         initToolBar(R.string.label_send_out_storage, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SendOutTodoSave(initTodoBody());
+                sendOutTodoSave(initTodoBody());
             }
         });
 
@@ -176,31 +176,38 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
 
                 // TODO  刷新逻辑
 
-                newList.addAll(oldList);
-                ProductTodoDetails.ListBean bean = new ProductTodoDetails.ListBean();
+                int rawSize = rawData.size();
+                int oldSize = oldList.size();
+                if (oldSize < rawSize) {
+                    newList.addAll(oldList);
+                    ProductTodoDetails.ListBean bean = new ProductTodoDetails.ListBean();
 
-                ProductTodoDetails.ListBean info = rawData.get(0);
+                    ProductTodoDetails.ListBean info = rawData.get(0);
 
-                bean.setSapOrderNo(info.getSapOrderNo());
-                bean.setGoodsName(info.getGoodsName());
-                bean.setGoodsId(info.getGoodsId());
-                bean.setGoodsNo(info.getGoodsNo());
-                bean.setUnitS(info.getUnitS());
-                bean.setOrderNumber(info.getOrderNumber());
-                //bean.setWarehouseList(rawData.get(0).getWarehouseList());
+                    bean.setSapOrderNo(info.getSapOrderNo());
+                    bean.setGoodsName(info.getGoodsName());
+                    bean.setGoodsId(info.getGoodsId());
+                    bean.setGoodsNo(info.getGoodsNo());
+                    bean.setUnitS(info.getUnitS());
+                    bean.setOrderNumber(info.getOrderNumber());
+                    //bean.setWarehouseList(rawData.get(0).getWarehouseList());
 
 
-                newList.add(bean);
+                    newList.add(bean);
 
-                DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new SendOutDiffUtil(oldList, newList), true);
-                diffResult.dispatchUpdatesTo(adapter);
+                    DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new SendOutDiffUtil(oldList, newList), true);
+                    diffResult.dispatchUpdatesTo(adapter);
 
-                // 清除原数据,更新原数据,清除临时保存数据
-                oldList.clear();
-                oldList.addAll(newList);
-                newList.clear();
+                    // 清除原数据,更新原数据,清除临时保存数据
+                    oldList.clear();
+                    oldList.addAll(newList);
+                    newList.clear();
 
-                ZBUiUtils.showToast("添加发货出库");
+                    ZBUiUtils.showToast("添加发货出库");
+                } else {
+                    ZBUiUtils.showToast("谢谢");
+                }
+
             }
         });
 
@@ -210,7 +217,7 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
     /**
      * 出库 保存
      */
-    private void SendOutTodoSave(RequestBody body) {
+    private void sendOutTodoSave(RequestBody body) {
 
         if (body == null) {
             return;
@@ -265,6 +272,8 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
         for (int i = 0; i < size; i++) {
             List<String> boxQrCode = carCodeArray.get(i);
             String number = numberArray.get(i);
+            String startCode = startCodeArray.get(i);
+            String endCode = endCodeArray.get(i);
             String sap = sapArray.get(i);
             String Id = positionId.get(i);
 
@@ -273,24 +282,26 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
             String goodsNo;
             String goodsName;
 
-            // houseId == null ： 是判断用户全部没有选择商品信息,默认都是第一个，
-            // houseId.get(i) == null : 是判断用户部分没选择商品信息默认第一个
-            if (houseId == null || houseId.get(i) == null) {
-                goodsId = oldList.get(0).getGoodsId();
-                goodsNo = oldList.get(0).getGoodsNo();
-                goodsName = oldList.get(0).getGoodsName();
-
-            } else {
-                Integer which = houseId.get(i);
-                goodsId = oldList.get(which).getGoodsId();
-                goodsNo = oldList.get(which).getGoodsNo();
-                goodsName = oldList.get(which).getGoodsName();
-            }
-
             ProductTodoSave.DetailsBean bean = new ProductTodoSave.DetailsBean();
             if (!TextUtils.isEmpty(number) && boxQrCode != null) {
 
+                // houseId == null ： 是判断用户全部没有选择商品信息,默认都是第一个，
+                // houseId.get(i) == null : 是判断用户部分没选择商品信息默认第一个
+                if (houseId == null || houseId.get(i) == null) {
+                    goodsId = oldList.get(0).getGoodsId();
+                    goodsNo = oldList.get(0).getGoodsNo();
+                    goodsName = oldList.get(0).getGoodsName();
+
+                } else {
+                    int which = houseId.get(i) - 1;
+                    goodsId = oldList.get(which).getGoodsId();
+                    goodsNo = oldList.get(which).getGoodsNo();
+                    goodsName = oldList.get(which).getGoodsName();
+                }
+
                 bean.setPositionId(Id);
+                bean.setStartQrCode(startCode);
+                bean.setEndQrCode(endCode);
                 bean.setNumber(number);
                 bean.setSapMaterialBatchNo(sap);
 
@@ -300,7 +311,7 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
                 bean.setBoxQrCode(boxQrCode);
 
                 detail.add(bean);
-            } else{
+            } else {
                 // 跳出当前循环、不处理
                 continue;
             }
