@@ -57,9 +57,9 @@ public class MaterialTodoAdapter extends CommonAdapter {
 
         TextView tvOperator = holder.itemView.findViewById(R.id.tv_operator);
         tvOperator.setText("入库");
-        if (!"采购入库".equals(info.getType())) {
-            tvOperator.setText("冲销");
-        }
+//        if (!"采购入库".equals(info.getType())) {
+//            tvOperator.setText("冲销");
+//        }
 
         TextView tvDate = holder.itemView.findViewById(R.id.tv_date);
         tvDate.setText(info.getOrderTime());

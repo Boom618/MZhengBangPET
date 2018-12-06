@@ -168,6 +168,7 @@ public class ZBUiUtils {
                     public void onClick(DialogInterface dialog, int which) {
                         textView.setText(data.get(which));
 
+                        // 存 item 中的 下拉选择信息
                         //MainApp.mCache.put(CodeConstant.SELECT_HOUSE_ID, String.valueOf(which));
                         DataUtils.setHouseId(position, which);
 

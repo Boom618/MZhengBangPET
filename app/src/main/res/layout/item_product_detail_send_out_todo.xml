@@ -2,10 +2,11 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_marginStart="@dimen/space_10"
-    android:layout_marginEnd="@dimen/space_10"
-    android:background="@drawable/shape_white_min_radius"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/space_8"
+    android:layout_marginEnd="@dimen/space_8"
+    android:paddingBottom="@dimen/space_8"
+    android:background="@drawable/shape_white_min_radius">
 
 
     <ImageView
@@ -14,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:src="@mipmap/ic_product"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:layout_toEndOf="@id/iv_tag"
         android:text="联想台式电脑"
         android:textColor="@color/txt_main_color"
@@ -38,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="8dp"
         android:layout_toStartOf="@+id/iv_arrow"
         android:text="25箱"
@@ -53,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="8dp"
         android:src="@mipmap/ic_collapse"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,8 +65,8 @@
         android:id="@+id/gone_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible"
-        app:layout_constraintTop_toBottomOf="@+id/tv_num">
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/iv_tag">
 
         <TextView
             android:id="@+id/tv_select_ware"
@@ -78,33 +79,33 @@
             android:drawablePadding="@dimen/space_10"
             android:gravity="center_vertical"
             android:padding="@dimen/space_7"
-            android:text="正邦原料 1 号仓库"
+            android:text="商品1"
             android:textColor="@color/txt_main_color"
             android:textSize="@dimen/text_14"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_warehouse"
+            android:id="@+id/tv_send_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_28"
+            android:layout_marginStart="@dimen/text_28"
+            android:layout_marginTop="@dimen/text_16"
             android:drawablePadding="@dimen/space_10"
             android:gravity="center_vertical"
             android:padding="@dimen/space_5"
-            android:text="所在仓库"
+            android:text="应发数量："
             android:textColor="@color/txt_main_color"
             android:textSize="@dimen/text_14"
-            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_select_ware" />
 
 
         <EditText
             android:id="@+id/et_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_28"
+            android:layout_margin="@dimen/text_22"
             android:ellipsize="end"
             android:hint="出库数量：2000"
             android:inputType="number"
@@ -114,7 +115,7 @@
             android:textSize="@dimen/text_14"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_select_ware" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_send_number" />
 
         <EditText
             android:id="@+id/et_start_code"
@@ -148,7 +149,7 @@
 
 
         <EditText
-            android:id="@+id/et_batch_no"
+            android:id="@+id/et_sap"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_25"
@@ -177,7 +178,7 @@
             android:textColor="@color/white"
             android:textColorHint="@color/hint_color"
             android:textSize="@dimen/text_16"
-            app:layout_constraintTop_toBottomOf="@+id/et_batch_no" />
+            app:layout_constraintTop_toBottomOf="@+id/et_sap" />
 
 
     </android.support.constraint.ConstraintLayout>

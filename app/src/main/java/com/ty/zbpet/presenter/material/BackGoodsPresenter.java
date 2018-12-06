@@ -175,11 +175,11 @@ public class BackGoodsPresenter {
                 if (CodeConstant.SERVICE_SUCCESS.equals(infoList.getTag())) {
                     if (null != infoList && infoList.getData() != null) {
                         List<MaterialDoneList.ListBean> list = infoList.getData().getList();
-                        if (list != null && list.size() != 0) {
-                            materialListUi.showMaterial(list);
-                        } else {
-                            ZBUiUtils.showToast("没有信息");
-                        }
+                        materialListUi.showMaterial(list);
+//                        if (list != null && list.size() != 0) {
+//                        } else {
+//                            ZBUiUtils.showToast("没有信息");
+//                        }
                     }
                 } else {
                     ZBUiUtils.showToast(infoList.getMessage());
@@ -191,7 +191,7 @@ public class BackGoodsPresenter {
     /**
      * 已办 详情
      */
-    public void fetchBackDoneListInfo(String mOutWarehouseOrderId) {
+    public void fetchBackDoneListInfo(String orderId) {
         httpMethods.getBackDoneListInfo(new BaseSubscriber<BaseResponse<MaterialDetailsOut>>() {
             @Override
             public void onError(ApiException e) {
@@ -208,7 +208,7 @@ public class BackGoodsPresenter {
                     ZBUiUtils.showToast(response.getMessage());
                 }
             }
-        }, mOutWarehouseOrderId);
+        }, orderId);
 
     }
 

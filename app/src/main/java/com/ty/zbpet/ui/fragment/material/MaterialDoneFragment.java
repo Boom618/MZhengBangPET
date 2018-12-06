@@ -139,6 +139,7 @@ public class MaterialDoneFragment extends BaseFragment implements MaterialUiList
                     intent.putExtra("mInWarehouseOrderId", list.get(position).getMInWarehouseOrderId());
                     intent.putExtra("sapOrderNo", list.get(position).getSapOrderNo());
                     intent.putExtra("warehouseId", list.get(position).getWarehouseId());
+                    intent.putExtra("orderId", list.get(position).getOrderId());
                     startActivity(intent);
                 }
 

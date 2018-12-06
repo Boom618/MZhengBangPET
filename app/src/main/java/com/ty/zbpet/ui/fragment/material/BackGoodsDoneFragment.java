@@ -64,9 +64,9 @@ public class BackGoodsDoneFragment extends BaseFragment implements MaterialUiLis
     @Override
     protected View onBaseCreate(View view) {
 
-        refreshLayout.setRefreshHeader(new MaterialHeader(this.getContext()));
+        refreshLayout.setRefreshHeader(new MaterialHeader(view.getContext()));
         //设置 Footer 为 球脉冲 样式
-        refreshLayout.setRefreshFooter(new BallPulseFooter(this.getContext()).setSpinnerStyle(SpinnerStyle.Scale));
+        refreshLayout.setRefreshFooter(new BallPulseFooter(view.getContext()).setSpinnerStyle(SpinnerStyle.Scale));
 
         return view;
     }
@@ -139,6 +139,7 @@ public class BackGoodsDoneFragment extends BaseFragment implements MaterialUiLis
                     intent.putExtra("mOutWarehouseOrderId", list.get(position).getMOutWarehouseOrderId());
                     intent.putExtra("sapOrderNo", list.get(position).getSapOrderNo());
                     intent.putExtra("warehouseId", list.get(position).getWarehouseId());
+                    intent.putExtra("orderId", list.get(position).getOrderId());
                     startActivity(intent);
                 }
 

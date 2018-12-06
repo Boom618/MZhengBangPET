@@ -95,6 +95,7 @@ public class SendOutDoneDetailActivity extends BaseActivity implements ProductUi
         reView = findViewById(R.id.rv_in_storage_detail);
         tvTime = findViewById(R.id.tv_time);
         etDesc = findViewById(R.id.et_desc);
+        findViewById(R.id.add_ship).setVisibility(View.GONE);
 
         SimpleDateFormat format = new SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA);
         selectTime = format.format(new Date());
@@ -170,14 +171,14 @@ public class SendOutDoneDetailActivity extends BaseActivity implements ProductUi
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             reView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             reView.setLayoutManager(manager);
-            adapter = new SendOutDoneDetailAdapter(this, R.layout.item_produce_detail_done, list);
+            adapter = new SendOutDoneDetailAdapter(this, R.layout.item_product_detail_send_out_done, list);
             reView.setAdapter(adapter);
 
             adapter.setOnItemClickListener(new SendOutDoneDetailAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
 
-                    View rlDetail = holder.itemView.findViewById(R.id.rl_detail);
+                    View rlDetail = holder.itemView.findViewById(R.id.gone_view);
                     ImageView ivArrow = holder.itemView.findViewById(R.id.iv_arrow);
 
                     Button bindingCode = holder.itemView.findViewById(R.id.btn_binding_code);
@@ -195,7 +196,7 @@ public class SendOutDoneDetailActivity extends BaseActivity implements ProductUi
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(SendOutDoneDetailActivity.this, ScanBoxCodeActivity.class);
-                            intent.putExtra(CodeConstant.PAGE_STATE,false);
+                            intent.putExtra(CodeConstant.PAGE_STATE, false);
                             startActivity(intent);
                         }
                     });

@@ -242,7 +242,7 @@ public class MaterialPresenter {
     /**
      * 已办详情
      */
-    public void fetchDoneMaterialDetails(String id) {
+    public void fetchDoneMaterialDetails(String orderId) {
         httpMethods.getMaterialDoneListDetail(new SingleObserver<BaseResponse<MaterialDoneDetailsData>>() {
 
             @Override
@@ -271,7 +271,7 @@ public class MaterialPresenter {
                     ZBUiUtils.showToast(infoList.getMessage());
                 }
             }
-        }, id);
+        }, orderId);
     }
 
 

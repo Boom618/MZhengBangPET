@@ -1,7 +1,9 @@
 package com.ty.zbpet.presenter.product;
 
 import com.ty.zbpet.bean.material.MaterialDoneList;
+import com.ty.zbpet.bean.product.ProductDetailsOut;
 import com.ty.zbpet.bean.product.ProductDoneList;
+import com.ty.zbpet.bean.product.ProductTodoDetails;
 import com.ty.zbpet.bean.product.ProductTodoList;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
@@ -15,7 +17,7 @@ import io.reactivex.disposables.Disposable;
 
 /**
  * @author TY on 2018/11/26.
- *
+ * <p>
  * 退货入库 presenter
  */
 public class ReturnPresenter {
@@ -26,12 +28,12 @@ public class ReturnPresenter {
     private HttpMethods httpMethods;
     private Disposable disposable;
 
-    public ReturnPresenter(ProductUiListInterface listInterface){
+    public ReturnPresenter(ProductUiListInterface listInterface) {
         this.listInterface = listInterface;
         httpMethods = HttpMethods.getInstance();
     }
 
-    public ReturnPresenter(ProductUiObjInterface objInterface){
+    public ReturnPresenter(ProductUiObjInterface objInterface) {
         this.objInterface = objInterface;
         httpMethods = HttpMethods.getInstance();
     }
@@ -47,7 +49,7 @@ public class ReturnPresenter {
      * 待办列表
      */
     public void fetchReturnGoodsTodoList() {
-        httpMethods.getProductTodoList(new SingleObserver<BaseResponse<ProductTodoList>>() {
+        httpMethods.getReturnOrderList(new SingleObserver<BaseResponse<ProductTodoList>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;
@@ -73,26 +75,56 @@ public class ReturnPresenter {
     }
 
 
-
-
     /**
-     * 已办列表
+     * 获取 待办详情
+     *
+     * @param sapOrderNo
      */
-    public void fetchReturnGoodsDoneList(String type) {
-        httpMethods.getReturnDoneList(new SingleObserver<BaseResponse<MaterialDoneList>>() {
+    public void fetchReturnOrderInfo(String sapOrderNo) {
+        httpMethods.getReturnOrderInfo(new SingleObserver<BaseResponse<ProductTodoDetails>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;
             }
 
             @Override
-            public void onSuccess(BaseResponse<MaterialDoneList> response) {
+            public void onSuccess(BaseResponse<ProductTodoDetails> response) {
+
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
-                    MaterialDoneList data = response.getData();
+                    List<ProductTodoDetails.ListBean> list = response.getData().getList();
+
+                    listInterface.showProduct(list);
+
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                ZBUiUtils.showToast(e.getMessage());
+            }
+        }, sapOrderNo);
+    }
+
+    /**
+     * 已办列表
+     */
+    public void fetchReturnGoodsDoneList(String type) {
+        httpMethods.getReturnDoneList(new SingleObserver<BaseResponse<ProductDoneList>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(BaseResponse<ProductDoneList> response) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
+
+                    ProductDoneList data = response.getData();
                     if (data.getCount() == 0) {
                         ZBUiUtils.showToast("没有数据");
-                    }else {
+                    } else {
                         objInterface.detailObjData(data);
                     }
 
@@ -105,7 +137,38 @@ public class ReturnPresenter {
             public void onError(Throwable e) {
 
             }
-        },type);
+        }, type);
+    }
+
+
+    /**
+     * 获取 已办详情
+     *
+     * @param sapOrderNo
+     */
+    public void fetchReturnOrderDoneInfo(String sapOrderNo) {
+        httpMethods.getReturnDoneListInfo(new SingleObserver<BaseResponse<ProductDetailsOut>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(BaseResponse<ProductDetailsOut> response) {
+
+                if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
+
+                    List<ProductDetailsOut.ListBean> list = response.getData().getList();
+                    listInterface.showProduct(list);
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                ZBUiUtils.showToast(e.getMessage());
+            }
+        }, sapOrderNo);
     }
 
 

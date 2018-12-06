@@ -14,6 +14,7 @@
     <string name="label_product_inventory">成品库存</string>
     <string name="label_produce_in_storage">生产入库</string>
     <string name="label_purchase_in_storage">外采入库</string>
+    <string name="label_return_sell">销售退货</string>
     <string name="label_material_inventory">原辅料库存</string>
 
     <string name="label_check">质检</string>

@@ -14,7 +14,7 @@ public class ApiNameConstant {
     /**
      * 原辅料——采购待办 列表
      */
-    public static final String GET_MATERIAL_IN_WAREHOUSE_ORDER_LIST = "sap/zbSap/getMaterialInWarehouseOrderList";
+    public static final String GET_MATERIAL_IN_WAREHOUSE_ORDER_LIST = "sap/zbSap/getMaterialPurchaseOrderList";
 
     /**
      * 原辅料——采购待办 详情

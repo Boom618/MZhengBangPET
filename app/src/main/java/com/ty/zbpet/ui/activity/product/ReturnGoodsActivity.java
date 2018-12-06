@@ -53,7 +53,7 @@ public class ReturnGoodsActivity extends BaseActivity {
         rg.check(R.id.rb_no_doing);
         viewpager.setCurrentItem(NO_DOING);
 
-        initToolBar(R.string.label_send_out_storage);
+        initToolBar(R.string.label_return_sell);
     }
 
     @Override

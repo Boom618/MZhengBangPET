@@ -44,6 +44,7 @@ public class ArrivalInDoneDetailActivity extends BaseActivity implements Materia
     EditText etDesc;
 
 
+    private String orderId;
     private String mInWarehouseOrderId;
     private String warehouseId;
     private String sapProcOrder;
@@ -70,6 +71,7 @@ public class ArrivalInDoneDetailActivity extends BaseActivity implements Materia
         sapProcOrder = getIntent().getStringExtra("sapOrderNo");
         warehouseId = getIntent().getStringExtra("warehouseId");
 
+        orderId = getIntent().getStringExtra("orderId");
     }
 
     @Override
@@ -125,6 +127,7 @@ public class ArrivalInDoneDetailActivity extends BaseActivity implements Materia
         bean.setOrderId(mInWarehouseOrderId);
         bean.setSapProcOrder(sapProcOrder);
         bean.setPositionId(positionId);
+        bean.setOrderId(orderId);
         bean.setRemark(etDesc.getText().toString().trim());
 
         String json = DataUtils.toJson(bean, 1);
@@ -136,7 +139,7 @@ public class ArrivalInDoneDetailActivity extends BaseActivity implements Materia
     @Override
     protected void onStart() {
         super.onStart();
-        materialPresenter.fetchDoneMaterialDetails(mInWarehouseOrderId);
+        materialPresenter.fetchDoneMaterialDetails(orderId);
     }
 
     @Override

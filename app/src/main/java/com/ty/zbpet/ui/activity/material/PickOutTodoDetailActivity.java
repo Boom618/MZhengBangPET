@@ -220,14 +220,12 @@ public class PickOutTodoDetailActivity extends BaseActivity implements MaterialU
                 detail.add(bean);
             } else {
                 continue;
-            }/* if (null == bulkNum && null == carCode) {
-                // 不处理
-                continue;
-            } else {
-                // 车库数量和库位码必须一致
-                ZBUiUtils.showToast("领料出库 else ：");
-                break;
-            }*/
+            }
+        }
+        // 没有合法的操作数据,不请求网络
+        if (detail.size() == 0) {
+            ZBUiUtils.showToast("请完善您要保存的信息");
+            return null;
         }
 
         String remark = etDesc.getText().toString().trim();

@@ -219,17 +219,14 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
                 bean.setSapMaterialBatchNo(batchNo);
 
                 detail.add(bean);
-            } else if (null == bulkNum && null == carCode) {
+            } else {
                 // 跳出当前一列、不处理
                 continue;
-            } else {
-                // 车库数量或者库位码其中一项为空
-                ZBUiUtils.showToast("车库数量或库位码信息不全");
-                break;
             }
         }
         // 没有合法的操作数据,不请求网络
         if (detail.size() == 0) {
+            ZBUiUtils.showToast("请完善您要保存的信息");
             return null;
         }
 
@@ -304,7 +301,7 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
             ZBUiUtils.showToast("扫码成功 === showCarSuccess ");
             String carId = carData.getList().get(0).getId();
             warehouseId = carData.getList().get(0).getWarehouseId();
-            positionId.put(position,carId);
+            positionId.put(position, carId);
 
             adapter.notifyItemChanged(position);
         } else {

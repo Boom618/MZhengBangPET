@@ -78,7 +78,12 @@ public class ReturnGoodsDoneDetailActivity extends BaseActivity implements Produ
 
         orderId = getIntent().getStringExtra("orderId");
 
-        //presenter.fetchBuyInDoneListDetails(orderId);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        presenter.fetchReturnOrderDoneInfo(orderId);
     }
 
     @Override

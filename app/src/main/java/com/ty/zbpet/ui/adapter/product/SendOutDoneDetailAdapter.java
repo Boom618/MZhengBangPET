@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.product.ProductDetailsOut;
+import com.ty.zbpet.bean.product.ProductTodoDetails;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -23,9 +24,14 @@ public class SendOutDoneDetailAdapter extends CommonAdapter<ProductDetailsOut.Li
 
     @Override
     protected void convert(ViewHolder holder, ProductDetailsOut.ListBean list, final int position) {
-        holder.setText(R.id.tv_name, list.getGoodsName())
+        holder.setText(R.id.tv_name, "商品名: ")
                 .setText(R.id.tv_select_ware, "商品1")
-                .setText(R.id.tv_num, "  数量 " + list.getUnitS());
+                .setText(R.id.tv_send_number, "应发数量：")
+                .setText(R.id.tv_number, "出库数量：")
+                .setText(R.id.tv_start_code, "开始码：")
+                .setText(R.id.tv_end_code, "结束码：")
+                .setText(R.id.tv_sap, "SAP 物料：")
+                .setText(R.id.tv_num, " 数量 " + list.getUnitS());
 
     }
 

@@ -24,12 +24,20 @@ public class SendOutDoneListAdapter extends CommonAdapter<ProductDoneList.ListBe
 
     @Override
     protected void convert(ViewHolder holder, ProductDoneList.ListBean list, int position) {
+//        holder.setText(R.id.tv_operator, "冲销")
+//                .setText(R.id.tv_no, list.getSapOrderNo())
+//                .setText(R.id.tv_produce_msg, "生产信息")
+////                .setText(R.id.tv_client_msg, "客户 ？")
+//                .setText(R.id.tv_date, list.getInTime())
+//                .setText(R.id.tv_status, list.getState() + "");
+
         holder.setText(R.id.tv_operator, "冲销")
                 .setText(R.id.tv_no, list.getSapOrderNo())
-                .setText(R.id.tv_produce_msg, "生产信息")
-//                .setText(R.id.tv_client_msg, "客户 ？")
+                .setText(R.id.tv_client_msg, "客户信息 ？")
+                .setText(R.id.tv_send_msg, "产品信息 ？")
+                .setText(R.id.tv_product_msg, "成品信息 ？")
                 .setText(R.id.tv_date, list.getInTime())
-                .setText(R.id.tv_status, list.getState() + "");
+                .setText(R.id.tv_status, list.getState());
     }
 
 }

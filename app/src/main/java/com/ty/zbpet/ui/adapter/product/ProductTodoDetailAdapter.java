@@ -7,6 +7,7 @@ import android.widget.EditText;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.product.ProductTodoDetails;
 import com.ty.zbpet.util.CodeConstant;
+import com.ty.zbpet.util.ZBUiUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -68,7 +69,12 @@ public class ProductTodoDetailAdapter extends CommonAdapter<ProductTodoDetails.L
 
 
         @Override
-        public void onFocusChange(View v, boolean hasFocus) {
+        public void onFocusChange(View view, boolean hasFocus) {
+
+            if (CodeConstant.ET_BATCH_NO.equals(etType) && !hasFocus) {
+                // 关闭软键盘
+                ZBUiUtils.hideInputWindow(view.getContext(), view);
+            }
 
             listener.saveEditAndGetHasFocusPosition(etType, hasFocus, position, editText);
 

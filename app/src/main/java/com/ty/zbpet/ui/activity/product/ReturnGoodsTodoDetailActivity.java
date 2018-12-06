@@ -116,10 +116,10 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
 
         // in_storage_detail 到货明细
 
-        initToolBar(R.string.label_purchase_in_storage, new View.OnClickListener() {
+        initToolBar(R.string.label_return_sell, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ReturnGoodsTodoSave(initTodoBody());
+                returnGoodsTodoSave(initTodoBody());
             }
         });
 
@@ -130,6 +130,7 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
         tvPath = findViewById(R.id.tv_path);
         tvType = findViewById(R.id.tv_type);
         etDesc = findViewById(R.id.et_desc);
+        findViewById(R.id.add_ship).setVisibility(View.GONE);
 
         SimpleDateFormat format = new SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA);
         selectTime = format.format(new Date());
@@ -158,7 +159,7 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
     /**
      * 出库 保存
      */
-    private void ReturnGoodsTodoSave(RequestBody body) {
+    private void returnGoodsTodoSave(RequestBody body) {
 
         if (body == null) {
             return;
@@ -198,7 +199,6 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
         ProductTodoSave requestBody = new ProductTodoSave();
 
         List<ProductTodoSave.DetailsBean> detail = new ArrayList<>();
-
 
 
         int size = oldList.size();
@@ -282,7 +282,7 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
                             itemId = position;
                             Intent intent = new Intent(ReturnGoodsTodoDetailActivity.this, ScanBoxCodeActivity.class);
                             intent.putExtra("itemId", itemId);
-                            intent.putExtra(CodeConstant.PAGE_STATE,true);
+                            intent.putExtra(CodeConstant.PAGE_STATE, true);
                             intent.putStringArrayListExtra("boxCodeList", carCodeArray.get(itemId));
                             startActivityForResult(intent, REQUEST_SCAN_CODE);
                         }
@@ -302,7 +302,7 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
                     selectHouse.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            ZBUiUtils.selectDialog(view.getContext(),houseName,selectHouse);
+                            ZBUiUtils.selectDialog(view.getContext(), houseName, selectHouse);
                         }
                     });
 
@@ -327,7 +327,7 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
         if (requestCode == REQUEST_SCAN_CODE && resultCode == RESULT_SCAN_CODE) {
             itemId = data.getIntExtra("itemId", -1);
             boxCodeList = data.getStringArrayListExtra("boxCodeList");
-            carCodeArray.put(itemId,boxCodeList);
+            carCodeArray.put(itemId, boxCodeList);
 //            if (codeList != null) {
 //                GoodsPurchaseOrderInfo.DataBean.ListBean listBean = list.get(position);
 //                listBean.setBoxCodeList(codeList);

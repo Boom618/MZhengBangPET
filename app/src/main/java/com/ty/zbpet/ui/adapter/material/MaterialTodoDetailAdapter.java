@@ -40,11 +40,6 @@ public class MaterialTodoDetailAdapter extends CommonAdapter {
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return super.onCreateViewHolder(parent, viewType);
-    }
-
-    @Override
     protected void convert(ViewHolder holder, Object o, int position) {
 
     }
@@ -82,17 +77,6 @@ public class MaterialTodoDetailAdapter extends CommonAdapter {
         ViewSetValue.setValue(value, position, etCode);
 
 
-//        // 清除库位码
-//        final ImageView ivDel = itemView.findViewById(R.id.iv_del_code);
-//        ivDel.setVisibility(View.GONE);
-//        ivDel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                etCode.getText().clear();
-//                ivDel.setVisibility(View.GONE);
-//            }
-//        });
-
         etCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
@@ -115,11 +99,8 @@ public class MaterialTodoDetailAdapter extends CommonAdapter {
         etInNum.setOnFocusChangeListener(new EditTextOnFocusChangeListener(CodeConstant.ET_BULK_NUM, position, etInNum));
 
         // 4、sap 物料批次号
-        EditText batchNo = itemView.findViewById(R.id.et_batch_no);
-//        batchNo.setTag(position);
-//        String batchNoStr = batchNo.getText().toString().trim();
-//        batchNo.setText(batchNoStr);
-        batchNo.setOnFocusChangeListener(new EditTextOnFocusChangeListener(CodeConstant.ET_BATCH_NO, position, batchNo));
+        EditText sap = itemView.findViewById(R.id.et_batch_no);
+        sap.setOnFocusChangeListener(new EditTextOnFocusChangeListener(CodeConstant.ET_BATCH_NO, position, sap));
 
     }
 
@@ -148,9 +129,9 @@ public class MaterialTodoDetailAdapter extends CommonAdapter {
                 // 关闭软键盘
                 ZBUiUtils.hideInputWindow(context, view);
             }
-            if (!hasFocus) {
-                listener.saveEditAndGetHasFocusPosition(etType, hasFocus, position, editText);
-            }
+            listener.saveEditAndGetHasFocusPosition(etType, hasFocus, position, editText);
+//            if (!hasFocus) {
+//            }
 
         }
     }

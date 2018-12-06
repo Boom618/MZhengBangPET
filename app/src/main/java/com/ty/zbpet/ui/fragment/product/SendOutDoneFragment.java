@@ -117,7 +117,7 @@ public class SendOutDoneFragment extends BaseFragment implements ProductUiObjInt
                 recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
                 recyclerView.setLayoutManager(manager);
             }
-            adapter = new SendOutDoneListAdapter(ResourceUtil.getContext(),R.layout.item_produce_in_storage_complete,list);
+            adapter = new SendOutDoneListAdapter(ResourceUtil.getContext(),R.layout.item_send_out_list_todo,list);
             recyclerView.setAdapter(adapter);
 
             adapter.setOnItemClickListener(new SendOutDoneListAdapter.OnItemClickListener() {

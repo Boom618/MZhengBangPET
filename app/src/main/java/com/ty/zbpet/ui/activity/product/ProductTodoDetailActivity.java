@@ -131,7 +131,7 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
         initToolBar(R.string.label_produce_in_storage, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProductTodoSave(initTodoBody());
+                productTodoSave(initTodoBody());
             }
         });
 
@@ -193,7 +193,7 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
      *
      * @param body 参数
      */
-    private void ProductTodoSave(RequestBody body) {
+    private void productTodoSave(RequestBody body) {
 
         if (body == null) {
             return;

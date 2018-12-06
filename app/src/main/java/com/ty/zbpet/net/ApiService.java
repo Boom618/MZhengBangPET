@@ -86,12 +86,12 @@ public interface ApiService {
     /**
      * 获取原辅料采购 已办列表详情
      *
-     * @param id
+     * @param orderId
      * @return
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_MATERIAL_PURCHASE_LIST_INFO)
-    Single<BaseResponse<MaterialDoneDetailsData>> getMaterialDoneListDetail(@Field("orderId") String id);
+    Single<BaseResponse<MaterialDoneDetailsData>> getMaterialDoneListDetail(@Field("orderId") String orderId);
 
     /**
      * 原辅料采购冲销入库(已办保存)
@@ -209,7 +209,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_BACK_GOODS_DONE_LIST_INFO)
-    Observable<BaseResponse<MaterialDetailsOut>> getBackDoneListInfo(@Field("mOutWarehouseOrderId") String orderId);
+    Observable<BaseResponse<MaterialDetailsOut>> getBackDoneListInfo(@Field("orderId") String orderId);
 
     /**
      * 采购退货 已办保存
@@ -390,12 +390,12 @@ public interface ApiService {
     /**
      * 发货出库 已办列表 详情
      *
-     * @param sapOrderNo
+     * @param orderId
      * @return
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_SHIP_DONE_LIST_INFO)
-    Single<BaseResponse<ProductDetailsOut>> getShipDoneListInfo(@Field("sapOrderNo") String sapOrderNo);
+    Single<BaseResponse<ProductDetailsOut>> getShipDoneListInfo(@Field("orderId") String orderId);
 
     /**
      * 发货出库 已办保存
@@ -414,7 +414,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.GET_RETURN_ORDER_LIST)
-    Observable<GoodsPurchaseOrderList> getReturnOrderList();
+    Single<BaseResponse<ProductTodoList>> getReturnOrderList();
 
     /**
      * 退货入库 待办详情
@@ -424,7 +424,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_RETURN_ORDER_INFO)
-    Observable<GoodsPurchaseOrderInfo> getReturnOrderInfo(@Field("sapOrderNo") String sapOrderNo);
+    Single<BaseResponse<ProductTodoDetails>> getReturnOrderInfo(@Field("sapOrderNo") String sapOrderNo);
 
 
     /**
@@ -434,7 +434,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.GET_RETURN_TODO_SAVE)
-    Observable<ResponseInfo> getReturnTodoSave(@Body RequestBody body);
+    Single<ResponseInfo> getReturnTodoSave(@Body RequestBody body);
 
 
     /**
@@ -445,7 +445,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_RETURN_DONE_LIST)
-    Single<BaseResponse<MaterialDoneList>> getReturnDoneList(@Field("type") String type);
+    Single<BaseResponse<ProductDoneList>> getReturnDoneList(@Field("type") String type);
 
     /**
      * 退货入库 已办列表 详情
@@ -455,7 +455,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_RETURN_DONE_LIST_INFO)
-    Observable<BaseResponse<MaterialDoneDetailsData>> getReturnDoneListInfo(@Field("orderId") String orderId);
+    Single<BaseResponse<ProductDetailsOut>> getReturnDoneListInfo(@Field("orderId") String orderId);
 
     /**
      * 退货入库 已办保存
@@ -464,7 +464,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.GET_RETURN_DONE_SAVE)
-    Observable<ResponseInfo> getReturnDoneSave(@Body RequestBody body);
+    Single<ResponseInfo> getReturnDoneSave(@Body RequestBody body);
 
 
     /**--------------------------------- End ----------------------------------------*/

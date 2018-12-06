@@ -16,8 +16,6 @@ import android.widget.TextView;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.ResponseInfo;
-import com.ty.zbpet.bean.UserInfo;
-import com.ty.zbpet.bean.product.ProductDetailsIn;
 import com.ty.zbpet.bean.product.ProductTodoDetails;
 import com.ty.zbpet.bean.product.ProductTodoSave;
 import com.ty.zbpet.net.HttpMethods;
@@ -33,8 +31,6 @@ import com.ty.zbpet.util.DataUtils;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.ZBLog;
 import com.ty.zbpet.util.ZBUiUtils;
-import com.zhouyou.http.exception.ApiException;
-import com.zhouyou.http.subsciber.BaseSubscriber;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,6 +38,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import io.reactivex.SingleObserver;
+import io.reactivex.disposables.Disposable;
 import okhttp3.RequestBody;
 
 /**
@@ -49,7 +47,8 @@ import okhttp3.RequestBody;
  *
  * @author TY
  */
-public class SendOutTodoDetailActivity extends BaseActivity implements ProductUiListInterface<ProductTodoDetails.ListBean> {
+public class SendOutTodoDetailActivity extends BaseActivity implements ProductUiListInterface<ProductTodoDetails.ListBean>
+        , SendOutTodoDetailAdapter.SaveEditListener {
 
 
     private RecyclerView reView;
@@ -65,7 +64,13 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
     private String selectTime;
     private String sapOrderNo;
 
+    /**
+     * 商品种类 原数据
+     */
+    private List<ProductTodoDetails.ListBean> rawData = new ArrayList<>();
+
     private List<ProductTodoDetails.ListBean> oldList = new ArrayList<>();
+    private List<ProductTodoDetails.ListBean> newList = new ArrayList<>(oldList);
 
     private final static int REQUEST_SCAN_CODE = 1;
     private final static int RESULT_SCAN_CODE = 2;
@@ -85,8 +90,10 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
     /**
      * 保存用户在输入框中的数据
      */
-    private SparseArray<String> bulkNumArray = new SparseArray(10);
-    private SparseArray<String> batchNoArray = new SparseArray(10);
+    private SparseArray<String> numberArray = new SparseArray(10);
+    private SparseArray<String> startCodeArray = new SparseArray(10);
+    private SparseArray<String> endCodeArray = new SparseArray(10);
+    private SparseArray<String> sapArray = new SparseArray(10);
     private SparseArray<ArrayList<String>> carCodeArray = new SparseArray(10);
     /**
      * 库位码 ID
@@ -97,6 +104,11 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
      * 仓库 ID
      */
     private String warehouseId;
+
+    /**
+     * 商品种类 用户 下拉选择
+     */
+    private List<String> goodsName;
 
 
     @Override
@@ -161,27 +173,32 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
         addShip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<ProductTodoDetails.ListBean> tempList = new ArrayList<>(oldList);
+
+                // TODO  刷新逻辑
+
+                newList.addAll(oldList);
                 ProductTodoDetails.ListBean bean = new ProductTodoDetails.ListBean();
 
-                bean.setSapOrderNo("SAP0001");
-                bean.setGoodsName("新 40+30）g*100");
-                bean.setGoodsId("20");
-                bean.setGoodsNo("90000933");
-                bean.setUnitS("件");
-                bean.setOrderNumber("100");
-                //bean.setWarehouseList(oldList.get(0).getWarehouseList());
+                ProductTodoDetails.ListBean info = rawData.get(0);
+
+                bean.setSapOrderNo(info.getSapOrderNo());
+                bean.setGoodsName(info.getGoodsName());
+                bean.setGoodsId(info.getGoodsId());
+                bean.setGoodsNo(info.getGoodsNo());
+                bean.setUnitS(info.getUnitS());
+                bean.setOrderNumber(info.getOrderNumber());
+                //bean.setWarehouseList(rawData.get(0).getWarehouseList());
 
 
-                tempList.add(bean);
+                newList.add(bean);
 
-                DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new SendOutDiffUtil(oldList, tempList),false);
+                DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new SendOutDiffUtil(oldList, newList), true);
                 diffResult.dispatchUpdatesTo(adapter);
 
                 // 清除原数据,更新原数据,清除临时保存数据
                 oldList.clear();
-                oldList.addAll(tempList);
-                tempList.clear();
+                oldList.addAll(newList);
+                newList.clear();
 
                 ZBUiUtils.showToast("添加发货出库");
             }
@@ -199,14 +216,20 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
             return;
         }
 
-        HttpMethods.getInstance().getBackTodoSave(new BaseSubscriber<ResponseInfo>() {
+        HttpMethods.getInstance().getShipTodoSave(new SingleObserver<ResponseInfo>() {
+
             @Override
-            public void onError(ApiException e) {
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
-            public void onNext(ResponseInfo responseInfo) {
+            public void onSuccess(ResponseInfo responseInfo) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     // 入库成功（保存）
                     ZBUiUtils.showToast(responseInfo.getMessage());
@@ -234,35 +257,57 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
 
         List<ProductTodoSave.DetailsBean> detail = new ArrayList<>();
 
+        // 获取 用户选择商品的信息: 【那一列中的第几个】
+        SparseArray<Integer> houseId = DataUtils.getHouseId();
 
+        // int size = rawData.size();
         int size = oldList.size();
         for (int i = 0; i < size; i++) {
             List<String> boxQrCode = carCodeArray.get(i);
-            String bulkNum = bulkNumArray.get(i);
-            String batchNo = batchNoArray.get(i);
+            String number = numberArray.get(i);
+            String sap = sapArray.get(i);
             String Id = positionId.get(i);
 
+            // 商品信息
+            String goodsId;
+            String goodsNo;
+            String goodsName;
+
+            // houseId == null ： 是判断用户全部没有选择商品信息,默认都是第一个，
+            // houseId.get(i) == null : 是判断用户部分没选择商品信息默认第一个
+            if (houseId == null || houseId.get(i) == null) {
+                goodsId = oldList.get(0).getGoodsId();
+                goodsNo = oldList.get(0).getGoodsNo();
+                goodsName = oldList.get(0).getGoodsName();
+
+            } else {
+                Integer which = houseId.get(i);
+                goodsId = oldList.get(which).getGoodsId();
+                goodsNo = oldList.get(which).getGoodsNo();
+                goodsName = oldList.get(which).getGoodsName();
+            }
+
             ProductTodoSave.DetailsBean bean = new ProductTodoSave.DetailsBean();
-            if (!TextUtils.isEmpty(bulkNum) && boxQrCode.size() != 0) {
+            if (!TextUtils.isEmpty(number) && boxQrCode != null) {
 
                 bean.setPositionId(Id);
-                bean.setNumber(bulkNum);
-                bean.setSapMaterialBatchNo(batchNo);
+                bean.setNumber(number);
+                bean.setSapMaterialBatchNo(sap);
+
+                bean.setGoodsId(goodsId);
+                bean.setGoodsNo(goodsNo);
 
                 bean.setBoxQrCode(boxQrCode);
 
                 detail.add(bean);
-            } else if (null == bulkNum && null == boxQrCode) {
-                // 跳出当前一列、不处理
+            } else{
+                // 跳出当前循环、不处理
                 continue;
-            } else {
-                // 车库数量或者库位码其中一项为空
-                ZBUiUtils.showToast("车库数量或库位码信息不全");
-                break;
             }
         }
         // 没有合法的操作数据,不请求网络
         if (detail.size() == 0) {
+            ZBUiUtils.showToast("请完善您要保存的信息");
             return null;
         }
 
@@ -270,9 +315,8 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
         String time = tvTime.getText().toString().trim();
 
         requestBody.setDetails(detail);
-        requestBody.setWarehouseId("仓库ID");
-        requestBody.setSapOrderNo("管联单据");
-        requestBody.setProductionBatchNo("生产批次号");
+        requestBody.setWarehouseId(warehouseId);
+        requestBody.setSapOrderNo(sapOrderNo);
         requestBody.setInTime(time);
         requestBody.setRemark(remark);
 
@@ -286,13 +330,23 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
     @Override
     public void showProduct(List<ProductTodoDetails.ListBean> list) {
 
+        // 保存原数据
+        rawData.addAll(list);
+
+        goodsName = new ArrayList<>();
+        int size = rawData.size();
+        for (int i = 0; i < size; i++) {
+            goodsName.add(rawData.get(i).getGoodsName());
+        }
+
         oldList = list;
+        oldList.clear();
 
         if (adapter == null) {
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             reView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             reView.setLayoutManager(manager);
-            adapter = new SendOutTodoDetailAdapter(this, R.layout.item_product_detail_two_todo, list);
+            adapter = new SendOutTodoDetailAdapter(this, R.layout.item_product_detail_send_out_todo, oldList);
             reView.setAdapter(adapter);
 
             adapter.setOnItemClickListener(new SendOutTodoDetailAdapter.OnItemClickListener() {
@@ -326,20 +380,11 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
                     });
 
                     //List<BuyInTodoDetails.ListBean.WarehouseListBean> warehouseList = list.get(position).getWarehouseList();
-                    UserInfo userInfo = DataUtils.getUserInfo();
-
-                    List<UserInfo.WarehouseListBean> warehouseList = userInfo.getWarehouseList();
-                    final ArrayList<String> houseName = new ArrayList<>();
-
-                    int size = warehouseList.size();
-                    for (int i = 0; i < size; i++) {
-                        houseName.add(warehouseList.get(i).getWarehouseName());
-                    }
 
                     selectGoods.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            ZBUiUtils.selectDialog(view.getContext(), houseName, selectGoods);
+                            ZBUiUtils.selectDialog(view.getContext(), position, goodsName, selectGoods);
                         }
                     });
 
@@ -363,10 +408,27 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_SCAN_CODE && resultCode == RESULT_SCAN_CODE) {
             itemId = data.getIntExtra("itemId", -1);
+            warehouseId = data.getStringExtra("warehouseId");
             boxCodeList = data.getStringArrayListExtra("boxCodeList");
             carCodeArray.put(itemId, boxCodeList);
         }
     }
 
 
+    @Override
+    public void saveEditAndGetHasFocusPosition(String etType, Boolean hasFocus, int position, EditText editText) {
+
+        String textContent = editText.getText().toString().trim();
+
+        if (CodeConstant.ET_NUMBER.equals(etType)) {
+            numberArray.put(position, textContent);
+        } else if (CodeConstant.ET_BATCH_NO.equals(etType)) {
+            sapArray.put(position, textContent);
+        } else if (CodeConstant.ET_START_CODE.equals(etType)) {
+            startCodeArray.put(position, textContent);
+        } else if (CodeConstant.ET_END_CODE.equals(etType)) {
+            endCodeArray.put(position, textContent);
+        }
+
+    }
 }

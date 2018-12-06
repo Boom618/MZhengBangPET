@@ -69,99 +69,102 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_num">
 
         <TextView
-            android:id="@+id/tv_box_num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
-            android:text="含量："
-            android:textColor="@color/txt_main_color"
-            android:textSize="@dimen/text_16"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_box_num_unit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
-            android:text="ZKG ："
-            android:textColor="@color/txt_main_color"
-            android:textSize="@dimen/text_16"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/bulk_num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@null"
-            android:padding="@dimen/space_5"
-            android:text="库存量："
-            android:textColor="@color/txt_main_color"
-            android:textSize="@dimen/text_16"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_box_num" />
-
-        <TextView
-            android:id="@+id/et_code"
+            android:id="@+id/tv_select_ware"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginBottom="8dp"
-            android:ellipsize="end"
-            android:hint="库位码"
-            android:lines="1"
-            android:padding="@dimen/space_5"
-            android:textColor="@color/txt_main_color"
-            android:textSize="@dimen/text_16"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bulk_num" />
-
-        <TextView
-            android:id="@+id/et_number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginBottom="8dp"
-            android:ellipsize="end"
-            android:hint="出库数量：2000"
-            android:lines="1"
-            android:padding="@dimen/space_5"
+            android:layout_margin="@dimen/text_22"
+            android:background="@drawable/shape_black_min_radius"
+            android:drawableStart="@mipmap/ic_date"
+            android:drawableEnd="@mipmap/ic_bottom"
+            android:drawablePadding="@dimen/space_10"
+            android:gravity="center_vertical"
+            android:padding="@dimen/space_7"
+            android:text="商品1"
             android:textColor="@color/txt_main_color"
             android:textSize="@dimen/text_14"
-            app:layout_constraintBottom_toTopOf="@+id/et_batch_no"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_send_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/text_16"
+            android:layout_marginStart="@dimen/text_16"
+            android:layout_marginEnd="@dimen/text_16"
+            android:text="应发数量："
+            android:textColor="@color/txt_main_color"
+            android:textSize="@dimen/text_14"
+            app:layout_constraintTop_toBottomOf="@+id/tv_select_ware"/>
+
+
+        <TextView
+            android:id="@+id/tv_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="出库数量：2000"
+            android:layout_marginTop="@dimen/text_16"
+            android:layout_marginStart="@dimen/text_16"
+            android:layout_marginEnd="@dimen/text_16"
+            android:textColor="@color/txt_main_color"
+            android:textSize="@dimen/text_14"
+            app:layout_constraintTop_toBottomOf="@+id/tv_send_number" />
+
+        <TextView
+            android:id="@+id/tv_start_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/text_16"
+            android:layout_marginStart="@dimen/text_16"
+            android:layout_marginEnd="@dimen/text_16"
+            android:hint="成品起始值"
+            android:textColor="@color/txt_minor_color"
+            android:textColorHint="@color/hint_color"
+            android:textSize="@dimen/text_14"
+            app:layout_constraintTop_toBottomOf="@+id/tv_number" />
+
+        <TextView
+            android:id="@+id/tv_end_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/text_16"
+            android:layout_marginStart="@dimen/text_16"
+            android:layout_marginEnd="@dimen/text_16"
+            android:hint="成品结束值"
+            android:textColor="@color/txt_minor_color"
+            android:textColorHint="@color/hint_color"
+            android:textSize="@dimen/text_14"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_start_code" />
+
+
+        <TextView
+            android:id="@+id/tv_sap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/text_16"
+            android:layout_marginStart="@dimen/text_16"
+            android:layout_marginEnd="@dimen/text_16"
+            android:hint="sap 物料批次号"
+            android:textColor="@color/txt_main_color"
+            android:textSize="@dimen/text_14"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_code" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_end_code" />
 
 
-        <TextView
-            android:id="@+id/et_batch_no"
+        <Button
+            android:id="@+id/btn_binding_code"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/et_code"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:hint="sap 物料批次号"
-            android:lines="1"
-            android:padding="@dimen/space_5"
-            android:textColor="@color/txt_main_color"
-            android:textSize="@dimen/text_14"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_number" />
+            android:layout_height="32dp"
+            android:layout_marginStart="@dimen/text_28"
+            android:layout_marginTop="@dimen/space_10"
+            android:layout_marginEnd="@dimen/text_28"
+            android:background="@drawable/shape_theme_min_radius"
+            android:text="箱码绑定"
+            android:textColor="@color/white"
+            android:textColorHint="@color/hint_color"
+            android:textSize="@dimen/text_16"
+            app:layout_constraintTop_toBottomOf="@+id/tv_sap" />
 
 
     </android.support.constraint.ConstraintLayout>

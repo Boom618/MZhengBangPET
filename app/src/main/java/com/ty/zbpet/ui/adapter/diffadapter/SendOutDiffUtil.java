@@ -2,7 +2,6 @@ package com.ty.zbpet.ui.adapter.diffadapter;
 
 import android.support.v7.util.DiffUtil;
 
-import com.ty.zbpet.bean.product.ProductDetailsIn;
 import com.ty.zbpet.bean.product.ProductTodoDetails;
 
 import java.util.List;

@@ -55,6 +55,7 @@ public class BackGoodsDoneDetailActivity extends BaseActivity implements Materia
     private String warehouseId;
 
     private String mOutWarehouseOrderId;
+    private String orderId;
     private List<MaterialDetailsOut.ListBean> list = new ArrayList<>();
 
 
@@ -75,24 +76,28 @@ public class BackGoodsDoneDetailActivity extends BaseActivity implements Materia
     protected void initOneData() {
 
         mOutWarehouseOrderId = getIntent().getStringExtra("mOutWarehouseOrderId");
+        orderId = getIntent().getStringExtra("orderId");
 
-        presenter.fetchBackDoneListInfo(mOutWarehouseOrderId);
+        presenter.fetchBackDoneListInfo(orderId);
     }
 
     @Override
     protected void initTwoView() {
 
 
-        initToolBar(R.string.pick_out_storage, new View.OnClickListener() {
+        initToolBar(R.string.back_goods, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BackGoodsDoneSave(initDoneBody());
+                backGoodsDoneSave(initDoneBody());
             }
         });
 
         reView = findViewById(R.id.rv_in_storage_detail);
         tvTime = findViewById(R.id.tv_time);
         etDesc = findViewById(R.id.et_desc);
+        findViewById(R.id.add_ship).setVisibility(View.GONE);
+        TextView titleName = findViewById(R.id.in_storage_detail);
+        titleName.setText("退货明细");
 
         SimpleDateFormat format = new SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA);
         selectTime = format.format(new Date());
@@ -118,7 +123,7 @@ public class BackGoodsDoneDetailActivity extends BaseActivity implements Materia
     /**
      * 出库 保存
      */
-    private void BackGoodsDoneSave(RequestBody body) {
+    private void backGoodsDoneSave(RequestBody body) {
 
         HttpMethods.getInstance().getBackDoneSave(new BaseSubscriber<ResponseInfo>() {
             @Override
@@ -150,7 +155,7 @@ public class BackGoodsDoneDetailActivity extends BaseActivity implements Materia
 
         String remark = etDesc.getText().toString().trim();
 
-        requestBody.setOrderId(mOutWarehouseOrderId);
+        requestBody.setOrderId(orderId);
         requestBody.setWarehouseId(warehouseId);
         requestBody.setOutTime(selectTime);
         requestBody.setRemark(remark);

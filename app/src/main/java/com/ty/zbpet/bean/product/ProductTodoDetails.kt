@@ -36,5 +36,6 @@ class ProductTodoDetails {
         var goodsNo: String? = null
         var unitS: String? = null
         var orderNumber: String? = null
+        var sendNumber: String? = null
     }
 }

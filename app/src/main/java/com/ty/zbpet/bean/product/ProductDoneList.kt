@@ -32,12 +32,12 @@ class ProductDoneList {
         var inWarhouseOrderNo: String? = null
         var companyNo: String? = null
         var sapOrderNo: String? = null
-        var state: Int = 0
-        var type: Int = 0
+        var state: String? = null
+        var type: String? = null
         var inTime: String? = null
         var productionBatchNo: String? = null
         var recallOrderId: String? = null
-        var userId: Int = 0
+        var userId: String? = null
         var creator: String? = null
         var createdAt: String? = null
         var updatedAt: String? = null

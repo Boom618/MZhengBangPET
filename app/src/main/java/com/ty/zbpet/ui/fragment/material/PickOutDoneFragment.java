@@ -133,6 +133,7 @@ public class PickOutDoneFragment extends BaseFragment implements MaterialUiListI
                     Intent intent = new Intent(getActivity(), PickOutDoneDetailActivity.class);
                     intent.putExtra("sapOrderNo", list.get(position).getSapOrderNo());
                     intent.putExtra("mOutWarehouseOrderId", list.get(position).getMOutWarehouseOrderId());
+                    intent.putExtra("orderId", list.get(position).getOrderId());
                     startActivity(intent);
                 }
 

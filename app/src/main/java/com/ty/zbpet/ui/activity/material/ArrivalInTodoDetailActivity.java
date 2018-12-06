@@ -116,7 +116,8 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
 
     @Override
     protected int getActivityLayout() {
-        return R.layout.activity_arrival_in_storage_detail;
+//        return R.layout.activity_arrival_in_storage_detail;
+        return R.layout.activity_content_row_two;
     }
 
     @Override
@@ -140,6 +141,9 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
             }
         });
 
+        findViewById(R.id.add_ship).setVisibility(View.GONE);
+        TextView titleName = findViewById(R.id.in_storage_detail);
+        titleName.setText("入库明细");
 
         tvTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,14 +192,16 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
                 bean.setConcentration(list.get(i).getConcentration());
 
                 detail.add(bean);
-            } else if (null == bulkNum && null == carCode) {
+            } else {
                 // 不处理
                 continue;
-            } else {
-                // 车库数量和库位码必须一致
-                ZBUiUtils.showToast("车库数量或库位码信息不全");
-                break;
             }
+        }
+
+        // 没有合法的操作数据,不请求网络
+        if (detail.size() == 0) {
+            ZBUiUtils.showToast("请完善您要保存的信息");
+            return null;
         }
         String remark = etDesc.getText().toString().trim();
         String time = tvTime.getText().toString().trim();

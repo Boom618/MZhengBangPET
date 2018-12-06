@@ -51,6 +51,7 @@ public class PickOutDoneDetailActivity extends BaseActivity implements MaterialU
 
     private String selectTime;
     private String sapOrderNo;
+    private String orderId;
 
     private String warehouseId;
     private String mOutWarehouseOrderId;
@@ -75,7 +76,9 @@ public class PickOutDoneDetailActivity extends BaseActivity implements MaterialU
         sapOrderNo = getIntent().getStringExtra("sapOrderNo");
         mOutWarehouseOrderId = getIntent().getStringExtra("mOutWarehouseOrderId");
 
-        presenter.fetchPickOutDoneListDetails(mOutWarehouseOrderId);
+        orderId = getIntent().getStringExtra("orderId");
+
+        presenter.fetchPickOutDoneListDetails(orderId);
     }
 
     @Override

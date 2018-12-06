@@ -23,6 +23,14 @@ class ProductTodoList {
          * orderTime : 2018-10-11 10:01:00
          */
 
+//        "productInfo": "生产信息",
+//        "supplierName": "正邦上海宝山淞南分部供应商",
+//        "supplierId": "12",
+//        "supplierNo": "20180910",
+//        "customerInfo": "客户信息",
+//        "goodsInfo": "成品信息",
+//        "orderTime": "2018/09/10"
+
         var sapOrderNo: String? = null
         var state: String? = null
         var type: String? = null
@@ -32,6 +40,7 @@ class ProductTodoList {
         var receiveInfo: String? = null
         var productInfo: String? = null
         var customerInfo: String? = null
+        var goodsInfo: String? = null
         var backInfo: String? = null
         var orderTime: String? = null
     }
