@@ -41,6 +41,8 @@ class ProductDoneSave {
         var id: String? = null
         var inWarehouseOrderId: String? = null
         var warehouseId: String? = null
+        var warehouseNo: String? = null
+        var warehouseName: String? = null
         var positionId: String? = null
         var goodsId: String? = null
         var goodsName: String? = null

@@ -122,11 +122,8 @@ public class ReturnPresenter {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
                     ProductDoneList data = response.getData();
-                    if (data.getCount() == 0) {
-                        ZBUiUtils.showToast("没有数据");
-                    } else {
-                        objInterface.detailObjData(data);
-                    }
+
+                    objInterface.detailObjData(data);
 
                 } else {
                     ZBUiUtils.showToast("失败 : =" + response.getMessage());

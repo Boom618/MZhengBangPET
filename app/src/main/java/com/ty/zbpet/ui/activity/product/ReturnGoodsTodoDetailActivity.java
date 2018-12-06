@@ -16,12 +16,10 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.UserInfo;
-import com.ty.zbpet.bean.product.ProductDetailsIn;
 import com.ty.zbpet.bean.product.ProductTodoDetails;
 import com.ty.zbpet.bean.product.ProductTodoSave;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.presenter.product.ProductUiListInterface;
-import com.ty.zbpet.presenter.product.ProductUiObjInterface;
 import com.ty.zbpet.presenter.product.ReturnPresenter;
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity;
 import com.ty.zbpet.ui.adapter.product.ReturnGoodsTodoDetailAdapter;
@@ -32,8 +30,6 @@ import com.ty.zbpet.util.DataUtils;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.ZBLog;
 import com.ty.zbpet.util.ZBUiUtils;
-import com.zhouyou.http.exception.ApiException;
-import com.zhouyou.http.subsciber.BaseSubscriber;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,6 +37,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import io.reactivex.SingleObserver;
+import io.reactivex.disposables.Disposable;
 import okhttp3.RequestBody;
 
 /**
@@ -167,14 +165,20 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
             return;
         }
 
-        HttpMethods.getInstance().getBackTodoSave(new BaseSubscriber<ResponseInfo>() {
+        HttpMethods.getInstance().getReturnTodoSave(new SingleObserver<ResponseInfo>() {
+
             @Override
-            public void onError(ApiException e) {
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
-            public void onNext(ResponseInfo responseInfo) {
+            public void onSuccess(ResponseInfo responseInfo) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     // 入库成功（保存）
                     ZBUiUtils.showToast(responseInfo.getMessage());
@@ -212,11 +216,22 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
             String sap = sapArray.get(i);
             String id = positionId.get(i);
 
+            String goodsId = oldList.get(i).getGoodsId();
+            String goodsNo = oldList.get(i).getGoodsNo();
+            String warehouseId = oldList.get(i).getWarehouseId();
+            String warehouseName = oldList.get(i).getWarehouseName();
+            String orderNumber = oldList.get(i).getOrderNumber();
+
             ProductTodoSave.DetailsBean bean = new ProductTodoSave.DetailsBean();
             if (!TextUtils.isEmpty(number) && boxQrCode != null) {
 
                 bean.setPositionId(id);
                 bean.setNumber(number);
+                bean.setGoodsId(goodsId);
+                bean.setGoodsNo(goodsNo);
+                bean.setWarehouseId(warehouseId);
+                bean.setWarehouseName(warehouseName);
+                bean.setOrderNumber(orderNumber);
                 bean.setStartQrCode(startCode);
                 bean.setEndQrCode(endCode);
                 bean.setSapMaterialBatchNo(sap);

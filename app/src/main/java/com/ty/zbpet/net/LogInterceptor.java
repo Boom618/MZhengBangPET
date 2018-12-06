@@ -31,8 +31,7 @@ public class LogInterceptor implements Interceptor {
         okhttp3.MediaType mediaType = response.body().contentType();
         String content = response.body().string();
         Log.e(TAG, "\n");
-        Log.e(TAG, "----------Start----------------");
-        Log.e(TAG, "| " + request.toString());
+        Log.e(TAG, "----------【Start】----------------");
         String method = request.method();
         if ("POST".equals(method)) {
             StringBuilder sb = new StringBuilder();
@@ -46,7 +45,7 @@ public class LogInterceptor implements Interceptor {
             }
         }
         Log.e(TAG, "| Response:" + content);
-        Log.e(TAG, "----------End:" + duration + "毫秒----------");
+        Log.e(TAG, "----------【End:" + duration + "毫秒】----------");
         return response.newBuilder()
                 .body(okhttp3.ResponseBody.create(mediaType, content))
                 .build();

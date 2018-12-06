@@ -1,6 +1,7 @@
 package com.ty.zbpet.ui.adapter.product;
 
 import android.content.Context;
+import android.view.View;
 
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.product.ProductTodoList;
@@ -22,10 +23,13 @@ public class ReturnGoodsTodoListAdapter extends CommonAdapter<ProductTodoList.Li
 
     @Override
     protected void convert(ViewHolder holder, ProductTodoList.ListBean list, int position) {
+
+        // 退货不需要显示 成品信息
+        holder.itemView.findViewById(R.id.tv_product_msg).setVisibility(View.GONE);
         holder.setText(R.id.tv_operator, "入库")
                 .setText(R.id.tv_no, list.getSapOrderNo())
-                .setText(R.id.tv_client_msg, list.getCustomerInfo() + "客户 ？")
-                .setText(R.id.tv_send_msg, list.getProductInfo() + " 退货 ？")
+                .setText(R.id.tv_client_msg, list.getCustomerInfo())
+                .setText(R.id.tv_send_msg, list.getProductInfo())
                 .setText(R.id.tv_date, list.getOrderTime())
                 .setText(R.id.tv_status, list.getState());
     }

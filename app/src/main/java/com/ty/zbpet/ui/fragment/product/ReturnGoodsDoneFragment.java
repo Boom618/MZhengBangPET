@@ -118,7 +118,7 @@ public class ReturnGoodsDoneFragment extends BaseFragment implements ProductUiOb
                 recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
                 recyclerView.setLayoutManager(manager);
             }
-            adapter = new ReturnGoodsDoneListAdapter(ResourceUtil.getContext(), R.layout.item_produce_in_storage_complete, list);
+            adapter = new ReturnGoodsDoneListAdapter(ResourceUtil.getContext(), R.layout.item_send_out_list_todo, list);
             recyclerView.setAdapter(adapter);
 
             adapter.setOnItemClickListener(new ReturnGoodsDoneListAdapter.OnItemClickListener() {

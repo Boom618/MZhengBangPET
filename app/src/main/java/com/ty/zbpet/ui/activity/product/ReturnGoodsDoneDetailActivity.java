@@ -13,12 +13,10 @@ import android.widget.TextView;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.ResponseInfo;
-import com.ty.zbpet.bean.UserInfo;
-import com.ty.zbpet.bean.material.MaterialDoneSave;
 import com.ty.zbpet.bean.product.ProductDetailsOut;
 import com.ty.zbpet.bean.product.ProductDoneSave;
 import com.ty.zbpet.net.HttpMethods;
-import com.ty.zbpet.presenter.product.ProductUiObjInterface;
+import com.ty.zbpet.presenter.product.ProductUiListInterface;
 import com.ty.zbpet.presenter.product.ReturnPresenter;
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity;
 import com.ty.zbpet.ui.adapter.product.ReturnGoodsDoneDetailAdapter;
@@ -28,8 +26,6 @@ import com.ty.zbpet.util.CodeConstant;
 import com.ty.zbpet.util.DataUtils;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.ZBUiUtils;
-import com.zhouyou.http.exception.ApiException;
-import com.zhouyou.http.subsciber.BaseSubscriber;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,30 +33,29 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import io.reactivex.SingleObserver;
+import io.reactivex.disposables.Disposable;
 import okhttp3.RequestBody;
 
 /**
  * @author TY on 2018/11/22.
  * 退货入库 已办详情
  */
-public class ReturnGoodsDoneDetailActivity extends BaseActivity implements ProductUiObjInterface<ProductDetailsOut> {
+public class ReturnGoodsDoneDetailActivity extends BaseActivity implements ProductUiListInterface<ProductDetailsOut.ListBean> {
 
 
     private RecyclerView reView;
     private TextView tvTime;
+    private TextView titleName;
     private EditText etDesc;
 
     private ReturnGoodsDoneDetailAdapter adapter;
 
     private String selectTime;
-    /**
-     * 仓库 ID
-     */
-    private String warehouseId;
 
     private String orderId;
     private String sapOrderNo;
-    private List<ProductDetailsOut.ListBean> list = new ArrayList<>();
+    private List<ProductDetailsOut.ListBean> oldList = new ArrayList<>();
 
 
     private ReturnPresenter presenter = new ReturnPresenter(this);
@@ -94,7 +89,7 @@ public class ReturnGoodsDoneDetailActivity extends BaseActivity implements Produ
     protected void initTwoView() {
 
 
-        initToolBar(R.string.pick_out_storage, new View.OnClickListener() {
+        initToolBar(R.string.label_return_sell, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 returnGoodsDoneSave(initDoneBody());
@@ -104,11 +99,14 @@ public class ReturnGoodsDoneDetailActivity extends BaseActivity implements Produ
         reView = findViewById(R.id.rv_in_storage_detail);
         tvTime = findViewById(R.id.tv_time);
         etDesc = findViewById(R.id.et_desc);
+        titleName = findViewById(R.id.in_storage_detail);
+        findViewById(R.id.add_ship).setVisibility(View.GONE);
 
         SimpleDateFormat format = new SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA);
         selectTime = format.format(new Date());
 
         tvTime.setText(selectTime);
+        titleName.setText("入库明细");
 
         tvTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,14 +129,20 @@ public class ReturnGoodsDoneDetailActivity extends BaseActivity implements Produ
      */
     private void returnGoodsDoneSave(RequestBody body) {
 
-        HttpMethods.getInstance().getBackDoneSave(new BaseSubscriber<ResponseInfo>() {
+        HttpMethods.getInstance().getReturnDoneSave(new SingleObserver<ResponseInfo>() {
+
             @Override
-            public void onError(ApiException e) {
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
-            public void onNext(ResponseInfo responseInfo) {
+            public void onSuccess(ResponseInfo responseInfo) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     // 入库成功（保存）
                     ZBUiUtils.showToast(responseInfo.getMessage());
@@ -159,20 +163,24 @@ public class ReturnGoodsDoneDetailActivity extends BaseActivity implements Produ
 
         ProductDoneSave requestBody = new ProductDoneSave();
 
-        int size = list.size();
+        int size = oldList.size();
         ArrayList<ProductDoneSave.DetailsBean> beans = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             ProductDoneSave.DetailsBean detailsBean = new ProductDoneSave.DetailsBean();
 
-            ArrayList<String> boxQrCodeList = list.get(i).getBoxQrCode();
-            String goodsId = list.get(i).getGoodsId();
-            String goodsNo = list.get(i).getGoodsNo();
-            String warehouseId = list.get(i).getWarehouseId();
-            String number = list.get(i).getNumber();
+            ArrayList<String> boxQrCodeList = oldList.get(i).getBoxQrCode();
+            String goodsId = oldList.get(i).getGoodsId();
+            String goodsNo = oldList.get(i).getGoodsNo();
+            String warehouseId = oldList.get(i).getWarehouseId();
+            String warehouseNo = oldList.get(i).getWarehouseNo();
+            String warehouseName = oldList.get(i).getWarehouseName();
+            String number = oldList.get(i).getNumber();
 
             detailsBean.setNumber(number);
             detailsBean.setBoxQrCode(boxQrCodeList);
             detailsBean.setWarehouseId(warehouseId);
+            detailsBean.setWarehouseNo(warehouseNo);
+            detailsBean.setWarehouseName(warehouseName);
 
             detailsBean.setGoodsId(goodsId);
             detailsBean.setGoodsNo(goodsNo);
@@ -193,10 +201,9 @@ public class ReturnGoodsDoneDetailActivity extends BaseActivity implements Produ
     }
 
     @Override
-    public void detailObjData(ProductDetailsOut obj) {
+    public void showProduct(final List<ProductDetailsOut.ListBean> list) {
 
-        List<ProductDetailsOut.ListBean> list = obj.getList();
-
+        oldList = list;
         if (adapter == null) {
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             reView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
@@ -210,6 +217,8 @@ public class ReturnGoodsDoneDetailActivity extends BaseActivity implements Produ
 
                     View rlDetail = holder.itemView.findViewById(R.id.gone_view);
                     ImageView ivArrow = holder.itemView.findViewById(R.id.iv_arrow);
+
+                    final ArrayList<String> boxQrCodeList = list.get(position).getBoxQrCode();
 
                     Button bindingCode = holder.itemView.findViewById(R.id.btn_binding_code);
 
@@ -226,7 +235,8 @@ public class ReturnGoodsDoneDetailActivity extends BaseActivity implements Produ
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(ReturnGoodsDoneDetailActivity.this, ScanBoxCodeActivity.class);
-                            intent.putExtra(CodeConstant.PAGE_STATE,false);
+                            intent.putExtra(CodeConstant.PAGE_STATE, false);
+                            intent.putStringArrayListExtra("boxCodeList", boxQrCodeList);
                             startActivity(intent);
                         }
                     });
