@@ -20,7 +20,6 @@ import com.ty.zbpet.bean.material.MaterialDoneList;
 import com.ty.zbpet.presenter.material.MaterialUiListInterface;
 import com.ty.zbpet.presenter.material.PickOutPresenter;
 import com.ty.zbpet.ui.activity.material.PickOutDoneDetailActivity;
-import com.ty.zbpet.ui.adapter.material.PickOutAdapter;
 import com.ty.zbpet.ui.adapter.material.PickOutDoneAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
@@ -127,7 +126,7 @@ public class PickOutDoneFragment extends BaseFragment implements MaterialUiListI
             adapter = new PickOutDoneAdapter(getContext(), R.layout.item_pick_out_done, list);
             recyclerView.setAdapter(adapter);
 
-            adapter.setOnItemClickListener(new PickOutAdapter.OnItemClickListener() {
+            adapter.setOnItemClickListener(new PickOutDoneAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                     Intent intent = new Intent(getActivity(), PickOutDoneDetailActivity.class);

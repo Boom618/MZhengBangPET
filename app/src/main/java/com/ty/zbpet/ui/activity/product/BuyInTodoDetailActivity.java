@@ -21,7 +21,6 @@ import com.ty.zbpet.bean.product.ProductTodoSave;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.presenter.product.BuyInPresenter;
 import com.ty.zbpet.presenter.product.ProductUiListInterface;
-import com.ty.zbpet.ui.MainApp;
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity;
 import com.ty.zbpet.ui.adapter.product.BuyInTodoDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
@@ -29,7 +28,6 @@ import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.CodeConstant;
 import com.ty.zbpet.util.DataUtils;
 import com.ty.zbpet.util.ResourceUtil;
-import com.ty.zbpet.util.ViewSetValue;
 import com.ty.zbpet.util.ZBLog;
 import com.ty.zbpet.util.ZBUiUtils;
 import com.zhouyou.http.exception.ApiException;
@@ -53,7 +51,7 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
 
     private RecyclerView reView;
     private TextView tvTime;
-    private TextView backGoods;
+    private TextView titleName;
     private TextView tvPath;
     private TextView tvType;
     private EditText etDesc;
@@ -129,13 +127,13 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
         initToolBar(R.string.label_purchase_in_storage, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BuyInTodoSave(initTodoBody());
+                buyInTodoSave(initTodoBody());
             }
         });
 
         reView = findViewById(R.id.rv_in_storage_detail);
         tvTime = findViewById(R.id.tv_time);
-        backGoods = findViewById(R.id.in_storage_detail);
+        titleName = findViewById(R.id.in_storage_detail);
 
         tvPath = findViewById(R.id.tv_path);
         tvType = findViewById(R.id.tv_type);
@@ -146,7 +144,7 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
         selectTime = format.format(new Date());
 
         tvTime.setText(selectTime);
-        backGoods.setText("到货明细");
+        titleName.setText("到货明细");
 
         tvTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,7 +167,7 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
     /**
      * 出库 保存
      */
-    private void BuyInTodoSave(RequestBody body) {
+    private void buyInTodoSave(RequestBody body) {
 
         if (body == null) {
             return;
@@ -287,7 +285,7 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
 
         requestBody.setDetails(detail);
         requestBody.setInTime(time);
-        requestBody.setWarehouseId(this.warehouseId);
+        requestBody.setWarehouseId(warehouseId);
         requestBody.setSapOrderNo(sapOrderNo);
         requestBody.setRemark(remark);
 

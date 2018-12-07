@@ -3,9 +3,6 @@ package com.ty.zbpet.net;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.ty.zbpet.bean.CarPositionNoData;
-import com.ty.zbpet.bean.GoodsPurchaseOrderInfo;
-import com.ty.zbpet.bean.GoodsPurchaseOrderList;
-import com.ty.zbpet.bean.MaterialDoneDetailsData;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.WarehouseInfo;
 import com.ty.zbpet.bean.material.MaterialDetailsIn;
@@ -156,7 +153,7 @@ public class HttpMethods {
      * @param subscriber
      * @param orderId
      */
-    public void getMaterialDoneListDetail(SingleObserver<BaseResponse<MaterialDoneDetailsData>> subscriber, String orderId) {
+    public void getMaterialDoneListDetail(SingleObserver<BaseResponse<MaterialDetailsOut>> subscriber, String orderId) {
         mService.getMaterialDoneListDetail(orderId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);

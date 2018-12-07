@@ -161,7 +161,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         mCache.put(CodeConstant.SCAN_BOX_KEY,"");
         mCache.put(CodeConstant.ET_ZKG,"");
 
-        DataUtils.clearHouseId();
+        //DataUtils.clearId();
     }
 
 

@@ -74,7 +74,6 @@
             android:layout_marginTop="@dimen/space_5"
             android:layout_marginEnd="@dimen/space_25"
             android:hint="@string/app_name"
-            android:padding="@dimen/space_5"
             android:textColor="@color/txt_main_color"
             android:textSize="@dimen/text_14" />
 
@@ -91,7 +90,6 @@
             android:ellipsize="end"
             android:hint="请输入 ZKG "
             android:lines="1"
-            android:padding="@dimen/space_5"
             android:textColor="@color/txt_main_color"
             android:textSize="@dimen/text_14" />
 
@@ -107,7 +105,6 @@
             android:ellipsize="end"
             android:hint="库位码"
             android:lines="1"
-            android:padding="@dimen/space_5"
             android:textColor="@color/txt_main_color"
             android:textSize="@dimen/text_14" />
 
@@ -134,7 +131,6 @@
             android:hint="sap 物料批次号"
             android:inputType="text"
             android:lines="1"
-            android:padding="@dimen/space_5"
             android:textColor="@color/txt_main_color"
             android:textSize="@dimen/text_14" />
 

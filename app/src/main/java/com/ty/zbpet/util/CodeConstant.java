@@ -12,7 +12,9 @@ public final class CodeConstant {
     public static final String DATE_START_TIME = "2010-01-01 00:00";
     public static final String DATE_END_TIME = "2999-01-01 00:00";
 
-    // 服务器返回成功标识
+    /**
+     * 服务器返回成功标识
+     */
     public static final String SERVICE_SUCCESS = "success";
 
     /**
@@ -62,25 +64,27 @@ public final class CodeConstant {
     public static final String PAGE_STATE = "state";
 
     /**
-     * 原材料的入库 已办列表
+     * 原材料的入库 已办列表 （ 服务器定的规则 ）
      */
     public static final String BUY_IN_TYPE = "1";
     public static final String PICK_OUT_TYPE = "20";
     public static final String BACK_GOODS_TYPE = "21";
 
     /**
-     * 成品  已办列表
+     * 成品  已办列表 （ 服务器定的规则 ）
      */
     public static final String PRODUCT_TYPE = "2";
     public static final String RETURN_TYPE = "3";
 
     /**
      * 成品
-     * 选择的是哪个仓库
+     * <p>
+     * SELECT_HOUSE_BUY_IN : 选择的是哪个仓库
+     * SELECT_GOODS:        选择的是哪个商品
      */
-    //public static final String SELECT_HOUSE_ID = "house_id";
     public static final int SELECT_HOUSE_BUY_IN = 100;
     public static final int SELECT_HOUSE_PRODUCT = 200;
+    public static final int SELECT_GOODS = 300;
 
 
 }

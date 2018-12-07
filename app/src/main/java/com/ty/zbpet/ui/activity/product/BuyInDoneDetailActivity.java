@@ -47,15 +47,12 @@ public class BuyInDoneDetailActivity extends BaseActivity implements ProductUiOb
 
     private RecyclerView reView;
     private TextView tvTime;
+    private TextView titleName;
     private EditText etDesc;
 
     private BuyInDoneDetailAdapter adapter;
 
     private String selectTime;
-    /**
-     * 仓库 ID
-     */
-    private String warehouseId;
 
     private String orderId;
     private String sapOrderNo;
@@ -104,12 +101,14 @@ public class BuyInDoneDetailActivity extends BaseActivity implements ProductUiOb
         reView = findViewById(R.id.rv_in_storage_detail);
         tvTime = findViewById(R.id.tv_time);
         etDesc = findViewById(R.id.et_desc);
+        titleName = findViewById(R.id.in_storage_detail);
         findViewById(R.id.add_ship).setVisibility(View.GONE);
 
         SimpleDateFormat format = new SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA);
         selectTime = format.format(new Date());
 
         tvTime.setText(selectTime);
+        titleName.setText("到货明细");
 
         tvTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,7 +157,6 @@ public class BuyInDoneDetailActivity extends BaseActivity implements ProductUiOb
 
     private RequestBody initDoneBody() {
 
-//        MaterialDoneSave requestBody = new MaterialDoneSave();
         ProductDoneSave requestBody = new ProductDoneSave();
 
         int size = list.size();

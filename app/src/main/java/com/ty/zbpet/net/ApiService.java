@@ -1,9 +1,6 @@
 package com.ty.zbpet.net;
 
 import com.ty.zbpet.bean.CarPositionNoData;
-import com.ty.zbpet.bean.GoodsPurchaseOrderInfo;
-import com.ty.zbpet.bean.GoodsPurchaseOrderList;
-import com.ty.zbpet.bean.MaterialDoneDetailsData;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.WarehouseInfo;
 import com.ty.zbpet.bean.material.MaterialDetailsIn;
@@ -91,7 +88,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_MATERIAL_PURCHASE_LIST_INFO)
-    Single<BaseResponse<MaterialDoneDetailsData>> getMaterialDoneListDetail(@Field("orderId") String orderId);
+    Single<BaseResponse<MaterialDetailsOut>> getMaterialDoneListDetail(@Field("orderId") String orderId);
 
     /**
      * 原辅料采购冲销入库(已办保存)

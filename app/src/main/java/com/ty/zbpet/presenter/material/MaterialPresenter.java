@@ -1,8 +1,8 @@
 package com.ty.zbpet.presenter.material;
 
 import com.ty.zbpet.bean.CarPositionNoData;
-import com.ty.zbpet.bean.MaterialDoneDetailsData;
 import com.ty.zbpet.bean.material.MaterialDetailsIn;
+import com.ty.zbpet.bean.material.MaterialDetailsOut;
 import com.ty.zbpet.bean.material.MaterialDoneList;
 import com.ty.zbpet.bean.material.MaterialTodoList;
 import com.ty.zbpet.net.HttpMethods;
@@ -10,8 +10,6 @@ import com.ty.zbpet.ui.base.BaseResponse;
 import com.ty.zbpet.util.CodeConstant;
 import com.ty.zbpet.util.ZBLog;
 import com.ty.zbpet.util.ZBUiUtils;
-import com.zhouyou.http.exception.ApiException;
-import com.zhouyou.http.subsciber.BaseSubscriber;
 
 import java.util.List;
 
@@ -243,7 +241,7 @@ public class MaterialPresenter {
      * 已办详情
      */
     public void fetchDoneMaterialDetails(String orderId) {
-        httpMethods.getMaterialDoneListDetail(new SingleObserver<BaseResponse<MaterialDoneDetailsData>>() {
+        httpMethods.getMaterialDoneListDetail(new SingleObserver<BaseResponse<MaterialDetailsOut>>() {
 
             @Override
             public void onSubscribe(Disposable d) {
@@ -256,11 +254,11 @@ public class MaterialPresenter {
             }
 
             @Override
-            public void onSuccess(BaseResponse<MaterialDoneDetailsData> infoList) {
+            public void onSuccess(BaseResponse<MaterialDetailsOut> infoList) {
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(infoList.getTag())) {
                     if (null != infoList && infoList.getData() != null) {
-                        List<MaterialDoneDetailsData.ListBean> list = infoList.getData().getList();
+                        List<MaterialDetailsOut.ListBean> list = infoList.getData().getList();
                         if (list != null && list.size() != 0) {
                             materialListUi.showMaterial(list);
                         } else {

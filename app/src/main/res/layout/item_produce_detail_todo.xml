@@ -69,8 +69,7 @@
             android:layout_marginStart="@dimen/space_25"
             android:hint="入库数量"
             android:inputType="number"
-            android:textColor="@color/txt_minor_color"
-            android:textColorHint="@color/hint_color"
+            android:textColor="@color/txt_main_color"
             android:textSize="@dimen/text_14" />
 
         <EditText
@@ -82,8 +81,8 @@
             android:layout_marginStart="@dimen/space_20"
             android:layout_toEndOf="@+id/et_box_num"
             android:hint="文本"
-            android:textColor="@color/txt_minor_color"
-            android:textColorHint="@color/hint_color"
+            android:inputType="numberDecimal"
+            android:textColor="@color/txt_main_color"
             android:textSize="@dimen/text_14" />
 
         <EditText
@@ -95,8 +94,7 @@
             android:layout_marginStart="@dimen/space_25"
             android:hint="成品起始值"
             android:inputType="number"
-            android:textColor="@color/txt_minor_color"
-            android:textColorHint="@color/hint_color"
+            android:textColor="@color/txt_main_color"
             android:textSize="@dimen/text_14" />
 
         <EditText
@@ -108,8 +106,7 @@
             android:layout_marginStart="@dimen/space_25"
             android:hint="成品结束值"
             android:inputType="number"
-            android:textColor="@color/txt_minor_color"
-            android:textColorHint="@color/hint_color"
+            android:textColor="@color/txt_main_color"
             android:textSize="@dimen/text_14" />
 
         <EditText
@@ -120,8 +117,7 @@
             android:layout_marginEnd="@dimen/space_25"
             android:layout_marginStart="@dimen/space_25"
             android:hint="SAP 物料"
-            android:textColor="@color/txt_minor_color"
-            android:textColorHint="@color/hint_color"
+            android:textColor="@color/txt_main_color"
             android:textSize="@dimen/text_14" />
 
         <Button

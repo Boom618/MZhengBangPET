@@ -1,16 +1,13 @@
 package com.ty.zbpet.ui.activity.material
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.View
 import android.widget.EditText
 import com.ty.zbpet.R
-import com.ty.zbpet.bean.MaterialDoneDetailsData
+import com.ty.zbpet.bean.material.MaterialDetailsOut
 import com.ty.zbpet.presenter.material.MaterialPresenter
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
-import com.ty.zbpet.ui.adapter.material.BackGoodsTodoListAdapter
 import com.ty.zbpet.ui.adapter.material.MaterialDoneDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
@@ -21,7 +18,7 @@ import com.ty.zbpet.util.ResourceUtil
  *
  * 已办详情 Kotlin
  */
-class ArrivalInDoneDetailActivityK : BaseActivity(), MaterialUiListInterface<MaterialDoneDetailsData.ListBean> {
+class ArrivalInDoneDetailActivityK : BaseActivity(), MaterialUiListInterface<MaterialDetailsOut.ListBean> {
 
     var detailRc: RecyclerView? = null
 
@@ -55,7 +52,7 @@ class ArrivalInDoneDetailActivityK : BaseActivity(), MaterialUiListInterface<Mat
         }
     }
 
-    override fun showMaterial(list: MutableList<MaterialDoneDetailsData.ListBean>) {
+    override fun showMaterial(list: MutableList<MaterialDetailsOut.ListBean>) {
         val manager = LinearLayoutManager(ResourceUtil.getContext())
         detailRc!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
         detailRc!!.layoutManager = manager

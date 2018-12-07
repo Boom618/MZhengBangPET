@@ -2,8 +2,6 @@ package com.ty.zbpet.net;
 
 import android.util.Log;
 
-import com.ty.zbpet.util.ZBLog;
-
 import java.io.IOException;
 
 import okhttp3.FormBody;

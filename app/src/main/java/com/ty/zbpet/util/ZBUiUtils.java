@@ -144,6 +144,7 @@ public class ZBUiUtils {
                         dialog.dismiss();
                     }
                 })
+                .setItemHeight(30)
                 .build()
                 .setDatas(data)
                 .show();

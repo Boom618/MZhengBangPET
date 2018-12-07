@@ -143,7 +143,7 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
 
         findViewById(R.id.add_ship).setVisibility(View.GONE);
         TextView titleName = findViewById(R.id.in_storage_detail);
-        titleName.setText("入库明细");
+        titleName.setText("到货明细");
 
         tvTime.setOnClickListener(new View.OnClickListener() {
             @Override

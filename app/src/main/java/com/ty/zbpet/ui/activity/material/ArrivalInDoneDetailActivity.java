@@ -6,10 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.ty.zbpet.R;
-import com.ty.zbpet.bean.MaterialDoneDetailsData;
 import com.ty.zbpet.bean.ResponseInfo;
+import com.ty.zbpet.bean.material.MaterialDetailsOut;
 import com.ty.zbpet.bean.material.MaterialDoneSave;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.presenter.material.MaterialPresenter;
@@ -24,7 +26,10 @@ import com.ty.zbpet.util.ZBUiUtils;
 import com.zhouyou.http.exception.ApiException;
 import com.zhouyou.http.subsciber.BaseSubscriber;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import okhttp3.RequestBody;
@@ -34,14 +39,20 @@ import okhttp3.RequestBody;
  * <p>
  * 已办 详情
  */
-public class ArrivalInDoneDetailActivity extends BaseActivity implements MaterialUiListInterface<MaterialDoneDetailsData.ListBean> {
+public class ArrivalInDoneDetailActivity extends BaseActivity implements MaterialUiListInterface<MaterialDetailsOut.ListBean> {
 
-    @BindView(R.id.rc_done_detail_list)
+    @BindView(R.id.rv_in_storage_detail)
     RecyclerView detailRc;
-
+    @BindView(R.id.tv_time)
+    TextView tvTime;
 
     @BindView(R.id.et_desc)
     EditText etDesc;
+
+    /**
+     * 时间选择
+     */
+    private String selectTime;
 
 
     private String orderId;
@@ -56,12 +67,15 @@ public class ArrivalInDoneDetailActivity extends BaseActivity implements Materia
 
     @Override
     protected void onBaseCreate(Bundle savedInstanceState) {
-
+        SimpleDateFormat sdf = new SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA);
+        selectTime = sdf.format(new Date());
+        tvTime.setText(selectTime);
     }
 
     @Override
     protected int getActivityLayout() {
-        return R.layout.activity_material_done_detail;
+//        return R.layout.activity_material_done_detail;
+        return R.layout.activity_content_row_two;
     }
 
     @Override
@@ -76,12 +90,32 @@ public class ArrivalInDoneDetailActivity extends BaseActivity implements Materia
     @Override
     protected void initTwoView() {
 
+        findViewById(R.id.add_ship).setVisibility(View.GONE);
+        TextView titleName = findViewById(R.id.in_storage_detail);
+        titleName.setText("到货明细");
+
         initToolBar(R.string.material_reversal, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 materialDoneInSave(initRequestBody());
 
+            }
+        });
+
+        tvTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ZBUiUtils.showPickDate(ArrivalInDoneDetailActivity.this, new OnTimeSelectListener() {
+                    @Override
+                    public void onTimeSelect(Date date, View v) {
+                        //选中事件回调
+                        selectTime = ZBUiUtils.getTime(date);
+                        tvTime.setText(selectTime);
+                        ZBUiUtils.showToast(selectTime);
+                    }
+                });
             }
         });
 
@@ -142,7 +176,7 @@ public class ArrivalInDoneDetailActivity extends BaseActivity implements Materia
     }
 
     @Override
-    public void showMaterial(List<MaterialDoneDetailsData.ListBean> list) {
+    public void showMaterial(List<MaterialDetailsOut.ListBean> list) {
 
         positionId = list.get(0).getPositionId();
 

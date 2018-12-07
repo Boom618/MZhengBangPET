@@ -69,13 +69,14 @@ public class DataUtils {
         return userInfo;
     }
 
-    private static SparseArray<SparseArray<Integer>> houseId = new SparseArray(5);
+    private static SparseArray<SparseArray<Integer>> positionAndWhich = new SparseArray(5);
     private static SparseArray<Integer> sparseArray = new SparseArray<>(20);
 
     /**
      * SparseArray<SparseArray<Integer>> 采用这种结构是 key 必须唯一
      * <p>
      * SparseArray<Integer> 中
+     * 外采入库 中仓库存值算法
      *
      * @param position 代表 item 中的 position 位置
      * @param which    代表仓库选中的位置
@@ -83,12 +84,12 @@ public class DataUtils {
     public static void setHouseId(int position, int which) {
 
         sparseArray.put(position, which);
-        houseId.put(CodeConstant.SELECT_HOUSE_BUY_IN, sparseArray);
+        positionAndWhich.put(CodeConstant.SELECT_HOUSE_BUY_IN, sparseArray);
     }
 
     public static SparseArray<Integer> getHouseId() {
 
-        SparseArray<Integer> houseIdSArray = houseId.get(CodeConstant.SELECT_HOUSE_BUY_IN);
+        SparseArray<Integer> houseIdSArray = positionAndWhich.get(CodeConstant.SELECT_HOUSE_BUY_IN);
 
         // 取值:选择的是哪个仓库
         //int which = houseIdSArray.get(position);
@@ -96,8 +97,25 @@ public class DataUtils {
         return houseIdSArray;
     }
 
-    public static void clearHouseId() {
-        houseId.put(CodeConstant.SELECT_HOUSE_BUY_IN, null);
+    public static void clearId() {
+        positionAndWhich.put(CodeConstant.SELECT_HOUSE_BUY_IN, null);
+        positionAndWhich.put(CodeConstant.SELECT_GOODS, null);
+    }
+
+
+    /**
+     * 发货出库 中的商品存值算法
+     *
+     * @param position
+     * @param which
+     */
+    public static void setGoodsId(int position, int which) {
+        sparseArray.put(position, which);
+        positionAndWhich.put(CodeConstant.SELECT_GOODS, sparseArray);
+    }
+
+    public static SparseArray<Integer> getGoodsId() {
+        return positionAndWhich.get(CodeConstant.SELECT_GOODS);
     }
 
 }
