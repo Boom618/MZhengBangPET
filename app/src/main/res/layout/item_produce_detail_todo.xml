@@ -29,8 +29,7 @@
             android:layout_marginStart="@dimen/space_10"
             android:layout_toEndOf="@id/iv_tag"
             android:text="联想台式电脑"
-            android:textColor="@color/txt_main_color"
-            android:textSize="@dimen/text_14" />
+            style="@style/itemSizeStyle"/>
 
         <ImageView
             android:id="@+id/iv_arrow"
@@ -48,8 +47,7 @@
             android:layout_marginEnd="@dimen/space_30"
             android:layout_toStartOf="@+id/iv_arrow"
             android:text="25箱"
-            android:textColor="@color/txt_main_color"
-            android:textSize="@dimen/text_14" />
+            style="@style/itemSizeStyle"/>
 
     </RelativeLayout>
 
@@ -69,8 +67,7 @@
             android:layout_marginStart="@dimen/space_25"
             android:hint="入库数量"
             android:inputType="number"
-            android:textColor="@color/txt_main_color"
-            android:textSize="@dimen/text_14" />
+            style="@style/itemSizeStyle"/>
 
         <EditText
             android:id="@+id/et_bulk_num"
@@ -82,8 +79,7 @@
             android:layout_toEndOf="@+id/et_box_num"
             android:hint="文本"
             android:inputType="numberDecimal"
-            android:textColor="@color/txt_main_color"
-            android:textSize="@dimen/text_14" />
+            style="@style/itemSizeStyle"/>
 
         <EditText
             android:id="@+id/et_start_code"
@@ -94,8 +90,7 @@
             android:layout_marginStart="@dimen/space_25"
             android:hint="成品起始值"
             android:inputType="number"
-            android:textColor="@color/txt_main_color"
-            android:textSize="@dimen/text_14" />
+            style="@style/itemSizeStyle"/>
 
         <EditText
             android:id="@+id/et_end_code"
@@ -106,8 +101,7 @@
             android:layout_marginStart="@dimen/space_25"
             android:hint="成品结束值"
             android:inputType="number"
-            android:textColor="@color/txt_main_color"
-            android:textSize="@dimen/text_14" />
+            style="@style/itemSizeStyle" />
 
         <EditText
             android:id="@+id/et_sap"
@@ -117,8 +111,8 @@
             android:layout_marginEnd="@dimen/space_25"
             android:layout_marginStart="@dimen/space_25"
             android:hint="SAP 物料"
-            android:textColor="@color/txt_main_color"
-            android:textSize="@dimen/text_14" />
+            android:lines="1"
+            style="@style/itemSizeStyle"/>
 
         <Button
             android:id="@+id/btn_binding_code"

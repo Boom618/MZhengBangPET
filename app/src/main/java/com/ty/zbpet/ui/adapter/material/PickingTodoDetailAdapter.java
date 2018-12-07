@@ -34,8 +34,8 @@ public class PickingTodoDetailAdapter extends CommonAdapter<MaterialDetailsIn.Li
     protected void convert(ViewHolder holder, MaterialDetailsIn.ListBean list, final int position) {
         holder.setText(R.id.tv_name, list.getMaterialName())
                 .setText(R.id.tv_num, list.getOrderNumber() + "  " + list.getUnitS())
-                .setText(R.id.tv_box_num, "含量：" + list.getConcentration())
-                .setText(R.id.tv_box_num_unit, list.getZKG() + " ?? ")
+                .setText(R.id.tv_box_num, "含量：" + list.getConcentration() + "%")
+                .setText(R.id.tv_box_num_unit, list.getZKG() + " ZKG ? ")
                 .setText(R.id.bulk_num, "库存量：?? ");
 
         // 1、库位码

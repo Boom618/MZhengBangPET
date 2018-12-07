@@ -138,9 +138,6 @@ public class ApiNameConstant {
      */
     public static final String GET_PURCHASE_TODO_SAVE = "stock/goodsStock/gPurchaseIn";
 
-    // 原
-    public static final String GOODS_PURCHASE_INSTORAGE = "/stock/goodsStock/gPurchaseIn";
-
 
     /**
      * 外采入库 已办列表

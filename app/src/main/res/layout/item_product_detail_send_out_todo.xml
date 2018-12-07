@@ -29,8 +29,7 @@
         android:layout_marginTop="5dp"
         android:layout_toEndOf="@id/iv_tag"
         android:text="联想台式电脑"
-        android:textColor="@color/txt_main_color"
-        android:textSize="@dimen/text_14"
+        style="@style/itemSizeStyle"
         app:layout_constraintStart_toEndOf="@+id/iv_tag"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,8 +42,7 @@
         android:layout_marginEnd="8dp"
         android:layout_toStartOf="@+id/iv_arrow"
         android:text="25箱"
-        android:textColor="@color/txt_main_color"
-        android:textSize="@dimen/text_14"
+        style="@style/itemSizeStyle"
         app:layout_constraintEnd_toStartOf="@+id/iv_arrow"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -80,8 +78,7 @@
             android:gravity="center_vertical"
             android:padding="@dimen/space_7"
             android:text="商品1"
-            android:textColor="@color/txt_main_color"
-            android:textSize="@dimen/text_14"
+            style="@style/itemSizeStyle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -93,10 +90,8 @@
             android:layout_marginTop="@dimen/text_16"
             android:drawablePadding="@dimen/space_10"
             android:gravity="center_vertical"
-            android:padding="@dimen/space_5"
             android:text="应发数量："
-            android:textColor="@color/txt_main_color"
-            android:textSize="@dimen/text_14"
+            style="@style/itemSizeStyle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_select_ware" />
 
@@ -110,9 +105,7 @@
             android:hint="出库数量：2000"
             android:inputType="number"
             android:lines="1"
-            android:padding="@dimen/space_5"
-            android:textColor="@color/txt_main_color"
-            android:textSize="@dimen/text_14"
+            style="@style/itemSizeStyle"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_send_number" />
@@ -125,9 +118,7 @@
             android:layout_marginEnd="@dimen/space_25"
             android:hint="成品起始值"
             android:inputType="number"
-            android:textColor="@color/txt_main_color"
-            android:textColorHint="@color/hint_color"
-            android:textSize="@dimen/text_14"
+            style="@style/itemSizeStyle"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_number" />
@@ -140,9 +131,7 @@
             android:layout_marginEnd="@dimen/space_25"
             android:hint="成品结束值"
             android:inputType="number"
-            android:textColor="@color/txt_main_color"
-            android:textColorHint="@color/hint_color"
-            android:textSize="@dimen/text_14"
+            style="@style/itemSizeStyle"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_start_code" />
@@ -157,9 +146,7 @@
             android:hint="sap 物料批次号"
             android:inputType="text"
             android:lines="1"
-            android:padding="@dimen/space_5"
-            android:textColor="@color/txt_main_color"
-            android:textSize="@dimen/text_14"
+            style="@style/itemSizeStyle"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_end_code" />

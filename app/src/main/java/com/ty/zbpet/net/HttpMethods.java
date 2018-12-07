@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.ResponseInfo;
-import com.ty.zbpet.bean.WarehouseInfo;
 import com.ty.zbpet.bean.material.MaterialDetailsIn;
 import com.ty.zbpet.bean.material.MaterialDetailsOut;
 import com.ty.zbpet.bean.material.MaterialDoneList;
@@ -600,27 +599,6 @@ public class HttpMethods {
 
     /**--------------------------------- End ----------------------------------------*/
 
-    /**
-     * 获取仓库信息
-     *
-     * @param subscriber
-     */
-    public void getWarehouseList(BaseSubscriber<WarehouseInfo> subscriber) {
-        mService.getWarehouseList()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
-    }
-
-    /**
-     * 成品采购入库——待办
-     *
-     * @param
-     */
-    public void doGoodsPurchaseInStorage(BaseSubscriber<ResponseInfo> subscriber, RequestBody body) {
-        mService.doGoodsPurchaseInStorage(body)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
-    }
 
     private static Gson buildGson() {
         if (gson == null) {

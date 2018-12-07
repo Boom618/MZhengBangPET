@@ -37,7 +37,7 @@
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:backgroundDimAmount">0.5</item>
-        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowNoTitle">false</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowAnimationStyle">@style/bottomDialogAnim</item>
     </style>
@@ -49,4 +49,13 @@
         </item>
     </style>
     <!-- 供应商 选择  end -->
+    <!-- 列表详情字体大小  start -->
+
+    <style name="itemSizeStyle">
+        <item name="android:textSize">@dimen/text_14</item>
+        <item name="android:textColor">@color/txt_main_color</item>
+    </style>
+
+
+    <!-- 列表详情  end -->
 </resources>

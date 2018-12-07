@@ -18,7 +18,7 @@ import java.util.List;
  * <p>
  * 到货入库 Adapter
  */
-public class MaterialTodoAdapter extends CommonAdapter {
+public class MaterialTodoAdapter extends CommonAdapter<MaterialTodoList.ListBean> {
 
     private List<MaterialTodoList.ListBean> infoList;
 
@@ -29,41 +29,43 @@ public class MaterialTodoAdapter extends CommonAdapter {
         infoList = datas;
     }
 
-
     @Override
-    protected void convert(ViewHolder holder, Object o, int position) {
+    protected void convert(ViewHolder holder, MaterialTodoList.ListBean listBean, int position) {
 
+        holder.setText(R.id.tv_no,listBean.getSapOrderNo())
+                .setText(R.id.tv_supplier,"入库")
+                .setText(R.id.tv_type,listBean.getType())
+                .setText(R.id.tv_status,listBean.getState())
+                .setText(R.id.tv_supplier,listBean.getSupplierName())
+                .setText(R.id.tv_date,listBean.getOrderTime());
 
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
 
-        MaterialTodoList.ListBean info = infoList.get(position);
-
-
-        TextView tvNo = holder.itemView.findViewById(R.id.tv_no);
-        tvNo.setText(info.getSapOrderNo());
-
-        TextView tvType = holder.itemView.findViewById(R.id.tv_type);
-        tvType.setText(info.getType());
-        System.out.println("info.getType() = " + info.getType());
-
-        TextView tvStatus = holder.itemView.findViewById(R.id.tv_status);
-        tvStatus.setText(info.getState());
-
-        TextView tv_supplier = holder.itemView.findViewById(R.id.tv_supplier);
-        tv_supplier.setText(info.getSupplierName());
-
-        TextView tvOperator = holder.itemView.findViewById(R.id.tv_operator);
-        tvOperator.setText("入库");
-//        if (!"采购入库".equals(info.getType())) {
-//            tvOperator.setText("冲销");
-//        }
-
-        TextView tvDate = holder.itemView.findViewById(R.id.tv_date);
-        tvDate.setText(info.getOrderTime());
-
-
-    }
+//    @Override
+//    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
+//
+//        MaterialTodoList.ListBean info = infoList.get(position);
+//
+//
+//        TextView tvNo = holder.itemView.findViewById(R.id.tv_no);
+//        tvNo.setText(info.getSapOrderNo());
+//
+//        TextView tvType = holder.itemView.findViewById(R.id.tv_type);
+//        tvType.setText(info.getType());
+//
+//        TextView tvStatus = holder.itemView.findViewById(R.id.tv_status);
+//        tvStatus.setText(info.getState());
+//
+//        TextView tvSupplier = holder.itemView.findViewById(R.id.tv_supplier);
+//        tvSupplier.setText(info.getSupplierName());
+//
+//        TextView tvOperator = holder.itemView.findViewById(R.id.tv_operator);
+//        tvOperator.setText("入库");
+//
+//        TextView tvDate = holder.itemView.findViewById(R.id.tv_date);
+//        tvDate.setText(info.getOrderTime());
+//
+//
+//    }
 }

@@ -2,7 +2,6 @@ package com.ty.zbpet.net;
 
 import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.ResponseInfo;
-import com.ty.zbpet.bean.WarehouseInfo;
 import com.ty.zbpet.bean.material.MaterialDetailsIn;
 import com.ty.zbpet.bean.material.MaterialDetailsOut;
 import com.ty.zbpet.bean.material.MaterialDoneList;
@@ -465,22 +464,5 @@ public interface ApiService {
 
 
     /**--------------------------------- End ----------------------------------------*/
-
-    /**
-     * 获取仓库信息
-     *
-     * @return
-     */
-    @GET(ApiNameConstant.GET_WAREHOUSE_INFO)
-    Observable<WarehouseInfo> getWarehouseList();
-
-    /**
-     * 成品采购入库——待办
-     *
-     * @param
-     * @return
-     */
-    @POST(ApiNameConstant.GOODS_PURCHASE_INSTORAGE)
-    Observable<ResponseInfo> doGoodsPurchaseInStorage(@Body RequestBody body);
 
 }
