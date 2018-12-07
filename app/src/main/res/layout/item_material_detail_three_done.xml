@@ -76,8 +76,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
             android:text="含量："
-            android:textColor="@color/txt_main_color"
-            android:textSize="@dimen/text_16"
+            style="@style/itemSizeStyle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -89,8 +88,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
             android:text="ZKG ："
-            android:textColor="@color/txt_main_color"
-            android:textSize="@dimen/text_16"
+            style="@style/itemSizeStyle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -101,16 +99,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:background="@null"
-            android:padding="@dimen/space_5"
             android:text="库存量："
-            android:textColor="@color/txt_main_color"
-            android:textSize="@dimen/text_16"
+            style="@style/itemSizeStyle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_box_num" />
 
         <TextView
-            android:id="@+id/et_code"
+            android:id="@+id/tv_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -120,14 +115,12 @@
             android:ellipsize="end"
             android:hint="库位码"
             android:lines="1"
-            android:padding="@dimen/space_5"
-            android:textColor="@color/txt_main_color"
-            android:textSize="@dimen/text_16"
+            style="@style/itemSizeStyle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bulk_num" />
 
         <TextView
-            android:id="@+id/et_number"
+            android:id="@+id/tv_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -137,31 +130,24 @@
             android:ellipsize="end"
             android:hint="出库数量：2000"
             android:lines="1"
-            android:padding="@dimen/space_5"
-            android:textColor="@color/txt_main_color"
-            android:textSize="@dimen/text_14"
-            app:layout_constraintBottom_toTopOf="@+id/et_batch_no"
+            style="@style/itemSizeStyle"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_code" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_code" />
 
 
         <TextView
-            android:id="@+id/et_batch_no"
+            android:id="@+id/tv_batch_no"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/et_code"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:hint="sap 物料批次号"
-            android:lines="1"
-            android:padding="@dimen/space_5"
-            android:textColor="@color/txt_main_color"
-            android:textSize="@dimen/text_14"
+            style="@style/itemSizeStyle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_number" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_number" />
 
 
     </android.support.constraint.ConstraintLayout>

@@ -51,6 +51,7 @@ class MaterialDetailsOut {
         var createdAt: String? = null
         var updatedAt: String? = null
         var unitS: String? = null
+        var stockNumber: String? = null
 
         var orderNumber: String? = null
         var positionNo: String? = null

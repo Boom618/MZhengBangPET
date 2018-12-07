@@ -166,9 +166,6 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
             }
         });
 
-        // 仓库默认值设置
-        DataUtils.setHouseId(0, 0);
-
         userInfo = DataUtils.getUserInfo();
         List<UserInfo.WarehouseListBean> warehouseList = userInfo.getWarehouseList();
 
@@ -179,6 +176,9 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
         }
         selectHouse.setText(houseName.get(0));
 
+        // TODO　仓库默认值设置
+        DataUtils.setHouseId(0, 0);
+        // 用户选择仓库信息
         selectHouse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -233,6 +233,7 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
         ProductTodoSave requestBody = new ProductTodoSave();
         List<ProductTodoSave.DetailsBean> detail = new ArrayList<>();
 
+        // TODO 获取用户选择的仓库信息
         SparseArray<Integer> houseId = DataUtils.getHouseId();
 
         List<UserInfo.WarehouseListBean> warehouseList = userInfo.getWarehouseList();
@@ -394,5 +395,13 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
             endCodeArray.put(position, textContent);
         }
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        // TODO 清除仓库数据
+        DataUtils.clearId();
     }
 }

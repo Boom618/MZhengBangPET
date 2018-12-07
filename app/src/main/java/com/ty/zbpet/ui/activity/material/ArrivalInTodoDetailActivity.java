@@ -96,6 +96,7 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
      * 保存用户在输入框中的数据
      */
     private SparseArray<String> bulkNumArray = new SparseArray(10);
+    private SparseArray<String> zkgArray = new SparseArray(10);
     private SparseArray<String> carCodeArray = new SparseArray(10);
     private SparseArray<String> batchNoArray = new SparseArray(10);
 
@@ -173,6 +174,7 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
             String bulkNum = bulkNumArray.get(i);
             String carCode = carCodeArray.get(i);
             String batchNo = batchNoArray.get(i);
+            String zkg = zkgArray.get(i);
 
             String Id = positionId.get(i);
 
@@ -183,9 +185,10 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
                 } else if (!carCode.isEmpty()) {
                     bean.setPositionId(carCode);
                 } else if (!batchNo.isEmpty()) {
-                    bean.setSapMaterialBatchNo(batchNo);
                 }
+                bean.setSapMaterialBatchNo(batchNo);
                 bean.setPositionId(Id);
+                bean.setZKG(zkg);
                 bean.setSupplierId(supplierId);
                 bean.setSupplierNo(list.get(i).getSupplierNo());
                 bean.setMaterialId(list.get(i).getMaterialId());
@@ -200,7 +203,7 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
 
         // 没有合法的操作数据,不请求网络
         if (detail.size() == 0) {
-            ZBUiUtils.showToast("请完善您要保存的信息");
+            ZBUiUtils.showToast("请完善您要入库的信息");
             return null;
         }
         String remark = etDesc.getText().toString().trim();
@@ -301,9 +304,7 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
         String textContent = editText.getText().toString().trim();
 
         if (CodeConstant.ET_ZKG.equals(etType)) {
-            // 和 库位码 一样的存值方法
-            MainApp.mCache.put(CodeConstant.ET_ZKG, position + "@" + textContent);
-
+            zkgArray.put(position,textContent);
         } else if (CodeConstant.ET_BULK_NUM.equals(etType)) {
             bulkNumArray.put(position, textContent);
 
@@ -346,8 +347,6 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
                 // 扫描
                 doDeCode();
             }
-
-
             return true;
         }
         return super.onKeyDown(keyCode, event);

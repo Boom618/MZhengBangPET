@@ -158,6 +158,10 @@ public class PickOutTodoDetailActivity extends BaseActivity implements MaterialU
      */
     private void pickOutTodoSave(RequestBody body) {
 
+        if (body == null) {
+            return;
+        }
+
         HttpMethods.getInstance().pickOutTodoSave(new SingleObserver<ResponseInfo>() {
 
             @Override
@@ -224,7 +228,7 @@ public class PickOutTodoDetailActivity extends BaseActivity implements MaterialU
         }
         // 没有合法的操作数据,不请求网络
         if (detail.size() == 0) {
-            ZBUiUtils.showToast("请完善您要保存的信息");
+            ZBUiUtils.showToast("请完善您要出库的信息");
             return null;
         }
 

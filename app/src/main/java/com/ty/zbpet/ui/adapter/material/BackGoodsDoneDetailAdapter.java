@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * @author TY on 2018/11/22.
  * <p>
- * 领料出库 已办详情
+ * 采购退货 已办详情
  */
 public class BackGoodsDoneDetailAdapter extends CommonAdapter<MaterialDetailsOut.ListBean> {
 
@@ -25,13 +25,13 @@ public class BackGoodsDoneDetailAdapter extends CommonAdapter<MaterialDetailsOut
     protected void convert(ViewHolder holder, MaterialDetailsOut.ListBean list, final int position) {
 
         holder.setText(R.id.tv_name, list.getMaterialName())
-                .setText(R.id.tv_num, list.getGiveNumber() + list.getUnitS() + " ?")
-                .setText(R.id.tv_box_num, list.getConcentration() + "?")
-                .setText(R.id.tv_box_num_unit, list.getZKG() + "?")
+                .setText(R.id.tv_num, list.getGiveNumber() + list.getUnitS())
+                .setText(R.id.tv_box_num, list.getConcentration() + "%")
+                .setText(R.id.tv_box_num_unit, "ZKG:" + list.getZKG())
                 .setText(R.id.bulk_num, "库存量：? ")
-                .setText(R.id.et_code, list.getPositionNo()+ "?" )
-                .setText(R.id.et_number, list.getNumber()+ "?")
-                .setText(R.id.et_batch_no, list.getSapMaterialBatchNo()+ "?");
+                .setText(R.id.tv_code, "库位码：" + list.getPositionNo())
+                .setText(R.id.tv_number, "出库数量：" + list.getNumber())
+                .setText(R.id.tv_batch_no, list.getSapMaterialBatchNo());
 
     }
 

@@ -18,9 +18,11 @@ class PickingDoneDetailAdapter(context: Context, layoutId: Int, datas: List<Mate
     override fun convert(holder: ViewHolder, list: MaterialDetailsOut.ListBean, position: Int) {
 
         holder.setText(R.id.tv_name, list.materialName)
-                .setText(R.id.tv_num, list.orderNumber + "  " + list.unitS)
+                .setText(R.id.tv_num, "/" + list.giveNumber + list.unitS)
                 .setText(R.id.tv_box_num, "含量：" + list.concentration!! + "%")
-                .setText(R.id.tv_box_num_unit, "ZKG ：? ")
-                .setText(R.id.bulk_num, "库存量：? ")
+                .setText(R.id.tv_box_num_unit, "ZKG："+ list.ZKG)
+                .setText(R.id.tv_code, "库位码："+ list.positionNo)
+                .setText(R.id.tv_batch_no, list.sapMaterialBatchNo)
+                .setText(R.id.bulk_num, "库存量：" + list.stockNumber)
     }
 }

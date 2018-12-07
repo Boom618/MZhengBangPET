@@ -35,8 +35,8 @@ public class PickingTodoDetailAdapter extends CommonAdapter<MaterialDetailsIn.Li
         holder.setText(R.id.tv_name, list.getMaterialName())
                 .setText(R.id.tv_num, list.getOrderNumber() + "  " + list.getUnitS())
                 .setText(R.id.tv_box_num, "含量：" + list.getConcentration() + "%")
-                .setText(R.id.tv_box_num_unit, list.getZKG() + " ZKG ? ")
-                .setText(R.id.bulk_num, "库存量：?? ");
+                .setText(R.id.tv_box_num_unit, "ZKG：" + list.getZKG())
+                .setText(R.id.bulk_num, "库存量：" + list.getStockNumber());
 
         // 1、库位码
         final EditText etCode = holder.itemView.findViewById(R.id.et_code);
@@ -58,15 +58,11 @@ public class PickingTodoDetailAdapter extends CommonAdapter<MaterialDetailsIn.Li
 
         // 2、数量
         EditText etNumber = holder.itemView.findViewById(R.id.et_number);
-//        String numString = etNumber.getText().toString().trim();
-//        etNumber.setText(numString);
 
         etNumber.setOnFocusChangeListener(new EditTextOnFocusChangeListener(CodeConstant.ET_BULK_NUM, position, etNumber));
 
         // 3、Ssp NO
         EditText etSapNo = holder.itemView.findViewById(R.id.et_batch_no);
-//        String sapNo = etSapNo.getText().toString().trim();
-//        etSapNo.setText(sapNo);
 
         etSapNo.setOnFocusChangeListener(new EditTextOnFocusChangeListener(CodeConstant.ET_BATCH_NO, position, etSapNo));
 

@@ -146,6 +146,9 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
         tvTime.setText(selectTime);
         titleName.setText("到货明细");
 
+        // TODO　仓库默认值设置　
+        DataUtils.setHouseId(0, 0);
+
         tvTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -208,7 +211,6 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
 
         List<ProductTodoSave.DetailsBean> detail = new ArrayList<>();
 
-        //String result = MainApp.mCache.getAsString(CodeConstant.SELECT_HOUSE_ID);
         SparseArray<Integer> houseId = DataUtils.getHouseId();
 
         List<UserInfo.WarehouseListBean> warehouseList = userInfo.getWarehouseList();
@@ -339,7 +341,6 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
                         }
                     });
 
-                    //List<BuyInTodoDetails.ListBean.WarehouseListBean> warehouseList = list.get(position).getWarehouseList();
                     userInfo = DataUtils.getUserInfo();
 
                     List<UserInfo.WarehouseListBean> warehouseList = userInfo.getWarehouseList();
@@ -415,4 +416,12 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
 
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        // TODO  清除仓库数据
+        DataUtils.clearId();
+    }
 }

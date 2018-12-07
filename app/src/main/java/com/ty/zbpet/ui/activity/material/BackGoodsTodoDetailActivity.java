@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -54,7 +53,7 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
 
     private RecyclerView reView;
     private TextView tvTime;
-    private TextView backGoods;
+    private TextView titleName;
     private TextView tvPath;
     private TextView tvType;
     private EditText etDesc;
@@ -127,7 +126,7 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
 
         reView = findViewById(R.id.rv_in_storage_detail);
         tvTime = findViewById(R.id.tv_time);
-        backGoods = findViewById(R.id.in_storage_detail);
+        titleName = findViewById(R.id.in_storage_detail);
 
         tvPath = findViewById(R.id.tv_path);
         tvType = findViewById(R.id.tv_type);
@@ -138,7 +137,7 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
         selectTime = format.format(new Date());
 
         tvTime.setText(selectTime);
-        backGoods.setText("退货明细");
+        titleName.setText("退货明细");
 
         tvTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -226,15 +225,18 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
         }
         // 没有合法的操作数据,不请求网络
         if (detail.size() == 0) {
-            ZBUiUtils.showToast("请完善您要保存的信息");
+            ZBUiUtils.showToast("请完善您要退货的信息");
             return null;
         }
+
+        String remark = etDesc.getText().toString().trim();
+        String time = tvTime.getText().toString().trim();
 
         requestBody.setDetails(detail);
         requestBody.setWarehouseId(warehouseId);
         requestBody.setSapOrderNo(sapOrderNo);
-        requestBody.setOutTime(tvTime.getText().toString().trim());
-        requestBody.setRemark(etDesc.getText().toString().trim());
+        requestBody.setOutTime(time);
+        requestBody.setRemark(remark);
 
 
         String json = DataUtils.toJson(requestBody, 1);
@@ -255,13 +257,10 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
         if (keyCode == CodeConstant.KEY_CODE_131
                 || keyCode == CodeConstant.KEY_CODE_135
                 || keyCode == CodeConstant.KEY_CODE_139) {
-
             if (currentFocus && currentPosition != -1) {
                 // 扫描
                 doDeCode();
             }
-
-
             return true;
         }
         return super.onKeyDown(keyCode, event);
@@ -289,7 +288,7 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
      * @param position   item 更新需要的 position
      * @param positionNo 扫码的编号
      */
-    private void httpCheckCarCode(final int position, final String positionNo) {
+    private void httpCheckCarCode(int position,String positionNo) {
 
         presenter.checkCarCode(position, positionNo);
 
@@ -340,7 +339,6 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
                     }
 
                     ZBUiUtils.hideInputWindow(view.getContext(), view);
-
                 }
 
                 @Override
@@ -375,19 +373,18 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
         } else if (CodeConstant.ET_CODE.equals(etType)) {
             currentFocus = hasFocus;
 
-            String tempString = textContent;
-            // 【情况 ② 】 无焦点 有内容 http 校验
-            if (!TextUtils.isEmpty(textContent)) {
-                if (!hasFocus) {
-                    //httpCheckCarCode(currentPosition, textContent);
-                }
-            }
+//            String tempString = textContent;
+//            // 【情况 ② 】 无焦点 有内容 http 校验
+//            if (!TextUtils.isEmpty(textContent)) {
+//                if (!hasFocus) {
+//                    //httpCheckCarCode(currentPosition, textContent);
+//                }
+//            }
 
-            carCodeArray.put(position, tempString);
+            carCodeArray.put(position, textContent);
 
         } else if (CodeConstant.ET_BATCH_NO.equals(etType)) {
             batchNoArray.put(position, textContent);
-
         }
 
     }

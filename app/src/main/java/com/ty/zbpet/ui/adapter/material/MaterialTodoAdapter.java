@@ -33,7 +33,7 @@ public class MaterialTodoAdapter extends CommonAdapter<MaterialTodoList.ListBean
     protected void convert(ViewHolder holder, MaterialTodoList.ListBean listBean, int position) {
 
         holder.setText(R.id.tv_no,listBean.getSapOrderNo())
-                .setText(R.id.tv_supplier,"入库")
+                .setText(R.id.tv_operator,"入库")
                 .setText(R.id.tv_type,listBean.getType())
                 .setText(R.id.tv_status,listBean.getState())
                 .setText(R.id.tv_supplier,listBean.getSupplierName())

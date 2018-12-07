@@ -17,6 +17,7 @@ import com.ty.zbpet.bean.material.MaterialDoneList;
 import com.ty.zbpet.presenter.material.MaterialPresenter;
 import com.ty.zbpet.presenter.material.MaterialUiListInterface;
 import com.ty.zbpet.ui.activity.material.ArrivalInDoneDetailActivity;
+import com.ty.zbpet.ui.adapter.SwipeItemLayout;
 import com.ty.zbpet.ui.adapter.material.MaterialDoneAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
 import com.ty.zbpet.ui.base.EmptyLayout;
@@ -109,6 +110,8 @@ public class MaterialDoneFragment extends BaseFragment implements MaterialUiList
                 ZBUiUtils.showToast("没有更多数据了");
             }
         });
+
+
     }
 
     @Override

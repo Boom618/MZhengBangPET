@@ -42,5 +42,6 @@ class MaterialTodoSave {
         var positionNo: String? = null
         var sapMaterialBatchNo: String? = null
         var concentration: String? = null
+        var ZKG: String? = null
     }
 }

@@ -91,7 +91,7 @@ public class BuyInDoneDetailActivity extends BaseActivity implements ProductUiOb
     protected void initTwoView() {
 
 
-        initToolBar(R.string.pick_out_storage, new View.OnClickListener() {
+        initToolBar(R.string.label_purchase_in_storage, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 buyInDoneSave(initDoneBody());

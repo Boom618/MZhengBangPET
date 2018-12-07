@@ -16,6 +16,7 @@ import com.ty.zbpet.bean.material.MaterialDoneSave;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.presenter.material.MaterialPresenter;
 import com.ty.zbpet.presenter.material.MaterialUiListInterface;
+import com.ty.zbpet.ui.adapter.SwipeItemLayout;
 import com.ty.zbpet.ui.adapter.material.MaterialDoneDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
@@ -156,12 +157,14 @@ public class ArrivalInDoneDetailActivity extends BaseActivity implements Materia
 
         MaterialDoneSave bean = new MaterialDoneSave();
 
+        String remark = etDesc.getText().toString().trim();
+
         bean.setWarehouseId(warehouseId);
         bean.setOrderId(mInWarehouseOrderId);
         bean.setSapOrderNo(sapOrderNo);
         bean.setPositionId(positionId);
         bean.setOrderId(orderId);
-        bean.setRemark(etDesc.getText().toString().trim());
+        bean.setRemark(remark);
 
         String json = DataUtils.toJson(bean, 1);
 
@@ -185,9 +188,10 @@ public class ArrivalInDoneDetailActivity extends BaseActivity implements Materia
             detailRc.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             detailRc.setLayoutManager(manager);
 
+            // TODO 侧滑删除
+            // detailRc.addOnItemTouchListener(new SwipeItemLayout.OnSwipeItemTouchListener(this));
             adapter = new MaterialDoneDetailAdapter(this, R.layout.item_material_done_detail, list);
             detailRc.setAdapter(adapter);
-
             adapter.setOnItemClickListener(new MaterialDoneDetailAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {

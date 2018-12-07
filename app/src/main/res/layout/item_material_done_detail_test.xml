@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.ty.zbpet.ui.adapter.SwipeItemLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_10"
+        android:layout_marginEnd="@dimen/space_10"
+        android:background="@drawable/shape_white_min_radius"
+        android:paddingBottom="@dimen/space_8">
+
+
+        <ImageView
+            android:id="@+id/iv_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:src="@mipmap/ic_product"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="联想台式电脑"
+            android:textColor="@color/txt_main_color"
+            android:textSize="@dimen/text_14"
+            app:layout_constraintLeft_toRightOf="@+id/iv_tag"
+            app:layout_constraintStart_toEndOf="@+id/iv_tag"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/tv_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:text="25"
+            android:textColor="@color/txt_main_color"
+            android:textSize="@dimen/text_14"
+            app:layout_constraintLeft_toRightOf="@+id/tv_name"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_num_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="箱"
+            android:textColor="@color/txt_main_color"
+            android:textSize="@dimen/text_14"
+            app:layout_constraintLeft_toRightOf="@+id/tv_num"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:src="@mipmap/ic_collapse"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/view_gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name">
+
+            <TextView
+                android:id="@+id/tv_bulk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="含量："
+                android:textColor="@color/txt_main_color"
+                android:textSize="@dimen/text_14"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_zkg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:hint="ZKG :"
+                android:textColor="@color/txt_main_color"
+                app:layout_constraintLeft_toLeftOf="@+id/tv_bulk"
+                app:layout_constraintTop_toBottomOf="@+id/tv_bulk" />
+
+
+            <TextView
+                android:id="@+id/tv_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:hint="库位码"
+                android:textColor="@color/txt_main_color"
+                android:textSize="@dimen/text_18"
+                app:layout_constraintLeft_toLeftOf="@+id/tv_bulk"
+                app:layout_constraintTop_toBottomOf="@+id/tv_zkg" />
+
+            <TextView
+                android:id="@+id/tv_count_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:hint="入库数量："
+                android:textColor="@color/txt_main_color"
+                app:layout_constraintLeft_toLeftOf="@+id/tv_bulk"
+                app:layout_constraintTop_toBottomOf="@+id/tv_code" />
+
+            <TextView
+                android:id="@+id/tv_sap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:hint="SAP 物料号："
+                android:textColor="@color/txt_main_color"
+                app:layout_constraintLeft_toLeftOf="@+id/tv_bulk"
+                app:layout_constraintTop_toBottomOf="@+id/tv_count_number" />
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="@mipmap/bianhao"
+            android:text="删除"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+
+</com.ty.zbpet.ui.adapter.SwipeItemLayout>
