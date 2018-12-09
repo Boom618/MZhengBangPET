@@ -28,8 +28,8 @@ public class ReturnGoodsDoneListAdapter extends CommonAdapter<ProductDoneList.Li
 
         holder.setText(R.id.tv_operator, "冲销")
                 .setText(R.id.tv_no, list.getSapOrderNo())
-                .setText(R.id.tv_client_msg,  "客户 ？")
-                .setText(R.id.tv_send_msg, " 退货 ？")
+                .setText(R.id.tv_client_msg,  list.getCustomerInfo())
+                .setText(R.id.tv_send_msg, list.getBackInfo())
                 .setText(R.id.tv_date, list.getInTime())
                 .setText(R.id.tv_status, list.getState());
     }

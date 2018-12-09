@@ -265,7 +265,7 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
         List<ProductTodoSave.DetailsBean> detail = new ArrayList<>();
 
         // 获取 用户选择商品的信息: 【那一列中的第几个】
-        SparseArray<Integer> houseId = DataUtils.getHouseId();
+        SparseArray<Integer> goodsArray = DataUtils.getGoodsId();
 
         // int size = rawData.size();
         int size = oldList.size();
@@ -285,19 +285,11 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
             ProductTodoSave.DetailsBean bean = new ProductTodoSave.DetailsBean();
             if (!TextUtils.isEmpty(number) && boxQrCode != null) {
 
-                // houseId == null ： 是判断用户全部没有选择商品信息,默认都是第一个，
-                // houseId.get(i) == null : 是判断用户部分没选择商品信息默认第一个
-                if (houseId == null || houseId.get(i) == null) {
-                    goodsId = oldList.get(0).getGoodsId();
-                    goodsNo = oldList.get(0).getGoodsNo();
-                    goodsName = oldList.get(0).getGoodsName();
-
-                } else {
-                    int which = houseId.get(i) - 1;
-                    goodsId = oldList.get(which).getGoodsId();
-                    goodsNo = oldList.get(which).getGoodsNo();
-                    goodsName = oldList.get(which).getGoodsName();
-                }
+                // position 是从 0 开始，size 减 1.
+                int which = goodsArray.get(i) - 1;
+                goodsId = oldList.get(which).getGoodsId();
+                goodsNo = oldList.get(which).getGoodsNo();
+                goodsName = oldList.get(which).getGoodsName();
 
                 bean.setPositionId(Id);
                 bean.setStartQrCode(startCode);
@@ -339,7 +331,7 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
 
 
     @Override
-    public void showProduct(List<ProductTodoDetails.ListBean> list) {
+    public void showProduct(final List<ProductTodoDetails.ListBean> list) {
 
         // 保存原数据
         rawData.addAll(list);
@@ -366,13 +358,24 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
 
                     View rlDetail = holder.itemView.findViewById(R.id.gone_view);
                     ImageView ivArrow = holder.itemView.findViewById(R.id.iv_arrow);
+                    TextView tvName = holder.itemView.findViewById(R.id.tv_name);
                     Button bindingCode = holder.itemView.findViewById(R.id.btn_binding_code);
                     bindingCode.setText("箱码出库");
-                    final TextView selectGoods = holder.itemView.findViewById(R.id.tv_select_ware);
 
+                    // 选择商品
+                    final TextView selectGoods = holder.itemView.findViewById(R.id.tv_select_ware);
+                    selectGoods.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ZBUiUtils.selectDialog(view.getContext(), position, goodsName, selectGoods);
+                        }
+                    });
+                    SparseArray<Integer> goodsId = DataUtils.getGoodsId();
+                    int which = goodsId.get(position);
                     if (rlDetail.getVisibility() == View.VISIBLE) {
                         rlDetail.setVisibility(View.GONE);
                         ivArrow.setImageResource(R.mipmap.ic_collapse);
+                        tvName.setText(list.get(which).getGoodsName());
                     } else {
                         rlDetail.setVisibility(View.VISIBLE);
                         ivArrow.setImageResource(R.mipmap.ic_expand);
@@ -392,12 +395,7 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
 
                     //List<BuyInTodoDetails.ListBean.WarehouseListBean> warehouseList = list.get(position).getWarehouseList();
 
-                    selectGoods.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            ZBUiUtils.selectDialog(view.getContext(), position, goodsName, selectGoods);
-                        }
-                    });
+
 
                     ZBUiUtils.hideInputWindow(view.getContext(), view);
 

@@ -33,6 +33,10 @@ class ProductDoneList {
         var companyNo: String? = null
         var sapOrderNo: String? = null
         var state: String? = null
+        var supplierName: String? = null
+        var productInfo: String? = null
+        var customerInfo: String? = null
+        var backInfo: String? = null
         var type: String? = null
         var inTime: String? = null
         var productionBatchNo: String? = null

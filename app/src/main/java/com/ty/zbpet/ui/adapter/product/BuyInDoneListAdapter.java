@@ -26,10 +26,10 @@ public class BuyInDoneListAdapter extends CommonAdapter<ProductDoneList.ListBean
     protected void convert(ViewHolder holder, ProductDoneList.ListBean list, int position) {
         holder.setText(R.id.tv_operator, "冲销")
                 .setText(R.id.tv_no, list.getSapOrderNo())
-                .setText(R.id.tv_type, list.getType() + "")
-                .setText(R.id.tv_supplier, " 供应商 ？")
+                .setText(R.id.tv_type, list.getType())
+                .setText(R.id.tv_supplier, list.getSupplierName())
                 .setText(R.id.tv_date, list.getInTime())
-                .setText(R.id.tv_status, list.getState() + "");
+                .setText(R.id.tv_status, list.getState());
     }
 
 }

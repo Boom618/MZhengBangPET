@@ -90,6 +90,9 @@ public class DataUtils {
     public static SparseArray<Integer> getHouseId() {
 
         SparseArray<Integer> houseIdSArray = positionAndWhich.get(CodeConstant.SELECT_HOUSE_BUY_IN);
+        if (houseIdSArray == null) {
+            houseIdSArray.put(0,0);
+        }
 
         // 取值:选择的是哪个仓库
         //int which = houseIdSArray.get(position);
@@ -115,7 +118,11 @@ public class DataUtils {
     }
 
     public static SparseArray<Integer> getGoodsId() {
-        return positionAndWhich.get(CodeConstant.SELECT_GOODS);
+        SparseArray<Integer> goodsArray = positionAndWhich.get(CodeConstant.SELECT_GOODS);
+        if (goodsArray == null) {
+            goodsArray.put(0,0);
+        }
+        return goodsArray;
     }
 
 }

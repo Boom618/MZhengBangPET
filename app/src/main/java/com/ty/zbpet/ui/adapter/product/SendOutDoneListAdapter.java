@@ -33,9 +33,9 @@ public class SendOutDoneListAdapter extends CommonAdapter<ProductDoneList.ListBe
 
         holder.setText(R.id.tv_operator, "冲销")
                 .setText(R.id.tv_no, list.getSapOrderNo())
-                .setText(R.id.tv_client_msg, "客户信息 ？")
-                .setText(R.id.tv_send_msg, "产品信息 ？")
-                .setText(R.id.tv_product_msg, "成品信息 ？")
+                .setText(R.id.tv_client_msg, list.getCustomerInfo())
+                .setText(R.id.tv_send_msg, list.getBackInfo())
+                .setText(R.id.tv_product_msg, list.getBackInfo())
                 .setText(R.id.tv_date, list.getInTime())
                 .setText(R.id.tv_status, list.getState());
     }
