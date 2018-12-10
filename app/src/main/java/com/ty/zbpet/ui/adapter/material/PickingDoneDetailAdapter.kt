@@ -21,8 +21,10 @@ class PickingDoneDetailAdapter(context: Context, layoutId: Int, datas: List<Mate
                 .setText(R.id.tv_num, "/" + list.giveNumber + list.unitS)
                 .setText(R.id.tv_box_num, "含量：" + list.concentration!! + "%")
                 .setText(R.id.tv_box_num_unit, "ZKG："+ list.ZKG)
-                .setText(R.id.tv_code, "库位码："+ list.positionNo)
-                .setText(R.id.tv_batch_no, list.sapMaterialBatchNo)
                 .setText(R.id.bulk_num, "库存量：" + list.stockNumber)
+                .setText(R.id.tv_code, "库位码："+ list.positionNo)
+                .setText(R.id.tv_number, "出库数量："+ list.giveNumber)
+                .setText(R.id.tv_batch_no, list.sapMaterialBatchNo)
+
     }
 }

@@ -63,7 +63,7 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
     private String selectTime;
     private String sapOrderNo;
 
-    private ArrayList<MaterialDetailsIn.ListBean> oldList = new ArrayList<>();
+    private ArrayList<MaterialDetailsIn.ListBean> list = new ArrayList<>();
 
     /**
      * 点击库位码输入框
@@ -119,7 +119,8 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
 
         initToolBar(R.string.back_goods, new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+                ZBUiUtils.hideInputWindow(BackGoodsTodoDetailActivity.this,view);
                 pickOutTodoSave(initTodoBody());
             }
         });
@@ -200,20 +201,31 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
         MaterialTodoSave requestBody = new MaterialTodoSave();
         List<MaterialTodoSave.DetailsBean> detail = new ArrayList<>();
 
-        int size = oldList.size();
+        int size = list.size();
         for (int i = 0; i < size; i++) {
             String bulkNum = bulkNumArray.get(i);
             String carCode = carCodeArray.get(i);
             String batchNo = batchNoArray.get(i);
-            String Id = positionId.get(i);
+            String id = positionId.get(i);
+
+            String supplierId = list.get(i).getSupplierId();
+            String concentration = list.get(i).getConcentration();
+            String materialId = list.get(i).getMaterialId();
+            String supplierNo = list.get(i).getSupplierNo();
+            String zkg = list.get(i).getZKG();
 
             MaterialTodoSave.DetailsBean bean = new MaterialTodoSave.DetailsBean();
             if (!TextUtils.isEmpty(bulkNum) && !TextUtils.isEmpty(carCode)) {
 
-                bean.setMaterialId(oldList.get(i).getMaterialId());
-                bean.setSupplierId(oldList.get(i).getSupplierId());
-                bean.setConcentration(oldList.get(i).getConcentration());
-                bean.setPositionId(Id);
+                bean.setZKG(zkg);
+                bean.setPositionId(id);
+                bean.setMaterialId(materialId);
+                bean.setSupplierId(supplierId);
+
+                bean.setSupplierNo(supplierNo);
+                bean.setConcentration(concentration);
+                // 用户输入数据
+                bean.setPositionNo(carCode);
                 bean.setNumber(bulkNum);
                 bean.setSapMaterialBatchNo(batchNo);
 
@@ -312,15 +324,15 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
     @Override
     public void detailObjData(MaterialDetailsIn details) {
 
-        // oldList.clear();
+        // list.clear();
         // 提交保存 需要用到
-        oldList = details.getList();
+        list = details.getList();
 
         if (adapter == null) {
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             reView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             reView.setLayoutManager(manager);
-            adapter = new BackGoodsTodoDetailAdapter(this, R.layout.item_material_detail_three_todo, oldList);
+            adapter = new BackGoodsTodoDetailAdapter(this, R.layout.item_material_detail_three_todo, list);
             reView.setAdapter(adapter);
 
             adapter.setOnItemClickListener(new BackGoodsTodoDetailAdapter.OnItemClickListener() {

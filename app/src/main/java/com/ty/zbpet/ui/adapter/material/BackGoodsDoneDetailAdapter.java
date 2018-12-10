@@ -26,11 +26,11 @@ public class BackGoodsDoneDetailAdapter extends CommonAdapter<MaterialDetailsOut
 
         holder.setText(R.id.tv_name, list.getMaterialName())
                 .setText(R.id.tv_num, list.getGiveNumber() + list.getUnitS())
-                .setText(R.id.tv_box_num, list.getConcentration() + "%")
+                .setText(R.id.tv_box_num, "含量："  + list.getConcentration() + "%")
                 .setText(R.id.tv_box_num_unit, "ZKG:" + list.getZKG())
-                .setText(R.id.bulk_num, "库存量：? ")
+                .setText(R.id.bulk_num, "库存量：" + list.getStockNumber())
                 .setText(R.id.tv_code, "库位码：" + list.getPositionNo())
-                .setText(R.id.tv_number, "出库数量：" + list.getNumber())
+                .setText(R.id.tv_number, "出库数量：" + list.getGiveNumber())
                 .setText(R.id.tv_batch_no, list.getSapMaterialBatchNo());
 
     }

@@ -53,5 +53,14 @@ class ProductDetailsOut {
         var unitS: String? = null
         var orderId: String? = null
         var boxQrCode: ArrayList<String>? = null
+
+        // 外采入库 每个列表都有仓库选项
+        var warehouseList: List<WarehouseListBean>? = null
+
+        class WarehouseListBean{
+            var warehouseId: String? = null
+            var warehouseNo: String? = null
+            var warehouseName: String? = null
+        }
     }
 }

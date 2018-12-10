@@ -91,6 +91,7 @@ public class DataUtils {
 
         SparseArray<Integer> houseIdSArray = positionAndWhich.get(CodeConstant.SELECT_HOUSE_BUY_IN);
         if (houseIdSArray == null) {
+            houseIdSArray = new SparseArray<>();
             houseIdSArray.put(0,0);
         }
 
@@ -120,6 +121,7 @@ public class DataUtils {
     public static SparseArray<Integer> getGoodsId() {
         SparseArray<Integer> goodsArray = positionAndWhich.get(CodeConstant.SELECT_GOODS);
         if (goodsArray == null) {
+            goodsArray = new SparseArray<>();
             goodsArray.put(0,0);
         }
         return goodsArray;

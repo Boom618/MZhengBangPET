@@ -100,7 +100,7 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
     /**
      * 用户信息
      */
-    private UserInfo userInfo;
+    private UserInfo userInfo = DataUtils.getUserInfo();
 
     @Override
     protected void onBaseCreate(Bundle savedInstanceState) {
@@ -276,7 +276,7 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
         }
         // 没有合法的操作数据,不请求网络
         if (detail.size() == 0) {
-            ZBUiUtils.showToast("请完善您要保存的信息");
+            ZBUiUtils.showToast("请完善您要入库的信息");
             return null;
         }
 
@@ -299,7 +299,7 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
 
 
     @Override
-    public void showProduct(List<ProductDetailsIn.ListBean> list) {
+    public void showProduct(final List<ProductDetailsIn.ListBean> list) {
 
         // BuyInTodoDetails  含仓库信息 bean
         // ProductDetailsIn  不含仓库信息 bean
@@ -319,11 +319,34 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
                     View rlDetail = holder.itemView.findViewById(R.id.gone_view);
                     ImageView ivArrow = holder.itemView.findViewById(R.id.iv_arrow);
                     Button bindingCode = holder.itemView.findViewById(R.id.btn_binding_code);
+                    TextView tvName = holder.itemView.findViewById(R.id.tv_name);
                     final TextView selectHouse = holder.itemView.findViewById(R.id.tv_select_ware);
 
+                    //List<UserInfo.WarehouseListBean> houses = userInfo.getWarehouseList();
+                    List<ProductDetailsIn.ListBean.WarehouseListBean> houses = list.get(position).getWarehouseList();
+                    final ArrayList<String> houseName = new ArrayList<>();
+
+                    int size = houses.size();
+                    for (int i = 0; i < size; i++) {
+                        houseName.add(houses.get(i).getWarehouseName());
+                    }
+
+                    selectHouse.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ZBUiUtils.selectDialog(view.getContext(), position, houseName, selectHouse);
+
+                        }
+                    });
+
+                    //SparseArray<Integer> houseId = DataUtils.getHouseId();
+                    // 获取当前 item 中，用户选择的是哪个 仓库位置 ID（先不显示）
+//                    Integer which = houseId.get(position);
+//                    String warehouseName = warehouseList.get(which).getWarehouseName();
                     if (rlDetail.getVisibility() == View.VISIBLE) {
                         rlDetail.setVisibility(View.GONE);
                         ivArrow.setImageResource(R.mipmap.ic_collapse);
+//                        tvName.setText(warehouseName);
                     } else {
                         rlDetail.setVisibility(View.VISIBLE);
                         ivArrow.setImageResource(R.mipmap.ic_expand);
@@ -341,23 +364,6 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
                         }
                     });
 
-                    userInfo = DataUtils.getUserInfo();
-
-                    List<UserInfo.WarehouseListBean> warehouseList = userInfo.getWarehouseList();
-                    final ArrayList<String> houseName = new ArrayList<>();
-
-                    int size = warehouseList.size();
-                    for (int i = 0; i < size; i++) {
-                        houseName.add(warehouseList.get(i).getWarehouseName());
-                    }
-
-                    selectHouse.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            ZBUiUtils.selectDialog(view.getContext(), position, houseName, selectHouse);
-
-                        }
-                    });
 
                     ZBUiUtils.hideInputWindow(view.getContext(), view);
 

@@ -135,7 +135,8 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
 
         initToolBar(R.string.label_purchase_detail, new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+                ZBUiUtils.hideInputWindow(ArrivalInTodoDetailActivity.this,view);
                 // 冲销入库
                 doPurchaseInRecallOut(initParam());
 

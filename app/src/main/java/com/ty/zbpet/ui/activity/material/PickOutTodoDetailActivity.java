@@ -119,7 +119,8 @@ public class PickOutTodoDetailActivity extends BaseActivity implements MaterialU
 
         initToolBar(R.string.pick_out_storage, new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+                ZBUiUtils.hideInputWindow(PickOutTodoDetailActivity.this,view);
                 pickOutTodoSave(initTodoBody());
             }
         });
@@ -194,7 +195,6 @@ public class PickOutTodoDetailActivity extends BaseActivity implements MaterialU
 
     private RequestBody initTodoBody() {
 
-        //  TODO 暂时先用原辅料 的保存 Bean
         MaterialTodoSave requestBody = new MaterialTodoSave();
         List<MaterialTodoSave.DetailsBean> detail = new ArrayList<>();
 
@@ -203,23 +203,26 @@ public class PickOutTodoDetailActivity extends BaseActivity implements MaterialU
             String bulkNum = bulkNumArray.get(i);
             String carCode = carCodeArray.get(i);
             String batchNo = batchNoArray.get(i);
+            String concentration = list.get(i).getConcentration();
+            String materialId = list.get(i).getMaterialId();
+            String supplierNo = list.get(i).getSupplierNo();
+            String zkg = list.get(i).getZKG();
 
-            String Id = positionId.get(i);
+            String id = positionId.get(i);
 
             MaterialTodoSave.DetailsBean bean = new MaterialTodoSave.DetailsBean();
             if (null != bulkNum && null != carCode) {
-                if (!bulkNum.isEmpty()) {
-                    bean.setNumber(bulkNum);
-                } else if (!carCode.isEmpty()) {
-                    bean.setPositionId(carCode);
-                } else if (!batchNo.isEmpty()) {
-                    bean.setSapMaterialBatchNo(batchNo);
-                }
-                bean.setPositionId(Id);
+
+                bean.setPositionId(id);
+                bean.setZKG(zkg);
                 bean.setSupplierId(supplierId);
-                bean.setSupplierNo(list.get(i).getSupplierNo());
-                bean.setMaterialId(list.get(i).getMaterialId());
-                bean.setConcentration(list.get(i).getConcentration());
+                bean.setSupplierNo(supplierNo);
+                bean.setMaterialId(materialId);
+                bean.setConcentration(concentration);
+                // 用户输入数据
+                bean.setPositionNo(carCode);
+                bean.setNumber(bulkNum);
+                bean.setSapMaterialBatchNo(batchNo);
 
                 detail.add(bean);
             } else {
