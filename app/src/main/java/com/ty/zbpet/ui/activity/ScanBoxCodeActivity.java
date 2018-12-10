@@ -23,6 +23,7 @@ import com.ty.zbpet.util.scan.ScanBoxInterface;
 import com.ty.zbpet.util.scan.ScanObservable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import io.reactivex.SingleObserver;
@@ -96,13 +97,14 @@ public class ScanBoxCodeActivity extends BaseActivity implements ScanBoxInterfac
                     // 保存箱码数据
                     Intent intent = new Intent();
                     intent.putExtra("itemId", itemId);
-                    intent.putExtra("warehouseId", warehouseId);
+                    // 仓库 ID 列表中有
+                    //intent.putExtra("warehouseId", warehouseId);
                     intent.putStringArrayListExtra("boxCodeList", boxCodeList);
                     setResult(RESULT_SCAN_CODE, intent);
                     finish();
                 }
             });
-        }else{
+        } else {
             initToolBar(R.string.box_binding_list);
         }
 
@@ -150,6 +152,37 @@ public class ScanBoxCodeActivity extends BaseActivity implements ScanBoxInterfac
     @Override
     public void ScanSuccess(int position, final String positionNo) {
 
+        checkBoxCode(positionNo);
+    }
+
+    /**
+     * 箱码不需要验证，直接传给服务器
+     *
+     * @param positionNo
+     */
+    private void checkBoxCode(String positionNo) {
+
+        if (boxCodeList.contains(positionNo)) {
+            ZBUiUtils.showToast("该箱码扫码过");
+        } else {
+            ArrayList<String> oldList = new ArrayList<>(boxCodeList);
+            boxCodeList.add(positionNo);
+            if (adapter != null) {
+                DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MaterialDiffUtil(oldList, boxCodeList));
+                diffResult.dispatchUpdatesTo(adapter);
+            }
+        }
+    }
+
+
+    /**
+     * 库位码验证
+     *
+     * @param postition
+     * @param positionNo
+     */
+    private void checkPositionNo(int postition, final String positionNo) {
+
         HttpMethods.getInstance().checkCarCode(new SingleObserver<CarPositionNoData>() {
 
             @Override
@@ -164,8 +197,9 @@ public class ScanBoxCodeActivity extends BaseActivity implements ScanBoxInterfac
             @Override
             public void onSuccess(CarPositionNoData responseInfo) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    List<CarPositionNoData.ListBean> list = responseInfo.getList();
                     // 库位码校验
-                    if (responseInfo.getList().size() > -1) {
+                    if (list != null && list.size() > 0) {
                         // 找到库位码
                         if (boxCodeList.contains(positionNo)) {
                             ZBUiUtils.showToast("该库位码扫码过");
@@ -188,7 +222,6 @@ public class ScanBoxCodeActivity extends BaseActivity implements ScanBoxInterfac
 
             }
         }, positionNo);
-
 
     }
 }

@@ -90,10 +90,6 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
      */
     private SparseArray<String> positionId = new SparseArray(10);
 
-    /**
-     * 仓库 ID
-     */
-    private String warehouseId;
 
     /**
      * 列表 ID
@@ -239,17 +235,18 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
         List<UserInfo.WarehouseListBean> warehouseList = userInfo.getWarehouseList();
 
         // 仓库信息
-        // 仓库 ID 扫箱码获取
-        // warehouseId = warehouseList.get(integer).getWarehouseId();
+        String warehouseId;
         String warehouseNo;
         String warehouseName;
         if (houseId == null) {
+            warehouseId = warehouseList.get(0).getWarehouseId();
             warehouseNo = warehouseList.get(0).getWarehouseNo();
             warehouseName = warehouseList.get(0).getWarehouseName();
         } else {
-            Integer integer = houseId.get(0);
-            warehouseNo = warehouseList.get(integer).getWarehouseNo();
-            warehouseName = warehouseList.get(integer).getWarehouseName();
+            Integer which = houseId.get(0);
+            warehouseId = warehouseList.get(which).getWarehouseId();
+            warehouseNo = warehouseList.get(which).getWarehouseNo();
+            warehouseName = warehouseList.get(which).getWarehouseName();
         }
 
         int size = oldList.size();
@@ -264,7 +261,7 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
             String Id = positionId.get(i);
 
             ProductTodoSave.DetailsBean bean = new ProductTodoSave.DetailsBean();
-            if (!TextUtils.isEmpty(bulkNum) && boxQrCode.size() > 0) {
+            if (!TextUtils.isEmpty(bulkNum) && boxQrCode != null) {
 
                 String goodsId = oldList.get(i).getGoodsId();
 
@@ -372,7 +369,6 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_SCAN_CODE && resultCode == RESULT_SCAN_CODE) {
             itemId = data.getIntExtra("itemId", -1);
-            warehouseId = data.getStringExtra("warehouseId");
             boxCodeList = data.getStringArrayListExtra("boxCodeList");
             carCodeArray.put(itemId, boxCodeList);
         }

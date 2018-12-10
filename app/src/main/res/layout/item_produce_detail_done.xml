@@ -48,8 +48,7 @@
             android:layout_marginEnd="@dimen/space_30"
             android:layout_toStartOf="@+id/iv_arrow"
             android:text="25箱"
-            android:textColor="@color/txt_main_color"
-            android:textSize="@dimen/text_14" />
+            style="@style/itemSizeStyle"/>
 
     </RelativeLayout>
 
@@ -66,11 +65,10 @@
             android:id="@+id/tv_box_num"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_25"
+            android:layout_marginStart="@dimen/space18"
+            android:layout_marginTop="@dimen/space_10"
             android:hint="入库数量"
-            android:textColor="@color/txt_minor_color"
-            android:textColorHint="@color/hint_color"
-            android:textSize="@dimen/text_14" />
+            style="@style/itemSizeStyle"/>
 
         <TextView
             android:id="@+id/tv_content"
@@ -79,54 +77,46 @@
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="@dimen/space_25"
             android:layout_marginStart="@dimen/space_20"
+            android:layout_marginTop="@dimen/space_10"
             android:layout_toEndOf="@+id/tv_box_num"
             android:hint="文本"
-            android:textColor="@color/txt_minor_color"
-            android:textColorHint="@color/hint_color"
-            android:textSize="@dimen/text_14" />
+            style="@style/itemSizeStyle"/>
 
         <TextView
             android:id="@+id/tv_start_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_box_num"
-            android:layout_marginEnd="@dimen/space_25"
-            android:layout_marginStart="@dimen/space_25"
+            android:layout_marginStart="@dimen/space18"
+            android:layout_marginTop="@dimen/space_10"
             android:hint="成品起始值"
-            android:textColor="@color/txt_minor_color"
-            android:textColorHint="@color/hint_color"
-            android:textSize="@dimen/text_14" />
+            style="@style/itemSizeStyle"/>
 
         <TextView
             android:id="@+id/tv_end_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_start_code"
-            android:layout_marginEnd="@dimen/space_25"
-            android:layout_marginStart="@dimen/space_25"
+            android:layout_marginStart="@dimen/space18"
+            android:layout_marginTop="@dimen/space_10"
             android:hint="成品结束值"
-            android:textColor="@color/txt_minor_color"
-            android:textColorHint="@color/hint_color"
-            android:textSize="@dimen/text_14" />
+            style="@style/itemSizeStyle"/>
 
         <TextView
             android:id="@+id/tv_sap"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_end_code"
-            android:layout_marginEnd="@dimen/space_25"
-            android:layout_marginStart="@dimen/space_25"
+            android:layout_marginStart="@dimen/space18"
+            android:layout_marginTop="@dimen/space_10"
             android:hint="SAP 物料"
-            android:textColor="@color/txt_minor_color"
-            android:textColorHint="@color/hint_color"
-            android:textSize="@dimen/text_14" />
+            style="@style/itemSizeStyle"/>
 
         <Button
             android:id="@+id/btn_binding_code"
             android:layout_width="match_parent"
             android:layout_height="32dp"
             android:layout_below="@+id/tv_sap"
-            android:layout_marginBottom="@dimen/space_10"
             android:layout_marginEnd="@dimen/space_25"
             android:layout_marginStart="@dimen/space_25"
             android:layout_marginTop="@dimen/space_10"

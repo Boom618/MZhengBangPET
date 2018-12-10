@@ -9,6 +9,7 @@ import android.view.WindowManager;
  * create by Weavey
  * on date 2016-01-06
  * TODO 单例模式 获取屏幕宽高的帮助类
+ * @author TY
  */
 
 public class ScreenSizeUtils {

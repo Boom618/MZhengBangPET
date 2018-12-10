@@ -23,9 +23,9 @@ public class BuyInDoneDetailAdapter extends CommonAdapter<ProductDetailsOut.List
     @Override
     protected void convert(ViewHolder holder, ProductDetailsOut.ListBean list, int position) {
         holder.setText(R.id.tv_name, list.getGoodsName())
-                .setText(R.id.tv_number,list.getNumber())
-                .setText(R.id.tv_start_code,  list.getStartQrCode())
-                .setText(R.id.tv_end_code, list.getEndQrCode())
+                .setText(R.id.tv_number,"入库数量：" + list.getNumber())
+                .setText(R.id.tv_start_code,  "开始码：" + list.getStartQrCode())
+                .setText(R.id.tv_end_code, "结束码：" + list.getEndQrCode())
                 .setText(R.id.tv_sap,list.getSapMaterialBatchNo())
                 .setText(R.id.tv_select_ware,list.getWarehouseName())
                 .setText(R.id.tv_num, list.getNumber() + "  " + list.getUnitS());

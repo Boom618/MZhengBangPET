@@ -91,10 +91,6 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
      */
     private SparseArray<String> positionId = new SparseArray(10);
 
-    /**
-     * 仓库 ID
-     */
-    private String warehouseId;
     private String supplierId;
 
     /**
@@ -121,8 +117,6 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
 
     @Override
     protected void initTwoView() {
-
-        // in_storage_detail 到货明细
 
         initToolBar(R.string.label_purchase_in_storage, new View.OnClickListener() {
             @Override
@@ -221,7 +215,7 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
             List<String> boxQrCode = carCodeArray.get(i);
             String bulkNum = bulkNumArray.get(i);
             String batchNo = batchNoArray.get(i);
-            String Id = positionId.get(i);
+            String id = positionId.get(i);
 
             // 仓库信息
             String warehouseId;
@@ -243,7 +237,7 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
 
 
             ProductTodoSave.DetailsBean bean = new ProductTodoSave.DetailsBean();
-            if (!TextUtils.isEmpty(bulkNum) && boxQrCode.size() != 0) {
+            if (!TextUtils.isEmpty(bulkNum) && boxQrCode != null) {
                 String goodsId = oldList.get(i).getGoodsId();
                 String goodsNo = oldList.get(i).getGoodsNo();
                 String orderNumber = oldList.get(i).getOrderNumber();
@@ -251,7 +245,8 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
                 String startCode = startCodeArray.get(i);
                 String endCode = endCodeArray.get(i);
 
-                bean.setPositionId(Id);
+                // 库位 ID
+                bean.setPositionId(id);
                 bean.setNumber(bulkNum);
                 bean.setSapMaterialBatchNo(batchNo);
 
@@ -280,14 +275,11 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
             return null;
         }
 
-        // warehouseId,inTime,sapOrderNo,productionBatchNo,remark
-
         String remark = etDesc.getText().toString().trim();
         String time = tvTime.getText().toString().trim();
 
         requestBody.setDetails(detail);
         requestBody.setInTime(time);
-        requestBody.setWarehouseId(warehouseId);
         requestBody.setSapOrderNo(sapOrderNo);
         requestBody.setRemark(remark);
 
@@ -322,8 +314,8 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
                     TextView tvName = holder.itemView.findViewById(R.id.tv_name);
                     final TextView selectHouse = holder.itemView.findViewById(R.id.tv_select_ware);
 
-                    //List<UserInfo.WarehouseListBean> houses = userInfo.getWarehouseList();
-                    List<ProductDetailsIn.ListBean.WarehouseListBean> houses = list.get(position).getWarehouseList();
+                    List<UserInfo.WarehouseListBean> houses = userInfo.getWarehouseList();
+//                    List<ProductDetailsIn.ListBean.WarehouseListBean> houses = list.get(position).getWarehouseList();
                     final ArrayList<String> houseName = new ArrayList<>();
 
                     int size = houses.size();
@@ -391,7 +383,6 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_SCAN_CODE && resultCode == RESULT_SCAN_CODE) {
             itemId = data.getIntExtra("itemId", -1);
-            warehouseId = data.getStringExtra("warehouseId");
             boxCodeList = data.getStringArrayListExtra("boxCodeList");
             carCodeArray.put(itemId, boxCodeList);
         }

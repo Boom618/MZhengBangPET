@@ -32,7 +32,7 @@ public class BuyInTodoDetailAdapter extends CommonAdapter<ProductDetailsIn.ListB
         String warehouseName = list.getWarehouseList().get(0).getWarehouseName();
 
         holder.setText(R.id.tv_name, list.getGoodsName())
-                .setText(R.id.tv_num, "/" + list.getUnitS())// list.getOrderNumber() +
+                .setText(R.id.tv_num, "/" + list.getUnitS())
                 .setText(R.id.tv_select_ware, warehouseName);
 
 

@@ -14,6 +14,7 @@ import com.bigkoo.pickerview.view.TimePickerView;
 import com.ty.zbpet.ui.MainApp;
 import com.ty.zbpet.ui.activity.material.ArrivalInTodoDetailActivity;
 import com.ty.zbpet.ui.widght.CustomDatePicker;
+import com.ty.zbpet.ui.widght.NormalAlertDialog;
 import com.ty.zbpet.ui.widght.NormalSelectionDialog;
 
 import java.text.SimpleDateFormat;
@@ -144,7 +145,6 @@ public class ZBUiUtils {
                         dialog.dismiss();
                     }
                 })
-                .setItemHeight(30)
                 .build()
                 .setDatas(data)
                 .show();
@@ -180,6 +180,29 @@ public class ZBUiUtils {
                 .setDatas(data)
                 .show();
 
+    }
+
+
+    /**
+     * 删除该 item
+     * @param context
+     */
+    public static void deleteItemDialog(Context context,NormalAlertDialog.onNormalOnclickListener listener){
+        NormalAlertDialog dialog  = new NormalAlertDialog.Builder(context)
+                .setTitleText("温馨提示")
+                .setRightButtonText("确认")
+                .setLeftButtonText("取消")
+                .setContentText("删除该数据")
+                .setRightListener(listener)
+                .setLeftListener(new NormalAlertDialog.onNormalOnclickListener() {
+                    @Override
+                    public void onNormalClick(NormalAlertDialog dialog) {
+                        dialog.dismiss();
+                    }
+                })
+                .build();
+
+        dialog.show();
     }
 
 }

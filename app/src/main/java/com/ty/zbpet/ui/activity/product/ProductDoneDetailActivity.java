@@ -1,5 +1,6 @@
 package com.ty.zbpet.ui.activity.product;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,6 +23,7 @@ import com.ty.zbpet.presenter.product.ProductUiObjInterface;
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity;
 import com.ty.zbpet.ui.adapter.product.ProductDoneDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
+import com.ty.zbpet.ui.widght.NormalAlertDialog;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.CodeConstant;
 import com.ty.zbpet.util.DataUtils;

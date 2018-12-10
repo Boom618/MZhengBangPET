@@ -25,6 +25,7 @@ import com.ty.zbpet.ui.activity.ScanBoxCodeActivity;
 import com.ty.zbpet.ui.adapter.diffadapter.SendOutDiffUtil;
 import com.ty.zbpet.ui.adapter.product.SendOutTodoDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
+import com.ty.zbpet.ui.widght.NormalAlertDialog;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.CodeConstant;
 import com.ty.zbpet.util.DataUtils;
@@ -179,6 +180,8 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
                 int rawSize = rawData.size();
                 int oldSize = oldList.size();
                 if (oldSize < rawSize) {
+                    // 有列表删除操作 ，保证 newList 只有 oldList 中的数据 + 添加的一个数据
+                    newList.clear();
                     newList.addAll(oldList);
                     ProductTodoDetails.ListBean bean = new ProductTodoDetails.ListBean();
 
@@ -343,6 +346,7 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
         }
 
         oldList = list;
+        // 列表最开始不显示数据，所以 用 rawData 保存数据后，清除 oldList
         oldList.clear();
 
         if (adapter == null) {
@@ -402,8 +406,27 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
                 }
 
                 @Override
-                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    return false;
+                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, final int position) {
+
+                    ZBUiUtils.deleteItemDialog(view.getContext(), new NormalAlertDialog.onNormalOnclickListener() {
+                        @Override
+                        public void onNormalClick(NormalAlertDialog dialog) {
+                            dialog.dismiss();
+                            newList.clear();
+                            // TODO 犯错： 不能 new ,导致 DiffUtil 更新出错
+                            //newList = new ArrayList<>(oldList);
+                            newList.addAll(oldList);
+                            newList.remove(position);
+
+                            DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new SendOutDiffUtil(oldList, newList), true);
+                            diffResult.dispatchUpdatesTo(adapter);
+                            // oldList 也应该删除一列数据
+                            oldList.remove(position);
+                        }
+                    });
+
+
+                    return true;
                 }
             });
         } else {
