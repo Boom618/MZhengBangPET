@@ -1,8 +1,10 @@
 package com.ty.zbpet.ui.activity.material
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.widget.EditText
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.material.MaterialDetailsOut
@@ -60,11 +62,10 @@ class ArrivalInDoneDetailActivityK : BaseActivity(), MaterialUiListInterface<Mat
         adapter = MaterialDoneDetailAdapter(this, R.layout.item_material_done_detail, list)
         detailRc!!.adapter = adapter
 
-//        adapter!!.setOnItemClickListener(object : MaterialDoneDetailAdapter.OnItemClickListener {
+//        adapter!!.setOnItemClickListener(temp : MaterialDoneDetailAdapter.OnItemClickListener {
 //
 //            override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
-//                val intent = Intent(this, BackGoodsTodoDetailActivity::class.java)
-//                intent.putExtra("sapOrderNo", list[position].sapStorageNo)
+//                val intent = Intent(view.context, BackGoodsTodoDetailActivity::class.java)
 //                intent.putExtra("supplierId", list[position].supplierId)
 //                startActivity(intent)
 //            }

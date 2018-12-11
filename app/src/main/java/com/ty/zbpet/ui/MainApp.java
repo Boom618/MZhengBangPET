@@ -7,12 +7,16 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
+import com.squareup.leakcanary.LeakCanary;
+import com.tencent.bugly.crashreport.CrashReport;
+import com.ty.zbpet.BuildConfig;
 import com.ty.zbpet.net.LogInterceptor;
 import com.ty.zbpet.net.gson.DoubleDefault0Adapter;
 import com.ty.zbpet.net.gson.IntegerDefault0Adapter;
 import com.ty.zbpet.net.gson.LongDefault0Adapter;
 import com.ty.zbpet.net.gson.StringDefault0Adapter;
 import com.ty.zbpet.util.ACache;
+import com.ty.zbpet.util.CodeConstant;
 import com.zhouyou.http.EasyHttp;
 import com.zhouyou.http.cache.converter.SerializableDiskConverter;
 import com.zhouyou.http.cache.model.CacheMode;
@@ -43,6 +47,16 @@ public class MainApp extends Application {
         mCache = ACache.get(context);
         // 日志 logger 库
         Logger.addLogAdapter(new AndroidLogAdapter());
+        // bugly
+        CrashReport.initCrashReport(getApplicationContext(), CodeConstant.BUGLY_APP_ID, false);
+
+        // 内存检测
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
 
         initHttp();
     }

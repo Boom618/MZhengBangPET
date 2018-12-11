@@ -87,4 +87,10 @@ public final class CodeConstant {
     public static final int SELECT_GOODS = 300;
 
 
+    /**
+     * 腾讯 bug ID
+     */
+    public static final String BUGLY_APP_ID = "1bb4b12139";
+
+
 }

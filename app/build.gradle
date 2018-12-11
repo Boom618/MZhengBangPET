@@ -180,7 +180,18 @@ dependencies {
     //implementation 'com.lai.weavey:dialog:2.0.1'
     //implementation 'com.github.searchy2:CustomAlertViewDialogue:2.5.0'
 //    implementation 'com.afollestad.material-dialogs:core:2.0.0-beta5'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:${kotlin_version}"
+
+    // image picker
+    //implementation 'com.github.qingmei2:rximagepicker:2.2.0'
+    implementation 'com.github.qingmei2:rximagepicker_support_zhihu:2.2.0'
+
+    // bugly 管理
+    implementation "com.tencent.bugly:crashreport:${bugly_version}"
+
+    // leak canary 内存检测
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:${leakcanary_version}"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${leakcanary_version}"
 
     implementation "androidx.lifecycle:lifecycle-runtime:${ZBConfig.lifecycle_version}"
     implementation "androidx.lifecycle:lifecycle-livedata:${ZBConfig.lifecycle_version}"

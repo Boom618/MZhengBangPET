@@ -14,9 +14,9 @@
 
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
 
     <application
         android:name=".ui.MainApp"
@@ -128,9 +128,9 @@
         <activity android:name=".ui.activity.material.BackGoodsTodoDetailActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.material.BackGoodsDoneDetailActivity" />
+        <activity android:name=".ui.activity.material.PickOutDoneDetailActivity" />
         <activity android:name=".ui.activity.product.BuyInTodoDetailActivity" />
         <activity android:name=".ui.activity.product.BuyInDoneDetailActivity" />
-        <activity android:name=".ui.activity.material.PickOutDoneDetailActivity" />
         <activity android:name=".ui.activity.product.ProductDoneDetailActivity" />
         <activity android:name=".ui.activity.product.SendOutTodoDetailActivity" />
         <activity android:name=".ui.activity.product.SendOutDoneDetailActivity" />

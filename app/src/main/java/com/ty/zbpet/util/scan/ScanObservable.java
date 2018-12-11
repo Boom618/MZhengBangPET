@@ -12,6 +12,7 @@ import com.ty.zbpet.util.ZBUiUtils;
 import com.zhouyou.http.subsciber.BaseSubscriber;
 
 import java.nio.charset.Charset;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -55,7 +56,7 @@ public class ScanObservable {
      */
     public Disposable scanBox(final Scanner scanReader, final int position) {
         /**
-         * subscribeOn 只会调用一次，subscribeOn() 的线程控制可以从事件发出的开端就造成影响
+         * subscribeOn 的线程切换只会调用一次，subscribeOn() 的线程控制可以从事件发出的开端就造成影响
          * observeOn 观察者（订阅的角色）可以多次指定线程，observeOn() 控制的是它后面的线程
          *
          * 【注意】
@@ -103,6 +104,8 @@ public class ScanObservable {
                 })
                 // 指定 Subscriber 的回调发生在主线程
                 .observeOn(AndroidSchedulers.mainThread())
+                // 防抖动 5 秒内只取第一次事件
+                .throttleFirst(5, TimeUnit.SECONDS)
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
