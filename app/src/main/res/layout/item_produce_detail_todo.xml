@@ -112,6 +112,7 @@
             android:layout_marginStart="@dimen/space_25"
             android:hint="SAP 物料"
             android:lines="1"
+            android:inputType="text"
             style="@style/itemSizeStyle"/>
 
         <Button

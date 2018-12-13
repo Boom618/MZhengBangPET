@@ -102,6 +102,10 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
     private ArrayList<String> boxCodeList = new ArrayList<>();
 
 
+    /**
+     * 仓库 name
+     */
+    private ArrayList<String> houseName = new ArrayList<>();
     @Override
     protected void onBaseCreate(Bundle savedInstanceState) {
 
@@ -115,6 +119,19 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
     @Override
     protected void initOneData() {
         sapOrderNo = getIntent().getStringExtra("sapOrderNo");
+
+        // TODO　仓库默认值设置
+        DataUtils.setHouseId(0, 0);
+
+        userInfo = DataUtils.getUserInfo();
+        List<UserInfo.WarehouseListBean> warehouseList = userInfo.getWarehouseList();
+
+        int size = warehouseList.size();
+        for (int i = 0; i < size; i++) {
+            houseName.add(warehouseList.get(i).getWarehouseName());
+        }
+        selectHouse = findViewById(R.id.tv_house);
+        selectHouse.setText(houseName.get(0));
 
         presenter.fetchProductTodoInfo(sapOrderNo);
     }
@@ -134,7 +151,6 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
         reView = findViewById(R.id.rv_in_storage_detail);
         tvTime = findViewById(R.id.tv_time);
         backGoods = findViewById(R.id.in_storage_detail);
-        selectHouse = findViewById(R.id.tv_house);
 
         tvPath = findViewById(R.id.tv_path);
         tvType = findViewById(R.id.tv_type);
@@ -162,23 +178,11 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
             }
         });
 
-        userInfo = DataUtils.getUserInfo();
-        List<UserInfo.WarehouseListBean> warehouseList = userInfo.getWarehouseList();
-
-        int size = warehouseList.size();
-        final ArrayList<String> houseName = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            houseName.add(warehouseList.get(i).getWarehouseName());
-        }
-        selectHouse.setText(houseName.get(0));
-
-        // TODO　仓库默认值设置
-        DataUtils.setHouseId(0, 0);
         // 用户选择仓库信息
         selectHouse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ZBUiUtils.selectDialog(v.getContext(), 0, houseName, selectHouse);
+                ZBUiUtils.selectDialog(v.getContext(), CodeConstant.SELECT_HOUSE_BUY_IN, 0, houseName, selectHouse);
             }
         });
 
@@ -258,14 +262,14 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
             String endCode = endCodeArray.get(i);
             String sap = sapArray.get(i);
 
-            String Id = positionId.get(i);
+            String id = positionId.get(i);
 
             ProductTodoSave.DetailsBean bean = new ProductTodoSave.DetailsBean();
             if (!TextUtils.isEmpty(bulkNum) && boxQrCode != null) {
 
                 String goodsId = oldList.get(i).getGoodsId();
 
-                bean.setPositionId(Id);
+                bean.setPositionId(id);
                 bean.setNumber(bulkNum);
                 bean.setContent(content);
 
@@ -285,7 +289,7 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
         }
         // 没有合法的操作数据,不请求网络
         if (detail.size() == 0) {
-            ZBUiUtils.showToast("请完善您要保存的信息");
+            ZBUiUtils.showToast("请完善您要入库的信息");
             return null;
         }
 
@@ -293,15 +297,12 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
         String time = tvTime.getText().toString().trim();
 
         requestBody.setDetails(detail);
-
         requestBody.setWarehouseId(warehouseId);
         requestBody.setWarehouseNo(warehouseNo);
         requestBody.setWarehouseName(warehouseName);
-
         requestBody.setSapOrderNo(sapOrderNo);
         requestBody.setInTime(time);
         requestBody.setRemark(remark);
-
 
         String json = DataUtils.toJson(requestBody, 1);
         ZBLog.e("JSON " + json);

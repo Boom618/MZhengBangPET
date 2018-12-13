@@ -154,12 +154,13 @@ public class ZBUiUtils {
     /**
      * 选择 Dialog
      *
-     * @param context
+     * @param context  上下文
+     * @param type     仓库还是商品
      * @param position 列表中的哪一列
-     * @param data
-     * @param textView
+     * @param data     数据集
+     * @param textView 控件
      */
-    public static void selectDialog(Context context, final int position, final List<String> data, final TextView textView) {
+    public static void selectDialog(Context context, final int type, final int position, final List<String> data, final TextView textView) {
 
         NormalSelectionDialog.Builder builder = new NormalSelectionDialog.Builder(context);
 
@@ -169,9 +170,12 @@ public class ZBUiUtils {
                     public void onClick(DialogInterface dialog, int which) {
                         textView.setText(data.get(which));
 
-                        // 存 item 中的 下拉选择信息
-                        //MainApp.mCache.put(CodeConstant.SELECT_HOUSE_ID, String.valueOf(which));
-                        DataUtils.setHouseId(position, which);
+                        // 选择的仓库 还是 商品
+                        if (CodeConstant.SELECT_HOUSE_BUY_IN == type) {
+                            DataUtils.setHouseId(position, which);
+                        } else {
+                            DataUtils.setGoodsId(position, which);
+                        }
 
                         dialog.dismiss();
                     }
@@ -185,14 +189,16 @@ public class ZBUiUtils {
 
     /**
      * 删除该 item
+     *
      * @param context
      */
-    public static void deleteItemDialog(Context context,NormalAlertDialog.onNormalOnclickListener listener){
-        NormalAlertDialog dialog  = new NormalAlertDialog.Builder(context)
-                .setTitleText("温馨提示")
+    public static void deleteItemDialog(Context context, String goodsName, NormalAlertDialog.onNormalOnclickListener listener) {
+        NormalAlertDialog dialog = new NormalAlertDialog.Builder(context)
+                .setTitleVisible(true)
+                .setTitleText("删除数据？")
                 .setRightButtonText("确认")
                 .setLeftButtonText("取消")
-                .setContentText("删除该数据")
+                .setContentText(goodsName)
                 .setRightListener(listener)
                 .setLeftListener(new NormalAlertDialog.onNormalOnclickListener() {
                     @Override

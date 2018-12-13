@@ -36,7 +36,7 @@ public class SendOutDoneListAdapter extends CommonAdapter<ProductDoneList.ListBe
                 .setText(R.id.tv_client_msg, list.getCustomerInfo())
                 .setText(R.id.tv_send_msg, list.getBackInfo())
                 .setText(R.id.tv_product_msg, list.getBackInfo())
-                .setText(R.id.tv_date, list.getInTime())
+                .setText(R.id.tv_date, list.getOutTime())
                 .setText(R.id.tv_status, list.getState());
     }
 

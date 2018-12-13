@@ -83,7 +83,6 @@ public final class CodeConstant {
      * SELECT_GOODS:        选择的是哪个商品
      */
     public static final int SELECT_HOUSE_BUY_IN = 100;
-    public static final int SELECT_HOUSE_PRODUCT = 200;
     public static final int SELECT_GOODS = 300;
 
 

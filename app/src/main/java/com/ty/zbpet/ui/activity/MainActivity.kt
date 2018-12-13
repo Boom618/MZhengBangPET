@@ -14,6 +14,7 @@ import com.ty.zbpet.ui.activity.product.ReturnGoodsActivity
 import com.ty.zbpet.ui.activity.product.SendOutActivity
 import com.ty.zbpet.ui.activity.system.InventoryActivity
 import com.ty.zbpet.ui.activity.system.PersonCenterActivity
+import com.ty.zbpet.ui.activity.system.QualityCheckActivity
 import com.ty.zbpet.ui.activity.system.TransferStorageActivity
 import com.ty.zbpet.ui.base.BaseActivity
 
@@ -45,6 +46,9 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         findViewById<TextView>(R.id.tv_send_out_storage).setOnClickListener(this)
         findViewById<TextView>(R.id.tv_return_in_storage).setOnClickListener(this)
 
+        findViewById<TextView>(R.id.tv_inventory).setOnClickListener(this)
+        findViewById<TextView>(R.id.tv_person_center).setOnClickListener(this)
+
     }
 
     override fun onClick(view: View) {
@@ -72,7 +76,8 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 gotoActivity(ReturnGoodsActivity::class.java)
             R.id.tv_inventory ->
                 //仓库管理——盘点
-                gotoActivity(InventoryActivity::class.java)
+                //gotoActivity(InventoryActivity::class.java)
+                gotoActivity(QualityCheckActivity::class.java)
             R.id.tv_transfer_storage ->
                 //仓库管理——移库
                 gotoActivity(TransferStorageActivity::class.java)

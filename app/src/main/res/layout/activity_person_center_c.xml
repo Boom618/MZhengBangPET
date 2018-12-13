@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <ImageView
+        android:id="@+id/top_background"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@mipmap/topback" />
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/space_10"
+        app:layout_constraintStart_toStartOf="parent"
+        android:src="@mipmap/ic_back"/>
+
+    <ImageView
+        android:id="@+id/user_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:src="@mipmap/ic_launcher_round"
+        android:layout_marginBottom="@dimen/space_15"
+        app:layout_constraintBottom_toTopOf="@+id/company"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_8"
+        android:layout_marginBottom="@dimen/space_8"
+        android:hint="吴彦祖"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/top_background"
+        app:layout_constraintLeft_toRightOf="@+id/user_image" />
+
+    <TextView
+        android:id="@+id/user_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_8"
+        android:layout_marginTop="@dimen/space_8"
+        android:text="工号：123456"
+        app:layout_constraintLeft_toRightOf="@+id/user_image"
+        app:layout_constraintTop_toBottomOf="@+id/top_background" />
+
+
+    <View
+        android:id="@+id/company"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginStart="@dimen/space_15"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="@dimen/space_15"
+        android:background="@drawable/shape_white_min_radius"
+        app:layout_constraintTop_toBottomOf="@+id/user_no" />
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="2dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="@dimen/space_10"
+        android:layout_marginTop="12dp"
+        android:background="@color/black"
+        app:layout_constraintLeft_toLeftOf="@+id/company"
+        app:layout_constraintTop_toTopOf="@+id/company" />
+
+
+    <TextView
+        android:id="@+id/belong_company"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_10"
+        android:layout_marginTop="@dimen/space_10"
+        android:text="@string/label_belong_company"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_18"
+        app:layout_constraintLeft_toLeftOf="@+id/line1"
+        app:layout_constraintTop_toTopOf="@+id/company" />
+
+    <TextView
+        android:id="@+id/tv_belong_company"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginTop="50dp"
+        android:text="正邦上海宝山淞南分部03仓库"
+        android:textColor="@color/txt_minor_color"
+        android:textSize="@dimen/text_16"
+        app:layout_constraintLeft_toLeftOf="@+id/line1"
+        app:layout_constraintTop_toTopOf="@+id/company" />
+
+    <View
+        android:id="@+id/phone"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginStart="@dimen/space_15"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="@dimen/space_15"
+        android:background="@drawable/shape_white_min_radius"
+        app:layout_constraintTop_toBottomOf="@+id/company" />
+
+    <View
+        android:id="@+id/line2"
+        android:layout_width="2dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="@dimen/space_10"
+        android:layout_marginTop="12dp"
+        android:background="@color/black"
+        app:layout_constraintLeft_toLeftOf="@+id/phone"
+        app:layout_constraintTop_toTopOf="@+id/phone" />
+
+
+    <TextView
+        android:id="@+id/user_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_10"
+        android:layout_marginTop="@dimen/space_10"
+        android:text="@string/label_contact_phone"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_18"
+        app:layout_constraintLeft_toLeftOf="@+id/line2"
+        app:layout_constraintTop_toTopOf="@+id/phone" />
+
+    <TextView
+        android:id="@+id/tv_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginTop="50dp"
+        android:text="18566666666"
+        android:textColor="@color/txt_minor_color"
+        android:textSize="@dimen/text_16"
+        app:layout_constraintLeft_toLeftOf="@+id/line2"
+        app:layout_constraintTop_toTopOf="@+id/phone" />
+
+    <Button
+        android:id="@+id/btn_modify_pwd"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_marginTop="@dimen/space18"
+        android:layout_marginEnd="@dimen/space18"
+        android:background="@drawable/btn_login_selector"
+        android:text="@string/label_modify_pwd"
+        android:textColor="@drawable/btn_text_color"
+        android:textSize="@dimen/text_16"
+        app:layout_constraintRight_toLeftOf="@+id/btn_cancel"
+        app:layout_constraintTop_toBottomOf="@+id/phone" />
+
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_marginStart="@dimen/space_10"
+        android:layout_marginTop="@dimen/space18"
+        android:layout_marginEnd="@dimen/space18"
+        android:background="@drawable/btn_login_selector"
+        android:text="@string/label_cancel"
+        android:textColor="@drawable/btn_text_color"
+        android:textSize="@dimen/text_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phone" />
+
+    <ImageView
+        android:id="@+id/user_select_image"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintTop_toBottomOf="@+id/btn_cancel" />
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.ty.zbpet.ui.fragment.product;
+package com.ty.zbpet.ui.fragment.system;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,11 +14,13 @@ import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.ty.zbpet.R;
-import com.ty.zbpet.bean.product.ProductTodoList;
-import com.ty.zbpet.presenter.product.ProductUiListInterface;
-import com.ty.zbpet.presenter.product.SendOutPresenter;
-import com.ty.zbpet.ui.activity.product.SendOutTodoDetailActivity;
-import com.ty.zbpet.ui.adapter.product.SendOutTodoListAdapter;
+import com.ty.zbpet.bean.system.QualityCheckTodoList;
+import com.ty.zbpet.presenter.system.SystemPresenter;
+import com.ty.zbpet.presenter.system.SystemUiListInterface;
+import com.ty.zbpet.ui.activity.system.QualityCheckDoneDetailActivity;
+import com.ty.zbpet.ui.activity.system.QualityCheckTodoDetailActivity;
+import com.ty.zbpet.ui.adapter.system.QuaCheckDoneListAdapter;
+import com.ty.zbpet.ui.adapter.system.QuaCheckTodoListAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.ResourceUtil;
@@ -29,11 +31,11 @@ import java.util.List;
 import butterknife.BindView;
 
 /**
- * 成品——发货出库——未办
+ * 质检——已办列表
  *
  * @author TY
  */
-public class SendOutTodoFragment extends BaseFragment implements ProductUiListInterface<ProductTodoList.ListBean> {
+public class QualityCheckDoneFragment extends BaseFragment implements SystemUiListInterface<QualityCheckTodoList.ListBean> {
 
 
     @BindView(R.id.recyclerView)
@@ -41,12 +43,12 @@ public class SendOutTodoFragment extends BaseFragment implements ProductUiListIn
     @BindView(R.id.refreshLayout)
     RefreshLayout refreshLayout;
 
-    private SendOutPresenter presenter = new SendOutPresenter(this);
+    private SystemPresenter presenter = new SystemPresenter(this);
 
-    private SendOutTodoListAdapter adapter;
+    private QuaCheckDoneListAdapter adapter;
 
-    public static SendOutTodoFragment newInstance(String tag) {
-        SendOutTodoFragment fragment = new SendOutTodoFragment();
+    public static QualityCheckDoneFragment newInstance(String tag) {
+        QualityCheckDoneFragment fragment = new QualityCheckDoneFragment();
         Bundle bundle = new Bundle();
         bundle.putString("someInt", tag);
         fragment.setArguments(bundle);
@@ -72,7 +74,7 @@ public class SendOutTodoFragment extends BaseFragment implements ProductUiListIn
     public void onStart() {
         super.onStart();
 
-        presenter.fetchSendOutTodoList();
+        presenter.fetchQualityCheckDoneList();
 
     }
 
@@ -86,7 +88,7 @@ public class SendOutTodoFragment extends BaseFragment implements ProductUiListIn
                 // 传入 false 表示刷新失败
                 refreshLayout.finishRefresh(1000);
                 // 刷新数据
-                presenter.fetchSendOutTodoList();
+                presenter.fetchQualityCheckDoneList();
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -100,24 +102,21 @@ public class SendOutTodoFragment extends BaseFragment implements ProductUiListIn
     }
 
     @Override
-    public void showProduct(final List<ProductTodoList.ListBean> list) {
+    public void showSystem(final List<QualityCheckTodoList.ListBean> list) {
 
         if (adapter == null) {
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             recyclerView.setLayoutManager(manager);
-            adapter = new SendOutTodoListAdapter(ResourceUtil.getContext(), R.layout.item_send_out_list_todo, list);
+            adapter = new QuaCheckDoneListAdapter(ResourceUtil.getContext(), R.layout.item_quality_list, list);
             recyclerView.setAdapter(adapter);
 
-            adapter.setOnItemClickListener(new SendOutTodoListAdapter.OnItemClickListener() {
+            adapter.setOnItemClickListener(new QuaCheckDoneListAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    Intent intent = new Intent(getActivity(), SendOutTodoDetailActivity.class);
+                    Intent intent = new Intent(getActivity(), QualityCheckDoneDetailActivity.class);
                     intent.putExtra("sapOrderNo", list.get(position).getSapOrderNo());
                     intent.putExtra("supplierId", list.get(position).getSupplierId());
-                    intent.putExtra("productInfo", list.get(position).getProductInfo());
-                    intent.putExtra("customerInfo", list.get(position).getCustomerInfo());
-                    intent.putExtra("goodsInfo", list.get(position).getGoodsInfo());
                     startActivity(intent);
                 }
 

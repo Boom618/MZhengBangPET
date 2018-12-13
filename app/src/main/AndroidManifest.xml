@@ -136,6 +136,8 @@
         <activity android:name=".ui.activity.product.SendOutDoneDetailActivity" />
         <activity android:name=".ui.activity.product.ReturnGoodsTodoDetailActivity" />
         <activity android:name=".ui.activity.product.ReturnGoodsDoneDetailActivity" />
+        <activity android:name=".ui.activity.system.QualityCheckTodoDetailActivity" />
+        <activity android:name=".ui.activity.system.QualityCheckDoneDetailActivity" />
 
     </application>
 

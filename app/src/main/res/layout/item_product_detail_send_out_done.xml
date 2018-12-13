@@ -65,7 +65,7 @@
         android:id="@+id/gone_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@+id/tv_num">
 
         <TextView
@@ -94,6 +94,7 @@
             android:text="应发数量："
             android:textColor="@color/txt_main_color"
             android:textSize="@dimen/text_14"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@+id/tv_select_ware"/>
 
 
@@ -116,10 +117,7 @@
             android:layout_marginTop="@dimen/text_16"
             android:layout_marginStart="@dimen/text_16"
             android:layout_marginEnd="@dimen/text_16"
-            android:hint="成品起始值"
-            android:textColor="@color/txt_minor_color"
-            android:textColorHint="@color/hint_color"
-            android:textSize="@dimen/text_14"
+            style="@style/itemSizeStyle"
             app:layout_constraintTop_toBottomOf="@+id/tv_number" />
 
         <TextView
@@ -129,10 +127,7 @@
             android:layout_marginTop="@dimen/text_16"
             android:layout_marginStart="@dimen/text_16"
             android:layout_marginEnd="@dimen/text_16"
-            android:hint="成品结束值"
-            android:textColor="@color/txt_minor_color"
-            android:textColorHint="@color/hint_color"
-            android:textSize="@dimen/text_14"
+            style="@style/itemSizeStyle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_start_code" />
 
@@ -145,8 +140,7 @@
             android:layout_marginStart="@dimen/text_16"
             android:layout_marginEnd="@dimen/text_16"
             android:hint="sap 物料批次号"
-            android:textColor="@color/txt_main_color"
-            android:textSize="@dimen/text_14"
+            style="@style/itemSizeStyle"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_end_code" />

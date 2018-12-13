@@ -29,6 +29,11 @@ class ProductTodoSave {
     var warehouseNo: String? = null
     var warehouseName: String? = null
 
+    // 发货出库 生产、客户、成品 信息
+    var productInfo: String? = null
+    var customerInfo: String? = null
+    var goodsInfo: String? = null
+
     class DetailsBean {
         /**
          * positionId : 1

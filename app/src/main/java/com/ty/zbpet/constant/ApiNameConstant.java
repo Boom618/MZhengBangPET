@@ -263,10 +263,43 @@ public class ApiNameConstant {
 
     /**--------------------------------- end ----------------------------------------*/
 
+
+    /**----------------------------------------------------------------------------------*/
+    /**--------------------------------- 系统 --------------------------------------------*/
+    /**----------------------------------------------------------------------------------*/
+
+    /**--------------------------------- 质检 --------------------------------------------*/
+
     /**
-     * 获取仓库信息
+     * 质检 待办列表
      */
-    public static final String GET_WAREHOUSE_INFO = "baseInfo/warehouseInfo/getWarehouseList";
+    public static final String GET_CHECK_TODO_LIST = "/q";
+
+    /**
+     * 质检 待办详情
+     */
+    public static final String GET_CHECK_TODO_INFO = "/q";
+
+    /**
+     * 质检 待办保存
+     */
+    public static final String GET_CHECK_TODO_SAVE = "/q";
+
+
+    /**
+     * 质检 已办列表
+     */
+    public static final String GET_CHECK_DONE_LIST = "/q";
+
+    /**
+     * 质检 已办详情
+     */
+    public static final String GET_CHECK_DONE_INFO = "/q";
+
+    /**
+     * 质检 已办保存
+     */
+    public static final String GET_CHECK_DONE_SAVE = "/q";
 
 
 

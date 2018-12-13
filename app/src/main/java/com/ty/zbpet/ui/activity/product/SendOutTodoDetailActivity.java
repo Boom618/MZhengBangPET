@@ -66,12 +66,19 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
     private String sapOrderNo;
 
     /**
+     * 生产、客户、成品 信息
+     */
+    private String productInfo;
+    private String customerInfo;
+    private String goodsInfo;
+
+    /**
      * 商品种类 原数据
      */
     private List<ProductTodoDetails.ListBean> rawData = new ArrayList<>();
 
     private List<ProductTodoDetails.ListBean> oldList = new ArrayList<>();
-    private List<ProductTodoDetails.ListBean> newList = new ArrayList<>(oldList);
+    private List<ProductTodoDetails.ListBean> newList = new ArrayList<>();
 
     private final static int REQUEST_SCAN_CODE = 1;
     private final static int RESULT_SCAN_CODE = 2;
@@ -126,17 +133,20 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
     protected void initOneData() {
         sapOrderNo = getIntent().getStringExtra("sapOrderNo");
 
+        productInfo = getIntent().getStringExtra("productInfo");
+        customerInfo = getIntent().getStringExtra("customerInfo");
+        goodsInfo = getIntent().getStringExtra("goodsInfo");
+
         presenter.fetchSendOutTodoInfo(sapOrderNo);
     }
 
     @Override
     protected void initTwoView() {
 
-        // in_storage_detail 到货明细
-
         initToolBar(R.string.label_send_out_storage, new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+                ZBUiUtils.hideInputWindow(SendOutTodoDetailActivity.this,view);
                 sendOutTodoSave(initTodoBody());
             }
         });
@@ -174,9 +184,6 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
         addShip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                // TODO  刷新逻辑
-
                 int rawSize = rawData.size();
                 int oldSize = oldList.size();
                 if (oldSize < rawSize) {
@@ -184,7 +191,6 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
                     newList.clear();
                     newList.addAll(oldList);
                     ProductTodoDetails.ListBean bean = new ProductTodoDetails.ListBean();
-
                     ProductTodoDetails.ListBean info = rawData.get(0);
 
                     bean.setSapOrderNo(info.getSapOrderNo());
@@ -193,24 +199,20 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
                     bean.setGoodsNo(info.getGoodsNo());
                     bean.setUnitS(info.getUnitS());
                     bean.setOrderNumber(info.getOrderNumber());
-                    //bean.setWarehouseList(rawData.get(0).getWarehouseList());
-
-
                     newList.add(bean);
 
-                    DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new SendOutDiffUtil(oldList, newList), true);
+                    DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new SendOutDiffUtil(oldList, newList));
                     diffResult.dispatchUpdatesTo(adapter);
 
-                    // 清除原数据,更新原数据,清除临时保存数据
+                    // TODO　清除老数据,更新原数据,清除临时保存数据
                     oldList.clear();
                     oldList.addAll(newList);
-                    newList.clear();
+                    //newList.clear();
 
                     ZBUiUtils.showToast("添加发货出库");
                 } else {
                     ZBUiUtils.showToast("谢谢");
                 }
-
             }
         });
 
@@ -278,7 +280,7 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
             String startCode = startCodeArray.get(i);
             String endCode = endCodeArray.get(i);
             String sap = sapArray.get(i);
-            String Id = positionId.get(i);
+            String id = positionId.get(i);
 
             // 商品信息
             String goodsId;
@@ -289,12 +291,17 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
             if (!TextUtils.isEmpty(number) && boxQrCode != null) {
 
                 // position 是从 0 开始，size 减 1.
-                int which = goodsArray.get(i) - 1;
+                int which = 0;
+                try {
+                    which = goodsArray.get(i);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 goodsId = oldList.get(which).getGoodsId();
                 goodsNo = oldList.get(which).getGoodsNo();
                 goodsName = oldList.get(which).getGoodsName();
 
-                bean.setPositionId(Id);
+                bean.setPositionId(id);
                 bean.setStartQrCode(startCode);
                 bean.setEndQrCode(endCode);
                 bean.setNumber(number);
@@ -313,12 +320,16 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
         }
         // 没有合法的操作数据,不请求网络
         if (detail.size() == 0) {
-            ZBUiUtils.showToast("请完善您要保存的信息");
+            ZBUiUtils.showToast("请完善您要出库的信息");
             return null;
         }
 
         String remark = etDesc.getText().toString().trim();
         String time = tvTime.getText().toString().trim();
+
+        requestBody.setProductInfo(productInfo);
+        requestBody.setCustomerInfo(customerInfo);
+        requestBody.setGoodsInfo(goodsInfo);
 
         requestBody.setDetails(detail);
         requestBody.setWarehouseId(warehouseId);
@@ -353,7 +364,7 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             reView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
             reView.setLayoutManager(manager);
-            adapter = new SendOutTodoDetailAdapter(this, R.layout.item_product_detail_send_out_todo, oldList);
+            adapter = new SendOutTodoDetailAdapter(this, R.layout.item_product_detail_send_out_todo, newList);
             reView.setAdapter(adapter);
 
             adapter.setOnItemClickListener(new SendOutTodoDetailAdapter.OnItemClickListener() {
@@ -371,15 +382,15 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
                     selectGoods.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            ZBUiUtils.selectDialog(view.getContext(), position, goodsName, selectGoods);
+                            ZBUiUtils.selectDialog(view.getContext(),CodeConstant.SELECT_GOODS, position, goodsName, selectGoods);
                         }
                     });
-                    SparseArray<Integer> goodsId = DataUtils.getGoodsId();
-                    int which = goodsId.get(position);
+                    //SparseArray<Integer> goodsId = DataUtils.getGoodsId();
+                    //int which = goodsId.get(position);
                     if (rlDetail.getVisibility() == View.VISIBLE) {
                         rlDetail.setVisibility(View.GONE);
                         ivArrow.setImageResource(R.mipmap.ic_collapse);
-                        tvName.setText(list.get(which).getGoodsName());
+                        //tvName.setText(list.get(which).getGoodsName());
                     } else {
                         rlDetail.setVisibility(View.VISIBLE);
                         ivArrow.setImageResource(R.mipmap.ic_expand);
@@ -400,7 +411,6 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
                     //List<BuyInTodoDetails.ListBean.WarehouseListBean> warehouseList = list.get(position).getWarehouseList();
 
 
-
                     ZBUiUtils.hideInputWindow(view.getContext(), view);
 
                 }
@@ -408,7 +418,10 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
                 @Override
                 public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, final int position) {
 
-                    ZBUiUtils.deleteItemDialog(view.getContext(), new NormalAlertDialog.onNormalOnclickListener() {
+                    TextView tvGoods = holder.itemView.findViewById(R.id.tv_select_ware);
+                    String goodsName = tvGoods.getText().toString().trim();
+
+                    ZBUiUtils.deleteItemDialog(view.getContext(), goodsName, new NormalAlertDialog.onNormalOnclickListener() {
                         @Override
                         public void onNormalClick(NormalAlertDialog dialog) {
                             dialog.dismiss();

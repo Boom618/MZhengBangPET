@@ -94,6 +94,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+    protected void initToolBar(){
+        initToolBar(0);
+    }
+
     protected void initToolBar(int intId){
 
         initToolBar(intId,null);
@@ -113,8 +117,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         });
 
         // 中间标题
-        TextView topText = findViewById(R.id.tv_title);
-        topText.setText(intId);
+        TextView midText = findViewById(R.id.tv_title);
+        if (intId == 0) {
+            midText.setText("");
+        }else{
+            midText.setText(intId);
+        }
 
         // 右边监听事件
         TextView right = findViewById(R.id.tv_right);

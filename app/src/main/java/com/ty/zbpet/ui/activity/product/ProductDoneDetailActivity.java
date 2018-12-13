@@ -1,6 +1,5 @@
 package com.ty.zbpet.ui.activity.product;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,7 +22,6 @@ import com.ty.zbpet.presenter.product.ProductUiObjInterface;
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity;
 import com.ty.zbpet.ui.adapter.product.ProductDoneDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
-import com.ty.zbpet.ui.widght.NormalAlertDialog;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.CodeConstant;
 import com.ty.zbpet.util.DataUtils;
@@ -112,7 +110,7 @@ public class ProductDoneDetailActivity extends BaseActivity implements ProductUi
         selectHouse = findViewById(R.id.tv_house);
 
         titleName.setText("入库明细");
-        selectHouse.setText(userInfo.getWarehouseList().get(0).getWarehouseName());
+        //selectHouse.setText(userInfo.getWarehouseList().get(0).getWarehouseName());
 
         SimpleDateFormat format = new SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA);
         selectTime = format.format(new Date());
@@ -207,6 +205,7 @@ public class ProductDoneDetailActivity extends BaseActivity implements ProductUi
     public void detailObjData(ProductDetailsOut obj) {
 
         list = obj.getList();
+        selectHouse.setText(list.get(0).getWarehouseName());
 
         if (adapter == null) {
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());

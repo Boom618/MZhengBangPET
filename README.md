@@ -15,23 +15,31 @@
 - 列表刷新
 - 页面销毁关闭请求
 - 网络配置（Single）
+-
+
+**技术点**
+
+- Rc 动态更新  RecycleView DiffUtil
+- Rc 多个输入框 和 Button 事件冲突
+- Rc 嵌套 Rc(质检列表中的 3 张图片)
 
 
 ## 待完成 
 
 - Fragment 懒加载
-
 - 分页
-
 - RecycleView 细节处理
-
 - Adapter 绑定事件处理
-
 - 列表分页加载
+- RxEasyHttp
+- rc 输入框取值
 
-- ```java
-  RxEasyHttp_
-  ```
+
+
+## 困扰
+
+- RecyclerView DiffUtil：oldList 每次都是 new List , newList 是原来的 List ,列表局部更新的时候
+添加的数据都是在添加在`尾部`。
 
 
 ## 疑问

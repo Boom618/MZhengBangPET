@@ -39,6 +39,7 @@ class ProductDoneList {
         var backInfo: String? = null
         var type: String? = null
         var inTime: String? = null
+        var outTime: String? = null
         var productionBatchNo: String? = null
         var recallOrderId: String? = null
         var userId: String? = null

@@ -112,15 +112,22 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
         sapOrderNo = getIntent().getStringExtra("sapOrderNo");
         supplierId = getIntent().getStringExtra("supplierId");
 
+        // TODO　仓库默认值设置　
+        DataUtils.setHouseId(0, 0);
+
         presenter.fetchBuyInTodoListDetails(sapOrderNo);
     }
 
+    /**
+     * super 在 onStart 回调中
+     */
     @Override
     protected void initTwoView() {
 
         initToolBar(R.string.label_purchase_in_storage, new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+                ZBUiUtils.hideInputWindow(BuyInTodoDetailActivity.this,view);
                 buyInTodoSave(initTodoBody());
             }
         });
@@ -140,8 +147,6 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
         tvTime.setText(selectTime);
         titleName.setText("到货明细");
 
-        // TODO　仓库默认值设置　
-        DataUtils.setHouseId(0, 0);
 
         tvTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -247,6 +252,7 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
 
                 // 库位 ID
                 bean.setPositionId(id);
+                // 入库数量
                 bean.setNumber(bulkNum);
                 bean.setSapMaterialBatchNo(batchNo);
 
@@ -326,7 +332,7 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
                     selectHouse.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            ZBUiUtils.selectDialog(view.getContext(), position, houseName, selectHouse);
+                            ZBUiUtils.selectDialog(view.getContext(), CodeConstant.SELECT_HOUSE_BUY_IN, position, houseName, selectHouse);
 
                         }
                     });

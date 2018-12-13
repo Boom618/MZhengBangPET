@@ -38,7 +38,7 @@ public class SendOutTodoDetailAdapter extends CommonAdapter<ProductTodoDetails.L
 
         // 开始码
         EditText startCode = holder.itemView.findViewById(R.id.et_start_code);
-        startCode.setOnFocusChangeListener(new EditTextOnFocusChangeListener(CodeConstant.ET_START_CODE,position,number));
+        startCode.setOnFocusChangeListener(new EditTextOnFocusChangeListener(CodeConstant.ET_START_CODE,position,startCode));
 
         // 结束值
         EditText endCode = holder.itemView.findViewById(R.id.et_end_code);

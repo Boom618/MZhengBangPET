@@ -118,7 +118,8 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
 
         initToolBar(R.string.label_return_sell, new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+                ZBUiUtils.hideInputWindow(ReturnGoodsTodoDetailActivity.this,view);
                 returnGoodsTodoSave(initTodoBody());
             }
         });

@@ -39,7 +39,8 @@ public class ScreenSizeUtils {
         dm = new DisplayMetrics();
         manager.getDefaultDisplay().getMetrics(dm);
 
-        screenWidth = dm.widthPixels;// 获取屏幕分辨率宽度
+        // 获取屏幕分辨率宽度
+        screenWidth = dm.widthPixels;
         screenHeigth = dm.heightPixels;
 
     }
