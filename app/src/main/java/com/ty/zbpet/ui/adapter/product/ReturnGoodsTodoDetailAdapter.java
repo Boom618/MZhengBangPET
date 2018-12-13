@@ -29,12 +29,10 @@ public class ReturnGoodsTodoDetailAdapter extends CommonAdapter<ProductTodoDetai
     @Override
     protected void convert(ViewHolder holder, ProductTodoDetails.ListBean list, final int position) {
         // 共用 一个布局：下拉选择隐藏,应发数量显示
-        holder.itemView.findViewById(R.id.tv_select_ware).setVisibility(View.INVISIBLE);
-        holder.itemView.findViewById(R.id.tv_warehouse).setVisibility(View.VISIBLE);
+        holder.itemView.findViewById(R.id.tv_select_ware).setVisibility(View.GONE);
 
 
         holder.setText(R.id.tv_name, list.getGoodsName())
-                .setText(R.id.tv_warehouse, "所在仓库：" + list.getWarehouseName())
                 .setText(R.id.tv_num, list.getOrderNumber() + "  " + list.getUnitS());
 
         // 退货入库数量

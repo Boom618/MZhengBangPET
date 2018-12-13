@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -110,27 +111,13 @@ public class ProductDoneDetailActivity extends BaseActivity implements ProductUi
         selectHouse = findViewById(R.id.tv_house);
 
         titleName.setText("入库明细");
-        //selectHouse.setText(userInfo.getWarehouseList().get(0).getWarehouseName());
 
         SimpleDateFormat format = new SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA);
         selectTime = format.format(new Date());
 
         tvTime.setText(selectTime);
 
-        tvTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ZBUiUtils.showPickDate(v.getContext(), new OnTimeSelectListener() {
-                    @Override
-                    public void onTimeSelect(Date date, View v) {
-                        selectTime = ZBUiUtils.getTime(date);
-                        tvTime.setText(selectTime);
-
-                        ZBUiUtils.showToast(selectTime);
-                    }
-                });
-            }
-        });
+        etDesc.setInputType(InputType.TYPE_NULL);
     }
 
     /**
@@ -189,13 +176,11 @@ public class ProductDoneDetailActivity extends BaseActivity implements ProductUi
             beans.add(detailsBean);
         }
 
-        String remark = etDesc.getText().toString().trim();
 
         requestBody.setDetails(beans);
         requestBody.setOrderId(orderId);
         requestBody.setSapOrderNo(sapOrderNo);
         requestBody.setOutTime(selectTime);
-        requestBody.setRemark(remark);
         String json = DataUtils.toJson(requestBody, 1);
 
         return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), json);

@@ -51,6 +51,7 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
     private RecyclerView reView;
     private TextView tvTime;
     private TextView titleName;
+    private TextView selectHouse;
     private TextView tvPath;
     private TextView tvType;
     private EditText etDesc;
@@ -95,6 +96,16 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
      */
     private String warehouseId;
 
+    /**
+     * 仓库 name
+     */
+    private ArrayList<String> houseName = new ArrayList<>();
+
+    /**
+     * 用户信息
+     */
+    private UserInfo userInfo;
+
 
     @Override
     protected void onBaseCreate(Bundle savedInstanceState) {
@@ -103,12 +114,26 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
 
     @Override
     protected int getActivityLayout() {
-        return R.layout.activity_content_row_two;
+        return R.layout.activity_content_row_three;
     }
 
     @Override
     protected void initOneData() {
         sapOrderNo = getIntent().getStringExtra("sapOrderNo");
+
+        // TODO　仓库默认值设置
+        DataUtils.setHouseId(0, 0);
+
+        userInfo = DataUtils.getUserInfo();
+        List<UserInfo.WarehouseListBean> warehouseList = userInfo.getWarehouseList();
+
+        int size = warehouseList.size();
+        for (int i = 0; i < size; i++) {
+            houseName.add(warehouseList.get(i).getWarehouseName());
+        }
+
+        selectHouse = findViewById(R.id.tv_house);
+        selectHouse.setText(houseName.get(0));
 
         presenter.fetchReturnOrderInfo(sapOrderNo);
     }
@@ -131,13 +156,20 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
         tvPath = findViewById(R.id.tv_path);
         tvType = findViewById(R.id.tv_type);
         etDesc = findViewById(R.id.et_desc);
-        findViewById(R.id.add_ship).setVisibility(View.GONE);
 
         SimpleDateFormat format = new SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA);
         selectTime = format.format(new Date());
 
         tvTime.setText(selectTime);
         titleName.setText("退货明细");
+
+        // 用户选择仓库信息
+        selectHouse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ZBUiUtils.selectDialog(v.getContext(), CodeConstant.SELECT_HOUSE_BUY_IN, 0, houseName, selectHouse);
+            }
+        });
 
         tvTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,6 +239,25 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
 
         List<ProductTodoSave.DetailsBean> detail = new ArrayList<>();
 
+        // TODO 获取用户选择的仓库信息
+        SparseArray<Integer> houseId = DataUtils.getHouseId();
+
+        List<UserInfo.WarehouseListBean> warehouseList = userInfo.getWarehouseList();
+
+        // 仓库信息
+        String warehouseId;
+        String warehouseNo;
+        String warehouseName;
+        if (houseId == null) {
+            warehouseId = warehouseList.get(0).getWarehouseId();
+            warehouseNo = warehouseList.get(0).getWarehouseNo();
+            warehouseName = warehouseList.get(0).getWarehouseName();
+        } else {
+            Integer which = houseId.get(0);
+            warehouseId = warehouseList.get(which).getWarehouseId();
+            warehouseNo = warehouseList.get(which).getWarehouseNo();
+            warehouseName = warehouseList.get(which).getWarehouseName();
+        }
 
         int size = oldList.size();
         for (int i = 0; i < size; i++) {
@@ -219,8 +270,6 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
 
             String goodsId = oldList.get(i).getGoodsId();
             String goodsNo = oldList.get(i).getGoodsNo();
-            String warehouseId = oldList.get(i).getWarehouseId();
-            String warehouseName = oldList.get(i).getWarehouseName();
             String orderNumber = oldList.get(i).getOrderNumber();
 
             ProductTodoSave.DetailsBean bean = new ProductTodoSave.DetailsBean();
@@ -230,13 +279,10 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
                 bean.setNumber(number);
                 bean.setGoodsId(goodsId);
                 bean.setGoodsNo(goodsNo);
-                bean.setWarehouseId(warehouseId);
-                bean.setWarehouseName(warehouseName);
                 bean.setOrderNumber(orderNumber);
                 bean.setStartQrCode(startCode);
                 bean.setEndQrCode(endCode);
                 bean.setSapMaterialBatchNo(sap);
-
                 bean.setBoxQrCode(boxQrCode);
 
                 detail.add(bean);
@@ -247,7 +293,7 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
         }
         // 没有合法的操作数据,不请求网络
         if (detail.size() == 0) {
-            ZBUiUtils.showToast("请完善您要保存的信息");
+            ZBUiUtils.showToast("请完善您要退货的信息");
             return null;
         }
         String remark = etDesc.getText().toString().trim();
@@ -255,10 +301,11 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
 
         requestBody.setDetails(detail);
         requestBody.setWarehouseId(warehouseId);
+        requestBody.setWarehouseNo(warehouseNo);
+        requestBody.setWarehouseName(warehouseName);
         requestBody.setSapOrderNo(sapOrderNo);
         requestBody.setInTime(time);
         requestBody.setRemark(remark);
-
 
         String json = DataUtils.toJson(requestBody, 1);
         ZBLog.e("JSON " + json);
@@ -283,7 +330,6 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
                     View rlDetail = holder.itemView.findViewById(R.id.gone_view);
                     ImageView ivArrow = holder.itemView.findViewById(R.id.iv_arrow);
                     Button bindingCode = holder.itemView.findViewById(R.id.btn_binding_code);
-                    final TextView selectHouse = holder.itemView.findViewById(R.id.tv_select_ware);
 
                     if (rlDetail.getVisibility() == View.VISIBLE) {
                         rlDetail.setVisibility(View.GONE);
@@ -302,23 +348,6 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
                             intent.putExtra(CodeConstant.PAGE_STATE, true);
                             intent.putStringArrayListExtra("boxCodeList", carCodeArray.get(itemId));
                             startActivityForResult(intent, REQUEST_SCAN_CODE);
-                        }
-                    });
-
-                    UserInfo userInfo = DataUtils.getUserInfo();
-
-                    List<UserInfo.WarehouseListBean> warehouseList = userInfo.getWarehouseList();
-                    final ArrayList<String> houseName = new ArrayList<>();
-
-                    int size = warehouseList.size();
-                    for (int i = 0; i < size; i++) {
-                        houseName.add(warehouseList.get(i).getWarehouseName());
-                    }
-
-                    selectHouse.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            ZBUiUtils.selectDialog(view.getContext(), houseName, selectHouse);
                         }
                     });
 

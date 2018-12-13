@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,6 +48,7 @@ public class ReturnGoodsDoneDetailActivity extends BaseActivity implements Produ
     private RecyclerView reView;
     private TextView tvTime;
     private TextView titleName;
+    private TextView selectHouse;
     private EditText etDesc;
 
     private ReturnGoodsDoneDetailAdapter adapter;
@@ -68,7 +70,7 @@ public class ReturnGoodsDoneDetailActivity extends BaseActivity implements Produ
 
     @Override
     protected int getActivityLayout() {
-        return R.layout.activity_content_row_two;
+        return R.layout.activity_content_row_three;
     }
 
     @Override
@@ -100,7 +102,9 @@ public class ReturnGoodsDoneDetailActivity extends BaseActivity implements Produ
         tvTime = findViewById(R.id.tv_time);
         etDesc = findViewById(R.id.et_desc);
         titleName = findViewById(R.id.in_storage_detail);
-        findViewById(R.id.add_ship).setVisibility(View.GONE);
+        selectHouse = findViewById(R.id.tv_house);
+
+        etDesc.setInputType(InputType.TYPE_NULL);
 
         SimpleDateFormat format = new SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA);
         selectTime = format.format(new Date());
@@ -108,20 +112,6 @@ public class ReturnGoodsDoneDetailActivity extends BaseActivity implements Produ
         tvTime.setText(selectTime);
         titleName.setText("入库明细");
 
-        tvTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ZBUiUtils.showPickDate(v.getContext(), new OnTimeSelectListener() {
-                    @Override
-                    public void onTimeSelect(Date date, View v) {
-                        selectTime = ZBUiUtils.getTime(date);
-                        tvTime.setText(selectTime);
-
-                        ZBUiUtils.showToast(selectTime);
-                    }
-                });
-            }
-        });
     }
 
     /**
@@ -188,13 +178,13 @@ public class ReturnGoodsDoneDetailActivity extends BaseActivity implements Produ
             beans.add(detailsBean);
         }
 
-        String remark = etDesc.getText().toString().trim();
+        //String remark = etDesc.getText().toString().trim();
 
         requestBody.setDetails(beans);
         requestBody.setOrderId(orderId);
         requestBody.setSapOrderNo(sapOrderNo);
         requestBody.setOutTime(selectTime);
-        requestBody.setRemark(remark);
+        //requestBody.setRemark(remark);
         String json = DataUtils.toJson(requestBody, 1);
 
         return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), json);
@@ -204,6 +194,8 @@ public class ReturnGoodsDoneDetailActivity extends BaseActivity implements Produ
     public void showProduct(final List<ProductDetailsOut.ListBean> list) {
 
         oldList = list;
+        selectHouse.setText(list.get(0).getWarehouseName());
+
         if (adapter == null) {
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
             reView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));

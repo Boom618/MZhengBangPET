@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -115,20 +116,7 @@ public class SendOutDoneDetailActivity extends BaseActivity implements ProductUi
         tvTime.setText(selectTime);
         titleName.setText("发货明细");
 
-        tvTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ZBUiUtils.showPickDate(v.getContext(), new OnTimeSelectListener() {
-                    @Override
-                    public void onTimeSelect(Date date, View v) {
-                        selectTime = ZBUiUtils.getTime(date);
-                        tvTime.setText(selectTime);
-
-                        ZBUiUtils.showToast(selectTime);
-                    }
-                });
-            }
-        });
+        etDesc.setInputType(InputType.TYPE_NULL);
     }
 
     /**
@@ -184,13 +172,10 @@ public class SendOutDoneDetailActivity extends BaseActivity implements ProductUi
             beans.add(detailsBean);
         }
 
-        String remark = etDesc.getText().toString().trim();
-
         requestBody.setDetails(beans);
         requestBody.setOrderId(orderId);
         requestBody.setSapOrderNo(sapOrderNo);
         requestBody.setOutTime(selectTime);
-        requestBody.setRemark(remark);
         String json = DataUtils.toJson(requestBody, 1);
 
         return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), json);

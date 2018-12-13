@@ -30,7 +30,7 @@ public class SendOutTodoDetailAdapter extends CommonAdapter<ProductTodoDetails.L
         holder.setText(R.id.tv_name, list.getGoodsName())
                 .setText(R.id.tv_select_ware, list.getGoodsName())
                 .setText(R.id.tv_send_number,"应发数量：" + list.getSendNumber())
-                .setText(R.id.tv_num, list.getUnitS());// list.getOrderNumber() + " " +
+                .setText(R.id.tv_num, list.getUnitS());
 
         // 出库数量
         EditText number = holder.itemView.findViewById(R.id.et_number);

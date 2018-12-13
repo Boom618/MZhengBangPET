@@ -84,18 +84,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_warehouse"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/text_28"
-            android:layout_marginTop="@dimen/text_28"
-            android:text="所在仓库"
-            style="@style/itemSizeStyle"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
 
         <EditText
             android:id="@+id/et_number"

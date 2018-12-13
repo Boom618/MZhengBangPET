@@ -26,10 +26,10 @@ public class MaterialDoneDetailAdapter extends CommonAdapter<MaterialDetailsOut.
         holder.setText(R.id.tv_name, listBean.getMaterialName())
                 .setText(R.id.tv_num, listBean.getNumber())
                 .setText(R.id.tv_bulk, "含量：" + listBean.getConcentration() + "%")
-                .setText(R.id.tv_zkg, listBean.getZKG())
-                .setText(R.id.tv_count_number, listBean.getNumber())
+                .setText(R.id.tv_zkg, "ZKG：" + listBean.getZKG())
+                .setText(R.id.tv_count_number, "入库数量：" + listBean.getNumber())
                 .setText(R.id.tv_sap, listBean.getSapMaterialBatchNo())
-                .setText(R.id.tv_code, listBean.getPositionNo());
+                .setText(R.id.tv_code, "库位码：" + listBean.getPositionNo());
 
     }
 

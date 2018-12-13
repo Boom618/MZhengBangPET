@@ -3,6 +3,7 @@ package com.ty.zbpet.ui.activity.material;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -103,20 +104,7 @@ public class PickOutDoneDetailActivity extends BaseActivity implements MaterialU
 
         tvTime.setText(selectTime);
 
-        tvTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ZBUiUtils.showPickDate(v.getContext(), new OnTimeSelectListener() {
-                    @Override
-                    public void onTimeSelect(Date date, View v) {
-                        selectTime = ZBUiUtils.getTime(date);
-                        tvTime.setText(selectTime);
-
-                        ZBUiUtils.showToast(selectTime);
-                    }
-                });
-            }
-        });
+        etDesc.setInputType(InputType.TYPE_NULL);
     }
 
     /**
@@ -157,13 +145,10 @@ public class PickOutDoneDetailActivity extends BaseActivity implements MaterialU
 
         MaterialDoneSave requestBody = new MaterialDoneSave();
 
-        String remark = etDesc.getText().toString().trim();
-
         requestBody.setOrderId(mOutWarehouseOrderId);
         requestBody.setWarehouseId(warehouseId);
         requestBody.setOutTime(selectTime);
         requestBody.setOrderId(orderId);
-        requestBody.setRemark(remark);
         String json = DataUtils.toJson(requestBody, 1);
 
         return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), json);

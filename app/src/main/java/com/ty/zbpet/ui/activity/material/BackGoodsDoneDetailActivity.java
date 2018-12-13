@@ -3,6 +3,7 @@ package com.ty.zbpet.ui.activity.material;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -104,20 +105,7 @@ public class BackGoodsDoneDetailActivity extends BaseActivity implements Materia
 
         tvTime.setText(selectTime);
 
-        tvTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ZBUiUtils.showPickDate(v.getContext(), new OnTimeSelectListener() {
-                    @Override
-                    public void onTimeSelect(Date date, View v) {
-                        selectTime = ZBUiUtils.getTime(date);
-                        tvTime.setText(selectTime);
-
-                        ZBUiUtils.showToast(selectTime);
-                    }
-                });
-            }
-        });
+        etDesc.setInputType(InputType.TYPE_NULL);
     }
 
     /**

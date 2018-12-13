@@ -290,16 +290,17 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
             ProductTodoSave.DetailsBean bean = new ProductTodoSave.DetailsBean();
             if (!TextUtils.isEmpty(number) && boxQrCode != null) {
 
-                // position 是从 0 开始，size 减 1.
+                // 默认只有第一个
                 int which = 0;
                 try {
                     which = goodsArray.get(i);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                goodsId = oldList.get(which).getGoodsId();
-                goodsNo = oldList.get(which).getGoodsNo();
-                goodsName = oldList.get(which).getGoodsName();
+                // 从原数据中的列表中获取
+                goodsId = rawData.get(which).getGoodsId();
+                goodsNo = rawData.get(which).getGoodsNo();
+                goodsName = rawData.get(which).getGoodsName();
 
                 bean.setPositionId(id);
                 bean.setStartQrCode(startCode);

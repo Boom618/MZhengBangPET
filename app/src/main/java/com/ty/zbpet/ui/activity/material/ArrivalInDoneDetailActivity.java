@@ -3,6 +3,7 @@ package com.ty.zbpet.ui.activity.material;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -75,7 +76,6 @@ public class ArrivalInDoneDetailActivity extends BaseActivity implements Materia
 
     @Override
     protected int getActivityLayout() {
-//        return R.layout.activity_material_done_detail;
         return R.layout.activity_content_row_two;
     }
 
@@ -94,6 +94,7 @@ public class ArrivalInDoneDetailActivity extends BaseActivity implements Materia
         findViewById(R.id.add_ship).setVisibility(View.GONE);
         TextView titleName = findViewById(R.id.in_storage_detail);
         titleName.setText("到货明细");
+        etDesc.setInputType(InputType.TYPE_NULL);
 
         initToolBar(R.string.material_reversal, new View.OnClickListener() {
             @Override
@@ -104,21 +105,6 @@ public class ArrivalInDoneDetailActivity extends BaseActivity implements Materia
             }
         });
 
-        tvTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                ZBUiUtils.showPickDate(ArrivalInDoneDetailActivity.this, new OnTimeSelectListener() {
-                    @Override
-                    public void onTimeSelect(Date date, View v) {
-                        //选中事件回调
-                        selectTime = ZBUiUtils.getTime(date);
-                        tvTime.setText(selectTime);
-                        ZBUiUtils.showToast(selectTime);
-                    }
-                });
-            }
-        });
 
     }
 
@@ -157,14 +143,11 @@ public class ArrivalInDoneDetailActivity extends BaseActivity implements Materia
 
         MaterialDoneSave bean = new MaterialDoneSave();
 
-        String remark = etDesc.getText().toString().trim();
-
         bean.setWarehouseId(warehouseId);
         bean.setOrderId(mInWarehouseOrderId);
         bean.setSapOrderNo(sapOrderNo);
         bean.setPositionId(positionId);
         bean.setOrderId(orderId);
-        bean.setRemark(remark);
 
         String json = DataUtils.toJson(bean, 1);
 
