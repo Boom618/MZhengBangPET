@@ -92,4 +92,15 @@ public final class CodeConstant {
     public static final String BUGLY_APP_ID = "1bb4b12139";
 
 
+    /**
+     * 用户 sessionId 全局
+     */
+
+    public static final String SYSTEM = "android";
+    public static final String SESSION_ID_KEY = "sessionId";
+
+    /**
+     * 用户数据
+     */
+    public static final String USER_DATA = "userData";
 }

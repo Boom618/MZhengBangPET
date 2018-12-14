@@ -1,6 +1,7 @@
 package com.ty.zbpet.util;
 
 import android.annotation.SuppressLint;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.res.Resources;
@@ -9,10 +10,14 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.CursorLoader;
 import android.util.TypedValue;
 
 import com.ty.zbpet.ui.MainApp;
+
+import java.io.File;
 
 
 /**
@@ -169,5 +174,34 @@ public class ResourceUtil {
      */
     private static boolean isDownloadsDocument(Uri uri) {
         return "com.android.providers.downloads.documents".equals(uri.getAuthority());
+    }
+    /**-----------------------------------------------------------------------------*/
+
+    /**
+     * Uri to file.
+     *
+     * @param uri        The uri.
+     * @param columnName The name of the target column.
+     *                   <p>e.g. {@link MediaStore.Images.Media#DATA}</p>
+     * @return file
+     */
+    public static File uri2File(@NonNull final Uri uri, final String columnName) {
+        if (ContentResolver.SCHEME_FILE.equals(uri.getScheme())) {
+            return new File(uri.getPath());
+        }
+        CursorLoader cl = new CursorLoader(ResourceUtil.getContext());
+        cl.setUri(uri);
+        cl.setProjection(new String[]{columnName});
+        Cursor cursor = null;
+        try {
+            cursor = cl.loadInBackground();
+            int columnIndex = cursor.getColumnIndexOrThrow(columnName);
+            cursor.moveToFirst();
+            return new File(cursor.getString(columnIndex));
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
     }
 }

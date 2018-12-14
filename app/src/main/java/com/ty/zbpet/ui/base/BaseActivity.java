@@ -50,19 +50,20 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 初始化 View
+     *
      * @param savedInstanceState
      */
-    protected  abstract void onBaseCreate(Bundle savedInstanceState);
+    protected abstract void onBaseCreate(Bundle savedInstanceState);
 
     /**
      * Activity Layout 布局
+     *
      * @return
      */
     protected abstract int getActivityLayout();
 
     /**
      * 初始化 Data
-     *
      */
     protected abstract void initOneData();
 
@@ -79,6 +80,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         gotoActivity(clz, false, null);
     }
 
+    /**
+     * 打开一个 AC
+     *
+     * @param clz                    跳转类
+     * @param isCloseCurrentActivity 关闭当前页
+     */
     public void gotoActivity(Class<?> clz, boolean isCloseCurrentActivity) {
         gotoActivity(clz, isCloseCurrentActivity, null);
     }
@@ -94,18 +101,17 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    protected void initToolBar(){
+    protected void initToolBar() {
         initToolBar(0);
     }
 
-    protected void initToolBar(int intId){
+    protected void initToolBar(int intId) {
 
-        initToolBar(intId,null);
+        initToolBar(intId, null);
     }
 
 
-
-    protected void initToolBar(int intId, View.OnClickListener listener){
+    protected void initToolBar(int intId, View.OnClickListener listener) {
 
         // 左边返回
         findViewById(R.id.iv_back).setOnClickListener(new View.OnClickListener() {
@@ -120,7 +126,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         TextView midText = findViewById(R.id.tv_title);
         if (intId == 0) {
             midText.setText("");
-        }else{
+        } else {
             midText.setText(intId);
         }
 
@@ -129,19 +135,18 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         if (null == listener) {
             right.setVisibility(View.GONE);
-        }else{
+        } else {
             right.setOnClickListener(listener);
         }
 
     }
 
     /**
-     *
-     * @param intId         中间标题
-     * @param rightText     右边文字
-     * @param listener      右边 listener
+     * @param intId     中间标题
+     * @param rightText 右边文字
+     * @param listener  右边 listener
      */
-    protected void initToolBar(int intId,String rightText,View.OnClickListener listener){
+    protected void initToolBar(int intId, String rightText, View.OnClickListener listener) {
         // 左边返回
         findViewById(R.id.iv_back).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,10 +169,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 重置 ACache 中保存的的数据
      */
-    private void clearCache(){
+    private void clearCache() {
         // 库位码 内容
-        mCache.put(CodeConstant.SCAN_BOX_KEY,"");
-        mCache.put(CodeConstant.ET_ZKG,"");
+        mCache.put(CodeConstant.SCAN_BOX_KEY, "");
+        mCache.put(CodeConstant.ET_ZKG, "");
 
         //DataUtils.clearId();
     }

@@ -51,6 +51,7 @@ MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("file", fil
 - 列表分页加载
 - RxEasyHttp
 - rc 输入框取值
+- Retrofit Singe 改写
 
 
 
@@ -63,12 +64,4 @@ MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("file", fil
 
 ## 疑问
 
-## 1、外采入库 生产入库
-
-2、外采入库的【仓库】是在列表【里面】选择、生产入库的【仓库】是在列表【外面】选
-
-3、冲销列表只读，不能选仓库等。。
-
-4、外采入库【没有成品起始值】，生产入库【有成品起始值】
-
-5、外采入库已办冲销详情、箱码绑定是什么逻辑
+- 用户登录约定：sessionId  、角色切换、 md5 加密 

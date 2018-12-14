@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.ResponseInfo;
+import com.ty.zbpet.bean.UserInfo;
 import com.ty.zbpet.bean.material.MaterialDetailsIn;
 import com.ty.zbpet.bean.material.MaterialDetailsOut;
 import com.ty.zbpet.bean.material.MaterialDoneList;
@@ -70,6 +71,7 @@ public class HttpMethods {
         //创建OKHttpClient
         OkHttpClient.Builder client = new OkHttpClient.Builder()
                 .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+                .addInterceptor(new SessionInterceptor())
                 // 日志拦截器
                 .addInterceptor(new LogInterceptor());
 
@@ -90,6 +92,62 @@ public class HttpMethods {
     public static HttpMethods getInstance() {
         return SingletonHolder.INSTANCE;
     }
+
+
+    /**
+     * --------------------------------- 系统登录 ----------------------------------------
+     */
+
+    /**
+     * 用户登录
+     *
+     * @param observer
+     * @param userName
+     * @param password
+     */
+    public void userLogin(SingleObserver<BaseResponse<UserInfo>> observer, String userName, String password) {
+        mService.userLogin(userName, password)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    /**
+     * 用户登出
+     *
+     * @param observer
+     */
+    public void userLogOut(SingleObserver<ResponseInfo> observer) {
+        mService.userLogout()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    /**
+     * 修改密码
+     *
+     * @param observer
+     * @param oldPassword
+     * @param newPassword
+     * @param newPasswordAgain
+     */
+    public void userUpdatePass(SingleObserver<ResponseInfo> observer, String oldPassword
+            , String newPassword, String newPasswordAgain) {
+        mService.userUpdatePass(oldPassword, newPassword, newPasswordAgain)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    /**
+     * 个人中心
+     *
+     * @param observer
+     */
+    public void userCenter(SingleObserver<ResponseInfo> observer) {
+        mService.userCenter()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
 
     /**--------------------------------- 到货入库 ----------------------------------------*/
 
@@ -691,14 +749,16 @@ public class HttpMethods {
      * @param observer
      * @param part
      */
-    public void updateCheckImage(SingleObserver<ImageData> observer,MultipartBody.Part part) {
+    public void updateCheckImage(SingleObserver<ImageData> observer, MultipartBody.Part part) {
         mService.updateCheckImage(part)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
 
 
-    /**--------------------------------- Gson  ----------------------------------------*/
+    /**
+     * --------------------------------- Gson  ----------------------------------------
+     */
 
     private static Gson buildGson() {
         if (gson == null) {

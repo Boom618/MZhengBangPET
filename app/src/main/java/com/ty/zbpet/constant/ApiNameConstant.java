@@ -20,6 +20,31 @@ public class ApiNameConstant {
      */
     public static final String BASE_URL2 = "http://192.168.11.6:3099/";
 
+    /**
+     * --------------------------------- 系统登录 ----------------------------------------
+     */
+
+    /**
+     * 用户登录
+     */
+    public static final String USER_LOGIN = "login";
+
+    /**
+     * 用户登出
+     */
+    public static final String USER_LOGOUT = "sys/user/logout";
+
+    /**
+     * 修改密码
+     */
+    public static final String USER_UPDATE_PASSWORD = "sys/user/updatePassword";
+
+    /**
+     * 个人中心
+     */
+    public static final String USER_CENTER = "sys/user/userCenter";
+
+
     /**--------------------------------- 到货入库 ----------------------------------------*/
 
     /**
@@ -199,7 +224,6 @@ public class ApiNameConstant {
     public static final String GET_PRODUCE_DONE_SAVE = "stock/goodsStock/gProductionRecallOut";
 
 
-
     /**--------------------------------- 发货出库 ----------------------------------------*/
 
     /**
@@ -233,7 +257,6 @@ public class ApiNameConstant {
      * 发货出库 已办保存
      */
     public static final String GET_SHIP_DONE_SAVE = "stock/goodsStock/gSendRecallIn";
-
 
 
     /**--------------------------------- 退货入库 ----------------------------------------*/

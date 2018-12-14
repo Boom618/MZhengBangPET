@@ -2,6 +2,7 @@ package com.ty.zbpet.net;
 
 import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.ResponseInfo;
+import com.ty.zbpet.bean.UserInfo;
 import com.ty.zbpet.bean.material.MaterialDetailsIn;
 import com.ty.zbpet.bean.material.MaterialDetailsOut;
 import com.ty.zbpet.bean.material.MaterialDoneList;
@@ -36,6 +37,54 @@ import retrofit2.http.Query;
  */
 public interface ApiService {
 
+
+    /**
+     * --------------------------------- 系统登录 ----------------------------------------
+     */
+
+    /**
+     * 用户登录
+     *
+     * @param userName 用户手机
+     * @param password 密码
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiNameConstant.USER_LOGIN)
+    Single<BaseResponse<UserInfo>> userLogin(@Field("userName") String userName,
+                                             @Field("password") String password);
+
+    /**
+     * 用户登出
+     *
+     * @return
+     */
+    @POST(ApiNameConstant.USER_LOGOUT)
+    Single<ResponseInfo> userLogout();
+
+
+    /**
+     * 用户修改密码
+     *
+     * @param oldPassword      原密码
+     * @param newPassword      新密码
+     * @param newPasswordAgain 新密码确认
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiNameConstant.USER_UPDATE_PASSWORD)
+    Single<ResponseInfo> userUpdatePass(@Field("oldPassword") String oldPassword,
+                                        @Field("newPassword") String newPassword,
+                                        @Field("newPasswordAgain") String newPasswordAgain);
+
+
+    /**
+     * 个人中心
+     *
+     * @return
+     */
+    @POST(ApiNameConstant.USER_CENTER)
+    Single<ResponseInfo> userCenter();
 
     /**--------------------------------- 到货入库 ----------------------------------------*/
 
