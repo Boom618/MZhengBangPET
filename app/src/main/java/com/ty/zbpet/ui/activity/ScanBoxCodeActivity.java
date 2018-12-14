@@ -43,6 +43,7 @@ public class ScanBoxCodeActivity extends BaseActivity implements ScanBoxInterfac
      * 箱码数据
      */
     private ArrayList<String> boxCodeList = new ArrayList<>();
+    private ArrayList<String> oldList = new ArrayList<>();
     private BindBoxCodeAdapter adapter;
     private int itemId;
     /**
@@ -150,7 +151,7 @@ public class ScanBoxCodeActivity extends BaseActivity implements ScanBoxInterfac
      * @param positionNo
      */
     @Override
-    public void ScanSuccess(int position, final String positionNo) {
+    public void ScanSuccess(int position, String positionNo) {
 
         checkBoxCode(positionNo);
     }
@@ -165,7 +166,9 @@ public class ScanBoxCodeActivity extends BaseActivity implements ScanBoxInterfac
         if (boxCodeList.contains(positionNo)) {
             ZBUiUtils.showToast("该箱码扫码过");
         } else {
-            ArrayList<String> oldList = new ArrayList<>(boxCodeList);
+            //ArrayList<String> oldList = new ArrayList<>(boxCodeList);
+            oldList.clear();
+            oldList.addAll(boxCodeList);
             boxCodeList.add(positionNo);
             if (adapter != null) {
                 DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MaterialDiffUtil(oldList, boxCodeList));

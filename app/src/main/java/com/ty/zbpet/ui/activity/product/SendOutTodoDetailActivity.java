@@ -146,7 +146,7 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
         initToolBar(R.string.label_send_out_storage, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ZBUiUtils.hideInputWindow(SendOutTodoDetailActivity.this,view);
+                ZBUiUtils.hideInputWindow(SendOutTodoDetailActivity.this, view);
                 sendOutTodoSave(initTodoBody());
             }
         });
@@ -383,7 +383,7 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
                     selectGoods.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            ZBUiUtils.selectDialog(view.getContext(),CodeConstant.SELECT_GOODS, position, goodsName, selectGoods);
+                            ZBUiUtils.selectDialog(view.getContext(), CodeConstant.SELECT_GOODS, position, goodsName, selectGoods);
                         }
                     });
                     //SparseArray<Integer> goodsId = DataUtils.getGoodsId();

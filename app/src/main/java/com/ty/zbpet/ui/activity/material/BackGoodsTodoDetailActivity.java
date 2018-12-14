@@ -308,8 +308,8 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
 
     @Override
     public void showCarSuccess(int position, CarPositionNoData carData) {
-        if (carData.getCount() > 0) {
-            ZBUiUtils.showToast("扫码成功 === showCarSuccess ");
+        int count = carData.getCount();
+        if (count > 0) {
             String carId = carData.getList().get(0).getId();
             warehouseId = carData.getList().get(0).getWarehouseId();
             positionId.put(position, carId);

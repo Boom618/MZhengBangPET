@@ -314,11 +314,11 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
             currentFocus = hasFocus;
 
             // 【情况 ② 】 无焦点 有内容 http 校验
-            if (!TextUtils.isEmpty(textContent)) {
-                if (!hasFocus) {
-                    //httpCheckCarCode(currentPosition, textContent);
-                }
-            }
+//            if (!TextUtils.isEmpty(textContent)) {
+//                if (!hasFocus) {
+//                    //httpCheckCarCode(currentPosition, textContent);
+//                }
+//            }
 
             carCodeArray.put(position, textContent);
 
@@ -372,7 +372,6 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
     @Override
     public void ScanSuccess(int position, String positionNo) {
         ZBUiUtils.showToast("库位码 ：" + positionNo);
-        //adapter.notifyItemChanged(position);
 
         //  服务器校验 库位码
         httpCheckCarCode(position, positionNo);
@@ -382,7 +381,6 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
     @Override
     public void showCarSuccess(int position, CarPositionNoData carData) {
         if (carData.getCount() > 0) {
-            ZBUiUtils.showToast("扫码成功 === showCarSuccess ");
             String carId = carData.getList().get(0).getId();
             warehouseId = carData.getList().get(0).getWarehouseId();
             positionId.put(position, carId);

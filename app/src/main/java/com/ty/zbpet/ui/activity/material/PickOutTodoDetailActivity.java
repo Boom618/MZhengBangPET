@@ -286,7 +286,6 @@ public class PickOutTodoDetailActivity extends BaseActivity implements MaterialU
     @Override
     public void ScanSuccess(int position, String msg) {
         ZBUiUtils.showToast("库位码 ：" + msg);
-        //adapter.notifyItemChanged(position);
 
         //  服务器校验 库位码
         httpCheckCarCode(position, msg);
@@ -307,7 +306,6 @@ public class PickOutTodoDetailActivity extends BaseActivity implements MaterialU
     @Override
     public void showCarSuccess(int position, CarPositionNoData carData) {
         if (carData.getCount() > 0) {
-            ZBUiUtils.showToast("扫码成功 === showCarSuccess ");
             String carId = carData.getList().get(0).getId();
             warehouseId = carData.getList().get(0).getWarehouseId();
             positionId.put(position, carId);
@@ -386,11 +384,11 @@ public class PickOutTodoDetailActivity extends BaseActivity implements MaterialU
             currentFocus = hasFocus;
 
             // 【情况 ② 】 无焦点 有内容 http 校验
-            if (!TextUtils.isEmpty(textContent)) {
-                if (!hasFocus) {
-                    //httpCheckCarCode(currentPosition, textContent);
-                }
-            }
+//            if (!TextUtils.isEmpty(textContent)) {
+//                if (!hasFocus) {
+//                    //httpCheckCarCode(currentPosition, textContent);
+//                }
+//            }
 
             carCodeArray.put(position, textContent);
 

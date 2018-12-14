@@ -44,7 +44,7 @@ public class BackGoodsTodoDetailAdapter extends CommonAdapter<MaterialDetailsIn.
         // TYPE_NULL 禁止手机软键盘  TYPE_CLASS_TEXT : 开启软键盘。
         etCode.setInputType(InputType.TYPE_NULL);
         // ScanObservable.scanBox 扫码成功保存的 ID 和 Value
-        String result = ACache.get(context).getAsString(CodeConstant.SCAN_BOX_KEY);
+        final String result = ACache.get(context).getAsString(CodeConstant.SCAN_BOX_KEY);
 
         // 库位码设置
         ViewSetValue.setValue(result, position, etCode);

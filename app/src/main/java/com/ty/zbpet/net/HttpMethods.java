@@ -698,6 +698,8 @@ public class HttpMethods {
     }
 
 
+    /**--------------------------------- Gson  ----------------------------------------*/
+
     private static Gson buildGson() {
         if (gson == null) {
             gson = new GsonBuilder()

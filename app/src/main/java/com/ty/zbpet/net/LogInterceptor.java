@@ -30,9 +30,10 @@ public class LogInterceptor implements Interceptor {
         String content = response.body().string();
         Log.e(TAG, "\n");
         Log.e(TAG, "----------【Start】----------------");
-        Log.e(TAG,"request Length : " + request.body().contentLength());
         String method = request.method();
         if ("POST".equals(method)) {
+            // Get 请求 body 为空，报错
+            Log.e(TAG,"request Length : " + request.body().contentLength());
             StringBuilder sb = new StringBuilder();
             if (request.body() instanceof FormBody) {
                 FormBody body = (FormBody) request.body();

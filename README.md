@@ -57,7 +57,8 @@ MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("file", fil
 ## 困扰
 
 - RecyclerView DiffUtil：oldList 每次都是 new List , newList 是原来的 List ,列表局部更新的时候
-添加的数据都是在添加在`尾部`。
+  添加的数据都是在添加在`尾部`。
+- RecyclerView notifyItemChanged(position)  第一列输入框失去焦点,其他列表输入框有焦点
 
 
 ## 疑问
