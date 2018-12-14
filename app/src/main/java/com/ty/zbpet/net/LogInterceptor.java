@@ -30,6 +30,7 @@ public class LogInterceptor implements Interceptor {
         String content = response.body().string();
         Log.e(TAG, "\n");
         Log.e(TAG, "----------【Start】----------------");
+        Log.e(TAG,"request Length : " + request.body().contentLength());
         String method = request.method();
         if ("POST".equals(method)) {
             StringBuilder sb = new StringBuilder();

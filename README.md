@@ -23,6 +23,24 @@
 - Rc 多个输入框 和 Button 事件冲突
 - Rc 嵌套 Rc(质检列表中的 3 张图片)
 
+**困扰**
+
+- Retrofit 上传图片：
+```
+// 构建请求
+RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+
+`"file"`:是和服务器约定好的 key
+
+    // 接口定义
+    @Multipart
+    @POST(ApiNameConstant.POST_USER_QUA_CHECK_IMAGE)
+    Single<ImageData> updateCheckImage(@Part MultipartBody.Part part);
+
+
+```
+
 
 ## 待完成 
 

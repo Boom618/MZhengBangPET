@@ -11,18 +11,24 @@ import com.ty.zbpet.bean.product.ProductDetailsOut;
 import com.ty.zbpet.bean.product.ProductDoneList;
 import com.ty.zbpet.bean.product.ProductTodoDetails;
 import com.ty.zbpet.bean.product.ProductTodoList;
+import com.ty.zbpet.bean.system.ImageData;
 import com.ty.zbpet.bean.system.QualityCheckTodoList;
 import com.ty.zbpet.constant.ApiNameConstant;
 import com.ty.zbpet.ui.base.BaseResponse;
 
+import java.util.List;
+
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 /**
@@ -474,6 +480,7 @@ public interface ApiService {
 
     /**
      * 质检待办 列表
+     *
      * @return
      */
     @POST(ApiNameConstant.GET_CHECK_TODO_LIST)
@@ -481,6 +488,7 @@ public interface ApiService {
 
     /**
      * 质检待办 详情
+     *
      * @return
      */
     @FormUrlEncoded
@@ -489,6 +497,7 @@ public interface ApiService {
 
     /**
      * 质检待办 保存
+     *
      * @return
      */
     @POST(ApiNameConstant.GET_CHECK_TODO_SAVE)
@@ -496,6 +505,7 @@ public interface ApiService {
 
     /**
      * 质检已办 列表
+     *
      * @return
      */
     @POST(ApiNameConstant.GET_CHECK_DONE_LIST)
@@ -503,6 +513,7 @@ public interface ApiService {
 
     /**
      * 质检已办 详情
+     *
      * @return
      */
     @FormUrlEncoded
@@ -511,9 +522,28 @@ public interface ApiService {
 
     /**
      * 质检已办 保存
+     *
      * @return
      */
     @POST(ApiNameConstant.GET_CHECK_DONE_SAVE)
     Single<ResponseInfo> getCheckDoneSave(@Body RequestBody body);
+
+    /**--------------------------------- 图片 --------------------------------------------*/
+
+    /**
+     * 质检 待办 上传图片
+     *
+     * @param description
+     * @param part
+     * @return
+     */
+    @Multipart
+    @POST(ApiNameConstant.POST_USER_QUA_CHECK_IMAGE)
+    Single<ImageData> updateCheckImage1(@Part("file") RequestBody description,
+                                        @Part MultipartBody.Part part);
+
+    @Multipart
+    @POST(ApiNameConstant.POST_USER_QUA_CHECK_IMAGE)
+    Single<ImageData> updateCheckImage(@Part MultipartBody.Part part);
 
 }

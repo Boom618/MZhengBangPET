@@ -13,6 +13,7 @@ import com.ty.zbpet.bean.product.ProductDetailsOut;
 import com.ty.zbpet.bean.product.ProductDoneList;
 import com.ty.zbpet.bean.product.ProductTodoDetails;
 import com.ty.zbpet.bean.product.ProductTodoList;
+import com.ty.zbpet.bean.system.ImageData;
 import com.ty.zbpet.bean.system.QualityCheckTodoList;
 import com.ty.zbpet.constant.ApiNameConstant;
 import com.ty.zbpet.net.gson.DoubleDefault0Adapter;
@@ -22,11 +23,13 @@ import com.ty.zbpet.net.gson.StringDefault0Adapter;
 import com.ty.zbpet.ui.base.BaseResponse;
 import com.zhouyou.http.subsciber.BaseSubscriber;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import retrofit2.Retrofit;
@@ -624,7 +627,7 @@ public class HttpMethods {
      *
      * @param observer
      */
-    public void getQualityCheckTodoInfo(SingleObserver<BaseResponse<QualityCheckTodoList>> observer,String sapOrderNo) {
+    public void getQualityCheckTodoInfo(SingleObserver<BaseResponse<QualityCheckTodoList>> observer, String sapOrderNo) {
         mService.getCheckTodoInfo(sapOrderNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
@@ -635,7 +638,7 @@ public class HttpMethods {
      *
      * @param observer
      */
-    public void getQualityCheckTodoSave(SingleObserver<ResponseInfo> observer,RequestBody body) {
+    public void getQualityCheckTodoSave(SingleObserver<ResponseInfo> observer, RequestBody body) {
         mService.getCheckTodoSave(body)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
@@ -658,7 +661,7 @@ public class HttpMethods {
      *
      * @param observer
      */
-    public void getQualityCheckDoneInfo(SingleObserver<BaseResponse<QualityCheckTodoList>> observer,String sapOrderNo) {
+    public void getQualityCheckDoneInfo(SingleObserver<BaseResponse<QualityCheckTodoList>> observer, String sapOrderNo) {
         mService.getCheckDoneInfo(sapOrderNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
@@ -669,13 +672,31 @@ public class HttpMethods {
      *
      * @param observer
      */
-    public void getQualityCheckDoneSave(SingleObserver<ResponseInfo> observer,RequestBody body) {
+    public void getQualityCheckDoneSave(SingleObserver<ResponseInfo> observer, RequestBody body) {
         mService.getCheckDoneSave(body)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
 
     /**--------------------------------- 质检 End ----------------------------------------*/
+
+
+    /**
+     * --------------------------------- 图片上传 ----------------------------------------
+     */
+
+    /**
+     * 上传图片
+     *
+     * @param observer
+     * @param part
+     */
+    public void updateCheckImage(SingleObserver<ImageData> observer,MultipartBody.Part part) {
+        mService.updateCheckImage(part)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
 
     private static Gson buildGson() {
         if (gson == null) {

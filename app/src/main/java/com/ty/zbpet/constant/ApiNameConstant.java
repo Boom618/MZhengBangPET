@@ -5,9 +5,20 @@ package com.ty.zbpet.constant;
  */
 public class ApiNameConstant {
 
-    public static final String BASE_URL = "http://192.168.11.2:3099/";//徐坤
+    /**
+     * 徐坤
+     */
+    public static final String BASE_URL = "http://192.168.11.2:3099/";
 
-    public static final String BASE_URL1 = "http://192.168.11.24:3000/";//顾炎
+    /**
+     * 顾炎
+     */
+    public static final String BASE_URL1 = "http://192.168.11.24:3000/";
+
+    /**
+     * 少杰
+     */
+    public static final String BASE_URL2 = "http://192.168.11.6:3099/";
 
     /**--------------------------------- 到货入库 ----------------------------------------*/
 
@@ -35,7 +46,6 @@ public class ApiNameConstant {
     /**
      * 原辅料 -- 已办列表
      */
-    //public static final String GET_MATERIAL_PURCHASE_LIST = "stock/materialStock/getMaterialPurchaseList";
     public static final String GET_MATERIAL_PURCHASE_LIST = "stock/materialStock/getInWarehouseOrderList";
 
     /**
@@ -301,6 +311,13 @@ public class ApiNameConstant {
      */
     public static final String GET_CHECK_DONE_SAVE = "/q";
 
+    /**--------------------------------- 质检 end ------------------------------------------*/
 
+
+    /**--------------------------------- 图片 --------------------------------------------*/
+    /**
+     * 质检 待办 上传图片
+     */
+    public static final String POST_USER_QUA_CHECK_IMAGE = "check/materialCheckReport/uploadMaterialCheckPicture";
 
 }
