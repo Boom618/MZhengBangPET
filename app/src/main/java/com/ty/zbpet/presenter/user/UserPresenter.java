@@ -2,11 +2,11 @@ package com.ty.zbpet.presenter.user;
 
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.UserInfo;
-import com.ty.zbpet.bean.material.MaterialDetailsOut;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.MainApp;
 import com.ty.zbpet.ui.base.BaseResponse;
 import com.ty.zbpet.util.CodeConstant;
+import com.ty.zbpet.util.SimpleCache;
 
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
@@ -61,8 +61,11 @@ public class UserPresenter {
                     String sessionId = data.getSessionId();
 
                     userInterface.onSuccess();
-                    MainApp.mCache.put(CodeConstant.USER_DATA, data);
-                    MainApp.mCache.put(CodeConstant.SESSION_ID_KEY, sessionId);
+
+                    SimpleCache.putObject(CodeConstant.USER_DATA, data);
+                    SimpleCache.putString(CodeConstant.SESSION_ID_KEY, sessionId);
+//                    MainApp.mCache.put(CodeConstant.USER_DATA, data);
+//                    MainApp.mCache.put(CodeConstant.SESSION_ID_KEY, sessionId);
                 }
             }
 

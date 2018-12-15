@@ -96,7 +96,8 @@ public final class CodeConstant {
      * 用户 sessionId 全局
      */
 
-    public static final String SYSTEM = "android";
+    public static final String SYSTEM_KEY = "system";
+    public static final String SYSTEM_VALUE = "android";
     public static final String SESSION_ID_KEY = "sessionId";
 
     /**

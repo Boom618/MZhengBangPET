@@ -81,7 +81,7 @@ public class ResourceUtil {
      */
     public static String getRealPathFromUri(Context context, Uri uri) {
         int sdkVersion = Build.VERSION.SDK_INT;
-        if (sdkVersion >= 19) {
+        if (sdkVersion >= Build.VERSION_CODES.KITKAT) {
             return getRealPathFromUriAboveApi19(context, uri);
         } else { // api < 19
             return getRealPathFromUriBelowAPI19(context, uri);

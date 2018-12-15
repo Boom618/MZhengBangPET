@@ -1,11 +1,10 @@
 package com.ty.zbpet.ui.activity.system;
 
 import android.annotation.SuppressLint;
-import android.database.Cursor;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,24 +16,23 @@ import com.qingmei2.rximagepicker.entity.Result;
 import com.qingmei2.rximagepicker_extension.MimeType;
 import com.qingmei2.rximagepicker_extension_zhihu.ZhihuConfigurationBuilder;
 import com.ty.zbpet.R;
-import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.system.ImageData;
 import com.ty.zbpet.constant.ApiNameConstant;
 import com.ty.zbpet.net.HttpMethods;
+import com.ty.zbpet.presenter.user.UserInterface;
+import com.ty.zbpet.presenter.user.UserPresenter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.util.CodeConstant;
 import com.ty.zbpet.util.ResourceUtil;
-import com.ty.zbpet.util.ZBLog;
+import com.ty.zbpet.util.SimpleCache;
 import com.ty.zbpet.util.ZBUiUtils;
 import com.ty.zbpet.util.image.ZhiHuImagePicker;
 
 import java.io.File;
-import java.util.List;
 
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import kotlin.reflect.jvm.internal.impl.load.java.Constant;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -46,14 +44,16 @@ import static android.os.Environment.DIRECTORY_DCIM;
  *
  * @author TY
  */
-public class PersonCenterActivity extends BaseActivity {
+public class PersonCenterActivity extends BaseActivity implements UserInterface {
 
-    private Button btnPass;
+    private Button btnUpDataPass;
     private Button btnExit;
     private ImageView userImage;
     private ImageView backImage;
 
     private Uri uri;
+
+    private UserPresenter presenter = new UserPresenter(this);
 
     @Override
     protected void onBaseCreate(Bundle savedInstanceState) {
@@ -73,7 +73,7 @@ public class PersonCenterActivity extends BaseActivity {
     @Override
     protected void initTwoView() {
 
-        btnPass = findViewById(R.id.btn_modify_pwd);
+        btnUpDataPass = findViewById(R.id.btn_modify_pwd);
         btnExit = findViewById(R.id.btn_cancel);
         userImage = findViewById(R.id.user_select_image);
         backImage = findViewById(R.id.iv_back);
@@ -85,11 +85,11 @@ public class PersonCenterActivity extends BaseActivity {
         });
 
 
-        btnPass.setOnClickListener(new View.OnClickListener() {
+        btnUpDataPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                gotoActivity(UserUpDataPass.class);
 
-                selectImage();
             }
         });
 
@@ -97,10 +97,24 @@ public class PersonCenterActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                updateImage();
+                exitApp();
             }
         });
 
+
+    }
+
+    /**
+     * 退出登录
+     */
+    private void exitApp() {
+        presenter.userLogOut();
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
 
     }
 
@@ -135,19 +149,6 @@ public class PersonCenterActivity extends BaseActivity {
         // /storage/emulated/0/DCIM
         File directory = Environment.getExternalStoragePublicDirectory(DIRECTORY_DCIM);
 
-
-//        String string = uri.toString();
-//
-//        String[] proj = {MediaStore.Images.Media.DATA};
-//
-//        //好像是android多媒体数据库的封装接口，具体的看Android文档
-//        Cursor cursor = managedQuery(uri, proj, null, null, null);
-//        //按我个人理解 这个是获得用户选择的图片的索引值
-//        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-//        //将光标移至开头 ，这个很重要，不小心很容易引起越界
-//        cursor.moveToFirst();
-//        //最后根据索引值获取图片路径
-//        String path = cursor.getString(column_index);
 
         String path = ResourceUtil.getRealPathFromUri(this, uri);
 
@@ -244,5 +245,25 @@ public class PersonCenterActivity extends BaseActivity {
 
                     }
                 });
+    }
+
+    @Override
+    public void onSuccess() {
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                Intent.FLAG_ACTIVITY_NO_HISTORY);
+        startActivity(intent);
+
+        SimpleCache.clearAll();
+        finish();
+
+    }
+
+    @Override
+    public void onError(Throwable e) {
+
+
     }
 }
