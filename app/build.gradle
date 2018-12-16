@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'io.objectbox' // apply last
 
 def ZBConfig = rootProject.ext
 
@@ -185,6 +186,9 @@ dependencies {
     // image picker
     implementation 'com.github.qingmei2:rximagepicker:2.2.0'
     implementation 'com.github.qingmei2:rximagepicker_support_zhihu:2.2.0'
+
+    // objectBox 数据库
+    implementation 'io.objectbox:objectbox-android:2.2.0'
 
     // bugly 管理
     implementation "com.tencent.bugly:crashreport:${bugly_version}"

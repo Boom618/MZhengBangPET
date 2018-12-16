@@ -9,7 +9,6 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.crashreport.CrashReport;
-import com.ty.zbpet.BuildConfig;
 import com.ty.zbpet.net.LogInterceptor;
 import com.ty.zbpet.net.gson.DoubleDefault0Adapter;
 import com.ty.zbpet.net.gson.IntegerDefault0Adapter;
@@ -21,7 +20,7 @@ import com.zhouyou.http.EasyHttp;
 import com.zhouyou.http.cache.converter.SerializableDiskConverter;
 import com.zhouyou.http.cache.model.CacheMode;
 
-import okhttp3.logging.HttpLoggingInterceptor;
+import io.objectbox.BoxStore;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -33,6 +32,8 @@ public class MainApp extends Application {
     public static Context context;
     private static Gson gson;
     public static ACache mCache;
+
+    private BoxStore boxStore;
 
     @Override
     public void onLowMemory() {
@@ -58,9 +59,16 @@ public class MainApp extends Application {
         }
         LeakCanary.install(this);
 
+        // ObjectBox
+        //boxStore = MyObjectBox.builder().androidContext(this).build();
+
         initHttp();
     }
 
+
+    public BoxStore getBoxStore() {
+        return boxStore;
+    }
 
 
     private void initHttp() {
