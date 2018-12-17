@@ -11,6 +11,7 @@ import com.ty.zbpet.R;
 import com.ty.zbpet.bean.system.QualityCheckDoneDetails;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.ResourceUtil;
+import com.ty.zbpet.util.ZBUiUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -44,16 +45,23 @@ public class QuaCheckDoneDetailAdapter extends CommonAdapter<QualityCheckDoneDet
         List<QualityCheckDoneDetails.ImageBean> imageList = listBean.getImageList();
 
         int size = imageList.size();
-        if (size > 0) {
+        if (size < 3) {
             recyclerView = holder.itemView.findViewById(R.id.rc_image);
-            recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(5), true));
             addImage = holder.itemView.findViewById(R.id.add_image);
-            addImage.setVisibility(View.GONE);
+            recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(5), true));
             recyclerView.setLayoutManager(gridLayoutManager);
-            QuaCheckImageAdapter adapter = new QuaCheckImageAdapter(context, R.layout.item_sys_qua_check_image, imageList);
+            QuaCheckImageDoneAdapter adapter = new QuaCheckImageDoneAdapter(context, R.layout.item_sys_qua_check_image, imageList);
             recyclerView.setAdapter(adapter);
+
+            addImage.setVisibility(View.VISIBLE);
+            addImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // TODO 选择相册 刷新列表
+                    ZBUiUtils.selectGalleryOrPhoto(v.getContext());
+                }
+            });
         } else {
-            recyclerView.setVisibility(View.GONE);
             addImage.setVisibility(View.GONE);
         }
 

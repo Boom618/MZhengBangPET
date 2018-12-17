@@ -35,7 +35,7 @@ import butterknife.BindView;
  *
  * @author TY
  */
-public class QualityCheckDoneFragment extends BaseFragment implements SystemUiListInterface<QualityCheckTodoList.ListBean> {
+public class QualityCheckDoneFragment extends BaseFragment implements SystemUiListInterface<QualityCheckTodoList.DataBean> {
 
 
     @BindView(R.id.recyclerView)
@@ -102,7 +102,7 @@ public class QualityCheckDoneFragment extends BaseFragment implements SystemUiLi
     }
 
     @Override
-    public void showSystem(final List<QualityCheckTodoList.ListBean> list) {
+    public void showSystem(final List<QualityCheckTodoList.DataBean> list) {
 
         if (adapter == null) {
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
@@ -115,8 +115,7 @@ public class QualityCheckDoneFragment extends BaseFragment implements SystemUiLi
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                     Intent intent = new Intent(getActivity(), QualityCheckDoneDetailActivity.class);
-                    intent.putExtra("sapOrderNo", list.get(position).getSapOrderNo());
-                    intent.putExtra("supplierId", list.get(position).getSupplierId());
+                    intent.putExtra("arrivalOrderNo", list.get(position).getArrivalOrderNo());
                     startActivity(intent);
                 }
 

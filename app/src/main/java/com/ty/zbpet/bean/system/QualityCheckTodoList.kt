@@ -5,23 +5,22 @@ package com.ty.zbpet.bean.system
  *
  * 质检待办
  */
-class QualityCheckTodoList{
+class QualityCheckTodoList {
 
-    var list: List<ListBean>? = null
+    var count: Int = 0
+    var list: List<DataBean>? = null
 
-    class ListBean {
+    class DataBean {
+        /**
+         * arrivalOrderNo : 201808071024
+         * state : 已办
+         * arrivalTime : 2018-08-07
+         * type : 外采
+         */
 
-        var sapOrderNo: String? = null
+        var arrivalOrderNo: String? = null
         var state: String? = null
+        var arrivalTime: String? = null
         var type: String? = null
-        var supplierName: String? = null
-        var supplierId: String? = null
-        var supplierNo: String? = null
-        var receiveInfo: String? = null
-        var productInfo: String? = null
-        var customerInfo: String? = null
-        var goodsInfo: String? = null
-        var backInfo: String? = null
-        var orderTime: String? = null
     }
 }

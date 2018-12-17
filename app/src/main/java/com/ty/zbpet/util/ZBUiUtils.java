@@ -188,6 +188,7 @@ public class ZBUiUtils {
 
 
     /**
+     * 发货出库
      * 删除该 item
      *
      * @param context
@@ -209,6 +210,43 @@ public class ZBUiUtils {
                 .build();
 
         dialog.show();
+    }
+
+    private static List<String> galleryOrPhoto = new ArrayList<>();
+
+
+    /**
+     * 质检 图片选择/ 相册 or 相机
+     *
+     */
+    public static void selectGalleryOrPhoto(Context context) {
+
+        galleryOrPhoto.clear();
+        galleryOrPhoto.add("相册");
+        galleryOrPhoto.add("拍照");
+
+        NormalSelectionDialog.Builder builder = new NormalSelectionDialog.Builder(context);
+
+        builder.setOnItemListener(new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                // 拍照 和 相册逻辑
+                if (which == 1) {
+
+                } else {
+
+                }
+
+
+                dialog.dismiss();
+            }
+        })
+                .build()
+                .setDatas(galleryOrPhoto)
+                .show();
+
+
     }
 
 }

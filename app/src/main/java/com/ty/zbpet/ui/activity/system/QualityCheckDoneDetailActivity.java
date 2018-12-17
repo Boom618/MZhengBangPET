@@ -25,19 +25,19 @@ import java.util.Locale;
 /**
  * @author TY on 2018/12/12.
  */
-public class QualityCheckDoneDetailActivity extends BaseActivity implements SystemUiListInterface<QualityCheckTodoList.ListBean> {
+public class QualityCheckDoneDetailActivity extends BaseActivity implements SystemUiListInterface<QualityCheckTodoList.DataBean> {
 
 
     private RecyclerView reView;
     private TextView titleName;
     private TextView tvTime;
 
-    private String sapOrderNo;
+    private String arrivalOrderNo;
     private String selectTime;
 
     private QuaCheckDoneDetailAdapter adapter;
 
-    private List<QualityCheckTodoList.ListBean> listBeans = new ArrayList<>();
+    private List<QualityCheckTodoList.DataBean> listBeans = new ArrayList<>();
     private SystemPresenter presenter = new SystemPresenter(this);
 
     @Override
@@ -52,6 +52,10 @@ public class QualityCheckDoneDetailActivity extends BaseActivity implements Syst
 
     @Override
     protected void initOneData() {
+
+        arrivalOrderNo = getIntent().getStringExtra("arrivalOrderNo");
+
+        presenter.fetchQualityCheckDoneInfo(arrivalOrderNo);
 
     }
 
@@ -74,7 +78,7 @@ public class QualityCheckDoneDetailActivity extends BaseActivity implements Syst
     }
 
     @Override
-    public void showSystem(List<QualityCheckTodoList.ListBean> list) {
+    public void showSystem(List<QualityCheckTodoList.DataBean> list) {
 
     }
 }

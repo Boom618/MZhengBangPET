@@ -104,4 +104,10 @@ public final class CodeConstant {
      * 用户数据
      */
     public static final String USER_DATA = "userData";
+
+    /**
+     * 质检列表 state
+     */
+    public static final String CHECK_STATE_TODO = "01";
+    public static final String CHECK_STATE_DONE = "02";
 }

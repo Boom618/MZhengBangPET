@@ -33,7 +33,7 @@ import butterknife.BindView;
  *
  * @author TY
  */
-public class QualityCheckTodoFragment extends BaseFragment implements SystemUiListInterface<QualityCheckTodoList.ListBean> {
+public class QualityCheckTodoFragment extends BaseFragment implements SystemUiListInterface<QualityCheckTodoList.DataBean> {
 
 
     @BindView(R.id.recyclerView)
@@ -62,9 +62,9 @@ public class QualityCheckTodoFragment extends BaseFragment implements SystemUiLi
     @Override
     protected View onBaseCreate(View view) {
         // 设置 Header 样式
-        refreshLayout.setRefreshHeader(new MaterialHeader(getContext()));
+        refreshLayout.setRefreshHeader(new MaterialHeader(view.getContext()));
         // 设置 Footer 为 球脉冲 样式
-        refreshLayout.setRefreshFooter(new BallPulseFooter(getContext()).setSpinnerStyle(SpinnerStyle.Scale));
+        refreshLayout.setRefreshFooter(new BallPulseFooter(view.getContext()).setSpinnerStyle(SpinnerStyle.Scale));
         return view;
     }
 
@@ -100,7 +100,7 @@ public class QualityCheckTodoFragment extends BaseFragment implements SystemUiLi
     }
 
     @Override
-    public void showSystem(final List<QualityCheckTodoList.ListBean> list) {
+    public void showSystem(final List<QualityCheckTodoList.DataBean> list) {
 
         if (adapter == null) {
             LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
@@ -113,8 +113,7 @@ public class QualityCheckTodoFragment extends BaseFragment implements SystemUiLi
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                     Intent intent = new Intent(getActivity(), QualityCheckTodoDetailActivity.class);
-                    intent.putExtra("sapOrderNo", list.get(position).getSapOrderNo());
-                    intent.putExtra("supplierId", list.get(position).getSupplierId());
+                    intent.putExtra("arrivalOrderNo", list.get(position).getArrivalOrderNo());
                     startActivity(intent);
                 }
 

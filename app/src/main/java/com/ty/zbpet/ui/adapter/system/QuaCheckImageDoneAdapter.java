@@ -14,10 +14,10 @@ import java.util.List;
  * 质检 Rc 中图片 列表
  *
  */
-public class QuaCheckImageAdapter extends CommonAdapter<QualityCheckDoneDetails.ImageBean> {
+public class QuaCheckImageDoneAdapter extends CommonAdapter<QualityCheckDoneDetails.ImageBean> {
 
 
-    public QuaCheckImageAdapter(Context context, int layoutId, List<QualityCheckDoneDetails.ImageBean> datas) {
+    public QuaCheckImageDoneAdapter(Context context, int layoutId, List<QualityCheckDoneDetails.ImageBean> datas) {
         super(context, layoutId, datas);
     }
 

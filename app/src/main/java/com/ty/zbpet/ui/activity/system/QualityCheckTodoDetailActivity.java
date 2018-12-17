@@ -4,12 +4,12 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.ty.zbpet.R;
+import com.ty.zbpet.bean.system.QualityCheckTodoDetails;
 import com.ty.zbpet.bean.system.QualityCheckTodoList;
 import com.ty.zbpet.presenter.system.SystemPresenter;
 import com.ty.zbpet.presenter.system.SystemUiListInterface;
@@ -30,18 +30,18 @@ import java.util.Locale;
  * @author TY on 2018/12/12.
  * 质检待办详情
  */
-public class QualityCheckTodoDetailActivity extends BaseActivity implements SystemUiListInterface<QualityCheckTodoList.ListBean> {
+public class QualityCheckTodoDetailActivity extends BaseActivity implements SystemUiListInterface<QualityCheckTodoDetails.DataBean> {
 
     private RecyclerView reView;
     private TextView titleName;
     private TextView tvTime;
 
-    private String sapOrderNo;
+    private String arrivalOrderNo;
     private String selectTime;
 
     private QuaCheckTodoDetailAdapter adapter;
 
-    private List<QualityCheckTodoList.ListBean> listBeans = new ArrayList<>();
+    private List<QualityCheckTodoDetails.DataBean> listBeans = new ArrayList<>();
     private SystemPresenter presenter = new SystemPresenter(this);
 
     @Override
@@ -58,9 +58,9 @@ public class QualityCheckTodoDetailActivity extends BaseActivity implements Syst
     protected void initOneData() {
 
 
-        sapOrderNo = getIntent().getStringExtra("sapOrderNo");
+        arrivalOrderNo = getIntent().getStringExtra("arrivalOrderNo");
 
-        presenter.fetchQualityCheckTodoInfo(sapOrderNo);
+        presenter.fetchQualityCheckTodoInfo(arrivalOrderNo);
 
     }
 
@@ -93,12 +93,18 @@ public class QualityCheckTodoDetailActivity extends BaseActivity implements Syst
             }
         });
 
-        initToolBar(R.string.label_check);
+        initToolBar(R.string.label_quality_check, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ZBUiUtils.showToast("==");
+
+            }
+        });
 
     }
 
     @Override
-    public void showSystem(final List<QualityCheckTodoList.ListBean> list) {
+    public void showSystem(final List<QualityCheckTodoDetails.DataBean> list) {
 
         listBeans = list;
         if (adapter == null) {

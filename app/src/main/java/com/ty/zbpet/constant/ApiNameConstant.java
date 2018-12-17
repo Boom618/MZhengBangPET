@@ -306,33 +306,33 @@ public class ApiNameConstant {
     /**
      * 质检 待办列表
      */
-    public static final String GET_CHECK_TODO_LIST = "/q";
+    public static final String GET_CHECK_TODO_LIST = "check/materialCheckReport/getMaterialPurchaseList";
 
     /**
      * 质检 待办详情
      */
-    public static final String GET_CHECK_TODO_INFO = "/q";
+    public static final String GET_CHECK_TODO_INFO = "check/materialCheckReport/getMaterialPurchaseInfo";
 
     /**
      * 质检 待办保存
      */
-    public static final String GET_CHECK_TODO_SAVE = "/q";
+    public static final String GET_CHECK_TODO_SAVE = "check/materialCheckReport/addMaterialCheckReport";
 
 
     /**
      * 质检 已办列表
      */
-    public static final String GET_CHECK_DONE_LIST = "/q";
+    public static final String GET_CHECK_DONE_LIST = "check/materialCheckReport/getMaterialPurchaseList";
 
     /**
      * 质检 已办详情
      */
-    public static final String GET_CHECK_DONE_INFO = "/q";
+    public static final String GET_CHECK_DONE_INFO = "check/materialCheckReport/getMaterialCheckReportInfo";
 
     /**
-     * 质检 已办保存
+     * 质检 已办保存(修改)
      */
-    public static final String GET_CHECK_DONE_SAVE = "/q";
+    public static final String GET_CHECK_DONE_SAVE = "check/materialCheckReport/updateMaterialCheckReport";
 
     /**--------------------------------- 质检 end ------------------------------------------*/
 

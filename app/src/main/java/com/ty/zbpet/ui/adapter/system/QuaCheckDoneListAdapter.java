@@ -14,19 +14,19 @@ import java.util.List;
  *
  * @author TY
  */
-public class QuaCheckDoneListAdapter extends CommonAdapter<QualityCheckTodoList.ListBean> {
+public class QuaCheckDoneListAdapter extends CommonAdapter<QualityCheckTodoList.DataBean> {
 
 
-    public QuaCheckDoneListAdapter(Context context, int layoutId, List<QualityCheckTodoList.ListBean> datas) {
+    public QuaCheckDoneListAdapter(Context context, int layoutId, List<QualityCheckTodoList.DataBean> datas) {
         super(context, layoutId, datas);
     }
 
     @Override
-    protected void convert(ViewHolder holder, QualityCheckTodoList.ListBean list, int position) {
+    protected void convert(ViewHolder holder, QualityCheckTodoList.DataBean list, int position) {
         holder.setText(R.id.tv_operator, "修改")
-                .setText(R.id.tv_no, list.getSapOrderNo())
-                .setText(R.id.tv_msg, list.getGoodsInfo())
-                .setText(R.id.tv_date, list.getOrderTime())
+                .setText(R.id.tv_no,list.getArrivalOrderNo() )
+//                .setText(R.id.tv_msg, list.getGoodsInfo())
+                .setText(R.id.tv_date, list.getArrivalTime())
                 .setText(R.id.tv_type, list.getType())
                 .setText(R.id.tv_status, list.getState());
     }

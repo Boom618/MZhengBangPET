@@ -13,6 +13,7 @@ import com.ty.zbpet.bean.product.ProductDoneList;
 import com.ty.zbpet.bean.product.ProductTodoDetails;
 import com.ty.zbpet.bean.product.ProductTodoList;
 import com.ty.zbpet.bean.system.ImageData;
+import com.ty.zbpet.bean.system.QualityCheckTodoDetails;
 import com.ty.zbpet.bean.system.QualityCheckTodoList;
 import com.ty.zbpet.constant.ApiNameConstant;
 import com.ty.zbpet.ui.base.BaseResponse;
@@ -532,8 +533,9 @@ public interface ApiService {
      *
      * @return
      */
+    @FormUrlEncoded
     @POST(ApiNameConstant.GET_CHECK_TODO_LIST)
-    Single<BaseResponse<QualityCheckTodoList>> getCheckTodoList();
+    Single<BaseResponse<QualityCheckTodoList>> getCheckTodoList(@Field("state") String state);
 
     /**
      * 质检待办 详情
@@ -542,7 +544,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_CHECK_TODO_INFO)
-    Single<BaseResponse<QualityCheckTodoList>> getCheckTodoInfo(@Field("sapOrderNo") String sapOrderNo);
+    Single<BaseResponse<QualityCheckTodoDetails>> getCheckTodoInfo(@Field("arrivalOrderNo") String arrivalOrderNo);
 
     /**
      * 质检待办 保存
@@ -557,8 +559,9 @@ public interface ApiService {
      *
      * @return
      */
+    @FormUrlEncoded
     @POST(ApiNameConstant.GET_CHECK_DONE_LIST)
-    Single<BaseResponse<QualityCheckTodoList>> getCheckDoneList();
+    Single<BaseResponse<QualityCheckTodoList>> getCheckDoneList(@Field("state") String state);
 
     /**
      * 质检已办 详情
@@ -567,7 +570,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_CHECK_DONE_INFO)
-    Single<BaseResponse<QualityCheckTodoList>> getCheckDoneInfo(@Field("sapOrderNo") String sapOrderNo);
+    Single<BaseResponse<QualityCheckTodoList>> getCheckDoneInfo(@Field("arrivalOrderNo") String arrivalOrderNo);
 
     /**
      * 质检已办 保存
