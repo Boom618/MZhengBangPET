@@ -28,6 +28,7 @@ import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.CodeConstant;
 import com.ty.zbpet.util.DataUtils;
 import com.ty.zbpet.util.ResourceUtil;
+import com.ty.zbpet.util.SimpleCache;
 import com.ty.zbpet.util.ZBLog;
 import com.ty.zbpet.util.ZBUiUtils;
 import com.zhouyou.http.exception.ApiException;
@@ -94,9 +95,9 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
     private String supplierId;
 
     /**
-     * 用户信息
+     * 用户信息: DataUtils.getUserInfo()
      */
-    private UserInfo userInfo = DataUtils.getUserInfo();
+    private UserInfo userInfo;
 
     @Override
     protected void onBaseCreate(Bundle savedInstanceState) {
@@ -112,6 +113,7 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
         sapOrderNo = getIntent().getStringExtra("sapOrderNo");
         supplierId = getIntent().getStringExtra("supplierId");
 
+        userInfo = SimpleCache.getUserInfo(CodeConstant.USER_DATA);
         // TODO　仓库默认值设置　
         DataUtils.setHouseId(0, 0);
 
@@ -127,7 +129,7 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
         initToolBar(R.string.label_purchase_in_storage, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ZBUiUtils.hideInputWindow(BuyInTodoDetailActivity.this,view);
+                ZBUiUtils.hideInputWindow(BuyInTodoDetailActivity.this, view);
                 buyInTodoSave(initTodoBody());
             }
         });
@@ -207,13 +209,10 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
     private RequestBody initTodoBody() {
 
         ProductTodoSave requestBody = new ProductTodoSave();
-
         List<ProductTodoSave.DetailsBean> detail = new ArrayList<>();
 
         SparseArray<Integer> houseId = DataUtils.getHouseId();
-
         List<UserInfo.WarehouseListBean> warehouseList = userInfo.getWarehouseList();
-
 
         int size = oldList.size();
         for (int i = 0; i < size; i++) {
@@ -239,7 +238,6 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
                 warehouseNo = warehouseList.get(which).getWarehouseNo();
                 warehouseName = warehouseList.get(which).getWarehouseName();
             }
-
 
             ProductTodoSave.DetailsBean bean = new ProductTodoSave.DetailsBean();
             if (!TextUtils.isEmpty(bulkNum) && boxQrCode != null) {
@@ -288,7 +286,6 @@ public class BuyInTodoDetailActivity extends BaseActivity implements ProductUiLi
         requestBody.setInTime(time);
         requestBody.setSapOrderNo(sapOrderNo);
         requestBody.setRemark(remark);
-
 
         String json = DataUtils.toJson(requestBody, 1);
         ZBLog.e("JSON " + json);

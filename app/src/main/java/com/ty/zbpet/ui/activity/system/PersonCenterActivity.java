@@ -51,6 +51,8 @@ public class PersonCenterActivity extends BaseActivity implements UserInterface 
     private ImageView userImage;
     private ImageView backImage;
 
+    private boolean isExit = false;
+
     private Uri uri;
 
     private UserPresenter presenter = new UserPresenter(this);
@@ -101,13 +103,14 @@ public class PersonCenterActivity extends BaseActivity implements UserInterface 
             }
         });
 
-
     }
+
 
     /**
      * 退出登录
      */
     private void exitApp() {
+        isExit = true;
         presenter.userLogOut();
     }
 
@@ -116,6 +119,7 @@ public class PersonCenterActivity extends BaseActivity implements UserInterface 
     protected void onStart() {
         super.onStart();
 
+        presenter.userCenter();
     }
 
     /**
@@ -183,7 +187,6 @@ public class PersonCenterActivity extends BaseActivity implements UserInterface 
             @Override
             public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
-                Log.e("http ", e.getMessage());
             }
         }, imageBodyPart);
     }
@@ -249,15 +252,19 @@ public class PersonCenterActivity extends BaseActivity implements UserInterface 
 
     @Override
     public void onSuccess() {
+        if (isExit) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                    Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                    Intent.FLAG_ACTIVITY_NO_HISTORY);
+            startActivity(intent);
 
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK |
-                Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                Intent.FLAG_ACTIVITY_NO_HISTORY);
-        startActivity(intent);
+            SimpleCache.clearAll();
+            finish();
+        } else {
+            // 个人中心数据
 
-        SimpleCache.clearAll();
-        finish();
+        }
 
     }
 

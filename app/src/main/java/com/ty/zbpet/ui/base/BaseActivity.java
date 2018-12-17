@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.ty.zbpet.R;
 import com.ty.zbpet.util.ACache;
 import com.ty.zbpet.util.CodeConstant;
-import com.ty.zbpet.util.DataUtils;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;

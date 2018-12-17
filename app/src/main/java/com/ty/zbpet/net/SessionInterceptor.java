@@ -21,10 +21,16 @@ public class SessionInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request originalRequest = chain.request();
-        String sessionId = SimpleCache.getString(CodeConstant.SESSION_ID_KEY);
+
+        String sessionId = "";
+        try {
+            sessionId = SimpleCache.getString(CodeConstant.SESSION_ID_KEY);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         Request authorised = originalRequest.newBuilder()
-                .header(CodeConstant.SESSION_ID_KEY, sessionId)
+                .header(CodeConstant.SESSION_ID_KEY, "202cb962ac59075b964b07152d234b70")
                 .header(CodeConstant.SYSTEM_KEY, CodeConstant.SYSTEM_VALUE)
                 .build();
         return chain.proceed(authorised);

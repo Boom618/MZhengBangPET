@@ -1,7 +1,5 @@
 package com.ty.zbpet.util;
 
-import android.widget.TextView;
-
 import com.ty.zbpet.bean.UserInfo;
 
 /**
@@ -11,7 +9,7 @@ import com.ty.zbpet.bean.UserInfo;
  */
 public class SimpleCache {
 
-    private static ACache aCache;
+    private static ACache aCache = ACache.get(ResourceUtil.getContext());
 
     public SimpleCache() {
         aCache = ACache.get(ResourceUtil.getContext());

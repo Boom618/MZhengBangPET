@@ -6,7 +6,8 @@ apply plugin: 'io.objectbox' // apply last
 def ZBConfig = rootProject.ext
 
 static def releaseTime() {
-    return new Date().format("yyyy-MM-dd-HH.mm", TimeZone.getTimeZone("GMT+8"))
+    //return new Date().format("yyyy-MM-dd-HH.mm", TimeZone.getTimeZone("GMT+8"))
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("GMT+8"))
 }
 
 android {
@@ -34,14 +35,14 @@ android {
     signingConfigs {
         // 多渠道签名
         developRelease {
-            storeFile file("../../../SVN/code/App秘钥/正邦二维码激活/scanner_activate.jks")
+            storeFile file("../scanner_activate.jks")
             storePassword "ty.admin.scanner"
             keyAlias "key0"
             keyPassword "ty.admin.scanner"
         }
 
         masterRelease {
-            storeFile file("../../../SVN/code/App秘钥/正邦二维码激活/scanner_activate.jks")
+            storeFile file("../scanner_activate.jks")
             storePassword "ty.admin.scanner"
             keyAlias "key0"
             keyPassword "ty.admin.scanner"

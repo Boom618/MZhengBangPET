@@ -89,4 +89,9 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+    override fun onBackPressed() {
+        // exist app 会调用：onPause()和 onStop()
+        moveTaskToBack(true)
+    }
+
 }

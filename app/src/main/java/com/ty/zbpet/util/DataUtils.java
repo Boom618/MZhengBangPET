@@ -36,6 +36,24 @@ public class DataUtils {
         return "";
     }
 
+    /**
+     * 000123 >  123
+     * KW004 > KW004
+     *
+     * @param s
+     * @return
+     */
+    public static String string2Int(String s) {
+
+        String temp = s;
+        try {
+            temp = String.valueOf(Integer.parseInt(s));
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        return temp;
+    }
+
 
     /**
      * 假数据 处理
@@ -92,7 +110,7 @@ public class DataUtils {
         SparseArray<Integer> houseIdSArray = positionAndWhich.get(CodeConstant.SELECT_HOUSE_BUY_IN);
         if (houseIdSArray == null) {
             houseIdSArray = new SparseArray<>();
-            houseIdSArray.put(0,0);
+            houseIdSArray.put(0, 0);
         }
 
         // 取值:选择的是哪个仓库
@@ -122,7 +140,7 @@ public class DataUtils {
         SparseArray<Integer> goodsArray = positionAndWhich.get(CodeConstant.SELECT_GOODS);
         if (goodsArray == null) {
             goodsArray = new SparseArray<>();
-            goodsArray.put(0,0);
+            goodsArray.put(0, 0);
         }
         return goodsArray;
     }

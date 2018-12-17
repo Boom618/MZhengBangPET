@@ -20,7 +20,10 @@ class UserInfo : Serializable {
     var roleId: List<String>? = null
     var warehouseList: List<WarehouseListBean>? = null
 
-    class WarehouseListBean {
+    /**
+     * WarehouseListBean 不序列化, 导致 UserInfo 类不能缓存到文件
+     */
+    class WarehouseListBean : Serializable {
         /**
          * warehouseId : 3
          * warehouseNo : CK201808000003

@@ -46,8 +46,7 @@ class ArrivalInDoneDetailActivityK : BaseActivity(), MaterialUiListInterface<Mat
 
     override fun initTwoView() {
         detailRc = findViewById(R.id.rc_done_detail_list)
-        etDesc = findViewById(R.id.et_desc)
-        val desc = etDesc!!.text.toString().trim()
+        etDesc = this.findViewById(R.id.et_desc)
 
         initToolBar(R.string.material_reversal) {
             finish()

@@ -5,6 +5,7 @@ import android.view.View;
 
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.product.ProductDetailsOut;
+import com.ty.zbpet.util.DataUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -27,9 +28,9 @@ public class ReturnGoodsDoneDetailAdapter extends CommonAdapter<ProductDetailsOu
         holder.itemView.findViewById(R.id.tv_select_ware).setVisibility(View.GONE);
 
         holder.setText(R.id.tv_name, list.getGoodsName())
-                .setText(R.id.tv_number, "入库数量：" + list.getNumber())
-                .setText(R.id.tv_start_code, "开始码：" + list.getStartQrCode())
-                .setText(R.id.tv_end_code, "结束码：" + list.getEndQrCode())
+                .setText(R.id.tv_number, "入库数量：" + DataUtils.string2Int(list.getNumber()))
+                .setText(R.id.tv_start_code, "开始码：" + DataUtils.string2Int(list.getStartQrCode()))
+                .setText(R.id.tv_end_code, "结束码：" + DataUtils.string2Int(list.getEndQrCode()))
                 .setText(R.id.tv_sap, list.getSapMaterialBatchNo())
                 .setText(R.id.tv_num, list.getNumber() + "  " + list.getUnitS());
 

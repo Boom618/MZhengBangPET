@@ -64,8 +64,6 @@ public class UserPresenter {
 
                     SimpleCache.putObject(CodeConstant.USER_DATA, data);
                     SimpleCache.putString(CodeConstant.SESSION_ID_KEY, sessionId);
-//                    MainApp.mCache.put(CodeConstant.USER_DATA, data);
-//                    MainApp.mCache.put(CodeConstant.SESSION_ID_KEY, sessionId);
                 }
             }
 

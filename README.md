@@ -64,4 +64,8 @@ MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("file", fil
 
 ## 疑问
 
-- 用户登录约定：sessionId  、角色切换、 md5 加密 
+- 用户登录约定：sessionId  、角色切换、 md5 加密
+
+## 犯错
+
+- 需要缓存到文件的 Object ,里面的类也需要序列化: UserInfo
