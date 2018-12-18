@@ -1,23 +1,17 @@
 package com.ty.zbpet.ui.adapter.system;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.ImageView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 
 import com.ty.zbpet.R;
-import com.ty.zbpet.bean.system.QualityCheckDoneDetails;
 import com.ty.zbpet.bean.system.QualityCheckTodoDetails;
-import com.ty.zbpet.ui.widght.SpaceItemDecoration;
-import com.ty.zbpet.util.ResourceUtil;
-import com.ty.zbpet.util.ZBUiUtils;
+import com.ty.zbpet.util.CodeConstant;
+import com.ty.zbpet.util.DataUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,53 +21,58 @@ import java.util.List;
  */
 public class QuaCheckTodoDetailAdapter extends CommonAdapter<QualityCheckTodoDetails.DataBean> {
 
-    private Context context;
-    private RecyclerView recyclerView;
-    private ImageView addImage;
-    private GridLayoutManager gridLayoutManager;
-    private List<String> imageList = new ArrayList<>();
-    private QuaCheckImageTodoAdapter adapter;
 
     public QuaCheckTodoDetailAdapter(Context context, int layoutId, List datas) {
         super(context, layoutId, datas);
 
-        this.context = context;
-
-        gridLayoutManager = new GridLayoutManager(context, 3);
-        gridLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
     }
 
     @Override
     protected void convert(ViewHolder holder, QualityCheckTodoDetails.DataBean dataBean, int position) {
 
 
-        imageList.add("");
-        imageList.add("");
+        EditText etPercent = holder.itemView.findViewById(R.id.et_content);
+        EditText etNumber = holder.itemView.findViewById(R.id.et_check_number);
 
-        int size = 2;
-        if (adapter == null) {
-            if (size < 3) {
-                recyclerView = holder.itemView.findViewById(R.id.rc_image);
-                addImage = holder.itemView.findViewById(R.id.add_image);
-                recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(5), true));
-                recyclerView.setLayoutManager(gridLayoutManager);
+        // 数量
+        etNumber.addTextChangedListener(new EditWatcher(position, CodeConstant.ET_NUMBER_INT));
 
-                QuaCheckImageTodoAdapter adapter = new QuaCheckImageTodoAdapter(context, R.layout.item_sys_qua_check_image, imageList);
-                recyclerView.setAdapter(adapter);
+        // 含量
+        etPercent.addTextChangedListener(new EditWatcher(position, CodeConstant.ET_PERCENT_INT));
 
-                addImage.setVisibility(View.VISIBLE);
 
-                addImage.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // TODO 选择相册 刷新列表
-                        ZBUiUtils.selectGalleryOrPhoto(v.getContext());
-                    }
-                });
-            } else {
-                addImage.setVisibility(View.GONE);
-            }
+    }
+
+
+    class EditWatcher implements TextWatcher {
+
+        private int type;
+        private int position;
+
+        public EditWatcher(int position, int type) {
+            this.type = type;
+            this.position = position;
+
         }
 
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+            if (CodeConstant.ET_NUMBER_INT == type) {
+                DataUtils.setNumber(position, s.toString().trim());
+            } else {
+                DataUtils.setPercent(position, s.toString().trim());
+            }
+        }
     }
 }

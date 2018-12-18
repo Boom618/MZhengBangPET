@@ -1,28 +1,46 @@
 package com.ty.zbpet.util;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.net.Uri;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.bumptech.glide.Glide;
+import com.qingmei2.rximagepicker.core.RxImagePicker;
+import com.qingmei2.rximagepicker.entity.Result;
+import com.ty.zbpet.bean.system.ImageData;
+import com.ty.zbpet.constant.ApiNameConstant;
+import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.MainApp;
 import com.ty.zbpet.ui.activity.material.ArrivalInTodoDetailActivity;
+import com.ty.zbpet.ui.activity.system.PersonCenterActivity;
 import com.ty.zbpet.ui.widght.CustomDatePicker;
 import com.ty.zbpet.ui.widght.NormalAlertDialog;
 import com.ty.zbpet.ui.widght.NormalSelectionDialog;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import io.reactivex.SingleObserver;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * @author TY
@@ -217,13 +235,12 @@ public class ZBUiUtils {
 
     /**
      * 质检 图片选择/ 相册 or 相机
-     *
      */
-    public static void selectGalleryOrPhoto(Context context) {
+    public static void selectGalleryOrPhoto(final Context context, final int position, final ImageView imageView) {
 
         galleryOrPhoto.clear();
         galleryOrPhoto.add("相册");
-        galleryOrPhoto.add("拍照");
+//        galleryOrPhoto.add("拍照");
 
         NormalSelectionDialog.Builder builder = new NormalSelectionDialog.Builder(context);
 
@@ -238,6 +255,8 @@ public class ZBUiUtils {
 
                 }
 
+                systemGallery(context, position, imageView);
+
 
                 dialog.dismiss();
             }
@@ -247,6 +266,79 @@ public class ZBUiUtils {
                 .show();
 
 
+    }
+
+    /**
+     * 打开系统相册
+     */
+    @SuppressLint("CheckResult")
+    private static void systemGallery(final Context context, final int position, final ImageView userImage) {
+        RxImagePicker.INSTANCE
+                .create()
+                .openGallery(context)
+                .subscribe(new Consumer<Result>() {
+                    @Override
+                    public void accept(Result result) throws Exception {
+
+                        Uri uri = result.getUri();
+
+                        Glide.with(context)
+                                .load(uri)
+                                .into(userImage);
+
+                        updateImage(context, position, uri);
+
+                    }
+
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                        ZBUiUtils.showToast(throwable.getMessage());
+
+                    }
+                });
+    }
+
+    /**
+     * 上传质检照片
+     */
+    public static void updateImage(Context context, final int position, Uri uri) {
+
+        String path = ResourceUtil.getRealPathFromUri(context, uri);
+
+        File file = new File(path);
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+
+//=====================
+
+        HttpMethods methods = new HttpMethods(ApiNameConstant.BASE_URL2);
+
+        methods.updateCheckImage(new SingleObserver<ImageData>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onSuccess(ImageData responseInfo) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+
+                    String fileName = responseInfo.getFileName();
+                    // TODO 保存图片（目前只支持一张图片）
+                    DataUtils.setImageId(position, fileName);
+                    ZBUiUtils.showToast("图片上传：" + responseInfo.getTag());
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                ZBUiUtils.showToast(e.getMessage());
+            }
+        }, imageBodyPart);
     }
 
 }

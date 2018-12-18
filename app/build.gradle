@@ -191,6 +191,9 @@ dependencies {
     // objectBox 数据库
     implementation 'io.objectbox:objectbox-android:2.2.0'
 
+    // 相册选择
+    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
+
     // bugly 管理
     implementation "com.tencent.bugly:crashreport:${bugly_version}"
 

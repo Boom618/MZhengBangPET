@@ -1,6 +1,5 @@
 package com.ty.zbpet.net;
 
-import com.ty.zbpet.ui.MainApp;
 import com.ty.zbpet.util.CodeConstant;
 import com.ty.zbpet.util.SimpleCache;
 
@@ -30,7 +29,7 @@ public class SessionInterceptor implements Interceptor {
         }
 
         Request authorised = originalRequest.newBuilder()
-                .header(CodeConstant.SESSION_ID_KEY, "202cb962ac59075b964b07152d234b70")
+                .header(CodeConstant.SESSION_ID_KEY, "27DPMUT_YKcGemZW5glwaDpaAxRPBfhZ")
                 .header(CodeConstant.SYSTEM_KEY, CodeConstant.SYSTEM_VALUE)
                 .build();
         return chain.proceed(authorised);

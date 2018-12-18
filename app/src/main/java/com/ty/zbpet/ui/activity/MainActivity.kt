@@ -47,6 +47,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         findViewById<TextView>(R.id.tv_return_in_storage).setOnClickListener(this)
 
         findViewById<TextView>(R.id.tv_inventory).setOnClickListener(this)
+        findViewById<TextView>(R.id.tv_transfer_storage).setOnClickListener(this)
         findViewById<TextView>(R.id.tv_person_center).setOnClickListener(this)
 
     }

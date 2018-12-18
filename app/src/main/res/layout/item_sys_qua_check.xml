@@ -2,7 +2,9 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_white_min_radius"
+    android:paddingBottom="@dimen/space_8">
 
     <ImageView
         android:id="@+id/iv_tag"
@@ -57,40 +59,35 @@
         android:id="@+id/gone_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/tv_num">
 
 
         <EditText
-            android:id="@+id/et_content"
+            android:id="@+id/et_check_number"
+            style="@style/itemSizeStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_28"
             android:layout_marginStart="@dimen/text_28"
-            android:layout_marginTop="@dimen/text_16"
+            android:layout_marginTop="16dp"
+            android:hint="质检数量："
+            android:inputType="number"
+            android:lines="1" />
+
+        <EditText
+            android:id="@+id/et_content"
+            style="@style/itemSizeStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/text_28"
+            android:layout_marginEnd="@dimen/text_28"
             android:hint="含量："
+            android:inputType="numberDecimal"
             android:lines="1"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_check_number" />
 
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rc_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/et_content">
-
-        </android.support.v7.widget.RecyclerView>
-
-        <ImageView
-            android:id="@+id/add_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_8"
-            android:background="@mipmap/tjzpicon"
-            app:layout_constraintLeft_toRightOf="@+id/rc_image"
-            app:layout_constraintTop_toTopOf="@+id/rc_image" />
 
     </android.support.constraint.ConstraintLayout>
 

@@ -69,3 +69,13 @@ MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("file", fil
 ## 犯错
 
 - 需要缓存到文件的 Object ,里面的类也需要序列化: UserInfo
+- RecyclerView 不设置 `setLayoutManager` 不显示
+- adapter 执行：
+  构造方法
+  getItemCount
+  getItemViewType
+  onCreateViewHolder
+  ViewHolder
+  onBindViewHolder
+  getItemViewType
+  getItemCount

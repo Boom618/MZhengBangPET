@@ -1,19 +1,24 @@
 package com.ty.zbpet.ui.activity.system;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.ty.zbpet.R;
+import com.ty.zbpet.bean.system.QualityCheckDoneDetails;
 import com.ty.zbpet.bean.system.QualityCheckTodoList;
 import com.ty.zbpet.presenter.system.SystemPresenter;
 import com.ty.zbpet.presenter.system.SystemUiListInterface;
+import com.ty.zbpet.ui.adapter.product.ReturnGoodsDoneDetailAdapter;
 import com.ty.zbpet.ui.adapter.system.QuaCheckDoneDetailAdapter;
 import com.ty.zbpet.ui.adapter.system.QuaCheckTodoDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
+import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.CodeConstant;
+import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.ZBUiUtils;
 
 import java.text.SimpleDateFormat;
@@ -25,7 +30,7 @@ import java.util.Locale;
 /**
  * @author TY on 2018/12/12.
  */
-public class QualityCheckDoneDetailActivity extends BaseActivity implements SystemUiListInterface<QualityCheckTodoList.DataBean> {
+public class QualityCheckDoneDetailActivity extends BaseActivity implements SystemUiListInterface<QualityCheckDoneDetails.ListBean> {
 
 
     private RecyclerView reView;
@@ -37,7 +42,7 @@ public class QualityCheckDoneDetailActivity extends BaseActivity implements Syst
 
     private QuaCheckDoneDetailAdapter adapter;
 
-    private List<QualityCheckTodoList.DataBean> listBeans = new ArrayList<>();
+    private List<QualityCheckDoneDetails.ListBean> listBeans = new ArrayList<>();
     private SystemPresenter presenter = new SystemPresenter(this);
 
     @Override
@@ -78,7 +83,16 @@ public class QualityCheckDoneDetailActivity extends BaseActivity implements Syst
     }
 
     @Override
-    public void showSystem(List<QualityCheckTodoList.DataBean> list) {
+    public void showSystem(List<QualityCheckDoneDetails.ListBean> list) {
+
+        listBeans = list;
+        if (adapter == null) {
+            LinearLayoutManager manager = new LinearLayoutManager(ResourceUtil.getContext());
+            reView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(10), false));
+            reView.setLayoutManager(manager);
+            adapter = new QuaCheckDoneDetailAdapter(this, R.layout.item_product_detail_two_done, list);
+            reView.setAdapter(adapter);
+        }
 
     }
 }

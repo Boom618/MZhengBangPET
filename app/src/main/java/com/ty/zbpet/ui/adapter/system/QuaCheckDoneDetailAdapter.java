@@ -42,28 +42,28 @@ public class QuaCheckDoneDetailAdapter extends CommonAdapter<QualityCheckDoneDet
     @Override
     protected void convert(ViewHolder holder, QualityCheckDoneDetails.ListBean listBean, int position) {
 
-        List<QualityCheckDoneDetails.ImageBean> imageList = listBean.getImageList();
+        List<String> pathList = listBean.getPathList();
 
-        int size = imageList.size();
-        if (size < 3) {
-            recyclerView = holder.itemView.findViewById(R.id.rc_image);
-            addImage = holder.itemView.findViewById(R.id.add_image);
-            recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(5), true));
-            recyclerView.setLayoutManager(gridLayoutManager);
-            QuaCheckImageDoneAdapter adapter = new QuaCheckImageDoneAdapter(context, R.layout.item_sys_qua_check_image, imageList);
-            recyclerView.setAdapter(adapter);
-
-            addImage.setVisibility(View.VISIBLE);
-            addImage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // TODO 选择相册 刷新列表
-                    ZBUiUtils.selectGalleryOrPhoto(v.getContext());
-                }
-            });
-        } else {
-            addImage.setVisibility(View.GONE);
-        }
+        int size = pathList.size();
+//        if (size < 3) {
+//            recyclerView = holder.itemView.findViewById(R.id.rc_image);
+//            addImage = holder.itemView.findViewById(R.id.add_image);
+//            recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(5), true));
+//            recyclerView.setLayoutManager(gridLayoutManager);
+//            QuaCheckImageDoneAdapter adapter = new QuaCheckImageDoneAdapter(context, R.layout.item_sys_qua_check_image, imageList);
+//            recyclerView.setAdapter(adapter);
+//
+//            addImage.setVisibility(View.VISIBLE);
+//            addImage.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    // TODO 选择相册 刷新列表
+//                    ZBUiUtils.selectGalleryOrPhoto(v.getContext());
+//                }
+//            });
+//        } else {
+//            addImage.setVisibility(View.GONE);
+//        }
 
 
     }

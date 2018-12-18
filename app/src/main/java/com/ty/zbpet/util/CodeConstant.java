@@ -32,13 +32,18 @@ public final class CodeConstant {
     public static final String ET_BATCH_NO = "et_batch_no";
 
     /**
-     * 开始 结束码
-     * 数量 文本
+     * ET_START_CODE ：开始码
+     * ET_END_CODE：结束码
+     * ET_NUMBER：数量
+     * ET_CONTENT：文本
+     * ET_PERCENT_INT：质检 含量
      */
     public static final String ET_START_CODE = "start_code ";
     public static final String ET_END_CODE = "end_code";
     public static final String ET_NUMBER = "number";
     public static final String ET_CONTENT = "content";
+    public static final int ET_NUMBER_INT = 60;
+    public static final int ET_PERCENT_INT = 70;
     /**
      * 按键码 131 or 135 : K3A手柄键   139 : G3A F1键
      */
@@ -81,9 +86,11 @@ public final class CodeConstant {
      * <p>
      * SELECT_HOUSE_BUY_IN : 选择的是哪个仓库
      * SELECT_GOODS:        选择的是哪个商品
+     * SELECT_IMAGE:        质检上传的图片
      */
     public static final int SELECT_HOUSE_BUY_IN = 100;
     public static final int SELECT_GOODS = 300;
+    public static final int SELECT_IMAGE = 700;
 
 
     /**

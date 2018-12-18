@@ -1,17 +1,27 @@
 package com.ty.zbpet.presenter.system;
 
+import android.content.Context;
+import android.net.Uri;
+
+import com.ty.zbpet.bean.system.ImageData;
 import com.ty.zbpet.bean.system.QualityCheckTodoDetails;
 import com.ty.zbpet.bean.system.QualityCheckTodoList;
 import com.ty.zbpet.constant.ApiNameConstant;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
 import com.ty.zbpet.util.CodeConstant;
+import com.ty.zbpet.util.DataUtils;
+import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.ZBUiUtils;
 
+import java.io.File;
 import java.util.List;
 
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * @author TY on 2018/12/12.
@@ -30,7 +40,6 @@ public class SystemPresenter {
 
     public SystemPresenter(SystemUiListInterface listInterface) {
         this.listInterface = listInterface;
-//        httpMethods = HttpMethods.getInstance();
         httpMethods = new HttpMethods(ApiNameConstant.BASE_URL2);
 
     }
@@ -158,6 +167,44 @@ public class SystemPresenter {
                 ZBUiUtils.showToast(e.getMessage());
             }
         },arrivalOrderNo);
+    }
+
+
+    /**
+     * 上传质检照片
+     */
+    public void updateImage(Context context, final int position, Uri uri) {
+
+        String path = ResourceUtil.getRealPathFromUri(context, uri);
+
+        File file = new File(path);
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+
+        httpMethods.updateCheckImage(new SingleObserver<ImageData>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onSuccess(ImageData responseInfo) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+
+                    String fileName = responseInfo.getFileName();
+                    // TODO 保存图片（目前只支持一张图片）
+                    DataUtils.setImageId(position, fileName);
+                    ZBUiUtils.showToast("图片上传：" + responseInfo.getTag());
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                ZBUiUtils.showToast(e.getMessage());
+            }
+        }, imageBodyPart);
     }
 
 }
