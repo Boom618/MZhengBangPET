@@ -11,11 +11,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.ResponseInfo;
-import com.ty.zbpet.bean.UserInfo;
-import com.ty.zbpet.bean.material.MaterialDoneSave;
 import com.ty.zbpet.bean.product.ProductDetailsOut;
 import com.ty.zbpet.bean.product.ProductDoneSave;
 import com.ty.zbpet.net.HttpMethods;
@@ -29,8 +26,6 @@ import com.ty.zbpet.util.CodeConstant;
 import com.ty.zbpet.util.DataUtils;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.ZBUiUtils;
-import com.zhouyou.http.exception.ApiException;
-import com.zhouyou.http.subsciber.BaseSubscriber;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,6 +33,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import io.reactivex.SingleObserver;
+import io.reactivex.disposables.Disposable;
 import okhttp3.RequestBody;
 
 /**
@@ -124,14 +121,19 @@ public class SendOutDoneDetailActivity extends BaseActivity implements ProductUi
      */
     private void sendOutDoneSave(RequestBody body) {
 
-        HttpMethods.getInstance().getShipDoneSave(new BaseSubscriber<ResponseInfo>() {
+        HttpMethods.getInstance().getShipDoneSave(new SingleObserver<ResponseInfo>() {
             @Override
-            public void onError(ApiException e) {
+            public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
-            public void onNext(ResponseInfo responseInfo) {
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo responseInfo) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     // 入库成功（保存）
                     ZBUiUtils.showToast(responseInfo.getMessage());

@@ -30,3 +30,5 @@ MZhengBangPET.iml
 local.properties
 *.apk
 *.json
+
+build/

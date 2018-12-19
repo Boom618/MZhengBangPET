@@ -77,6 +77,7 @@ public class PersonCenterActivity extends BaseActivity implements UserInterface 
         btnUpDataPass = findViewById(R.id.btn_modify_pwd);
         btnExit = findViewById(R.id.btn_cancel);
         userImage = findViewById(R.id.user_select_image);
+        userImage.setVisibility(View.GONE);
         backImage = findViewById(R.id.iv_back);
         backImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -268,7 +269,7 @@ public class PersonCenterActivity extends BaseActivity implements UserInterface 
     }
 
     @Override
-    public void onError(Throwable e) {
+    public void onError(String e) {
 
 
     }

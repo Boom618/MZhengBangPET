@@ -182,7 +182,7 @@ public class HttpMethods {
      * @param subscriber
      * @param body
      */
-    public void materialTodoInSave(BaseSubscriber<ResponseInfo> subscriber, RequestBody body) {
+    public void materialTodoInSave(SingleObserver<ResponseInfo> subscriber, RequestBody body) {
         mService.materialPurchaseInSave(body)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -228,7 +228,7 @@ public class HttpMethods {
      * @param subscriber
      * @param body
      */
-    public void materialDoneInSave(BaseSubscriber<ResponseInfo> subscriber, RequestBody body) {
+    public void materialDoneInSave(SingleObserver<ResponseInfo> subscriber, RequestBody body) {
         mService.purchaseInRecallOut(body)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -300,7 +300,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void pickOutDoneSave(BaseSubscriber<ResponseInfo> subscriber, RequestBody body) {
+    public void pickOutDoneSave(SingleObserver<ResponseInfo> subscriber, RequestBody body) {
         mService.pickOutDoneSave(body)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -315,7 +315,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getBackTodoList(BaseSubscriber<BaseResponse<MaterialTodoList>> subscriber) {
+    public void getBackTodoList(SingleObserver<BaseResponse<MaterialTodoList>> subscriber) {
         mService.getBackTodoList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -327,7 +327,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getBackTodoListInfo(BaseSubscriber<BaseResponse<MaterialDetailsIn>> subscriber, String sapOrderNo) {
+    public void getBackTodoListInfo(SingleObserver<BaseResponse<MaterialDetailsIn>> subscriber, String sapOrderNo) {
         mService.getBackTodoListInfo(sapOrderNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -338,7 +338,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getBackTodoSave(BaseSubscriber<ResponseInfo> subscriber, RequestBody body) {
+    public void getBackTodoSave(SingleObserver<ResponseInfo> subscriber, RequestBody body) {
         mService.getBackTodoSave(body)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -349,7 +349,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getBackDoneList(BaseSubscriber<BaseResponse<MaterialDoneList>> subscriber, String type) {
+    public void getBackDoneList(SingleObserver<BaseResponse<MaterialDoneList>> subscriber, String type) {
         mService.getBackDoneList(type)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -361,7 +361,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getBackDoneListInfo(BaseSubscriber<BaseResponse<MaterialDetailsOut>> subscriber, String orderId) {
+    public void getBackDoneListInfo(SingleObserver<BaseResponse<MaterialDetailsOut>> subscriber, String orderId) {
         mService.getBackDoneListInfo(orderId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -372,7 +372,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getBackDoneSave(BaseSubscriber<ResponseInfo> subscriber, RequestBody body) {
+    public void getBackDoneSave(SingleObserver<ResponseInfo> subscriber, RequestBody body) {
         mService.getBackDoneSave(body)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -411,7 +411,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getBuyInTodoSave(BaseSubscriber<ResponseInfo> subscriber, RequestBody body) {
+    public void getBuyInTodoSave(SingleObserver<ResponseInfo> subscriber, RequestBody body) {
         mService.getBuyInTodoSave(body)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -445,7 +445,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getBuyInDoneSave(BaseSubscriber<ResponseInfo> subscriber, RequestBody body) {
+    public void getBuyInDoneSave(SingleObserver<ResponseInfo> subscriber, RequestBody body) {
         mService.getBuyInDoneSave(body)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -480,7 +480,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getProduceTodoSave(BaseSubscriber<ResponseInfo> subscriber, RequestBody body) {
+    public void getProduceTodoSave(SingleObserver<ResponseInfo> subscriber, RequestBody body) {
         mService.getProduceTodoSave(body)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -514,7 +514,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getProduceDoneSave(BaseSubscriber<ResponseInfo> subscriber, RequestBody body) {
+    public void getProduceDoneSave(SingleObserver<ResponseInfo> subscriber, RequestBody body) {
         mService.getProduceDoneSave(body)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -584,7 +584,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getShipDoneSave(BaseSubscriber<ResponseInfo> subscriber, RequestBody body) {
+    public void getShipDoneSave(SingleObserver<ResponseInfo> subscriber, RequestBody body) {
         mService.getShipDoneSave(body)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);

@@ -18,9 +18,6 @@ import com.ty.zbpet.bean.system.QualityCheckTodoList;
 import com.ty.zbpet.constant.ApiNameConstant;
 import com.ty.zbpet.ui.base.BaseResponse;
 
-import java.util.List;
-
-import io.reactivex.Observable;
 import io.reactivex.Single;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -114,7 +111,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.PURCHASE_IN)
-    Observable<ResponseInfo> materialPurchaseInSave(@Body RequestBody body);
+    Single<ResponseInfo> materialPurchaseInSave(@Body RequestBody body);
 
 
     /**
@@ -153,7 +150,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.PURCHASE_IN_RECALL_OUT)
-    Observable<ResponseInfo> purchaseInRecallOut(@Body RequestBody body);
+    Single<ResponseInfo> purchaseInRecallOut(@Body RequestBody body);
 
     /**--------------------------------- 领料出库 ----------------------------------------*/
 
@@ -212,7 +209,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.PICK_OUT_DONE_LIST_SAVE)
-    Observable<ResponseInfo> pickOutDoneSave(@Body RequestBody body);
+    Single<ResponseInfo> pickOutDoneSave(@Body RequestBody body);
 
     /**--------------------------------- 采购退货 ----------------------------------------*/
 
@@ -222,7 +219,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.GET_BACK_GOODS_TODO_LIST)
-    Observable<BaseResponse<MaterialTodoList>> getBackTodoList();
+    Single<BaseResponse<MaterialTodoList>> getBackTodoList();
 
     /**
      * 采购退货 待办列表 详情
@@ -232,7 +229,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_BACK_GOODS_TODO_LIST_INFO)
-    Observable<BaseResponse<MaterialDetailsIn>> getBackTodoListInfo(@Field("sapOrderNo") String sapOrderNo);
+    Single<BaseResponse<MaterialDetailsIn>> getBackTodoListInfo(@Field("sapOrderNo") String sapOrderNo);
 
     /**
      * 采购退货 待办保存
@@ -241,7 +238,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.GET_BACK_GOODS_TODO_SAVE)
-    Observable<ResponseInfo> getBackTodoSave(@Body RequestBody body);
+    Single<ResponseInfo> getBackTodoSave(@Body RequestBody body);
 
 
     /**
@@ -252,7 +249,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_BACK_GOODS_DONE_LIST)
-    Observable<BaseResponse<MaterialDoneList>> getBackDoneList(@Field("type") String type);
+    Single<BaseResponse<MaterialDoneList>> getBackDoneList(@Field("type") String type);
 
     /**
      * 采购退货 已办详情
@@ -262,7 +259,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_BACK_GOODS_DONE_LIST_INFO)
-    Observable<BaseResponse<MaterialDetailsOut>> getBackDoneListInfo(@Field("orderId") String orderId);
+    Single<BaseResponse<MaterialDetailsOut>> getBackDoneListInfo(@Field("orderId") String orderId);
 
     /**
      * 采购退货 已办保存
@@ -271,7 +268,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.GET_BACK_GOODS_DONE_SAVE)
-    Observable<ResponseInfo> getBackDoneSave(@Body RequestBody body);
+    Single<ResponseInfo> getBackDoneSave(@Body RequestBody body);
 
     /**----------------------------------------------------------------------------------*/
     /**--------------------------------- 成品库存 ----------------------------------------*/
@@ -305,7 +302,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.GET_PURCHASE_TODO_SAVE)
-    Observable<ResponseInfo> getBuyInTodoSave(@Body RequestBody body);
+    Single<ResponseInfo> getBuyInTodoSave(@Body RequestBody body);
 
 
     /**
@@ -335,7 +332,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.GET_PURCHASE_DONE_SAVE)
-    Observable<ResponseInfo> getBuyInDoneSave(@Body RequestBody body);
+    Single<ResponseInfo> getBuyInDoneSave(@Body RequestBody body);
 
 
     /**--------------------------------- 生产入库 ----------------------------------------*/
@@ -366,7 +363,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.GET_PRODUCE_TODO_SAVE)
-    Observable<ResponseInfo> getProduceTodoSave(@Body RequestBody body);
+    Single<ResponseInfo> getProduceTodoSave(@Body RequestBody body);
 
 
     /**
@@ -396,7 +393,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.GET_PRODUCE_DONE_SAVE)
-    Observable<ResponseInfo> getProduceDoneSave(@Body RequestBody body);
+    Single<ResponseInfo> getProduceDoneSave(@Body RequestBody body);
 
 
     /**--------------------------------- 发货出库 ----------------------------------------*/
@@ -457,7 +454,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.GET_SHIP_DONE_SAVE)
-    Observable<ResponseInfo> getShipDoneSave(@Body RequestBody body);
+    Single<ResponseInfo> getShipDoneSave(@Body RequestBody body);
 
 
     /**--------------------------------- 退货入库 ----------------------------------------*/

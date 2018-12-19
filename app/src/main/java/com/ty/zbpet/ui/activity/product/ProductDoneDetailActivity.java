@@ -37,6 +37,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import io.reactivex.SingleObserver;
+import io.reactivex.disposables.Disposable;
 import okhttp3.RequestBody;
 
 /**
@@ -125,14 +127,19 @@ public class ProductDoneDetailActivity extends BaseActivity implements ProductUi
      */
     private void productDoneSave(RequestBody body) {
 
-        HttpMethods.getInstance().getProduceDoneSave(new BaseSubscriber<ResponseInfo>() {
+        HttpMethods.getInstance().getProduceDoneSave(new SingleObserver<ResponseInfo>() {
             @Override
-            public void onError(ApiException e) {
+            public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
-            public void onNext(ResponseInfo responseInfo) {
+            public void onSubscribe(Disposable d) {
+                
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo responseInfo) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     // 入库成功（保存）
                     ZBUiUtils.showToast(responseInfo.getMessage());
@@ -223,7 +230,7 @@ public class ProductDoneDetailActivity extends BaseActivity implements ProductUi
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(ProductDoneDetailActivity.this, ScanBoxCodeActivity.class);
-                            intent.putExtra(CodeConstant.PAGE_STATE,false);
+                            intent.putExtra(CodeConstant.PAGE_STATE, false);
                             intent.putStringArrayListExtra("boxCodeList", boxQrCodeList);
                             startActivity(intent);
                         }

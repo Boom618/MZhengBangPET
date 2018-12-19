@@ -30,8 +30,6 @@ import com.ty.zbpet.util.DataUtils;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.ZBLog;
 import com.ty.zbpet.util.ZBUiUtils;
-import com.zhouyou.http.exception.ApiException;
-import com.zhouyou.http.subsciber.BaseSubscriber;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,6 +37,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import io.reactivex.SingleObserver;
+import io.reactivex.disposables.Disposable;
 import okhttp3.RequestBody;
 
 /**
@@ -199,14 +199,19 @@ public class ProductTodoDetailActivity extends BaseActivity implements ProductUi
             return;
         }
 
-        HttpMethods.getInstance().getProduceTodoSave(new BaseSubscriber<ResponseInfo>() {
+        HttpMethods.getInstance().getProduceTodoSave(new SingleObserver<ResponseInfo>() {
             @Override
-            public void onError(ApiException e) {
+            public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
-            public void onNext(ResponseInfo responseInfo) {
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo responseInfo) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     // 入库成功（保存）
                     ZBUiUtils.showToast(responseInfo.getMessage());

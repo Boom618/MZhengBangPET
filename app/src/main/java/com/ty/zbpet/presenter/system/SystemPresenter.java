@@ -169,13 +169,11 @@ public class SystemPresenter {
         },arrivalOrderNo);
     }
 
-
     /**
      * 上传质检照片
      */
-    public void updateImage(Context context, final int position, Uri uri) {
+    public void updateImage(Context context, final int position, String path) {
 
-        String path = ResourceUtil.getRealPathFromUri(context, uri);
 
         File file = new File(path);
 
@@ -206,5 +204,6 @@ public class SystemPresenter {
             }
         }, imageBodyPart);
     }
+
 
 }

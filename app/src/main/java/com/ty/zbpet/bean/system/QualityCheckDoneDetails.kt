@@ -7,7 +7,7 @@ package com.ty.zbpet.bean.system
  */
 class QualityCheckDoneDetails {
 
-    var count: Int = 0
+    var count: String? = null
     var list: List<ListBean>? = null
 
     class ListBean {
@@ -31,20 +31,20 @@ class QualityCheckDoneDetails {
          * pathList : ["\\files\\7831f527657ef9a76d88824ee552b381.JPEG"]
          */
 
-        var id: Int = 0
-        var checkBatchNo: Any? = null
-        var companyNo: Any? = null
+        var id: String? = null
+        var checkBatchNo: String? = null
+        var companyNo: String? = null
         var arrivalOrderNo: String? = null
         var materialNo: String? = null
         var materialName: String? = null
-        var percent: Int = 0
-        var positionNo: Any? = null
-        var supplierNo: Any? = null
+        var percent: String? = null
+        var positionNo: String? = null
+        var supplierNo: String? = null
         var fileName: String? = null
-        var state: Any? = null
-        var checkTime: Any? = null
-        var checkDesc: Any? = null
-        var creator: Any? = null
+        var state: String? = null
+        var checkTime: String? = null
+        var checkDesc: String? = null
+        var creator: String? = null
         var createdAt: String? = null
         var updatedAt: String? = null
         var pathList: List<String>? = null

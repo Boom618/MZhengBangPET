@@ -18,6 +18,6 @@ public interface UserInterface {
      *
      * @param e 错误信息
      */
-    void onError(Throwable e);
+    void onError(String e);
 
 }

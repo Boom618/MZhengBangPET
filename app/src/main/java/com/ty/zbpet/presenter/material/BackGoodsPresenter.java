@@ -9,8 +9,6 @@ import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
 import com.ty.zbpet.util.CodeConstant;
 import com.ty.zbpet.util.ZBUiUtils;
-import com.zhouyou.http.exception.ApiException;
-import com.zhouyou.http.subsciber.BaseSubscriber;
 
 import java.util.List;
 
@@ -66,7 +64,7 @@ public class BackGoodsPresenter {
         httpMethods = HttpMethods.getInstance();
     }
 
-    public void dispose(){
+    public void dispose() {
         if (disposable != null) {
             disposable.dispose();
         }
@@ -77,14 +75,19 @@ public class BackGoodsPresenter {
      */
     public void fetchBackTodoList() {
 
-        httpMethods.getBackTodoList(new BaseSubscriber<BaseResponse<MaterialTodoList>>() {
+        httpMethods.getBackTodoList(new SingleObserver<BaseResponse<MaterialTodoList>>() {
             @Override
-            public void onError(ApiException e) {
+            public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
-            public void onNext(BaseResponse<MaterialTodoList> response) {
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(BaseResponse<MaterialTodoList> response) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
                     List<MaterialTodoList.ListBean> list = response.getData().getList();
@@ -104,15 +107,20 @@ public class BackGoodsPresenter {
      */
     public void fetchBackTodoListInfo(String sapOrderNo) {
 
-        httpMethods.getBackTodoListInfo(new BaseSubscriber<BaseResponse<MaterialDetailsIn>>() {
+        httpMethods.getBackTodoListInfo(new SingleObserver<BaseResponse<MaterialDetailsIn>>() {
             @Override
-            public void onError(ApiException e) {
+            public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
 
             }
 
             @Override
-            public void onNext(BaseResponse<MaterialDetailsIn> response) {
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(BaseResponse<MaterialDetailsIn> response) {
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
@@ -163,43 +171,49 @@ public class BackGoodsPresenter {
      * 已办 列表
      */
     public void fetchBackDoneList(String type) {
-        httpMethods.getBackDoneList(new BaseSubscriber<BaseResponse<MaterialDoneList>>() {
+        httpMethods.getBackDoneList(new SingleObserver<BaseResponse<MaterialDoneList>>() {
             @Override
-            public void onError(ApiException e) {
+            public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
-            public void onNext(BaseResponse<MaterialDoneList> infoList) {
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onSuccess(BaseResponse<MaterialDoneList> infoList) {
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(infoList.getTag())) {
                     if (null != infoList && infoList.getData() != null) {
                         List<MaterialDoneList.ListBean> list = infoList.getData().getList();
                         materialListUi.showMaterial(list);
-//                        if (list != null && list.size() != 0) {
-//                        } else {
-//                            ZBUiUtils.showToast("没有信息");
-//                        }
                     }
                 } else {
                     ZBUiUtils.showToast(infoList.getMessage());
                 }
             }
-        },type);
+        }, type);
     }
 
     /**
      * 已办 详情
      */
     public void fetchBackDoneListInfo(String orderId) {
-        httpMethods.getBackDoneListInfo(new BaseSubscriber<BaseResponse<MaterialDetailsOut>>() {
+        httpMethods.getBackDoneListInfo(new SingleObserver<BaseResponse<MaterialDetailsOut>>() {
             @Override
-            public void onError(ApiException e) {
+            public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
-            public void onNext(BaseResponse<MaterialDetailsOut> response) {
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onSuccess(BaseResponse<MaterialDetailsOut> response) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
                     materialObjUi.detailObjData(response.getData());

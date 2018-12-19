@@ -34,11 +34,11 @@ import io.reactivex.schedulers.Schedulers;
 public class ScanObservable {
 
 
-    static ACache mCache = MainApp.mCache;
+    private static ACache mCache = MainApp.mCache;
     /**
      * 扫描成功提示音
      */
-    static ToneGenerator toneGenerator = new ToneGenerator(AudioManager.STREAM_SYSTEM,
+    private static ToneGenerator toneGenerator = new ToneGenerator(AudioManager.STREAM_SYSTEM,
             ToneGenerator.MAX_VOLUME);
 
     private ScanBoxInterface scanBox;

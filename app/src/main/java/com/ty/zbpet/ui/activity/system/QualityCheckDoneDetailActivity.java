@@ -6,20 +6,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.system.QualityCheckDoneDetails;
-import com.ty.zbpet.bean.system.QualityCheckTodoList;
 import com.ty.zbpet.presenter.system.SystemPresenter;
 import com.ty.zbpet.presenter.system.SystemUiListInterface;
-import com.ty.zbpet.ui.adapter.product.ReturnGoodsDoneDetailAdapter;
 import com.ty.zbpet.ui.adapter.system.QuaCheckDoneDetailAdapter;
-import com.ty.zbpet.ui.adapter.system.QuaCheckTodoDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.CodeConstant;
 import com.ty.zbpet.util.ResourceUtil;
-import com.ty.zbpet.util.ZBUiUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

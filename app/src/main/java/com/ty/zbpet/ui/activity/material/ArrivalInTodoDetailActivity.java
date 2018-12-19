@@ -42,6 +42,7 @@ import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
+import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
 import okhttp3.RequestBody;
 
@@ -227,14 +228,19 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
      */
     private void doPurchaseInRecallOut(RequestBody body) {
 
-        HttpMethods.getInstance().materialTodoInSave(new BaseSubscriber<ResponseInfo>() {
+        HttpMethods.getInstance().materialTodoInSave(new SingleObserver<ResponseInfo>() {
             @Override
-            public void onError(ApiException e) {
+            public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
-            public void onNext(ResponseInfo responseInfo) {
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo responseInfo) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     // 入库成功（保存）
                     ZBUiUtils.showToast(responseInfo.getMessage());
@@ -311,15 +317,7 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
         } else if (CodeConstant.ET_CODE.equals(etType)) {
             currentFocus = hasFocus;
 
-            // 【情况 ② 】 无焦点 有内容 http 校验
-//            if (!TextUtils.isEmpty(textContent)) {
-//                if (!hasFocus) {
-//                    //httpCheckCarCode(currentPosition, textContent);
-//                }
-//            }
-
             carCodeArray.put(position, textContent);
-
         } else if (CodeConstant.ET_BATCH_NO.equals(etType)) {
             batchNoArray.put(position, textContent);
 
@@ -341,7 +339,6 @@ public class ArrivalInTodoDetailActivity extends BaseActivity implements Materia
         if (keyCode == CodeConstant.KEY_CODE_131
                 || keyCode == CodeConstant.KEY_CODE_135
                 || keyCode == CodeConstant.KEY_CODE_139) {
-
             if (currentFocus && currentPosition != -1) {
                 // 扫描
                 doDeCode();

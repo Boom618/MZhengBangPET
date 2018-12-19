@@ -33,6 +33,8 @@ public class QuaCheckTodoDetailAdapter extends CommonAdapter<QualityCheckTodoDet
 
         EditText etPercent = holder.itemView.findViewById(R.id.et_content);
         EditText etNumber = holder.itemView.findViewById(R.id.et_check_number);
+        holder.setText(R.id.tv_name, dataBean.getMaterialName())
+                .setText(R.id.tv_num, dataBean.getUnit() + dataBean.getUnitName());
 
         // 数量
         etNumber.addTextChangedListener(new EditWatcher(position, CodeConstant.ET_NUMBER_INT));

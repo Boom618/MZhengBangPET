@@ -36,6 +36,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import io.reactivex.SingleObserver;
+import io.reactivex.disposables.Disposable;
 import okhttp3.RequestBody;
 
 /**
@@ -118,14 +120,19 @@ public class BuyInDoneDetailActivity extends BaseActivity implements ProductUiOb
      */
     private void buyInDoneSave(RequestBody body) {
 
-        HttpMethods.getInstance().getBuyInDoneSave(new BaseSubscriber<ResponseInfo>() {
+        HttpMethods.getInstance().getBuyInDoneSave(new SingleObserver<ResponseInfo>() {
             @Override
-            public void onError(ApiException e) {
+            public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
             }
 
             @Override
-            public void onNext(ResponseInfo responseInfo) {
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo responseInfo) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     // 入库成功（保存）
                     ZBUiUtils.showToast(responseInfo.getMessage());

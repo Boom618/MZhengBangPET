@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,7 +21,6 @@ import com.ty.zbpet.R;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.system.QuaCheckModify;
 import com.ty.zbpet.bean.system.QualityCheckTodoDetails;
-import com.ty.zbpet.bean.system.QualityCheckTodoList;
 import com.ty.zbpet.constant.ApiNameConstant;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.presenter.system.SystemPresenter;
@@ -32,7 +32,6 @@ import com.ty.zbpet.ui.widght.SpaceItemDecoration;
 import com.ty.zbpet.util.CodeConstant;
 import com.ty.zbpet.util.DataUtils;
 import com.ty.zbpet.util.ResourceUtil;
-import com.ty.zbpet.util.ZBLog;
 import com.ty.zbpet.util.ZBUiUtils;
 
 import java.text.SimpleDateFormat;
@@ -55,6 +54,7 @@ public class QualityCheckTodoDetailActivity extends BaseActivity implements Syst
     private RecyclerView reImage;
     private TextView titleName;
     private TextView tvTime;
+    private EditText etDesc;
 
     private GridLayoutManager gridLayoutManager;
     private String arrivalOrderNo;
@@ -116,6 +116,7 @@ public class QualityCheckTodoDetailActivity extends BaseActivity implements Syst
 
         reView = findViewById(R.id.rv_in_storage_detail);
         titleName = findViewById(R.id.in_storage_detail);
+        etDesc = findViewById(R.id.et_desc);
         tvTime = findViewById(R.id.tv_time);
 
         SimpleDateFormat format = new SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA);
@@ -142,8 +143,7 @@ public class QualityCheckTodoDetailActivity extends BaseActivity implements Syst
         initToolBar(R.string.label_quality_check, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ZBUiUtils.showToast("==");
-
+                ZBUiUtils.hideInputWindow(v.getContext(), v);
                 quaCheckTodoSave(initRequestBody());
 
             }
@@ -158,7 +158,6 @@ public class QualityCheckTodoDetailActivity extends BaseActivity implements Syst
      * @return
      */
     private RequestBody initRequestBody() {
-
 
         QuaCheckModify requestBody = new QuaCheckModify();
 
@@ -190,20 +189,26 @@ public class QualityCheckTodoDetailActivity extends BaseActivity implements Syst
                 list.add(bean);
             }
             if (!TextUtils.isEmpty(imageName)) {
-                fileString += "," + imageName;
+                fileString += imageName + ",";
             }
         }
 
         if (list.size() == 0) {
+            ZBUiUtils.showToast("请完善你要质检的信息");
             return null;
         }
 
+        String desc = etDesc.getText().toString().trim();
+        if (!TextUtils.isEmpty(fileString)) {
+            fileString.substring(0, fileString.length() - 1);
+        }
+
+        infoBean.setCheckDesc(desc);
         infoBean.setCheckTime(selectTime);
         infoBean.setFileName(fileString);
 
         requestBody.setMaterialInfos(list);
         requestBody.setMaterialCheckReportInfo(infoBean);
-
 
         String json = DataUtils.toJson(requestBody, 1);
 
@@ -231,7 +236,6 @@ public class QualityCheckTodoDetailActivity extends BaseActivity implements Syst
 
             @Override
             public void onSuccess(ResponseInfo responseInfo) {
-
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     finish();
                 }
@@ -295,12 +299,14 @@ public class QualityCheckTodoDetailActivity extends BaseActivity implements Syst
                     // 图片、视频、音频选择结果回调
                     temp.addAll(selectList);
                     selectList = PictureSelector.obtainMultipleResult(data);
+                    String path = selectList.get(0).getPath();
                     // 例如 LocalMedia 里面返回三种path
                     // 1.media.getPath(); 为原图path
                     // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
                     // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
                     // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
                     selectList.addAll(temp);
+                    presenter.updateImage(QualityCheckTodoDetailActivity.this, selectList.size() - 1, path);
                     imageAdapter.setList(selectList);
                     temp.clear();
                     imageAdapter.notifyDataSetChanged();

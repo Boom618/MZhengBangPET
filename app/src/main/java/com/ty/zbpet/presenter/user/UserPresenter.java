@@ -3,7 +3,6 @@ package com.ty.zbpet.presenter.user;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.UserInfo;
 import com.ty.zbpet.net.HttpMethods;
-import com.ty.zbpet.ui.MainApp;
 import com.ty.zbpet.ui.base.BaseResponse;
 import com.ty.zbpet.util.CodeConstant;
 import com.ty.zbpet.util.SimpleCache;
@@ -69,7 +68,7 @@ public class UserPresenter {
 
             @Override
             public void onError(Throwable e) {
-                userInterface.onError(e);
+                userInterface.onError(e.getMessage());
             }
         }, userName, password);
     }
@@ -95,7 +94,7 @@ public class UserPresenter {
             @Override
             public void onError(Throwable e) {
 
-                userInterface.onError(e);
+                userInterface.onError(e.getMessage());
             }
         });
     }
@@ -119,12 +118,14 @@ public class UserPresenter {
             public void onSuccess(ResponseInfo responseInfo) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     userInterface.onSuccess();
+                }else{
+                    userInterface.onError(responseInfo.getMessage());
                 }
             }
 
             @Override
             public void onError(Throwable e) {
-                userInterface.onError(e);
+                userInterface.onError(e.getMessage());
             }
         }, oldPassword, newPassword, newPasswordAgain);
     }
@@ -151,7 +152,7 @@ public class UserPresenter {
             @Override
             public void onError(Throwable e) {
 
-                userInterface.onError(e);
+                userInterface.onError(e.getMessage());
             }
         });
     }

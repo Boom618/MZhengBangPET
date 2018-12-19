@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.ty.zbpet.R;
 import com.ty.zbpet.presenter.user.UserInterface;
 import com.ty.zbpet.presenter.user.UserPresenter;
 import com.ty.zbpet.ui.base.BaseActivity;
@@ -20,10 +21,10 @@ import com.ty.zbpet.util.ZBUiUtils;
 public class UserUpDataPass extends BaseActivity implements UserInterface {
 
 
-    private Button btnChagePass;
     private EditText oldPass;
     private EditText newPass;
     private EditText newPassAgain;
+    private Button btnConfirm;
 
     private UserPresenter presenter = new UserPresenter(this);
 
@@ -34,19 +35,25 @@ public class UserUpDataPass extends BaseActivity implements UserInterface {
 
     @Override
     protected int getActivityLayout() {
-        return 0;
+        return R.layout.activity_system_modify_pass;
     }
 
     @Override
     protected void initOneData() {
+
+        oldPass = findViewById(R.id.old_pass);
+        newPass = findViewById(R.id.new_pass);
+        newPassAgain = findViewById(R.id.new_pass_again);
+        btnConfirm = findViewById(R.id.pass_confirm);
 
     }
 
     @Override
     protected void initTwoView() {
 
+        initToolBar(R.string.label_modify_pwd);
 
-        btnChagePass.setOnClickListener(new View.OnClickListener() {
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -58,7 +65,7 @@ public class UserUpDataPass extends BaseActivity implements UserInterface {
                     ZBUiUtils.showToast("密码不能为空");
                     return;
                 }
-                if (newWord.equals(newWordAgain)) {
+                if (!newWord.equals(newWordAgain)) {
                     ZBUiUtils.showToast("新密码不一致");
                     return;
                 }
@@ -77,10 +84,11 @@ public class UserUpDataPass extends BaseActivity implements UserInterface {
     @Override
     public void onSuccess() {
         ZBUiUtils.showToast("密码修改成功");
+        finish();
     }
 
     @Override
-    public void onError(Throwable e) {
-
+    public void onError(String e) {
+        ZBUiUtils.showToast(e);
     }
 }

@@ -94,9 +94,9 @@ public class LoginActivity extends BaseActivity implements UserInterface {
     }
 
     @Override
-    public void onError(Throwable e) {
+    public void onError(String e) {
 
-        ZBUiUtils.showToast(e.getMessage());
+        ZBUiUtils.showToast(e);
 
     }
 }
