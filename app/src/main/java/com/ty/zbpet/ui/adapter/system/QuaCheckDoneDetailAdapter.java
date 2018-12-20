@@ -22,48 +22,18 @@ import java.util.List;
  * <p>
  * 质检 已办详情
  */
-public class QuaCheckDoneDetailAdapter extends CommonAdapter<QualityCheckDoneDetails.ListBean> {
-
-
-    private Context context;
-    private RecyclerView recyclerView;
-    private ImageView addImage;
-    private GridLayoutManager gridLayoutManager;
+public class QuaCheckDoneDetailAdapter extends CommonAdapter<QualityCheckDoneDetails.DataBean> {
 
 
     public QuaCheckDoneDetailAdapter(Context context, int layoutId, List datas) {
         super(context, layoutId, datas);
-        this.context = context;
 
-        gridLayoutManager = new GridLayoutManager(context, 3);
-        gridLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
     }
 
     @Override
-    protected void convert(ViewHolder holder, QualityCheckDoneDetails.ListBean listBean, int position) {
+    protected void convert(ViewHolder holder, QualityCheckDoneDetails.DataBean listBean, int position) {
 
         List<String> pathList = listBean.getPathList();
-
-        int size = pathList.size();
-//        if (size < 3) {
-//            recyclerView = holder.itemView.findViewById(R.id.rc_image);
-//            addImage = holder.itemView.findViewById(R.id.add_image);
-//            recyclerView.addItemDecoration(new SpaceItemDecoration(ResourceUtil.dip2px(5), true));
-//            recyclerView.setLayoutManager(gridLayoutManager);
-//            QuaCheckImageDoneAdapter adapter = new QuaCheckImageDoneAdapter(context, R.layout.item_sys_qua_check_image, imageList);
-//            recyclerView.setAdapter(adapter);
-//
-//            addImage.setVisibility(View.VISIBLE);
-//            addImage.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    // TODO 选择相册 刷新列表
-//                    ZBUiUtils.selectGalleryOrPhoto(v.getContext());
-//                }
-//            });
-//        } else {
-//            addImage.setVisibility(View.GONE);
-//        }
 
 
     }

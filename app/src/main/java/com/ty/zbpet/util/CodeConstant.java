@@ -106,6 +106,8 @@ public final class CodeConstant {
     public static final String SYSTEM_KEY = "system";
     public static final String SYSTEM_VALUE = "android";
     public static final String SESSION_ID_KEY = "sessionId";
+    public static final String CHANGE_ROLE_PHONE = "切换手机登录";
+    public static final String CHANGE_ROLE_COMPANY = "切换组织代码登录";
 
     /**
      * 用户数据

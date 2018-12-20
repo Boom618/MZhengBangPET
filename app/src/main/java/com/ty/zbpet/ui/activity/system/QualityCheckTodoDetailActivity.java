@@ -180,6 +180,8 @@ public class QualityCheckTodoDetailActivity extends BaseActivity implements Syst
             String percent = percentValue.get(i);
             String number = checkNumber.get(i);
             if (!TextUtils.isEmpty(number) && !TextUtils.isEmpty(percent)) {
+
+                bean.setUnit(dataBean.getUnit());
                 bean.setArrivalOrderNo(dataBean.getArrivalOrderNo());
                 bean.setMaterialNo(dataBean.getMaterialNo());
                 bean.setMaterialName(dataBean.getMaterialName());
@@ -199,13 +201,18 @@ public class QualityCheckTodoDetailActivity extends BaseActivity implements Syst
         }
 
         String desc = etDesc.getText().toString().trim();
+
+        String tempFile = "";
         if (!TextUtils.isEmpty(fileString)) {
-            fileString.substring(0, fileString.length() - 1);
+            tempFile = fileString.substring(0, fileString.length() - 1);
         }
+
+        String orderNo = listBeans.get(0).getArrivalOrderNo();
 
         infoBean.setCheckDesc(desc);
         infoBean.setCheckTime(selectTime);
-        infoBean.setFileName(fileString);
+        infoBean.setFileName(tempFile);
+        infoBean.setArrivalOrderNo(orderNo);
 
         requestBody.setMaterialInfos(list);
         requestBody.setMaterialCheckReportInfo(infoBean);
@@ -345,6 +352,8 @@ public class QualityCheckTodoDetailActivity extends BaseActivity implements Syst
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        DataUtils.clearId();
 
         if (disposable != null) {
             disposable.dispose();

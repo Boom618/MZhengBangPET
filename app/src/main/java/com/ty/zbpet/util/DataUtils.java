@@ -140,11 +140,6 @@ public class DataUtils {
         return houseIdSArray;
     }
 
-    public static void clearId() {
-        positionAndWhich.put(CodeConstant.SELECT_HOUSE_BUY_IN, null);
-        positionAndWhich.put(CodeConstant.SELECT_GOODS, null);
-    }
-
 
     /**
      * 发货出库 中的商品存值算法
@@ -225,5 +220,17 @@ public class DataUtils {
             percent.put(0, "");
         }
         return percent;
+    }
+
+
+    /**
+     * 清除 sparseArray 数据
+     */
+    public static void clearId() {
+        positionAndWhich.put(CodeConstant.SELECT_HOUSE_BUY_IN, null);
+        positionAndWhich.put(CodeConstant.SELECT_GOODS, null);
+        positionAndFile.put(CodeConstant.SELECT_IMAGE, null);
+        positionAndNumber.put(CodeConstant.ET_NUMBER_INT, null);
+        positionAndPercent.put(CodeConstant.ET_PERCENT_INT, null);
     }
 }

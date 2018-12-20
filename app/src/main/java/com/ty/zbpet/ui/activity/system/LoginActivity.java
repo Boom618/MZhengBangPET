@@ -1,17 +1,18 @@
 package com.ty.zbpet.ui.activity.system;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.ty.zbpet.R;
 import com.ty.zbpet.presenter.user.UserInterface;
 import com.ty.zbpet.presenter.user.UserPresenter;
 import com.ty.zbpet.ui.activity.MainActivity;
+import com.ty.zbpet.ui.activity.MainCompanyActivity;
 import com.ty.zbpet.ui.base.BaseActivity;
+import com.ty.zbpet.util.CodeConstant;
 import com.ty.zbpet.util.Md5;
 import com.ty.zbpet.util.ZBUiUtils;
 
@@ -37,6 +38,12 @@ public class LoginActivity extends BaseActivity implements UserInterface {
     EditText etPhonePwd;
     @BindView(R.id.rl_phone_login)
     RelativeLayout rlPhoneLogin;
+
+
+    /**
+     * 登入入口
+     */
+    private boolean isCompany = false;
 
     private UserPresenter presenter = new UserPresenter(this);
 
@@ -72,13 +79,35 @@ public class LoginActivity extends BaseActivity implements UserInterface {
         switch (view.getId()) {
             case R.id.btn_login:
 
-                String userName = etPhone.getText().toString().trim();
-                String pass = etPhonePwd.getText().toString().trim();
-                String md5Pass = Md5.encryptMD5ToString(pass);
+                if (isCompany) {
+                    String companyNo = etCompanyNo.getText().toString().trim();
+                    String userNo = etUserNo.getText().toString().trim();
+                    String pass = etPwd.getText().toString().trim();
+                    gotoActivity(MainCompanyActivity.class, true);
+                } else {
+                    String userName = etPhone.getText().toString().trim();
+                    String pass = etPhonePwd.getText().toString().trim();
+                    String md5Pass = Md5.encryptMD5ToString(pass);
+                    presenter.userLogin(userName, md5Pass);
+                }
 
-                presenter.userLogin(userName, md5Pass);
                 break;
             case R.id.tv_switch_way:
+                // 切换组织
+                TextView changeUser = findViewById(R.id.tv_switch_way);
+                String userRole = changeUser.getText().toString();
+                if (CodeConstant.CHANGE_ROLE_COMPANY.equals(userRole)) {
+                    isCompany = true;
+                    changeUser.setText(CodeConstant.CHANGE_ROLE_PHONE);
+                    rlPhoneLogin.setVisibility(View.GONE);
+                    rlCompanyLogin.setVisibility(View.VISIBLE);
+                } else {
+                    isCompany = false;
+                    changeUser.setText(CodeConstant.CHANGE_ROLE_COMPANY);
+                    rlPhoneLogin.setVisibility(View.VISIBLE);
+                    rlCompanyLogin.setVisibility(View.GONE);
+                }
+
 
                 break;
             default:
@@ -88,8 +117,12 @@ public class LoginActivity extends BaseActivity implements UserInterface {
 
     @Override
     public void onSuccess() {
+        if (isCompany) {
+            gotoActivity(MainCompanyActivity.class, true);
+        } else {
+            gotoActivity(MainActivity.class, true);
+        }
 
-        gotoActivity(MainActivity.class, true);
 
     }
 

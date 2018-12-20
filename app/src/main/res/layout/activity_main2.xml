@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/tpbackground"
+    android:paddingLeft="@dimen/space_10"
+    android:paddingRight="@dimen/space_10">
+
+    <ImageView
+        android:id="@+id/image_top"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@mipmap/hk1" />
+
+    <ImageView
+        android:id="@+id/zb_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:src="@mipmap/zblogo"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/zb_title"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/zb_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/label_title"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_24"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintLeft_toRightOf="@+id/zb_logo"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_warehouse_manage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_5"
+        android:background="@drawable/hk2"
+        app:layout_constraintTop_toBottomOf="@+id/image_top" />
+
+    <TextView
+        android:id="@+id/tv_warehouse_manage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_15"
+        android:text="@string/label_check"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_22"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/zb_logo" />
+
+    <TextView
+        android:id="@+id/tv_inventory"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_15"
+        android:background="@mipmap/lsback"
+        android:drawableTop="@mipmap/pdicon"
+        android:drawablePadding="@dimen/space_3"
+        android:gravity="center"
+        android:padding="@dimen/space_3"
+        android:text="@string/label_check"
+        android:textColor="@color/white"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/tv_person_center"
+        app:layout_constraintTop_toBottomOf="@+id/tv_warehouse_manage" />
+
+
+    <TextView
+        android:id="@+id/tv_person_center"
+        android:layout_width="0dp"
+        android:layout_marginStart="@dimen/space_15"
+        android:layout_marginEnd="@dimen/space_15"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/lsback"
+        android:drawableTop="@mipmap/wdicon"
+        android:drawablePadding="@dimen/space_3"
+        android:gravity="center"
+        android:padding="@dimen/space_3"
+        android:text="@string/label_person_center"
+        android:textColor="@color/white"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintLeft_toRightOf="@+id/tv_inventory"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_warehouse_manage" />
+
+
+</android.support.constraint.ConstraintLayout>

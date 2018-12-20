@@ -9,7 +9,6 @@ import android.widget.RadioGroup;
 import com.ty.zbpet.R;
 import com.ty.zbpet.ui.adapter.ViewPagerAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
-import com.ty.zbpet.ui.fragment.product.SendOutTodoFragment;
 import com.ty.zbpet.ui.fragment.system.QualityCheckDoneFragment;
 import com.ty.zbpet.ui.fragment.system.QualityCheckTodoFragment;
 

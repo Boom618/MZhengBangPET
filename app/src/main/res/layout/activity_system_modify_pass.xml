@@ -10,7 +10,7 @@
 
     <TextView
         android:id="@+id/tv_old_pass"
-        style="@style/itemSizeStyle"
+        android:textColor="@color/txt_minor_color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/text_28"
@@ -31,7 +31,7 @@
 
     <TextView
         android:id="@+id/tv_new_pass"
-        style="@style/itemSizeStyle"
+        android:textColor="@color/txt_minor_color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/text_28"
@@ -52,7 +52,7 @@
 
     <TextView
         android:id="@+id/tv_new_pass_again"
-        style="@style/itemSizeStyle"
+        android:textColor="@color/txt_minor_color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/text_28"
@@ -75,6 +75,7 @@
         android:id="@+id/pass_confirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/text_28"
         android:layout_marginStart="@dimen/text_28"
         android:layout_marginEnd="@dimen/text_28"
         android:background="@drawable/btn_login_selector"

@@ -9,7 +9,6 @@ import com.ty.zbpet.util.ACache;
 import com.ty.zbpet.util.CodeConstant;
 import com.ty.zbpet.util.ZBLog;
 import com.ty.zbpet.util.ZBUiUtils;
-import com.zhouyou.http.subsciber.BaseSubscriber;
 
 import java.nio.charset.Charset;
 import java.util.concurrent.TimeUnit;
@@ -17,8 +16,6 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Single;
-import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;

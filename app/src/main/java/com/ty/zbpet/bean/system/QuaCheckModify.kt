@@ -3,7 +3,7 @@ package com.ty.zbpet.bean.system
 /**
  * @author TY on 2018/12/17.
  *
- * 质检修改（待办保存）
+ * 质检修改（待办保存/修改）
  */
 class QuaCheckModify {
 
@@ -25,6 +25,7 @@ class QuaCheckModify {
         var companyNo: String? = null
         var creator: String? = null
         var fileName: String? = null
+        var arrivalOrderNo: String? = null
     }
 
     class MaterialInfosBean {
