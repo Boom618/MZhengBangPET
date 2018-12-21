@@ -140,6 +140,7 @@
         <activity android:name=".ui.activity.system.QualityCheckDoneDetailActivity" />
         <activity android:name=".ui.activity.system.UserUpDataPass" />
         <activity android:name=".ui.activity.MainCompanyActivity" />
+        <activity android:name=".ui.activity.system.QualityCheckTabActivity" />
 
     </application>
 

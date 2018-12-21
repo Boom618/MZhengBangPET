@@ -200,6 +200,11 @@ dependencies {
     // 相册选择
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
 
+    // TabLayout 库
+    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+
+
+
     // bugly 管理
     implementation "com.tencent.bugly:crashreport:${bugly_version}"
 

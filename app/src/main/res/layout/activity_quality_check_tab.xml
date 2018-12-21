@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    android:background="@color/bg_color"
+    tools:context=".ui.activity.system.QualityCheckActivity">
+
+    <include
+        android:id="@+id/top_layout"
+        layout="@layout/top_layout" />
+
+    <LinearLayout
+        android:id="@+id/ll_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top_layout"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/space_10">
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/shape_white_max_radius"
+            android:drawableStart="@mipmap/ic_search"
+            android:drawablePadding="@dimen/space_10"
+            android:hint="请输入单号"
+            android:padding="@dimen/space_7"
+            android:textColor="@color/txt_minor_color"
+            android:textSize="@dimen/text_14" />
+
+        <com.flyco.tablayout.SlidingTabLayout
+            android:id="@+id/stl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            tl:tl_textBold="SELECT"
+            tl:tl_indicator_style="TRIANGLE"
+            tl:tl_underline_color="#1A000000"
+            tl:tl_underline_gravity="TOP"
+            tl:tl_underline_height="1dp"/>
+
+
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_top" />
+
+</RelativeLayout>

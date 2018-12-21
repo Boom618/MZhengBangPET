@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.ty.zbpet.R;
 import com.ty.zbpet.ui.activity.system.PersonCenterActivity;
 import com.ty.zbpet.ui.activity.system.QualityCheckActivity;
+import com.ty.zbpet.ui.activity.system.QualityCheckTabActivity;
 import com.ty.zbpet.ui.base.BaseActivity;
 
 /**
@@ -42,7 +43,8 @@ public class MainCompanyActivity extends BaseActivity {
         inventory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gotoActivity(QualityCheckActivity.class);
+//                gotoActivity(QualityCheckActivity.class);
+                gotoActivity(QualityCheckTabActivity.class);
             }
         });
 
