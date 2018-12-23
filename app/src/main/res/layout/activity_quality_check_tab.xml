@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tl="http://schemas.android.com/apk/res-auto"
     android:background="@color/bg_color"
     tools:context=".ui.activity.system.QualityCheckActivity">
 
@@ -26,8 +26,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/shape_white_max_radius"
-            android:drawableStart="@mipmap/ic_search"
             android:drawablePadding="@dimen/space_10"
+            android:drawableStart="@mipmap/ic_search"
             android:hint="请输入单号"
             android:padding="@dimen/space_7"
             android:textColor="@color/txt_minor_color"
@@ -40,11 +40,11 @@
             android:layout_weight="1"
             android:paddingBottom="15dp"
             android:paddingTop="15dp"
+            tl:tl_indicator_color="@color/main_color"
+            tl:tl_indicator_style="BLOCK"
             tl:tl_textBold="SELECT"
-            tl:tl_indicator_style="TRIANGLE"
-            tl:tl_underline_color="#1A000000"
-            tl:tl_underline_gravity="TOP"
-            tl:tl_underline_height="1dp"/>
+            tl:tl_textUnselectColor="@color/txt_main_color"
+            tl:tl_underline_color="#1A000000" />
 
 
     </LinearLayout>
