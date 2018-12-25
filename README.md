@@ -16,6 +16,8 @@
 - 页面销毁关闭请求
 - 网络配置（Single）
 - 网络日志拦截器和头部拦截器
+- 详情页面利用 RecycleView  getItemViewType 替换 NestedScrollView
+- 数据存储采用 DataUtils 中 SparseArray 处理保存
 
 **技术点**
 
@@ -51,7 +53,9 @@ MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("file", fil
 - 列表分页加载
 - RxEasyHttp
 - rc 输入框取值
-- Retrofit Singe 改写
+- 清空任务栈
+- 权限
+- Rc button 冲突
 
 
 
@@ -77,5 +81,3 @@ MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("file", fil
   onCreateViewHolder
   ViewHolder
   onBindViewHolder
-  getItemViewType
-  getItemCount

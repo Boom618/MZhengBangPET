@@ -20,6 +20,7 @@ import com.ty.zbpet.bean.material.MaterialTodoList;
 import com.ty.zbpet.presenter.material.MaterialPresenter;
 import com.ty.zbpet.presenter.material.MaterialUiListInterface;
 import com.ty.zbpet.ui.activity.material.ArrivalInTodoDetailActivity;
+import com.ty.zbpet.ui.activity.material.ArrivalInTodoDetailActivityR;
 import com.ty.zbpet.ui.adapter.material.MaterialTodoAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
@@ -127,6 +128,7 @@ public class MaterialTodoFragment extends BaseFragment implements MaterialUiList
                 @Override
                 public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                     Intent intent = new Intent(getActivity(), ArrivalInTodoDetailActivity.class);
+//                    Intent intent = new Intent(getActivity(), ArrivalInTodoDetailActivityR.class);
                     intent.putExtra("sapOrderNo", list.get(position).getSapOrderNo());
                     intent.putExtra("supplierId", list.get(position).getSupplierId());
                     startActivity(intent);

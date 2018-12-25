@@ -23,7 +23,7 @@ import butterknife.BindView;
 public class QualityCheckTabActivity extends BaseActivity {
 
 
-    @BindView(R.id.et_search)
+//    @BindView(R.id.et_search)
     EditText etSearch;
     @BindView(R.id.viewpager)
     ViewPager viewpager;

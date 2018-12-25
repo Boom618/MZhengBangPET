@@ -27,8 +27,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <!-- .ui.activity.MainActivity -->
+        <!-- .ui.activity.system.QualityCheckTabActivity -->
         <activity
-            android:name=".ui.activity.system.QualityCheckTabActivity"
+            android:name=".ui.activity.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
@@ -140,6 +141,7 @@
         <activity android:name=".ui.activity.system.QualityCheckDoneDetailActivity" />
         <activity android:name=".ui.activity.system.UserUpDataPass" />
         <activity android:name=".ui.activity.MainCompanyActivity" />
+        <activity android:name=".ui.activity.material.ArrivalInTodoDetailActivityR" />
         <!--<activity android:name=".ui.activity.system.QualityCheckTabActivity" />-->
 
     </application>

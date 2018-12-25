@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@drawable/shape_white_min_radius"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:layout_marginBottom="@dimen/space_10"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/ic_product"
+        android:paddingStart="@dimen/space_10"
+        android:paddingTop="@dimen/space_10"
+        android:paddingBottom="@dimen/space_10"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/space_10"
+        android:text="联想台式电脑"
+        android:paddingTop="@dimen/space_10"
+        android:paddingBottom="@dimen/space_10"
+        android:textColor="@color/txt_main_color"
+        android:textSize="@dimen/text_14"
+        app:layout_constraintStart_toEndOf="@id/iv_tag" />
+
+    <TextView
+        android:id="@+id/tv_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/space_30"
+        android:layout_toStartOf="@+id/iv_arrow"
+        android:text="25箱"
+        android:paddingTop="@dimen/space_10"
+        android:paddingBottom="@dimen/space_10"
+        android:textColor="@color/txt_main_color"
+        android:textSize="@dimen/text_14"
+        app:layout_constraintRight_toLeftOf="@+id/iv_arrow" />
+
+    <ImageView
+        android:id="@+id/iv_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/ic_collapse"
+        android:paddingTop="@dimen/space_10"
+        android:paddingBottom="@dimen/space_10"
+        android:paddingEnd="@dimen/space_10"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/rl_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/space_10"
+        android:paddingEnd="@dimen/space_10"
+        app:layout_constraintTop_toBottomOf="@+id/iv_tag"
+        android:paddingBottom="@dimen/space_10"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_box_num"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="@dimen/space_25"
+            android:layout_marginTop="@dimen/space_5"
+            android:layout_marginEnd="@dimen/space_25"
+            android:hint="@string/app_name"
+            android:textColor="@color/txt_main_color"
+            android:textSize="@dimen/text_14" />
+
+
+        <EditText
+            android:id="@+id/et_zkg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_box_num"
+            android:layout_alignStart="@+id/et_batch_no"
+            android:layout_alignEnd="@+id/et_batch_no"
+            android:layout_marginTop="5dp"
+            android:ellipsize="end"
+            android:hint="请输入 ZKG "
+            android:lines="1"
+            style="@style/itemSizeStyle"/>
+
+        <EditText
+            android:id="@+id/et_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et_zkg"
+            android:layout_alignStart="@+id/et_batch_no"
+            android:layout_alignEnd="@+id/et_batch_no"
+            android:layout_marginTop="5dp"
+            android:ellipsize="end"
+            android:hint="库位码"
+            android:lines="1"
+            style="@style/itemSizeStyle"/>
+
+        <EditText
+            android:id="@+id/et_bulk_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et_code"
+            android:layout_alignStart="@+id/et_batch_no"
+            android:layout_alignEnd="@+id/et_batch_no"
+            android:hint="入库数量 : 123"
+            android:inputType="number"
+            android:lines="1"
+            style="@style/itemSizeStyle"/>
+
+        <EditText
+            android:id="@+id/et_batch_no"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et_bulk_num"
+            android:layout_marginStart="@dimen/space_25"
+            android:layout_marginTop="@dimen/space_5"
+            android:layout_marginEnd="@dimen/space_25"
+            android:hint="sap 物料批次号"
+            android:inputType="text"
+            android:lines="1"
+            style="@style/itemSizeStyle"/>
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -40,5 +40,6 @@ class MaterialDetailsIn {
         var positionNo: String? = null
         var supplierName: String? = null
         var ZKG: String? = null
+        var tag: String? = null
     }
 }

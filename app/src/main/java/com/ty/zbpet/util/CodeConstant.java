@@ -42,8 +42,27 @@ public final class CodeConstant {
     public static final String ET_END_CODE = "end_code";
     public static final String ET_NUMBER = "number";
     public static final String ET_CONTENT = "content";
-    public static final int ET_NUMBER_INT = 60;
-    public static final int ET_PERCENT_INT = 70;
+
+    /**
+     * ET_PERCENT_INT       :60 含量
+     * ET_CONTENT_INT       :61 文本
+     * ET_ZKG_INT           :62 zkg
+     * ET_NUMBER_INT        :63 数量
+     * ET_CODE_INT          :64 库位码
+     * ET_START_CODE_INT    :65 开始码
+     * ET_END_CODE_INT      :66 结束码
+     * ET_SAP_INT           :67 SAP 物料
+     * ET_CODE_FOCUS_INT    :68 库位码是否有焦点
+     */
+    public static final int ET_PERCENT_INT = 60;
+    public static final int ET_CONTENT_INT = 61;
+    public static final int ET_ZKG_INT = 62;
+    public static final int ET_NUMBER_INT = 63;
+    public static final int ET_CODE_INT = 64;
+    public static final int ET_START_CODE_INT = 65;
+    public static final int ET_END_CODE_INT = 66;
+    public static final int ET_SAP_INT = 67;
+    public static final int ET_CODE_FOCUS_INT = 68;
     /**
      * 按键码 131 or 135 : K3A手柄键   139 : G3A F1键
      */
