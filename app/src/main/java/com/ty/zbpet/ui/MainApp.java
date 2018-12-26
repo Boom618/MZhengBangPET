@@ -20,7 +20,6 @@ import com.zhouyou.http.EasyHttp;
 import com.zhouyou.http.cache.converter.SerializableDiskConverter;
 import com.zhouyou.http.cache.model.CacheMode;
 
-import io.objectbox.BoxStore;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -32,8 +31,6 @@ public class MainApp extends Application {
     public static Context context;
     private static Gson gson;
     public static ACache mCache;
-
-    private BoxStore boxStore;
 
     @Override
     public void onLowMemory() {
@@ -62,12 +59,10 @@ public class MainApp extends Application {
         // ObjectBox
         //boxStore = MyObjectBox.builder().androidContext(this).build();
 
+        // 管理任务栈
+        ActivitiesHelper.init(this);
+
         initHttp();
-    }
-
-
-    public BoxStore getBoxStore() {
-        return boxStore;
     }
 
 

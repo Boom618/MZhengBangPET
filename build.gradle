@@ -65,6 +65,8 @@ ext {
     glideVersion                = '4.7.1'
     rxeasyhttpVersion           = '2.1.2'
     eventbusVersion             = '3.1.1'
+    rxpermissions_version       = '0.10.2'
+    tablayout_version           = '2.1.2@aar'
     lifecycle_version           = '2.0.0'
     bugly_version               = '2.8.6'
     leakcanary_version          = '1.6.2'

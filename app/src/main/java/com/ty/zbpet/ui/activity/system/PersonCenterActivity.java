@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import com.ty.zbpet.R;
 import com.ty.zbpet.presenter.user.UserInterface;
 import com.ty.zbpet.presenter.user.UserPresenter;
+import com.ty.zbpet.ui.ActivitiesHelper;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.util.SimpleCache;
 
@@ -105,6 +106,7 @@ public class PersonCenterActivity extends BaseActivity implements UserInterface 
             startActivity(intent);
 
             SimpleCache.clearAll();
+            ActivitiesHelper.get().finishAll();
             finish();
         } else {
             // 个人中心数据
