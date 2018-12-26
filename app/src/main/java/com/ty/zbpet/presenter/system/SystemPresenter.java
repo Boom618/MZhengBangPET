@@ -1,7 +1,6 @@
 package com.ty.zbpet.presenter.system;
 
 import android.content.Context;
-import android.net.Uri;
 
 import com.ty.zbpet.bean.system.ImageData;
 import com.ty.zbpet.bean.system.QualityCheckTodoDetails;
@@ -9,9 +8,8 @@ import com.ty.zbpet.bean.system.QualityCheckTodoList;
 import com.ty.zbpet.constant.ApiNameConstant;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
-import com.ty.zbpet.util.CodeConstant;
+import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.util.DataUtils;
-import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.ZBUiUtils;
 
 import java.io.File;

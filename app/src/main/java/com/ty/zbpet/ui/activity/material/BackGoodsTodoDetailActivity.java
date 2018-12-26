@@ -25,15 +25,13 @@ import com.ty.zbpet.presenter.material.MaterialUiObjInterface;
 import com.ty.zbpet.ui.adapter.material.BackGoodsTodoDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
-import com.ty.zbpet.util.CodeConstant;
+import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.util.DataUtils;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.ZBLog;
 import com.ty.zbpet.util.ZBUiUtils;
 import com.ty.zbpet.util.scan.ScanBoxInterface;
 import com.ty.zbpet.util.scan.ScanObservable;
-import com.zhouyou.http.exception.ApiException;
-import com.zhouyou.http.subsciber.BaseSubscriber;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -259,7 +257,7 @@ public class BackGoodsTodoDetailActivity extends BaseActivity implements Materia
 
 
         String json = DataUtils.toJson(requestBody, 1);
-        ZBLog.e("JSON " + json);
+        ZBLog.INSTANCE.e("JSON " + json);
         return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), json);
     }
 

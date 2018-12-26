@@ -16,15 +16,13 @@ import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.system.QualityCheckDoneDetails;
-import com.ty.zbpet.bean.system.QualityCheckTodoDetails;
 import com.ty.zbpet.presenter.system.SystemPresenter;
 import com.ty.zbpet.presenter.system.SystemUiListInterface;
 import com.ty.zbpet.ui.adapter.system.GridImageAdapter;
 import com.ty.zbpet.ui.adapter.system.QuaCheckDoneDetailAdapter;
-import com.ty.zbpet.ui.adapter.system.QuaCheckTodoDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
-import com.ty.zbpet.util.CodeConstant;
+import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.util.ResourceUtil;
 
 import java.text.SimpleDateFormat;

@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.material.MaterialDetailsIn;
 import com.ty.zbpet.util.ACache;
-import com.ty.zbpet.util.CodeConstant;
+import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.util.ViewSetValue;
 import com.ty.zbpet.util.ZBUiUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
@@ -128,8 +128,6 @@ public class MaterialTodoDetailAdapter extends CommonAdapter {
                 ZBUiUtils.hideInputWindow(context, view);
             }
             listener.saveEditAndGetHasFocusPosition(etType, hasFocus, position, editText);
-//            if (!hasFocus) {
-//            }
 
         }
     }

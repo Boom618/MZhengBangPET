@@ -2,14 +2,13 @@ package com.ty.zbpet.ui.adapter.material;
 
 import android.content.Context;
 import android.text.InputType;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.material.MaterialDetailsIn;
 import com.ty.zbpet.util.ACache;
-import com.ty.zbpet.util.CodeConstant;
+import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.util.ViewSetValue;
 import com.ty.zbpet.util.ZBUiUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;

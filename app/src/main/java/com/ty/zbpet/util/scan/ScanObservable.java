@@ -6,7 +6,7 @@ import android.media.ToneGenerator;
 import com.pda.scanner.Scanner;
 import com.ty.zbpet.ui.MainApp;
 import com.ty.zbpet.util.ACache;
-import com.ty.zbpet.util.CodeConstant;
+import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.util.ZBLog;
 import com.ty.zbpet.util.ZBUiUtils;
 
@@ -93,7 +93,7 @@ public class ScanObservable {
                 .doOnNext(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
-                        ZBLog.e("doOnNext: 保存成功：" + s + "\n");
+                        ZBLog.INSTANCE.e("doOnNext: 保存成功：" + s + "\n");
 
                         // 存 position 和 解析出来的库位码值： 1@KWM565658908
                         mCache.put(CodeConstant.SCAN_BOX_KEY, position + "@" + s);

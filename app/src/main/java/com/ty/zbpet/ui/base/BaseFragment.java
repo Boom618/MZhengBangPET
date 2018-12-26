@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 
 import com.ty.zbpet.util.ACache;
-import com.ty.zbpet.util.CodeConstant;
+import com.ty.zbpet.constant.CodeConstant;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -52,8 +52,8 @@ public abstract class BaseFragment extends Fragment {
 
     /**
      * 初始化 View
-     *
      * @param view
+     * @return
      */
     protected abstract View onBaseCreate(View view);
 

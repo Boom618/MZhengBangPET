@@ -25,7 +25,7 @@ import com.ty.zbpet.ui.activity.ScanBoxCodeActivity;
 import com.ty.zbpet.ui.adapter.product.ReturnGoodsTodoDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
-import com.ty.zbpet.util.CodeConstant;
+import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.util.DataUtils;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.ZBLog;
@@ -308,7 +308,7 @@ public class ReturnGoodsTodoDetailActivity extends BaseActivity implements Produ
         requestBody.setRemark(remark);
 
         String json = DataUtils.toJson(requestBody, 1);
-        ZBLog.e("JSON " + json);
+        ZBLog.INSTANCE.e("JSON " + json);
         return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), json);
     }
 

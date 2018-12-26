@@ -42,7 +42,7 @@ public class LiveDataActivity extends AppCompatActivity {
             public void onChanged(@Nullable String name) {
                 mTvName.setText(name);
 
-                ZBLog.d(TAG, "name = " + name);
+                ZBLog.INSTANCE.d(TAG, "name = " + name);
             }
         });
 
@@ -50,7 +50,7 @@ public class LiveDataActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable List<String> strings) {
                 for (String name : strings) {
-                    ZBLog.d(TAG, "name = " + name);
+                    ZBLog.INSTANCE.d(TAG, "name = " + name);
 
                 }
             }

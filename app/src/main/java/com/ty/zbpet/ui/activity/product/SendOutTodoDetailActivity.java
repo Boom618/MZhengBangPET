@@ -27,7 +27,7 @@ import com.ty.zbpet.ui.adapter.product.SendOutTodoDetailAdapter;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.ui.widght.NormalAlertDialog;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
-import com.ty.zbpet.util.CodeConstant;
+import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.util.DataUtils;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.ZBLog;
@@ -340,7 +340,7 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
 
 
         String json = DataUtils.toJson(requestBody, 1);
-        ZBLog.e("JSON " + json);
+        ZBLog.INSTANCE.e("JSON " + json);
         return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), json);
     }
 

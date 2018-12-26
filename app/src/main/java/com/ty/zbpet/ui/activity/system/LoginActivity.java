@@ -12,7 +12,7 @@ import com.ty.zbpet.presenter.user.UserPresenter;
 import com.ty.zbpet.ui.activity.MainActivity;
 import com.ty.zbpet.ui.activity.MainCompanyActivity;
 import com.ty.zbpet.ui.base.BaseActivity;
-import com.ty.zbpet.util.CodeConstant;
+import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.util.Md5;
 import com.ty.zbpet.util.ZBUiUtils;
 

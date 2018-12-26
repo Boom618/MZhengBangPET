@@ -17,13 +17,12 @@ import com.ty.zbpet.R;
 import com.ty.zbpet.bean.product.ProductDoneList;
 import com.ty.zbpet.presenter.product.ProducePresenter;
 import com.ty.zbpet.presenter.product.ProductUiObjInterface;
-import com.ty.zbpet.ui.activity.product.BuyInDoneDetailActivity;
 import com.ty.zbpet.ui.activity.product.ProductDoneDetailActivity;
 import com.ty.zbpet.ui.adapter.product.BuyInDoneListAdapter;
 import com.ty.zbpet.ui.adapter.product.ProductDoneListAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
-import com.ty.zbpet.util.CodeConstant;
+import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.ZBUiUtils;
 

@@ -17,7 +17,7 @@ import com.ty.zbpet.bean.material.MaterialDetailsIn;
 import com.ty.zbpet.listener.EditWatcher;
 import com.ty.zbpet.ui.adapter.viewholder.BottomViewHolder;
 import com.ty.zbpet.util.ACache;
-import com.ty.zbpet.util.CodeConstant;
+import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.util.DataUtils;
 import com.ty.zbpet.util.ViewSetValue;
 import com.ty.zbpet.util.ZBUiUtils;

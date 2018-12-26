@@ -6,6 +6,7 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.ty.zbpet.bean.UserInfo;
+import com.ty.zbpet.constant.CodeConstant;
 
 import java.util.ArrayList;
 

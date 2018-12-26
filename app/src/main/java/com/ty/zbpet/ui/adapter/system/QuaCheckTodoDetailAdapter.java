@@ -7,7 +7,7 @@ import android.widget.EditText;
 
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.system.QualityCheckTodoDetails;
-import com.ty.zbpet.util.CodeConstant;
+import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.util.DataUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;

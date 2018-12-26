@@ -7,7 +7,7 @@ import com.ty.zbpet.bean.material.MaterialDoneList;
 import com.ty.zbpet.bean.material.MaterialTodoList;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
-import com.ty.zbpet.util.CodeConstant;
+import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.util.ZBLog;
 import com.ty.zbpet.util.ZBUiUtils;
 
@@ -151,7 +151,7 @@ public class MaterialPresenter {
 
                     MaterialDetailsIn data = info.getData();
 
-                    ZBLog.d(data);
+                    ZBLog.INSTANCE.d(data);
 
                     materialObjUi.detailObjData(data);
 

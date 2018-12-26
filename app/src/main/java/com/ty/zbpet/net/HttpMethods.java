@@ -23,10 +23,8 @@ import com.ty.zbpet.net.gson.IntegerDefault0Adapter;
 import com.ty.zbpet.net.gson.LongDefault0Adapter;
 import com.ty.zbpet.net.gson.StringDefault0Adapter;
 import com.ty.zbpet.ui.base.BaseResponse;
-import com.ty.zbpet.util.CodeConstant;
-import com.zhouyou.http.subsciber.BaseSubscriber;
+import com.ty.zbpet.constant.CodeConstant;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.SingleObserver;

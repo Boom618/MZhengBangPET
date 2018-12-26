@@ -1,4 +1,4 @@
-package com.ty.zbpet.util;
+package com.ty.zbpet.constant;
 
 /**
  * @author TY on 2018/11/6.

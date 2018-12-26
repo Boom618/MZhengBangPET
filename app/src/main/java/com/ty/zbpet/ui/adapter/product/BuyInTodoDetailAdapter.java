@@ -6,8 +6,7 @@ import android.widget.EditText;
 
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.product.ProductDetailsIn;
-import com.ty.zbpet.util.CodeConstant;
-import com.ty.zbpet.util.DataUtils;
+import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.util.ZBUiUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;

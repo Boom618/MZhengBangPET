@@ -23,7 +23,7 @@ import com.ty.zbpet.ui.activity.material.PickOutDoneDetailActivity;
 import com.ty.zbpet.ui.adapter.material.PickOutDoneAdapter;
 import com.ty.zbpet.ui.base.BaseFragment;
 import com.ty.zbpet.ui.widght.SpaceItemDecoration;
-import com.ty.zbpet.util.CodeConstant;
+import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.ZBUiUtils;
 

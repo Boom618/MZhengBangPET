@@ -3,7 +3,6 @@ package com.ty.zbpet.ui.activity.material;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.ViewUtils;
 import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.KeyEvent;
@@ -22,7 +21,7 @@ import com.ty.zbpet.presenter.material.MaterialPresenter;
 import com.ty.zbpet.presenter.material.MaterialUiObjInterface;
 import com.ty.zbpet.ui.adapter.material.MaterialTodoDetailAdapterR;
 import com.ty.zbpet.ui.base.BaseActivity;
-import com.ty.zbpet.util.CodeConstant;
+import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.util.DataUtils;
 import com.ty.zbpet.util.ResourceUtil;
 import com.ty.zbpet.util.ZBLog;
@@ -171,7 +170,7 @@ public class ArrivalInTodoDetailActivityR extends BaseActivity implements Materi
 //        requestBody.setRemark(remark);
 
         String json = DataUtils.toJson(requestBody, 1);
-        ZBLog.e("JSON " + json);
+        ZBLog.INSTANCE.e("JSON " + json);
         return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), json);
     }
 
