@@ -28,12 +28,11 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-import butterknife.BindView
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
+import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
-import android.support.annotation.Nullable
 
 /**
  * @author TY on 2018/11/14.
@@ -43,19 +42,10 @@ import android.support.annotation.Nullable
  */
 class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<MaterialDetailsOut.ListBean> {
 
-    @BindView(R.id.rv_in_storage_detail)
-    internal var detailRc: RecyclerView? = null
-    @BindView(R.id.tv_time)
-    internal var tvTime: TextView? = null
-
-    @BindView(R.id.et_desc)
-    internal var etDesc: EditText? = null
-
     /**
      * 时间选择
      */
     private var selectTime: String? = null
-
 
     private var orderId: String? = null
     private var mInWarehouseOrderId: String? = null
@@ -67,10 +57,10 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
     private val materialPresenter = MaterialPresenter(this)
 
 
-    override fun onBaseCreate(@Nullable savedInstanceState: Bundle) {
+    override fun onBaseCreate(savedInstanceState: Bundle?) {
         val sdf = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
         selectTime = sdf.format(Date())
-        tvTime!!.text = selectTime
+        tv_time!!.text = selectTime
     }
 
     override fun getActivityLayout(): Int {
@@ -90,7 +80,7 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
         findViewById<View>(R.id.add_ship).visibility = View.GONE
         val titleName = findViewById<TextView>(R.id.in_storage_detail)
         titleName.text = "到货明细"
-        etDesc!!.inputType = InputType.TYPE_NULL
+        et_desc!!.inputType = InputType.TYPE_NULL
 
         initToolBar(R.string.material_reversal) { materialDoneInSave(initRequestBody()) }
     }
@@ -155,13 +145,13 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
 
         if (adapter == null) {
             val manager = LinearLayoutManager(ResourceUtil.getContext())
-            detailRc!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
-            detailRc!!.layoutManager = manager
+            rv_in_storage_detail!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+            rv_in_storage_detail!!.layoutManager = manager
 
             // TODO 侧滑删除
             // detailRc.addOnItemTouchListener(new SwipeItemLayout.OnSwipeItemTouchListener(this));
             adapter = MaterialDoneDetailAdapter(this, R.layout.item_material_done_detail, list)
-            detailRc!!.adapter = adapter
+            rv_in_storage_detail!!.adapter = adapter
 
             adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
 

@@ -13,7 +13,8 @@ import com.zhy.adapter.recyclerview.base.ViewHolder
  *
  * 到货入库 Adapter
  */
-class MaterialTodoAdapter(context: Context, layoutId: Int, datas: List<MaterialTodoList.ListBean>) : CommonAdapter<MaterialTodoList.ListBean>(context, layoutId, datas) {
+class MaterialTodoAdapter(context: Context, layoutId: Int, datas: List<MaterialTodoList.ListBean>)
+    : CommonAdapter<MaterialTodoList.ListBean>(context, layoutId, datas) {
 
     override fun convert(holder: ViewHolder, listBean: MaterialTodoList.ListBean, position: Int) {
 
