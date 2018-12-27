@@ -18,6 +18,8 @@ import java.util.*
  * @author TY
  */
 class ArrivalInStorageActivity : BaseActivity() {
+    override val activityLayout: Int
+        get() = R.layout.activity_arrival_in_storage
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
 
@@ -41,9 +43,9 @@ class ArrivalInStorageActivity : BaseActivity() {
         initToolBar(R.string.label_purchase_storage)
     }
 
-    override fun getActivityLayout(): Int {
-        return R.layout.activity_arrival_in_storage
-    }
+//    override fun getActivityLayout(): Int {
+//        return R.layout.activity_arrival_in_storage
+//    }
 
     override fun initOneData() {
 

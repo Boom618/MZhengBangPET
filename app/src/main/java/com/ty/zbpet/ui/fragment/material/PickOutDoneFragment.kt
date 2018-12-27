@@ -1,75 +1,76 @@
 package com.ty.zbpet.ui.fragment.material
 
+
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+
 import com.scwang.smartrefresh.header.MaterialHeader
-import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 import com.ty.zbpet.R
-import com.ty.zbpet.bean.material.MaterialTodoList
-import com.ty.zbpet.presenter.material.MaterialPresenter
+import com.ty.zbpet.bean.material.MaterialDoneList
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
-import com.ty.zbpet.ui.activity.material.ArrivalInTodoDetailActivity
-import com.ty.zbpet.ui.adapter.material.MaterialTodoAdapter
+import com.ty.zbpet.presenter.material.PickOutPresenter
+import com.ty.zbpet.ui.activity.material.PickOutDoneDetailActivity
+import com.ty.zbpet.ui.adapter.material.PickOutDoneAdapter
 import com.ty.zbpet.ui.base.BaseFragment
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
+import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils
+
+import butterknife.BindView
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import kotlinx.android.synthetic.main.zb_content_list_fragment.*
 import kotlinx.android.synthetic.main.zb_content_list_fragment.view.*
+
 
 /**
  * A simple [Fragment] subclass.
  *
  * @author TY
- *
- * 待办 （ 入库 ） Fragment
+ * 领料出库 已办列表
  */
-class MaterialTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialTodoList.ListBean> {
+class PickOutDoneFragment : BaseFragment(), MaterialUiListInterface<MaterialDoneList.ListBean> {
+
+
+//    @BindView(R.id.recyclerView)
+//    internal var recyclerView: RecyclerView? = null
+//    @BindView(R.id.refreshLayout)
+//    internal var refreshLayout: RefreshLayout? = null
+
+    private var adapter: PickOutDoneAdapter? = null
+
+    private val presenter = PickOutPresenter(this)
+
+    /**
+     * 下拉刷新 flag
+     */
+    private var refresh = false
+
     override val fragmentLayout: Int
         get() = R.layout.zb_content_list_fragment
 
-//    internal var recyclerView: RecyclerView? = null
-//    private var refreshLayout: SmartRefreshLayout? = null
-    private var adapter: MaterialTodoAdapter? = null
-    private val materialPresenter = MaterialPresenter(this)
 
-    /**
-     * 加载的 inflater.inflate  的 View
-     *
-     * @param view layout inflate 的 View
-     */
     override fun onBaseCreate(view: View): View {
-
-//        recyclerView = view.findViewById(R.id.recyclerView)
-//        refreshLayout = view.findViewById(R.id.refreshLayout)
-
         // 设置 Header 样式
-        view.refreshLayout!!.setRefreshHeader(MaterialHeader(view.context!!))
+        view.refreshLayout!!.setRefreshHeader(MaterialHeader(context!!))
         // 设置 Footer 为 球脉冲 样式
-        view.refreshLayout!!.setRefreshFooter(BallPulseFooter(view.context!!).setSpinnerStyle(SpinnerStyle.Scale))
-
-
+        view.refreshLayout!!.setRefreshFooter(BallPulseFooter(context!!).setSpinnerStyle(SpinnerStyle.Scale))
         return view
-
     }
-
-//    override fun getFragmentLayout(): Int {
-//        return R.layout.zb_content_list_fragment
-//    }
 
     override fun onStart() {
         super.onStart()
 
-        materialPresenter.fetchTODOMaterial()
-
+        presenter.fetchPickOutDoneList(CodeConstant.PICK_OUT_TYPE)
     }
 
     override fun onResume() {
@@ -79,7 +80,8 @@ class MaterialTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialTod
             // 传入 false 表示刷新失败
             refreshLayout.finishRefresh(1000)
             // 刷新数据
-            materialPresenter.fetchTODOMaterial()
+            presenter.fetchPickOutDoneList(CodeConstant.PICK_OUT_TYPE)
+            refresh = true
         }
         refreshLayout!!.setOnLoadMoreListener { refreshLayout ->
             // 传入 false 表示刷新失败
@@ -88,32 +90,35 @@ class MaterialTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialTod
         }
     }
 
-    override fun showMaterial(list: List<MaterialTodoList.ListBean>) {
 
-        if (adapter == null) {
-            val manager = LinearLayoutManager(ResourceUtil.getContext())
-            recyclerView!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
-            recyclerView!!.layoutManager = manager
-            adapter = MaterialTodoAdapter(ResourceUtil.getContext(), R.layout.item_material_todo, list)
+    override fun showMaterial(list: List<MaterialDoneList.ListBean>) {
+
+        if (adapter == null || refresh) {
+            refresh = false
+            if (adapter == null) {
+                val manager = LinearLayoutManager(ResourceUtil.getContext())
+                recyclerView!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+                recyclerView!!.layoutManager = manager
+            }
+            adapter = PickOutDoneAdapter(context!!, R.layout.item_pick_out_done, list)
             recyclerView!!.adapter = adapter
 
             adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                 override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
-                    val intent = Intent(activity, ArrivalInTodoDetailActivity::class.java)
-                    // Intent intent = new Intent(getActivity(), ArrivalInTodoDetailActivityR.class);
+                    val intent = Intent(activity, PickOutDoneDetailActivity::class.java)
                     intent.putExtra("sapOrderNo", list[position].sapOrderNo)
-                    intent.putExtra("supplierId", list[position].supplierId)
+                    intent.putExtra("mOutWarehouseOrderId", list[position].mOutWarehouseOrderId)
+                    intent.putExtra("orderId", list[position].orderId)
                     startActivity(intent)
                 }
 
                 override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
                     return false
                 }
-
             })
         }
-    }
 
+    }
 
     override fun showLoading() {
 
@@ -125,12 +130,13 @@ class MaterialTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialTod
 
     companion object {
 
-        fun newInstance(tag: String): MaterialTodoFragment {
-            val fragment = MaterialTodoFragment()
-            val bundle = Bundle()
-            bundle.putString("someInt", tag)
-            fragment.arguments = bundle
+        private val ARG_PARAM = "ARG_PARAM"
 
+        fun newInstance(tag: String): PickOutDoneFragment {
+            val fragment = PickOutDoneFragment()
+            val args = Bundle()
+            args.putString(ARG_PARAM, tag)
+            fragment.arguments = args
             return fragment
         }
     }

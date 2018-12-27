@@ -47,6 +47,8 @@ import java.util.*
  * @author TY
 </MaterialTodoDetailsData> */
 class ArrivalInTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<MaterialDetailsIn>, MaterialTodoDetailAdapter.SaveEditListener, ScanBoxInterface {
+    override val activityLayout: Int
+        get() = R.layout.activity_content_row_two
 
     private var adapter: MaterialTodoDetailAdapter? = null
     private val list = ArrayList<MaterialDetailsIn.ListBean>()
@@ -97,9 +99,9 @@ class ArrivalInTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
 
     }
 
-    override fun getActivityLayout(): Int {
-        return R.layout.activity_content_row_two
-    }
+//    override fun getActivityLayout(): Int {
+//        return R.layout.activity_content_row_two
+//    }
 
     override fun initOneData() {
 
@@ -111,11 +113,10 @@ class ArrivalInTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
 
     override fun initTwoView() {
 
-        initToolBar(R.string.label_purchase_detail) { view ->
-            ZBUiUtils.hideInputWindow(view.context, view)
-            // 冲销入库
+        initToolBar(R.string.label_purchase_detail, View.OnClickListener {
+            ZBUiUtils.hideInputWindow(it.context, it)
             doPurchaseInRecallOut(initParam())
-        }
+        })
 
         findViewById<View>(R.id.add_ship).visibility = View.GONE
         val titleName = findViewById<TextView>(R.id.in_storage_detail)

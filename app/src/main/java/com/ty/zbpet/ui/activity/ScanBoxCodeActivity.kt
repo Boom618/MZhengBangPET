@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import butterknife.BindView
 import com.pda.scanner.ScanReader
 import com.ty.zbpet.R
@@ -24,6 +25,8 @@ import java.util.*
  * 扫码功能
  */
 class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface {
+    override val activityLayout: Int
+        get() = R.layout.activity_scan_box_code
 
     @BindView(R.id.recyclerView)
     internal var recyclerView: RecyclerView? = null
@@ -37,18 +40,21 @@ class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface {
     private var adapter: BindBoxCodeAdapter? = null
     private var itemId: Int = 0
 
+    /**
+     * 查看 or 保存
+     */
     private var state: Boolean = false
     private val scanReader = ScanReader.getScannerInstance()
     private val scanObservable = ScanObservable(this)
 
 
-    override fun onBaseCreate(savedInstanceState: Bundle) {
+    override fun onBaseCreate(savedInstanceState: Bundle?) {
 
     }
 
-    override fun getActivityLayout(): Int {
-        return R.layout.activity_scan_box_code
-    }
+//    override fun getActivityLayout(): Int {
+//        return R.layout.activity_scan_box_code
+//    }
 
     override fun initOneData() {
         itemId = intent.getIntExtra("itemId", -1)
@@ -71,18 +77,21 @@ class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface {
         isOpen = scanInit()
 
         if (state) {
-            initToolBar(R.string.box_binding_list) {
-                // 保存箱码数据
-                val intent = Intent()
-                intent.putExtra("itemId", itemId)
-                intent.putStringArrayListExtra("boxCodeList", boxCodeList)
-                setResult(RESULT_SCAN_CODE, intent)
-                finish()
-            }
+            initToolBar(R.string.box_binding_list, View.OnClickListener { returnActivity() })
         } else {
             initToolBar(R.string.box_binding_list)
         }
+    }
 
+    /**
+     * 返回上级 Ac
+     */
+    private fun returnActivity(){
+        val intent = Intent()
+        intent.putExtra("itemId", itemId)
+        intent.putStringArrayListExtra("boxCodeList", boxCodeList)
+        setResult(RESULT_SCAN_CODE, intent)
+        finish()
     }
 
     private fun scanInit(): Boolean {

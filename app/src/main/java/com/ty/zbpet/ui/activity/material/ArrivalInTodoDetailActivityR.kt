@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.util.SparseArray
 import android.view.KeyEvent
+import android.view.View
 import com.pda.scanner.ScanReader
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.CarPositionNoData
@@ -44,6 +45,8 @@ import java.util.*
  * @author TY
  */
 class ArrivalInTodoDetailActivityR : BaseActivity(), MaterialUiObjInterface<MaterialDetailsIn>, ScanBoxInterface {
+    override val activityLayout: Int
+        get() = R.layout.activity_main_detail_two
 
     private var adapter: MaterialTodoDetailAdapterR? = null
     private val list = ArrayList<MaterialDetailsIn.ListBean>()
@@ -82,9 +85,9 @@ class ArrivalInTodoDetailActivityR : BaseActivity(), MaterialUiObjInterface<Mate
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {}
 
-    override fun getActivityLayout(): Int {
-        return R.layout.activity_main_detail_two
-    }
+//    override fun getActivityLayout(): Int {
+//        return R.layout.activity_main_detail_two
+//    }
 
     override fun initOneData() {
 
@@ -96,11 +99,10 @@ class ArrivalInTodoDetailActivityR : BaseActivity(), MaterialUiObjInterface<Mate
 
     override fun initTwoView() {
 
-        initToolBar(R.string.label_purchase_detail) { view ->
-            ZBUiUtils.hideInputWindow(view.context, view)
+        initToolBar(R.string.label_purchase_detail, View.OnClickListener {
+            ZBUiUtils.hideInputWindow(it.context, it)
             // 冲销入库
-            doPurchaseInRecallOut(initParam())
-        }
+            doPurchaseInRecallOut(initParam()) })
 
         in_storage_detail.text = "到货明细"
     }

@@ -18,6 +18,8 @@
 - 网络日志拦截器和头部拦截器
 - 详情页面利用 RecycleView  getItemViewType 替换 NestedScrollView
 - 数据存储采用 DataUtils 中 SparseArray 处理保存
+- 清空任务栈（建国提供 Helper）
+- 权限
 
 **技术点**
 
@@ -27,21 +29,6 @@
 
 **困扰**
 
-- Retrofit 上传图片：
-```
-// 构建请求
-RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
-
-`"file"`:是和服务器约定好的 key
-
-    // 接口定义
-    @Multipart
-    @POST(ApiNameConstant.POST_USER_QUA_CHECK_IMAGE)
-    Single<ImageData> updateCheckImage(@Part MultipartBody.Part part);
-
-
-```
 
 
 ## 待完成 
@@ -53,9 +40,8 @@ MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("file", fil
 - 列表分页加载
 - RxEasyHttp
 - rc 输入框取值
-- 清空任务栈
-- 权限
 - Rc button 冲突
+- Kotlin 改版
 
 
 
@@ -75,9 +61,23 @@ MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("file", fil
 - 需要缓存到文件的 Object ,里面的类也需要序列化: UserInfo
 - RecyclerView 不设置 `setLayoutManager` 不显示
 - adapter 执行：
-  构造方法
-  getItemCount
-  getItemViewType
-  onCreateViewHolder
-  ViewHolder
-  onBindViewHolder
+  1.构造方法
+  2.getItemCount
+  3.getItemViewType
+  4.onCreateViewHolder
+  5.ViewHolder
+  6.onBindViewHolder
+- Retrofit 上传图片：
+```
+// 构建请求
+RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+
+`"file"`:是和服务器约定好的 key
+
+    // 接口定义
+    @Multipart
+    @POST(ApiNameConstant.POST_USER_QUA_CHECK_IMAGE)
+    Single<ImageData> updateCheckImage(@Part MultipartBody.Part part);
+
+```

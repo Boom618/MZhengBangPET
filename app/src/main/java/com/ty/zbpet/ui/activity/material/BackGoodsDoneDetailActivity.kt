@@ -5,18 +5,18 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.InputType
 import android.view.View
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 
 import com.ty.zbpet.R
+import com.ty.zbpet.bean.CarPositionNoData
 import com.ty.zbpet.bean.ResponseInfo
 import com.ty.zbpet.bean.material.MaterialDetailsOut
 import com.ty.zbpet.bean.material.MaterialDoneSave
 import com.ty.zbpet.net.HttpMethods
-import com.ty.zbpet.presenter.material.MaterialPresenter
-import com.ty.zbpet.presenter.material.MaterialUiListInterface
-import com.ty.zbpet.ui.adapter.material.MaterialDoneDetailAdapter
+import com.ty.zbpet.presenter.material.BackGoodsPresenter
+import com.ty.zbpet.presenter.material.MaterialUiObjInterface
+import com.ty.zbpet.ui.adapter.material.BackGoodsDoneDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.constant.CodeConstant
@@ -24,76 +24,79 @@ import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils
+import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 
 import java.text.SimpleDateFormat
+import java.util.ArrayList
 import java.util.Date
 import java.util.Locale
 
-import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
 
 /**
- * @author TY on 2018/11/14.
- *
- *
- * 已办 详情
+ * @author TY on 2018/11/22.
+ * 采购退货 已办详情
  */
-class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<MaterialDetailsOut.ListBean> {
+class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiObjInterface<MaterialDetailsOut> {
+
+
+    private var adapter: BackGoodsDoneDetailAdapter? = null
+
+    private var selectTime: String? = null
+    /**
+     * 仓库 ID
+     */
+    private var warehouseId: String? = null
+
+    private var mOutWarehouseOrderId: String? = null
+    private var orderId: String? = null
+    private val list = ArrayList<MaterialDetailsOut.ListBean>()
+
+
+    private val presenter = BackGoodsPresenter(this)
+
     override val activityLayout: Int
         get() = R.layout.activity_content_row_two
 
-    /**
-     * 时间选择
-     */
-    private var selectTime: String? = null
-
-    private var orderId: String? = null
-    private var mInWarehouseOrderId: String? = null
-    private var warehouseId: String? = null
-    private var sapOrderNo: String? = null
-    private var positionId: String? = null
-
-    private var adapter: MaterialDoneDetailAdapter? = null
-    private val materialPresenter = MaterialPresenter(this)
-
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
-        val sdf = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
-        selectTime = sdf.format(Date())
-        tv_time!!.text = selectTime
-    }
 
-//    override fun getActivityLayout(): Int {
-//        return R.layout.activity_content_row_two
-//    }
+    }
 
     override fun initOneData() {
 
-        mInWarehouseOrderId = intent.getStringExtra("mInWarehouseOrderId")
-        sapOrderNo = intent.getStringExtra("sapOrderNo")
-        warehouseId = intent.getStringExtra("warehouseId")
+        mOutWarehouseOrderId = intent.getStringExtra("mOutWarehouseOrderId")
         orderId = intent.getStringExtra("orderId")
+
+        presenter.fetchBackDoneListInfo(orderId)
     }
 
     override fun initTwoView() {
 
+
+        initToolBar(R.string.back_goods, View.OnClickListener { backGoodsDoneSave(initDoneBody()) })
+
         findViewById<View>(R.id.add_ship).visibility = View.GONE
         val titleName = findViewById<TextView>(R.id.in_storage_detail)
-        titleName.text = "到货明细"
-        et_desc!!.inputType = InputType.TYPE_NULL
+        titleName.text = "退货明细"
 
-        initToolBar(R.string.material_reversal,View.OnClickListener { materialDoneInSave(initRequestBody())})
+        val format = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
+        selectTime = format.format(Date())
+
+        tv_time!!.text = selectTime
+
+        et_desc!!.inputType = InputType.TYPE_NULL
     }
 
     /**
-     * 已办 保存
-     * @param body
+     * 出库 保存
      */
-    private fun materialDoneInSave(body: RequestBody) {
-        HttpMethods.getInstance().materialDoneInSave(object : SingleObserver<ResponseInfo> {
+    private fun backGoodsDoneSave(body: RequestBody) {
+
+        HttpMethods.getInstance().getBackDoneSave(object : SingleObserver<ResponseInfo> {
             override fun onError(e: Throwable) {
                 ZBUiUtils.showToast(e.message)
             }
@@ -103,63 +106,48 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
             }
 
             override fun onSuccess(responseInfo: ResponseInfo) {
-
                 if (CodeConstant.SERVICE_SUCCESS == responseInfo.tag) {
+                    // 入库成功（保存）
                     ZBUiUtils.showToast(responseInfo.message)
-                    finish()
+                    runOnUiThread { finish() }
                 } else {
                     ZBUiUtils.showToast(responseInfo.message)
                 }
             }
-
         }, body)
-
     }
 
-    /**
-     * 初始化 请求参数
-     *
-     * @return
-     */
-    private fun initRequestBody(): RequestBody {
+    private fun initDoneBody(): RequestBody {
 
-        val bean = MaterialDoneSave()
+        val requestBody = MaterialDoneSave()
 
-        bean.warehouseId = warehouseId
-        bean.orderId = mInWarehouseOrderId
-        bean.sapOrderNo = sapOrderNo
-        bean.positionId = positionId
-        bean.orderId = orderId
+        val remark = et_desc!!.text.toString().trim { it <= ' ' }
 
-        val json = DataUtils.toJson(bean, 1)
+        requestBody.orderId = orderId
+        requestBody.warehouseId = warehouseId
+        requestBody.outTime = selectTime
+        requestBody.remark = remark
+        val json = DataUtils.toJson(requestBody, 1)
 
         return RequestBodyJson.requestBody(json)
-
     }
 
-    override fun onStart() {
-        super.onStart()
-        materialPresenter.fetchDoneMaterialDetails(orderId)
-    }
+    override fun detailObjData(obj: MaterialDetailsOut) {
 
-    override fun showMaterial(list: List<MaterialDetailsOut.ListBean>) {
-
-        positionId = list[0].positionId
+        val list = obj.list
+        warehouseId = list!![0].warehouseId
 
         if (adapter == null) {
             val manager = LinearLayoutManager(ResourceUtil.getContext())
             rv_in_storage_detail!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
             rv_in_storage_detail!!.layoutManager = manager
-
-            // TODO 侧滑删除
-            // detailRc.addOnItemTouchListener(new SwipeItemLayout.OnSwipeItemTouchListener(this));
-            adapter = MaterialDoneDetailAdapter(this, R.layout.item_material_done_detail, list)
+            adapter = BackGoodsDoneDetailAdapter(this, R.layout.item_material_detail_three_done, list)
             rv_in_storage_detail!!.adapter = adapter
 
             adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
-
                 override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
-                    val rlDetail = holder.itemView.findViewById<View>(R.id.view_gone)
+
+                    val rlDetail = holder.itemView.findViewById<View>(R.id.gone_view)
                     val ivArrow = holder.itemView.findViewById<ImageView>(R.id.iv_arrow)
 
                     if (rlDetail.visibility == View.VISIBLE) {
@@ -168,22 +156,26 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
                     } else {
                         rlDetail.visibility = View.VISIBLE
                         ivArrow.setImageResource(R.mipmap.ic_expand)
+
                     }
+
+                    ZBUiUtils.hideInputWindow(view.context, view)
+
                 }
 
                 override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
                     return false
                 }
             })
+        } else {
+            adapter!!.notifyDataSetChanged()
         }
 
     }
 
-    override fun showLoading() {
+    override fun showCarSuccess(position: Int, carData: CarPositionNoData) {
 
     }
 
-    override fun hideLoading() {
 
-    }
 }

@@ -76,7 +76,7 @@ public class MaterialPresenter {
         this.materialModel = materialModel;
     }
 
-    public void dispose(){
+    public void dispose() {
         if (disposable != null) {
             disposable.dispose();
         }
@@ -222,19 +222,13 @@ public class MaterialPresenter {
             public void onSuccess(BaseResponse<MaterialDoneList> infoList) {
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(infoList.getTag())) {
-                    if (null != infoList && infoList.getData() != null) {
-                        List<MaterialDoneList.ListBean> list = infoList.getData().getList();
-                        if (list != null && list.size() != 0) {
-                            materialListUi.showMaterial(list);
-                        } else {
-                            ZBUiUtils.showToast("没有采购入库已办数据");
-                        }
-                    }
+                    List<MaterialDoneList.ListBean> list = infoList.getData().getList();
+                    materialListUi.showMaterial(list);
                 } else {
                     ZBUiUtils.showToast(infoList.getMessage());
                 }
             }
-        },type);
+        }, type);
     }
 
     /**

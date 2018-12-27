@@ -12,7 +12,6 @@ import com.ty.zbpet.ui.activity.product.ProductInStorageActivity
 import com.ty.zbpet.ui.activity.product.BuyInStorageActivity
 import com.ty.zbpet.ui.activity.product.ReturnGoodsActivity
 import com.ty.zbpet.ui.activity.product.SendOutActivity
-import com.ty.zbpet.ui.activity.system.InventoryActivity
 import com.ty.zbpet.ui.activity.system.PersonCenterActivity
 import com.ty.zbpet.ui.activity.system.QualityCheckActivity
 import com.ty.zbpet.ui.activity.system.TransferStorageActivity
@@ -23,13 +22,12 @@ import com.ty.zbpet.ui.base.BaseActivity
  */
 class MainActivity : BaseActivity(), View.OnClickListener {
 
+    override val activityLayout: Int
+        get() = R.layout.activity_main1
+
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
 
-    }
-
-    override fun getActivityLayout(): Int {
-        return R.layout.activity_main1
     }
 
     override fun initOneData() {

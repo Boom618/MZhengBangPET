@@ -15,6 +15,9 @@ import com.ty.zbpet.R;
 import com.ty.zbpet.ui.base.BaseActivity;
 import com.ty.zbpet.util.ZBUiUtils;
 
+import java.util.HashMap;
+import java.util.Set;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.functions.Consumer;
@@ -30,10 +33,16 @@ public class TestMainActivity extends BaseActivity {
 
     RxPermissions rxPermissions;
 
+    private HashMap<String,String> hashMap = new HashMap<>();
+
     @Override
     protected void onBaseCreate(Bundle savedInstanceState) {
 
         imageView = findViewById(R.id.user_image);
+
+        Set<String> set = hashMap.keySet();
+
+        String s = hashMap.get(set);
 
     }
 
