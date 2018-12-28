@@ -37,8 +37,8 @@ public class QualityCheckActivity extends BaseActivity {
     @Override
     protected void onBaseCreate(Bundle savedInstanceState) {
 
-        QualityCheckTodoFragment todoFragment = QualityCheckTodoFragment.newInstance("todoFragment");
-        QualityCheckDoneFragment doneFragment = QualityCheckDoneFragment.newInstance("doneFragment");
+        QualityCheckTodoFragment todoFragment = QualityCheckTodoFragment.Companion.newInstance("todoFragment");
+        QualityCheckDoneFragment doneFragment = QualityCheckDoneFragment.Companion.newInstance("doneFragment");
 
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(todoFragment);

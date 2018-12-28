@@ -35,12 +35,12 @@ class MaterialTodoDetailAdapterR(private val context: Context, private val lists
 
         val inflater = LayoutInflater.from(context)
 
-        if (ONE_ITEM == viewType) {
+        holder = if (ONE_ITEM == viewType) {
             val view = inflater.inflate(R.layout.item_main_middle_todo, viewGroup, false)
-            holder = MiddleViewHolder(view)
+            MiddleViewHolder(view)
         } else {
             val view = inflater.inflate(R.layout.item_main_bottom_other, viewGroup, false)
-            holder = BottomViewHolder(view)
+            BottomViewHolder(view)
         }
         return holder as RecyclerView.ViewHolder
     }

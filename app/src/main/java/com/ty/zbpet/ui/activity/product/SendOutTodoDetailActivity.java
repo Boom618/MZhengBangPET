@@ -272,6 +272,10 @@ public class SendOutTodoDetailActivity extends BaseActivity implements ProductUi
         // 获取 用户选择商品的信息: 【那一列中的第几个】
         SparseArray<Integer> goodsArray = DataUtils.getGoodsId();
 
+        // TODO( for 遍历 View 获取控件的值)
+//        View child = reView.getChildAt(0);
+//        child.findViewById()
+
         // int size = rawData.size();
         int size = oldList.size();
         for (int i = 0; i < size; i++) {

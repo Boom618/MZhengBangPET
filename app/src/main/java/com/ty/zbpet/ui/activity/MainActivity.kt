@@ -14,6 +14,7 @@ import com.ty.zbpet.ui.activity.product.ReturnGoodsActivity
 import com.ty.zbpet.ui.activity.product.SendOutActivity
 import com.ty.zbpet.ui.activity.system.PersonCenterActivity
 import com.ty.zbpet.ui.activity.system.QualityCheckActivity
+import com.ty.zbpet.ui.activity.system.QualityCheckTabActivity
 import com.ty.zbpet.ui.activity.system.TransferStorageActivity
 import com.ty.zbpet.ui.base.BaseActivity
 
@@ -76,7 +77,8 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             R.id.tv_inventory ->
                 //仓库管理——盘点
                 //gotoActivity(InventoryActivity::class.java)
-                gotoActivity(QualityCheckActivity::class.java)
+//                gotoActivity(QualityCheckActivity::class.java)
+                gotoActivity(QualityCheckTabActivity::class.java)
             R.id.tv_transfer_storage ->
                 //仓库管理——移库
                 gotoActivity(TransferStorageActivity::class.java)

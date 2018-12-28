@@ -42,6 +42,7 @@
 - rc 输入框取值
 - Rc button 冲突
 - Kotlin 改版
+- adapter list 取值
 
 
 

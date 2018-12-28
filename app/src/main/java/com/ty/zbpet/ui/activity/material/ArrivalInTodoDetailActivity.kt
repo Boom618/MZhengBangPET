@@ -17,6 +17,7 @@ import com.ty.zbpet.bean.material.MaterialDetailsIn
 import com.ty.zbpet.bean.material.MaterialTodoSave
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.net.HttpMethods
+import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.material.MaterialPresenter
 import com.ty.zbpet.presenter.material.MaterialUiObjInterface
 import com.ty.zbpet.ui.adapter.material.MaterialTodoDetailAdapter
@@ -99,10 +100,6 @@ class ArrivalInTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
 
     }
 
-//    override fun getActivityLayout(): Int {
-//        return R.layout.activity_content_row_two
-//    }
-
     override fun initOneData() {
 
         sapOrderNo = intent.getStringExtra("sapOrderNo")
@@ -180,8 +177,7 @@ class ArrivalInTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
 
 
         val json = DataUtils.toJson(requestBody, 1)
-        ZBLog.e("JSON $json")
-        return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), json)
+        return RequestBodyJson.requestBody(json)
     }
 
     /**

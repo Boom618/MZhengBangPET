@@ -4,55 +4,87 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_color"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context=".ui.activity.system.QualityCheckActivity">
 
     <include
         android:id="@+id/top_layout"
         layout="@layout/top_layout" />
 
-    <LinearLayout
-        android:id="@+id/ll_top"
+    <EditText
+        android:id="@+id/et_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/top_layout"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="@dimen/space_10">
+        android:layout_below="@+id/top_layout"
+        android:layout_margin="@dimen/space_10"
+        android:layout_toLeftOf="@+id/stl"
+        android:background="@drawable/shape_white_max_radius"
+        android:drawableStart="@mipmap/ic_search"
+        android:drawablePadding="@dimen/space_10"
+        android:hint="请输入单号"
+        android:padding="@dimen/space_7"
+        android:textColor="@color/txt_minor_color"
+        android:textSize="@dimen/text_14" />
 
-        <EditText
-            android:id="@+id/et_search"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/shape_white_max_radius"
-            android:drawablePadding="@dimen/space_10"
-            android:drawableStart="@mipmap/ic_search"
-            android:hint="请输入单号"
-            android:padding="@dimen/space_7"
-            android:textColor="@color/txt_minor_color"
-            android:textSize="@dimen/text_14" />
-
-        <com.flyco.tablayout.SlidingTabLayout
-            android:id="@+id/stl"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingBottom="15dp"
-            android:paddingTop="15dp"
-            tl:tl_indicator_color="@color/main_color"
-            tl:tl_indicator_style="BLOCK"
-            tl:tl_textBold="SELECT"
-            tl:tl_textUnselectColor="@color/txt_main_color"
-            tl:tl_underline_color="#1A000000" />
+    <!--<com.flyco.tablayout.SlidingTabLayout-->
+    <!--android:id="@+id/stl"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentEnd="true"-->
+    <!--android:layout_marginTop="@dimen/space_10"-->
+    <!--android:layout_marginEnd="@dimen/space_10"-->
+    <!--android:paddingTop="9dp"-->
+    <!--android:paddingBottom="9dp"-->
+    <!--tl:tl_indicator_color="@color/main_color"-->
+    <!--tl:tl_indicator_style="BLOCK"-->
+    <!--tl:tl_textBold="SELECT"-->
+    <!--tl:tl_textUnselectColor="@color/txt_main_color"-->
+    <!--tl:tl_underline_color="#1A000000" />-->
 
 
-    </LinearLayout>
+    <com.flyco.tablayout.SegmentTabLayout
+        android:id="@+id/stl"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:layout_below="@+id/top_layout"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="@dimen/space_13"
+        tl:tl_indicator_anim_enable="true"
+        tl:tl_indicator_bounce_enable="false"
+        tl:tl_indicator_color="@color/main_color"
+        tl:tl_indicator_corner_radius="@dimen/space_4"
+        tl:tl_tab_padding="14dp"
+        tl:tl_textUnselectColor="@color/txt_main_color" />
+
+    <!--<FrameLayout-->
+        <!--android:id="@+id/fl_content"-->
+        <!--android:layout_below="@id/et_search"-->
+        <!--android:background="@color/green_color"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"/>-->
+
+
+    <!--  自定义样式：android:background="@drawable/tab_layout_item_normal"  -->
+    <!--<android.support.design.widget.TabLayout-->
+    <!--android:id="@+id/stl"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="32dp"-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:layout_alignParentEnd="true"-->
+    <!--android:layout_below="@+id/top_layout"-->
+    <!--android:layout_marginEnd="10dp"-->
+    <!--app:tabMode="fixed"-->
+    <!--app:tabIndicatorHeight="0dp"-->
+    <!--app:tabIndicatorColor="@color/main_color"-->
+    <!--app:tabSelectedTextColor="@color/white"/>-->
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/ll_top" />
+        android:layout_below="@id/et_search" />
+
 
 </RelativeLayout>
