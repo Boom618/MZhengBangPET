@@ -7,35 +7,30 @@ import android.support.v7.widget.RecyclerView
 import android.text.InputType
 import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
-
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.ResponseInfo
 import com.ty.zbpet.bean.product.ProductDetailsOut
 import com.ty.zbpet.bean.product.ProductDoneSave
+import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.net.HttpMethods
+import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.product.ProducePresenter
 import com.ty.zbpet.presenter.product.ProductUiObjInterface
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity
 import com.ty.zbpet.ui.adapter.product.ProductDoneDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
-import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
-
-import java.text.SimpleDateFormat
-import java.util.ArrayList
-import java.util.Date
-import java.util.Locale
-
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
+import kotlinx.android.synthetic.main.activity_content_row_three.*
 import okhttp3.RequestBody
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * @author TY on 2018/11/22.
@@ -43,13 +38,6 @@ import okhttp3.RequestBody
  */
 class ProductDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductDetailsOut> {
 
-
-    private var reView: RecyclerView? = null
-    private var tvTime: TextView? = null
-    private var etDesc: EditText? = null
-
-    private var titleName: TextView? = null
-    private var selectHouse: TextView? = null
 
     private var adapter: ProductDoneDetailAdapter? = null
 
@@ -92,20 +80,14 @@ class ProductDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
 
         initToolBar(R.string.pick_out_storage, View.OnClickListener { productDoneSave(initDoneBody()) })
 
-        reView = findViewById(R.id.rv_in_storage_detail)
-        tvTime = findViewById(R.id.tv_time)
-        etDesc = findViewById(R.id.et_desc)
-        titleName = findViewById(R.id.in_storage_detail)
-        selectHouse = findViewById(R.id.tv_house)
-
-        titleName!!.text = "入库明细"
+        in_storage_detail!!.text = "入库明细"
 
         val format = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
         selectTime = format.format(Date())
 
-        tvTime!!.text = selectTime
+        tv_time!!.text = selectTime
 
-        etDesc!!.inputType = InputType.TYPE_NULL
+        et_desc!!.inputType = InputType.TYPE_NULL
     }
 
     /**
@@ -168,20 +150,20 @@ class ProductDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
         requestBody.outTime = selectTime
         val json = DataUtils.toJson(requestBody, 1)
 
-        return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), json)
+        return RequestBodyJson.requestBody(json)
     }
 
     override fun detailObjData(obj: ProductDetailsOut) {
 
         list = obj.list
-        selectHouse!!.text = list!![0].warehouseName
+        tv_house!!.text = list!![0].warehouseName
 
         if (adapter == null) {
             val manager = LinearLayoutManager(ResourceUtil.getContext())
-            reView!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
-            reView!!.layoutManager = manager
+            rv_in_storage_detail!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+            rv_in_storage_detail!!.layoutManager = manager
             adapter = ProductDoneDetailAdapter(this, R.layout.item_produce_detail_done, list)
-            reView!!.adapter = adapter
+            rv_in_storage_detail!!.adapter = adapter
 
             adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                 override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {

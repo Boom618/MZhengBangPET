@@ -104,7 +104,6 @@ class BackGoodsTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
             pickOutTodoSave(initTodoBody())
         })
 
-        findViewById<View>(R.id.add_ship).visibility = View.GONE
 
         val format = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
         selectTime = format.format(Date())

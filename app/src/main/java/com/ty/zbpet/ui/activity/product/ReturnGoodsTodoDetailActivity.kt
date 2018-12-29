@@ -39,6 +39,7 @@ import java.util.Locale
 
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
+import kotlinx.android.synthetic.main.activity_content_row_three.*
 import okhttp3.RequestBody
 
 /**
@@ -46,15 +47,6 @@ import okhttp3.RequestBody
  * 退货入库 待办详情
  */
 class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductTodoDetails.ListBean>, ReturnGoodsTodoDetailAdapter.SaveEditListener {
-
-
-    private var reView: RecyclerView? = null
-    private var tvTime: TextView? = null
-    private var titleName: TextView? = null
-    private var selectHouse: TextView? = null
-    private var tvPath: TextView? = null
-    private var tvType: TextView? = null
-    private var etDesc: EditText? = null
 
     private var adapter: ReturnGoodsTodoDetailAdapter? = null
 
@@ -125,8 +117,8 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
             houseName.add(warehouseList[i].warehouseName.toString())
         }
 
-        selectHouse = findViewById(R.id.tv_house)
-        selectHouse!!.text = houseName[0]
+//        selectHouse = findViewById(R.id.tv_house)
+        tv_house!!.text = houseName[0]
 
         presenter.fetchReturnOrderInfo(sapOrderNo)
     }
@@ -138,27 +130,19 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
             returnGoodsTodoSave(initTodoBody())
         })
 
-        reView = findViewById(R.id.rv_in_storage_detail)
-        tvTime = findViewById(R.id.tv_time)
-        titleName = findViewById(R.id.in_storage_detail)
-
-        tvPath = findViewById(R.id.tv_path)
-        tvType = findViewById(R.id.tv_type)
-        etDesc = findViewById(R.id.et_desc)
-
         val format = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
         selectTime = format.format(Date())
 
-        tvTime!!.text = selectTime
-        titleName!!.text = "退货明细"
+        tv_time!!.text = selectTime
+        in_storage_detail!!.text = "退货明细"
 
         // 用户选择仓库信息
-        selectHouse!!.setOnClickListener { v -> ZBUiUtils.selectDialog(v.context, CodeConstant.SELECT_HOUSE_BUY_IN, 0, houseName, selectHouse) }
+        tv_house!!.setOnClickListener { v -> ZBUiUtils.selectDialog(v.context, CodeConstant.SELECT_HOUSE_BUY_IN, 0, houseName, tv_house) }
 
-        tvTime!!.setOnClickListener { v ->
+        tv_time!!.setOnClickListener { v ->
             ZBUiUtils.showPickDate(v.context) { date, v ->
                 selectTime = ZBUiUtils.getTime(date)
-                tvTime!!.text = selectTime
+                tv_time!!.text = selectTime
 
                 ZBUiUtils.showToast(selectTime)
             }
@@ -266,8 +250,8 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
             ZBUiUtils.showToast("请完善您要退货的信息")
             return null
         }
-        val remark = etDesc!!.text.toString().trim { it <= ' ' }
-        val time = tvTime!!.text.toString().trim { it <= ' ' }
+        val remark = et_desc!!.text.toString().trim { it <= ' ' }
+        val time = tv_time!!.text.toString().trim { it <= ' ' }
 
         requestBody.details = detail
         requestBody.warehouseId = warehouseId
@@ -287,10 +271,10 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
         oldList = list
         if (adapter == null) {
             val manager = LinearLayoutManager(ResourceUtil.getContext())
-            reView!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
-            reView!!.layoutManager = manager
+            rv_in_storage_detail!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+            rv_in_storage_detail!!.layoutManager = manager
             adapter = ReturnGoodsTodoDetailAdapter(this, R.layout.item_product_detail_two_todo, list)
-            reView!!.adapter = adapter
+            rv_in_storage_detail!!.adapter = adapter
 
             adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                 override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
@@ -330,7 +314,6 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
 
     }
 
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_SCAN_CODE && resultCode == RESULT_SCAN_CODE) {
             itemId = data!!.getIntExtra("itemId", -1)
@@ -343,14 +326,11 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
     override fun saveEditAndGetHasFocusPosition(etType: String, hasFocus: Boolean?, position: Int, editText: EditText) {
         val textContent = editText.text.toString().trim { it <= ' ' }
 
-        if (CodeConstant.ET_NUMBER == etType) {
-            numberArray.put(position, textContent)
-        } else if (CodeConstant.ET_BATCH_NO == etType) {
-            sapArray.put(position, textContent)
-        } else if (CodeConstant.ET_START_CODE == etType) {
-            startCodeArray.put(position, textContent)
-        } else if (CodeConstant.ET_END_CODE == etType) {
-            endCodeArray.put(position, textContent)
+        when (etType) {
+            CodeConstant.ET_NUMBER -> numberArray.put(position, textContent)
+            CodeConstant.ET_BATCH_NO -> sapArray.put(position, textContent)
+            CodeConstant.ET_START_CODE -> startCodeArray.put(position, textContent)
+            CodeConstant.ET_END_CODE -> endCodeArray.put(position, textContent)
         }
     }
 

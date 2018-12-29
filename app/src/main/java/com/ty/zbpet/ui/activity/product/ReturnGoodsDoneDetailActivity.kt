@@ -7,9 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.text.InputType
 import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
 
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.ResponseInfo
@@ -23,6 +21,7 @@ import com.ty.zbpet.ui.adapter.product.ReturnGoodsDoneDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.constant.CodeConstant
+import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils
@@ -35,6 +34,7 @@ import java.util.Locale
 
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
+import kotlinx.android.synthetic.main.activity_content_row_three.*
 import okhttp3.RequestBody
 
 /**
@@ -42,13 +42,6 @@ import okhttp3.RequestBody
  * 退货入库 已办详情
  */
 class ReturnGoodsDoneDetailActivity : BaseActivity(), ProductUiListInterface<ProductDetailsOut.ListBean> {
-
-
-    private var reView: RecyclerView? = null
-    private var tvTime: TextView? = null
-    private var titleName: TextView? = null
-    private var selectHouse: TextView? = null
-    private var etDesc: EditText? = null
 
     private var adapter: ReturnGoodsDoneDetailAdapter? = null
 
@@ -83,22 +76,15 @@ class ReturnGoodsDoneDetailActivity : BaseActivity(), ProductUiListInterface<Pro
 
     override fun initTwoView() {
 
-
         initToolBar(R.string.label_return_sell, View.OnClickListener { returnGoodsDoneSave(initDoneBody()) })
 
-        reView = findViewById(R.id.rv_in_storage_detail)
-        tvTime = findViewById(R.id.tv_time)
-        etDesc = findViewById(R.id.et_desc)
-        titleName = findViewById(R.id.in_storage_detail)
-        selectHouse = findViewById(R.id.tv_house)
-
-        etDesc!!.inputType = InputType.TYPE_NULL
+        et_desc!!.inputType = InputType.TYPE_NULL
 
         val format = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
         selectTime = format.format(Date())
 
-        tvTime!!.text = selectTime
-        titleName!!.text = "入库明细"
+        tv_time!!.text = selectTime
+        in_storage_detail!!.text = "入库明细"
 
     }
 
@@ -167,20 +153,20 @@ class ReturnGoodsDoneDetailActivity : BaseActivity(), ProductUiListInterface<Pro
         //requestBody.setRemark(remark);
         val json = DataUtils.toJson(requestBody, 1)
 
-        return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), json)
+        return RequestBodyJson.requestBody(json)
     }
 
     override fun showProduct(list: List<ProductDetailsOut.ListBean>) {
 
         oldList = list
-        selectHouse!!.text = list[0].warehouseName
+        tv_house!!.text = list[0].warehouseName
 
         if (adapter == null) {
             val manager = LinearLayoutManager(ResourceUtil.getContext())
-            reView!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
-            reView!!.layoutManager = manager
+            rv_in_storage_detail!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+            rv_in_storage_detail!!.layoutManager = manager
             adapter = ReturnGoodsDoneDetailAdapter(this, R.layout.item_product_detail_two_done, list)
-            reView!!.adapter = adapter
+            rv_in_storage_detail!!.adapter = adapter
 
             adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                 override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {

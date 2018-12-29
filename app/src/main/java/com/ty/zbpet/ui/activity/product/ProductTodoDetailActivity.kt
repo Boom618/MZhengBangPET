@@ -39,6 +39,7 @@ import java.util.Locale
 
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
+import kotlinx.android.synthetic.main.activity_content_row_three.*
 import okhttp3.RequestBody
 
 /**
@@ -47,15 +48,6 @@ import okhttp3.RequestBody
  * @author TY
  */
 class ProductTodoDetailActivity : BaseActivity(), ProductUiObjInterface<ProductTodoDetails>, ProductTodoDetailAdapter.SaveEditListener {
-
-
-    private var reView: RecyclerView? = null
-    private var tvTime: TextView? = null
-    private var backGoods: TextView? = null
-    private var selectHouse: TextView? = null
-    private var tvPath: TextView? = null
-    private var tvType: TextView? = null
-    private var etDesc: EditText? = null
 
     private var adapter: ProductTodoDetailAdapter? = null
 
@@ -123,44 +115,33 @@ class ProductTodoDetailActivity : BaseActivity(), ProductUiObjInterface<ProductT
         for (i in 0 until size) {
             houseName.add(warehouseList[i].warehouseName.toString())
         }
-        selectHouse = findViewById(R.id.tv_house)
-        selectHouse!!.text = houseName[0]
+        tv_house!!.text = houseName[0]
 
         presenter.fetchProductTodoInfo(sapOrderNo)
     }
 
     override fun initTwoView() {
 
-        // in_storage_detail 到货明细
-
         initToolBar(R.string.label_produce_in_storage, View.OnClickListener { productTodoSave(initTodoBody()) })
-
-        reView = findViewById(R.id.rv_in_storage_detail)
-        tvTime = findViewById(R.id.tv_time)
-        backGoods = findViewById(R.id.in_storage_detail)
-
-        tvPath = findViewById(R.id.tv_path)
-        tvType = findViewById(R.id.tv_type)
-        etDesc = findViewById(R.id.et_desc)
 
         val format = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
         selectTime = format.format(Date())
 
-        tvTime!!.text = selectTime
-        backGoods!!.text = "入库明细"
+        tv_time!!.text = selectTime
+        in_storage_detail!!.text = "入库明细"
 
 
-        tvTime!!.setOnClickListener { v ->
-            ZBUiUtils.showPickDate(v.context) { date, v ->
+        tv_time!!.setOnClickListener { v ->
+            ZBUiUtils.showPickDate(v.context) { date, _ ->
                 selectTime = ZBUiUtils.getTime(date)
-                tvTime!!.text = selectTime
+                tv_time!!.text = selectTime
 
                 ZBUiUtils.showToast(selectTime)
             }
         }
 
         // 用户选择仓库信息
-        selectHouse!!.setOnClickListener { v -> ZBUiUtils.selectDialog(v.context, CodeConstant.SELECT_HOUSE_BUY_IN, 0, houseName, selectHouse) }
+        tv_house!!.setOnClickListener { v -> ZBUiUtils.selectDialog(v.context, CodeConstant.SELECT_HOUSE_BUY_IN, 0, houseName, tv_house) }
 
     }
 
@@ -255,9 +236,6 @@ class ProductTodoDetailActivity : BaseActivity(), ProductUiObjInterface<ProductT
 
 
                 detail.add(bean)
-            } else {
-                // 跳出当前一列、不处理
-                continue
             }
         }
         // 没有合法的操作数据,不请求网络
@@ -266,8 +244,8 @@ class ProductTodoDetailActivity : BaseActivity(), ProductUiObjInterface<ProductT
             return null
         }
 
-        val remark = etDesc!!.text.toString().trim { it <= ' ' }
-        val time = tvTime!!.text.toString().trim { it <= ' ' }
+        val remark = et_desc!!.text.toString().trim { it <= ' ' }
+        val time = tv_time!!.text.toString().trim { it <= ' ' }
 
         requestBody.details = detail
         requestBody.warehouseId = warehouseId
@@ -289,10 +267,10 @@ class ProductTodoDetailActivity : BaseActivity(), ProductUiObjInterface<ProductT
 
         if (adapter == null) {
             val manager = LinearLayoutManager(ResourceUtil.getContext())
-            reView!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
-            reView!!.layoutManager = manager
+            rv_in_storage_detail!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+            rv_in_storage_detail!!.layoutManager = manager
             adapter = ProductTodoDetailAdapter(this, R.layout.item_produce_detail_todo, oldList)
-            reView!!.adapter = adapter
+            rv_in_storage_detail!!.adapter = adapter
 
             adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                 override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {

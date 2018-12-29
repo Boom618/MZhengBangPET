@@ -28,6 +28,7 @@ import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.NormalAlertDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.constant.CodeConstant
+import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBLog
@@ -41,6 +42,7 @@ import java.util.Locale
 
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
+import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
 
 /**
@@ -49,15 +51,6 @@ import okhttp3.RequestBody
  * @author TY
  */
 class SendOutTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductTodoDetails.ListBean>, SendOutTodoDetailAdapter.SaveEditListener {
-
-
-    private var reView: RecyclerView? = null
-    private var tvTime: TextView? = null
-    private var backGoods: TextView? = null
-    private var tvPath: TextView? = null
-    private var tvType: TextView? = null
-    private var etDesc: EditText? = null
-    private var addShip: Button? = null
 
     private var adapter: SendOutTodoDetailAdapter? = null
 
@@ -94,15 +87,15 @@ class SendOutTodoDetailActivity : BaseActivity(), ProductUiListInterface<Product
     /**
      * 保存用户在输入框中的数据
      */
-    private val numberArray:SparseArray<String> = SparseArray(10)
-    private val startCodeArray:SparseArray<String> = SparseArray(10)
-    private val endCodeArray:SparseArray<String> = SparseArray(10)
-    private val sapArray:SparseArray<String> = SparseArray(10)
-    private val carCodeArray:SparseArray<ArrayList<String>> = SparseArray(10)
+    private val numberArray: SparseArray<String> = SparseArray(10)
+    private val startCodeArray: SparseArray<String> = SparseArray(10)
+    private val endCodeArray: SparseArray<String> = SparseArray(10)
+    private val sapArray: SparseArray<String> = SparseArray(10)
+    private val carCodeArray: SparseArray<ArrayList<String>> = SparseArray(10)
     /**
      * 库位码 ID
      */
-    private val positionId:SparseArray<String> = SparseArray(10)
+    private val positionId: SparseArray<String> = SparseArray(10)
 
     /**
      * 仓库 ID
@@ -139,31 +132,24 @@ class SendOutTodoDetailActivity : BaseActivity(), ProductUiListInterface<Product
             sendOutTodoSave(initTodoBody())
         })
 
-        reView = findViewById(R.id.rv_in_storage_detail)
-        tvTime = findViewById(R.id.tv_time)
-        backGoods = findViewById(R.id.in_storage_detail)
-        addShip = findViewById(R.id.add_ship)
-
-        tvPath = findViewById(R.id.tv_path)
-        tvType = findViewById(R.id.tv_type)
-        etDesc = findViewById(R.id.et_desc)
-
         val format = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
         selectTime = format.format(Date())
 
-        tvTime!!.text = selectTime
-        backGoods!!.text = "发货明细"
+        tv_time!!.text = selectTime
+        in_storage_detail!!.text = "发货明细"
 
-        tvTime!!.setOnClickListener { v ->
-            ZBUiUtils.showPickDate(v.context) { date, v ->
+        tv_time!!.setOnClickListener { v ->
+            ZBUiUtils.showPickDate(v.context) { date, _ ->
                 selectTime = ZBUiUtils.getTime(date)
-                tvTime!!.text = selectTime
+                tv_time!!.text = selectTime
 
                 ZBUiUtils.showToast(selectTime)
             }
         }
 
-        addShip!!.setOnClickListener {
+        add_ship.visibility = View.VISIBLE
+
+        add_ship!!.setOnClickListener {
             val rawSize = rawData.size
             val oldSize = oldList.size
             if (oldSize < rawSize) {
@@ -290,9 +276,6 @@ class SendOutTodoDetailActivity : BaseActivity(), ProductUiListInterface<Product
                 bean.boxQrCode = boxQrCode
 
                 detail.add(bean)
-            } else {
-                // 跳出当前循环、不处理
-                continue
             }
         }
         // 没有合法的操作数据,不请求网络
@@ -301,8 +284,8 @@ class SendOutTodoDetailActivity : BaseActivity(), ProductUiListInterface<Product
             return null
         }
 
-        val remark = etDesc!!.text.toString().trim { it <= ' ' }
-        val time = tvTime!!.text.toString().trim { it <= ' ' }
+        val remark = et_desc!!.text.toString().trim { it <= ' ' }
+        val time = tv_time!!.text.toString().trim { it <= ' ' }
 
         requestBody.productInfo = productInfo
         requestBody.customerInfo = customerInfo
@@ -317,7 +300,7 @@ class SendOutTodoDetailActivity : BaseActivity(), ProductUiListInterface<Product
 
         val json = DataUtils.toJson(requestBody, 1)
         ZBLog.e("JSON $json")
-        return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), json)
+        return RequestBodyJson.requestBody(json)
     }
 
 
@@ -338,10 +321,10 @@ class SendOutTodoDetailActivity : BaseActivity(), ProductUiListInterface<Product
 
         if (adapter == null) {
             val manager = LinearLayoutManager(ResourceUtil.getContext())
-            reView!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
-            reView!!.layoutManager = manager
+            rv_in_storage_detail!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+            rv_in_storage_detail!!.layoutManager = manager
             adapter = SendOutTodoDetailAdapter(this, R.layout.item_product_detail_send_out_todo, newList)
-            reView!!.adapter = adapter
+            rv_in_storage_detail!!.adapter = adapter
 
             adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                 override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
@@ -374,9 +357,6 @@ class SendOutTodoDetailActivity : BaseActivity(), ProductUiListInterface<Product
                         intent.putStringArrayListExtra("boxCodeList", carCodeArray.get(itemId))
                         startActivityForResult(intent, REQUEST_SCAN_CODE)
                     }
-
-                    //List<BuyInTodoDetails.ListBean.WarehouseListBean> warehouseList = list.get(position).getWarehouseList();
-
 
                     ZBUiUtils.hideInputWindow(view.context, view)
 
@@ -425,16 +405,12 @@ class SendOutTodoDetailActivity : BaseActivity(), ProductUiListInterface<Product
 
         val textContent = editText.text.toString().trim { it <= ' ' }
 
-        if (CodeConstant.ET_NUMBER == etType) {
-            numberArray.put(position, textContent)
-        } else if (CodeConstant.ET_BATCH_NO == etType) {
-            sapArray.put(position, textContent)
-        } else if (CodeConstant.ET_START_CODE == etType) {
-            startCodeArray.put(position, textContent)
-        } else if (CodeConstant.ET_END_CODE == etType) {
-            endCodeArray.put(position, textContent)
+        when (etType) {
+            CodeConstant.ET_NUMBER -> numberArray.put(position, textContent)
+            CodeConstant.ET_BATCH_NO -> sapArray.put(position, textContent)
+            CodeConstant.ET_START_CODE -> startCodeArray.put(position, textContent)
+            CodeConstant.ET_END_CODE -> endCodeArray.put(position, textContent)
         }
-
     }
 
     companion object {

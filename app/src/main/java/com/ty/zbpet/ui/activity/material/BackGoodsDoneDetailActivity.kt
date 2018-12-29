@@ -79,7 +79,6 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
 
         initToolBar(R.string.back_goods, View.OnClickListener { backGoodsDoneSave(initDoneBody()) })
 
-        findViewById<View>(R.id.add_ship).visibility = View.GONE
         val titleName = findViewById<TextView>(R.id.in_storage_detail)
         titleName.text = "退货明细"
 

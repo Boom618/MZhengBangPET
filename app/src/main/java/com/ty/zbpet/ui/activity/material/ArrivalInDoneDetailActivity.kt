@@ -80,7 +80,6 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
 
     override fun initTwoView() {
 
-        findViewById<View>(R.id.add_ship).visibility = View.GONE
         val titleName = findViewById<TextView>(R.id.in_storage_detail)
         titleName.text = "到货明细"
         et_desc!!.inputType = InputType.TYPE_NULL

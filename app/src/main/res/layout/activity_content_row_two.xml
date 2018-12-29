@@ -43,6 +43,7 @@
                 android:id="@+id/add_ship"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
+                android:visibility="gone"
                 android:layout_alignBottom="@+id/in_storage_detail"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="@dimen/text_16"

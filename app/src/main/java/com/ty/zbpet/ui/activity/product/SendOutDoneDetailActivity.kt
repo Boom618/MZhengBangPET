@@ -7,9 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.text.InputType
 import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
 
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.ResponseInfo
@@ -35,6 +33,7 @@ import java.util.Locale
 
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
+import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
 
 /**
@@ -42,12 +41,6 @@ import okhttp3.RequestBody
  * 发货出库 已办详情
  */
 class SendOutDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductDetailsOut> {
-
-
-    private var reView: RecyclerView? = null
-    private var tvTime: TextView? = null
-    private var titleName: TextView? = null
-    private var etDesc: EditText? = null
 
     private var adapter: SendOutDoneDetailAdapter? = null
 
@@ -91,19 +84,13 @@ class SendOutDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
 
         initToolBar(R.string.pick_out_storage, View.OnClickListener { sendOutDoneSave(initDoneBody()) })
 
-        reView = findViewById(R.id.rv_in_storage_detail)
-        tvTime = findViewById(R.id.tv_time)
-        etDesc = findViewById(R.id.et_desc)
-        titleName = findViewById(R.id.in_storage_detail)
-        findViewById<View>(R.id.add_ship).visibility = View.GONE
-
         val format = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
         selectTime = format.format(Date())
 
-        tvTime!!.text = selectTime
-        titleName!!.text = "发货明细"
+        tv_time!!.text = selectTime
+        in_storage_detail!!.text = "发货明细"
 
-        etDesc!!.inputType = InputType.TYPE_NULL
+        et_desc!!.inputType = InputType.TYPE_NULL
     }
 
     /**
@@ -171,10 +158,10 @@ class SendOutDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
 
         if (adapter == null) {
             val manager = LinearLayoutManager(ResourceUtil.getContext())
-            reView!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
-            reView!!.layoutManager = manager
+            rv_in_storage_detail!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+            rv_in_storage_detail!!.layoutManager = manager
             adapter = SendOutDoneDetailAdapter(this, R.layout.item_product_detail_send_out_done, list)
-            reView!!.adapter = adapter
+            rv_in_storage_detail!!.adapter = adapter
 
             adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                 override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {

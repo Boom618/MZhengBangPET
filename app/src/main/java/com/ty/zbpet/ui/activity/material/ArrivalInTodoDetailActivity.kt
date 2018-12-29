@@ -115,7 +115,6 @@ class ArrivalInTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
             doPurchaseInRecallOut(initParam())
         })
 
-        findViewById<View>(R.id.add_ship).visibility = View.GONE
         val titleName = findViewById<TextView>(R.id.in_storage_detail)
         titleName.text = "到货明细"
 
@@ -233,11 +232,9 @@ class ArrivalInTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
                     } else {
                         rlDetail.visibility = View.VISIBLE
                         ivArrow.setImageResource(R.mipmap.ic_expand)
-
                     }
 
                     ZBUiUtils.hideInputWindow(view.context, view)
-
                 }
 
                 override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
@@ -314,7 +311,7 @@ class ArrivalInTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
         ZBUiUtils.showToast("库位码 ：$positionNo")
 
         //  服务器校验 库位码
-        httpCheckCarCode(position, positionNo)
+        materialPresenter.checkCarCode(position, positionNo)
 
     }
 
@@ -328,18 +325,6 @@ class ArrivalInTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
         } else {
             ZBUiUtils.showToast("请扫正确的库位码")
         }
-    }
-
-    /**
-     * Http 校验 库位码合法
-     *
-     * @param position   item 更新需要的 position
-     * @param positionNo 扫码的编号
-     */
-    private fun httpCheckCarCode(position: Int, positionNo: String) {
-
-        materialPresenter.checkCarCode(position, positionNo)
-
     }
 
 

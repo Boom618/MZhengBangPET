@@ -37,6 +37,7 @@ import java.util.Locale
 
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
+import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
 
 /**
@@ -44,12 +45,6 @@ import okhttp3.RequestBody
  * 外采入库 已办详情
  */
 class BuyInDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductDetailsOut> {
-
-
-    private var reView: RecyclerView? = null
-    private var tvTime: TextView? = null
-    private var titleName: TextView? = null
-    private var etDesc: EditText? = null
 
     private var adapter: BuyInDoneDetailAdapter? = null
 
@@ -86,21 +81,15 @@ class BuyInDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductDet
 
     override fun initTwoView() {
 
-
         initToolBar(R.string.label_purchase_in_storage, View.OnClickListener { buyInDoneSave(initDoneBody()) })
 
-        reView = findViewById(R.id.rv_in_storage_detail)
-        tvTime = findViewById(R.id.tv_time)
-        etDesc = findViewById(R.id.et_desc)
-        titleName = findViewById(R.id.in_storage_detail)
-        findViewById<View>(R.id.add_ship).visibility = View.GONE
-        etDesc!!.inputType = InputType.TYPE_NULL
+        et_desc!!.inputType = InputType.TYPE_NULL
 
         val format = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
         selectTime = format.format(Date())
 
-        tvTime!!.text = selectTime
-        titleName!!.text = "到货明细"
+        tv_time!!.text = selectTime
+        in_storage_detail!!.text = "到货明细"
 
     }
 
@@ -157,7 +146,7 @@ class BuyInDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductDet
             beans.add(detailsBean)
         }
 
-        val remark = etDesc!!.text.toString().trim { it <= ' ' }
+        val remark = et_desc!!.text.toString().trim { it <= ' ' }
 
         requestBody.details = beans
         requestBody.orderId = orderId
@@ -175,10 +164,10 @@ class BuyInDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductDet
 
         if (adapter == null) {
             val manager = LinearLayoutManager(ResourceUtil.getContext())
-            reView!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
-            reView!!.layoutManager = manager
+            rv_in_storage_detail!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+            rv_in_storage_detail!!.layoutManager = manager
             adapter = BuyInDoneDetailAdapter(this, R.layout.item_product_detail_two_done, list)
-            reView!!.adapter = adapter
+            rv_in_storage_detail!!.adapter = adapter
 
             adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                 override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
