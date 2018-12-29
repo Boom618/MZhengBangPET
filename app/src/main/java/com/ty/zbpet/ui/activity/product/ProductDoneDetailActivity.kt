@@ -10,7 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.ResponseInfo
-import com.ty.zbpet.bean.product.ProductDetailsOut
+import com.ty.zbpet.bean.product.ProductDetails
 import com.ty.zbpet.bean.product.ProductDoneSave
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.net.HttpMethods
@@ -36,7 +36,7 @@ import java.util.*
  * @author TY on 2018/11/22.
  * 生产入库 已办详情
  */
-class ProductDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductDetailsOut> {
+class ProductDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductDetails> {
 
 
     private var adapter: ProductDoneDetailAdapter? = null
@@ -49,7 +49,7 @@ class ProductDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
 
     private var orderId: String? = null
     private var sapOrderNo: String? = null
-    private var list: List<ProductDetailsOut.ListBean>? = ArrayList()
+    private var list: List<ProductDetails.ListBean>? = ArrayList()
 
 
     private val presenter = ProducePresenter(this)
@@ -153,7 +153,7 @@ class ProductDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
         return RequestBodyJson.requestBody(json)
     }
 
-    override fun detailObjData(obj: ProductDetailsOut) {
+    override fun detailObjData(obj: ProductDetails) {
 
         list = obj.list
         tv_house!!.text = list!![0].warehouseName

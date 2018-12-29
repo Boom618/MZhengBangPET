@@ -1,9 +1,8 @@
 package com.ty.zbpet.presenter.product;
 
-import com.ty.zbpet.bean.product.ProductDetailsOut;
-import com.ty.zbpet.bean.product.ProductDoneList;
+import com.ty.zbpet.bean.product.ProductDetails;
 import com.ty.zbpet.bean.product.ProductTodoDetails;
-import com.ty.zbpet.bean.product.ProductTodoList;
+import com.ty.zbpet.bean.product.ProductList;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
 import com.ty.zbpet.constant.CodeConstant;
@@ -48,17 +47,17 @@ public class ProducePresenter {
      * 待办列表
      */
     public void fetchProductTodoList() {
-        httpMethods.getProductTodoList(new SingleObserver<BaseResponse<ProductTodoList>>() {
+        httpMethods.getProductTodoList(new SingleObserver<BaseResponse<ProductList>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;
             }
 
             @Override
-            public void onSuccess(BaseResponse<ProductTodoList> response) {
+            public void onSuccess(BaseResponse<ProductList> response) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
-                    List<ProductTodoList.ListBean> list = response.getData().getList();
+                    List<ProductList.ListBean> list = response.getData().getList();
                     listInterface.showProduct(list);
 
                 } else {
@@ -111,17 +110,17 @@ public class ProducePresenter {
      * 已办列表
      */
     public void fetchProductDoneList(String type) {
-        httpMethods.getProduceDoneList(new SingleObserver<BaseResponse<ProductDoneList>>() {
+        httpMethods.getProduceDoneList(new SingleObserver<BaseResponse<ProductList>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;
             }
 
             @Override
-            public void onSuccess(BaseResponse<ProductDoneList> response) {
+            public void onSuccess(BaseResponse<ProductList> response) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
-                    ProductDoneList data = response.getData();
+                    ProductList data = response.getData();
                     objInterface.detailObjData(data);
 
                 } else {
@@ -140,7 +139,7 @@ public class ProducePresenter {
      * 已办详情
      */
     public void fetchProductDoneInfo(String orderId) {
-        httpMethods.getProduceDoneInfo(new SingleObserver<BaseResponse<ProductDetailsOut>>() {
+        httpMethods.getProduceDoneInfo(new SingleObserver<BaseResponse<ProductDetails>>() {
 
             @Override
             public void onSubscribe(Disposable d) {
@@ -148,10 +147,10 @@ public class ProducePresenter {
             }
 
             @Override
-            public void onSuccess(BaseResponse<ProductDetailsOut> response) {
+            public void onSuccess(BaseResponse<ProductDetails> response) {
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
-                    ProductDetailsOut data = response.getData();
+                    ProductDetails data = response.getData();
 
                     objInterface.detailObjData(data);
 

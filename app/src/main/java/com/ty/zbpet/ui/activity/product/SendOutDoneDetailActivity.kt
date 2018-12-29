@@ -11,7 +11,7 @@ import android.widget.ImageView
 
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.ResponseInfo
-import com.ty.zbpet.bean.product.ProductDetailsOut
+import com.ty.zbpet.bean.product.ProductDetails
 import com.ty.zbpet.bean.product.ProductDoneSave
 import com.ty.zbpet.net.HttpMethods
 import com.ty.zbpet.presenter.product.ProductUiObjInterface
@@ -40,7 +40,7 @@ import okhttp3.RequestBody
  * @author TY on 2018/11/22.
  * 发货出库 已办详情
  */
-class SendOutDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductDetailsOut> {
+class SendOutDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductDetails> {
 
     private var adapter: SendOutDoneDetailAdapter? = null
 
@@ -58,7 +58,7 @@ class SendOutDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
      * 冲销 sapOrderNo
      */
     private var sapOrderNo: String? = null
-    private var list: List<ProductDetailsOut.ListBean>? = ArrayList()
+    private var list: List<ProductDetails.ListBean>? = ArrayList()
 
 
     private val presenter = SendOutPresenter(this)
@@ -152,7 +152,7 @@ class SendOutDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
         return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), json)
     }
 
-    override fun detailObjData(obj: ProductDetailsOut) {
+    override fun detailObjData(obj: ProductDetails) {
 
         list = obj.list
 

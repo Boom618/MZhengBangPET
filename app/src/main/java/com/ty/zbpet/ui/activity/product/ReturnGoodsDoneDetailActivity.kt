@@ -11,7 +11,7 @@ import android.widget.ImageView
 
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.ResponseInfo
-import com.ty.zbpet.bean.product.ProductDetailsOut
+import com.ty.zbpet.bean.product.ProductDetails
 import com.ty.zbpet.bean.product.ProductDoneSave
 import com.ty.zbpet.net.HttpMethods
 import com.ty.zbpet.presenter.product.ProductUiListInterface
@@ -41,7 +41,7 @@ import okhttp3.RequestBody
  * @author TY on 2018/11/22.
  * 退货入库 已办详情
  */
-class ReturnGoodsDoneDetailActivity : BaseActivity(), ProductUiListInterface<ProductDetailsOut.ListBean> {
+class ReturnGoodsDoneDetailActivity : BaseActivity(), ProductUiListInterface<ProductDetails.ListBean> {
 
     private var adapter: ReturnGoodsDoneDetailAdapter? = null
 
@@ -49,7 +49,7 @@ class ReturnGoodsDoneDetailActivity : BaseActivity(), ProductUiListInterface<Pro
 
     private var orderId: String? = null
     private var sapOrderNo: String? = null
-    private var oldList: List<ProductDetailsOut.ListBean> = ArrayList()
+    private var oldList: List<ProductDetails.ListBean> = ArrayList()
 
 
     private val presenter = ReturnPresenter(this)
@@ -156,7 +156,7 @@ class ReturnGoodsDoneDetailActivity : BaseActivity(), ProductUiListInterface<Pro
         return RequestBodyJson.requestBody(json)
     }
 
-    override fun showProduct(list: List<ProductDetailsOut.ListBean>) {
+    override fun showProduct(list: List<ProductDetails.ListBean>) {
 
         oldList = list
         tv_house!!.text = list[0].warehouseName

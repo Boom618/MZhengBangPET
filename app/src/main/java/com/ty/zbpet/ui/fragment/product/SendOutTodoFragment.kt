@@ -9,7 +9,7 @@ import com.scwang.smartrefresh.header.MaterialHeader
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter
 import com.ty.zbpet.R
-import com.ty.zbpet.bean.product.ProductTodoList
+import com.ty.zbpet.bean.product.ProductList
 import com.ty.zbpet.presenter.product.ProductUiListInterface
 import com.ty.zbpet.presenter.product.SendOutPresenter
 import com.ty.zbpet.ui.activity.product.SendOutTodoDetailActivity
@@ -27,7 +27,7 @@ import kotlinx.android.synthetic.main.zb_content_list_fragment.view.*
  *
  * @author TY
  */
-class SendOutTodoFragment : BaseFragment(), ProductUiListInterface<ProductTodoList.ListBean> {
+class SendOutTodoFragment : BaseFragment(), ProductUiListInterface<ProductList.ListBean> {
 
 
     private val presenter = SendOutPresenter(this)
@@ -68,7 +68,7 @@ class SendOutTodoFragment : BaseFragment(), ProductUiListInterface<ProductTodoLi
         }
     }
 
-    override fun showProduct(list: List<ProductTodoList.ListBean>) {
+    override fun showProduct(list: List<ProductList.ListBean>) {
 
         if (adapter == null) {
             val manager = LinearLayoutManager(ResourceUtil.getContext())

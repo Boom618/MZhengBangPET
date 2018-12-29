@@ -9,7 +9,7 @@ import com.scwang.smartrefresh.header.MaterialHeader
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter
 import com.ty.zbpet.R
-import com.ty.zbpet.bean.product.ProductDoneList
+import com.ty.zbpet.bean.product.ProductList
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.presenter.product.ProductUiObjInterface
 import com.ty.zbpet.presenter.product.SendOutPresenter
@@ -27,7 +27,7 @@ import kotlinx.android.synthetic.main.zb_content_list_fragment.view.*
  * 成品——发货出库——已办
  * @author TY
  */
-class SendOutDoneFragment : BaseFragment(), ProductUiObjInterface<ProductDoneList> {
+class SendOutDoneFragment : BaseFragment(), ProductUiObjInterface<ProductList> {
 
 
     private val presenter = SendOutPresenter(this)
@@ -74,7 +74,7 @@ class SendOutDoneFragment : BaseFragment(), ProductUiObjInterface<ProductDoneLis
         }
     }
 
-    override fun detailObjData(obj: ProductDoneList) {
+    override fun detailObjData(obj: ProductList) {
 
         val list = obj.list
 

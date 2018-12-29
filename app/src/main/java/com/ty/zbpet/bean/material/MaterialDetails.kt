@@ -58,7 +58,7 @@ class MaterialDetails {
 //        var ZKG: String? = null
 
 
-        // 已办详情
+        // 已办保存
 //        MaterialDoneSave
 
 

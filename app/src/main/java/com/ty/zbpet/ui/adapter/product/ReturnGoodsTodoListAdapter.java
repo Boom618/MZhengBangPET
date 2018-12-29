@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.View;
 
 import com.ty.zbpet.R;
-import com.ty.zbpet.bean.product.ProductTodoList;
+import com.ty.zbpet.bean.product.ProductList;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -14,15 +14,15 @@ import java.util.List;
  * 退货入库 待办列表
  * @author TY
  */
-public class ReturnGoodsTodoListAdapter extends CommonAdapter<ProductTodoList.ListBean> {
+public class ReturnGoodsTodoListAdapter extends CommonAdapter<ProductList.ListBean> {
 
 
-    public ReturnGoodsTodoListAdapter(Context context, int layoutId, List<ProductTodoList.ListBean> datas) {
+    public ReturnGoodsTodoListAdapter(Context context, int layoutId, List<ProductList.ListBean> datas) {
         super(context, layoutId, datas);
     }
 
     @Override
-    protected void convert(ViewHolder holder, ProductTodoList.ListBean list, int position) {
+    protected void convert(ViewHolder holder, ProductList.ListBean list, int position) {
 
         // 退货不需要显示 成品信息
         holder.itemView.findViewById(R.id.tv_product_msg).setVisibility(View.GONE);

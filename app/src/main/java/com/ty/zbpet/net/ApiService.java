@@ -5,11 +5,9 @@ import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.UserInfo;
 import com.ty.zbpet.bean.material.MaterialDetails;
 import com.ty.zbpet.bean.material.MaterialList;
-import com.ty.zbpet.bean.product.ProductDetailsIn;
-import com.ty.zbpet.bean.product.ProductDetailsOut;
-import com.ty.zbpet.bean.product.ProductDoneList;
+import com.ty.zbpet.bean.product.ProductDetails;
+import com.ty.zbpet.bean.product.ProductList;
 import com.ty.zbpet.bean.product.ProductTodoDetails;
-import com.ty.zbpet.bean.product.ProductTodoList;
 import com.ty.zbpet.bean.system.ImageData;
 import com.ty.zbpet.bean.system.QualityCheckTodoDetails;
 import com.ty.zbpet.bean.system.QualityCheckTodoList;
@@ -280,7 +278,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.GET_GOODS_PURCHASE_ORDER_LIST)
-    Single<BaseResponse<ProductTodoList>> getBuyInOrderList();
+    Single<BaseResponse<ProductList>> getBuyInOrderList();
 
     /**
      * 外采入库 待办详情
@@ -290,7 +288,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_GOODS_PURCHASE_ORDER_INFO)
-    Single<BaseResponse<ProductDetailsIn>> getBuyInOrderInfo(@Field("sapOrderNo") String sapOrderNo);
+    Single<BaseResponse<ProductDetails>> getBuyInOrderInfo(@Field("sapOrderNo") String sapOrderNo);
 
 
     /**
@@ -311,7 +309,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_PURCHASE_DONE_LIST)
-    Single<BaseResponse<ProductDoneList>> getBuyInDoneList(@Field("type") String type);
+    Single<BaseResponse<ProductList>> getBuyInDoneList(@Field("type") String type);
 
     /**
      * 外采入库 已办列表 详情
@@ -321,7 +319,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_PURCHASE_DONE_LIST_INFO)
-    Single<BaseResponse<ProductDetailsOut>> getBuyInDoneListInfo(@Field("orderId") String orderId);
+    Single<BaseResponse<ProductDetails>> getBuyInDoneListInfo(@Field("orderId") String orderId);
 
     /**
      * 采购退货 已办保存
@@ -341,7 +339,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.GET_PRODUCE_ORDER_LIST)
-    Single<BaseResponse<ProductTodoList>> getProduceOrderList();
+    Single<BaseResponse<ProductList>> getProduceOrderList();
 
     /**
      * 生产入库 待办详情
@@ -372,7 +370,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_PRODUCE_DONE_LIST)
-    Single<BaseResponse<ProductDoneList>> getProduceDoneList(@Field("type") String type);
+    Single<BaseResponse<ProductList>> getProduceDoneList(@Field("type") String type);
 
     /**
      * 生产入库 已办列表 详情
@@ -382,7 +380,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_PRODUCE_DONE_LIST_INFO)
-    Single<BaseResponse<ProductDetailsOut>> getProduceDoneInfo(@Field("orderId") String orderId);
+    Single<BaseResponse<ProductDetails>> getProduceDoneInfo(@Field("orderId") String orderId);
 
     /**
      * 生产入库 已办保存
@@ -402,7 +400,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.GET_SHIP_ORDER_LIST)
-    Single<BaseResponse<ProductTodoList>> getShipOrderList();
+    Single<BaseResponse<ProductList>> getShipOrderList();
 
     /**
      * 发货出库 待办详情
@@ -433,7 +431,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_SHIP_DONE_LIST)
-    Single<BaseResponse<ProductDoneList>> getShipDoneList(@Field("type") String type);
+    Single<BaseResponse<ProductList>> getShipDoneList(@Field("type") String type);
 
     /**
      * 发货出库 已办列表 详情
@@ -443,7 +441,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_SHIP_DONE_LIST_INFO)
-    Single<BaseResponse<ProductDetailsOut>> getShipDoneListInfo(@Field("orderId") String orderId);
+    Single<BaseResponse<ProductDetails>> getShipDoneListInfo(@Field("orderId") String orderId);
 
     /**
      * 发货出库 已办保存
@@ -462,7 +460,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.GET_RETURN_ORDER_LIST)
-    Single<BaseResponse<ProductTodoList>> getReturnOrderList();
+    Single<BaseResponse<ProductList>> getReturnOrderList();
 
     /**
      * 退货入库 待办详情
@@ -493,7 +491,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_RETURN_DONE_LIST)
-    Single<BaseResponse<ProductDoneList>> getReturnDoneList(@Field("type") String type);
+    Single<BaseResponse<ProductList>> getReturnDoneList(@Field("type") String type);
 
     /**
      * 退货入库 已办列表 详情
@@ -503,7 +501,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_RETURN_DONE_LIST_INFO)
-    Single<BaseResponse<ProductDetailsOut>> getReturnDoneListInfo(@Field("orderId") String orderId);
+    Single<BaseResponse<ProductDetails>> getReturnDoneListInfo(@Field("orderId") String orderId);
 
     /**
      * 退货入库 已办保存

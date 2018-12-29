@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.ty.zbpet.R;
-import com.ty.zbpet.bean.product.ProductDetailsIn;
+import com.ty.zbpet.bean.product.ProductDetails;
 import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.util.ZBUiUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
@@ -18,15 +18,15 @@ import java.util.List;
  * <p>
  * 外采入库 待办详情
  */
-public class BuyInTodoDetailAdapter extends CommonAdapter<ProductDetailsIn.ListBean> {
+public class BuyInTodoDetailAdapter extends CommonAdapter<ProductDetails.ListBean> {
 
 
-    public BuyInTodoDetailAdapter(Context context, int layoutId, List<ProductDetailsIn.ListBean> datas) {
+    public BuyInTodoDetailAdapter(Context context, int layoutId, List<ProductDetails.ListBean> datas) {
         super(context, layoutId, datas);
     }
 
     @Override
-    protected void convert(ViewHolder holder, ProductDetailsIn.ListBean list, final int position) {
+    protected void convert(ViewHolder holder, ProductDetails.ListBean list, final int position) {
         //String warehouseName = DataUtils.getUserInfo().getWarehouseList().get(0).getWarehouseName();
         String warehouseName = list.getWarehouseList().get(0).getWarehouseName();
 

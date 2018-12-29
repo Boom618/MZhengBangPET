@@ -1,9 +1,7 @@
 package com.ty.zbpet.presenter.product;
 
-import com.ty.zbpet.bean.product.ProductDetailsIn;
-import com.ty.zbpet.bean.product.ProductDetailsOut;
-import com.ty.zbpet.bean.product.ProductDoneList;
-import com.ty.zbpet.bean.product.ProductTodoList;
+import com.ty.zbpet.bean.product.ProductDetails;
+import com.ty.zbpet.bean.product.ProductList;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
 import com.ty.zbpet.constant.CodeConstant;
@@ -49,17 +47,17 @@ public class BuyInPresenter {
      * 待办列表
      */
     public void fetchBuyInTodoList() {
-        httpMethods.getBuyInOrderList(new SingleObserver<BaseResponse<ProductTodoList>>() {
+        httpMethods.getBuyInOrderList(new SingleObserver<BaseResponse<ProductList>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;
             }
 
             @Override
-            public void onSuccess(BaseResponse<ProductTodoList> response) {
+            public void onSuccess(BaseResponse<ProductList> response) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
-                    List<ProductTodoList.ListBean> list = response.getData().getList();
+                    List<ProductList.ListBean> list = response.getData().getList();
                     listInterface.showProduct(list);
 
                 } else {
@@ -82,18 +80,18 @@ public class BuyInPresenter {
      */
     public void fetchBuyInTodoListDetails(String sapOrderNo) {
 
-        httpMethods.getBuyInOrderInfo(new SingleObserver<BaseResponse<ProductDetailsIn>>() {
+        httpMethods.getBuyInOrderInfo(new SingleObserver<BaseResponse<ProductDetails>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;
             }
 
             @Override
-            public void onSuccess(BaseResponse<ProductDetailsIn> response) {
+            public void onSuccess(BaseResponse<ProductDetails> response) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
-                    ProductDetailsIn data = response.getData();
-                    List<ProductDetailsIn.ListBean> list = response.getData().getList();
+                    ProductDetails data = response.getData();
+                    List<ProductDetails.ListBean> list = response.getData().getList();
 //                    objInterface.detailObjData(data);
                     listInterface.showProduct(list);
 
@@ -113,17 +111,17 @@ public class BuyInPresenter {
      * 已办列表
      */
     public void fetchBuyInDoneList(String type) {
-        httpMethods.getBuyInDoneList(new SingleObserver<BaseResponse<ProductDoneList>>() {
+        httpMethods.getBuyInDoneList(new SingleObserver<BaseResponse<ProductList>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;
             }
 
             @Override
-            public void onSuccess(BaseResponse<ProductDoneList> response) {
+            public void onSuccess(BaseResponse<ProductList> response) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
-                    ProductDoneList data = response.getData();
+                    ProductList data = response.getData();
                     objInterface.detailObjData(data);
 
                 } else {
@@ -142,7 +140,7 @@ public class BuyInPresenter {
      * 已办详情
      */
     public void fetchBuyInDoneListDetails(String orderId) {
-        httpMethods.getBuyInDoneListInfo(new SingleObserver<BaseResponse<ProductDetailsOut>>() {
+        httpMethods.getBuyInDoneListInfo(new SingleObserver<BaseResponse<ProductDetails>>() {
 
             @Override
             public void onSubscribe(Disposable d) {
@@ -150,10 +148,10 @@ public class BuyInPresenter {
             }
 
             @Override
-            public void onSuccess(BaseResponse<ProductDetailsOut> response) {
+            public void onSuccess(BaseResponse<ProductDetails> response) {
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
-                    ProductDetailsOut data = response.getData();
+                    ProductDetails data = response.getData();
 
                     objInterface.detailObjData(data);
 

@@ -15,7 +15,7 @@ import android.widget.TextView
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.ResponseInfo
 import com.ty.zbpet.bean.UserInfo
-import com.ty.zbpet.bean.product.ProductDetailsIn
+import com.ty.zbpet.bean.product.ProductDetails
 import com.ty.zbpet.bean.product.ProductTodoSave
 import com.ty.zbpet.net.HttpMethods
 import com.ty.zbpet.presenter.product.BuyInPresenter
@@ -46,14 +46,14 @@ import okhttp3.RequestBody
  * @author TY on 2018/11/22.
  * 外采入库 待办详情
  */
-class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDetailsIn.ListBean>, BuyInTodoDetailAdapter.SaveEditListener {
+class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDetails.ListBean>, BuyInTodoDetailAdapter.SaveEditListener {
 
     private var adapter: BuyInTodoDetailAdapter? = null
 
     private var selectTime: String? = null
     private var sapOrderNo: String? = null
 
-    private var oldList: List<ProductDetailsIn.ListBean> = ArrayList()
+    private var oldList: List<ProductDetails.ListBean> = ArrayList()
 
     private val presenter = BuyInPresenter(this)
 
@@ -254,7 +254,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
     }
 
 
-    override fun showProduct(list: List<ProductDetailsIn.ListBean>) {
+    override fun showProduct(list: List<ProductDetails.ListBean>) {
 
         // BuyInTodoDetails  含仓库信息 bean
         // ProductDetailsIn  不含仓库信息 bean

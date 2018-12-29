@@ -7,11 +7,9 @@ import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.UserInfo;
 import com.ty.zbpet.bean.material.MaterialDetails;
 import com.ty.zbpet.bean.material.MaterialList;
-import com.ty.zbpet.bean.product.ProductDetailsIn;
-import com.ty.zbpet.bean.product.ProductDetailsOut;
-import com.ty.zbpet.bean.product.ProductDoneList;
+import com.ty.zbpet.bean.product.ProductDetails;
+import com.ty.zbpet.bean.product.ProductList;
 import com.ty.zbpet.bean.product.ProductTodoDetails;
-import com.ty.zbpet.bean.product.ProductTodoList;
 import com.ty.zbpet.bean.system.ImageData;
 import com.ty.zbpet.bean.system.QualityCheckTodoDetails;
 import com.ty.zbpet.bean.system.QualityCheckTodoList;
@@ -385,7 +383,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getBuyInOrderList(SingleObserver<BaseResponse<ProductTodoList>> subscriber) {
+    public void getBuyInOrderList(SingleObserver<BaseResponse<ProductList>> subscriber) {
         mService.getBuyInOrderList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -396,7 +394,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getBuyInOrderInfo(SingleObserver<BaseResponse<ProductDetailsIn>> subscriber, String sapOrderNo) {
+    public void getBuyInOrderInfo(SingleObserver<BaseResponse<ProductDetails>> subscriber, String sapOrderNo) {
         mService.getBuyInOrderInfo(sapOrderNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -418,7 +416,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getBuyInDoneList(SingleObserver<BaseResponse<ProductDoneList>> subscriber, String type) {
+    public void getBuyInDoneList(SingleObserver<BaseResponse<ProductList>> subscriber, String type) {
         mService.getBuyInDoneList(type)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -430,7 +428,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getBuyInDoneListInfo(SingleObserver<BaseResponse<ProductDetailsOut>> subscriber, String orderId) {
+    public void getBuyInDoneListInfo(SingleObserver<BaseResponse<ProductDetails>> subscriber, String orderId) {
         mService.getBuyInDoneListInfo(orderId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -454,7 +452,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getProductTodoList(SingleObserver<BaseResponse<ProductTodoList>> subscriber) {
+    public void getProductTodoList(SingleObserver<BaseResponse<ProductList>> subscriber) {
         mService.getProduceOrderList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -487,7 +485,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getProduceDoneList(SingleObserver<BaseResponse<ProductDoneList>> subscriber, String type) {
+    public void getProduceDoneList(SingleObserver<BaseResponse<ProductList>> subscriber, String type) {
         mService.getProduceDoneList(type)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -499,7 +497,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getProduceDoneInfo(SingleObserver<BaseResponse<ProductDetailsOut>> subscriber, String orderId) {
+    public void getProduceDoneInfo(SingleObserver<BaseResponse<ProductDetails>> subscriber, String orderId) {
         mService.getProduceDoneInfo(orderId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -524,7 +522,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getShipOrderList(SingleObserver<BaseResponse<ProductTodoList>> subscriber) {
+    public void getShipOrderList(SingleObserver<BaseResponse<ProductList>> subscriber) {
         mService.getShipOrderList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -557,7 +555,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getShipDoneList(SingleObserver<BaseResponse<ProductDoneList>> subscriber, String type) {
+    public void getShipDoneList(SingleObserver<BaseResponse<ProductList>> subscriber, String type) {
         mService.getShipDoneList(type)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -569,7 +567,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getShipDoneListInfo(SingleObserver<BaseResponse<ProductDetailsOut>> subscriber, String orderId) {
+    public void getShipDoneListInfo(SingleObserver<BaseResponse<ProductDetails>> subscriber, String orderId) {
         mService.getShipDoneListInfo(orderId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -594,7 +592,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getReturnOrderList(SingleObserver<BaseResponse<ProductTodoList>> subscriber) {
+    public void getReturnOrderList(SingleObserver<BaseResponse<ProductList>> subscriber) {
         mService.getReturnOrderList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -627,7 +625,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getReturnDoneList(SingleObserver<BaseResponse<ProductDoneList>> subscriber, String type) {
+    public void getReturnDoneList(SingleObserver<BaseResponse<ProductList>> subscriber, String type) {
         mService.getReturnDoneList(type)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -639,7 +637,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getReturnDoneListInfo(SingleObserver<BaseResponse<ProductDetailsOut>> subscriber, String orderId) {
+    public void getReturnDoneListInfo(SingleObserver<BaseResponse<ProductDetails>> subscriber, String orderId) {
         mService.getReturnDoneListInfo(orderId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
