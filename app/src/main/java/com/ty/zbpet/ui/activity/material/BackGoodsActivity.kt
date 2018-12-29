@@ -17,7 +17,6 @@ import java.util.*
 class BackGoodsActivity : BaseActivity() {
 
     override val activityLayout: Int
-        //        get() = R.layout.activity_back_goods
         get() = R.layout.activity_main_todo_and_done
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {

@@ -5,13 +5,12 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.InputType
 import android.view.View
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.ResponseInfo
-import com.ty.zbpet.bean.material.MaterialDetailsOut
+import com.ty.zbpet.bean.material.MaterialDetails
 import com.ty.zbpet.bean.material.MaterialDoneSave
 import com.ty.zbpet.net.HttpMethods
 import com.ty.zbpet.presenter.material.MaterialPresenter
@@ -41,7 +40,7 @@ import okhttp3.RequestBody
  *
  * 已办 详情
  */
-class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<MaterialDetailsOut.ListBean> {
+class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<MaterialDetails.ListBean> {
     override val activityLayout: Int
         get() = R.layout.activity_content_row_two
 
@@ -65,10 +64,6 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
         selectTime = sdf.format(Date())
         tv_time!!.text = selectTime
     }
-
-//    override fun getActivityLayout(): Int {
-//        return R.layout.activity_content_row_two
-//    }
 
     override fun initOneData() {
 
@@ -141,7 +136,7 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
         materialPresenter.fetchDoneMaterialDetails(orderId)
     }
 
-    override fun showMaterial(list: List<MaterialDetailsOut.ListBean>) {
+    override fun showMaterial(list: List<MaterialDetails.ListBean>) {
 
         positionId = list[0].positionId
 

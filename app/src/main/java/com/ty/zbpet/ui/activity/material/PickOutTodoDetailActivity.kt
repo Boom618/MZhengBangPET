@@ -12,8 +12,7 @@ import com.pda.scanner.ScanReader
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.CarPositionNoData
 import com.ty.zbpet.bean.ResponseInfo
-import com.ty.zbpet.bean.material.MaterialDetailsIn
-import com.ty.zbpet.bean.material.MaterialTodoSave
+import com.ty.zbpet.bean.material.MaterialDetails
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.net.HttpMethods
 import com.ty.zbpet.net.RequestBodyJson
@@ -39,7 +38,7 @@ import java.util.*
  * @author TY on 2018/11/22.
  * 领料出库 待办详情
  */
-class PickOutTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<MaterialDetailsIn>, ScanBoxInterface, PickingTodoDetailAdapter.SaveEditListener {
+class PickOutTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<MaterialDetails>, ScanBoxInterface, PickingTodoDetailAdapter.SaveEditListener {
 
     private var adapter: PickingTodoDetailAdapter? = null
 
@@ -48,7 +47,7 @@ class PickOutTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Materia
     private var supplierId: String? = null // 供应商 ID
 
     private var warehouseId: String? = null
-    private var list: MutableList<MaterialDetailsIn.ListBean>? = ArrayList()
+    private var list: MutableList<MaterialDetails.ListBean>? = ArrayList()
 
     /**
      * 点击库位码输入框
@@ -149,8 +148,8 @@ class PickOutTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Materia
 
     private fun initTodoBody(): RequestBody? {
 
-        val requestBody = MaterialTodoSave()
-        val detail = ArrayList<MaterialTodoSave.DetailsBean>()
+        val requestBody = MaterialDetails()
+        val detail = ArrayList<MaterialDetails.ListBean>()
 
         val size = list!!.size
         for (i in 0 until size) {
@@ -164,7 +163,7 @@ class PickOutTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Materia
 
             val id = positionId.get(i)
 
-            val bean = MaterialTodoSave.DetailsBean()
+            val bean = MaterialDetails.ListBean()
             if (null != bulkNum && null != carCode) {
 
                 bean.positionId = id
@@ -190,7 +189,7 @@ class PickOutTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Materia
         val remark = et_desc!!.text.toString().trim { it <= ' ' }
         val time = tv_time!!.text.toString().trim { it <= ' ' }
 
-        requestBody.details = detail
+        requestBody.list = detail
         requestBody.warehouseId = warehouseId
         requestBody.outTime = time
         requestBody.sapOrderNo = sapOrderNo
@@ -252,7 +251,7 @@ class PickOutTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Materia
     }
 
 
-    override fun detailObjData(obj: MaterialDetailsIn) {
+    override fun detailObjData(obj: MaterialDetails) {
 
         warehouseId = obj.sapOrderNo
         list!!.clear()

@@ -1,10 +1,8 @@
 package com.ty.zbpet.presenter.material;
 
 import com.ty.zbpet.bean.CarPositionNoData;
-import com.ty.zbpet.bean.material.MaterialDetailsIn;
-import com.ty.zbpet.bean.material.MaterialDetailsOut;
-import com.ty.zbpet.bean.material.MaterialDoneList;
-import com.ty.zbpet.bean.material.MaterialTodoList;
+import com.ty.zbpet.bean.material.MaterialDetails;
+import com.ty.zbpet.bean.material.MaterialList;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
 import com.ty.zbpet.constant.CodeConstant;
@@ -75,7 +73,7 @@ public class BackGoodsPresenter {
      */
     public void fetchBackTodoList() {
 
-        httpMethods.getBackTodoList(new SingleObserver<BaseResponse<MaterialTodoList>>() {
+        httpMethods.getBackTodoList(new SingleObserver<BaseResponse<MaterialList>>() {
             @Override
             public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
@@ -87,10 +85,10 @@ public class BackGoodsPresenter {
             }
 
             @Override
-            public void onSuccess(BaseResponse<MaterialTodoList> response) {
+            public void onSuccess(BaseResponse<MaterialList> response) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
-                    List<MaterialTodoList.ListBean> list = response.getData().getList();
+                    List<MaterialList.ListBean> list = response.getData().getList();
 
                     materialListUi.showMaterial(list);
                 } else {
@@ -107,7 +105,7 @@ public class BackGoodsPresenter {
      */
     public void fetchBackTodoListInfo(String sapOrderNo) {
 
-        httpMethods.getBackTodoListInfo(new SingleObserver<BaseResponse<MaterialDetailsIn>>() {
+        httpMethods.getBackTodoListInfo(new SingleObserver<BaseResponse<MaterialDetails>>() {
             @Override
             public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
@@ -120,7 +118,7 @@ public class BackGoodsPresenter {
             }
 
             @Override
-            public void onSuccess(BaseResponse<MaterialDetailsIn> response) {
+            public void onSuccess(BaseResponse<MaterialDetails> response) {
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
@@ -171,7 +169,7 @@ public class BackGoodsPresenter {
      * 已办 列表
      */
     public void fetchBackDoneList(String type) {
-        httpMethods.getBackDoneList(new SingleObserver<BaseResponse<MaterialDoneList>>() {
+        httpMethods.getBackDoneList(new SingleObserver<BaseResponse<MaterialList>>() {
             @Override
             public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
@@ -183,11 +181,11 @@ public class BackGoodsPresenter {
             }
 
             @Override
-            public void onSuccess(BaseResponse<MaterialDoneList> infoList) {
+            public void onSuccess(BaseResponse<MaterialList> infoList) {
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(infoList.getTag())) {
                     if (null != infoList && infoList.getData() != null) {
-                        List<MaterialDoneList.ListBean> list = infoList.getData().getList();
+                        List<MaterialList.ListBean> list = infoList.getData().getList();
                         materialListUi.showMaterial(list);
                     }
                 } else {
@@ -201,7 +199,7 @@ public class BackGoodsPresenter {
      * 已办 详情
      */
     public void fetchBackDoneListInfo(String orderId) {
-        httpMethods.getBackDoneListInfo(new SingleObserver<BaseResponse<MaterialDetailsOut>>() {
+        httpMethods.getBackDoneListInfo(new SingleObserver<BaseResponse<MaterialDetails>>() {
             @Override
             public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
@@ -213,7 +211,7 @@ public class BackGoodsPresenter {
             }
 
             @Override
-            public void onSuccess(BaseResponse<MaterialDetailsOut> response) {
+            public void onSuccess(BaseResponse<MaterialDetails> response) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
                     materialObjUi.detailObjData(response.getData());

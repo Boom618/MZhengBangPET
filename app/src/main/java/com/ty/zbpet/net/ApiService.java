@@ -3,10 +3,8 @@ package com.ty.zbpet.net;
 import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.UserInfo;
-import com.ty.zbpet.bean.material.MaterialDetailsIn;
-import com.ty.zbpet.bean.material.MaterialDetailsOut;
-import com.ty.zbpet.bean.material.MaterialDoneList;
-import com.ty.zbpet.bean.material.MaterialTodoList;
+import com.ty.zbpet.bean.material.MaterialDetails;
+import com.ty.zbpet.bean.material.MaterialList;
 import com.ty.zbpet.bean.product.ProductDetailsIn;
 import com.ty.zbpet.bean.product.ProductDetailsOut;
 import com.ty.zbpet.bean.product.ProductDoneList;
@@ -92,7 +90,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.GET_MATERIAL_IN_WAREHOUSE_ORDER_LIST)
-    Single<BaseResponse<MaterialTodoList>> getMaterialTodoList();
+    Single<BaseResponse<MaterialList>> getMaterialTodoList();
 
     /**
      * 获取原辅料采购 待办 详情
@@ -102,7 +100,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_MATERIAL_IN_WAREHOUSE_ORDER_INFO)
-    Single<BaseResponse<MaterialDetailsIn>> getMaterialTodoListDetail(@Field("sapOrderNo") String sapOrderNo);
+    Single<BaseResponse<MaterialDetails>> getMaterialTodoListDetail(@Field("sapOrderNo") String sapOrderNo);
 
     /**
      * 待办 保存
@@ -131,7 +129,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_MATERIAL_PURCHASE_LIST)
-    Single<BaseResponse<MaterialDoneList>> getMaterialDoneList(@Field("type") String type);
+    Single<BaseResponse<MaterialList>> getMaterialDoneList(@Field("type") String type);
 
     /**
      * 获取原辅料采购 已办列表详情
@@ -141,7 +139,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_MATERIAL_PURCHASE_LIST_INFO)
-    Single<BaseResponse<MaterialDetailsOut>> getMaterialDoneListDetail(@Field("orderId") String orderId);
+    Single<BaseResponse<MaterialDetails>> getMaterialDoneListDetail(@Field("orderId") String orderId);
 
     /**
      * 原辅料采购冲销入库(已办保存)
@@ -160,7 +158,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.PICK_OUT_TODO_LIST)
-    Single<BaseResponse<MaterialTodoList>> pickOutTodoList();
+    Single<BaseResponse<MaterialList>> pickOutTodoList();
 
     /**
      * 领料出库 - 待办 详情
@@ -170,7 +168,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.PICK_OUT_TODO_LIST_INFO)
-    Single<BaseResponse<MaterialDetailsIn>> pickOutTodoListDetail(@Field("sapOrderNo") String sapOrderNo);
+    Single<BaseResponse<MaterialDetails>> pickOutTodoListDetail(@Field("sapOrderNo") String sapOrderNo);
 
     /**
      * 领料出库 - 待办详情 保存
@@ -189,7 +187,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.PICK_OUT_DONE_LIST)
-    Single<BaseResponse<MaterialDoneList>> pickOutDoneList(@Field("type") String type);
+    Single<BaseResponse<MaterialList>> pickOutDoneList(@Field("type") String type);
 
     /**
      * 领料出库 - 已办详情
@@ -199,7 +197,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.PICK_OUT_DONE_LIST_INFO)
-    Single<BaseResponse<MaterialDetailsOut>> pickOutDoneListDetail(@Field("orderId") String orderId);
+    Single<BaseResponse<MaterialDetails>> pickOutDoneListDetail(@Field("orderId") String orderId);
 
 
     /**
@@ -219,7 +217,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.GET_BACK_GOODS_TODO_LIST)
-    Single<BaseResponse<MaterialTodoList>> getBackTodoList();
+    Single<BaseResponse<MaterialList>> getBackTodoList();
 
     /**
      * 采购退货 待办列表 详情
@@ -229,7 +227,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_BACK_GOODS_TODO_LIST_INFO)
-    Single<BaseResponse<MaterialDetailsIn>> getBackTodoListInfo(@Field("sapOrderNo") String sapOrderNo);
+    Single<BaseResponse<MaterialDetails>> getBackTodoListInfo(@Field("sapOrderNo") String sapOrderNo);
 
     /**
      * 采购退货 待办保存
@@ -249,7 +247,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_BACK_GOODS_DONE_LIST)
-    Single<BaseResponse<MaterialDoneList>> getBackDoneList(@Field("type") String type);
+    Single<BaseResponse<MaterialList>> getBackDoneList(@Field("type") String type);
 
     /**
      * 采购退货 已办详情
@@ -259,7 +257,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_BACK_GOODS_DONE_LIST_INFO)
-    Single<BaseResponse<MaterialDetailsOut>> getBackDoneListInfo(@Field("orderId") String orderId);
+    Single<BaseResponse<MaterialDetails>> getBackDoneListInfo(@Field("orderId") String orderId);
 
     /**
      * 采购退货 已办保存

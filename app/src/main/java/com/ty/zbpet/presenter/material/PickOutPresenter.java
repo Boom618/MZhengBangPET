@@ -1,10 +1,8 @@
 package com.ty.zbpet.presenter.material;
 
 import com.ty.zbpet.bean.CarPositionNoData;
-import com.ty.zbpet.bean.material.MaterialDetailsIn;
-import com.ty.zbpet.bean.material.MaterialDetailsOut;
-import com.ty.zbpet.bean.material.MaterialDoneList;
-import com.ty.zbpet.bean.material.MaterialTodoList;
+import com.ty.zbpet.bean.material.MaterialDetails;
+import com.ty.zbpet.bean.material.MaterialList;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
 import com.ty.zbpet.constant.CodeConstant;
@@ -48,7 +46,7 @@ public class PickOutPresenter {
      * 待办列表
      */
     public void fetchPickOutTodoList() {
-        httpMethods.pickOutTodoList(new SingleObserver<BaseResponse<MaterialTodoList>>() {
+        httpMethods.pickOutTodoList(new SingleObserver<BaseResponse<MaterialList>>() {
 
             @Override
             public void onSubscribe(Disposable d) {
@@ -61,10 +59,10 @@ public class PickOutPresenter {
             }
 
             @Override
-            public void onSuccess(BaseResponse<MaterialTodoList> response) {
+            public void onSuccess(BaseResponse<MaterialList> response) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
-                    List<MaterialTodoList.ListBean> list = response.getData().getList();
+                    List<MaterialList.ListBean> list = response.getData().getList();
                     listInterface.showMaterial(list);
 
                 } else {
@@ -83,7 +81,7 @@ public class PickOutPresenter {
     public void fetchPickOutTodoListDetails(String sapOrderNo) {
 
 
-        httpMethods.pickOutTodoListDetails(new SingleObserver<BaseResponse<MaterialDetailsIn>>() {
+        httpMethods.pickOutTodoListDetails(new SingleObserver<BaseResponse<MaterialDetails>>() {
 
             @Override
             public void onSubscribe(Disposable d) {
@@ -98,11 +96,11 @@ public class PickOutPresenter {
 
 
             @Override
-            public void onSuccess(BaseResponse<MaterialDetailsIn> pickOutDetailInfo) {
+            public void onSuccess(BaseResponse<MaterialDetails> pickOutDetailInfo) {
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(pickOutDetailInfo.getTag())) {
 
-                    MaterialDetailsIn data = pickOutDetailInfo.getData();
+                    MaterialDetails data = pickOutDetailInfo.getData();
                     objInterface.detailObjData(data);
 
                 } else {
@@ -149,7 +147,7 @@ public class PickOutPresenter {
      * 已办列表
      */
     public void fetchPickOutDoneList(String type) {
-        httpMethods.pickOutDoneList(new SingleObserver<BaseResponse<MaterialDoneList>>() {
+        httpMethods.pickOutDoneList(new SingleObserver<BaseResponse<MaterialList>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;
@@ -161,10 +159,10 @@ public class PickOutPresenter {
             }
 
             @Override
-            public void onSuccess(BaseResponse<MaterialDoneList> response) {
+            public void onSuccess(BaseResponse<MaterialList> response) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
-                    List<MaterialDoneList.ListBean> list = response.getData().getList();
+                    List<MaterialList.ListBean> list = response.getData().getList();
                     listInterface.showMaterial(list);
 
                 } else {
@@ -178,7 +176,7 @@ public class PickOutPresenter {
      * 已办详情
      */
     public void fetchPickOutDoneListDetails(String sapOrderNo) {
-        httpMethods.pickOutDoneListDetails(new SingleObserver<BaseResponse<MaterialDetailsOut>>() {
+        httpMethods.pickOutDoneListDetails(new SingleObserver<BaseResponse<MaterialDetails>>() {
 
             @Override
             public void onSubscribe(Disposable d) {
@@ -191,9 +189,9 @@ public class PickOutPresenter {
             }
 
             @Override
-            public void onSuccess(BaseResponse<MaterialDetailsOut> response) {
+            public void onSuccess(BaseResponse<MaterialDetails> response) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
-                    List<MaterialDetailsOut.ListBean> list = response.getData().getList();
+                    List<MaterialDetails.ListBean> list = response.getData().getList();
 
                     listInterface.showMaterial(list);
 

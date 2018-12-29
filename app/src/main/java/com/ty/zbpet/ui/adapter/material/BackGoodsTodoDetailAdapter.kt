@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.EditText
 
 import com.ty.zbpet.R
-import com.ty.zbpet.bean.material.MaterialDetailsIn
+import com.ty.zbpet.bean.material.MaterialDetails
 import com.ty.zbpet.util.ACache
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.util.ViewSetValue
@@ -20,13 +20,13 @@ import com.zhy.adapter.recyclerview.base.ViewHolder
  *
  * 领料出库 待办详情
  */
-class BackGoodsTodoDetailAdapter(private val context: Context, layoutId: Int, datas: List<MaterialDetailsIn.ListBean>)
-    : CommonAdapter<MaterialDetailsIn.ListBean>(context, layoutId, datas) {
+class BackGoodsTodoDetailAdapter(private val context: Context, layoutId: Int, datas: List<MaterialDetails.ListBean>)
+    : CommonAdapter<MaterialDetails.ListBean>(context, layoutId, datas) {
 
 
     internal var listener = mContext as SaveEditListener
 
-    override fun convert(holder: ViewHolder, list: MaterialDetailsIn.ListBean, position: Int) {
+    override fun convert(holder: ViewHolder, list: MaterialDetails.ListBean, position: Int) {
         holder.setText(R.id.tv_name, list.materialName)
                 .setText(R.id.tv_num, list.orderNumber + "  " + list.unitS)
                 .setText(R.id.tv_box_num, "含量：" + list.concentration + "%")

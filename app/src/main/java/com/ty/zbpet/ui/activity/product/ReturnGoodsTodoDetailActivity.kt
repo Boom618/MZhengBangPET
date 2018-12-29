@@ -140,7 +140,7 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
         tv_house!!.setOnClickListener { v -> ZBUiUtils.selectDialog(v.context, CodeConstant.SELECT_HOUSE_BUY_IN, 0, houseName, tv_house) }
 
         tv_time!!.setOnClickListener { v ->
-            ZBUiUtils.showPickDate(v.context) { date, v ->
+            ZBUiUtils.showPickDate(v.context) { date, _ ->
                 selectTime = ZBUiUtils.getTime(date)
                 tv_time!!.text = selectTime
 

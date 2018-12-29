@@ -12,7 +12,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter
 import com.ty.zbpet.R
-import com.ty.zbpet.bean.material.MaterialTodoList
+import com.ty.zbpet.bean.material.MaterialList
 import com.ty.zbpet.presenter.material.MaterialPresenter
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
 import com.ty.zbpet.ui.activity.material.ArrivalInTodoDetailActivity
@@ -32,7 +32,7 @@ import kotlinx.android.synthetic.main.zb_content_list_fragment.view.*
  *
  * 待办 （ 入库 ） Fragment
  */
-class MaterialTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialTodoList.ListBean> {
+class MaterialTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList.ListBean> {
     override val fragmentLayout: Int
         get() = R.layout.zb_content_list_fragment
 
@@ -88,7 +88,7 @@ class MaterialTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialTod
         }
     }
 
-    override fun showMaterial(list: List<MaterialTodoList.ListBean>) {
+    override fun showMaterial(list: List<MaterialList.ListBean>) {
 
         if (adapter == null) {
             val manager = LinearLayoutManager(ResourceUtil.getContext())

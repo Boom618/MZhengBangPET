@@ -51,9 +51,32 @@ findViewById<Button>(R.id.btn_login).setOnClickListener {
 // 方式二：需要实现 OnClickListener 接口
 findViewById<Button>(R.id.btn_login).setOnClickListener(this)
 ```
+### 修饰符可见性
+在 Kotlin 中有这四个可见性修饰符：`private`、`protected`、 `internal` 和 `public`, 如果没有显式指定修饰符的话，默认可见性是 `public`.其他三种和 Java 中的可见性类似,`internal`表示的是在模块内可见
+### butterknife
+在 `Java`中使用
+```
+implementation 'com.jakewharton:butterknife:9.0.0-rc3'
+annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc3'
+```
+在 `Kotlin`中使用
+```
+implementation 'com.jakewharton:butterknife:9.0.0-rc3'
+kapt 'com.jakewharton:butterknife-compiler:9.0.0-rc3'
+```
+添加依赖的方式从 Java 的`annotationProcessor`变成 Kotlin 的 `kapt`。之前在 Java 语言中一直不愿意使用它,主要原因是 `butterknife`解决的只是控件的绑定,减少`findViewById`的编写,内部利用反射去查找控件 ID,对于代码本身而言并没有太多的优势;这次项目开始,改用 Kotlin 编写后,他的优势就上来了：
 
+它不需要 `@BindView`,不需要控件的初始化定义,极大的减少了代码的工作量:就像这样
+```
+import kotlinx.android.synthetic.main.activity_main.*
 
-- text
+override fun onCreate(savedInstanceState: Bundle?) {
+     bt_login.text = "登录"
+}
+```
+看到没有,只需要导入
+`import kotlinx.android.synthetic.main.activity_main.*`自己的 `XML`就可以了
+### 数据类 data
 
 
 扩展分析

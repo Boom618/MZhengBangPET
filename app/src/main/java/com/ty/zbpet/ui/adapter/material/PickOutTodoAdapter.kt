@@ -2,7 +2,7 @@ package com.ty.zbpet.ui.adapter.material
 
 import android.content.Context
 import com.ty.zbpet.R
-import com.ty.zbpet.bean.material.MaterialTodoList
+import com.ty.zbpet.bean.material.MaterialList
 import com.zhy.adapter.recyclerview.CommonAdapter
 import com.zhy.adapter.recyclerview.base.ViewHolder
 
@@ -12,10 +12,10 @@ import com.zhy.adapter.recyclerview.base.ViewHolder
  * 领料出库 待办 列表
  *
  */
-class PickOutTodoAdapter(context: Context, layoutId: Int, datas: List<MaterialTodoList.ListBean>)
-    : CommonAdapter<MaterialTodoList.ListBean>(context, layoutId, datas) {
+class PickOutTodoAdapter(context: Context, layoutId: Int, datas: List<MaterialList.ListBean>)
+    : CommonAdapter<MaterialList.ListBean>(context, layoutId, datas) {
 
-    override fun convert(holder: ViewHolder?, list: MaterialTodoList.ListBean, position: Int) {
+    override fun convert(holder: ViewHolder?, list: MaterialList.ListBean, position: Int) {
 
         holder!!.setText(R.id.tv_no, list.sapOrderNo)
                 .setText(R.id.tv_status, list.state)

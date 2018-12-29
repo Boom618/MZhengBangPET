@@ -3,7 +3,6 @@ package com.ty.zbpet.ui.adapter.product;
 import android.content.Context;
 
 import com.ty.zbpet.R;
-import com.ty.zbpet.bean.material.MaterialDoneList;
 import com.ty.zbpet.bean.product.ProductDoneList;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;

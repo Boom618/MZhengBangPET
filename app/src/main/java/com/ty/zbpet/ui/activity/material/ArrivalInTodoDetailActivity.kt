@@ -1,8 +1,10 @@
 package com.ty.zbpet.ui.activity.material
 
 import android.os.Bundle
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.View
@@ -13,8 +15,7 @@ import com.pda.scanner.ScanReader
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.CarPositionNoData
 import com.ty.zbpet.bean.ResponseInfo
-import com.ty.zbpet.bean.material.MaterialDetailsIn
-import com.ty.zbpet.bean.material.MaterialTodoSave
+import com.ty.zbpet.bean.material.MaterialDetails
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.net.HttpMethods
 import com.ty.zbpet.net.RequestBodyJson
@@ -25,7 +26,6 @@ import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ResourceUtil
-import com.ty.zbpet.util.ZBLog
 import com.ty.zbpet.util.ZBUiUtils
 import com.ty.zbpet.util.scan.ScanBoxInterface
 import com.ty.zbpet.util.scan.ScanObservable
@@ -42,17 +42,19 @@ import java.util.*
  *
  *
  * MaterialUiObjInterface<MaterialTodoDetailsData> ：数据接口
- * MaterialTodoDetailAdapter.SaveEditListener      ：输入框接口
+ * MaterialTodoDetailAdapter.SaveEditListener      ：输入框接口（删除 - 改用 RecycleView .getChildAt ）
  * ScanBoxInterface                                ：扫码接口
  *
  * @author TY
 </MaterialTodoDetailsData> */
-class ArrivalInTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<MaterialDetailsIn>, MaterialTodoDetailAdapter.SaveEditListener, ScanBoxInterface {
+class ArrivalInTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<MaterialDetails>
+        ,ScanBoxInterface {
+
     override val activityLayout: Int
         get() = R.layout.activity_content_row_two
 
     private var adapter: MaterialTodoDetailAdapter? = null
-    private val list = ArrayList<MaterialDetailsIn.ListBean>()
+    private val list = ArrayList<MaterialDetails.ListBean>()
 
     private var sapOrderNo: String? = null
     private var supplierId: String? = null // 供应商 ID
@@ -80,10 +82,10 @@ class ArrivalInTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
     /**
      * 保存用户在输入框中的数据
      */
-    private val bulkNumArray: SparseArray<String> = SparseArray(10)
-    private val zkgArray: SparseArray<String> = SparseArray(10)
-    private val carCodeArray: SparseArray<String> = SparseArray(10)
-    private val batchNoArray: SparseArray<String> = SparseArray(10)
+//    private val bulkNumArray: SparseArray<String> = SparseArray(10)
+//    private val zkgArray: SparseArray<String> = SparseArray(10)
+//    private val carCodeArray: SparseArray<String> = SparseArray(10)
+//    private val batchNoArray: SparseArray<String> = SparseArray(10)
 
     /**
      * 库位码 ID
@@ -131,26 +133,34 @@ class ArrivalInTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
 
     private fun initParam(): RequestBody? {
 
-        val requestBody = MaterialTodoSave()
-        val detail = ArrayList<MaterialTodoSave.DetailsBean>()
+        val requestBody = MaterialDetails()
+        val detail = ArrayList<MaterialDetails.ListBean>()
 
         val size = list.size
         for (i in 0 until size) {
-            val bulkNum = bulkNumArray.get(i)
-            val carCode = carCodeArray.get(i)
-            val batchNo = batchNoArray.get(i)
-            val zkg = zkgArray.get(i)
+
+            val view = rv_in_storage_detail.getChildAt(i)
+
+            val viewZkg = view.findViewById<EditText>(R.id.et_zkg).text.toString().trim { it <= ' ' }
+            val viewCode = view.findViewById<EditText>(R.id.et_code).text.toString().trim { it <= ' ' }
+            val viewNumber = view.findViewById<EditText>(R.id.et_bulk_num).text.toString().trim { it <= ' ' }
+            val viewSap = view.findViewById<EditText>(R.id.et_batch_no).text.toString().trim { it <= ' ' }
+
+//            val bulkNum = bulkNumArray.get(i)
+//            val carCode = carCodeArray.get(i)
+//            val batchNo = batchNoArray.get(i)
+//            val zkg = zkgArray.get(i)
 
             val id = positionId.get(i)
 
-            val bean = MaterialTodoSave.DetailsBean()
-            if (null != bulkNum && null != carCode) {
+            val bean = MaterialDetails.ListBean()
+            if (!TextUtils.isEmpty(viewNumber) && !TextUtils.isEmpty(viewCode)) {
 
-                bean.number = bulkNum
-                bean.positionId = carCode
-                bean.sapMaterialBatchNo = batchNo
+                bean.number = viewNumber
+                bean.positionId = viewCode
+                bean.sapMaterialBatchNo = viewSap
                 bean.positionId = id
-                bean.ZKG = zkg
+                bean.ZKG = viewZkg
                 bean.supplierId = supplierId
                 bean.supplierNo = list[i].supplierNo
                 bean.materialId = list[i].materialId
@@ -168,7 +178,7 @@ class ArrivalInTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
         val remark = et_desc!!.text.toString().trim { it <= ' ' }
         val time = tv_time!!.text.toString().trim { it <= ' ' }
 
-        requestBody.details = detail
+        requestBody.list = detail
         requestBody.warehouseId = warehouseId
         requestBody.inTime = time
         requestBody.sapOrderNo = sapOrderNo
@@ -207,7 +217,7 @@ class ArrivalInTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
         }, body)
     }
 
-    override fun detailObjData(obj: MaterialDetailsIn) {
+    override fun detailObjData(obj: MaterialDetails) {
 
         list.clear()
         list.addAll(obj.list!!)
@@ -247,27 +257,23 @@ class ArrivalInTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
     }
 
 
-    override fun saveEditAndGetHasFocusPosition(etType: String, hasFocus: Boolean?, position: Int, editText: EditText) {
-        // 用户在 EditText 中输入的数据
-        currentPosition = position
-        val textContent = editText.text.toString().trim { it <= ' ' }
-
-        if (CodeConstant.ET_ZKG == etType) {
-            zkgArray.put(position, textContent)
-        } else if (CodeConstant.ET_BULK_NUM == etType) {
-            bulkNumArray.put(position, textContent)
-
-            // 库位码 需要判断合法性
-        } else if (CodeConstant.ET_CODE == etType) {
-            currentFocus = hasFocus
-
-            carCodeArray.put(position, textContent)
-        } else if (CodeConstant.ET_BATCH_NO == etType) {
-            batchNoArray.put(position, textContent)
-
-        }
-
-    }
+//    override fun saveEditAndGetHasFocusPosition(etType: String, hasFocus: Boolean?, position: Int, editText: EditText) {
+//        // 用户在 EditText 中输入的数据
+//        currentPosition = position
+//        val textContent = editText.text.toString().trim { it <= ' ' }
+//
+//        when (etType) {
+//            CodeConstant.ET_ZKG -> zkgArray.put(position, textContent)
+//            CodeConstant.ET_BULK_NUM -> bulkNumArray.put(position, textContent)
+//            // 库位码 需要判断合法性
+//            CodeConstant.ET_CODE -> {
+//                currentFocus = hasFocus
+//                carCodeArray.put(position, textContent)
+//            }
+//            CodeConstant.ET_BATCH_NO -> batchNoArray.put(position, textContent)
+//        }
+//
+//    }
 
 
     /**
@@ -318,10 +324,15 @@ class ArrivalInTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
     override fun showCarSuccess(position: Int, carData: CarPositionNoData) {
         if (carData.count > 0) {
             val carId = carData.list!![0].id
+            val positionNo = carData.list!![0].positionNo
             warehouseId = carData.list!![0].warehouseId
             positionId.put(position, carId)
 
             adapter!!.notifyItemChanged(position)
+
+//            val diffUtil = DiffUtil.calculateDiff(TodoCarCodeDiffUtil(temp,list))
+//            diffUtil.dispatchUpdatesTo(adapter!!)
+
         } else {
             ZBUiUtils.showToast("请扫正确的库位码")
         }

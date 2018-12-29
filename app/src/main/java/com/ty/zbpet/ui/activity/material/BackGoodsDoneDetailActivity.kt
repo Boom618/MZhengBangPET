@@ -11,7 +11,7 @@ import android.widget.TextView
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.CarPositionNoData
 import com.ty.zbpet.bean.ResponseInfo
-import com.ty.zbpet.bean.material.MaterialDetailsOut
+import com.ty.zbpet.bean.material.MaterialDetails
 import com.ty.zbpet.bean.material.MaterialDoneSave
 import com.ty.zbpet.net.HttpMethods
 import com.ty.zbpet.presenter.material.BackGoodsPresenter
@@ -40,7 +40,7 @@ import okhttp3.RequestBody
  * @author TY on 2018/11/22.
  * 采购退货 已办详情
  */
-class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiObjInterface<MaterialDetailsOut> {
+class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiObjInterface<MaterialDetails> {
 
 
     private var adapter: BackGoodsDoneDetailAdapter? = null
@@ -53,7 +53,7 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
 
     private var mOutWarehouseOrderId: String? = null
     private var orderId: String? = null
-    private val list = ArrayList<MaterialDetailsOut.ListBean>()
+    private val list = ArrayList<MaterialDetails.ListBean>()
 
 
     private val presenter = BackGoodsPresenter(this)
@@ -131,7 +131,7 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
         return RequestBodyJson.requestBody(json)
     }
 
-    override fun detailObjData(obj: MaterialDetailsOut) {
+    override fun detailObjData(obj: MaterialDetails) {
 
         val list = obj.list
         warehouseId = list!![0].warehouseId

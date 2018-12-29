@@ -10,8 +10,7 @@ import com.pda.scanner.ScanReader
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.CarPositionNoData
 import com.ty.zbpet.bean.ResponseInfo
-import com.ty.zbpet.bean.material.MaterialDetailsIn
-import com.ty.zbpet.bean.material.MaterialTodoSave
+import com.ty.zbpet.bean.material.MaterialDetails
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.net.HttpMethods
 import com.ty.zbpet.net.RequestBodyJson
@@ -45,12 +44,12 @@ import java.util.*
  *
  * @author TY
  */
-class ArrivalInTodoDetailActivityR : BaseActivity(), MaterialUiObjInterface<MaterialDetailsIn>, ScanBoxInterface {
+class ArrivalInTodoDetailActivityR : BaseActivity(), MaterialUiObjInterface<MaterialDetails>, ScanBoxInterface {
     override val activityLayout: Int
         get() = R.layout.activity_main_detail_two
 
     private var adapter: MaterialTodoDetailAdapterR? = null
-    private val list = ArrayList<MaterialDetailsIn.ListBean>()
+    private val list = ArrayList<MaterialDetails.ListBean>()
 
     private var sapOrderNo: String? = null
     private var supplierId: String? = null // 供应商 ID
@@ -107,8 +106,8 @@ class ArrivalInTodoDetailActivityR : BaseActivity(), MaterialUiObjInterface<Mate
 
     private fun initParam(): RequestBody? {
 
-        val requestBody = MaterialTodoSave()
-        val detail = ArrayList<MaterialTodoSave.DetailsBean>()
+        val requestBody = MaterialDetails()
+        val detail = ArrayList<MaterialDetails.ListBean>()
 
         val size = list.size
         for (i in 0 until size) {
@@ -119,7 +118,7 @@ class ArrivalInTodoDetailActivityR : BaseActivity(), MaterialUiObjInterface<Mate
 
             val id = positionId.get(i)
 
-            val bean = MaterialTodoSave.DetailsBean()
+            val bean = MaterialDetails.ListBean()
             if (null != bulkNum && null != carCode) {
 
                 bean.number = bulkNum
@@ -144,7 +143,7 @@ class ArrivalInTodoDetailActivityR : BaseActivity(), MaterialUiObjInterface<Mate
         val remark = et_desc.text.toString().trim { it <= ' ' }
         val time = tv_time.text.toString().trim { it <= ' ' }
 
-        requestBody.details = detail
+        requestBody.list = detail
         requestBody.warehouseId = warehouseId
         requestBody.inTime = time
         requestBody.sapOrderNo = sapOrderNo
@@ -187,11 +186,11 @@ class ArrivalInTodoDetailActivityR : BaseActivity(), MaterialUiObjInterface<Mate
         }, body)
     }
 
-    override fun detailObjData(obj: MaterialDetailsIn) {
+    override fun detailObjData(obj: MaterialDetails) {
 
         list.clear()
         list.addAll(obj.list!!)
-        val listBean = MaterialDetailsIn.ListBean()
+        val listBean = MaterialDetails.ListBean()
         listBean.tag = "Bottom"
         list.add(listBean)
 

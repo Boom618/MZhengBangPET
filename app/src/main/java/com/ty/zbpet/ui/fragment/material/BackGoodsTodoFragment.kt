@@ -9,7 +9,7 @@ import com.scwang.smartrefresh.header.MaterialHeader
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter
 import com.ty.zbpet.R
-import com.ty.zbpet.bean.material.MaterialTodoList
+import com.ty.zbpet.bean.material.MaterialList
 import com.ty.zbpet.presenter.material.BackGoodsPresenter
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
 import com.ty.zbpet.ui.activity.material.BackGoodsTodoDetailActivity
@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.zb_content_list_fragment.view.*
 /**
  * @author TY on 2018/11/26.
  */
-class BackGoodsTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialTodoList.ListBean> {
+class BackGoodsTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList.ListBean> {
 
     private var refresh = false
 
@@ -68,7 +68,7 @@ class BackGoodsTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialTo
         }
     }
 
-    override fun showMaterial(list: List<MaterialTodoList.ListBean>) {
+    override fun showMaterial(list: List<MaterialList.ListBean>) {
 
         if (adapter == null || refresh) {
             refresh = false

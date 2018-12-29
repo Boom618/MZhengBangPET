@@ -1,10 +1,8 @@
 package com.ty.zbpet.presenter.material;
 
 import com.ty.zbpet.bean.CarPositionNoData;
-import com.ty.zbpet.bean.material.MaterialDetailsIn;
-import com.ty.zbpet.bean.material.MaterialDetailsOut;
-import com.ty.zbpet.bean.material.MaterialDoneList;
-import com.ty.zbpet.bean.material.MaterialTodoList;
+import com.ty.zbpet.bean.material.MaterialDetails;
+import com.ty.zbpet.bean.material.MaterialList;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
 import com.ty.zbpet.constant.CodeConstant;
@@ -90,7 +88,7 @@ public class MaterialPresenter {
         materialListUi.showLoading();
 
         // APi  获取数据
-        httpMethods.getMaterialTodoList(new SingleObserver<BaseResponse<MaterialTodoList>>() {
+        httpMethods.getMaterialTodoList(new SingleObserver<BaseResponse<MaterialList>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;
@@ -102,13 +100,13 @@ public class MaterialPresenter {
             }
 
             @Override
-            public void onSuccess(BaseResponse<MaterialTodoList> infoList) {
+            public void onSuccess(BaseResponse<MaterialList> infoList) {
                 materialListUi.hideLoading();
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(infoList.getTag())) {
 
                     if (infoList != null && infoList.getData().getList().size() != 0) {
-                        List<MaterialTodoList.ListBean> list = infoList.getData().getList();
+                        List<MaterialList.ListBean> list = infoList.getData().getList();
 
                         // 数据
                         materialListUi.showMaterial(list);
@@ -132,7 +130,7 @@ public class MaterialPresenter {
      */
     public void fetchTODOMaterialDetails(String sapOrderNo) {
 
-        httpMethods.getMaterialTodoListDetail(new SingleObserver<BaseResponse<MaterialDetailsIn>>() {
+        httpMethods.getMaterialTodoListDetail(new SingleObserver<BaseResponse<MaterialDetails>>() {
 
             @Override
             public void onSubscribe(Disposable d) {
@@ -145,11 +143,11 @@ public class MaterialPresenter {
             }
 
             @Override
-            public void onSuccess(BaseResponse<MaterialDetailsIn> info) {
+            public void onSuccess(BaseResponse<MaterialDetails> info) {
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(info.getTag())) {
 
-                    MaterialDetailsIn data = info.getData();
+                    MaterialDetails data = info.getData();
 
                     ZBLog.INSTANCE.d(data);
 
@@ -206,7 +204,7 @@ public class MaterialPresenter {
      * 原材料 已办 列表
      */
     public void fetchDoneMaterial(String type) {
-        httpMethods.getMaterialDoneList(new SingleObserver<BaseResponse<MaterialDoneList>>() {
+        httpMethods.getMaterialDoneList(new SingleObserver<BaseResponse<MaterialList>>() {
 
             @Override
             public void onSubscribe(Disposable d) {
@@ -219,10 +217,10 @@ public class MaterialPresenter {
             }
 
             @Override
-            public void onSuccess(BaseResponse<MaterialDoneList> infoList) {
+            public void onSuccess(BaseResponse<MaterialList> infoList) {
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(infoList.getTag())) {
-                    List<MaterialDoneList.ListBean> list = infoList.getData().getList();
+                    List<MaterialList.ListBean> list = infoList.getData().getList();
                     materialListUi.showMaterial(list);
                 } else {
                     ZBUiUtils.showToast(infoList.getMessage());
@@ -235,7 +233,7 @@ public class MaterialPresenter {
      * 已办详情
      */
     public void fetchDoneMaterialDetails(String orderId) {
-        httpMethods.getMaterialDoneListDetail(new SingleObserver<BaseResponse<MaterialDetailsOut>>() {
+        httpMethods.getMaterialDoneListDetail(new SingleObserver<BaseResponse<MaterialDetails>>() {
 
             @Override
             public void onSubscribe(Disposable d) {
@@ -248,11 +246,11 @@ public class MaterialPresenter {
             }
 
             @Override
-            public void onSuccess(BaseResponse<MaterialDetailsOut> infoList) {
+            public void onSuccess(BaseResponse<MaterialDetails> infoList) {
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(infoList.getTag())) {
                     if (null != infoList && infoList.getData() != null) {
-                        List<MaterialDetailsOut.ListBean> list = infoList.getData().getList();
+                        List<MaterialDetails.ListBean> list = infoList.getData().getList();
                         if (list != null && list.size() != 0) {
                             materialListUi.showMaterial(list);
                         } else {

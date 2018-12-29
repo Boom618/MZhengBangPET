@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.ImageView
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.ResponseInfo
-import com.ty.zbpet.bean.material.MaterialDetailsOut
+import com.ty.zbpet.bean.material.MaterialDetails
 import com.ty.zbpet.bean.material.MaterialDoneSave
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.net.HttpMethods
@@ -33,7 +33,7 @@ import java.util.*
  * @author TY on 2018/11/22.
  * 领料出库 已办详情
  */
-class PickOutDoneDetailActivity : BaseActivity(), MaterialUiListInterface<MaterialDetailsOut.ListBean> {
+class PickOutDoneDetailActivity : BaseActivity(), MaterialUiListInterface<MaterialDetails.ListBean> {
 
     private var adapter: PickingDoneDetailAdapter? = null
 
@@ -43,7 +43,7 @@ class PickOutDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Materi
 
     private var warehouseId: String? = null
     private var mOutWarehouseOrderId: String? = null
-    private val list = ArrayList<MaterialDetailsOut.ListBean>()
+    private val list = ArrayList<MaterialDetails.ListBean>()
 
 
     private val presenter = PickOutPresenter(this)
@@ -124,7 +124,7 @@ class PickOutDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Materi
         return RequestBodyJson.requestBody(json)
     }
 
-    override fun showMaterial(list: List<MaterialDetailsOut.ListBean>) {
+    override fun showMaterial(list: List<MaterialDetails.ListBean>) {
         warehouseId = list[0].warehouseId
 
         if (adapter == null) {

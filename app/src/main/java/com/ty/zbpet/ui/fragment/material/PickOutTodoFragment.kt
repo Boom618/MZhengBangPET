@@ -11,7 +11,7 @@ import com.scwang.smartrefresh.header.MaterialHeader
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter
 import com.ty.zbpet.R
-import com.ty.zbpet.bean.material.MaterialTodoList
+import com.ty.zbpet.bean.material.MaterialList
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
 import com.ty.zbpet.presenter.material.PickOutPresenter
 import com.ty.zbpet.ui.activity.material.PickOutTodoDetailActivity
@@ -35,7 +35,7 @@ import kotlinx.android.synthetic.main.zb_content_list_fragment.view.*
  *
  * 领料出库 待办列表
  */
-class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialTodoList.ListBean> {
+class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList.ListBean> {
 
 
     private var adapter: PickOutTodoAdapter? = null
@@ -85,7 +85,7 @@ class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialTodo
     }
 
 
-    override fun showMaterial(list: List<MaterialTodoList.ListBean>) {
+    override fun showMaterial(list: List<MaterialList.ListBean>) {
 
 
         if (adapter == null) {

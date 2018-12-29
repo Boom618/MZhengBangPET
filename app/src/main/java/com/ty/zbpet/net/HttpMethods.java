@@ -5,10 +5,8 @@ import com.google.gson.GsonBuilder;
 import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.UserInfo;
-import com.ty.zbpet.bean.material.MaterialDetailsIn;
-import com.ty.zbpet.bean.material.MaterialDetailsOut;
-import com.ty.zbpet.bean.material.MaterialDoneList;
-import com.ty.zbpet.bean.material.MaterialTodoList;
+import com.ty.zbpet.bean.material.MaterialDetails;
+import com.ty.zbpet.bean.material.MaterialList;
 import com.ty.zbpet.bean.product.ProductDetailsIn;
 import com.ty.zbpet.bean.product.ProductDetailsOut;
 import com.ty.zbpet.bean.product.ProductDoneList;
@@ -156,7 +154,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getMaterialTodoList(SingleObserver<BaseResponse<MaterialTodoList>> subscriber) {
+    public void getMaterialTodoList(SingleObserver<BaseResponse<MaterialList>> subscriber) {
         mService.getMaterialTodoList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -167,7 +165,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getMaterialTodoListDetail(SingleObserver<BaseResponse<MaterialDetailsIn>> subscriber, String sapOrderNo) {
+    public void getMaterialTodoListDetail(SingleObserver<BaseResponse<MaterialDetails>> subscriber, String sapOrderNo) {
         mService.getMaterialTodoListDetail(sapOrderNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -202,7 +200,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getMaterialDoneList(SingleObserver<BaseResponse<MaterialDoneList>> subscriber, String type) {
+    public void getMaterialDoneList(SingleObserver<BaseResponse<MaterialList>> subscriber, String type) {
         mService.getMaterialDoneList(type)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -214,7 +212,7 @@ public class HttpMethods {
      * @param subscriber
      * @param orderId
      */
-    public void getMaterialDoneListDetail(SingleObserver<BaseResponse<MaterialDetailsOut>> subscriber, String orderId) {
+    public void getMaterialDoneListDetail(SingleObserver<BaseResponse<MaterialDetails>> subscriber, String orderId) {
         mService.getMaterialDoneListDetail(orderId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -239,7 +237,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void pickOutTodoList(SingleObserver<BaseResponse<MaterialTodoList>> subscriber) {
+    public void pickOutTodoList(SingleObserver<BaseResponse<MaterialList>> subscriber) {
         mService.pickOutTodoList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -252,7 +250,7 @@ public class HttpMethods {
      * @param subscriber
      * @param sapOrderNo
      */
-    public void pickOutTodoListDetails(SingleObserver<BaseResponse<MaterialDetailsIn>> subscriber, String sapOrderNo) {
+    public void pickOutTodoListDetails(SingleObserver<BaseResponse<MaterialDetails>> subscriber, String sapOrderNo) {
         mService.pickOutTodoListDetail(sapOrderNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -274,7 +272,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void pickOutDoneList(SingleObserver<BaseResponse<MaterialDoneList>> subscriber, String type) {
+    public void pickOutDoneList(SingleObserver<BaseResponse<MaterialList>> subscriber, String type) {
         mService.pickOutDoneList(type)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -287,7 +285,7 @@ public class HttpMethods {
      * @param subscriber
      * @param sapOrderNo
      */
-    public void pickOutDoneListDetails(SingleObserver<BaseResponse<MaterialDetailsOut>> subscriber, String sapOrderNo) {
+    public void pickOutDoneListDetails(SingleObserver<BaseResponse<MaterialDetails>> subscriber, String sapOrderNo) {
         mService.pickOutDoneListDetail(sapOrderNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -313,7 +311,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getBackTodoList(SingleObserver<BaseResponse<MaterialTodoList>> subscriber) {
+    public void getBackTodoList(SingleObserver<BaseResponse<MaterialList>> subscriber) {
         mService.getBackTodoList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -325,7 +323,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getBackTodoListInfo(SingleObserver<BaseResponse<MaterialDetailsIn>> subscriber, String sapOrderNo) {
+    public void getBackTodoListInfo(SingleObserver<BaseResponse<MaterialDetails>> subscriber, String sapOrderNo) {
         mService.getBackTodoListInfo(sapOrderNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -347,7 +345,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getBackDoneList(SingleObserver<BaseResponse<MaterialDoneList>> subscriber, String type) {
+    public void getBackDoneList(SingleObserver<BaseResponse<MaterialList>> subscriber, String type) {
         mService.getBackDoneList(type)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -359,7 +357,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getBackDoneListInfo(SingleObserver<BaseResponse<MaterialDetailsOut>> subscriber, String orderId) {
+    public void getBackDoneListInfo(SingleObserver<BaseResponse<MaterialDetails>> subscriber, String orderId) {
         mService.getBackDoneListInfo(orderId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);

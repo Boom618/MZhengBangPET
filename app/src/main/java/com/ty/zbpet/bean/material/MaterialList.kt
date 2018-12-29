@@ -1,10 +1,13 @@
 package com.ty.zbpet.bean.material
 
 /**
- * @author TY on 2018/11/26.
- * 原料三个已办列表 bean
+ * @author TY on 2018/12/29.
+ *
+ * 列表 （已办和待办）
+ *
+ *
  */
-class MaterialDoneList {
+class MaterialList {
 
 
     var count: Int = 0
@@ -52,6 +55,11 @@ class MaterialDoneList {
         var supplierName: String? = null
         var materialName: String? = null
         var orderId: String? = null
+
+        // 待办
+        var receiveInfo: String? = null
+        var backInfo: String? = null
+        var orderTime: String? = null
 
     }
 }

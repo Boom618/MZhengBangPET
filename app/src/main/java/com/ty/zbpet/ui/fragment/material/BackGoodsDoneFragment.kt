@@ -9,7 +9,7 @@ import com.scwang.smartrefresh.header.MaterialHeader
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter
 import com.ty.zbpet.R
-import com.ty.zbpet.bean.material.MaterialDoneList
+import com.ty.zbpet.bean.material.MaterialList
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.presenter.material.BackGoodsPresenter
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
@@ -29,7 +29,7 @@ import kotlinx.android.synthetic.main.fragment_recyclerview.view.*
  *
  * 采购退货 已办列表
  */
-class BackGoodsDoneFragment : BaseFragment(), MaterialUiListInterface<MaterialDoneList.ListBean> {
+class BackGoodsDoneFragment : BaseFragment(), MaterialUiListInterface<MaterialList.ListBean> {
 
     private var materialAdapter: BackGoodsDoneListAdapter? = null
 
@@ -80,7 +80,7 @@ class BackGoodsDoneFragment : BaseFragment(), MaterialUiListInterface<MaterialDo
     }
 
 
-    override fun showMaterial(list: List<MaterialDoneList.ListBean>) {
+    override fun showMaterial(list: List<MaterialList.ListBean>) {
         if (materialAdapter == null || refresh) {
             refresh = false
             if (materialAdapter == null) {

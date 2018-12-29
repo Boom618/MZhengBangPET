@@ -3,7 +3,7 @@ package com.ty.zbpet.ui.adapter.material
 import android.content.Context
 
 import com.ty.zbpet.R
-import com.ty.zbpet.bean.material.MaterialDetailsOut
+import com.ty.zbpet.bean.material.MaterialDetails
 import com.zhy.adapter.recyclerview.CommonAdapter
 import com.zhy.adapter.recyclerview.base.ViewHolder
 
@@ -13,10 +13,10 @@ import com.zhy.adapter.recyclerview.base.ViewHolder
  *
  * 采购退货 已办详情
  */
-class BackGoodsDoneDetailAdapter(context: Context, layoutId: Int, datas: List<MaterialDetailsOut.ListBean>)
-    : CommonAdapter<MaterialDetailsOut.ListBean>(context, layoutId, datas) {
+class BackGoodsDoneDetailAdapter(context: Context, layoutId: Int, datas: List<MaterialDetails.ListBean>)
+    : CommonAdapter<MaterialDetails.ListBean>(context, layoutId, datas) {
 
-    override fun convert(holder: ViewHolder, list: MaterialDetailsOut.ListBean, position: Int) {
+    override fun convert(holder: ViewHolder, list: MaterialDetails.ListBean, position: Int) {
 
         holder.setText(R.id.tv_name, list.materialName)
                 .setText(R.id.tv_num, list.giveNumber!! + list.unitS!!)

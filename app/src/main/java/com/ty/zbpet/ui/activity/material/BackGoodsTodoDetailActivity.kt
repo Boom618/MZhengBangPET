@@ -9,13 +9,11 @@ import android.view.KeyEvent
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
 import com.pda.scanner.ScanReader
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.CarPositionNoData
 import com.ty.zbpet.bean.ResponseInfo
-import com.ty.zbpet.bean.material.MaterialDetailsIn
-import com.ty.zbpet.bean.material.MaterialTodoSave
+import com.ty.zbpet.bean.material.MaterialDetails
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.net.HttpMethods
 import com.ty.zbpet.net.RequestBodyJson
@@ -26,7 +24,6 @@ import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ResourceUtil
-import com.ty.zbpet.util.ZBLog
 import com.ty.zbpet.util.ZBUiUtils
 import com.ty.zbpet.util.scan.ScanBoxInterface
 import com.ty.zbpet.util.scan.ScanObservable
@@ -42,7 +39,7 @@ import java.util.*
  * @author TY on 2018/11/22.
  * 采购退货 待办详情
  */
-class BackGoodsTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<MaterialDetailsIn>, ScanBoxInterface, BackGoodsTodoDetailAdapter.SaveEditListener {
+class BackGoodsTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<MaterialDetails>, ScanBoxInterface, BackGoodsTodoDetailAdapter.SaveEditListener {
 
 
     private var adapter: BackGoodsTodoDetailAdapter? = null
@@ -50,7 +47,7 @@ class BackGoodsTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
     private var selectTime: String? = null
     private var sapOrderNo: String? = null
 
-    private var list: ArrayList<MaterialDetailsIn.ListBean>? = ArrayList()
+    private var list: ArrayList<MaterialDetails.ListBean>? = ArrayList()
 
     /**
      * 点击库位码输入框
@@ -160,8 +157,8 @@ class BackGoodsTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
      */
     private fun initTodoBody(): RequestBody? {
 
-        val requestBody = MaterialTodoSave()
-        val detail = ArrayList<MaterialTodoSave.DetailsBean>()
+        val requestBody = MaterialDetails()
+        val detail = ArrayList<MaterialDetails.ListBean>()
 
         val size = list!!.size
         for (i in 0 until size) {
@@ -176,7 +173,7 @@ class BackGoodsTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
             val supplierNo = list!![i].supplierNo
             val zkg = list!![i].ZKG
 
-            val bean = MaterialTodoSave.DetailsBean()
+            val bean = MaterialDetails.ListBean()
             if (!TextUtils.isEmpty(bulkNum) && !TextUtils.isEmpty(carCode)) {
 
                 bean.ZKG = zkg
@@ -203,7 +200,7 @@ class BackGoodsTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
         val remark = et_desc!!.text.toString().trim { it <= ' ' }
         val time = tv_time!!.text.toString().trim { it <= ' ' }
 
-        requestBody.details = detail
+        requestBody.list = detail
         requestBody.warehouseId = warehouseId
         requestBody.sapOrderNo = sapOrderNo
         requestBody.outTime = time
@@ -265,7 +262,7 @@ class BackGoodsTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
     }
 
 
-    override fun detailObjData(details: MaterialDetailsIn) {
+    override fun detailObjData(details: MaterialDetails) {
 
         // list.clear();
         // 提交保存 需要用到

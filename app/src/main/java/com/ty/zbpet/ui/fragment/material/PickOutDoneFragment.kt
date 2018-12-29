@@ -15,7 +15,7 @@ import com.scwang.smartrefresh.layout.footer.BallPulseFooter
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 import com.ty.zbpet.R
-import com.ty.zbpet.bean.material.MaterialDoneList
+import com.ty.zbpet.bean.material.MaterialList
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
 import com.ty.zbpet.presenter.material.PickOutPresenter
 import com.ty.zbpet.ui.activity.material.PickOutDoneDetailActivity
@@ -38,7 +38,7 @@ import kotlinx.android.synthetic.main.zb_content_list_fragment.view.*
  * @author TY
  * 领料出库 已办列表
  */
-class PickOutDoneFragment : BaseFragment(), MaterialUiListInterface<MaterialDoneList.ListBean> {
+class PickOutDoneFragment : BaseFragment(), MaterialUiListInterface<MaterialList.ListBean> {
 
 
 //    @BindView(R.id.recyclerView)
@@ -91,7 +91,7 @@ class PickOutDoneFragment : BaseFragment(), MaterialUiListInterface<MaterialDone
     }
 
 
-    override fun showMaterial(list: List<MaterialDoneList.ListBean>) {
+    override fun showMaterial(list: List<MaterialList.ListBean>) {
 
         if (adapter == null || refresh) {
             refresh = false
