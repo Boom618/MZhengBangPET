@@ -2,20 +2,13 @@ package com.ty.zbpet.ui.activity.material
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.view.ViewPager
-import android.widget.EditText
-import android.widget.RadioGroup
-
 import com.ty.zbpet.R
-import com.ty.zbpet.ui.adapter.ViewPagerAdapter
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.fragment.material.BackGoodsDoneFragment
 import com.ty.zbpet.ui.fragment.material.BackGoodsTodoFragment
-
-import java.util.ArrayList
-
-import butterknife.BindView
-import kotlinx.android.synthetic.main.activity_back_goods.*
+import com.ty.zbpet.util.TabLayoutViewPage
+import kotlinx.android.synthetic.main.activity_main_todo_and_done.*
+import java.util.*
 
 /**
  * 采购退货
@@ -24,8 +17,8 @@ import kotlinx.android.synthetic.main.activity_back_goods.*
 class BackGoodsActivity : BaseActivity() {
 
     override val activityLayout: Int
-        get() = R.layout.activity_back_goods
-
+        //        get() = R.layout.activity_back_goods
+        get() = R.layout.activity_main_todo_and_done
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
 
@@ -36,14 +29,8 @@ class BackGoodsActivity : BaseActivity() {
         fragmentList.add(todoFragment)
         fragmentList.add(doneFragment)
 
-        val adapter = ViewPagerAdapter(supportFragmentManager, fragmentList)
-        back_goods_viewpager!!.adapter = adapter
-        back_goods_viewpager!!.addOnPageChangeListener(PagerChangeListener())
-        rg!!.setOnCheckedChangeListener(RadioGroupListener())
-
-        // 默认待办 Fragment
-        rg!!.check(R.id.rb_no_doing)
-        back_goods_viewpager!!.currentItem = NO_DOING
+        val viewPage = TabLayoutViewPage()
+        viewPage.setViewPageToTab(supportFragmentManager, main_viewpager, main_stl, fragmentList)
 
         initToolBar(R.string.label_purchase_returns)
     }
@@ -57,33 +44,6 @@ class BackGoodsActivity : BaseActivity() {
 
     }
 
-    internal inner class RadioGroupListener : RadioGroup.OnCheckedChangeListener {
 
-        override fun onCheckedChanged(group: RadioGroup, checkedId: Int) {
-            when (checkedId) {
-                R.id.rb_no_doing -> back_goods_viewpager!!.currentItem = NO_DOING
-                R.id.rb_complete -> back_goods_viewpager!!.currentItem = COMPLETE
-                else -> {
-                }
-            }
-        }
-    }
-
-    internal inner class PagerChangeListener : ViewPager.SimpleOnPageChangeListener() {
-
-        override fun onPageSelected(position: Int) {
-            when (position) {
-                NO_DOING -> rg!!.check(R.id.rb_no_doing)
-                COMPLETE -> rg!!.check(R.id.rb_complete)
-            }
-        }
-
-    }
-
-    companion object {
-
-        private val NO_DOING = 0
-        private val COMPLETE = 1
-    }
 
 }
