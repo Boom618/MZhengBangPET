@@ -85,7 +85,7 @@ class SendOutDoneFragment : BaseFragment(), ProductUiObjInterface<ProductList> {
                 recyclerView!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
                 recyclerView!!.layoutManager = manager
             }
-            adapter = SendOutDoneListAdapter(ResourceUtil.getContext(), R.layout.item_send_out_list_todo, list)
+            adapter = SendOutDoneListAdapter(ResourceUtil.getContext(), R.layout.item_send_out_list_todo, list!!)
             recyclerView!!.adapter = adapter
 
             adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {

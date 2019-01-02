@@ -158,7 +158,7 @@ class BuyInDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductDet
             val manager = LinearLayoutManager(ResourceUtil.getContext())
             rv_in_storage_detail!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
             rv_in_storage_detail!!.layoutManager = manager
-            adapter = BuyInDoneDetailAdapter(this, R.layout.item_product_detail_two_done, list)
+            adapter = BuyInDoneDetailAdapter(this, R.layout.item_product_detail_two_done, list!!)
             rv_in_storage_detail!!.adapter = adapter
 
             adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {

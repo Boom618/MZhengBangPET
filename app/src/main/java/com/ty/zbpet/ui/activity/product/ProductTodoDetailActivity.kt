@@ -249,7 +249,6 @@ class ProductTodoDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
         requestBody.remark = remark
 
         val json = DataUtils.toJson(requestBody, 1)
-        ZBLog.e("JSON $json")
         return RequestBodyJson.requestBody(json)
     }
 

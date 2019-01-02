@@ -4,9 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
-import butterknife.BindView
 import com.pda.scanner.ScanReader
 import com.ty.zbpet.R
 import com.ty.zbpet.constant.CodeConstant
@@ -18,6 +16,7 @@ import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils
 import com.ty.zbpet.util.scan.ScanBoxInterface
 import com.ty.zbpet.util.scan.ScanObservable
+import kotlinx.android.synthetic.main.activity_scan_box_code.*
 import java.util.*
 
 /**
@@ -27,9 +26,6 @@ import java.util.*
 class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface {
     override val activityLayout: Int
         get() = R.layout.activity_scan_box_code
-
-    @BindView(R.id.recyclerView)
-    internal var recyclerView: RecyclerView? = null
 
     private var isOpen: Boolean = false
     /**
@@ -51,10 +47,6 @@ class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface {
     override fun onBaseCreate(savedInstanceState: Bundle?) {
 
     }
-
-//    override fun getActivityLayout(): Int {
-//        return R.layout.activity_scan_box_code
-//    }
 
     override fun initOneData() {
         itemId = intent.getIntExtra("itemId", -1)

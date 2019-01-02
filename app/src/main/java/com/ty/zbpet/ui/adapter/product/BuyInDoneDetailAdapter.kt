@@ -12,7 +12,8 @@ import com.zhy.adapter.recyclerview.base.ViewHolder
  *
  * 外采入库 已办详情
  */
-class BuyInDoneDetailAdapter(context: Context, layoutId: Int, datas: List<ProductDetails.ListBean>) : CommonAdapter<ProductDetails.ListBean>(context, layoutId, datas) {
+class BuyInDoneDetailAdapter(context: Context, layoutId: Int, datas: List<ProductDetails.ListBean>)
+    : CommonAdapter<ProductDetails.ListBean>(context, layoutId, datas) {
 
     override fun convert(holder: ViewHolder, list: ProductDetails.ListBean, position: Int) {
         holder.setText(R.id.tv_name, list.goodsName)

@@ -152,6 +152,7 @@ class SendOutTodoDetailActivity : BaseActivity(), ProductUiListInterface<Product
             val rawSize = rawData.size
             val oldSize = oldList.size
             if (oldSize < rawSize) {
+//                adapter.notifyItemRangeChanged()
                 // 有列表删除操作 ，保证 newList 只有 oldList 中的数据 + 添加的一个数据
                 newList.clear()
                 newList.addAll(oldList)
@@ -165,9 +166,13 @@ class SendOutTodoDetailActivity : BaseActivity(), ProductUiListInterface<Product
                 bean.unitS = info.unitS
                 bean.orderNumber = info.orderNumber
                 newList.add(bean)
+                //adapter!!.notifyItemRangeChanged(oldSize-1,oldSize - 1)
 
-                val diffResult = DiffUtil.calculateDiff(SendOutDiffUtil(oldList, newList))
-                diffResult.dispatchUpdatesTo(adapter!!)
+                // 插入在最后 不需要 ：notifyItemRangeChanged
+                adapter!!.notifyItemInserted(newList.size - 1)
+                adapter!!.notifyItemRangeChanged(newList.size - 1, newList.size)
+//                val diffResult = DiffUtil.calculateDiff(SendOutDiffUtil(oldList, newList))
+//                diffResult.dispatchUpdatesTo(adapter!!)
 
                 // TODO　清除老数据,更新原数据,清除临时保存数据
                 oldList.clear()
@@ -373,10 +378,13 @@ class SendOutTodoDetailActivity : BaseActivity(), ProductUiListInterface<Product
                         //newList = new ArrayList<>(oldList);
                         newList.addAll(oldList)
                         newList.removeAt(position)
+                        // itemCount: 已经发生变化的 item 的个数(包括自己,即正在点击这个)
+                        adapter!!.notifyItemRemoved(position)
+                        adapter!!.notifyItemRangeChanged(position, newList.size - position)
 
-                        val diffResult = DiffUtil.calculateDiff(SendOutDiffUtil(oldList, newList), true)
-                        diffResult.dispatchUpdatesTo(adapter!!)
-                        // oldList 也应该删除一列数据
+//                        val diffResult = DiffUtil.calculateDiff(SendOutDiffUtil(oldList, newList), true)
+//                        diffResult.dispatchUpdatesTo(adapter!!)
+//                        // oldList 也应该删除一列数据
                         oldList.removeAt(position)
                     }
 

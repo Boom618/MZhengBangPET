@@ -86,7 +86,7 @@ class ReturnGoodsDoneFragment : BaseFragment(), ProductUiObjInterface<ProductLis
                 recyclerView.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
                 recyclerView!!.layoutManager = manager
             }
-            adapter = ReturnGoodsDoneListAdapter(ResourceUtil.getContext(), R.layout.item_send_out_list_todo, list)
+            adapter = ReturnGoodsDoneListAdapter(ResourceUtil.getContext(), R.layout.item_send_out_list_todo, list!!)
             recyclerView!!.adapter = adapter
 
             adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {

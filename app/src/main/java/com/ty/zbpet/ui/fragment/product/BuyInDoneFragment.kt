@@ -85,7 +85,7 @@ class BuyInDoneFragment : BaseFragment(), ProductUiObjInterface<ProductList> {
                 recyclerView!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
                 recyclerView!!.layoutManager = manager
             }
-            adapter = BuyInDoneListAdapter(ResourceUtil.getContext(), R.layout.activity_content_list_two, list)
+            adapter = BuyInDoneListAdapter(ResourceUtil.getContext(), R.layout.activity_content_list_two, list!!)
             recyclerView!!.adapter = adapter
 
             adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
