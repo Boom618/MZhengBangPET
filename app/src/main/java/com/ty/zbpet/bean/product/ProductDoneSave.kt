@@ -14,7 +14,6 @@ class ProductDoneSave {
     var outTime: String? = null
     var sapOrderNo: String? = null
     var orderId: String? = null
-    var productionBatchNo: String? = null
     var remark: String? = null
     var details: List<DetailsBean>? = null
 
@@ -28,15 +27,6 @@ class ProductDoneSave {
          * goodsQrCodeEnd : qr00100
          * boxQrCode : ["box001","box002","box003","box004"]
          */
-
-//        var positionId: String? = null
-//        var number: String? = null
-//        var goodsId: String? = null
-//        var goodsNo: String? = null
-//        var sapMaterialBatchNo: String? = null
-//        var goodsQrCodeStart: String? = null
-//        var goodsQrCodeEnd: String? = null
-//        var boxQrCode: List<String>? = null
 
         var id: String? = null
         var inWarehouseOrderId: String? = null
@@ -63,12 +53,6 @@ class ProductDoneSave {
 
 
         var warehouseList: List<UserInfo.WarehouseListBean>? = null
-
-//        class WarehouseListBean{
-//            var warehouseId: String? = null
-//            var warehouseNo: String? = null
-//            var warehouseName: String? = null
-//        }
 
     }
 

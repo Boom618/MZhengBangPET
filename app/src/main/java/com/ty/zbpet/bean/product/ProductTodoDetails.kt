@@ -7,18 +7,18 @@ package com.ty.zbpet.bean.product
 class ProductTodoDetails {
 
 
-    var warehouseList: List<WarehouseListBean>? = null
+//    var warehouseList: List<WarehouseListBean>? = null
     var list: List<ListBean>? = null
 
-    class WarehouseListBean {
-        /**
-         * warehouseId : 3
-         * warehouseName : 仓库002
-         */
-
-        var warehouseId: String? = null
-        var warehouseName: String? = null
-    }
+//    class WarehouseListBean {
+//        /**
+//         * warehouseId : 3
+//         * warehouseName : 仓库002
+//         */
+//
+//        var warehouseId: String? = null
+//        var warehouseName: String? = null
+//    }
 
     class ListBean {
         /**

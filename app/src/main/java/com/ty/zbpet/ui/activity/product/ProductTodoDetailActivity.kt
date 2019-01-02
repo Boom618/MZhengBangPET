@@ -26,6 +26,7 @@ import com.ty.zbpet.ui.adapter.product.ProductTodoDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.constant.CodeConstant
+import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBLog
@@ -55,7 +56,7 @@ class ProductTodoDetailActivity : BaseActivity(), ProductUiObjInterface<ProductT
     private var sapOrderNo: String? = null
 
     private var oldList: List<ProductTodoDetails.ListBean>? = ArrayList()
-    private val houseList = ArrayList<ProductTodoDetails.WarehouseListBean>()
+//    private val houseList = ArrayList<ProductTodoDetails.WarehouseListBean>()
 
     private val presenter = ProducePresenter(this)
 
@@ -234,7 +235,6 @@ class ProductTodoDetailActivity : BaseActivity(), ProductUiObjInterface<ProductT
                 bean.goodsId = goodsId
                 bean.boxQrCode = boxQrCode
 
-
                 detail.add(bean)
             }
         }
@@ -257,7 +257,7 @@ class ProductTodoDetailActivity : BaseActivity(), ProductUiObjInterface<ProductT
 
         val json = DataUtils.toJson(requestBody, 1)
         ZBLog.e("JSON $json")
-        return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), json)
+        return RequestBodyJson.requestBody(json)
     }
 
 
@@ -323,16 +323,12 @@ class ProductTodoDetailActivity : BaseActivity(), ProductUiObjInterface<ProductT
 
         val textContent = editText.text.toString().trim { it <= ' ' }
 
-        if (CodeConstant.ET_NUMBER == etType) {
-            numberArray.put(position, textContent)
-        } else if (CodeConstant.ET_CONTENT == etType) {
-            contentArray.put(position, textContent)
-        } else if (CodeConstant.ET_BATCH_NO == etType) {
-            sapArray.put(position, textContent)
-        } else if (CodeConstant.ET_START_CODE == etType) {
-            startCodeArray.put(position, textContent)
-        } else if (CodeConstant.ET_END_CODE == etType) {
-            endCodeArray.put(position, textContent)
+        when (etType) {
+            CodeConstant.ET_NUMBER -> numberArray.put(position, textContent)
+            CodeConstant.ET_CONTENT -> contentArray.put(position, textContent)
+            CodeConstant.ET_BATCH_NO -> sapArray.put(position, textContent)
+            CodeConstant.ET_START_CODE -> startCodeArray.put(position, textContent)
+            CodeConstant.ET_END_CODE -> endCodeArray.put(position, textContent)
         }
 
     }
