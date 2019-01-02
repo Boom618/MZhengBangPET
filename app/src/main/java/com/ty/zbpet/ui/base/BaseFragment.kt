@@ -23,9 +23,6 @@ abstract class BaseFragment : Fragment() {
      * 2、Layout
      * 3、
      */
-
-
-
     private var mUnbinder: Unbinder? = null
 
     protected var mCache: ACache? = null
@@ -36,6 +33,11 @@ abstract class BaseFragment : Fragment() {
      * @return
      */
     protected abstract val fragmentLayout: Int
+
+    //是否可见
+    protected var isVisble = false
+    // 标志位，标志Fragment已经初始化完成。
+    var isPrepared = false
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -64,6 +66,32 @@ abstract class BaseFragment : Fragment() {
 
     }
 
+    /**
+     *  Fragment 懒加载
+     */
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+
+        if (userVisibleHint) {
+            isVisble = true
+            onVisible()
+        } else {
+            isVisble = false
+            onInVisible()
+        }
+    }
+
+    /**
+     * 可见时 加载数据
+     */
+    private fun onVisible() {
+        loadData()
+    }
+
+
+    private fun onInVisible() {}
+
+    protected abstract fun loadData()
 
     /**
      * 重置 ACache 中保存的的数据

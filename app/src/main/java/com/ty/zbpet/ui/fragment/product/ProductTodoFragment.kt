@@ -45,11 +45,8 @@ class ProductTodoFragment : BaseFragment(), ProductUiListInterface<ProductList.L
         return view
     }
 
-    override fun onStart() {
-        super.onStart()
-
+    override fun loadData() {
         presenter.fetchProductTodoList()
-
     }
 
     override fun onResume() {

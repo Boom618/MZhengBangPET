@@ -48,12 +48,9 @@ class MaterialDoneFragment : BaseFragment(), MaterialUiListInterface<MaterialLis
         return view
     }
 
-    override fun onStart() {
-        super.onStart()
-
+    override fun loadData() {
         // 第一次获取数据
         materialPresenter.fetchDoneMaterial(CodeConstant.BUY_IN_TYPE)
-
     }
 
     override fun onResume() {

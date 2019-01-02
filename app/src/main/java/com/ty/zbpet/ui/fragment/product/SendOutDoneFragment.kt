@@ -50,11 +50,8 @@ class SendOutDoneFragment : BaseFragment(), ProductUiObjInterface<ProductList> {
         return view
     }
 
-    override fun onStart() {
-        super.onStart()
-
+    override fun loadData() {
         presenter.fetchSendOutDoneList(CodeConstant.PICK_OUT_TYPE)
-
     }
 
     override fun onResume() {

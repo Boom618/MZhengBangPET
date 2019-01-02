@@ -44,11 +44,8 @@ class BackGoodsTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialLi
         return view
     }
 
-    override fun onStart() {
-        super.onStart()
-
+    override fun loadData() {
         presenter.fetchBackTodoList()
-
     }
 
     override fun onResume() {

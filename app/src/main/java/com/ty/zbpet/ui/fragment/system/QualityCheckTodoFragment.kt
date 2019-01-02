@@ -45,11 +45,8 @@ class QualityCheckTodoFragment : BaseFragment(), SystemUiListInterface<QualityCh
         return view
     }
 
-    override fun onStart() {
-        super.onStart()
-
+    override fun loadData() {
         presenter.fetchQualityCheckTodoList()
-
     }
 
     override fun onResume() {

@@ -51,11 +51,8 @@ class ProductDoneFragment : BaseFragment(), ProductUiObjInterface<ProductList> {
         return view
     }
 
-    override fun onStart() {
-        super.onStart()
-
+    override fun loadData() {
         presenter.fetchProductDoneList(CodeConstant.PRODUCT_TYPE)
-
     }
 
     override fun onResume() {

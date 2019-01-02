@@ -36,8 +36,6 @@ class MaterialTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialLis
     override val fragmentLayout: Int
         get() = R.layout.zb_content_list_fragment
 
-//    internal var recyclerView: RecyclerView? = null
-//    private var refreshLayout: SmartRefreshLayout? = null
     private var adapter: MaterialTodoAdapter? = null
     private val materialPresenter = MaterialPresenter(this)
 
@@ -47,9 +45,6 @@ class MaterialTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialLis
      * @param view layout inflate 的 View
      */
     override fun onBaseCreate(view: View): View {
-
-//        recyclerView = view.findViewById(R.id.recyclerView)
-//        refreshLayout = view.findViewById(R.id.refreshLayout)
 
         // 设置 Header 样式
         view.refreshLayout!!.setRefreshHeader(MaterialHeader(view.context!!))
@@ -61,15 +56,8 @@ class MaterialTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialLis
 
     }
 
-//    override fun getFragmentLayout(): Int {
-//        return R.layout.zb_content_list_fragment
-//    }
-
-    override fun onStart() {
-        super.onStart()
-
+    override fun loadData() {
         materialPresenter.fetchTODOMaterial()
-
     }
 
     override fun onResume() {

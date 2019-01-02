@@ -46,6 +46,7 @@ class BackGoodsDoneFragment : BaseFragment(), MaterialUiListInterface<MaterialLi
 
     override fun onBaseCreate(view: View): View {
 
+        isPrepared = true
         view.refreshLayout!!.setRefreshHeader(MaterialHeader(view.context))
         //设置 Footer 为 球脉冲 样式
         view.refreshLayout!!.setRefreshFooter(BallPulseFooter(view.context).setSpinnerStyle(SpinnerStyle.Scale))
@@ -54,12 +55,11 @@ class BackGoodsDoneFragment : BaseFragment(), MaterialUiListInterface<MaterialLi
     }
 
 
-    override fun onStart() {
-        super.onStart()
-
-        // 第一次获取数据
-        presenter.fetchBackDoneList(CodeConstant.BACK_GOODS_TYPE)
-
+    override fun loadData() {
+        // 第一次获取数据  Kotlin 字段有下划线的是父类属性
+        if (isPrepared && isVisble) {
+            presenter.fetchBackDoneList(CodeConstant.BACK_GOODS_TYPE)
+        }
     }
 
     override fun onResume() {

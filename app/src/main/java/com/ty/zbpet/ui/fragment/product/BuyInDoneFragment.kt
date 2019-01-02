@@ -50,11 +50,8 @@ class BuyInDoneFragment : BaseFragment(), ProductUiObjInterface<ProductList> {
         return view
     }
 
-    override fun onStart() {
-        super.onStart()
-
+    override fun loadData() {
         presenter.fetchBuyInDoneList(CodeConstant.BUY_IN_TYPE)
-
     }
 
     override fun onResume() {

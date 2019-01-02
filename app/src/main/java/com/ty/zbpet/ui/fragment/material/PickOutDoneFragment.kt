@@ -67,9 +67,7 @@ class PickOutDoneFragment : BaseFragment(), MaterialUiListInterface<MaterialList
         return view
     }
 
-    override fun onStart() {
-        super.onStart()
-
+    override fun loadData() {
         presenter.fetchPickOutDoneList(CodeConstant.PICK_OUT_TYPE)
     }
 

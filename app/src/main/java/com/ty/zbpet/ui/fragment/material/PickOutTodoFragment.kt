@@ -61,9 +61,7 @@ class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList
         return view
     }
 
-    override fun onStart() {
-        super.onStart()
-
+    override fun loadData() {
         materialPresenter.fetchPickOutTodoList()
     }
 

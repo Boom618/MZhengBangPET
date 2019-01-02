@@ -47,11 +47,8 @@ class BuyInTodoFragment : BaseFragment(), ProductUiListInterface<ProductList.Lis
         return view
     }
 
-    override fun onStart() {
-        super.onStart()
-
+    override fun loadData() {
         presenter.fetchBuyInTodoList()
-
     }
 
     override fun onResume() {

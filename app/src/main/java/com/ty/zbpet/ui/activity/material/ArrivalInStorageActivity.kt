@@ -22,8 +22,8 @@ class ArrivalInStorageActivity : BaseActivity() {
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
 
-        val completeFg = MaterialDoneFragment()
         val noDoingFg = MaterialTodoFragment.newInstance("noDoingFg")
+        val completeFg = MaterialDoneFragment()
 
         val fragmentList = ArrayList<Fragment>()
         fragmentList.add(noDoingFg)

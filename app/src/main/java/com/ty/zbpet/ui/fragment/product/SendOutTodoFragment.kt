@@ -45,11 +45,8 @@ class SendOutTodoFragment : BaseFragment(), ProductUiListInterface<ProductList.L
         return view
     }
 
-    override fun onStart() {
-        super.onStart()
-
+    override fun loadData() {
         presenter.fetchSendOutTodoList()
-
     }
 
     override fun onResume() {

@@ -29,8 +29,6 @@ import kotlinx.android.synthetic.main.zb_content_list_fragment.view.*
  */
 class ReturnGoodsTodoFragment : BaseFragment(), ProductUiListInterface<ProductList.ListBean> {
 
-
-
     private val presenter = ReturnPresenter(this)
 
     private var adapter: ReturnGoodsTodoListAdapter? = null
@@ -46,11 +44,8 @@ class ReturnGoodsTodoFragment : BaseFragment(), ProductUiListInterface<ProductLi
         return view
     }
 
-    override fun onStart() {
-        super.onStart()
-
+    override fun loadData() {
         presenter.fetchReturnGoodsTodoList()
-
     }
 
     override fun onResume() {
