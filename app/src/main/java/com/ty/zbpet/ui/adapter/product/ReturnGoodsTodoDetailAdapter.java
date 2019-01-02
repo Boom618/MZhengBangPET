@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.ty.zbpet.R;
-import com.ty.zbpet.bean.product.ProductTodoDetails;
+import com.ty.zbpet.bean.product.ProductDetails;
 import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.util.ZBUiUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
@@ -18,15 +18,15 @@ import java.util.List;
  * <p>
  * 退货入库 待办详情
  */
-public class ReturnGoodsTodoDetailAdapter extends CommonAdapter<ProductTodoDetails.ListBean> {
+public class ReturnGoodsTodoDetailAdapter extends CommonAdapter<ProductDetails.ListBean> {
 
 
-    public ReturnGoodsTodoDetailAdapter(Context context, int layoutId, List<ProductTodoDetails.ListBean> datas) {
+    public ReturnGoodsTodoDetailAdapter(Context context, int layoutId, List<ProductDetails.ListBean> datas) {
         super(context, layoutId, datas);
     }
 
     @Override
-    protected void convert(ViewHolder holder, ProductTodoDetails.ListBean list, final int position) {
+    protected void convert(ViewHolder holder, ProductDetails.ListBean list, final int position) {
         // 共用 一个布局：下拉选择隐藏,应发数量显示
         holder.itemView.findViewById(R.id.tv_select_ware).setVisibility(View.GONE);
 

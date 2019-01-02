@@ -7,7 +7,6 @@ import com.ty.zbpet.bean.material.MaterialDetails;
 import com.ty.zbpet.bean.material.MaterialList;
 import com.ty.zbpet.bean.product.ProductDetails;
 import com.ty.zbpet.bean.product.ProductList;
-import com.ty.zbpet.bean.product.ProductTodoDetails;
 import com.ty.zbpet.bean.system.ImageData;
 import com.ty.zbpet.bean.system.QualityCheckTodoDetails;
 import com.ty.zbpet.bean.system.QualityCheckTodoList;
@@ -349,7 +348,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_PRODUCE_ORDER_INFO)
-    Single<BaseResponse<ProductTodoDetails>> getProduceOrderInfo(@Field("sapOrderNo") String sapOrderNo);
+    Single<BaseResponse<ProductDetails>> getProduceOrderInfo(@Field("sapOrderNo") String sapOrderNo);
 
 
     /**
@@ -410,7 +409,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_SHIP_ORDER_INFO)
-    Single<BaseResponse<ProductTodoDetails>> getShipOrderInfo(@Field("sapOrderNo") String sapOrderNo);
+    Single<BaseResponse<ProductDetails>> getShipOrderInfo(@Field("sapOrderNo") String sapOrderNo);
 
 
     /**
@@ -470,7 +469,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_RETURN_ORDER_INFO)
-    Single<BaseResponse<ProductTodoDetails>> getReturnOrderInfo(@Field("sapOrderNo") String sapOrderNo);
+    Single<BaseResponse<ProductDetails>> getReturnOrderInfo(@Field("sapOrderNo") String sapOrderNo);
 
 
     /**

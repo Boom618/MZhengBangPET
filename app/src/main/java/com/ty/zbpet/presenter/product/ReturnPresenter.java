@@ -1,7 +1,6 @@
 package com.ty.zbpet.presenter.product;
 
 import com.ty.zbpet.bean.product.ProductDetails;
-import com.ty.zbpet.bean.product.ProductTodoDetails;
 import com.ty.zbpet.bean.product.ProductList;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
@@ -79,18 +78,18 @@ public class ReturnPresenter {
      * @param sapOrderNo
      */
     public void fetchReturnOrderInfo(String sapOrderNo) {
-        httpMethods.getReturnOrderInfo(new SingleObserver<BaseResponse<ProductTodoDetails>>() {
+        httpMethods.getReturnOrderInfo(new SingleObserver<BaseResponse<ProductDetails>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;
             }
 
             @Override
-            public void onSuccess(BaseResponse<ProductTodoDetails> response) {
+            public void onSuccess(BaseResponse<ProductDetails> response) {
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
-                    List<ProductTodoDetails.ListBean> list = response.getData().getList();
+                    List<ProductDetails.ListBean> list = response.getData().getList();
 
                     listInterface.showProduct(list);
 

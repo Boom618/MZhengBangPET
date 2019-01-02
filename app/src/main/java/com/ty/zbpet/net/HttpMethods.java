@@ -9,7 +9,7 @@ import com.ty.zbpet.bean.material.MaterialDetails;
 import com.ty.zbpet.bean.material.MaterialList;
 import com.ty.zbpet.bean.product.ProductDetails;
 import com.ty.zbpet.bean.product.ProductList;
-import com.ty.zbpet.bean.product.ProductTodoDetails;
+import com.ty.zbpet.bean.product.ProductDetails;
 import com.ty.zbpet.bean.system.ImageData;
 import com.ty.zbpet.bean.system.QualityCheckTodoDetails;
 import com.ty.zbpet.bean.system.QualityCheckTodoList;
@@ -463,7 +463,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getProduceOrderInfo(SingleObserver<BaseResponse<ProductTodoDetails>> subscriber, String sapOrderNo) {
+    public void getProduceOrderInfo(SingleObserver<BaseResponse<ProductDetails>> subscriber, String sapOrderNo) {
         mService.getProduceOrderInfo(sapOrderNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -533,7 +533,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getShipOrderInfo(SingleObserver<BaseResponse<ProductTodoDetails>> subscriber, String sapOrderNo) {
+    public void getShipOrderInfo(SingleObserver<BaseResponse<ProductDetails>> subscriber, String sapOrderNo) {
         mService.getShipOrderInfo(sapOrderNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -603,7 +603,7 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getReturnOrderInfo(SingleObserver<BaseResponse<ProductTodoDetails>> subscriber, String sapOrderNo) {
+    public void getReturnOrderInfo(SingleObserver<BaseResponse<ProductDetails>> subscriber, String sapOrderNo) {
         mService.getReturnOrderInfo(sapOrderNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);

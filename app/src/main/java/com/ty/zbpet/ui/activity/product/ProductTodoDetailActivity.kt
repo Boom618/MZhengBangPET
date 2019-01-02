@@ -10,52 +10,45 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
-
-import com.bigkoo.pickerview.listener.OnTimeSelectListener
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.ResponseInfo
 import com.ty.zbpet.bean.UserInfo
-import com.ty.zbpet.bean.product.ProductTodoDetails
+import com.ty.zbpet.bean.product.ProductDetails
 import com.ty.zbpet.bean.product.ProductTodoSave
+import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.net.HttpMethods
+import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.product.ProducePresenter
 import com.ty.zbpet.presenter.product.ProductUiObjInterface
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity
 import com.ty.zbpet.ui.adapter.product.ProductTodoDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
-import com.ty.zbpet.constant.CodeConstant
-import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBLog
 import com.ty.zbpet.util.ZBUiUtils
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
-
-import java.text.SimpleDateFormat
-import java.util.ArrayList
-import java.util.Date
-import java.util.Locale
-
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_content_row_three.*
 import okhttp3.RequestBody
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * 生产入库 待办详情
  *
  * @author TY
  */
-class ProductTodoDetailActivity : BaseActivity(), ProductUiObjInterface<ProductTodoDetails>, ProductTodoDetailAdapter.SaveEditListener {
+class ProductTodoDetailActivity : BaseActivity(), ProductUiObjInterface<ProductDetails>, ProductTodoDetailAdapter.SaveEditListener {
 
     private var adapter: ProductTodoDetailAdapter? = null
 
     private var selectTime: String? = null
     private var sapOrderNo: String? = null
 
-    private var oldList: List<ProductTodoDetails.ListBean>? = ArrayList()
+    private var oldList: List<ProductDetails.ListBean>? = ArrayList()
 //    private val houseList = ArrayList<ProductTodoDetails.WarehouseListBean>()
 
     private val presenter = ProducePresenter(this)
@@ -261,7 +254,7 @@ class ProductTodoDetailActivity : BaseActivity(), ProductUiObjInterface<ProductT
     }
 
 
-    override fun detailObjData(details: ProductTodoDetails) {
+    override fun detailObjData(details: ProductDetails) {
 
         oldList = details.list
 

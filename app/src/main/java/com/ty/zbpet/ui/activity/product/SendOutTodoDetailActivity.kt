@@ -13,10 +13,9 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 
-import com.bigkoo.pickerview.listener.OnTimeSelectListener
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.ResponseInfo
-import com.ty.zbpet.bean.product.ProductTodoDetails
+import com.ty.zbpet.bean.product.ProductDetails
 import com.ty.zbpet.bean.product.ProductTodoSave
 import com.ty.zbpet.net.HttpMethods
 import com.ty.zbpet.presenter.product.ProductUiListInterface
@@ -50,7 +49,7 @@ import okhttp3.RequestBody
  *
  * @author TY
  */
-class SendOutTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductTodoDetails.ListBean>, SendOutTodoDetailAdapter.SaveEditListener {
+class SendOutTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDetails.ListBean>, SendOutTodoDetailAdapter.SaveEditListener {
 
     private var adapter: SendOutTodoDetailAdapter? = null
 
@@ -67,10 +66,10 @@ class SendOutTodoDetailActivity : BaseActivity(), ProductUiListInterface<Product
     /**
      * 商品种类 原数据
      */
-    private val rawData = ArrayList<ProductTodoDetails.ListBean>()
+    private val rawData = ArrayList<ProductDetails.ListBean>()
 
-    private var oldList: MutableList<ProductTodoDetails.ListBean> = ArrayList()
-    private val newList = ArrayList<ProductTodoDetails.ListBean>()
+    private var oldList: MutableList<ProductDetails.ListBean> = ArrayList()
+    private val newList = ArrayList<ProductDetails.ListBean>()
 
     private val presenter = SendOutPresenter(this)
 
@@ -156,7 +155,7 @@ class SendOutTodoDetailActivity : BaseActivity(), ProductUiListInterface<Product
                 // 有列表删除操作 ，保证 newList 只有 oldList 中的数据 + 添加的一个数据
                 newList.clear()
                 newList.addAll(oldList)
-                val bean = ProductTodoDetails.ListBean()
+                val bean = ProductDetails.ListBean()
                 val info = rawData[0]
 
                 bean.sapOrderNo = info.sapOrderNo
@@ -304,7 +303,7 @@ class SendOutTodoDetailActivity : BaseActivity(), ProductUiListInterface<Product
     }
 
 
-    override fun showProduct(list: MutableList<ProductTodoDetails.ListBean>) {
+    override fun showProduct(list: MutableList<ProductDetails.ListBean>) {
 
         // 保存原数据
         rawData.addAll(list)

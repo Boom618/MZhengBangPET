@@ -27,7 +27,6 @@ public class BuyInTodoDetailAdapter extends CommonAdapter<ProductDetails.ListBea
 
     @Override
     protected void convert(ViewHolder holder, ProductDetails.ListBean list, final int position) {
-        //String warehouseName = DataUtils.getUserInfo().getWarehouseList().get(0).getWarehouseName();
         String warehouseName = list.getWarehouseList().get(0).getWarehouseName();
 
         holder.setText(R.id.tv_name, list.getGoodsName())

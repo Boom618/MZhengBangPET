@@ -38,6 +38,12 @@ class ProductDetails {
         var orderId: String? = null
         var boxQrCode: ArrayList<String>? = null
 
+        // 生产入库
+        var sendNumber: String? = null
+
+        // 退货入库 信息
+        var surplusNumber: String? = null
+
         // 外采入库 每个列表都有仓库选项
         class WarehouseListBean {
 
