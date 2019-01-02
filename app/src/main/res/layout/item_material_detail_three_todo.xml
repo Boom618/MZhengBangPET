@@ -119,7 +119,7 @@
             android:hint="库位码"
             android:inputType="text"
             android:lines="1"
-            android:textColor="@color/txt_main_color"
+            style="@style/itemSizeStyle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bulk_num" />
 
@@ -135,7 +135,7 @@
             android:hint="出库数量：2000"
             android:lines="1"
             android:inputType="number"
-            android:textColor="@color/txt_main_color"
+            style="@style/itemSizeStyle"
             app:layout_constraintBottom_toTopOf="@+id/et_batch_no"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
@@ -152,7 +152,7 @@
             android:hint="sap 物料批次号"
             android:inputType="text"
             android:lines="1"
-            android:textColor="@color/txt_main_color"
+            style="@style/itemSizeStyle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_number" />

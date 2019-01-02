@@ -196,6 +196,10 @@ class ArrivalInTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
      */
     private fun doPurchaseInRecallOut(body: RequestBody?) {
 
+        if (body == null) {
+            return
+        }
+
         HttpMethods.getInstance().materialTodoInSave(object : SingleObserver<ResponseInfo> {
             override fun onError(e: Throwable) {
                 ZBUiUtils.showToast(e.message)

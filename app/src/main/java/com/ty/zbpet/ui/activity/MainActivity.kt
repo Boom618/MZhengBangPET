@@ -2,21 +2,19 @@ package com.ty.zbpet.ui.activity
 
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
-
 import com.ty.zbpet.R
 import com.ty.zbpet.ui.activity.material.ArrivalInStorageActivity
 import com.ty.zbpet.ui.activity.material.BackGoodsActivity
 import com.ty.zbpet.ui.activity.material.PickOutStorageActivity
-import com.ty.zbpet.ui.activity.product.ProductInStorageActivity
 import com.ty.zbpet.ui.activity.product.BuyInStorageActivity
+import com.ty.zbpet.ui.activity.product.ProductInStorageActivity
 import com.ty.zbpet.ui.activity.product.ReturnGoodsActivity
 import com.ty.zbpet.ui.activity.product.SendOutActivity
 import com.ty.zbpet.ui.activity.system.PersonCenterActivity
-import com.ty.zbpet.ui.activity.system.QualityCheckActivity
 import com.ty.zbpet.ui.activity.system.QualityCheckTabActivity
 import com.ty.zbpet.ui.activity.system.TransferStorageActivity
 import com.ty.zbpet.ui.base.BaseActivity
+import kotlinx.android.synthetic.main.activity_main1.*
 
 /**
  * @author TY
@@ -36,18 +34,18 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun initTwoView() {
-        findViewById<TextView>(R.id.tv_arrival_in_storage).setOnClickListener(this)
-        findViewById<TextView>(R.id.tv_pick_out_storage).setOnClickListener(this)
-        findViewById<TextView>(R.id.tv_purchase_returns).setOnClickListener(this)
+        tv_arrival_in_storage.setOnClickListener(this)
+        tv_pick_out_storage.setOnClickListener(this)
+        tv_purchase_returns.setOnClickListener(this)
 
-        findViewById<TextView>(R.id.tv_purchase_in_storage).setOnClickListener(this)
-        findViewById<TextView>(R.id.tv_produce_in_storage).setOnClickListener(this)
-        findViewById<TextView>(R.id.tv_send_out_storage).setOnClickListener(this)
-        findViewById<TextView>(R.id.tv_return_in_storage).setOnClickListener(this)
+        tv_purchase_in_storage.setOnClickListener(this)
+        tv_produce_in_storage.setOnClickListener(this)
+        tv_send_out_storage.setOnClickListener(this)
+        tv_return_in_storage.setOnClickListener(this)
 
-        findViewById<TextView>(R.id.tv_inventory).setOnClickListener(this)
-        findViewById<TextView>(R.id.tv_transfer_storage).setOnClickListener(this)
-        findViewById<TextView>(R.id.tv_person_center).setOnClickListener(this)
+        tv_inventory.setOnClickListener(this)
+        tv_transfer_storage.setOnClickListener(this)
+        tv_person_center.setOnClickListener(this)
 
     }
 
@@ -85,8 +83,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             R.id.tv_person_center ->
                 //个人中心
                 gotoActivity(PersonCenterActivity::class.java)
-            else -> {
-            }
         }
     }
 

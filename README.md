@@ -20,10 +20,17 @@
 - 数据存储采用 DataUtils 中 SparseArray 处理保存
 - 清空任务栈（建国提供 Helper）
 - 权限
+- Fragment 懒加载
+- rc 输入框取值:RecycleView.getChildAt(position) 得到 View
 
 **技术点**
 
 - Rc 动态更新  RecycleView DiffUtil
+  - notifyItemInserted(int position)
+  - notifyItemRemoved(int position)
+  - notifyItemRangeChanged(int positionStart, int itemCount)
+  - AsyncListDiffer
+  - AsyncDifferConfig
 - Rc 多个输入框 和 Button 事件冲突
 - Rc 嵌套 Rc(质检列表中的 3 张图片)
 
@@ -33,17 +40,13 @@
 
 ## 待完成 
 
-- Fragment 懒加载
 - 分页
 - RecycleView 细节处理
 - Adapter 绑定事件处理
 - 列表分页加载
 - RxEasyHttp
-- rc 输入框取值
 - Rc button 冲突
 - Kotlin 改版
-- adapter list 取值
-
 
 
 ## 困扰
@@ -82,3 +85,4 @@ MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("file", fil
     Single<ImageData> updateCheckImage(@Part MultipartBody.Part part);
 
 ```
+- RecyclerView item 的 XML `android:layout_height="wrap_content"` 自己习惯写 `android:layout_height="match_parent"`

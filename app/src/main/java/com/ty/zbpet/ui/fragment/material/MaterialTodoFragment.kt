@@ -16,6 +16,7 @@ import com.ty.zbpet.bean.material.MaterialList
 import com.ty.zbpet.presenter.material.MaterialPresenter
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
 import com.ty.zbpet.ui.activity.material.ArrivalInTodoDetailActivity
+import com.ty.zbpet.ui.activity.material.ArrivalInTodoDetailActivityR
 import com.ty.zbpet.ui.adapter.material.MaterialTodoAdapter
 import com.ty.zbpet.ui.base.BaseFragment
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
@@ -88,7 +89,7 @@ class MaterialTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialLis
             adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                 override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
                     val intent = Intent(activity, ArrivalInTodoDetailActivity::class.java)
-                    // Intent intent = new Intent(getActivity(), ArrivalInTodoDetailActivityR.class);
+//                     val intent = Intent(activity, ArrivalInTodoDetailActivityR::class.java)
                     intent.putExtra("sapOrderNo", list[position].sapOrderNo)
                     intent.putExtra("supplierId", list[position].supplierId)
                     startActivity(intent)
