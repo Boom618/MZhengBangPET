@@ -224,7 +224,7 @@ class ArrivalInTodoDetailActivityR : BaseActivity(), MaterialUiObjInterface<Mate
                 currentPosition = Integer.valueOf(split[0])
                 currentFocus = java.lang.Boolean.valueOf(split[1])
 
-                if (currentFocus!! && currentPosition != -1) {
+                if (currentFocus && currentPosition != -1) {
                     // 扫描
                     scanner.open(applicationContext)
 
@@ -256,7 +256,7 @@ class ArrivalInTodoDetailActivityR : BaseActivity(), MaterialUiObjInterface<Mate
             warehouseId = carData.list!![0].warehouseId!!
             positionId.put(position, carId)
 
-            adapter!!.notifyItemChanged(position)
+            adapter.notifyItemChanged(position)
         } else {
             ZBUiUtils.showToast("请扫正确的库位码")
         }

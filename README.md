@@ -29,13 +29,19 @@
   - notifyItemInserted(int position)
   - notifyItemRemoved(int position)
   - notifyItemRangeChanged(int positionStart, int itemCount)
+  - notifyItemChanged(int position)
+  - notifyDataSetChanged()
   - AsyncListDiffer
   - AsyncDifferConfig
+  ```
+  在使用 DiffUtil 中遇到一个困扰我很久的问题,在项目中真正要做到更新 item 中某一个属性
+  （根据扫码得到的库位码,服务器校验成功后再更新到控件上）输入框,第一：这里需要判断扫码成功与否,
+  第二：成功后的库位码去校验。最后我的解决方案是重写 `getChangePayload`方法在 adapter 中属性列表
+  ```
 - Rc 多个输入框 和 Button 事件冲突
 - Rc 嵌套 Rc(质检列表中的 3 张图片)
 
 **困扰**
-
 
 
 ## 待完成 

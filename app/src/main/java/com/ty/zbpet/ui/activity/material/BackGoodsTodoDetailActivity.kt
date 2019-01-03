@@ -160,18 +160,18 @@ class BackGoodsTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
         val requestBody = MaterialDetails()
         val detail = ArrayList<MaterialDetails.ListBean>()
 
-        val size = list!!.size
+        val size = list.size
         for (i in 0 until size) {
             val bulkNum = bulkNumArray.get(i)
             val carCode = carCodeArray.get(i)
             val batchNo = batchNoArray.get(i)
             val id = positionId.get(i)
 
-            val supplierId = list!![i].supplierId
-            val concentration = list!![i].concentration
-            val materialId = list!![i].materialId
-            val supplierNo = list!![i].supplierNo
-            val zkg = list!![i].ZKG
+            val supplierId = list[i].supplierId
+            val concentration = list[i].concentration
+            val materialId = list[i].materialId
+            val supplierNo = list[i].supplierNo
+            val zkg = list[i].ZKG
 
             val bean = MaterialDetails.ListBean()
             if (!TextUtils.isEmpty(bulkNum) && !TextUtils.isEmpty(carCode)) {
@@ -223,7 +223,7 @@ class BackGoodsTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
         if (keyCode == CodeConstant.KEY_CODE_131
                 || keyCode == CodeConstant.KEY_CODE_135
                 || keyCode == CodeConstant.KEY_CODE_139) {
-            if (currentFocus!! && currentPosition != -1) {
+            if (currentFocus && currentPosition != -1) {
                 // 扫描
                 doDeCode()
             }
@@ -255,7 +255,7 @@ class BackGoodsTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
             warehouseId = carData.list!![0].warehouseId
             positionId.put(position, carId)
 
-            adapter!!.notifyItemChanged(position)
+            adapter.notifyItemChanged(position)
         } else {
             ZBUiUtils.showToast("请扫正确的库位码")
         }
@@ -271,7 +271,7 @@ class BackGoodsTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
         val manager = LinearLayoutManager(ResourceUtil.getContext())
         rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
         rv_in_storage_detail.layoutManager = manager
-        adapter = BackGoodsTodoDetailAdapter(this, R.layout.item_material_detail_three_todo, list!!)
+        adapter = BackGoodsTodoDetailAdapter(this, R.layout.item_material_detail_three_todo, list)
         rv_in_storage_detail.adapter = adapter
 
         adapter.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {

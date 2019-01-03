@@ -213,7 +213,7 @@ class PickOutTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Materia
                 || keyCode == CodeConstant.KEY_CODE_135
                 || keyCode == CodeConstant.KEY_CODE_139) {
 
-            if (currentFocus!! && currentPosition != -1) {
+            if (currentFocus && currentPosition != -1) {
                 // 扫描
                 doDeCode()
             }
@@ -244,7 +244,7 @@ class PickOutTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Materia
             warehouseId = carData.list!![0].warehouseId!!
             positionId.put(position, carId)
 
-            adapter!!.notifyItemChanged(position)
+            adapter.notifyItemChanged(position)
         } else {
             ZBUiUtils.showToast("请扫正确的库位码")
         }

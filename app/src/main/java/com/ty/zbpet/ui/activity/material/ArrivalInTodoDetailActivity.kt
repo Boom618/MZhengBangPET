@@ -1,5 +1,6 @@
 package com.ty.zbpet.ui.activity.material
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.LinearLayoutManager
@@ -21,12 +22,11 @@ import com.ty.zbpet.net.HttpMethods
 import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.material.MaterialPresenter
 import com.ty.zbpet.presenter.material.MaterialUiObjInterface
+import com.ty.zbpet.ui.adapter.diffadapter.TodoCarCodeDiffUtil
 import com.ty.zbpet.ui.adapter.material.MaterialTodoDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
-import com.ty.zbpet.util.DataUtils
-import com.ty.zbpet.util.ResourceUtil
-import com.ty.zbpet.util.ZBUiUtils
+import com.ty.zbpet.util.*
 import com.ty.zbpet.util.scan.ScanBoxInterface
 import com.ty.zbpet.util.scan.ScanObservable
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
@@ -47,7 +47,8 @@ import java.util.*
  *
  * @author TY
 </MaterialTodoDetailsData> */
-class ArrivalInTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<MaterialDetails>
+class ArrivalInTodoDetailActivity : BaseActivity()
+        , MaterialUiObjInterface<MaterialDetails>
         , ScanBoxInterface {
 
     override val activityLayout: Int
@@ -55,6 +56,7 @@ class ArrivalInTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
 
     lateinit var adapter: MaterialTodoDetailAdapter
     private val list = ArrayList<MaterialDetails.ListBean>()
+//    lateinit var list: MutableList<MaterialDetails.ListBean>
 
     lateinit var sapOrderNo: String
     lateinit var supplierId: String  // 供应商 ID
@@ -64,27 +66,9 @@ class ArrivalInTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
      */
     lateinit var selectTime: String
 
-    /**
-     * 点击库位码输入框
-     */
-    private var currentFocus: Boolean = false
-
-    /**
-     * list 中 Position
-     */
-    private var currentPosition = -1
-
     lateinit var disposable: Disposable
     private val scanner = ScanReader.getScannerInstance()
     private val scan = ScanObservable(this)
-
-    /**
-     * 保存用户在输入框中的数据
-     */
-//    private val bulkNumArray: SparseArray<String> = SparseArray(10)
-//    private val zkgArray: SparseArray<String> = SparseArray(10)
-//    private val carCodeArray: SparseArray<String> = SparseArray(10)
-//    private val batchNoArray: SparseArray<String> = SparseArray(10)
 
     /**
      * 库位码 ID
@@ -250,26 +234,6 @@ class ArrivalInTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
         })
     }
 
-
-//    override fun saveEditAndGetHasFocusPosition(etType: String, hasFocus: Boolean?, position: Int, editText: EditText) {
-//        // 用户在 EditText 中输入的数据
-//        currentPosition = position
-//        val textContent = editText.text.toString().trim { it <= ' ' }
-//
-//        when (etType) {
-//            CodeConstant.ET_ZKG -> zkgArray.put(position, textContent)
-//            CodeConstant.ET_BULK_NUM -> bulkNumArray.put(position, textContent)
-//            // 库位码 需要判断合法性
-//            CodeConstant.ET_CODE -> {
-//                currentFocus = hasFocus
-//                carCodeArray.put(position, textContent)
-//            }
-//            CodeConstant.ET_BATCH_NO -> batchNoArray.put(position, textContent)
-//        }
-//
-//    }
-
-
     /**
      * 扫描
      *
@@ -282,7 +246,7 @@ class ArrivalInTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
         if (keyCode == CodeConstant.KEY_CODE_131
                 || keyCode == CodeConstant.KEY_CODE_135
                 || keyCode == CodeConstant.KEY_CODE_139) {
-            if (currentFocus!! && currentPosition != -1) {
+            if (SharedP.getFocus(this) && SharedP.getPosition(this) != -1) {
                 // 扫描
                 doDeCode()
             }
@@ -296,7 +260,7 @@ class ArrivalInTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
 
         scanner.open(applicationContext)
 
-        disposable = scan.scanBox(scanner, currentPosition)
+        disposable = scan.scanBox(scanner, SharedP.getPosition(this))
 
     }
 
@@ -311,7 +275,14 @@ class ArrivalInTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
         ZBUiUtils.showToast("库位码 ：$positionNo")
 
         //  服务器校验 库位码
-        materialPresenter.checkCarCode(position, positionNo)
+        //materialPresenter.checkCarCode(position, positionNo)
+
+        val deepCopyList = DeepCopyData.deepCopyList(list)
+
+        deepCopyList[position].positionNo = positionNo
+
+        val diffUtil = DiffUtil.calculateDiff(TodoCarCodeDiffUtil(list, deepCopyList))
+        diffUtil.dispatchUpdatesTo(adapter)
 
     }
 
@@ -322,10 +293,12 @@ class ArrivalInTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
             warehouseId = carData.list!![0].warehouseId!!
             positionId.put(position, carId)
 
-            adapter!!.notifyItemChanged(position)
+            val deepCopyList = DeepCopyData.deepCopyList(list)
 
-//            val diffUtil = DiffUtil.calculateDiff(TodoCarCodeDiffUtil(temp,list))
-//            diffUtil.dispatchUpdatesTo(adapter!!)
+            deepCopyList[position].positionNo = positionNo
+
+            val diffUtil = DiffUtil.calculateDiff(TodoCarCodeDiffUtil(list, deepCopyList))
+            diffUtil.dispatchUpdatesTo(adapter)
 
         } else {
             ZBUiUtils.showToast("请扫正确的库位码")
@@ -337,6 +310,7 @@ class ArrivalInTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
         super.onDestroy()
 
         scanner.close()
+        SharedP.clearFocusAndPosition(this)
 
     }
 }

@@ -138,7 +138,7 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
         adapter = BackGoodsDoneDetailAdapter(this, R.layout.item_material_detail_three_done, list)
         rv_in_storage_detail.adapter = adapter
 
-        adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+        adapter.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
             override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
 
                 val rlDetail = holder.itemView.findViewById<View>(R.id.gone_view)

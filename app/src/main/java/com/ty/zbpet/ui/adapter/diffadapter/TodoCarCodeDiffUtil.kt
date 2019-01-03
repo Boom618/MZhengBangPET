@@ -1,5 +1,6 @@
 package com.ty.zbpet.ui.adapter.diffadapter
 
+import android.os.Bundle
 import android.support.v7.util.DiffUtil
 import com.ty.zbpet.bean.TodoCarCodeData
 import com.ty.zbpet.bean.material.MaterialDetails
@@ -12,7 +13,6 @@ class TodoCarCodeDiffUtil(private val mOldList: List<MaterialDetails.ListBean>?,
 
     override fun getOldListSize(): Int {
         return mOldList?.size ?: 0
-//        return mOldList?.size ?: 0
     }
 
     override fun getNewListSize(): Int {
@@ -39,7 +39,19 @@ class TodoCarCodeDiffUtil(private val mOldList: List<MaterialDetails.ListBean>?,
         return mOldList!![oldItemPosition].positionNo.equals(mNewList!![newItemPosition].positionNo)
     }
 
-//    override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
-//        return super.getChangePayload(oldItemPosition, newItemPosition)
-//    }
+    /**
+     * getChangePayload()方法是在 areItemsTheSame()返回 true，而 areContentsTheSame()返回 false 时被回调的，
+     * 也就是一个 Item 的内容发生了变化，而这个变化有可能是局部的（例如微博的点赞，我们只需要刷新图标而不是整个 Item ）。
+     * 所以可以在 getChangePayload()中封装一个 Object 来告诉 RecyclerView 进行局部的刷新。
+     *
+     * 注意：返回的这个对象会在什么地方收到呢？实际上在 RecyclerView.Adapter 中有两个 onBindViewHolder 方法，
+     * 一个是我们必须要重写的，而另一个的第三个参数就是一个 payload 的列表：
+     */
+    override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
+        val listBean = mNewList?.get(newItemPosition)
+        val diffBundle = Bundle()
+        diffBundle.putString("positionNo",listBean?.positionNo)
+
+        return diffBundle
+    }
 }

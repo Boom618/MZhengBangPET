@@ -85,10 +85,10 @@ class BuyInDoneFragment : BaseFragment(), ProductUiObjInterface<ProductList> {
             adapter = BuyInDoneListAdapter(ResourceUtil.getContext(), R.layout.activity_content_list_two, list!!)
             recyclerView!!.adapter = adapter
 
-            adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+            adapter?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                 override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
                     val intent = Intent(activity, BuyInDoneDetailActivity::class.java)
-                    intent.putExtra("orderId", list!![position].id)
+                    intent.putExtra("orderId", list[position].id)
                     intent.putExtra("sapOrderNo", list[position].sapOrderNo)
                     startActivity(intent)
                 }
