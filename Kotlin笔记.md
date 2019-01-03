@@ -15,6 +15,7 @@ Kotlin 使用填坑
 - object 可以定义在全局也可以在类的内部使用
 - object 就是单例模式的化身
 - object 可以实现 Java 中的匿名类
+- object 修饰类相当于 `public class`,类中的方法相当于`static`
 - companion object 就是 Java 中的 static 变量
 - companion object 只能定义在对应的类中
 
@@ -53,18 +54,18 @@ findViewById<Button>(R.id.btn_login).setOnClickListener(this)
 ```
 ### 修饰符可见性
 在 Kotlin 中有这四个可见性修饰符：`private`、`protected`、 `internal` 和 `public`, 如果没有显式指定修饰符的话，默认可见性是 `public`.其他三种和 Java 中的可见性类似,`internal`表示的是在模块内可见
-### butterknife
-在 `Java`中使用
+### apply plugin: 'kotlin-android-extensions' kotlin 扩展库
+butterknife 在 `Java`中使用
 ```
 implementation 'com.jakewharton:butterknife:9.0.0-rc3'
 annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc3'
 ```
-在 `Kotlin`中使用
+butterknife 在 `Kotlin`中使用
 ```
 implementation 'com.jakewharton:butterknife:9.0.0-rc3'
 kapt 'com.jakewharton:butterknife-compiler:9.0.0-rc3'
 ```
-添加依赖的方式从 Java 的`annotationProcessor`变成 Kotlin 的 `kapt`。之前在 Java 语言中一直不愿意使用它,主要原因是 `butterknife`解决的只是控件的绑定,减少`findViewById`的编写,内部利用反射去查找控件 ID,对于代码本身而言并没有太多的优势;这次项目开始,改用 Kotlin 编写后,他的优势就上来了：
+添加依赖的方式从 Java 的`annotationProcessor`变成 Kotlin 的 `kapt`。之前在 Java 语言中一直不愿意使用它,主要原因是 `butterknife`解决的只是控件的绑定,减少`findViewById`的编写,内部利用反射去查找控件 ID,对于代码本身而言并没有太多的优势;这次项目开始,改用 Kotlin 编写后,kotlin 扩展库的优势就上来了：
 
 它不需要 `@BindView`,不需要控件的初始化定义,极大的减少了代码的工作量:就像这样
 ```
@@ -78,7 +79,35 @@ override fun onCreate(savedInstanceState: Bundle?) {
 `import kotlinx.android.synthetic.main.activity_main.*`自己的 `XML`就可以了
 ### 数据类 data
 
+### @JvmOverloads 和 @JvmStatic
+`@JvmOverloads` 注解表示告诉 JVM 该方法是重载方法
+```
+    @JvmOverloads
+    fun gotoActivity(clz: Class<*>, isCloseCurrentActivity: Boolean = false, ex: Bundle? = null) {
+        val intent = Intent(this, clz)
+        if (ex != null) {
+            intent.putExtras(ex)
+        }
+        startActivity(intent)
+        if (isCloseCurrentActivity) {
+            finish()
+        }
+    }
+```
+如果在 Java 中我们编写`gotoActivity`时,需要多次（可能大于三次）编写有参数的方法,如果我们在 Kotlin 中使用的话,只需要在方法上使用`@JvmOverloads`注解,有没有感觉就应该是这样的。
 
+`@JvmStatic`注解表示该方法是静态的。Kotlin 没有静态变量与静态方法，采用 @JvmStatic 修饰的方法主要是兼容 Java 代码的调用方式和 Kotlin 一致
+
+### lateinit 替换变量 null 的赋值
+在使用 Kotlin 的时候,对变量的赋值操作经常是：
+```
+private var name: String? = null
+private val age: Int = 10
+```
+对于 `var`修饰的可空变量赋值操作一直觉得不是很友好,在项目中可以采用`lateinit`来修饰变量,代表该变量初始化时不赋值,但是在我使用的时候保证该变量不为空.
+```
+lateinit var name: String
+```
 扩展分析
 
 - 要点1

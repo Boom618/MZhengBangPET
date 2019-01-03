@@ -17,7 +17,6 @@ import java.util.*
  */
 class ArrivalInStorageActivity : BaseActivity() {
     override val activityLayout: Int
-        //        get() = R.layout.activity_arrival_in_storage
         get() = R.layout.activity_main_todo_and_done
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {

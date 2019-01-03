@@ -40,19 +40,19 @@ import java.util.*
  */
 class PickOutTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<MaterialDetails>, ScanBoxInterface, PickingTodoDetailAdapter.SaveEditListener {
 
-    private var adapter: PickingTodoDetailAdapter? = null
+    lateinit var adapter: PickingTodoDetailAdapter
 
-    private var selectTime: String? = null
-    private var sapOrderNo: String? = null
-    private var supplierId: String? = null // 供应商 ID
+    lateinit var selectTime: String
+    lateinit var sapOrderNo: String
+    lateinit var supplierId: String  // 供应商 ID
 
-    private var warehouseId: String? = null
+    lateinit var warehouseId: String
     private var list: MutableList<MaterialDetails.ListBean>? = ArrayList()
 
     /**
      * 点击库位码输入框
      */
-    private var currentFocus: Boolean? = false
+    private var currentFocus: Boolean = false
 
     /**
      * list 中 Position
@@ -66,14 +66,14 @@ class PickOutTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Materia
     /**
      * 保存用户在输入框中的数据
      */
-    private val bulkNumArray:SparseArray<String> = SparseArray(10)
-    private val carCodeArray:SparseArray<String> = SparseArray(10)
-    private val batchNoArray:SparseArray<String> = SparseArray(10)
+    private val bulkNumArray: SparseArray<String> = SparseArray(10)
+    private val carCodeArray: SparseArray<String> = SparseArray(10)
+    private val batchNoArray: SparseArray<String> = SparseArray(10)
 
     /**
      * 库位码 ID
      */
-    private val positionId:SparseArray<String> = SparseArray(10)
+    private val positionId: SparseArray<String> = SparseArray(10)
 
     override val activityLayout: Int
         get() = R.layout.activity_content_row_two
@@ -241,7 +241,7 @@ class PickOutTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Materia
     override fun showCarSuccess(position: Int, carData: CarPositionNoData) {
         if (carData.count > 0) {
             val carId = carData.list!![0].id
-            warehouseId = carData.list!![0].warehouseId
+            warehouseId = carData.list!![0].warehouseId!!
             positionId.put(position, carId)
 
             adapter!!.notifyItemChanged(position)
@@ -253,42 +253,37 @@ class PickOutTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Materia
 
     override fun detailObjData(obj: MaterialDetails) {
 
-        warehouseId = obj.sapOrderNo
+        warehouseId = obj.sapOrderNo!!
         list!!.clear()
 
         list = obj.list
-        if (adapter == null) {
-            val manager = LinearLayoutManager(ResourceUtil.getContext())
-            rv_in_storage_detail!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
-            rv_in_storage_detail!!.layoutManager = manager
-            adapter = PickingTodoDetailAdapter(this, R.layout.item_material_detail_three_todo, list!!)
-            rv_in_storage_detail!!.adapter = adapter
+        val manager = LinearLayoutManager(ResourceUtil.getContext())
+        rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+        rv_in_storage_detail.layoutManager = manager
+        adapter = PickingTodoDetailAdapter(this, R.layout.item_material_detail_three_todo, list!!)
+        rv_in_storage_detail.adapter = adapter
 
-            adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
-                override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
+        adapter.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+            override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
 
-                    val rlDetail = holder.itemView.findViewById<View>(R.id.gone_view)
-                    val ivArrow = holder.itemView.findViewById<ImageView>(R.id.iv_arrow)
+                val rlDetail = holder.itemView.findViewById<View>(R.id.gone_view)
+                val ivArrow = holder.itemView.findViewById<ImageView>(R.id.iv_arrow)
 
-                    if (rlDetail.visibility == View.VISIBLE) {
-                        rlDetail.visibility = View.GONE
-                        ivArrow.setImageResource(R.mipmap.ic_collapse)
-                    } else {
-                        rlDetail.visibility = View.VISIBLE
-                        ivArrow.setImageResource(R.mipmap.ic_expand)
-                    }
-
-                    ZBUiUtils.hideInputWindow(view.context, view)
+                if (rlDetail.visibility == View.VISIBLE) {
+                    rlDetail.visibility = View.GONE
+                    ivArrow.setImageResource(R.mipmap.ic_collapse)
+                } else {
+                    rlDetail.visibility = View.VISIBLE
+                    ivArrow.setImageResource(R.mipmap.ic_expand)
                 }
 
-                override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
-                    return false
-                }
-            })
-        } else {
-            adapter!!.notifyDataSetChanged()
-        }
+                ZBUiUtils.hideInputWindow(view.context, view)
+            }
 
+            override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
+                return false
+            }
+        })
     }
 
 
@@ -309,7 +304,7 @@ class PickOutTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Materia
 
             // 库位码 需要判断合法性
             CodeConstant.ET_CODE -> {
-                currentFocus = hasFocus
+                currentFocus = hasFocus!!
                 carCodeArray.put(position, textContent)
             }
             CodeConstant.ET_BATCH_NO -> batchNoArray.put(position, textContent)

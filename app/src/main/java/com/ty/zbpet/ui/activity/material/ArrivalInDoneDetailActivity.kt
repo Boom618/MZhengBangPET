@@ -47,15 +47,15 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
     /**
      * 时间选择
      */
-    private var selectTime: String? = null
+    lateinit var selectTime: String
 
-    private var orderId: String? = null
-    private var mInWarehouseOrderId: String? = null
-    private var warehouseId: String? = null
-    private var sapOrderNo: String? = null
-    private var positionId: String? = null
+    lateinit var orderId: String
+    lateinit var mInWarehouseOrderId: String
+    lateinit var warehouseId: String
+    lateinit var sapOrderNo: String
+    lateinit var positionId: String
 
-    private var adapter: MaterialDoneDetailAdapter? = null
+    lateinit var adapter: MaterialDoneDetailAdapter
     private val materialPresenter = MaterialPresenter(this)
 
 
@@ -79,7 +79,7 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
         titleName.text = "到货明细"
         et_desc!!.inputType = InputType.TYPE_NULL
 
-        initToolBar(R.string.material_reversal,View.OnClickListener { materialDoneInSave(initRequestBody())})
+        initToolBar(R.string.material_reversal, View.OnClickListener { materialDoneInSave(initRequestBody()) })
     }
 
     /**
@@ -138,38 +138,36 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
 
     override fun showMaterial(list: List<MaterialDetails.ListBean>) {
 
-        positionId = list[0].positionId
+        positionId = list[0].positionId!!
 
-        if (adapter == null) {
-            val manager = LinearLayoutManager(ResourceUtil.getContext())
-            rv_in_storage_detail!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
-            rv_in_storage_detail!!.layoutManager = manager
+        val manager = LinearLayoutManager(ResourceUtil.getContext())
+        rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+        rv_in_storage_detail.layoutManager = manager
 
-            // TODO 侧滑删除
-            // detailRc.addOnItemTouchListener(new SwipeItemLayout.OnSwipeItemTouchListener(this));
-            adapter = MaterialDoneDetailAdapter(this, R.layout.item_material_done_detail, list)
-            rv_in_storage_detail!!.adapter = adapter
+        // TODO 侧滑删除
+        // detailRc.addOnItemTouchListener(new SwipeItemLayout.OnSwipeItemTouchListener(this));
+        adapter = MaterialDoneDetailAdapter(this, R.layout.item_material_done_detail, list)
+        rv_in_storage_detail.adapter = adapter
 
-            adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+        adapter.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
 
-                override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
-                    val rlDetail = holder.itemView.findViewById<View>(R.id.view_gone)
-                    val ivArrow = holder.itemView.findViewById<ImageView>(R.id.iv_arrow)
+            override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
+                val rlDetail = holder.itemView.findViewById<View>(R.id.view_gone)
+                val ivArrow = holder.itemView.findViewById<ImageView>(R.id.iv_arrow)
 
-                    if (rlDetail.visibility == View.VISIBLE) {
-                        rlDetail.visibility = View.GONE
-                        ivArrow.setImageResource(R.mipmap.ic_collapse)
-                    } else {
-                        rlDetail.visibility = View.VISIBLE
-                        ivArrow.setImageResource(R.mipmap.ic_expand)
-                    }
+                if (rlDetail.visibility == View.VISIBLE) {
+                    rlDetail.visibility = View.GONE
+                    ivArrow.setImageResource(R.mipmap.ic_collapse)
+                } else {
+                    rlDetail.visibility = View.VISIBLE
+                    ivArrow.setImageResource(R.mipmap.ic_expand)
                 }
+            }
 
-                override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
-                    return false
-                }
-            })
-        }
+            override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
+                return false
+            }
+        })
 
     }
 

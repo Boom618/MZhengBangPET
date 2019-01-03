@@ -42,17 +42,17 @@ import java.util.*
 class BackGoodsTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<MaterialDetails>, ScanBoxInterface, BackGoodsTodoDetailAdapter.SaveEditListener {
 
 
-    private var adapter: BackGoodsTodoDetailAdapter? = null
+    lateinit var adapter: BackGoodsTodoDetailAdapter
 
-    private var selectTime: String? = null
-    private var sapOrderNo: String? = null
+    lateinit var selectTime: String
+    lateinit var sapOrderNo: String
 
-    private var list: ArrayList<MaterialDetails.ListBean>? = ArrayList()
+    private var list: ArrayList<MaterialDetails.ListBean> = ArrayList()
 
     /**
      * 点击库位码输入框
      */
-    private var currentFocus: Boolean? = false
+    private var currentFocus: Boolean = false
 
     /**
      * list 中 Position
@@ -266,39 +266,35 @@ class BackGoodsTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
 
         // list.clear();
         // 提交保存 需要用到
-        list = details.list
+        list = details.list!!
 
-        if (adapter == null) {
-            val manager = LinearLayoutManager(ResourceUtil.getContext())
-            rv_in_storage_detail!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
-            rv_in_storage_detail!!.layoutManager = manager
-            adapter = BackGoodsTodoDetailAdapter(this, R.layout.item_material_detail_three_todo, list!!)
-            rv_in_storage_detail!!.adapter = adapter
+        val manager = LinearLayoutManager(ResourceUtil.getContext())
+        rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+        rv_in_storage_detail.layoutManager = manager
+        adapter = BackGoodsTodoDetailAdapter(this, R.layout.item_material_detail_three_todo, list!!)
+        rv_in_storage_detail.adapter = adapter
 
-            adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
-                override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
+        adapter.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+            override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
 
-                    val rlDetail = holder.itemView.findViewById<View>(R.id.gone_view)
-                    val ivArrow = holder.itemView.findViewById<ImageView>(R.id.iv_arrow)
+                val rlDetail = holder.itemView.findViewById<View>(R.id.gone_view)
+                val ivArrow = holder.itemView.findViewById<ImageView>(R.id.iv_arrow)
 
-                    if (rlDetail.visibility == View.VISIBLE) {
-                        rlDetail.visibility = View.GONE
-                        ivArrow.setImageResource(R.mipmap.ic_collapse)
-                    } else {
-                        rlDetail.visibility = View.VISIBLE
-                        ivArrow.setImageResource(R.mipmap.ic_expand)
-                    }
-
-                    ZBUiUtils.hideInputWindow(view.context, view)
+                if (rlDetail.visibility == View.VISIBLE) {
+                    rlDetail.visibility = View.GONE
+                    ivArrow.setImageResource(R.mipmap.ic_collapse)
+                } else {
+                    rlDetail.visibility = View.VISIBLE
+                    ivArrow.setImageResource(R.mipmap.ic_expand)
                 }
 
-                override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
-                    return false
-                }
-            })
-        } else {
-            adapter!!.notifyDataSetChanged()
-        }
+                ZBUiUtils.hideInputWindow(view.context, view)
+            }
+
+            override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
+                return false
+            }
+        })
 
     }
 
@@ -309,7 +305,7 @@ class BackGoodsTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
      * @param position 位置
      * @param editText 内容
      */
-    override fun saveEditAndGetHasFocusPosition(etType: String, hasFocus: Boolean?, position: Int, editText: EditText) {
+    override fun saveEditAndGetHasFocusPosition(etType: String, hasFocus: Boolean, position: Int, editText: EditText) {
         // 用户在 EditText 中输入的数据
         currentPosition = position
 

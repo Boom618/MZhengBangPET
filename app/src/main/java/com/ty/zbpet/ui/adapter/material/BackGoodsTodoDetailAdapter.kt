@@ -91,7 +91,7 @@ class BackGoodsTodoDetailAdapter(private val context: Context, layoutId: Int, da
          * @param position 位置
          * @param editText 内容
          */
-        fun saveEditAndGetHasFocusPosition(etType: String, hasFocus: Boolean?, position: Int, editText: EditText)
+        fun saveEditAndGetHasFocusPosition(etType: String, hasFocus: Boolean, position: Int, editText: EditText)
 
     }
 }

@@ -18,11 +18,9 @@ import java.util.*
 class PickOutStorageActivity : BaseActivity() {
 
     override val activityLayout: Int
-        //        get() = R.layout.activity_pick_out_storage
         get() = R.layout.activity_main_todo_and_done
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
-
 
         val todoFragment = PickOutTodoFragment.newInstance("todoFragment")
         val doneFragment = PickOutDoneFragment.newInstance("doneFragment")

@@ -48,17 +48,17 @@ class ArrivalInTodoDetailActivityR : BaseActivity(), MaterialUiObjInterface<Mate
     override val activityLayout: Int
         get() = R.layout.activity_main_detail_two
 
-    private var adapter: MaterialTodoDetailAdapterR? = null
+    lateinit var adapter: MaterialTodoDetailAdapterR
     private val list = ArrayList<MaterialDetails.ListBean>()
 
-    private var sapOrderNo: String? = null
-    private var supplierId: String? = null // 供应商 ID
-    private var warehouseId: String? = null
+    lateinit var sapOrderNo: String
+    lateinit var supplierId: String  // 供应商 ID
+    lateinit var warehouseId: String
 
     /**
      * 点击库位码输入框
      */
-    private var currentFocus: Boolean? = false
+    private var currentFocus: Boolean = false
 
     /**
      * list 中 Position
@@ -98,7 +98,8 @@ class ArrivalInTodoDetailActivityR : BaseActivity(), MaterialUiObjInterface<Mate
         initToolBar(R.string.label_purchase_detail, View.OnClickListener {
             ZBUiUtils.hideInputWindow(it.context, it)
             // 冲销入库
-            doPurchaseInRecallOut(initParam()) })
+            doPurchaseInRecallOut(initParam())
+        })
 
         in_storage_detail.text = "到货明细"
     }
@@ -194,14 +195,10 @@ class ArrivalInTodoDetailActivityR : BaseActivity(), MaterialUiObjInterface<Mate
         listBean.tag = "Bottom"
         list.add(listBean)
 
-        if (adapter == null) {
-            val manager = LinearLayoutManager(ResourceUtil.getContext(), LinearLayoutManager.VERTICAL, false)
-            recycler_main!!.layoutManager = manager
-            adapter = MaterialTodoDetailAdapterR(this, list)
-            recycler_main!!.adapter = adapter
-        } else {
-            adapter!!.notifyDataSetChanged()
-        }
+        val manager = LinearLayoutManager(ResourceUtil.getContext(), LinearLayoutManager.VERTICAL, false)
+        recycler_main!!.layoutManager = manager
+        adapter = MaterialTodoDetailAdapterR(this, list)
+        recycler_main!!.adapter = adapter
     }
 
     /**
@@ -256,7 +253,7 @@ class ArrivalInTodoDetailActivityR : BaseActivity(), MaterialUiObjInterface<Mate
     override fun showCarSuccess(position: Int, carData: CarPositionNoData) {
         if (carData.count > 0) {
             val carId = carData.list!![0].id
-            warehouseId = carData.list!![0].warehouseId
+            warehouseId = carData.list!![0].warehouseId!!
             positionId.put(position, carId)
 
             adapter!!.notifyItemChanged(position)

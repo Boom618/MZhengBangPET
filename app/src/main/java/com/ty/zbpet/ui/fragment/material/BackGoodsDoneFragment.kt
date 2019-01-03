@@ -93,7 +93,6 @@ class BackGoodsDoneFragment : BaseFragment(), MaterialUiListInterface<MaterialLi
             materialAdapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                 override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
                     val intent = Intent(activity, BackGoodsDoneDetailActivity::class.java)
-                    intent.putExtra("mOutWarehouseOrderId", list[position].mOutWarehouseOrderId)
                     intent.putExtra("sapOrderNo", list[position].sapOrderNo)
                     intent.putExtra("warehouseId", list[position].warehouseId)
                     intent.putExtra("orderId", list[position].orderId)

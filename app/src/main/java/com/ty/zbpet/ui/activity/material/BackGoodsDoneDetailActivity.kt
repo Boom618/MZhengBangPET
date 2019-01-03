@@ -43,18 +43,15 @@ import okhttp3.RequestBody
 class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiObjInterface<MaterialDetails> {
 
 
-    private var adapter: BackGoodsDoneDetailAdapter? = null
+    lateinit var adapter: BackGoodsDoneDetailAdapter
 
-    private var selectTime: String? = null
+    lateinit var selectTime: String
     /**
      * 仓库 ID
      */
-    private var warehouseId: String? = null
+    lateinit var warehouseId: String
 
-    private var mOutWarehouseOrderId: String? = null
-    private var orderId: String? = null
-    private val list = ArrayList<MaterialDetails.ListBean>()
-
+    lateinit var orderId: String
 
     private val presenter = BackGoodsPresenter(this)
 
@@ -68,7 +65,6 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
 
     override fun initOneData() {
 
-        mOutWarehouseOrderId = intent.getStringExtra("mOutWarehouseOrderId")
         orderId = intent.getStringExtra("orderId")
 
         presenter.fetchBackDoneListInfo(orderId)
@@ -134,41 +130,37 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
     override fun detailObjData(obj: MaterialDetails) {
 
         val list = obj.list
-        warehouseId = list!![0].warehouseId
+        warehouseId = list!![0].warehouseId!!
 
-        if (adapter == null) {
-            val manager = LinearLayoutManager(ResourceUtil.getContext())
-            rv_in_storage_detail!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
-            rv_in_storage_detail!!.layoutManager = manager
-            adapter = BackGoodsDoneDetailAdapter(this, R.layout.item_material_detail_three_done, list)
-            rv_in_storage_detail!!.adapter = adapter
+        val manager = LinearLayoutManager(ResourceUtil.getContext())
+        rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+        rv_in_storage_detail.layoutManager = manager
+        adapter = BackGoodsDoneDetailAdapter(this, R.layout.item_material_detail_three_done, list)
+        rv_in_storage_detail.adapter = adapter
 
-            adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
-                override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
+        adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+            override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
 
-                    val rlDetail = holder.itemView.findViewById<View>(R.id.gone_view)
-                    val ivArrow = holder.itemView.findViewById<ImageView>(R.id.iv_arrow)
+                val rlDetail = holder.itemView.findViewById<View>(R.id.gone_view)
+                val ivArrow = holder.itemView.findViewById<ImageView>(R.id.iv_arrow)
 
-                    if (rlDetail.visibility == View.VISIBLE) {
-                        rlDetail.visibility = View.GONE
-                        ivArrow.setImageResource(R.mipmap.ic_collapse)
-                    } else {
-                        rlDetail.visibility = View.VISIBLE
-                        ivArrow.setImageResource(R.mipmap.ic_expand)
-
-                    }
-
-                    ZBUiUtils.hideInputWindow(view.context, view)
+                if (rlDetail.visibility == View.VISIBLE) {
+                    rlDetail.visibility = View.GONE
+                    ivArrow.setImageResource(R.mipmap.ic_collapse)
+                } else {
+                    rlDetail.visibility = View.VISIBLE
+                    ivArrow.setImageResource(R.mipmap.ic_expand)
 
                 }
 
-                override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
-                    return false
-                }
-            })
-        } else {
-            adapter!!.notifyDataSetChanged()
-        }
+                ZBUiUtils.hideInputWindow(view.context, view)
+
+            }
+
+            override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
+                return false
+            }
+        })
 
     }
 

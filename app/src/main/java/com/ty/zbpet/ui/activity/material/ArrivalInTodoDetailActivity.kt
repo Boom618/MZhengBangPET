@@ -48,34 +48,33 @@ import java.util.*
  * @author TY
 </MaterialTodoDetailsData> */
 class ArrivalInTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<MaterialDetails>
-        ,ScanBoxInterface {
+        , ScanBoxInterface {
 
     override val activityLayout: Int
         get() = R.layout.activity_content_row_two
 
-    private var adapter: MaterialTodoDetailAdapter? = null
+    lateinit var adapter: MaterialTodoDetailAdapter
     private val list = ArrayList<MaterialDetails.ListBean>()
 
-    private var sapOrderNo: String? = null
-    private var supplierId: String? = null // 供应商 ID
-    private var warehouseId: String? = null
-
+    lateinit var sapOrderNo: String
+    lateinit var supplierId: String  // 供应商 ID
+    lateinit var warehouseId: String
     /**
      * 时间选择
      */
-    private var selectTime: String? = null
+    lateinit var selectTime: String
 
     /**
      * 点击库位码输入框
      */
-    private var currentFocus: Boolean? = false
+    private var currentFocus: Boolean = false
 
     /**
      * list 中 Position
      */
     private var currentPosition = -1
 
-    private var disposable: Disposable? = null
+    lateinit var disposable: Disposable
     private val scanner = ScanReader.getScannerInstance()
     private val scan = ScanObservable(this)
 
@@ -145,11 +144,6 @@ class ArrivalInTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
             val viewCode = view.findViewById<EditText>(R.id.et_code).text.toString().trim { it <= ' ' }
             val viewNumber = view.findViewById<EditText>(R.id.et_bulk_num).text.toString().trim { it <= ' ' }
             val viewSap = view.findViewById<EditText>(R.id.et_batch_no).text.toString().trim { it <= ' ' }
-
-//            val bulkNum = bulkNumArray.get(i)
-//            val carCode = carCodeArray.get(i)
-//            val batchNo = batchNoArray.get(i)
-//            val zkg = zkgArray.get(i)
 
             val id = positionId.get(i)
 
@@ -227,37 +221,33 @@ class ArrivalInTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
         list.addAll(obj.list!!)
 
 
-        if (adapter == null) {
-            val manager = LinearLayoutManager(ResourceUtil.getContext())
-            rv_in_storage_detail!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
-            rv_in_storage_detail!!.layoutManager = manager
-            adapter = MaterialTodoDetailAdapter(this, R.layout.item_matterial_todo_detail, list)
-            rv_in_storage_detail!!.adapter = adapter
+        val manager = LinearLayoutManager(ResourceUtil.getContext())
+        rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+        rv_in_storage_detail.layoutManager = manager
+        adapter = MaterialTodoDetailAdapter(this, R.layout.item_matterial_todo_detail, list)
+        rv_in_storage_detail.adapter = adapter
 
-            adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
-                override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
+        adapter.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+            override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
 
-                    val rlDetail = holder.itemView.findViewById<View>(R.id.rl_detail)
-                    val ivArrow = holder.itemView.findViewById<ImageView>(R.id.iv_arrow)
+                val rlDetail = holder.itemView.findViewById<View>(R.id.rl_detail)
+                val ivArrow = holder.itemView.findViewById<ImageView>(R.id.iv_arrow)
 
-                    if (rlDetail.visibility == View.VISIBLE) {
-                        rlDetail.visibility = View.GONE
-                        ivArrow.setImageResource(R.mipmap.ic_collapse)
-                    } else {
-                        rlDetail.visibility = View.VISIBLE
-                        ivArrow.setImageResource(R.mipmap.ic_expand)
-                    }
-
-                    ZBUiUtils.hideInputWindow(view.context, view)
+                if (rlDetail.visibility == View.VISIBLE) {
+                    rlDetail.visibility = View.GONE
+                    ivArrow.setImageResource(R.mipmap.ic_collapse)
+                } else {
+                    rlDetail.visibility = View.VISIBLE
+                    ivArrow.setImageResource(R.mipmap.ic_expand)
                 }
 
-                override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
-                    return false
-                }
-            })
-        } else {
-            adapter!!.notifyDataSetChanged()
-        }
+                ZBUiUtils.hideInputWindow(view.context, view)
+            }
+
+            override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
+                return false
+            }
+        })
     }
 
 
@@ -329,7 +319,7 @@ class ArrivalInTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
         if (carData.count > 0) {
             val carId = carData.list!![0].id
             val positionNo = carData.list!![0].positionNo
-            warehouseId = carData.list!![0].warehouseId
+            warehouseId = carData.list!![0].warehouseId!!
             positionId.put(position, carId)
 
             adapter!!.notifyItemChanged(position)

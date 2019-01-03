@@ -35,15 +35,14 @@ import java.util.*
  */
 class PickOutDoneDetailActivity : BaseActivity(), MaterialUiListInterface<MaterialDetails.ListBean> {
 
-    private var adapter: PickingDoneDetailAdapter? = null
+    lateinit var adapter: PickingDoneDetailAdapter
 
-    private var selectTime: String? = null
-    private var sapOrderNo: String? = null
-    private var orderId: String? = null
+    lateinit var selectTime: String
+    lateinit var sapOrderNo: String
+    lateinit var orderId: String
 
-    private var warehouseId: String? = null
-    private var mOutWarehouseOrderId: String? = null
-    private val list = ArrayList<MaterialDetails.ListBean>()
+    lateinit var warehouseId: String
+    lateinit var mOutWarehouseOrderId: String
 
 
     private val presenter = PickOutPresenter(this)
@@ -125,40 +124,36 @@ class PickOutDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Materi
     }
 
     override fun showMaterial(list: List<MaterialDetails.ListBean>) {
-        warehouseId = list[0].warehouseId
+        warehouseId = list[0].warehouseId!!
 
-        if (adapter == null) {
-            val manager = LinearLayoutManager(ResourceUtil.getContext())
-            rv_in_storage_detail!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
-            rv_in_storage_detail!!.layoutManager = manager
-            adapter = PickingDoneDetailAdapter(this, R.layout.item_material_detail_three_done, list)
-            rv_in_storage_detail!!.adapter = adapter
+        val manager = LinearLayoutManager(ResourceUtil.getContext())
+        rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+        rv_in_storage_detail.layoutManager = manager
+        adapter = PickingDoneDetailAdapter(this, R.layout.item_material_detail_three_done, list)
+        rv_in_storage_detail.adapter = adapter
 
-            adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
-                override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
+        adapter.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+            override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
 
-                    val rlDetail = holder.itemView.findViewById<View>(R.id.gone_view)
-                    val ivArrow = holder.itemView.findViewById<ImageView>(R.id.iv_arrow)
+                val rlDetail = holder.itemView.findViewById<View>(R.id.gone_view)
+                val ivArrow = holder.itemView.findViewById<ImageView>(R.id.iv_arrow)
 
-                    if (rlDetail.visibility == View.VISIBLE) {
-                        rlDetail.visibility = View.GONE
-                        ivArrow.setImageResource(R.mipmap.ic_collapse)
-                    } else {
-                        rlDetail.visibility = View.VISIBLE
-                        ivArrow.setImageResource(R.mipmap.ic_expand)
-                    }
-
-                    ZBUiUtils.hideInputWindow(view.context, view)
-
+                if (rlDetail.visibility == View.VISIBLE) {
+                    rlDetail.visibility = View.GONE
+                    ivArrow.setImageResource(R.mipmap.ic_collapse)
+                } else {
+                    rlDetail.visibility = View.VISIBLE
+                    ivArrow.setImageResource(R.mipmap.ic_expand)
                 }
 
-                override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
-                    return false
-                }
-            })
-        } else {
-            adapter!!.notifyDataSetChanged()
-        }
+                ZBUiUtils.hideInputWindow(view.context, view)
+
+            }
+
+            override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
+                return false
+            }
+        })
     }
 
 
