@@ -33,7 +33,7 @@ class MaterialTodoDetailAdapter(private val context: Context, layoutId: Int, dat
         val info = datas[position]
 
         val itemView = holder.itemView
-        // 2、库位码
+        // 库位码
         val etCode = itemView.findViewById<EditText>(R.id.et_code)
         // TYPE_NULL 禁止手机软键盘  TYPE_CLASS_TEXT : 开启软键盘。
         etCode.inputType = InputType.TYPE_NULL

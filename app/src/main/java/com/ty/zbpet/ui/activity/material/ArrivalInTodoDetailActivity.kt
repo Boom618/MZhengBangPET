@@ -132,7 +132,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
             val id = positionId.get(i)
 
             val bean = MaterialDetails.ListBean()
-            if (!TextUtils.isEmpty(viewNumber) && !TextUtils.isEmpty(viewCode)) {
+            if (viewNumber.isNotEmpty() && viewCode.isNotEmpty()) {
 
                 bean.number = viewNumber
                 bean.positionId = viewCode
@@ -203,7 +203,6 @@ class ArrivalInTodoDetailActivity : BaseActivity()
 
         list.clear()
         list.addAll(obj.list!!)
-
 
         val manager = LinearLayoutManager(ResourceUtil.getContext())
         rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))

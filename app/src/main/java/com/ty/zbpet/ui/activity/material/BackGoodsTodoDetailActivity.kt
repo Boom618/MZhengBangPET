@@ -1,6 +1,7 @@
 package com.ty.zbpet.ui.activity.material
 
 import android.os.Bundle
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
@@ -19,12 +20,11 @@ import com.ty.zbpet.net.HttpMethods
 import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.material.BackGoodsPresenter
 import com.ty.zbpet.presenter.material.MaterialUiObjInterface
+import com.ty.zbpet.ui.adapter.diffadapter.TodoCarCodeDiffUtil
 import com.ty.zbpet.ui.adapter.material.BackGoodsTodoDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
-import com.ty.zbpet.util.DataUtils
-import com.ty.zbpet.util.ResourceUtil
-import com.ty.zbpet.util.ZBUiUtils
+import com.ty.zbpet.util.*
 import com.ty.zbpet.util.scan.ScanBoxInterface
 import com.ty.zbpet.util.scan.ScanObservable
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
@@ -39,7 +39,9 @@ import java.util.*
  * @author TY on 2018/11/22.
  * 采购退货 待办详情
  */
-class BackGoodsTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<MaterialDetails>, ScanBoxInterface, BackGoodsTodoDetailAdapter.SaveEditListener {
+class BackGoodsTodoDetailActivity : BaseActivity()
+        , MaterialUiObjInterface<MaterialDetails>
+        , ScanBoxInterface {
 
 
     lateinit var adapter: BackGoodsTodoDetailAdapter
@@ -49,26 +51,10 @@ class BackGoodsTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
 
     private var list: ArrayList<MaterialDetails.ListBean> = ArrayList()
 
-    /**
-     * 点击库位码输入框
-     */
-    private var currentFocus: Boolean = false
-
-    /**
-     * list 中 Position
-     */
-    private var currentPosition = -1
-
     private val scanner = ScanReader.getScannerInstance()
     private val scanObservable = ScanObservable(this)
     private val presenter = BackGoodsPresenter(this)
 
-    /**
-     * 保存用户在输入框中的数据
-     */
-    private val bulkNumArray: SparseArray<String> = SparseArray(10)
-    private val carCodeArray: SparseArray<String> = SparseArray(10)
-    private val batchNoArray: SparseArray<String> = SparseArray(10)
     /**
      * 库位码 ID
      */
@@ -95,7 +81,6 @@ class BackGoodsTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
 
     override fun initTwoView() {
 
-
         initToolBar(R.string.back_goods, View.OnClickListener { view ->
             ZBUiUtils.hideInputWindow(view.context, view)
             pickOutTodoSave(initTodoBody())
@@ -116,8 +101,6 @@ class BackGoodsTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
                 ZBUiUtils.showToast(selectTime)
             }
         }
-
-
     }
 
     /**
@@ -162,9 +145,12 @@ class BackGoodsTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
 
         val size = list.size
         for (i in 0 until size) {
-            val bulkNum = bulkNumArray.get(i)
-            val carCode = carCodeArray.get(i)
-            val batchNo = batchNoArray.get(i)
+            val view = rv_in_storage_detail.getChildAt(i)
+
+            val carCode = view.findViewById<EditText>(R.id.et_code).text.toString().trim { it <= ' ' }
+            val bulkNum = view.findViewById<EditText>(R.id.et_number).text.toString().trim { it <= ' ' }
+            val batchNo = view.findViewById<EditText>(R.id.et_batch_no).text.toString().trim { it <= ' ' }
+
             val id = positionId.get(i)
 
             val supplierId = list[i].supplierId
@@ -174,7 +160,7 @@ class BackGoodsTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
             val zkg = list[i].ZKG
 
             val bean = MaterialDetails.ListBean()
-            if (!TextUtils.isEmpty(bulkNum) && !TextUtils.isEmpty(carCode)) {
+            if (bulkNum.isNotEmpty() && carCode.isNotEmpty()) {
 
                 bean.ZKG = zkg
                 bean.positionId = id
@@ -197,8 +183,8 @@ class BackGoodsTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
             return null
         }
 
-        val remark = et_desc!!.text.toString().trim { it <= ' ' }
-        val time = tv_time!!.text.toString().trim { it <= ' ' }
+        val remark = et_desc.text.toString().trim { it <= ' ' }
+        val time = tv_time.text.toString().trim { it <= ' ' }
 
         requestBody.list = detail
         requestBody.warehouseId = warehouseId
@@ -223,7 +209,7 @@ class BackGoodsTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
         if (keyCode == CodeConstant.KEY_CODE_131
                 || keyCode == CodeConstant.KEY_CODE_135
                 || keyCode == CodeConstant.KEY_CODE_139) {
-            if (currentFocus && currentPosition != -1) {
+            if (SharedP.getFocus(this) && SharedP.getPosition(this) != -1) {
                 // 扫描
                 doDeCode()
             }
@@ -236,7 +222,7 @@ class BackGoodsTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
 
         scanner.open(applicationContext)
 
-        scanObservable.scanBox(scanner, currentPosition)
+        scanObservable.scanBox(scanner, SharedP.getPosition(this))
 
     }
 
@@ -252,10 +238,17 @@ class BackGoodsTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
         val count = carData.count
         if (count > 0) {
             val carId = carData.list!![0].id
+            val positionNo = carData.list!![0].positionNo
             warehouseId = carData.list!![0].warehouseId
             positionId.put(position, carId)
 
-            adapter.notifyItemChanged(position)
+//            adapter.notifyItemChanged(position)
+            val deepCopyList = DeepCopyData.deepCopyList(list)
+
+            deepCopyList[position].positionNo = positionNo
+
+            val diffUtil = DiffUtil.calculateDiff(TodoCarCodeDiffUtil(list, deepCopyList))
+            diffUtil.dispatchUpdatesTo(adapter)
         } else {
             ZBUiUtils.showToast("请扫正确的库位码")
         }
@@ -264,8 +257,6 @@ class BackGoodsTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
 
     override fun detailObjData(details: MaterialDetails) {
 
-        // list.clear();
-        // 提交保存 需要用到
         list = details.list!!
 
         val manager = LinearLayoutManager(ResourceUtil.getContext())
@@ -298,27 +289,8 @@ class BackGoodsTodoDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
 
     }
 
-
-    /**
-     * @param etType   输入框标识
-     * @param hasFocus 有无焦点
-     * @param position 位置
-     * @param editText 内容
-     */
-    override fun saveEditAndGetHasFocusPosition(etType: String, hasFocus: Boolean, position: Int, editText: EditText) {
-        // 用户在 EditText 中输入的数据
-        currentPosition = position
-
-        val textContent = editText.text.toString().trim { it <= ' ' }
-
-        when (etType) {
-            CodeConstant.ET_BULK_NUM -> bulkNumArray.put(position, textContent)
-            // 库位码 需要判断合法性
-            CodeConstant.ET_CODE -> {
-                currentFocus = hasFocus
-                carCodeArray.put(position, textContent)
-            }
-            CodeConstant.ET_BATCH_NO -> batchNoArray.put(position, textContent)
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+        SharedP.clearFocusAndPosition(this)
     }
 }

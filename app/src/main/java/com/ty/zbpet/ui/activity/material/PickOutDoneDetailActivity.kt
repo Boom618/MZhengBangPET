@@ -69,8 +69,6 @@ class PickOutDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Materi
 
         initToolBar(R.string.pick_out_storage, View.OnClickListener { pickOutDoneSave(initDoneBody()) })
 
-        add_ship!!.visibility = View.GONE
-
         val format = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
         selectTime = format.format(Date())
 
@@ -147,7 +145,6 @@ class PickOutDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Materi
                 }
 
                 ZBUiUtils.hideInputWindow(view.context, view)
-
             }
 
             override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {

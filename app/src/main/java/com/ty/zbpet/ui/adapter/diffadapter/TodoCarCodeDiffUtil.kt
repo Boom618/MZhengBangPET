@@ -2,7 +2,6 @@ package com.ty.zbpet.ui.adapter.diffadapter
 
 import android.os.Bundle
 import android.support.v7.util.DiffUtil
-import com.ty.zbpet.bean.TodoCarCodeData
 import com.ty.zbpet.bean.material.MaterialDetails
 
 /**

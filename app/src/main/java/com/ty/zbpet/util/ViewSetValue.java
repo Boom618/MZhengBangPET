@@ -9,12 +9,13 @@ import android.widget.EditText;
 public class ViewSetValue {
 
     /**
-     * 库位码 扫码设值
+     * 库位码 扫码设值 【准备删除】
      *
      * @param result   拼接的 库位码
      * @param position adapter position
      * @param etCode   控件
      */
+    @Deprecated
     public static void setValue(String result, int position, EditText etCode) {
         if (!TextUtils.isEmpty(result)) {
             String[] split = result.split("@");

@@ -25,7 +25,6 @@ public final class CodeConstant {
      * 库位码
      * sap 物料批次号
      */
-
     public static final String ET_ZKG = "et_zkg";
     public static final String ET_CODE = "et_code";
     public static final String ET_BULK_NUM = "et_bulk_num";
@@ -71,7 +70,7 @@ public final class CodeConstant {
     public static final int KEY_CODE_139 = 139;
 
     /**
-     * 扫码保存的信息
+     * 扫码保存的信息(准备删除)
      */
     public static final String SCAN_BOX_KEY = "scan";
 

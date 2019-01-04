@@ -53,6 +53,7 @@
 - RxEasyHttp
 - Rc button 冲突
 - Kotlin 改版
+- 协程库使用
 
 
 ## 困扰
