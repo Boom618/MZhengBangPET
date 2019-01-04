@@ -9,7 +9,7 @@ object SharedP {
 
 
     /**
-     * 存 点击库位码 是否有焦点和位置
+     * 存 点击库位码是否有焦点和位置
      */
     fun putHasFocusAndPosition(context: Context, hasFocus: Boolean, position: Int) {
         context.getSharedPreferences("shared", Context.MODE_PRIVATE)
