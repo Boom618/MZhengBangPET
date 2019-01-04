@@ -70,6 +70,11 @@ public final class CodeConstant {
     public static final int KEY_CODE_139 = 139;
 
     /**
+     * 跳转 Activity 类型
+     */
+    public static final String ACTIVITY_TYPE = "acType";
+
+    /**
      * 扫码保存的信息(准备删除)
      */
     public static final String SCAN_BOX_KEY = "scan";

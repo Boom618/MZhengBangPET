@@ -3,9 +3,8 @@ package com.ty.zbpet.ui.activity
 import android.os.Bundle
 import android.view.View
 import com.ty.zbpet.R
-import com.ty.zbpet.ui.activity.material.ArrivalInStorageActivity
-import com.ty.zbpet.ui.activity.material.BackGoodsActivity
-import com.ty.zbpet.ui.activity.material.PickOutStorageActivity
+import com.ty.zbpet.constant.CodeConstant
+import com.ty.zbpet.ui.activity.material.MaterialMainActivity
 import com.ty.zbpet.ui.activity.product.BuyInStorageActivity
 import com.ty.zbpet.ui.activity.product.ProductInStorageActivity
 import com.ty.zbpet.ui.activity.product.ReturnGoodsActivity
@@ -50,16 +49,23 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun onClick(view: View) {
+        val bundle = Bundle()
         when (view.id) {
-            R.id.tv_arrival_in_storage ->
+            R.id.tv_arrival_in_storage -> {
                 //原辅料——到货入库
-                gotoActivity(ArrivalInStorageActivity::class.java)
-            R.id.tv_pick_out_storage ->
-                //原辅料——领料出库
-                gotoActivity(PickOutStorageActivity::class.java)
-            R.id.tv_purchase_returns ->
-                //原辅料——采购退货
-                gotoActivity(BackGoodsActivity::class.java)
+                bundle.putInt(CodeConstant.ACTIVITY_TYPE, 1)
+                gotoActivity(MaterialMainActivity::class.java, false, bundle)
+            }
+            R.id.tv_pick_out_storage -> {
+                //原辅料——领料出库 PickOutStorageActivity
+                bundle.putInt(CodeConstant.ACTIVITY_TYPE, 2)
+                gotoActivity(MaterialMainActivity::class.java, false, bundle)
+            }
+            R.id.tv_purchase_returns -> {
+                //原辅料——采购退货 PickOutStorageActivity
+                bundle.putInt(CodeConstant.ACTIVITY_TYPE, 3)
+                gotoActivity(MaterialMainActivity::class.java, false, bundle)
+            }
             R.id.tv_purchase_in_storage ->
                 //成品——外采入库
                 gotoActivity(BuyInStorageActivity::class.java)
