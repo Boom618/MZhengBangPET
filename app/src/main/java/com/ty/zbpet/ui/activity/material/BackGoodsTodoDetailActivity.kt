@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.text.TextUtils
 import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.View
@@ -16,6 +15,8 @@ import com.ty.zbpet.bean.CarPositionNoData
 import com.ty.zbpet.bean.ResponseInfo
 import com.ty.zbpet.bean.material.MaterialDetails
 import com.ty.zbpet.constant.CodeConstant
+import com.ty.zbpet.data.DeepCopyData
+import com.ty.zbpet.data.SharedP
 import com.ty.zbpet.net.HttpMethods
 import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.material.BackGoodsPresenter

@@ -33,19 +33,17 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun initTwoView() {
-        tv_arrival_in_storage.setOnClickListener(this)
-        tv_pick_out_storage.setOnClickListener(this)
-        tv_purchase_returns.setOnClickListener(this)
 
-        tv_purchase_in_storage.setOnClickListener(this)
-        tv_produce_in_storage.setOnClickListener(this)
-        tv_send_out_storage.setOnClickListener(this)
-        tv_return_in_storage.setOnClickListener(this)
-
-        tv_inventory.setOnClickListener(this)
-        tv_transfer_storage.setOnClickListener(this)
-        tv_person_center.setOnClickListener(this)
-
+        setViewOnClickListener(this,tv_arrival_in_storage,
+                tv_pick_out_storage,
+                tv_purchase_returns,
+                tv_purchase_in_storage,
+                tv_produce_in_storage,
+                tv_send_out_storage,
+                tv_return_in_storage,
+//                tv_inventory,
+                tv_transfer_storage,
+                tv_person_center)
     }
 
     override fun onClick(view: View) {

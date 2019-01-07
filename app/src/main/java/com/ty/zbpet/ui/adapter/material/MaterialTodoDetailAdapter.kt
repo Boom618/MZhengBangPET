@@ -4,13 +4,12 @@ import android.content.Context
 import android.os.Bundle
 import android.text.InputType
 import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.material.MaterialDetails
-import com.ty.zbpet.constant.CodeConstant
+import com.ty.zbpet.data.SharedP
 import com.ty.zbpet.util.*
 import com.zhy.adapter.recyclerview.CommonAdapter
 import com.zhy.adapter.recyclerview.base.ViewHolder

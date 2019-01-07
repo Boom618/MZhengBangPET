@@ -3,6 +3,7 @@ package com.ty.zbpet.ui.base
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.SparseArray
 import android.view.View
 import android.widget.TextView
 
@@ -21,6 +22,9 @@ abstract class BaseActivity : AppCompatActivity() {
     private var mUnbinder: Unbinder? = null
     private var mCache: ACache? = null
 
+    private val mView: SparseArray<View> = SparseArray(10)
+
+    private lateinit var rootView: View
     /**
      * Activity Layout 布局
      *
@@ -31,6 +35,7 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(activityLayout)
+        rootView = layoutInflater.inflate(activityLayout,null,false)
 
         mUnbinder = ButterKnife.bind(this)
         mCache = ACache.get(application)
@@ -146,6 +151,37 @@ abstract class BaseActivity : AppCompatActivity() {
 
         //DataUtils.clearId();
     }
+
+    fun <T : View> get(id: Int): T {
+        return bindView(id)
+    }
+
+    private fun <T : View> bindView(id: Int): T {
+
+        val view: T = rootView.findViewById(id)
+        mView.put(id, view)
+        return view
+    }
+
+    /**
+     * vararg 可变长度
+     */
+    fun setViewOnClickListener(listener: View.OnClickListener, vararg ids: Int) {
+        if (ids.isNotEmpty()) {
+            for (id in ids) {
+                get<View>(id).setOnClickListener(listener)
+            }
+        }
+    }
+
+    fun setViewOnClickListener(listener: View.OnClickListener, vararg views: View){
+        if (views.isNotEmpty()) {
+            for (view in views) {
+                view.setOnClickListener(listener)
+            }
+        }
+    }
+
 
 
     override fun onDestroy() {

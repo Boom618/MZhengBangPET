@@ -8,10 +8,7 @@ import android.widget.EditText
 
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.material.MaterialDetails
-import com.ty.zbpet.util.ACache
-import com.ty.zbpet.constant.CodeConstant
-import com.ty.zbpet.util.SharedP
-import com.ty.zbpet.util.ViewSetValue
+import com.ty.zbpet.data.SharedP
 import com.ty.zbpet.util.ZBUiUtils
 import com.zhy.adapter.recyclerview.CommonAdapter
 import com.zhy.adapter.recyclerview.base.ViewHolder

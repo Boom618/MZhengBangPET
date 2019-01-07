@@ -1,4 +1,4 @@
-package com.ty.zbpet.util
+package com.ty.zbpet.data
 
 import com.ty.zbpet.bean.material.MaterialDetails
 
