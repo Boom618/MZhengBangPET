@@ -1,4 +1,4 @@
-package com.ty.zbpet.ui.activity.material
+package com.ty.zbpet.ui.activity
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -6,16 +6,20 @@ import com.ty.zbpet.R
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.fragment.material.*
+import com.ty.zbpet.ui.fragment.product.BuyInDoneFragment
+import com.ty.zbpet.ui.fragment.product.BuyInTodoFragment
+import com.ty.zbpet.ui.fragment.product.ProductDoneFragment
+import com.ty.zbpet.ui.fragment.product.ProductTodoFragment
 import com.ty.zbpet.util.TabLayoutViewPage
 import kotlinx.android.synthetic.main.activity_main_todo_and_done.*
 import java.util.*
 
 /**
- * 原辅料——到货入库
+ * 七大模块 第一界面
  *
  * @author TY
  */
-class MaterialMainActivity : BaseActivity() {
+class PrimaryActivity : BaseActivity() {
 
     override val activityLayout: Int
         get() = R.layout.activity_main_todo_and_done
@@ -52,6 +56,21 @@ class MaterialMainActivity : BaseActivity() {
 
                 val todoFragment = PickOutTodoFragment.newInstance("todoFragment")
                 val doneFragment = PickOutDoneFragment.newInstance("doneFragment")
+                fragmentList.add(todoFragment)
+                fragmentList.add(doneFragment)
+            }
+            4 ->{
+                initToolBar(R.string.label_purchase_in_storage)
+
+                val todoFragment = BuyInTodoFragment.newInstance("todoFragment")
+                val doneFragment = BuyInDoneFragment.newInstance("doneFragment")
+                fragmentList.add(todoFragment)
+                fragmentList.add(doneFragment)
+            }
+            5 ->{
+                initToolBar(R.string.label_produce_in_storage)
+                val todoFragment = ProductTodoFragment.newInstance("todoFragment")
+                val doneFragment = ProductDoneFragment.newInstance("doneFragment")
                 fragmentList.add(todoFragment)
                 fragmentList.add(doneFragment)
             }

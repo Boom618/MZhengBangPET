@@ -7,8 +7,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.scwang.smartrefresh.header.MaterialHeader
-import com.scwang.smartrefresh.layout.SmartRefreshLayout
-import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter
 import com.ty.zbpet.R
@@ -16,7 +14,6 @@ import com.ty.zbpet.bean.material.MaterialList
 import com.ty.zbpet.presenter.material.MaterialPresenter
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
 import com.ty.zbpet.ui.activity.material.ArrivalInTodoDetailActivity
-import com.ty.zbpet.ui.activity.material.ArrivalInTodoDetailActivityR
 import com.ty.zbpet.ui.adapter.material.MaterialTodoAdapter
 import com.ty.zbpet.ui.base.BaseFragment
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
@@ -81,10 +78,10 @@ class MaterialTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialLis
 
         if (adapter == null) {
             val manager = LinearLayoutManager(ResourceUtil.getContext())
-            recyclerView!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
-            recyclerView!!.layoutManager = manager
+            recyclerView.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+            recyclerView.layoutManager = manager
             adapter = MaterialTodoAdapter(ResourceUtil.getContext(), R.layout.item_material_todo, list)
-            recyclerView!!.adapter = adapter
+            recyclerView.adapter = adapter
 
             adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                 override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {

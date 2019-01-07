@@ -34,19 +34,19 @@ public class SendOutTodoDetailAdapter extends CommonAdapter<ProductDetails.ListB
 
         // 出库数量
         EditText number = holder.itemView.findViewById(R.id.et_number);
-        number.setOnFocusChangeListener(new EditTextOnFocusChangeListener(CodeConstant.ET_NUMBER,position,number));
+        number.setOnFocusChangeListener(new EditTextOnFocusChangeListener(CodeConstant.INSTANCE.getET_NUMBER(),position,number));
 
         // 开始码
         EditText startCode = holder.itemView.findViewById(R.id.et_start_code);
-        startCode.setOnFocusChangeListener(new EditTextOnFocusChangeListener(CodeConstant.ET_START_CODE,position,startCode));
+        startCode.setOnFocusChangeListener(new EditTextOnFocusChangeListener(CodeConstant.INSTANCE.getET_START_CODE(),position,startCode));
 
         // 结束值
         EditText endCode = holder.itemView.findViewById(R.id.et_end_code);
-        endCode.setOnFocusChangeListener(new EditTextOnFocusChangeListener(CodeConstant.ET_END_CODE,position,endCode));
+        endCode.setOnFocusChangeListener(new EditTextOnFocusChangeListener(CodeConstant.INSTANCE.getET_END_CODE(),position,endCode));
 
         // sap 物料
         EditText sap = holder.itemView.findViewById(R.id.et_sap);
-        sap.setOnFocusChangeListener(new EditTextOnFocusChangeListener(CodeConstant.ET_BATCH_NO,position,sap));
+        sap.setOnFocusChangeListener(new EditTextOnFocusChangeListener(CodeConstant.INSTANCE.getET_BATCH_NO(),position,sap));
 
     }
 
@@ -69,7 +69,7 @@ public class SendOutTodoDetailAdapter extends CommonAdapter<ProductDetails.ListB
         @Override
         public void onFocusChange(View view, boolean hasFocus) {
 
-            if (CodeConstant.ET_BATCH_NO.equals(etType) && !hasFocus) {
+            if (CodeConstant.INSTANCE.getET_BATCH_NO().equals(etType) && !hasFocus) {
                 // 关闭软键盘
                 ZBUiUtils.hideInputWindow(view.getContext(), view);
             }

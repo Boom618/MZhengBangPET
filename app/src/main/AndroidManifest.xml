@@ -47,7 +47,7 @@
             <!--android:windowSoftInputMode="adjustResize|stateHidden" />-->
 
         <activity
-            android:name=".ui.activity.material.MaterialMainActivity"
+            android:name=".ui.activity.PrimaryActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
 
@@ -79,10 +79,6 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".ui.activity.product.ProductInStorageActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity
-            android:name=".ui.activity.product.BuyInStorageActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity

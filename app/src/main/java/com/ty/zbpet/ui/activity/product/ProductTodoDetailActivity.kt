@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.ResponseInfo
 import com.ty.zbpet.bean.UserInfo
@@ -41,7 +42,8 @@ import java.util.*
  *
  * @author TY
  */
-class ProductTodoDetailActivity : BaseActivity(), ProductUiObjInterface<ProductDetails>, ProductTodoDetailAdapter.SaveEditListener {
+class ProductTodoDetailActivity : BaseActivity()
+        , ProductUiObjInterface<ProductDetails>{
 
     private var adapter: ProductTodoDetailAdapter? = null
 
@@ -49,7 +51,6 @@ class ProductTodoDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
     private var sapOrderNo: String? = null
 
     private var oldList: List<ProductDetails.ListBean>? = ArrayList()
-//    private val houseList = ArrayList<ProductTodoDetails.WarehouseListBean>()
 
     private val presenter = ProducePresenter(this)
 
@@ -59,13 +60,8 @@ class ProductTodoDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
     private var userInfo: UserInfo? = null
 
     /**
-     * 保存用户在输入框中的数据
+     * 保存箱码的数据
      */
-    private val numberArray:SparseArray<String> = SparseArray(10)
-    private val contentArray:SparseArray<String> = SparseArray(10)
-    private val startCodeArray:SparseArray<String> = SparseArray(10)
-    private val endCodeArray:SparseArray<String> = SparseArray(10)
-    private val sapArray:SparseArray<String> = SparseArray(10)
     private val carCodeArray:SparseArray<ArrayList<String>> = SparseArray(10)
     /**
      * 库位码 ID
@@ -203,17 +199,20 @@ class ProductTodoDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
 
         val size = oldList!!.size
         for (i in 0 until size) {
+            val view = rv_in_storage_detail.getChildAt(i)
+
             val boxQrCode = carCodeArray.get(i)
-            val bulkNum = numberArray.get(i)
-            val content = contentArray.get(i)
-            val startCode = startCodeArray.get(i)
-            val endCode = endCodeArray.get(i)
-            val sap = sapArray.get(i)
+
+            val bulkNum = view.findViewById<TextView>(R.id.et_number).toString().trim { it <= ' ' }
+            val content = view.findViewById<TextView>(R.id.et_bulk_num).toString().trim { it <= ' ' }
+            val startCode = view.findViewById<TextView>(R.id.et_start_code).toString().trim { it <= ' ' }
+            val endCode = view.findViewById<TextView>(R.id.et_end_code).toString().trim { it <= ' ' }
+            val sap = view.findViewById<TextView>(R.id.et_sap).toString().trim { it <= ' ' }
 
             val id = positionId.get(i)
 
             val bean = ProductTodoSave.DetailsBean()
-            if (!TextUtils.isEmpty(bulkNum) && boxQrCode != null) {
+            if (bulkNum.isNotEmpty() && boxQrCode.isNullOrEmpty()) {
 
                 val goodsId = oldList!![i].goodsId
 
@@ -259,12 +258,12 @@ class ProductTodoDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
 
         if (adapter == null) {
             val manager = LinearLayoutManager(ResourceUtil.getContext())
-            rv_in_storage_detail!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
-            rv_in_storage_detail!!.layoutManager = manager
-            adapter = ProductTodoDetailAdapter(this, R.layout.item_produce_detail_todo, oldList)
-            rv_in_storage_detail!!.adapter = adapter
+            rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+            rv_in_storage_detail.layoutManager = manager
+            adapter = ProductTodoDetailAdapter(this, R.layout.item_produce_detail_todo, oldList!!)
+            rv_in_storage_detail.adapter = adapter
 
-            adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+            adapter?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                 override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
 
                     val rlDetail = holder.itemView.findViewById<View>(R.id.rl_detail)
@@ -311,20 +310,6 @@ class ProductTodoDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
         }
     }
 
-    override fun saveEditAndGetHasFocusPosition(etType: String, hasFocus: Boolean?, position: Int, editText: EditText) {
-
-        val textContent = editText.text.toString().trim { it <= ' ' }
-
-        when (etType) {
-            CodeConstant.ET_NUMBER -> numberArray.put(position, textContent)
-            CodeConstant.ET_CONTENT -> contentArray.put(position, textContent)
-            CodeConstant.ET_BATCH_NO -> sapArray.put(position, textContent)
-            CodeConstant.ET_START_CODE -> startCodeArray.put(position, textContent)
-            CodeConstant.ET_END_CODE -> endCodeArray.put(position, textContent)
-        }
-
-    }
-
     override fun onDestroy() {
         super.onDestroy()
 
@@ -334,7 +319,7 @@ class ProductTodoDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
 
     companion object {
 
-        private val REQUEST_SCAN_CODE = 1
-        private val RESULT_SCAN_CODE = 2
+        private const val REQUEST_SCAN_CODE = 1
+        private const val RESULT_SCAN_CODE = 2
     }
 }

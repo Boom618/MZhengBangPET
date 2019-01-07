@@ -166,12 +166,12 @@ public class DataUtils {
     public static void setHouseId(int position, int which) {
 
         sparseArray.put(position, which);
-        positionAndWhich.put(CodeConstant.SELECT_HOUSE_BUY_IN, sparseArray);
+        positionAndWhich.put(CodeConstant.INSTANCE.getSELECT_HOUSE_BUY_IN(), sparseArray);
     }
 
     public static SparseArray<Integer> getHouseId() {
 
-        SparseArray<Integer> houseIdSArray = positionAndWhich.get(CodeConstant.SELECT_HOUSE_BUY_IN);
+        SparseArray<Integer> houseIdSArray = positionAndWhich.get(CodeConstant.INSTANCE.getSELECT_HOUSE_BUY_IN());
         if (houseIdSArray == null) {
             houseIdSArray = new SparseArray<>();
             houseIdSArray.put(0, 0);
@@ -192,11 +192,11 @@ public class DataUtils {
      */
     public static void setGoodsId(int position, int which) {
         sparseArray.put(position, which);
-        positionAndWhich.put(CodeConstant.SELECT_GOODS, sparseArray);
+        positionAndWhich.put(CodeConstant.INSTANCE.getSELECT_GOODS(), sparseArray);
     }
 
     public static SparseArray<Integer> getGoodsId() {
-        SparseArray<Integer> goodsArray = positionAndWhich.get(CodeConstant.SELECT_GOODS);
+        SparseArray<Integer> goodsArray = positionAndWhich.get(CodeConstant.INSTANCE.getSELECT_GOODS());
         if (goodsArray == null) {
             goodsArray = new SparseArray<>();
             goodsArray.put(0, 0);
@@ -212,11 +212,11 @@ public class DataUtils {
      */
     public static void setContent(int position, String content) {
         contentArray.put(position, content);
-        positionAndContent.put(CodeConstant.ET_CONTENT_INT, contentArray);
+        positionAndContent.put(CodeConstant.INSTANCE.getET_CONTENT_INT(), contentArray);
     }
 
     public static SparseArray<String> getContent() {
-        SparseArray<String> contentArray = positionAndContent.get(CodeConstant.ET_CONTENT_INT);
+        SparseArray<String> contentArray = positionAndContent.get(CodeConstant.INSTANCE.getET_CONTENT_INT());
         if (contentArray == null) {
             contentArray = new SparseArray<>();
             contentArray.put(0, "");
@@ -232,11 +232,11 @@ public class DataUtils {
      */
     public static void setZkg(int position, String zkg) {
         zkgArray.put(position, zkg);
-        positionAndZkg.put(CodeConstant.ET_ZKG_INT, zkgArray);
+        positionAndZkg.put(CodeConstant.INSTANCE.getET_ZKG_INT(), zkgArray);
     }
 
     public static SparseArray<String> getZkg() {
-        SparseArray<String> zkgArray = positionAndZkg.get(CodeConstant.ET_ZKG_INT);
+        SparseArray<String> zkgArray = positionAndZkg.get(CodeConstant.INSTANCE.getET_ZKG_INT());
         if (zkgArray == null) {
             zkgArray = new SparseArray<>();
             zkgArray.put(0, "");
@@ -252,11 +252,11 @@ public class DataUtils {
      */
     public static void setCode(int position, String coed) {
         codeArray.put(position, coed);
-        positionAndCode.put(CodeConstant.ET_CODE_INT, codeArray);
+        positionAndCode.put(CodeConstant.INSTANCE.getET_CODE_INT(), codeArray);
     }
 
     public static SparseArray<String> getCode() {
-        SparseArray<String> codeArray = positionAndCode.get(CodeConstant.ET_CODE_INT);
+        SparseArray<String> codeArray = positionAndCode.get(CodeConstant.INSTANCE.getET_CODE_INT());
         if (codeArray == null) {
             codeArray = new SparseArray<>();
             codeArray.put(0, "");
@@ -272,11 +272,11 @@ public class DataUtils {
      */
     public static void setStartCode(int position, String coed) {
         startCodeArray.put(position, coed);
-        positionAndStartCode.put(CodeConstant.ET_START_CODE_INT, startCodeArray);
+        positionAndStartCode.put(CodeConstant.INSTANCE.getET_START_CODE_INT(), startCodeArray);
     }
 
     public static SparseArray<String> getStartCode() {
-        SparseArray<String> startCodeArray = positionAndStartCode.get(CodeConstant.ET_START_CODE_INT);
+        SparseArray<String> startCodeArray = positionAndStartCode.get(CodeConstant.INSTANCE.getET_START_CODE_INT());
         if (startCodeArray == null) {
             startCodeArray = new SparseArray<>();
             startCodeArray.put(0, "");
@@ -292,11 +292,11 @@ public class DataUtils {
      */
     public static void setEndCode(int position, String coed) {
         endCodeArray.put(position, coed);
-        positionAndEndCode.put(CodeConstant.ET_END_CODE_INT, endCodeArray);
+        positionAndEndCode.put(CodeConstant.INSTANCE.getET_END_CODE_INT(), endCodeArray);
     }
 
     public static SparseArray<String> getEndCode() {
-        SparseArray<String> endCodeArray = positionAndEndCode.get(CodeConstant.ET_END_CODE_INT);
+        SparseArray<String> endCodeArray = positionAndEndCode.get(CodeConstant.INSTANCE.getET_END_CODE_INT());
         if (endCodeArray == null) {
             endCodeArray = new SparseArray<>();
             endCodeArray.put(0, "");
@@ -312,11 +312,11 @@ public class DataUtils {
      */
     public static void setSap(int position, String sap) {
         sapArray.put(position, sap);
-        positionAndSap.put(CodeConstant.ET_SAP_INT, sapArray);
+        positionAndSap.put(CodeConstant.INSTANCE.getET_SAP_INT(), sapArray);
     }
 
     public static SparseArray<String> getSap() {
-        SparseArray<String> sapArray = positionAndSap.get(CodeConstant.ET_SAP_INT);
+        SparseArray<String> sapArray = positionAndSap.get(CodeConstant.INSTANCE.getET_SAP_INT());
         if (sapArray == null) {
             sapArray = new SparseArray<>();
             sapArray.put(0, "");
@@ -331,12 +331,12 @@ public class DataUtils {
      * @param focus
      */
     public static void setCodeFocus(int position, boolean focus) {
-        codeFocusArray.put(CodeConstant.ET_CODE_FOCUS_INT, position + "@" + focus);
+        codeFocusArray.put(CodeConstant.INSTANCE.getET_CODE_FOCUS_INT(), position + "@" + focus);
     }
 
     public static String getCodeFocus() {
 
-        return codeFocusArray.get(CodeConstant.ET_CODE_FOCUS_INT);
+        return codeFocusArray.get(CodeConstant.INSTANCE.getET_CODE_FOCUS_INT());
     }
 
     /**
@@ -347,12 +347,12 @@ public class DataUtils {
      */
     public static void setImageId(int position, String fileName) {
         imageArray.put(position, fileName);
-        positionAndFile.put(CodeConstant.SELECT_IMAGE, imageArray);
+        positionAndFile.put(CodeConstant.INSTANCE.getSELECT_IMAGE(), imageArray);
     }
 
     public static SparseArray<String> getImageFileName() {
 
-        SparseArray<String> imageFile = positionAndFile.get(CodeConstant.SELECT_IMAGE);
+        SparseArray<String> imageFile = positionAndFile.get(CodeConstant.INSTANCE.getSELECT_IMAGE());
         if (imageFile == null) {
             imageFile = new SparseArray<>();
             imageFile.put(0, "");
@@ -368,11 +368,11 @@ public class DataUtils {
      */
     public static void setNumber(int position, String percent) {
         numberArray.put(position, percent);
-        positionAndNumber.put(CodeConstant.ET_NUMBER_INT, numberArray);
+        positionAndNumber.put(CodeConstant.INSTANCE.getET_NUMBER_INT(), numberArray);
     }
 
     public static SparseArray<String> getNumber() {
-        SparseArray<String> number = positionAndNumber.get(CodeConstant.ET_NUMBER_INT);
+        SparseArray<String> number = positionAndNumber.get(CodeConstant.INSTANCE.getET_NUMBER_INT());
         if (number == null) {
             number = new SparseArray<>();
             number.put(0, "");
@@ -388,11 +388,11 @@ public class DataUtils {
      */
     public static void setPercent(int position, String percent) {
         percentArray.put(position, percent);
-        positionAndPercent.put(CodeConstant.ET_PERCENT_INT, percentArray);
+        positionAndPercent.put(CodeConstant.INSTANCE.getET_PERCENT_INT(), percentArray);
     }
 
     public static SparseArray<String> getPercent() {
-        SparseArray<String> percent = positionAndPercent.get(CodeConstant.ET_PERCENT_INT);
+        SparseArray<String> percent = positionAndPercent.get(CodeConstant.INSTANCE.getET_PERCENT_INT());
         if (percent == null) {
             percent = new SparseArray<>();
             percent.put(0, "");
@@ -405,17 +405,17 @@ public class DataUtils {
      * 清除 sparseArray 数据
      */
     public static void clearId() {
-        positionAndWhich.put(CodeConstant.SELECT_HOUSE_BUY_IN, null);
-        positionAndWhich.put(CodeConstant.SELECT_GOODS, null);
-        positionAndFile.put(CodeConstant.SELECT_IMAGE, null);
-        positionAndNumber.put(CodeConstant.ET_NUMBER_INT, null);
-        positionAndPercent.put(CodeConstant.ET_PERCENT_INT, null);
-        positionAndContent.put(CodeConstant.ET_CONTENT_INT, null);
-        positionAndZkg.put(CodeConstant.ET_ZKG_INT, null);
-        positionAndCode.put(CodeConstant.ET_CODE_INT, null);
-        positionAndStartCode.put(CodeConstant.ET_START_CODE_INT, null);
-        positionAndEndCode.put(CodeConstant.ET_END_CODE_INT, null);
-        positionAndSap.put(CodeConstant.ET_SAP_INT, null);
-        codeFocusArray.put(CodeConstant.ET_CODE_FOCUS_INT, null);
+        positionAndWhich.put(CodeConstant.INSTANCE.getSELECT_HOUSE_BUY_IN(), null);
+        positionAndWhich.put(CodeConstant.INSTANCE.getSELECT_GOODS(), null);
+        positionAndFile.put(CodeConstant.INSTANCE.getSELECT_IMAGE(), null);
+        positionAndNumber.put(CodeConstant.INSTANCE.getET_NUMBER_INT(), null);
+        positionAndPercent.put(CodeConstant.INSTANCE.getET_PERCENT_INT(), null);
+        positionAndContent.put(CodeConstant.INSTANCE.getET_CONTENT_INT(), null);
+        positionAndZkg.put(CodeConstant.INSTANCE.getET_ZKG_INT(), null);
+        positionAndCode.put(CodeConstant.INSTANCE.getET_CODE_INT(), null);
+        positionAndStartCode.put(CodeConstant.INSTANCE.getET_START_CODE_INT(), null);
+        positionAndEndCode.put(CodeConstant.INSTANCE.getET_END_CODE_INT(), null);
+        positionAndSap.put(CodeConstant.INSTANCE.getET_SAP_INT(), null);
+        codeFocusArray.put(CodeConstant.INSTANCE.getET_CODE_FOCUS_INT(), null);
     }
 }

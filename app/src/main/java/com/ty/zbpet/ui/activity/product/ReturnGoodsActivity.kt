@@ -17,7 +17,6 @@ import java.util.*
 class ReturnGoodsActivity : BaseActivity() {
 
     override val activityLayout: Int
-//        get() = R.layout.activity_purchase_in_storage
         get() = R.layout.activity_main_todo_and_done
 
 

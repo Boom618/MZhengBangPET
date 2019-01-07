@@ -4,49 +4,43 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.text.TextUtils
 import android.util.SparseArray
 import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.ResponseInfo
 import com.ty.zbpet.bean.UserInfo
 import com.ty.zbpet.bean.product.ProductDetails
 import com.ty.zbpet.bean.product.ProductTodoSave
+import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.net.HttpMethods
+import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.product.BuyInPresenter
 import com.ty.zbpet.presenter.product.ProductUiListInterface
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity
 import com.ty.zbpet.ui.adapter.product.BuyInTodoDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
-import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.SimpleCache
-import com.ty.zbpet.util.ZBLog
 import com.ty.zbpet.util.ZBUiUtils
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
-
-import java.text.SimpleDateFormat
-import java.util.ArrayList
-import java.util.Date
-import java.util.Locale
-
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * @author TY on 2018/11/22.
  * 外采入库 待办详情
  */
-class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDetails.ListBean>, BuyInTodoDetailAdapter.SaveEditListener {
+class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDetails.ListBean> {
 
     private var adapter: BuyInTodoDetailAdapter? = null
 
@@ -68,12 +62,8 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
     private var itemId = -1
 
     /**
-     * 保存用户在输入框中的数据
+     * 保存用户箱码的数据
      */
-    private val bulkNumArray: SparseArray<String> = SparseArray(10)
-    private val batchNoArray: SparseArray<String> = SparseArray(10)
-    private val startCodeArray: SparseArray<String> = SparseArray(10)
-    private val endCodeArray: SparseArray<String> = SparseArray(10)
     private val carCodeArray: SparseArray<ArrayList<String>> = SparseArray(10)
     /**
      * 库位码 ID
@@ -177,9 +167,10 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
 
         val size = oldList.size
         for (i in 0 until size) {
+            val view = rv_in_storage_detail.getChildAt(i)
             val boxQrCode = carCodeArray.get(i)
-            val bulkNum = bulkNumArray.get(i)
-            val batchNo = batchNoArray.get(i)
+            val bulkNum = view.findViewById<TextView>(R.id.et_number).toString().trim { it <= ' ' }
+            val batchNo = view.findViewById<TextView>(R.id.et_sap).toString().trim { it <= ' ' }
             val id = positionId.get(i)
 
             // 仓库信息
@@ -189,7 +180,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
 
             // houseId == null ： 是判断用户全部没有选择仓库信息,默认都是第一个，
             // houseId.get(i) == null : 是判断用户部分没选择仓库信息默认第一个
-            if (houseId == null || houseId.get(i) == null) {
+            if (houseId?.get(i) == null) {
                 warehouseId = warehouseList!![0].warehouseId
                 warehouseNo = warehouseList[0].warehouseNo
                 warehouseName = warehouseList[0].warehouseName
@@ -201,13 +192,13 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
             }
 
             val bean = ProductTodoSave.DetailsBean()
-            if (!TextUtils.isEmpty(bulkNum) && boxQrCode != null) {
+            if (bulkNum.isNotEmpty() && boxQrCode.isNullOrEmpty()) {
                 val goodsId = oldList[i].goodsId
                 val goodsNo = oldList[i].goodsNo
                 val orderNumber = oldList[i].orderNumber
 
-                val startCode = startCodeArray.get(i)
-                val endCode = endCodeArray.get(i)
+                val startCode = view.findViewById<TextView>(R.id.et_start_code).toString().trim { it <= ' ' }
+                val endCode = view.findViewById<TextView>(R.id.et_end_code).toString().trim { it <= ' ' }
 
                 // 库位 ID
                 bean.positionId = id
@@ -229,9 +220,6 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
                 bean.boxQrCode = boxQrCode
 
                 detail.add(bean)
-            } else {
-                // 跳出当前一列、不处理
-                continue
             }
         }
         // 没有合法的操作数据,不请求网络
@@ -249,8 +237,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
         requestBody.remark = remark
 
         val json = DataUtils.toJson(requestBody, 1)
-        ZBLog.e("JSON $json")
-        return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), json)
+        return RequestBodyJson.requestBody(json)
     }
 
 
@@ -277,7 +264,6 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
                     val selectHouse = holder.itemView.findViewById<TextView>(R.id.tv_select_ware)
 
                     val houses = userInfo!!.warehouseList
-                    //                    List<ProductDetailsIn.ListBean.WarehouseListBean> houses = list.get(position).getWarehouseList();
                     val houseName = ArrayList<String>()
 
                     val size = houses!!.size
@@ -294,7 +280,8 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
                     if (rlDetail.visibility == View.VISIBLE) {
                         rlDetail.visibility = View.GONE
                         ivArrow.setImageResource(R.mipmap.ic_collapse)
-                        //                        tvName.setText(warehouseName);
+
+                        //tvName.text = selectHouse.text.toString().trim { it <= ' ' }
                     } else {
                         rlDetail.visibility = View.VISIBLE
                         ivArrow.setImageResource(R.mipmap.ic_expand)
@@ -307,7 +294,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
                         val intent = Intent(it.context, ScanBoxCodeActivity::class.java)
                         intent.putExtra("itemId", itemId)
                         intent.putExtra(CodeConstant.PAGE_STATE, true)
-                        intent.putStringArrayListExtra("boxCodeList",boxCodeList)
+                        intent.putStringArrayListExtra("boxCodeList", boxCodeList)
 
                         startActivityForResult(intent, REQUEST_SCAN_CODE)
                     }
@@ -342,30 +329,6 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
         }
     }
 
-    /**
-     * 保存用户在列表中输入的信息
-     *
-     * @param etType   输入框标识
-     * @param hasFocus 有无焦点
-     * @param position 位置
-     * @param editText 控件
-     */
-    override fun saveEditAndGetHasFocusPosition(etType: String, hasFocus: Boolean?, position: Int, editText: EditText) {
-
-        val textContent = editText.text.toString().trim { it <= ' ' }
-
-        if (CodeConstant.ET_BULK_NUM == etType) {
-            bulkNumArray.put(position, textContent)
-        } else if (CodeConstant.ET_BATCH_NO == etType) {
-            batchNoArray.put(position, textContent)
-        } else if (CodeConstant.ET_START_CODE == etType) {
-            startCodeArray.put(position, textContent)
-        } else if (CodeConstant.ET_END_CODE == etType) {
-            endCodeArray.put(position, textContent)
-        }
-
-    }
-
 
     override fun onDestroy() {
         super.onDestroy()
@@ -376,7 +339,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
 
     companion object {
 
-        private val REQUEST_SCAN_CODE = 1
-        private val RESULT_SCAN_CODE = 2
+        private const val REQUEST_SCAN_CODE = 1
+        private const val RESULT_SCAN_CODE = 2
     }
 }

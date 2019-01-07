@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ty.zbpet.R;
-import com.ty.zbpet.util.ScreenSizeUtils;
+import com.ty.zbpet.util.WindowUtil;
 
 
 /**
@@ -42,14 +42,18 @@ public class NormalAlertDialog {
         mRightBtn = mDialogView.findViewById(R.id.dialog_normal_rightbtn);
         mSingleBtn = mDialogView.findViewById(R.id.dialog_normal_midbtn);
         mLine = mDialogView.findViewById(R.id.dialog_normal_line);
-        mDialogView.setMinimumHeight((int) (ScreenSizeUtils.getInstance(mBuilder.getContext())
-                .getScreenHeight() * builder.getHeight()));
+//        mDialogView.setMinimumHeight((int) (ScreenSizeUtils.getInstance(mBuilder.getContext())
+//                .getScreenHeight() * builder.getHeight()));
+        float tempHeight = WindowUtil.getScreenHeight() * builder.getHeight();
+        mDialogView.setMinimumHeight((int) tempHeight);
         mDialog.setContentView(mDialogView);
 
         Window dialogWindow = mDialog.getWindow();
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-        lp.width = (int) (ScreenSizeUtils.getInstance(mBuilder.getContext()).getScreenWidth() *
-                builder.getWidth());
+//        lp.width = (int) (ScreenSizeUtils.getInstance(mBuilder.getContext()).getScreenWidth() *
+//                builder.getWidth());
+        float tempWidth = WindowUtil.getScreenWidth() * builder.getWidth();
+        lp.width = (int) tempWidth;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         lp.gravity = Gravity.CENTER;
         dialogWindow.setAttributes(lp);

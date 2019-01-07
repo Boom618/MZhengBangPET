@@ -61,8 +61,8 @@ public class UserPresenter {
 
                     userInterface.onSuccess();
 
-                    SimpleCache.putObject(CodeConstant.USER_DATA, data);
-                    SimpleCache.putString(CodeConstant.SESSION_ID_KEY, sessionId);
+                    SimpleCache.putObject(CodeConstant.INSTANCE.getUSER_DATA(), data);
+                    SimpleCache.putString(CodeConstant.INSTANCE.getSESSION_ID_KEY(), sessionId);
                 }else{
                     userInterface.onError(responseInfo.getMessage());
                 }

@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.ty.zbpet.R;
 import com.ty.zbpet.util.ResourceUtil;
-import com.ty.zbpet.util.ScreenSizeUtils;
+import com.ty.zbpet.util.WindowUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,8 +53,10 @@ public class NormalSelectionDialog {
         //设置dialog的宽
         Window dialogWindow = mDialog.getWindow();
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-        lp.width = (int) (ScreenSizeUtils.getInstance(mBuilder.getContext()).getScreenWidth() *
-                builder.getItemWidth());
+//        lp.width = (int) (ScreenSizeUtils.getInstance(mBuilder.getContext()).getScreenWidth() *
+//                builder.getItemWidth());
+        float temp = WindowUtil.getScreenWidth() * builder.getItemWidth();
+        lp.width = (int) temp;
         lp.gravity = Gravity.BOTTOM;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         dialogWindow.setAttributes(lp);

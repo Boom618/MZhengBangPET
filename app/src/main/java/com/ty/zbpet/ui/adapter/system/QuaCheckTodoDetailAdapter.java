@@ -37,10 +37,10 @@ public class QuaCheckTodoDetailAdapter extends CommonAdapter<QualityCheckTodoDet
                 .setText(R.id.tv_num, dataBean.getUnit() + dataBean.getUnitName());
 
         // 数量
-        etNumber.addTextChangedListener(new EditWatcher(position, CodeConstant.ET_NUMBER_INT));
+        etNumber.addTextChangedListener(new EditWatcher(position, CodeConstant.INSTANCE.getET_NUMBER_INT()));
 
         // 含量
-        etPercent.addTextChangedListener(new EditWatcher(position, CodeConstant.ET_PERCENT_INT));
+        etPercent.addTextChangedListener(new EditWatcher(position, CodeConstant.INSTANCE.getET_PERCENT_INT()));
 
 
     }
@@ -70,7 +70,7 @@ public class QuaCheckTodoDetailAdapter extends CommonAdapter<QualityCheckTodoDet
         @Override
         public void afterTextChanged(Editable s) {
 
-            if (CodeConstant.ET_NUMBER_INT == type) {
+            if (CodeConstant.INSTANCE.getET_NUMBER_INT() == type) {
                 DataUtils.setNumber(position, s.toString().trim());
             } else {
                 DataUtils.setPercent(position, s.toString().trim());

@@ -56,7 +56,6 @@ class ArrivalInTodoDetailActivity : BaseActivity()
 
     lateinit var adapter: MaterialTodoDetailAdapter
     private val list = ArrayList<MaterialDetails.ListBean>()
-//    lateinit var list: MutableList<MaterialDetails.ListBean>
 
     lateinit var sapOrderNo: String
     lateinit var supplierId: String  // 供应商 ID
@@ -257,7 +256,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
 
     private fun doDeCode() {
 
-        scanner.open(applicationContext)
+        scanner?.open(applicationContext)
 
         disposable = scan.scanBox(scanner, SharedP.getPosition(this))
 
@@ -308,7 +307,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
     override fun onDestroy() {
         super.onDestroy()
 
-        scanner.close()
+        scanner?.close()
         SharedP.clearFocusAndPosition(this)
 
     }

@@ -187,7 +187,7 @@ public class ZBUiUtils {
                         textView.setText(data.get(which));
 
                         // 选择的仓库 还是 商品
-                        if (CodeConstant.SELECT_HOUSE_BUY_IN == type) {
+                        if (CodeConstant.INSTANCE.getSELECT_HOUSE_BUY_IN() == type) {
                             DataUtils.setHouseId(position, which);
                         } else {
                             DataUtils.setGoodsId(position, which);

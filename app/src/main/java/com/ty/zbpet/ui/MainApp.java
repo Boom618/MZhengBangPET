@@ -2,6 +2,7 @@ package com.ty.zbpet.ui;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDexApplication;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -26,7 +27,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * @author TY
  */
-public class MainApp extends Application {
+//public class MainApp extends Application {
+public class MainApp extends MultiDexApplication {
 
     public static Context context;
     private static Gson gson;
@@ -46,7 +48,7 @@ public class MainApp extends Application {
         // 日志 logger 库
         Logger.addLogAdapter(new AndroidLogAdapter());
         // bugly
-        CrashReport.initCrashReport(getApplicationContext(), CodeConstant.BUGLY_APP_ID, false);
+        CrashReport.initCrashReport(getApplicationContext(), CodeConstant.INSTANCE.getBUGLY_APP_ID(), false);
 
         // 内存检测
         if (LeakCanary.isInAnalyzerProcess(this)) {
