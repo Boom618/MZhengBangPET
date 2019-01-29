@@ -273,14 +273,14 @@ class ArrivalInTodoDetailActivity : BaseActivity()
         ZBUiUtils.showToast("库位码 ：$positionNo")
 
         //  服务器校验 库位码
-        //materialPresenter.checkCarCode(position, positionNo)
+        materialPresenter.checkCarCode(position, positionNo)
 
-        val deepCopyList = DeepCopyData.deepCopyList(list)
-
-        deepCopyList[position].positionNo = positionNo
-
-        val diffUtil = DiffUtil.calculateDiff(TodoCarCodeDiffUtil(list, deepCopyList))
-        diffUtil.dispatchUpdatesTo(adapter)
+//        val deepCopyList = DeepCopyData.deepCopyList(list)
+//
+//        deepCopyList[position].positionNo = positionNo
+//
+//        val diffUtil = DiffUtil.calculateDiff(TodoCarCodeDiffUtil(list, deepCopyList))
+//        diffUtil.dispatchUpdatesTo(adapter)
 
     }
 

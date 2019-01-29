@@ -50,7 +50,7 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
     lateinit var selectTime: String
 
     lateinit var orderId: String
-    lateinit var mInWarehouseOrderId: String
+//    lateinit var mInWarehouseOrderId: String
     lateinit var warehouseId: String
     lateinit var sapOrderNo: String
     lateinit var positionId: String
@@ -67,7 +67,7 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
 
     override fun initOneData() {
 
-        mInWarehouseOrderId = intent.getStringExtra("mInWarehouseOrderId")
+//        mInWarehouseOrderId = intent.getStringExtra("mInWarehouseOrderId")
         sapOrderNo = intent.getStringExtra("sapOrderNo")
         warehouseId = intent.getStringExtra("warehouseId")
         orderId = intent.getStringExtra("orderId")
@@ -120,7 +120,6 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
         val bean = MaterialDoneSave()
 
         bean.warehouseId = warehouseId
-        bean.orderId = mInWarehouseOrderId
         bean.sapOrderNo = sapOrderNo
         bean.positionId = positionId
         bean.orderId = orderId

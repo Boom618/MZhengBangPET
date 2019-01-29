@@ -131,6 +131,7 @@ dependencies {
     implementation "com.android.support:appcompat-v7:${ZBConfig.supportLibraryVersion}"
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation "com.android.support:support-v4:${ZBConfig.supportLibraryVersion}"
+
     implementation "com.android.support:design:${ZBConfig.supportLibraryVersion}"
     implementation "com.android.support:recyclerview-v7:${ZBConfig.supportLibraryVersion}"
     implementation 'android.arch.lifecycle:extensions:1.1.1'

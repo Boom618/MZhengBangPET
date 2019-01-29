@@ -42,7 +42,6 @@ class PickOutDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Materi
     lateinit var orderId: String
 
     lateinit var warehouseId: String
-    lateinit var mOutWarehouseOrderId: String
 
 
     private val presenter = PickOutPresenter(this)
@@ -57,7 +56,6 @@ class PickOutDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Materi
 
     override fun initOneData() {
         sapOrderNo = intent.getStringExtra("sapOrderNo")
-        mOutWarehouseOrderId = intent.getStringExtra("mOutWarehouseOrderId")
 
         orderId = intent.getStringExtra("orderId")
 
@@ -112,7 +110,6 @@ class PickOutDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Materi
 
         val requestBody = MaterialDoneSave()
 
-        requestBody.orderId = mOutWarehouseOrderId
         requestBody.warehouseId = warehouseId
         requestBody.outTime = selectTime
         requestBody.orderId = orderId

@@ -7,26 +7,20 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-
 import com.scwang.smartrefresh.header.MaterialHeader
-import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.material.MaterialList
+import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
 import com.ty.zbpet.presenter.material.PickOutPresenter
 import com.ty.zbpet.ui.activity.material.PickOutDoneDetailActivity
 import com.ty.zbpet.ui.adapter.material.PickOutDoneAdapter
 import com.ty.zbpet.ui.base.BaseFragment
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
-import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils
-
-import butterknife.BindView
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import kotlinx.android.synthetic.main.zb_content_list_fragment.*
 import kotlinx.android.synthetic.main.zb_content_list_fragment.view.*
@@ -105,7 +99,6 @@ class PickOutDoneFragment : BaseFragment(), MaterialUiListInterface<MaterialList
                 override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
                     val intent = Intent(activity, PickOutDoneDetailActivity::class.java)
                     intent.putExtra("sapOrderNo", list[position].sapOrderNo)
-                    intent.putExtra("mOutWarehouseOrderId", list[position].mOutWarehouseOrderId)
                     intent.putExtra("orderId", list[position].orderId)
                     startActivity(intent)
                 }
