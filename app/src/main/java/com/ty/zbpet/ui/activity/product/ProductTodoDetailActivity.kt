@@ -95,7 +95,7 @@ class ProductTodoDetailActivity : BaseActivity()
     override fun initOneData() {
         sapOrderNo = intent.getStringExtra("sapOrderNo")
 
-        // TODO　仓库默认值设置
+        // 仓库默认值设置
         DataUtils.setHouseId(0, 0)
 
         userInfo = DataUtils.getUserInfo()
@@ -313,7 +313,7 @@ class ProductTodoDetailActivity : BaseActivity()
     override fun onDestroy() {
         super.onDestroy()
 
-        // TODO 清除仓库数据
+        // 清除仓库数据
         DataUtils.clearId()
     }
 

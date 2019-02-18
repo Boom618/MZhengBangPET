@@ -42,7 +42,7 @@ class BackGoodsTodoDetailAdapter(private val context: Context, layoutId: Int, da
         }
         if (payloads.isEmpty()) {
             holder.setText(R.id.tv_name, list.materialName)
-                    .setText(R.id.tv_num, list.orderNumber + "  " + list.unitS)
+                    .setText(R.id.tv_num, list.orderNumber + "  " + list.unit)
                     .setText(R.id.tv_box_num, "含量：" + list.concentration + "%")
                     .setText(R.id.tv_box_num_unit, "ZKG：" + list.ZKG!!)
                     .setText(R.id.bulk_num, "库存量：" + list.stockNumber!!)

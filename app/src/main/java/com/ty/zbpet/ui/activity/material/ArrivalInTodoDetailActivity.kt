@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.View
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -58,7 +59,9 @@ class ArrivalInTodoDetailActivity : BaseActivity()
     private val list = ArrayList<MaterialDetails.ListBean>()
 
     lateinit var sapOrderNo: String
-    lateinit var supplierId: String  // 供应商 ID
+    lateinit var supplierNo: String
+    lateinit var factoryNo: String
+    lateinit var BSART: String
     lateinit var warehouseId: String
     /**
      * 时间选择
@@ -86,10 +89,12 @@ class ArrivalInTodoDetailActivity : BaseActivity()
 
     override fun initOneData() {
 
+        factoryNo = intent.getStringExtra("factoryNo")
         sapOrderNo = intent.getStringExtra("sapOrderNo")
-        supplierId = intent.getStringExtra("supplierId")
+        supplierNo = intent.getStringExtra("supplierNo")
+        BSART = intent.getStringExtra("BSART")
 
-        materialPresenter.fetchTODOMaterialDetails(sapOrderNo)
+        materialPresenter.fetchTODOMaterialDetails(factoryNo, sapOrderNo, supplierNo)
     }
 
     override fun initTwoView() {
@@ -123,8 +128,10 @@ class ArrivalInTodoDetailActivity : BaseActivity()
 
             val view = rv_in_storage_detail.getChildAt(i)
 
+            // 含量手输
+            val concentration = view.findViewById<EditText>(R.id.tv_box_num).text.toString().trim { it <= ' ' }
             val viewZkg = view.findViewById<EditText>(R.id.et_zkg).text.toString().trim { it <= ' ' }
-            val viewCode = view.findViewById<EditText>(R.id.et_code).text.toString().trim { it <= ' ' }
+            val viewCode = "KWM201809000001"//view.findViewById<EditText>(R.id.et_code).text.toString().trim { it <= ' ' }
             val viewNumber = view.findViewById<EditText>(R.id.et_bulk_num).text.toString().trim { it <= ' ' }
             val viewSap = view.findViewById<EditText>(R.id.et_batch_no).text.toString().trim { it <= ' ' }
 
@@ -133,12 +140,12 @@ class ArrivalInTodoDetailActivity : BaseActivity()
             val bean = MaterialDetails.ListBean()
             if (viewNumber.isNotEmpty() && viewCode.isNotEmpty()) {
 
+                bean.concentration = concentration
                 bean.number = viewNumber
                 bean.positionId = viewCode
                 bean.sapMaterialBatchNo = viewSap
                 bean.positionId = id
                 bean.ZKG = viewZkg
-                bean.supplierId = supplierId
                 bean.supplierNo = list[i].supplierNo
                 bean.materialId = list[i].materialId
                 bean.concentration = list[i].concentration
@@ -157,6 +164,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
 
         requestBody.list = detail
         requestBody.warehouseId = warehouseId
+        requestBody.BSART = BSART
         requestBody.inTime = time
         requestBody.sapOrderNo = sapOrderNo
         requestBody.remark = remark

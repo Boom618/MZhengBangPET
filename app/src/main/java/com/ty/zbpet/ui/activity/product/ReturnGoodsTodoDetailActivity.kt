@@ -99,7 +99,7 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
     override fun initOneData() {
         sapOrderNo = intent.getStringExtra("sapOrderNo")
 
-        // TODO　仓库默认值设置
+        // 仓库默认值设置
         DataUtils.setHouseId(0, 0)
 
         userInfo = DataUtils.getUserInfo()

@@ -163,8 +163,8 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getMaterialTodoListDetail(SingleObserver<BaseResponse<MaterialDetails>> subscriber, String sapOrderNo) {
-        mService.getMaterialTodoListDetail(sapOrderNo)
+    public void getMaterialTodoListDetail(SingleObserver<BaseResponse<MaterialDetails>> subscriber, String factoryNo,String sapOrderNo,String supplierNo) {
+        mService.getMaterialTodoListDetail(factoryNo,sapOrderNo,supplierNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }

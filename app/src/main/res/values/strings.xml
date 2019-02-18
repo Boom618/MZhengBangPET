@@ -57,7 +57,7 @@
     <string name="empty">empty</string>
     <string name="loading">loading</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="material_arrival_details">到货明细</string>
     <string name="picking_details">领料明细</string>

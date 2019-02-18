@@ -12,11 +12,11 @@ object DeepCopyData {
     /**
      * 拷贝数据,在 DiffUtil 中使用
      */
-    fun deepCopyList(item: MutableList<MaterialDetails.ListBean>): MutableList<MaterialDetails.ListBean> {
+    fun deepCopyList(list: MutableList<MaterialDetails.ListBean>): MutableList<MaterialDetails.ListBean> {
 
         val listBean = mutableListOf<MaterialDetails.ListBean>()
 
-        for (it in item) {
+        for (it in list) {
             val item = MaterialDetails.ListBean()
 
             item.id = it.id
@@ -26,7 +26,7 @@ object DeepCopyData {
             item.materialName = it.materialName
             item.materialId = it.materialId
             item.positionNo = it.positionNo
-            item.unitS = it.unitS
+            item.unit = it.unit
             item.ZKG = it.ZKG
 
             listBean.add(item)

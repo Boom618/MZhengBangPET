@@ -14,6 +14,7 @@ class MaterialDetails {
 
     // 保存
     var warehouseId: String? = null
+    var BSART: String? = null
     var outTime: String? = null
     var inTime: String? = null
     var remark: String? = null
@@ -26,7 +27,8 @@ class MaterialDetails {
         var materialName: String? = null
         var materialId: String? = null
         var materialNo: String? = null
-        var unitS: String? = null
+//        var unitS: String? = null
+        var unit: String? = null
         var orderNumber: String? = null
         var stockNumber: String? = null
         var concentration: String? = null

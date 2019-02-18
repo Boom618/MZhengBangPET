@@ -88,7 +88,9 @@ class MaterialTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialLis
                     val intent = Intent(activity, ArrivalInTodoDetailActivity::class.java)
 //                     val intent = Intent(activity, ArrivalInTodoDetailActivityR::class.java)
                     intent.putExtra("sapOrderNo", list[position].sapOrderNo)
-                    intent.putExtra("supplierId", list[position].supplierId)
+                    intent.putExtra("supplierNo", list[position].supplierNo)
+                    intent.putExtra("factoryNo", list[position].factoryNo)
+                    intent.putExtra("BSART", list[position].BSART)
                     startActivity(intent)
                 }
 

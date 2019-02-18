@@ -87,7 +87,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
         supplierId = intent.getStringExtra("supplierId")
 
         userInfo = SimpleCache.getUserInfo(CodeConstant.USER_DATA)
-        // TODO　仓库默认值设置　
+        // 仓库默认值设置　
         DataUtils.setHouseId(0, 0)
 
         presenter.fetchBuyInTodoListDetails(sapOrderNo)

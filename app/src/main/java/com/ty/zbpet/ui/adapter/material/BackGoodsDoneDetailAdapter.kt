@@ -19,7 +19,7 @@ class BackGoodsDoneDetailAdapter(context: Context, layoutId: Int, datas: List<Ma
     override fun convert(holder: ViewHolder, list: MaterialDetails.ListBean, position: Int) {
 
         holder.setText(R.id.tv_name, list.materialName)
-                .setText(R.id.tv_num, list.giveNumber!! + list.unitS!!)
+                .setText(R.id.tv_num, list.giveNumber!! + list.unit!!)
                 .setText(R.id.tv_box_num, "含量：" + list.concentration + "%")
                 .setText(R.id.tv_box_num_unit, "ZKG:" + list.ZKG!!)
                 .setText(R.id.bulk_num, "库存量：" + list.number)

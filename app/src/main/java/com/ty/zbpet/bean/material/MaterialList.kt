@@ -56,6 +56,9 @@ class MaterialList {
         var materialName: String? = null
         var orderId: String? = null
 
+        var factoryNo: String? = null
+        var BSART: String? = null
+
         // 待办
         var receiveInfo: String? = null
         var backInfo: String? = null

@@ -47,10 +47,10 @@ class MaterialTodoDetailAdapter(private val context: Context, layoutId: Int, dat
             tvName.text = info.materialName
 
             val tvNum = itemView.findViewById<TextView>(R.id.tv_num)
-            tvNum.text = info.orderNumber!! + info.unitS!!
+            tvNum.text = info.orderNumber + info.unit
 
-            val tvBoxNum = itemView.findViewById<TextView>(R.id.tv_box_num)
-            tvBoxNum.text = "含量：" + info.concentration + "%"
+//            val tvBoxNum = itemView.findViewById<TextView>(R.id.tv_box_num)
+//            tvBoxNum.text = "含量：" + info.concentration + "%"
         } else {
             val bundle = payloads[0] as Bundle
             val positionNo = bundle.getString("positionNo")

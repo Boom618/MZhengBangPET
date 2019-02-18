@@ -136,17 +136,17 @@ class PickOutTodoDetailActivity : BaseActivity()
         val requestBody = MaterialDetails()
         val detail = ArrayList<MaterialDetails.ListBean>()
 
-        val size = list!!.size
+        val size = list.size
         for (i in 0 until size) {
             val view = rv_in_storage_detail.getChildAt(i)
 
             val carCode = view.findViewById<EditText>(R.id.et_code).text.toString().trim { it <= ' ' }
             val bulkNum = view.findViewById<EditText>(R.id.et_number).text.toString().trim { it <= ' ' }
             val batchNo = view.findViewById<EditText>(R.id.et_batch_no).text.toString().trim { it <= ' ' }
-            val concentration = list!![i].concentration
-            val materialId = list!![i].materialId
-            val supplierNo = list!![i].supplierNo
-            val zkg = list!![i].ZKG
+            val concentration = list[i].concentration
+            val materialId = list[i].materialId
+            val supplierNo = list[i].supplierNo
+            val zkg = list[i].ZKG
 
             val id = positionId.get(i)
 

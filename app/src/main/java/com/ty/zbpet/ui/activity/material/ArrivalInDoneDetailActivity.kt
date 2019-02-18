@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.InputType
 import android.view.View
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 
@@ -50,10 +51,11 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
     lateinit var selectTime: String
 
     lateinit var orderId: String
-//    lateinit var mInWarehouseOrderId: String
     lateinit var warehouseId: String
     lateinit var sapOrderNo: String
     lateinit var positionId: String
+
+    private lateinit var listBean: List<MaterialDetails.ListBean>
 
     lateinit var adapter: MaterialDoneDetailAdapter
     private val materialPresenter = MaterialPresenter(this)
@@ -118,6 +120,16 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
     private fun initRequestBody(): RequestBody {
 
         val bean = MaterialDoneSave()
+        val size = listBean.size
+
+        for (i in 0 until size ){
+            val view = rv_in_storage_detail.getChildAt(i)
+            val checkBox = view.findViewById<CheckBox>(R.id.iv_tag)
+            if (checkBox.isChecked) {
+
+            }
+        }
+
 
         bean.warehouseId = warehouseId
         bean.sapOrderNo = sapOrderNo
@@ -136,7 +148,7 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
     }
 
     override fun showMaterial(list: List<MaterialDetails.ListBean>) {
-
+        listBean = list
         positionId = list[0].positionId!!
 
         val manager = LinearLayoutManager(ResourceUtil.getContext())

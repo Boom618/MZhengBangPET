@@ -97,7 +97,9 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_MATERIAL_IN_WAREHOUSE_ORDER_INFO)
-    Single<BaseResponse<MaterialDetails>> getMaterialTodoListDetail(@Field("sapOrderNo") String sapOrderNo);
+    Single<BaseResponse<MaterialDetails>> getMaterialTodoListDetail(@Field("factoryNo") String factoryNo,
+                                                                    @Field("sapOrderNo") String sapOrderNo,
+                                                                    @Field("supplierNo") String supplierNo);
 
     /**
      * 待办 保存
