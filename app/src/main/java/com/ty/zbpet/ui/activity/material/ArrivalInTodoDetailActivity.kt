@@ -56,10 +56,11 @@ class ArrivalInTodoDetailActivity : BaseActivity()
         get() = R.layout.activity_content_row_two
 
     lateinit var adapter: MaterialTodoDetailAdapter
-    private val list = ArrayList<MaterialDetails.ListBean>()
+    private var list = ArrayList<MaterialDetails.ListBean>()
 
     lateinit var sapOrderNo: String
     lateinit var supplierNo: String
+    lateinit var creatorNo: String
     lateinit var factoryNo: String
     lateinit var BSART: String
     lateinit var warehouseId: String
@@ -67,6 +68,8 @@ class ArrivalInTodoDetailActivity : BaseActivity()
      * 时间选择
      */
     lateinit var selectTime: String
+
+    private var listPath = mutableListOf<String>()
 
     lateinit var disposable: Disposable
     private val scanner = ScanReader.getScannerInstance()
@@ -92,6 +95,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
         factoryNo = intent.getStringExtra("factoryNo")
         sapOrderNo = intent.getStringExtra("sapOrderNo")
         supplierNo = intent.getStringExtra("supplierNo")
+        creatorNo = intent.getStringExtra("creatorNo")
         BSART = intent.getStringExtra("BSART")
 
         materialPresenter.fetchTODOMaterialDetails(factoryNo, sapOrderNo, supplierNo)
@@ -106,6 +110,17 @@ class ArrivalInTodoDetailActivity : BaseActivity()
 
         val titleName = findViewById<TextView>(R.id.in_storage_detail)
         titleName.text = "到货明细"
+
+        listPath.add("数据 一")
+        listPath.add("数据 二")
+        listPath.add("数据 三")
+        tv_path.setOnClickListener {
+            ZBUiUtils.selectDialog(this,listPath,tv_path)
+        }
+
+        tv_type.setOnClickListener {
+            ZBUiUtils.selectDialog(this,listPath,tv_type)
+        }
 
         tv_time!!.setOnClickListener {
             ZBUiUtils.showPickDate(it.context) { date, _ ->
@@ -131,7 +146,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
             // 含量手输
             val concentration = view.findViewById<EditText>(R.id.tv_box_num).text.toString().trim { it <= ' ' }
             val viewZkg = view.findViewById<EditText>(R.id.et_zkg).text.toString().trim { it <= ' ' }
-            val viewCode = "KWM201809000001"//view.findViewById<EditText>(R.id.et_code).text.toString().trim { it <= ' ' }
+            val viewCode = view.findViewById<EditText>(R.id.et_code).text.toString().trim { it <= ' ' }
             val viewNumber = view.findViewById<EditText>(R.id.et_bulk_num).text.toString().trim { it <= ' ' }
             val viewSap = view.findViewById<EditText>(R.id.et_batch_no).text.toString().trim { it <= ' ' }
 
@@ -148,7 +163,16 @@ class ArrivalInTodoDetailActivity : BaseActivity()
                 bean.ZKG = viewZkg
                 bean.supplierNo = list[i].supplierNo
                 bean.materialId = list[i].materialId
-                bean.concentration = list[i].concentration
+
+                bean.factoryNo = list[i].factoryNo
+                bean.MATKL = list[i].MATKL
+                bean.EBELP = list[i].EBELP
+                bean.WERKS = list[i].WERKS
+                bean.LGORT = list[i].LGORT
+                bean.inNumber = list[i].inNumber
+                bean.materialName = list[i].materialName
+                bean.materialNo = list[i].materialNo
+                bean.unit = list[i].unit
 
                 detail.add(bean)
             }
@@ -164,6 +188,8 @@ class ArrivalInTodoDetailActivity : BaseActivity()
 
         requestBody.list = detail
         requestBody.warehouseId = warehouseId
+        requestBody.supplierNo = supplierNo
+        requestBody.creatorNo = creatorNo
         requestBody.BSART = BSART
         requestBody.inTime = time
         requestBody.sapOrderNo = sapOrderNo
@@ -208,8 +234,9 @@ class ArrivalInTodoDetailActivity : BaseActivity()
 
     override fun detailObjData(obj: MaterialDetails) {
 
-        list.clear()
-        list.addAll(obj.list!!)
+//        list.clear()
+//        list.addAll(obj.list!!)
+        list = obj.list!!
 
         val manager = LinearLayoutManager(ResourceUtil.getContext())
         rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))

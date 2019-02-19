@@ -44,18 +44,19 @@ class PrimaryActivity : BaseActivity() {
                 fragmentList.add(completeFg)
             }
             2 -> {
-                initToolBar(R.string.label_purchase_returns)
-
-                val todoFragment = BackGoodsTodoFragment.newInstance("todoFragment")
-                val doneFragment = BackGoodsDoneFragment.newInstance("doneFragment")
-                fragmentList.add(todoFragment)
-                fragmentList.add(doneFragment)
-            }
-            3 -> {
                 initToolBar(R.string.label_pick_out_storage)
 
                 val todoFragment = PickOutTodoFragment.newInstance("todoFragment")
                 val doneFragment = PickOutDoneFragment.newInstance("doneFragment")
+
+                fragmentList.add(todoFragment)
+                fragmentList.add(doneFragment)
+            }
+            3 -> {
+                initToolBar(R.string.label_purchase_returns)
+
+                val todoFragment = BackGoodsTodoFragment.newInstance("todoFragment")
+                val doneFragment = BackGoodsDoneFragment.newInstance("doneFragment")
                 fragmentList.add(todoFragment)
                 fragmentList.add(doneFragment)
             }

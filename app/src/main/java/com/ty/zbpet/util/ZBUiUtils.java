@@ -228,43 +228,6 @@ public class ZBUiUtils {
         dialog.show();
     }
 
-    private static List<String> galleryOrPhoto = new ArrayList<>();
-
-
-    /**
-     * 质检 图片选择/ 相册 or 相机
-     */
-    public static void selectGalleryOrPhoto(final Context context, final int position, final ImageView imageView) {
-
-        galleryOrPhoto.clear();
-        galleryOrPhoto.add("相册");
-//        galleryOrPhoto.add("拍照");
-
-        NormalSelectionDialog.Builder builder = new NormalSelectionDialog.Builder(context);
-
-        builder.setOnItemListener(new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                // 拍照 和 相册逻辑
-                if (which == 1) {
-
-                } else {
-
-                }
-
-                systemGallery(context, position, imageView);
-
-
-                dialog.dismiss();
-            }
-        })
-                .build()
-                .setDatas(galleryOrPhoto)
-                .show();
-
-
-    }
 
     /**
      * 打开系统相册

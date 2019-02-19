@@ -15,6 +15,8 @@ class MaterialDetails {
     // 保存
     var warehouseId: String? = null
     var BSART: String? = null
+    var supplierNo: String? = null
+    var creatorNo: String? = null
     var outTime: String? = null
     var inTime: String? = null
     var remark: String? = null
@@ -48,21 +50,20 @@ class MaterialDetails {
         var number: String? = null
         var sapMaterialBatchNo: String? = null
 
-        // 待办保存
-//        var positionId: String? = null
-//        var supplierId: String? = null
-//        var supplierNo: String? = null
-//        var number: String? = null
-//        var materialId: String? = null
-//        var positionNo: String? = null
-//        var sapMaterialBatchNo: String? = null
-//        var concentration: String? = null
-//        var ZKG: String? = null
 
+        // 二版 入库新加字段
+        var factoryNo: String? = null
+        var MATKL: String? = null
+        var EBELP: String? = null
+        var WERKS: String? = null
+        var LGORT: String? = null
+        var inNumber: String? = null
 
-        // 已办保存
-//        MaterialDoneSave
-
+        // 二版 出库新加字段
+        var Posnr: String? = null
+        var Rsnum: String? = null
+        var requireNumber: String? = null
+        var Lgort: String? = null
 
     }
 

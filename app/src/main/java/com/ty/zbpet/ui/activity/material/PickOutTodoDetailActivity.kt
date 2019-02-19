@@ -48,7 +48,6 @@ class PickOutTodoDetailActivity : BaseActivity()
 
     lateinit var selectTime: String
     lateinit var sapOrderNo: String
-    lateinit var supplierId: String  // 供应商 ID
 
     lateinit var warehouseId: String
     private var list: MutableList<MaterialDetails.ListBean> = ArrayList()
@@ -72,7 +71,6 @@ class PickOutTodoDetailActivity : BaseActivity()
 
     override fun initOneData() {
         sapOrderNo = intent.getStringExtra("sapOrderNo")
-        supplierId = intent.getStringExtra("supplierId")
 
         presenter.fetchPickOutTodoListDetails(sapOrderNo)
     }
@@ -140,10 +138,10 @@ class PickOutTodoDetailActivity : BaseActivity()
         for (i in 0 until size) {
             val view = rv_in_storage_detail.getChildAt(i)
 
+            val concentration = view.findViewById<EditText>(R.id.bulk_num).text.toString().trim { it <= ' ' }
             val carCode = view.findViewById<EditText>(R.id.et_code).text.toString().trim { it <= ' ' }
             val bulkNum = view.findViewById<EditText>(R.id.et_number).text.toString().trim { it <= ' ' }
             val batchNo = view.findViewById<EditText>(R.id.et_batch_no).text.toString().trim { it <= ' ' }
-            val concentration = list[i].concentration
             val materialId = list[i].materialId
             val supplierNo = list[i].supplierNo
             val zkg = list[i].ZKG
@@ -155,7 +153,6 @@ class PickOutTodoDetailActivity : BaseActivity()
 
                 bean.positionId = id
                 bean.ZKG = zkg
-                bean.supplierId = supplierId
                 bean.supplierNo = supplierNo
                 bean.materialId = materialId
                 bean.concentration = concentration
@@ -244,7 +241,7 @@ class PickOutTodoDetailActivity : BaseActivity()
 
     override fun detailObjData(obj: MaterialDetails) {
 
-        warehouseId = obj.sapOrderNo!!
+//        warehouseId = obj.sapOrderNo!!
 //        list.clear()
 
         list = obj.list!!

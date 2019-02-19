@@ -57,7 +57,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 gotoActivity(PrimaryActivity::class.java, false, bundle)
             }
             R.id.tv_purchase_returns -> {
-                //原辅料——采购退货 PickOutStorageActivity
+                //原辅料——采购退货
                 bundle.putInt(CodeConstant.ACTIVITY_TYPE, 3)
                 gotoActivity(PrimaryActivity::class.java, false, bundle)
             }
