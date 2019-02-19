@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions' // kotlin-android 中包含了这个插件
-apply plugin: 'io.objectbox' // apply last
 
 def ZBConfig = rootProject.ext
 
@@ -187,14 +186,11 @@ dependencies {
 
     // adapter
     implementation "com.zhy:base-rvadapter:${ZBConfig.rvadapterVersion}"
+    // pda 扫码
     implementation files('libs/pdasdk.jar')
 
     implementation "com.zhouyou:rxeasyhttp:${ZBConfig.rxeasyhttpVersion}"
 
-    //implementation project(':selectordialog') 暂停维护,慎用
-    //implementation 'com.lai.weavey:dialog:2.0.1'
-    //implementation 'com.github.searchy2:CustomAlertViewDialogue:2.5.0'
-//    implementation 'com.afollestad.material-dialogs:core:2.0.0-beta5'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:${kotlin_version}"
     implementation "org.jetbrains.kotlin:kotlin-reflect:${kotlin_version}"
     // 协程
@@ -204,9 +200,6 @@ dependencies {
     // image picker
     implementation 'com.github.qingmei2:rximagepicker:2.2.0'
     implementation 'com.github.qingmei2:rximagepicker_support_zhihu:2.2.0'
-
-    // objectBox 数据库
-    implementation 'io.objectbox:objectbox-android:2.2.0'
 
     // 相册选择
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
@@ -223,7 +216,4 @@ dependencies {
 
     implementation "androidx.lifecycle:lifecycle-runtime:${ZBConfig.lifecycle_version}"
     implementation "androidx.lifecycle:lifecycle-livedata:${ZBConfig.lifecycle_version}"
-//    implementation "androidx.lifecycle:lifecycle-extensions:${ZBConfig.lifecycle_version}"
-    // alternately - if using Java8, use the following instead of lifecycle-compiler
-    //implementation "androidx.lifecycle:lifecycle-common-java8:${ZBConfig.lifecycle_version}"
 }
