@@ -156,7 +156,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
 
                 bean.concentration = concentration
                 bean.number = viewNumber
-                bean.positionId = viewCode
+                bean.positionNo = viewCode
                 bean.sapMaterialBatchNo = viewSap
                 bean.positionId = id
                 bean.ZKG = viewZkg
@@ -190,6 +190,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
         requestBody.supplierNo = supplierNo
         requestBody.creatorNo = creatorNo
         requestBody.BSART = BSART
+        requestBody.moveType = "105"
         requestBody.inTime = time
         requestBody.sapOrderNo = sapOrderNo
         requestBody.remark = remark

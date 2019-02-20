@@ -34,6 +34,7 @@ import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
+import java.util.ArrayList
 
 /**
  * @author TY on 2018/11/14.
@@ -88,7 +89,11 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
      * 已办 保存
      * @param body
      */
-    private fun materialDoneInSave(body: RequestBody) {
+    private fun materialDoneInSave(body: RequestBody?) {
+
+        if (body == null) {
+            return
+        }
         HttpMethods.getInstance().materialDoneInSave(object : SingleObserver<ResponseInfo> {
             override fun onError(e: Throwable) {
                 ZBUiUtils.showToast(e.message)
@@ -117,26 +122,31 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
      *
      * @return
      */
-    private fun initRequestBody(): RequestBody {
+    private fun initRequestBody(): RequestBody? {
 
-        val bean = MaterialDoneSave()
+        val data = MaterialDoneSave()
+        val list = ArrayList<MaterialDoneSave.ListBean>()
         val size = listBean.size
 
         for (i in 0 until size ){
             val view = rv_in_storage_detail.getChildAt(i)
             val checkBox = view.findViewById<CheckBox>(R.id.iv_tag)
             if (checkBox.isChecked) {
-
+                val bean = MaterialDoneSave.ListBean()
+                bean.id = listBean[i].id
+                bean.orderId = orderId
+                list.add(bean)
             }
         }
 
+        if(list.size == 0){
+            ZBUiUtils.showToast("请选择您要冲销的列表")
+            return null
+        }
 
-        bean.warehouseId = warehouseId
-        bean.sapOrderNo = sapOrderNo
-        bean.positionId = positionId
-        bean.orderId = orderId
+        data.list = list
 
-        val json = DataUtils.toJson(bean, 1)
+        val json = DataUtils.toJson(data, 1)
 
         return RequestBodyJson.requestBody(json)
 

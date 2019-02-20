@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -87,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="含量："
+            android:hint="含量："
             android:textColor="@color/txt_main_color"
             android:textSize="@dimen/text_14"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -111,7 +111,7 @@
             android:layout_marginTop="5dp"
             android:hint="库位码"
             android:textColor="@color/txt_main_color"
-            android:textSize="@dimen/text_18"
+            android:textSize="@dimen/text_14"
             app:layout_constraintLeft_toLeftOf="@+id/tv_bulk"
             app:layout_constraintTop_toBottomOf="@+id/tv_zkg" />
 
@@ -121,6 +121,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:hint="入库数量："
+            android:textSize="@dimen/text_14"
             android:textColor="@color/txt_main_color"
             app:layout_constraintLeft_toLeftOf="@+id/tv_bulk"
             app:layout_constraintTop_toBottomOf="@+id/tv_code" />
@@ -131,6 +132,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:hint="SAP 物料号："
+            android:textSize="@dimen/text_14"
             android:textColor="@color/txt_main_color"
             app:layout_constraintLeft_toLeftOf="@+id/tv_bulk"
             app:layout_constraintTop_toBottomOf="@+id/tv_count_number" />

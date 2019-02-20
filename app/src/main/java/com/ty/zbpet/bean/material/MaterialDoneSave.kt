@@ -6,14 +6,7 @@ package com.ty.zbpet.bean.material
  */
 class MaterialDoneSave {
 
-
-    /**
-     * warehouseId : 3
-     * outTime : 2018-09-06
-     * sapProcOrder : SAP00009
-     * remark : 1
-     * details : [{"positionId":"1","supplierId":"12","number":"200","materialId":"1","positionNo":"234567","sapMaterialBatchNo":"sap物料批次号","concentration":"80"},{"positionId":"4","supplierId":"12","number":"300","materialId":"12","positionNo":"234567","sapMaterialBatchNo":"sap物料批次号","concentration":"90"}]
-     */
+    var list: ArrayList<ListBean>? = null
 
     var warehouseId: String? = null
     var sapMaterialBatchNo: String? = null
@@ -23,6 +16,11 @@ class MaterialDoneSave {
     var positionId: String? = null
     var outTime: String? = null
     var remark: String? = null
+
+    class ListBean{
+        var id: String? = null
+        var orderId: String? = null
+    }
 
 
 }

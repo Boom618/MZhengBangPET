@@ -15,6 +15,7 @@ class MaterialDetails {
     // 保存
     var warehouseId: String? = null
     var BSART: String? = null
+    var moveType: String? = null
     var supplierNo: String? = null
     var creatorNo: String? = null
     var outTime: String? = null
@@ -49,6 +50,9 @@ class MaterialDetails {
         var warehouseId: String? = null
         var number: String? = null
         var sapMaterialBatchNo: String? = null
+
+        // 已办 保存
+        var orderId: String? = null
 
 
         // 二版 入库新加字段
