@@ -46,7 +46,7 @@ import java.util.*
  * ScanBoxInterface                                ：扫码接口
  *
  * @author TY
-</MaterialTodoDetailsData> */
+ */
 class ArrivalInTodoDetailActivity : BaseActivity()
         , MaterialUiObjInterface<MaterialDetails>
         , ScanBoxInterface {
@@ -54,23 +54,23 @@ class ArrivalInTodoDetailActivity : BaseActivity()
     override val activityLayout: Int
         get() = R.layout.activity_content_row_two
 
-    lateinit var adapter: MaterialTodoDetailAdapter
+    private lateinit var adapter: MaterialTodoDetailAdapter
     private var list = ArrayList<MaterialDetails.ListBean>()
 
-    lateinit var sapOrderNo: String
-    lateinit var supplierNo: String
-    lateinit var creatorNo: String
-    lateinit var factoryNo: String
-    lateinit var BSART: String
-    lateinit var warehouseId: String
+    private lateinit var sapOrderNo: String
+    private lateinit var supplierNo: String
+    private lateinit var creatorNo: String
+    private lateinit var sapFirmNo: String
+    private lateinit var content: String
+    private lateinit var warehouseId: String
     /**
      * 时间选择
      */
-    lateinit var selectTime: String
+    private lateinit var selectTime: String
 
     private var listPath = mutableListOf<String>()
 
-    lateinit var disposable: Disposable
+    private lateinit var disposable: Disposable
     private val scanner = ScanReader.getScannerInstance()
     private val scan = ScanObservable(this)
 
@@ -91,13 +91,13 @@ class ArrivalInTodoDetailActivity : BaseActivity()
 
     override fun initOneData() {
 
-        factoryNo = intent.getStringExtra("factoryNo")
+        sapFirmNo = intent.getStringExtra("sapFirmNo")
         sapOrderNo = intent.getStringExtra("sapOrderNo")
         supplierNo = intent.getStringExtra("supplierNo")
         creatorNo = intent.getStringExtra("creatorNo")
-        BSART = intent.getStringExtra("BSART")
+        content = intent.getStringExtra("content")
 
-        materialPresenter.fetchTODOMaterialDetails(factoryNo, sapOrderNo, supplierNo)
+        materialPresenter.fetchTODOMaterialDetails(sapFirmNo, sapOrderNo, supplierNo)
     }
 
     override fun initTwoView() {
@@ -163,7 +163,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
                 bean.supplierNo = list[i].supplierNo
                 bean.materialId = list[i].materialId
 
-                bean.factoryNo = list[i].factoryNo
+                bean.sapFirmNo = list[i].sapFirmNo
                 bean.MATKL = list[i].MATKL
                 bean.EBELP = list[i].EBELP
                 bean.WERKS = list[i].WERKS
@@ -189,7 +189,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
         requestBody.warehouseId = warehouseId
         requestBody.supplierNo = supplierNo
         requestBody.creatorNo = creatorNo
-        requestBody.BSART = BSART
+        //requestBody.content = content
         requestBody.moveType = "105"
         requestBody.inTime = time
         requestBody.sapOrderNo = sapOrderNo
@@ -305,17 +305,10 @@ class ArrivalInTodoDetailActivity : BaseActivity()
      * @param positionNo
      */
     override fun ScanSuccess(position: Int, positionNo: String) {
-        ZBUiUtils.showToast("库位码 ：$positionNo")
+        //ZBUiUtils.showToast("库位码 ：$positionNo")
 
         //  服务器校验 库位码
         materialPresenter.checkCarCode(position, positionNo)
-
-//        val deepCopyList = DeepCopyData.deepCopyList(list)
-//
-//        deepCopyList[position].positionNo = positionNo
-//
-//        val diffUtil = DiffUtil.calculateDiff(TodoCarCodeDiffUtil(list, deepCopyList))
-//        diffUtil.dispatchUpdatesTo(adapter)
 
     }
 

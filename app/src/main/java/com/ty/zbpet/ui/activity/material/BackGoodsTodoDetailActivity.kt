@@ -47,8 +47,14 @@ class BackGoodsTodoDetailActivity : BaseActivity()
 
     lateinit var adapter: BackGoodsTodoDetailAdapter
 
-    lateinit var selectTime: String
-    lateinit var sapOrderNo: String
+    private lateinit var selectTime: String
+    private lateinit var sapOrderNo: String
+    private lateinit var sapFirmNo: String
+    private lateinit var supplierNo: String
+    private lateinit var creatorNo: String
+    private lateinit var content: String
+
+    private var listPath = mutableListOf<String>()
 
     private var list: ArrayList<MaterialDetails.ListBean> = ArrayList()
 
@@ -76,8 +82,12 @@ class BackGoodsTodoDetailActivity : BaseActivity()
 
     override fun initOneData() {
         sapOrderNo = intent.getStringExtra("sapOrderNo")
+        sapFirmNo = intent.getStringExtra("sapFirmNo")
+        supplierNo = intent.getStringExtra("supplierNo")
+        creatorNo = intent.getStringExtra("creatorNo")
+        content = intent.getStringExtra("content")
 
-        presenter.fetchBackTodoListInfo(sapOrderNo)
+        presenter.fetchBackTodoListInfo(sapOrderNo,sapFirmNo,supplierNo)
     }
 
     override fun initTwoView() {
@@ -93,6 +103,17 @@ class BackGoodsTodoDetailActivity : BaseActivity()
 
         tv_time!!.text = selectTime
         in_storage_detail!!.text = "退货明细"
+
+        listPath.add("数据 一")
+        listPath.add("数据 二")
+        listPath.add("数据 三")
+        tv_path.setOnClickListener {
+            ZBUiUtils.selectDialog(this,listPath,tv_path)
+        }
+
+        tv_type.setOnClickListener {
+            ZBUiUtils.selectDialog(this,listPath,tv_type)
+        }
 
         tv_time!!.setOnClickListener { v ->
             ZBUiUtils.showPickDate(v.context) { date, _ ->
@@ -148,6 +169,7 @@ class BackGoodsTodoDetailActivity : BaseActivity()
         for (i in 0 until size) {
             val view = rv_in_storage_detail.getChildAt(i)
 
+            val concentration = view.findViewById<EditText>(R.id.bulk_num).text.toString().trim { it <= ' ' }
             val carCode = view.findViewById<EditText>(R.id.et_code).text.toString().trim { it <= ' ' }
             val bulkNum = view.findViewById<EditText>(R.id.et_number).text.toString().trim { it <= ' ' }
             val batchNo = view.findViewById<EditText>(R.id.et_batch_no).text.toString().trim { it <= ' ' }
@@ -155,9 +177,8 @@ class BackGoodsTodoDetailActivity : BaseActivity()
             val id = positionId.get(i)
 
             val supplierId = list[i].supplierId
-            val concentration = list[i].concentration
             val materialId = list[i].materialId
-            val supplierNo = list[i].supplierNo
+            //val supplierNo = list[i].supplierNo
             val zkg = list[i].ZKG
 
             val bean = MaterialDetails.ListBean()
@@ -167,9 +188,14 @@ class BackGoodsTodoDetailActivity : BaseActivity()
                 bean.positionId = id
                 bean.materialId = materialId
                 bean.supplierId = supplierId
+                bean.unit = list[i].unit
+                bean.materialNo = list[i].materialNo
+                bean.materialName = list[i].materialName
 
-                bean.supplierNo = supplierNo
+                //bean.supplierNo = supplierNo
                 bean.concentration = concentration
+                // 新加 包含 sap 所有字段
+                bean.content = list[i].content
                 // 用户输入数据
                 bean.positionNo = carCode
                 bean.number = bulkNum
@@ -190,6 +216,9 @@ class BackGoodsTodoDetailActivity : BaseActivity()
         requestBody.list = detail
         requestBody.warehouseId = warehouseId
         requestBody.sapOrderNo = sapOrderNo
+        requestBody.supplierNo = supplierNo
+        requestBody.creatorNo = creatorNo
+        requestBody.moveType = "101"
         requestBody.outTime = time
         requestBody.remark = remark
 

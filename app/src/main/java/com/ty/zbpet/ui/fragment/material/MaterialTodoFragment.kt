@@ -90,8 +90,8 @@ class MaterialTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialLis
                     intent.putExtra("sapOrderNo", list[position].sapOrderNo)
                     intent.putExtra("supplierNo", list[position].supplierNo)
                     intent.putExtra("creatorNo", list[position].creatorNo)
-                    intent.putExtra("factoryNo", list[position].factoryNo)
-                    intent.putExtra("BSART", list[position].BSART)
+                    intent.putExtra("sapFirmNo", list[position].sapFirmNo)
+                    intent.putExtra("content", list[position].content)
                     startActivity(intent)
                 }
 

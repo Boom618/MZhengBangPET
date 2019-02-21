@@ -163,8 +163,8 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getMaterialTodoListDetail(SingleObserver<BaseResponse<MaterialDetails>> subscriber, String factoryNo,String sapOrderNo,String supplierNo) {
-        mService.getMaterialTodoListDetail(factoryNo,sapOrderNo,supplierNo)
+    public void getMaterialTodoListDetail(SingleObserver<BaseResponse<MaterialDetails>> subscriber, String sapFirmNo,String sapOrderNo,String supplierNo) {
+        mService.getMaterialTodoListDetail(sapFirmNo,sapOrderNo,supplierNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -321,8 +321,8 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getBackTodoListInfo(SingleObserver<BaseResponse<MaterialDetails>> subscriber, String sapOrderNo) {
-        mService.getBackTodoListInfo(sapOrderNo)
+    public void getBackTodoListInfo(SingleObserver<BaseResponse<MaterialDetails>> subscriber, String sapOrderNo,String sapFirmNo,String supplierNo) {
+        mService.getBackTodoListInfo(sapOrderNo,sapFirmNo,supplierNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }

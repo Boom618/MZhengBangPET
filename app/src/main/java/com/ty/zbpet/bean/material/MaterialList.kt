@@ -32,8 +32,8 @@ class MaterialList {
         var materialName: String? = null
         var orderId: String? = null
 
-        var factoryNo: String? = null
-        var BSART: String? = null
+        var sapFirmNo: String? = null
+        var content: String? = null
 
         // 待办
         var receiveInfo: String? = null

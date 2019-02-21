@@ -14,7 +14,7 @@ class MaterialDetails {
 
     // 保存
     var warehouseId: String? = null
-    var BSART: String? = null
+    var content: String? = null
     var moveType: String? = null
     var supplierNo: String? = null
     var creatorNo: String? = null
@@ -56,7 +56,8 @@ class MaterialDetails {
 
 
         // 二版 入库新加字段
-        var factoryNo: String? = null
+        var sapFirmNo: String? = null
+        var content: String? = null
         var MATKL: String? = null
         var EBELP: String? = null
         var WERKS: String? = null

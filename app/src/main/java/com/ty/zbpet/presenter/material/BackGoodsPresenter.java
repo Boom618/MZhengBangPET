@@ -103,7 +103,7 @@ public class BackGoodsPresenter {
     /**
      * 获取待办 详情
      */
-    public void fetchBackTodoListInfo(String sapOrderNo) {
+    public void fetchBackTodoListInfo(String sapOrderNo,String sapFirmNo,String supplierNo) {
 
         httpMethods.getBackTodoListInfo(new SingleObserver<BaseResponse<MaterialDetails>>() {
             @Override
@@ -129,7 +129,7 @@ public class BackGoodsPresenter {
                 }
 
             }
-        }, sapOrderNo);
+        }, sapOrderNo,sapFirmNo,supplierNo);
     }
 
 

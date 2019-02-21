@@ -11,6 +11,7 @@ class MaterialDoneSave {
     var warehouseId: String? = null
     var sapMaterialBatchNo: String? = null
     var orderId: String? = null
+    var moveType: String? = null
     var sapProcOrder: String? = null
     var sapOrderNo: String? = null
     var positionId: String? = null

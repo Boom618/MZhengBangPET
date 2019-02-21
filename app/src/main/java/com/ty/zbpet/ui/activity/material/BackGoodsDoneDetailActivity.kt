@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.InputType
 import android.view.View
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 
@@ -53,6 +54,8 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
 
     lateinit var orderId: String
 
+    private var listBean  = ArrayList<MaterialDetails.ListBean>()
+
     private val presenter = BackGoodsPresenter(this)
 
     override val activityLayout: Int
@@ -89,7 +92,11 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
     /**
      * 出库 保存
      */
-    private fun backGoodsDoneSave(body: RequestBody) {
+    private fun backGoodsDoneSave(body: RequestBody?) {
+
+        if (body == null) {
+            return
+        }
 
         HttpMethods.getInstance().getBackDoneSave(object : SingleObserver<ResponseInfo> {
             override fun onError(e: Throwable) {
@@ -112,30 +119,50 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
         }, body)
     }
 
-    private fun initDoneBody(): RequestBody {
+    private fun initDoneBody(): RequestBody? {
 
-        val requestBody = MaterialDoneSave()
+        val data = MaterialDoneSave()
+        val list = ArrayList<MaterialDoneSave.ListBean>()
+        val size = listBean.size
+
+        for (i in 0 until size) {
+            val view = rv_in_storage_detail.getChildAt(i)
+            val checkBox = view.findViewById<CheckBox>(R.id.iv_tag)
+            if (checkBox.isChecked) {
+                val bean = MaterialDoneSave.ListBean()
+                bean.id = listBean[i].id
+                bean.orderId = orderId
+                list.add(bean)
+            }
+        }
+
+        if (list.size == 0) {
+            ZBUiUtils.showToast("请选择您要冲销的列表")
+            return null
+        }
 
         val remark = et_desc!!.text.toString().trim { it <= ' ' }
 
-        requestBody.orderId = orderId
-        requestBody.warehouseId = warehouseId
-        requestBody.outTime = selectTime
-        requestBody.remark = remark
-        val json = DataUtils.toJson(requestBody, 1)
+        data.list = list
+        data.orderId = orderId
+        data.warehouseId = warehouseId
+        data.outTime = selectTime
+        data.moveType = "102"
+        data.remark = remark
+        val json = DataUtils.toJson(data, 1)
 
         return RequestBodyJson.requestBody(json)
     }
 
     override fun detailObjData(obj: MaterialDetails) {
 
-        val list = obj.list
-        warehouseId = list!![0].warehouseId!!
+        listBean = obj.list!!
+        warehouseId = listBean[0].warehouseId!!
 
         val manager = LinearLayoutManager(ResourceUtil.getContext())
         rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
         rv_in_storage_detail.layoutManager = manager
-        adapter = BackGoodsDoneDetailAdapter(this, R.layout.item_material_detail_three_done, list)
+        adapter = BackGoodsDoneDetailAdapter(this, R.layout.item_material_detail_three_done, listBean)
         rv_in_storage_detail.adapter = adapter
 
         adapter.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {

@@ -97,7 +97,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_MATERIAL_IN_WAREHOUSE_ORDER_INFO)
-    Single<BaseResponse<MaterialDetails>> getMaterialTodoListDetail(@Field("factoryNo") String factoryNo,
+    Single<BaseResponse<MaterialDetails>> getMaterialTodoListDetail(@Field("sapFirmNo") String sapFirmNo,
                                                                     @Field("sapOrderNo") String sapOrderNo,
                                                                     @Field("supplierNo") String supplierNo);
 
@@ -226,7 +226,9 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_BACK_GOODS_TODO_LIST_INFO)
-    Single<BaseResponse<MaterialDetails>> getBackTodoListInfo(@Field("sapOrderNo") String sapOrderNo);
+    Single<BaseResponse<MaterialDetails>> getBackTodoListInfo(@Field("sapOrderNo") String sapOrderNo,
+                                                              @Field("sapFirmNo") String sapFirmNo,
+                                                              @Field("supplierNo") String supplierNo);
 
     /**
      * 采购退货 待办保存
