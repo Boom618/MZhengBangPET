@@ -291,7 +291,9 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_GOODS_PURCHASE_ORDER_INFO)
-    Single<BaseResponse<ProductDetails>> getBuyInOrderInfo(@Field("sapOrderNo") String sapOrderNo);
+    Single<BaseResponse<ProductDetails>> getBuyInOrderInfo(@Field("sapOrderNo") String sapOrderNo,
+                                                           @Field("sapFirmNo") String sapFirmNo,
+                                                           @Field("supplierNo") String supplierNo);
 
 
     /**

@@ -10,9 +10,12 @@ class ProductTodoSave {
     var warehouseId: String? = null
     var inTime: String? = null
     var sapOrderNo: String? = null
+    var supplierNo: String? = null
+    var creatorNo: String? = null
+    var moveType: String? = null
     var orderId: String? = null
     var remark: String? = null
-    var details: List<DetailsBean>? = null
+    var list: List<DetailsBean>? = null
 
     // 生产入库 仓库在外层
     var warehouseNo: String? = null
@@ -39,10 +42,12 @@ class ProductTodoSave {
         var orderNumber: String? = null
         var goodsId: String? = null
         var goodsNo: String? = null
+        var goodsName: String? = null
         var sapMaterialBatchNo: String? = null
         var startQrCode: String? = null
         var endQrCode: String? = null
         var content: String? = null
+        var unit: String? = null
         var boxQrCode: List<String>? = null
 
         // 外采入库 仓库在 list 中

@@ -146,7 +146,7 @@ class ReturnGoodsDoneDetailActivity : BaseActivity(), ProductUiListInterface<Pro
 
         //String remark = etDesc.getText().toString().trim();
 
-        requestBody.details = beans
+        requestBody.list = beans
         requestBody.orderId = orderId
         requestBody.sapOrderNo = sapOrderNo
         requestBody.outTime = selectTime

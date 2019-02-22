@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.ty.zbpet">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -24,7 +25,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
         <!-- .ui.activity.MainActivity -->
         <!-- .ui.TestMainActivity -->
         <!-- .ui.activity.system.LoginActivity -->
@@ -78,10 +80,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".ui.activity.product.ProductInStorageActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity
             android:name=".ui.activity.product.ReturnGoodsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
@@ -117,7 +115,7 @@
         <activity android:name=".ui.activity.product.BuyInTodoDetailActivity" />
         <activity android:name=".ui.activity.product.BuyInDoneDetailActivity" />
         <activity android:name=".ui.activity.product.ProductDoneDetailActivity" />
-        <activity android:name=".ui.activity.product.SendOutTodoDetailActivity" />
+        <activity android:name=".ui.activity.product.SendOutTodoDetailActivity2" />
         <activity android:name=".ui.activity.product.SendOutDoneDetailActivity" />
         <activity android:name=".ui.activity.product.ReturnGoodsTodoDetailActivity" />
         <activity android:name=".ui.activity.product.ReturnGoodsDoneDetailActivity" />
@@ -125,7 +123,6 @@
         <activity android:name=".ui.activity.system.QualityCheckDoneDetailActivity" />
         <activity android:name=".ui.activity.system.UserUpDataPass" />
         <activity android:name=".ui.activity.MainCompanyActivity" />
-        <activity android:name=".ui.activity.material.ArrivalInTodoDetailActivityR" />
         <!--<activity android:name=".ui.activity.system.QualityCheckTabActivity" />-->
 
     </application>

@@ -20,11 +20,10 @@ import com.zhy.adapter.recyclerview.base.ViewHolder
 class BuyInTodoDetailAdapter(context: Context, layoutId: Int, datas: List<ProductDetails.ListBean>) : CommonAdapter<ProductDetails.ListBean>(context, layoutId, datas) {
 
     override fun convert(holder: ViewHolder, list: ProductDetails.ListBean, position: Int) {
-        val warehouseName = list.warehouseList!![0].warehouseName
 
         holder.setText(R.id.tv_name, list.goodsName)
-                .setText(R.id.tv_num, "/" + list.unitS!!)
-                .setText(R.id.tv_select_ware, warehouseName)
+                .setText(R.id.tv_num, list.orderNumber + "/" + list.unit)
+                .setText(R.id.tv_select_ware, "仓库编号：" + list.warehouseNo)
 
 
     }

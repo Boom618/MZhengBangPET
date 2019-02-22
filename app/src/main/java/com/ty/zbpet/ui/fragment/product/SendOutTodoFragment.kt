@@ -13,6 +13,7 @@ import com.ty.zbpet.bean.product.ProductList
 import com.ty.zbpet.presenter.product.ProductUiListInterface
 import com.ty.zbpet.presenter.product.SendOutPresenter
 import com.ty.zbpet.ui.activity.product.SendOutTodoDetailActivity
+import com.ty.zbpet.ui.activity.product.SendOutTodoDetailActivity2
 import com.ty.zbpet.ui.adapter.product.SendOutTodoListAdapter
 import com.ty.zbpet.ui.base.BaseFragment
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
@@ -76,12 +77,10 @@ class SendOutTodoFragment : BaseFragment(), ProductUiListInterface<ProductList.L
 
             adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                 override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
-                    val intent = Intent(activity, SendOutTodoDetailActivity::class.java)
+                    val intent = Intent(activity, SendOutTodoDetailActivity2::class.java)
                     intent.putExtra("sapOrderNo", list[position].sapOrderNo)
-                    intent.putExtra("supplierId", list[position].supplierId)
-                    intent.putExtra("productInfo", list[position].productInfo)
-                    intent.putExtra("customerInfo", list[position].customerInfo)
-                    intent.putExtra("goodsInfo", list[position].goodsInfo)
+                    intent.putExtra("sapFirmNo", list[position].sapFirmNo)
+                    intent.putExtra("content", list[position].content)
                     startActivity(intent)
                 }
 

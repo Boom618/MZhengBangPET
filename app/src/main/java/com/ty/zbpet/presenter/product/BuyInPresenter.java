@@ -78,7 +78,7 @@ public class BuyInPresenter {
      *
      * @param sapOrderNo
      */
-    public void fetchBuyInTodoListDetails(String sapOrderNo) {
+    public void fetchBuyInTodoListDetails(String sapOrderNo,String sapFirmNo,String supplierNo) {
 
         httpMethods.getBuyInOrderInfo(new SingleObserver<BaseResponse<ProductDetails>>() {
             @Override
@@ -104,7 +104,7 @@ public class BuyInPresenter {
             public void onError(Throwable e) {
                 ZBUiUtils.showToast("失败 : =" + e.getMessage());
             }
-        }, sapOrderNo);
+        }, sapOrderNo,sapFirmNo,supplierNo);
     }
 
     /**

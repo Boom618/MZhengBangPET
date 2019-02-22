@@ -9,12 +9,12 @@ import com.alibaba.fastjson.JSONObject
  *
  * 字符串合并
  */
-class JsonStringMerge {
+open class JsonStringMerge {
 
     /**
      * 字符串合并
      */
-    fun StringMerge(vararg string: String):String{
+    open fun StringMerge(vararg string: String):String{
         val json = JSONObject()
         val size = string.size
 

@@ -22,7 +22,7 @@ class ProductTodoDetailAdapter(context: Context, layoutId: Int, datas: List<Prod
 
     override fun convert(holder: ViewHolder, list: ProductDetails.ListBean, position: Int) {
         holder.setText(R.id.tv_name, list.goodsName)
-                .setText(R.id.tv_num, list.orderNumber + "  " + list.unitS)
+                .setText(R.id.tv_num, list.orderNumber + "  " + list.unit)
 
     }
 

@@ -32,7 +32,7 @@ public class ReturnGoodsTodoDetailAdapter extends CommonAdapter<ProductDetails.L
 
 
         holder.setText(R.id.tv_name, list.getGoodsName())
-                .setText(R.id.tv_num, list.getOrderNumber() + "  " + list.getUnitS());
+                .setText(R.id.tv_num, list.getOrderNumber() + "  " + list.getUnit());
 
         // 退货入库数量
         EditText number = holder.itemView.findViewById(R.id.et_number);

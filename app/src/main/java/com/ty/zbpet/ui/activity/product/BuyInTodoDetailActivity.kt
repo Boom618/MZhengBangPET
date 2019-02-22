@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.SparseArray
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import com.ty.zbpet.R
@@ -23,10 +24,7 @@ import com.ty.zbpet.ui.activity.ScanBoxCodeActivity
 import com.ty.zbpet.ui.adapter.product.BuyInTodoDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
-import com.ty.zbpet.util.DataUtils
-import com.ty.zbpet.util.ResourceUtil
-import com.ty.zbpet.util.SimpleCache
-import com.ty.zbpet.util.ZBUiUtils
+import com.ty.zbpet.util.*
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
@@ -46,6 +44,9 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
 
     private var selectTime: String? = null
     private var sapOrderNo: String? = null
+    private var sapFirmNo: String? = null
+    private var supplierNo: String? = null
+    private var content: String = ""
 
     private var oldList: List<ProductDetails.ListBean> = ArrayList()
 
@@ -65,10 +66,6 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
      * 保存用户箱码的数据
      */
     private val carCodeArray: SparseArray<ArrayList<String>> = SparseArray(10)
-    /**
-     * 库位码 ID
-     */
-    private val positionId: SparseArray<String> = SparseArray(10)
 
     private var supplierId: String? = null
 
@@ -84,13 +81,16 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
 
     override fun initOneData() {
         sapOrderNo = intent.getStringExtra("sapOrderNo")
+        sapFirmNo = intent.getStringExtra("sapFirmNo")
+        supplierNo = intent.getStringExtra("supplierNo")
+        content = intent.getStringExtra("content")
         supplierId = intent.getStringExtra("supplierId")
 
         userInfo = SimpleCache.getUserInfo(CodeConstant.USER_DATA)
         // 仓库默认值设置　
         DataUtils.setHouseId(0, 0)
 
-        presenter.fetchBuyInTodoListDetails(sapOrderNo)
+        presenter.fetchBuyInTodoListDetails(sapOrderNo,sapFirmNo,supplierNo)
     }
 
     /**
@@ -118,8 +118,6 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
                 ZBUiUtils.showToast(selectTime)
             }
         }
-
-
     }
 
     /**
@@ -162,46 +160,24 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
         val requestBody = ProductTodoSave()
         val detail = ArrayList<ProductTodoSave.DetailsBean>()
 
-        val houseId = DataUtils.getHouseId()
-        val warehouseList = userInfo!!.warehouseList
-
         val size = oldList.size
         for (i in 0 until size) {
             val view = rv_in_storage_detail.getChildAt(i)
             val boxQrCode = carCodeArray.get(i)
-            val bulkNum = view.findViewById<TextView>(R.id.et_number).toString().trim { it <= ' ' }
-            val batchNo = view.findViewById<TextView>(R.id.et_sap).toString().trim { it <= ' ' }
-            val id = positionId.get(i)
-
-            // 仓库信息
-            val warehouseId: String?
-            val warehouseNo: String?
-            val warehouseName: String?
-
-            // houseId == null ： 是判断用户全部没有选择仓库信息,默认都是第一个，
-            // houseId.get(i) == null : 是判断用户部分没选择仓库信息默认第一个
-            if (houseId?.get(i) == null) {
-                warehouseId = warehouseList!![0].warehouseId
-                warehouseNo = warehouseList[0].warehouseNo
-                warehouseName = warehouseList[0].warehouseName
-            } else {
-                val which = houseId.get(i)
-                warehouseId = warehouseList!![which!!].warehouseId
-                warehouseNo = warehouseList[which].warehouseNo
-                warehouseName = warehouseList[which].warehouseName
-            }
+            val bulkNum = view.findViewById<EditText>(R.id.et_number).text.toString().trim { it <= ' ' }
+            val batchNo = view.findViewById<EditText>(R.id.et_sap).text.toString().trim { it <= ' ' }
 
             val bean = ProductTodoSave.DetailsBean()
-            if (bulkNum.isNotEmpty() && boxQrCode.isNullOrEmpty()) {
+            if (bulkNum.isNotEmpty() && !boxQrCode.isNullOrEmpty()) {
                 val goodsId = oldList[i].goodsId
                 val goodsNo = oldList[i].goodsNo
                 val orderNumber = oldList[i].orderNumber
 
-                val startCode = view.findViewById<TextView>(R.id.et_start_code).toString().trim { it <= ' ' }
-                val endCode = view.findViewById<TextView>(R.id.et_end_code).toString().trim { it <= ' ' }
+                val startCode = view.findViewById<EditText>(R.id.et_start_code).text.toString().trim { it <= ' ' }
+                val endCode = view.findViewById<EditText>(R.id.et_end_code).text.toString().trim { it <= ' ' }
 
-                // 库位 ID
-                bean.positionId = id
+                val subContent = oldList[i].content!!
+                val mergeContent = JsonStringMerge().StringMerge(subContent, content)
                 // 入库数量
                 bean.number = bulkNum
                 bean.sapMaterialBatchNo = batchNo
@@ -212,10 +188,12 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
                 bean.startQrCode = startCode
                 bean.endQrCode = endCode
                 bean.orderNumber = orderNumber
+                bean.content = mergeContent
+                bean.unit = oldList[i].unit
+                bean.goodsName = oldList[i].goodsName
 
-                bean.warehouseId = warehouseId
-                bean.warehouseNo = warehouseNo
-                bean.warehouseName = warehouseName
+                bean.warehouseId = oldList[i].warehouseId
+                bean.warehouseNo = oldList[i].warehouseNo
 
                 bean.boxQrCode = boxQrCode
 
@@ -231,9 +209,11 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
         val remark = et_desc!!.text.toString().trim { it <= ' ' }
         val time = tv_time!!.text.toString().trim { it <= ' ' }
 
-        requestBody.details = detail
+        requestBody.list = detail
         requestBody.inTime = time
         requestBody.sapOrderNo = sapOrderNo
+        requestBody.supplierNo = supplierNo
+        requestBody.moveType = "101"
         requestBody.remark = remark
 
         val json = DataUtils.toJson(requestBody, 1)
@@ -263,25 +243,20 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
                     val tvName = holder.itemView.findViewById<TextView>(R.id.tv_name)
                     val selectHouse = holder.itemView.findViewById<TextView>(R.id.tv_select_ware)
 
-                    val houses = userInfo!!.warehouseList
-                    val houseName = ArrayList<String>()
+//                    val houses = userInfo!!.warehouseList
+//                    val houseName = ArrayList<String>()
+//
+//                    val size = houses!!.size
+//                    for (i in 0 until size) {
+//                        houseName.add(houses[i].warehouseName.toString())
+//                    }
 
-                    val size = houses!!.size
-                    for (i in 0 until size) {
-                        houseName.add(houses[i].warehouseName.toString())
-                    }
+                    //selectHouse.setOnClickListener { ZBUiUtils.selectDialog(view.context, CodeConstant.SELECT_HOUSE_BUY_IN, position, houseName, selectHouse) }
 
-                    selectHouse.setOnClickListener { ZBUiUtils.selectDialog(view.context, CodeConstant.SELECT_HOUSE_BUY_IN, position, houseName, selectHouse) }
-
-                    //SparseArray<Integer> houseId = DataUtils.getHouseId();
-                    // 获取当前 item 中，用户选择的是哪个 仓库位置 ID（先不显示）
-                    //                    Integer which = houseId.get(position);
-                    //                    String warehouseName = warehouseList.get(which).getWarehouseName();
                     if (rlDetail.visibility == View.VISIBLE) {
                         rlDetail.visibility = View.GONE
                         ivArrow.setImageResource(R.mipmap.ic_collapse)
 
-                        //tvName.text = selectHouse.text.toString().trim { it <= ' ' }
                     } else {
                         rlDetail.visibility = View.VISIBLE
                         ivArrow.setImageResource(R.mipmap.ic_expand)

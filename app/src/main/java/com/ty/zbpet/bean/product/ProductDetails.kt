@@ -19,7 +19,7 @@ class ProductDetails {
         var goodsName: String? = null
         var goodsId: String? = null
         var goodsNo: String? = null
-        var unitS: String? = null
+        var unit: String? = null
         var orderNumber: String? = null
         var warehouseList: List<WarehouseListBean>? = null
 
@@ -31,7 +31,7 @@ class ProductDetails {
         var positionId: String? = null
         var startQrCode: String? = null
         var endQrCode: String? = null
-        var content: String? = null
+        var content: String = ""
         var number: String? = null
         var sapMaterialBatchNo: String? = null
         var state: String? = null

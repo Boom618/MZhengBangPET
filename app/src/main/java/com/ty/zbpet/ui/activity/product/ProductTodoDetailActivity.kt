@@ -239,7 +239,7 @@ class ProductTodoDetailActivity : BaseActivity()
         val remark = et_desc!!.text.toString().trim { it <= ' ' }
         val time = tv_time!!.text.toString().trim { it <= ' ' }
 
-        requestBody.details = detail
+        requestBody.list = detail
         requestBody.warehouseId = warehouseId
         requestBody.warehouseNo = warehouseNo
         requestBody.warehouseName = warehouseName

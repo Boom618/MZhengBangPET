@@ -143,7 +143,7 @@ class SendOutDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
             beans.add(detailsBean)
         }
 
-        requestBody.details = beans
+        requestBody.list = beans
         requestBody.orderId = orderId
         requestBody.sapOrderNo = sapOrderNo
         requestBody.outTime = selectTime

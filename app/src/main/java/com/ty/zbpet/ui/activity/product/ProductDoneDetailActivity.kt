@@ -49,7 +49,8 @@ class ProductDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
 
     private var orderId: String? = null
     private var sapOrderNo: String? = null
-    private var list: List<ProductDetails.ListBean>? = ArrayList()
+    private var content: String = ""
+    private var list: List<ProductDetails.ListBean> = ArrayList()
 
 
     private val presenter = ProducePresenter(this)
@@ -71,6 +72,7 @@ class ProductDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
 
         orderId = intent.getStringExtra("orderId")
         sapOrderNo = intent.getStringExtra("sapOrderNo")
+        content = intent.getStringExtra("content")
 
         presenter.fetchProductDoneInfo(orderId)
     }
@@ -120,18 +122,19 @@ class ProductDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
 
         val requestBody = ProductDoneSave()
 
-        val size = list!!.size
+        val size = list.size
         val beans = ArrayList<ProductDoneSave.DetailsBean>()
         for (i in 0 until size) {
             val detailsBean = ProductDoneSave.DetailsBean()
 
-            val boxQrCodeList = list!![i].boxQrCode
-            val goodsId = list!![i].goodsId
-            val goodsNo = list!![i].goodsNo
-            val warehouseId = list!![i].warehouseId
-            val number = list!![i].number
+            val boxQrCodeList = list[i].boxQrCode
+            val goodsId = list[i].goodsId
+            val goodsNo = list[i].goodsNo
+            val warehouseId = list[i].warehouseId
+            val number = list[i].number
 
             detailsBean.number = number
+            detailsBean.unit = list[i].unit
             detailsBean.boxQrCode = boxQrCodeList
             detailsBean.warehouseId = warehouseId
 
@@ -144,7 +147,7 @@ class ProductDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
         }
 
 
-        requestBody.details = beans
+        requestBody.list = beans
         requestBody.orderId = orderId
         requestBody.sapOrderNo = sapOrderNo
         requestBody.outTime = selectTime
@@ -155,8 +158,8 @@ class ProductDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
 
     override fun detailObjData(obj: ProductDetails) {
 
-        list = obj.list
-        tv_house!!.text = list!![0].warehouseName
+        list = obj.list!!
+        tv_house!!.text = list[0].warehouseName
 
         if (adapter == null) {
             val manager = LinearLayoutManager(ResourceUtil.getContext())

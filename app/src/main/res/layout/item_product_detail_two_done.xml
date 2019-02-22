@@ -9,14 +9,13 @@
     android:layout_height="wrap_content">
 
 
-    <ImageView
+    <CheckBox
         android:id="@+id/iv_tag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:src="@mipmap/ic_product"
+        android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -65,25 +64,24 @@
         android:id="@+id/gone_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@+id/tv_num">
 
+        <!--android:background="@drawable/shape_black_min_radius"-->
+        <!--android:drawableStart="@mipmap/ic_date"-->
+        <!--android:drawableEnd="@mipmap/ic_bottom"-->
+        <!--android:drawablePadding="@dimen/space_10"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:textColor="@color/txt_main_color"-->
         <TextView
             android:id="@+id/tv_select_ware"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_25"
-            android:layout_marginTop="@dimen/space_25"
-            android:layout_marginEnd="@dimen/space_25"
-            android:background="@drawable/shape_black_min_radius"
-            android:drawableStart="@mipmap/ic_date"
-            android:drawableEnd="@mipmap/ic_bottom"
-            android:drawablePadding="@dimen/space_10"
-            android:gravity="center_vertical"
-            android:padding="@dimen/space_7"
-            android:text="正邦原料 1 号仓库"
-            android:textColor="@color/txt_main_color"
-            android:textSize="@dimen/text_14"
+            android:layout_marginStart="@dimen/space18"
+            android:layout_marginTop="@dimen/space18"
+            android:layout_marginEnd="@dimen/space18"
+            android:text="仓库编号：002"
+            style="@style/itemSizeStyle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -92,9 +90,9 @@
             android:id="@+id/tv_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_25"
-            android:layout_marginTop="@dimen/space_25"
-            android:layout_marginEnd="@dimen/space_25"
+            android:layout_marginStart="@dimen/space18"
+            android:layout_marginTop="@dimen/space18"
+            android:layout_marginEnd="@dimen/space18"
             android:hint="出库数量：2000"
             style="@style/itemSizeStyle"
             app:layout_constraintHorizontal_chainStyle="packed"
@@ -105,9 +103,9 @@
             android:id="@+id/tv_start_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_25"
+            android:layout_marginStart="@dimen/space18"
             android:layout_marginTop="@dimen/space18"
-            android:layout_marginEnd="@dimen/space_25"
+            android:layout_marginEnd="@dimen/space18"
             android:hint="成品起始值"
             style="@style/itemSizeStyle"
             app:layout_constraintHorizontal_chainStyle="packed"
@@ -118,9 +116,9 @@
             android:id="@+id/tv_end_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_25"
+            android:layout_marginStart="@dimen/space18"
             android:layout_marginTop="@dimen/space18"
-            android:layout_marginEnd="@dimen/space_25"
+            android:layout_marginEnd="@dimen/space18"
             android:hint="成品结束值"
             style="@style/itemSizeStyle"
             app:layout_constraintHorizontal_chainStyle="packed"
@@ -132,7 +130,7 @@
             android:id="@+id/tv_sap"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_24"
+            android:layout_margin="@dimen/space18"
             android:hint="sap 物料批次号"
             style="@style/itemSizeStyle"
             app:layout_constraintEnd_toEndOf="parent"

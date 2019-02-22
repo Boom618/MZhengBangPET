@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.text.InputType
 import android.view.View
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.ImageView
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.ResponseInfo
@@ -22,6 +23,7 @@ import com.ty.zbpet.ui.adapter.product.BuyInDoneDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils
+import com.ty.zbpet.util.JsonStringMerge
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
@@ -118,31 +120,43 @@ class BuyInDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductDet
         val size = list!!.size
         val beans = ArrayList<ProductDoneSave.DetailsBean>()
         for (i in 0 until size) {
-            val detailsBean = ProductDoneSave.DetailsBean()
+            val view = rv_in_storage_detail.getChildAt(i)
+            val checkBox = view.findViewById<CheckBox>(R.id.iv_tag)
 
-            val boxQrCodeList = list!![i].boxQrCode
-            val goodsId = list!![i].goodsId
-            val goodsNo = list!![i].goodsNo
-            val warehouseId = list!![i].warehouseId
-            val number = list!![i].number
+            if (checkBox.isChecked) {
 
-            detailsBean.number = number
-            detailsBean.boxQrCode = boxQrCodeList
-            detailsBean.warehouseId = warehouseId
+                val detailsBean = ProductDoneSave.DetailsBean()
 
-            detailsBean.goodsId = goodsId
-            detailsBean.goodsNo = goodsNo
+                val boxQrCodeList = list!![i].boxQrCode
+                val goodsId = list!![i].goodsId
+                val goodsNo = list!![i].goodsNo
+                val warehouseId = list!![i].warehouseId
+                val number = list!![i].number
 
-            val warehouseList = userInfo.warehouseList
-            detailsBean.warehouseList = warehouseList
-            beans.add(detailsBean)
+                val subContent = list!![i].content
+
+                detailsBean.id = list!![i].id
+                detailsBean.unit = list!![i].unit
+                detailsBean.content = subContent
+                detailsBean.number = number
+                detailsBean.boxQrCode = boxQrCodeList
+                detailsBean.warehouseId = warehouseId
+
+                detailsBean.goodsId = goodsId
+                detailsBean.goodsNo = goodsNo
+
+                val warehouseList = userInfo.warehouseList
+                detailsBean.warehouseList = warehouseList
+                beans.add(detailsBean)
+            }
         }
 
         val remark = et_desc!!.text.toString().trim { it <= ' ' }
 
-        requestBody.details = beans
+        requestBody.list = beans
         requestBody.orderId = orderId
         requestBody.sapOrderNo = sapOrderNo
+        requestBody.moveType = "102"
         requestBody.outTime = selectTime
         requestBody.remark = remark
         val json = DataUtils.toJson(requestBody, 1)
@@ -177,7 +191,6 @@ class BuyInDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductDet
                     } else {
                         rlDetail.visibility = View.VISIBLE
                         ivArrow.setImageResource(R.mipmap.ic_expand)
-
                     }
 
                     bindingCode.setOnClickListener {
@@ -186,7 +199,6 @@ class BuyInDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductDet
                         intent.putStringArrayListExtra("boxCodeList", boxQrCodeList)
                         startActivity(intent)
                     }
-
                 }
 
                 override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {

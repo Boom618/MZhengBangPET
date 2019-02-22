@@ -81,6 +81,9 @@ class BuyInTodoFragment : BaseFragment(), ProductUiListInterface<ProductList.Lis
                     val intent = Intent(activity, BuyInTodoDetailActivity::class.java)
                     intent.putExtra("sapOrderNo", list[position].sapOrderNo)
                     intent.putExtra("supplierId", list[position].supplierId)
+                    intent.putExtra("sapFirmNo", list[position].sapFirmNo)
+                    intent.putExtra("content", list[position].content)
+                    intent.putExtra("supplierNo", list[position].supplierNo)
                     startActivity(intent)
                 }
 
