@@ -6,10 +6,7 @@ import com.ty.zbpet.R
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.fragment.material.*
-import com.ty.zbpet.ui.fragment.product.BuyInDoneFragment
-import com.ty.zbpet.ui.fragment.product.BuyInTodoFragment
-import com.ty.zbpet.ui.fragment.product.ProductDoneFragment
-import com.ty.zbpet.ui.fragment.product.ProductTodoFragment
+import com.ty.zbpet.ui.fragment.product.*
 import com.ty.zbpet.util.TabLayoutViewPage
 import kotlinx.android.synthetic.main.activity_main_todo_and_done.*
 import java.util.*
@@ -72,6 +69,22 @@ class PrimaryActivity : BaseActivity() {
                 initToolBar(R.string.label_produce_in_storage)
                 val todoFragment = ProductTodoFragment.newInstance("todoFragment")
                 val doneFragment = ProductDoneFragment.newInstance("doneFragment")
+                fragmentList.add(todoFragment)
+                fragmentList.add(doneFragment)
+            }
+            6 ->{
+                initToolBar(R.string.label_send_out_storage)
+                val todoFragment = SendOutTodoFragment.newInstance("todoFragment")
+                val doneFragment = SendOutDoneFragment.newInstance("doneFragment")
+
+                fragmentList.add(todoFragment)
+                fragmentList.add(doneFragment)
+            }
+            7 ->{
+                initToolBar(R.string.label_return_sell)
+                val todoFragment = ReturnGoodsTodoFragment.newInstance("todoFragment")
+                val doneFragment = ReturnGoodsDoneFragment.newInstance("doneFragment")
+
                 fragmentList.add(todoFragment)
                 fragmentList.add(doneFragment)
             }

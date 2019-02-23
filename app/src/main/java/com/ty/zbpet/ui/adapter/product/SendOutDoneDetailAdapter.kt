@@ -17,8 +17,8 @@ class SendOutDoneDetailAdapter(context: Context, layoutId: Int, datas: List<Prod
 
     override fun convert(holder: ViewHolder, list: ProductDetails.ListBean, position: Int) {
         holder.setText(R.id.tv_name, list.goodsName)
-                .setText(R.id.tv_select_ware, list.goodsName)
-                .setText(R.id.tv_send_number, "应发数量：" + list.orderNumber!!)
+//                .setText(R.id.tv_select_ware, list.goodsName)
+//                .setText(R.id.tv_send_number, "应发数量：" + list.orderNumber!!)
                 .setText(R.id.tv_number, "出库数量：" + list.number!!)
                 .setText(R.id.tv_start_code, "开始码：" + list.startQrCode!!)
                 .setText(R.id.tv_end_code, "结束码：" + list.endQrCode!!)

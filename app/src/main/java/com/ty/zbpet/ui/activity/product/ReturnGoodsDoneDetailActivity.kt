@@ -132,6 +132,8 @@ class ReturnGoodsDoneDetailActivity : BaseActivity(), ProductUiListInterface<Pro
             val warehouseName = oldList[i].warehouseName
             val number = oldList[i].number
 
+            detailsBean.id = oldList[i].id
+            detailsBean.unit = oldList[i].unit
             detailsBean.number = number
             detailsBean.boxQrCode = boxQrCodeList
             detailsBean.warehouseId = warehouseId
@@ -150,7 +152,7 @@ class ReturnGoodsDoneDetailActivity : BaseActivity(), ProductUiListInterface<Pro
         requestBody.orderId = orderId
         requestBody.sapOrderNo = sapOrderNo
         requestBody.outTime = selectTime
-        //requestBody.setRemark(remark);
+        requestBody.moveType = "654"
         val json = DataUtils.toJson(requestBody, 1)
 
         return RequestBodyJson.requestBody(json)

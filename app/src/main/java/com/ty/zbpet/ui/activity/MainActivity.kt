@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.View
 import com.ty.zbpet.R
 import com.ty.zbpet.constant.CodeConstant
-import com.ty.zbpet.ui.activity.product.ReturnGoodsActivity
-import com.ty.zbpet.ui.activity.product.SendOutActivity
 import com.ty.zbpet.ui.activity.system.PersonCenterActivity
 import com.ty.zbpet.ui.activity.system.QualityCheckTabActivity
 import com.ty.zbpet.ui.activity.system.TransferStorageActivity
@@ -31,7 +29,8 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     override fun initTwoView() {
 
-        setViewOnClickListener(this,tv_arrival_in_storage,
+        setViewOnClickListener(this,
+                tv_arrival_in_storage,
                 tv_pick_out_storage,
                 tv_purchase_returns,
                 tv_purchase_in_storage,
@@ -61,23 +60,27 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 bundle.putInt(CodeConstant.ACTIVITY_TYPE, 3)
                 gotoActivity(PrimaryActivity::class.java, false, bundle)
             }
-            R.id.tv_purchase_in_storage ->{
+            R.id.tv_purchase_in_storage -> {
                 //成品——外采入库
                 bundle.putInt(CodeConstant.ACTIVITY_TYPE, 4)
                 gotoActivity(PrimaryActivity::class.java, false, bundle)
             }
 
-            R.id.tv_produce_in_storage ->{
+            R.id.tv_produce_in_storage -> {
                 //成品——生产入库
                 bundle.putInt(CodeConstant.ACTIVITY_TYPE, 5)
                 gotoActivity(PrimaryActivity::class.java, false, bundle)
             }
-            R.id.tv_send_out_storage ->
+            R.id.tv_send_out_storage -> {
                 //成品——发货出库
-                gotoActivity(SendOutActivity::class.java)
-            R.id.tv_return_in_storage ->
+                bundle.putInt(CodeConstant.ACTIVITY_TYPE, 6)
+                gotoActivity(PrimaryActivity::class.java, false, bundle)
+            }
+            R.id.tv_return_in_storage -> {
                 //成品——退货入库
-                gotoActivity(ReturnGoodsActivity::class.java)
+                bundle.putInt(CodeConstant.ACTIVITY_TYPE, 7)
+                gotoActivity(PrimaryActivity::class.java, false, bundle)
+            }
             R.id.tv_inventory ->
                 //仓库管理——盘点
                 //gotoActivity(InventoryActivity::class.java)

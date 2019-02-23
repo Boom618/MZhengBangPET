@@ -12,7 +12,6 @@ import com.ty.zbpet.R
 import com.ty.zbpet.bean.product.ProductList
 import com.ty.zbpet.presenter.product.ProductUiListInterface
 import com.ty.zbpet.presenter.product.SendOutPresenter
-import com.ty.zbpet.ui.activity.product.SendOutTodoDetailActivity
 import com.ty.zbpet.ui.activity.product.SendOutTodoDetailActivity2
 import com.ty.zbpet.ui.adapter.product.SendOutTodoListAdapter
 import com.ty.zbpet.ui.base.BaseFragment

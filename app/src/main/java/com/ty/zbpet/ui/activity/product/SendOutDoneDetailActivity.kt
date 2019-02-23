@@ -21,7 +21,9 @@ import com.ty.zbpet.ui.adapter.product.SendOutDoneDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.constant.CodeConstant
+import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.util.DataUtils
+import com.ty.zbpet.util.JsonStringMerge
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
@@ -45,10 +47,6 @@ class SendOutDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
     private var adapter: SendOutDoneDetailAdapter? = null
 
     private var selectTime: String? = null
-    /**
-     * 仓库 ID
-     */
-    private val warehouseId: String? = null
 
     /**
      * 请求详情 orderId
@@ -134,6 +132,10 @@ class SendOutDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
             val warehouseId = list!![i].warehouseId
             val number = list!![i].number
 
+            detailsBean.content = list!![i].content
+            detailsBean.id = list!![i].id
+            detailsBean.unit = list!![i].unit
+            detailsBean.goodsName = list!![i].goodsName
             detailsBean.number = number
             detailsBean.boxQrCode = boxQrCodeList
             detailsBean.warehouseId = warehouseId
@@ -145,11 +147,12 @@ class SendOutDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
 
         requestBody.list = beans
         requestBody.orderId = orderId
+        requestBody.moveType = "602"
         requestBody.sapOrderNo = sapOrderNo
-        requestBody.outTime = selectTime
+        requestBody.inTime = selectTime
         val json = DataUtils.toJson(requestBody, 1)
 
-        return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), json)
+        return RequestBodyJson.requestBody(json)
     }
 
     override fun detailObjData(obj: ProductDetails) {

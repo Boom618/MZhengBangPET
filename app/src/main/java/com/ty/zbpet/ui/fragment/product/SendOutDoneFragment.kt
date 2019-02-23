@@ -88,7 +88,7 @@ class SendOutDoneFragment : BaseFragment(), ProductUiObjInterface<ProductList> {
             adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                 override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
                     val intent = Intent(activity, SendOutDoneDetailActivity::class.java)
-                    intent.putExtra("orderId", list!![position].id)
+                    intent.putExtra("orderId", list[position].id)
                     intent.putExtra("sapOrderNo", list[position].sapOrderNo)
                     startActivity(intent)
                 }

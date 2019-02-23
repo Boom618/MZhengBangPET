@@ -17,16 +17,14 @@ import com.ty.zbpet.bean.product.ProductDetails
 import com.ty.zbpet.bean.product.ProductTodoSave
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.net.HttpMethods
+import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.product.ProductUiListInterface
 import com.ty.zbpet.presenter.product.ReturnPresenter
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity
 import com.ty.zbpet.ui.adapter.product.ReturnGoodsTodoDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
-import com.ty.zbpet.util.DataUtils
-import com.ty.zbpet.util.ResourceUtil
-import com.ty.zbpet.util.ZBLog
-import com.ty.zbpet.util.ZBUiUtils
+import com.ty.zbpet.util.*
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
@@ -39,12 +37,14 @@ import java.util.*
  * @author TY on 2018/11/22.
  * 退货入库 待办详情
  */
-class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDetails.ListBean>, ReturnGoodsTodoDetailAdapter.SaveEditListener {
+class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDetails.ListBean>{
 
     private var adapter: ReturnGoodsTodoDetailAdapter? = null
 
     private var selectTime: String? = null
     private var sapOrderNo: String? = null
+    private var sapFirmNo: String? = null
+    private var content: String = ""
 
     private var oldList: List<ProductDetails.ListBean> = ArrayList()
 
@@ -63,10 +63,6 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
     /**
      * 保存用户在输入框中的数据
      */
-    private val numberArray:SparseArray<String> = SparseArray(10)
-    private val startCodeArray:SparseArray<String> = SparseArray(10)
-    private val endCodeArray:SparseArray<String> = SparseArray(10)
-    private val sapArray:SparseArray<String> = SparseArray(10)
     private val carCodeArray:SparseArray<ArrayList<String>> = SparseArray(10)
     /**
      * 库位码 ID
@@ -89,7 +85,7 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
     private var userInfo: UserInfo? = null
 
     override val activityLayout: Int
-        get() = R.layout.activity_content_row_three
+        get() = R.layout.activity_content_row_two
 
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
@@ -98,6 +94,8 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
 
     override fun initOneData() {
         sapOrderNo = intent.getStringExtra("sapOrderNo")
+        sapFirmNo = intent.getStringExtra("sapFirmNo")
+        content = intent.getStringExtra("content")
 
         // 仓库默认值设置
         DataUtils.setHouseId(0, 0)
@@ -111,7 +109,7 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
         }
 
 //        selectHouse = findViewById(R.id.tv_house)
-        tv_house!!.text = houseName[0]
+//        tv_house!!.text = houseName[0]
 
         presenter.fetchReturnOrderInfo(sapOrderNo)
     }
@@ -128,19 +126,6 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
 
         tv_time!!.text = selectTime
         in_storage_detail!!.text = "退货明细"
-
-        // 用户选择仓库信息
-        tv_house!!.setOnClickListener { v -> ZBUiUtils.selectDialog(v.context, CodeConstant.SELECT_HOUSE_BUY_IN, 0, houseName, tv_house) }
-
-        tv_time!!.setOnClickListener { v ->
-            ZBUiUtils.showPickDate(v.context) { date, _ ->
-                selectTime = ZBUiUtils.getTime(date)
-                tv_time!!.text = selectTime
-
-                ZBUiUtils.showToast(selectTime)
-            }
-        }
-
 
     }
 
@@ -192,27 +177,28 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
         val warehouseList = userInfo!!.warehouseList
 
         // 仓库信息
-        val warehouseId: String?
-        val warehouseNo: String?
-        val warehouseName: String?
-        if (houseId == null) {
-            warehouseId = warehouseList!![0].warehouseId
-            warehouseNo = warehouseList[0].warehouseNo
-            warehouseName = warehouseList[0].warehouseName
-        } else {
-            val which = houseId.get(0)
-            warehouseId = warehouseList!![which!!].warehouseId
-            warehouseNo = warehouseList[which].warehouseNo
-            warehouseName = warehouseList[which].warehouseName
-        }
+//        val warehouseId: String?
+//        val warehouseNo: String?
+//        val warehouseName: String?
+//        if (houseId == null) {
+//            warehouseId = warehouseList!![0].warehouseId
+//            warehouseNo = warehouseList[0].warehouseNo
+//            warehouseName = warehouseList[0].warehouseName
+//        } else {
+//            val which = houseId.get(0)
+//            warehouseId = warehouseList!![which!!].warehouseId
+//            warehouseNo = warehouseList[which].warehouseNo
+//            warehouseName = warehouseList[which].warehouseName
+//        }
 
         val size = oldList.size
         for (i in 0 until size) {
+            val view = rv_in_storage_detail.getChildAt(i)
             val boxQrCode = carCodeArray.get(i)
-            val number = numberArray.get(i)
-            val startCode = startCodeArray.get(i)
-            val endCode = endCodeArray.get(i)
-            val sap = sapArray.get(i)
+            val number = view.findViewById<EditText>(R.id.et_number).text.toString().trim()
+            val startCode = view.findViewById<EditText>(R.id.et_start_code).text.toString().trim()
+            val endCode = view.findViewById<EditText>(R.id.et_end_code).text.toString().trim()
+            val sap = view.findViewById<EditText>(R.id.et_sap).text.toString().trim()
             val id = positionId.get(i)
 
             val goodsId = oldList[i].goodsId
@@ -222,10 +208,16 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
             val bean = ProductTodoSave.DetailsBean()
             if (!TextUtils.isEmpty(number) && boxQrCode != null) {
 
+                val subContent = oldList[i].content
+                val mergeContent = JsonStringMerge().StringMerge(subContent, content)
+
+                bean.content = mergeContent
                 bean.positionId = id
                 bean.number = number
                 bean.goodsId = goodsId
                 bean.goodsNo = goodsNo
+                bean.unit = oldList[i].unit
+                bean.goodsName = oldList[i].goodsName
                 bean.orderNumber = orderNumber
                 bean.startQrCode = startCode
                 bean.endQrCode = endCode
@@ -233,9 +225,6 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
                 bean.boxQrCode = boxQrCode
 
                 detail.add(bean)
-            } else {
-                // 跳出当前循环、不处理
-                continue
             }
         }
         // 没有合法的操作数据,不请求网络
@@ -248,15 +237,15 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
 
         requestBody.list = detail
         requestBody.warehouseId = warehouseId
-        requestBody.warehouseNo = warehouseNo
-        requestBody.warehouseName = warehouseName
+        requestBody.warehouseNo = oldList[0].warehouseNo
         requestBody.sapOrderNo = sapOrderNo
+        requestBody.moveType = "653"
         requestBody.inTime = time
         requestBody.remark = remark
 
         val json = DataUtils.toJson(requestBody, 1)
         ZBLog.e("JSON $json")
-        return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), json)
+        return RequestBodyJson.requestBody(json)
     }
 
 
@@ -316,21 +305,10 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
         }
     }
 
-    override fun saveEditAndGetHasFocusPosition(etType: String, hasFocus: Boolean?, position: Int, editText: EditText) {
-        val textContent = editText.text.toString().trim { it <= ' ' }
-
-        when (etType) {
-            CodeConstant.ET_NUMBER -> numberArray.put(position, textContent)
-            CodeConstant.ET_BATCH_NO -> sapArray.put(position, textContent)
-            CodeConstant.ET_START_CODE -> startCodeArray.put(position, textContent)
-            CodeConstant.ET_END_CODE -> endCodeArray.put(position, textContent)
-        }
-    }
-
     companion object {
 
-        private val REQUEST_SCAN_CODE = 1
-        private val RESULT_SCAN_CODE = 2
+        private const val REQUEST_SCAN_CODE = 1
+        private const val RESULT_SCAN_CODE = 2
     }
 
 }

@@ -12,6 +12,7 @@ class ProductDoneSave {
 
     var warehouseId: String? = null
     var outTime: String? = null
+    var inTime: String? = null
     var sapOrderNo: String? = null
     var orderId: String? = null
     var moveType: String? = null

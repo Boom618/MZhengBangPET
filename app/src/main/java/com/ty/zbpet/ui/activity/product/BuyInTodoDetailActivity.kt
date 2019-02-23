@@ -176,7 +176,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
                 val startCode = view.findViewById<EditText>(R.id.et_start_code).text.toString().trim { it <= ' ' }
                 val endCode = view.findViewById<EditText>(R.id.et_end_code).text.toString().trim { it <= ' ' }
 
-                val subContent = oldList[i].content!!
+                val subContent = oldList[i].content
                 val mergeContent = JsonStringMerge().StringMerge(subContent, content)
                 // 入库数量
                 bean.number = bulkNum
@@ -240,18 +240,6 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
                     val rlDetail = holder.itemView.findViewById<View>(R.id.gone_view)
                     val ivArrow = holder.itemView.findViewById<ImageView>(R.id.iv_arrow)
                     val bindingCode = holder.itemView.findViewById<Button>(R.id.btn_binding_code)
-                    val tvName = holder.itemView.findViewById<TextView>(R.id.tv_name)
-                    val selectHouse = holder.itemView.findViewById<TextView>(R.id.tv_select_ware)
-
-//                    val houses = userInfo!!.warehouseList
-//                    val houseName = ArrayList<String>()
-//
-//                    val size = houses!!.size
-//                    for (i in 0 until size) {
-//                        houseName.add(houses[i].warehouseName.toString())
-//                    }
-
-                    //selectHouse.setOnClickListener { ZBUiUtils.selectDialog(view.context, CodeConstant.SELECT_HOUSE_BUY_IN, position, houseName, selectHouse) }
 
                     if (rlDetail.visibility == View.VISIBLE) {
                         rlDetail.visibility = View.GONE

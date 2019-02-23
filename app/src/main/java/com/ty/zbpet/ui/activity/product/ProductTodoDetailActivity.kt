@@ -203,11 +203,11 @@ class ProductTodoDetailActivity : BaseActivity()
 
             val boxQrCode = carCodeArray.get(i)
 
-            val bulkNum = view.findViewById<TextView>(R.id.et_number).toString().trim { it <= ' ' }
-            val content = view.findViewById<TextView>(R.id.et_bulk_num).toString().trim { it <= ' ' }
-            val startCode = view.findViewById<TextView>(R.id.et_start_code).toString().trim { it <= ' ' }
-            val endCode = view.findViewById<TextView>(R.id.et_end_code).toString().trim { it <= ' ' }
-            val sap = view.findViewById<TextView>(R.id.et_sap).toString().trim { it <= ' ' }
+            val bulkNum = view.findViewById<EditText>(R.id.et_number).text.toString().trim { it <= ' ' }
+            val content = view.findViewById<EditText>(R.id.et_bulk_num).text.toString().trim { it <= ' ' }
+            val startCode = view.findViewById<EditText>(R.id.et_start_code).text.toString().trim { it <= ' ' }
+            val endCode = view.findViewById<EditText>(R.id.et_end_code).text.toString().trim { it <= ' ' }
+            val sap = view.findViewById<EditText>(R.id.et_sap).text.toString().trim { it <= ' ' }
 
             val id = positionId.get(i)
 

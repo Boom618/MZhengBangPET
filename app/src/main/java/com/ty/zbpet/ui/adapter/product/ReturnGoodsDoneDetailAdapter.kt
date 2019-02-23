@@ -25,7 +25,7 @@ class ReturnGoodsDoneDetailAdapter(context: Context, layoutId: Int, datas: List<
                 .setText(R.id.tv_number, "入库数量：" + DataUtils.string2Int(list.number))
                 .setText(R.id.tv_start_code, "开始码：" + DataUtils.string2Int(list.startQrCode))
                 .setText(R.id.tv_end_code, "结束码：" + DataUtils.string2Int(list.endQrCode))
-                .setText(R.id.tv_sap, list.sapMaterialBatchNo)
+                .setText(R.id.tv_sap, "sap 物料：" + list.sapMaterialBatchNo)
                 .setText(R.id.tv_num, list.number + "  " + list.unit)
 
     }
