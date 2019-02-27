@@ -91,7 +91,6 @@ class ProductDoneFragment : BaseFragment(), ProductUiObjInterface<ProductList> {
                     val intent = Intent(ResourceUtil.getContext(), ProductDoneDetailActivity::class.java)
                     intent.putExtra("orderId", list[position].id)
                     intent.putExtra("sapOrderNo", list[position].sapOrderNo)
-                    intent.putExtra("content", list[position].content)
                     startActivity(intent)
                 }
 

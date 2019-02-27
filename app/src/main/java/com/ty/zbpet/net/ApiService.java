@@ -167,7 +167,8 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.PICK_OUT_TODO_LIST_INFO)
-    Single<BaseResponse<MaterialDetails>> pickOutTodoListDetail(@Field("sapOrderNo") String sapOrderNo);
+    Single<BaseResponse<MaterialDetails>> pickOutTodoListDetail(@Field("sapOrderNo") String sapOrderNo,
+                                                                @Field("sapFirmNo") String sapFirmNo);
 
     /**
      * 领料出库 - 待办详情 保存

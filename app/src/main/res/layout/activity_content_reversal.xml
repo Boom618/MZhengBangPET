@@ -1,54 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".ui.activity.product.ProductTodoDetailActivity">
 
     <include
         android:id="@+id/top_layout"
         layout="@layout/top_layout" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="20dp">
-
-        <View
-            android:id="@+id/line"
-            android:layout_width="2dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="@dimen/space_10"
-            android:layout_marginTop="2dp"
-            android:background="@color/theme_color" />
-
-        <TextView
-            android:id="@+id/in_warehouse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_10"
-            android:text="@string/label_warehouse"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_18" />
-    </LinearLayout>
-
-
-    <TextView
-        android:id="@+id/tv_house"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_15"
-        android:layout_marginStart="@dimen/space_15"
-        android:layout_marginEnd="@dimen/space_15"
-        android:background="@drawable/shape_white_min_radius"
-        android:drawableStart="@mipmap/ic_date"
-        android:drawableEnd="@mipmap/ic_bottom"
-        android:drawablePadding="@dimen/space_10"
-        android:gravity="center_vertical"
-        android:padding="@dimen/space_7"
-        android:text="仓库选择"
-        android:textColor="@color/txt_main_color"
-        android:textSize="@dimen/text_14" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -58,7 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/bg_color"
-            android:paddingTop="8dp">
+            android:paddingTop="20dp">
+
 
             <View
                 android:id="@+id/line1"
@@ -78,6 +39,16 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_18" />
 
+            <Button
+                android:id="@+id/add_ship"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:visibility="gone"
+                android:layout_alignBottom="@+id/in_storage_detail"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/text_16"
+                android:background="@drawable/shape_theme_min_radius"
+                android:text="添加" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_in_storage_detail"
@@ -121,8 +92,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/space_6"
                     android:background="@drawable/shape_black_min_radius"
-                    android:drawableStart="@mipmap/ic_date"
-                    android:drawableEnd="@mipmap/ic_bottom"
+                    android:drawableLeft="@mipmap/ic_date"
+                    android:drawableRight="@mipmap/ic_bottom"
                     android:drawablePadding="@dimen/space_10"
                     android:gravity="center_vertical"
                     android:padding="@dimen/space_7"
@@ -137,8 +108,8 @@
                     android:layout_below="@+id/tv_path"
                     android:layout_margin="@dimen/space_6"
                     android:background="@drawable/shape_black_min_radius"
-                    android:drawableStart="@mipmap/ic_date"
-                    android:drawableEnd="@mipmap/ic_bottom"
+                    android:drawableLeft="@mipmap/ic_date"
+                    android:drawableRight="@mipmap/ic_bottom"
                     android:drawablePadding="@dimen/space_10"
                     android:gravity="center_vertical"
                     android:padding="@dimen/space_7"
@@ -181,11 +152,6 @@
 
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
-
-    <RelativeLayout
-        android:id="@+id/loading_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 
 
 </LinearLayout>

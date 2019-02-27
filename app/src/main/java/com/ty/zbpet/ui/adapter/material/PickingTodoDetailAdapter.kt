@@ -43,7 +43,7 @@ class PickingTodoDetailAdapter(private val context: Context, layoutId: Int, data
             holder.setText(R.id.tv_name, list.materialName)
                     .setText(R.id.tv_num, list.requireNumber + "  " + list.unit)
                     .setText(R.id.tv_require_num, "需求数量：" + list.requireNumber)
-                    .setText(R.id.tv_box_num_unit, "ZKG：" + list.unit!!)
+                    .setText(R.id.tv_box_num_unit, "单位：" + list.unit!!)
         }else{
             val bundle = payloads[0] as Bundle
             val positionNo = bundle.getString("positionNo")

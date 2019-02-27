@@ -176,8 +176,8 @@ dependencies {
     //implementation 'com.elvishew:xlog:1.6.1'
     implementation "com.orhanobut:logger:${ZBConfig.loggerVersion}"
 
-    // progressbar
-    implementation "com.mikhaellopez:circularprogressbar:${ZBConfig.CircleProgressBarVersion}"
+    // loading bar
+    implementation "com.dyhdyh.loadingbar:loadingbar:${ZBConfig.LoadingBarVersion}"
 
     //1.1.0 API改动过大，老用户升级需谨慎 listView 刷新 {ZBConfig.SmartRefreshVersion}
     implementation "com.scwang.smartrefresh:SmartRefreshLayout:${ZBConfig.SmartRefreshVersion}"

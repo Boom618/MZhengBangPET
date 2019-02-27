@@ -79,7 +79,7 @@
             android:layout_marginStart="@dimen/space_20"
             android:layout_marginTop="@dimen/space_10"
             android:layout_toEndOf="@+id/tv_box_num"
-            android:hint="文本"
+            android:hint="含量"
             style="@style/itemSizeStyle"/>
 
         <TextView

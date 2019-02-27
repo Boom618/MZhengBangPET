@@ -3,7 +3,7 @@
     <string name="label_title">正邦仓库管理系统</string>
 
     <string name="label_transfer_storage">移库</string>
-    <string name="label_arrival_storage">到货入库</string>
+    <string name="label_arrival_storage">采购入库</string>
     <string name="label_purchase_detail">入库详情</string>
     <string name="label_pick_out_storage">领料出库</string>
     <string name="label_purchase_returns">采购退货</string>

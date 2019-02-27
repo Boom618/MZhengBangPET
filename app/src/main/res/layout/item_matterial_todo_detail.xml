@@ -88,8 +88,9 @@
             android:layout_alignEnd="@+id/et_batch_no"
             android:layout_marginTop="5dp"
             android:ellipsize="end"
-            android:hint="请输入 ZKG "
+            android:hint="单位"
             android:lines="1"
+            android:imeOptions="actionNext"
             style="@style/itemSizeStyle"/>
 
         <EditText
@@ -103,6 +104,7 @@
             android:ellipsize="end"
             android:hint="库位码"
             android:lines="1"
+            android:imeOptions="actionNext"
             style="@style/itemSizeStyle"/>
 
         <EditText
@@ -115,6 +117,7 @@
             android:hint="入库数量 : 123"
             android:inputType="number"
             android:lines="1"
+            android:imeOptions="actionNext"
             style="@style/itemSizeStyle"/>
 
         <EditText
@@ -128,6 +131,7 @@
             android:hint="sap 物料批次号"
             android:inputType="text"
             android:lines="1"
+            android:imeOptions="actionDone"
             style="@style/itemSizeStyle"/>
 
     </RelativeLayout>

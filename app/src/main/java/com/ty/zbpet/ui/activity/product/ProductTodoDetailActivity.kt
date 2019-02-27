@@ -11,6 +11,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import com.dyhdyh.widget.loading.bar.LoadingBar
+import com.dyhdyh.widget.loading.dialog.LoadingDialog
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.ResponseInfo
 import com.ty.zbpet.bean.UserInfo
@@ -25,10 +27,7 @@ import com.ty.zbpet.ui.activity.ScanBoxCodeActivity
 import com.ty.zbpet.ui.adapter.product.ProductTodoDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
-import com.ty.zbpet.util.DataUtils
-import com.ty.zbpet.util.ResourceUtil
-import com.ty.zbpet.util.ZBLog
-import com.ty.zbpet.util.ZBUiUtils
+import com.ty.zbpet.util.*
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
@@ -49,8 +48,10 @@ class ProductTodoDetailActivity : BaseActivity()
 
     private var selectTime: String? = null
     private var sapOrderNo: String? = null
+    private var sapFirmNo: String? = null
+    private var content: String = ""
 
-    private var oldList: List<ProductDetails.ListBean>? = ArrayList()
+    private var oldList: List<ProductDetails.ListBean> = ArrayList()
 
     private val presenter = ProducePresenter(this)
 
@@ -94,6 +95,8 @@ class ProductTodoDetailActivity : BaseActivity()
 
     override fun initOneData() {
         sapOrderNo = intent.getStringExtra("sapOrderNo")
+        sapFirmNo = intent.getStringExtra("sapFirmNo")
+        content = intent.getStringExtra("content")
 
         // 仓库默认值设置
         DataUtils.setHouseId(0, 0)
@@ -149,6 +152,7 @@ class ProductTodoDetailActivity : BaseActivity()
         HttpMethods.getInstance().getProduceTodoSave(object : SingleObserver<ResponseInfo> {
             override fun onError(e: Throwable) {
                 ZBUiUtils.showToast(e.message)
+                LoadingDialog.cancel()
             }
 
             override fun onSubscribe(d: Disposable) {
@@ -159,10 +163,11 @@ class ProductTodoDetailActivity : BaseActivity()
                 if (CodeConstant.SERVICE_SUCCESS == responseInfo.tag) {
                     // 入库成功（保存）
                     ZBUiUtils.showToast(responseInfo.message)
-                    runOnUiThread { finish() }
+                    finish()
                 } else {
                     ZBUiUtils.showToast(responseInfo.message)
                 }
+                LoadingDialog.cancel()
             }
         }, body)
     }
@@ -197,14 +202,14 @@ class ProductTodoDetailActivity : BaseActivity()
             warehouseName = warehouseList[which].warehouseName
         }
 
-        val size = oldList!!.size
+        val size = oldList.size
         for (i in 0 until size) {
             val view = rv_in_storage_detail.getChildAt(i)
 
             val boxQrCode = carCodeArray.get(i)
 
-            val bulkNum = view.findViewById<EditText>(R.id.et_number).text.toString().trim { it <= ' ' }
-            val content = view.findViewById<EditText>(R.id.et_bulk_num).text.toString().trim { it <= ' ' }
+            val bulkNum = view.findViewById<EditText>(R.id.et_box_num).text.toString().trim { it <= ' ' }
+            val txt = view.findViewById<EditText>(R.id.et_bulk_num).text.toString().trim { it <= ' ' }
             val startCode = view.findViewById<EditText>(R.id.et_start_code).text.toString().trim { it <= ' ' }
             val endCode = view.findViewById<EditText>(R.id.et_end_code).text.toString().trim { it <= ' ' }
             val sap = view.findViewById<EditText>(R.id.et_sap).text.toString().trim { it <= ' ' }
@@ -212,19 +217,24 @@ class ProductTodoDetailActivity : BaseActivity()
             val id = positionId.get(i)
 
             val bean = ProductTodoSave.DetailsBean()
-            if (bulkNum.isNotEmpty() && boxQrCode.isNullOrEmpty()) {
+            if (bulkNum.isNotEmpty() && !boxQrCode.isNullOrEmpty()) {
 
-                val goodsId = oldList!![i].goodsId
+                val goodsId = oldList[i].goodsId
+
+                val subContent = oldList[i].content
+                val mergeContent = JsonStringMerge().StringMerge(subContent, content)
 
                 bean.positionId = id
                 bean.number = bulkNum
-                bean.content = content
+                bean.content = mergeContent
 
                 bean.sapMaterialBatchNo = sap
                 bean.startQrCode = startCode
                 bean.endQrCode = endCode
 
                 bean.goodsId = goodsId
+                bean.goodsNo = oldList[i].goodsNo
+                bean.goodsName = oldList[i].goodsName
                 bean.boxQrCode = boxQrCode
 
                 detail.add(bean)
@@ -244,8 +254,11 @@ class ProductTodoDetailActivity : BaseActivity()
         requestBody.warehouseNo = warehouseNo
         requestBody.warehouseName = warehouseName
         requestBody.sapOrderNo = sapOrderNo
+        requestBody.moveType = "101"
         requestBody.inTime = time
         requestBody.remark = remark
+
+        LoadingBar.make(loading_container).show()
 
         val json = DataUtils.toJson(requestBody, 1)
         return RequestBodyJson.requestBody(json)
@@ -254,7 +267,7 @@ class ProductTodoDetailActivity : BaseActivity()
 
     override fun detailObjData(details: ProductDetails) {
 
-        oldList = details.list
+        oldList = details.list!!
 
         if (adapter == null) {
             val manager = LinearLayoutManager(ResourceUtil.getContext())

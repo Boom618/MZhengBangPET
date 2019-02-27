@@ -49,7 +49,6 @@ class ProductDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
 
     private var orderId: String? = null
     private var sapOrderNo: String? = null
-    private var content: String = ""
     private var list: List<ProductDetails.ListBean> = ArrayList()
 
 
@@ -72,7 +71,6 @@ class ProductDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
 
         orderId = intent.getStringExtra("orderId")
         sapOrderNo = intent.getStringExtra("sapOrderNo")
-        content = intent.getStringExtra("content")
 
         presenter.fetchProductDoneInfo(orderId)
     }
@@ -110,7 +108,7 @@ class ProductDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
                 if (CodeConstant.SERVICE_SUCCESS == responseInfo.tag) {
                     // 入库成功（保存）
                     ZBUiUtils.showToast(responseInfo.message)
-                    runOnUiThread { finish() }
+                    finish()
                 } else {
                     ZBUiUtils.showToast(responseInfo.message)
                 }
@@ -133,10 +131,11 @@ class ProductDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
             val warehouseId = list[i].warehouseId
             val number = list[i].number
 
+            detailsBean.id = list[i].id
             detailsBean.number = number
             detailsBean.unit = list[i].unit
             detailsBean.boxQrCode = boxQrCodeList
-            detailsBean.warehouseId = warehouseId
+//            detailsBean.warehouseId = warehouseId
 
             detailsBean.goodsId = goodsId
             detailsBean.goodsNo = goodsNo
@@ -150,6 +149,7 @@ class ProductDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
         requestBody.list = beans
         requestBody.orderId = orderId
         requestBody.sapOrderNo = sapOrderNo
+        requestBody.moveType = "102"
         requestBody.outTime = selectTime
         val json = DataUtils.toJson(requestBody, 1)
 

@@ -23,6 +23,8 @@ class MaterialList {
         var arrivalOrderNo: String? = null
         var amount: String? = null
         var state: String? = null
+        var goodsNo: String? = null
+        var goodsName: String? = null
         var type: String? = null
         var inTime: String? = null
         var outTime: String? = null

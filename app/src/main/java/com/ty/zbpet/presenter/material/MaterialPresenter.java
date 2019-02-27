@@ -13,6 +13,7 @@ import java.util.List;
 
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
+import okhttp3.RequestBody;
 
 /**
  * @author PVer on 2018/10/28.
@@ -24,24 +25,24 @@ public class MaterialPresenter {
     /**
      * UI 接口
      */
-    MaterialUiListInterface materialListUi;
+    private MaterialUiListInterface materialListUi;
 
     /**
      * 详情 接口
      */
-    MaterialUiObjInterface materialObjUi;
+    private MaterialUiObjInterface materialObjUi;
 
     /**
      * model 数据接口
      */
-    MaterialModelInterface materialModel = new MaterialModelInterfaceImpl();
+    private MaterialModelInterface materialModel = new MaterialModelInterfaceImpl();
 
     /**
      * API 网络
      */
-    HttpMethods httpMethods;
+    private HttpMethods httpMethods;
 
-    Disposable disposable;
+    private Disposable disposable;
 
     /**
      * 接收 list UI 接口
@@ -196,7 +197,7 @@ public class MaterialPresenter {
     /**
      * 待办 保存
      */
-    public void materialTodeInSave() {
+    public void materialTodeInSave(RequestBody body) {
 
     }
 

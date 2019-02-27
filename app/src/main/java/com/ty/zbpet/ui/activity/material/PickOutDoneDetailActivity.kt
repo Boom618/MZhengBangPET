@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.InputType
 import android.view.View
+import android.widget.CheckBox
 import android.widget.ImageView
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.ResponseInfo
@@ -28,6 +29,7 @@ import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * @author TY on 2018/11/22.
@@ -42,6 +44,8 @@ class PickOutDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Materi
     lateinit var orderId: String
 
     lateinit var warehouseId: String
+
+    private var listBean = ArrayList<MaterialDetails.ListBean>()
 
 
     private val presenter = PickOutPresenter(this)
@@ -78,7 +82,7 @@ class PickOutDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Materi
     /**
      * 出库 保存
      */
-    private fun pickOutDoneSave(body: RequestBody) {
+    private fun pickOutDoneSave(body: RequestBody?) {
 
         HttpMethods.getInstance().pickOutDoneSave(object : SingleObserver<ResponseInfo> {
             override fun onError(e: Throwable) {
@@ -106,19 +110,40 @@ class PickOutDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Materi
      * 构建保存 body
      * @return
      */
-    private fun initDoneBody(): RequestBody {
+    private fun initDoneBody(): RequestBody? {
 
-        val requestBody = MaterialDoneSave()
+        val data = MaterialDoneSave()
+        val list = ArrayList<MaterialDoneSave.ListBean>()
+        val size = listBean.size
 
-        requestBody.warehouseId = warehouseId
-        requestBody.outTime = selectTime
-        requestBody.orderId = orderId
-        val json = DataUtils.toJson(requestBody, 1)
+        for (i in 0 until size ){
+            val view = rv_in_storage_detail.getChildAt(i)
+            val checkBox = view.findViewById<CheckBox>(R.id.iv_tag)
+            if (checkBox.isChecked) {
+                val bean = MaterialDoneSave.ListBean()
+                bean.id = listBean[i].id
+                list.add(bean)
+            }
+        }
+
+        if(list.size == 0){
+            ZBUiUtils.showToast("请选择您要冲销的列表")
+            return null
+        }
+
+        data.list = list
+        data.orderId = orderId
+
+        val json = DataUtils.toJson(data, 1)
 
         return RequestBodyJson.requestBody(json)
     }
 
     override fun showMaterial(list: List<MaterialDetails.ListBean>) {
+        if (list.isEmpty()) {
+            return
+        }
+        listBean.addAll(list)
         warehouseId = list[0].warehouseId!!
 
         val manager = LinearLayoutManager(ResourceUtil.getContext())

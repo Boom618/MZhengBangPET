@@ -55,7 +55,7 @@ ext {
     rx2Version                  = '2.2.0'
     rx2AndroidVersion           = '2.0.2'
     googleGsonVersion           = '2.8.5'
-    CircleProgressBarVersion    = '2.0.0'
+    LoadingBarVersion           = '1.4.7'
     rvadapterVersion            = '3.0.3'
     PickerViewVersion           = '4.1.6'
     loggerVersion               = '2.2.0'

@@ -15,6 +15,9 @@ class ProductList {
         // 待办
         var sapOrderNo: String? = null
         var sapFirmNo: String? = null
+        var orderType: String? = null
+        var goodsNo: String? = null
+        var goodsName: String? = null
         var supplierNo: String? = null
         var supplierName: String? = null
         var creatorNo: String? = null

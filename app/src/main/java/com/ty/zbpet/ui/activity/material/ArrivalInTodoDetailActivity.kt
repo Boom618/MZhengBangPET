@@ -42,7 +42,6 @@ import java.util.*
  *
  *
  * MaterialUiObjInterface<MaterialTodoDetailsData> ：数据接口
- * MaterialTodoDetailAdapter.SaveEditListener      ：输入框接口（删除 - 改用 RecycleView .getChildAt ）
  * ScanBoxInterface                                ：扫码接口
  *
  * @author TY
@@ -67,8 +66,6 @@ class ArrivalInTodoDetailActivity : BaseActivity()
      * 时间选择
      */
     private lateinit var selectTime: String
-
-    private var listPath = mutableListOf<String>()
 
     private lateinit var disposable: Disposable
     private val scanner = ScanReader.getScannerInstance()
@@ -110,17 +107,6 @@ class ArrivalInTodoDetailActivity : BaseActivity()
         val titleName = findViewById<TextView>(R.id.in_storage_detail)
         titleName.text = "到货明细"
 
-        listPath.add("数据 一")
-        listPath.add("数据 二")
-        listPath.add("数据 三")
-        tv_path.setOnClickListener {
-            ZBUiUtils.selectDialog(this,listPath,tv_path)
-        }
-
-        tv_type.setOnClickListener {
-            ZBUiUtils.selectDialog(this,listPath,tv_type)
-        }
-
         tv_time!!.setOnClickListener {
             ZBUiUtils.showPickDate(it.context) { date, _ ->
                 //选中事件回调
@@ -144,7 +130,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
 
             // 含量手输
             val concentration = view.findViewById<EditText>(R.id.tv_box_num).text.toString().trim { it <= ' ' }
-            val viewZkg = view.findViewById<EditText>(R.id.et_zkg).text.toString().trim { it <= ' ' }
+            val viewUnit = view.findViewById<EditText>(R.id.et_zkg).text.toString().trim { it <= ' ' }
             val viewCode = view.findViewById<EditText>(R.id.et_code).text.toString().trim { it <= ' ' }
             val viewNumber = view.findViewById<EditText>(R.id.et_bulk_num).text.toString().trim { it <= ' ' }
             val viewSap = view.findViewById<EditText>(R.id.et_batch_no).text.toString().trim { it <= ' ' }
@@ -152,26 +138,25 @@ class ArrivalInTodoDetailActivity : BaseActivity()
             val id = positionId.get(i)
 
             val bean = MaterialDetails.ListBean()
-            if (viewNumber.isNotEmpty() && viewCode.isNotEmpty()) {
+            if (viewNumber.isNotEmpty() && viewCode.isNotEmpty() && viewUnit.isNotEmpty()) {
+
+                val subContent = list[i].content!!
+                val mergeContent = JsonStringMerge().StringMerge(subContent, content)
 
                 bean.concentration = concentration
                 bean.number = viewNumber
                 bean.positionNo = viewCode
                 bean.sapMaterialBatchNo = viewSap
                 bean.positionId = id
-                bean.ZKG = viewZkg
                 bean.supplierNo = list[i].supplierNo
                 bean.materialId = list[i].materialId
 
                 bean.sapFirmNo = list[i].sapFirmNo
-                bean.MATKL = list[i].MATKL
-                bean.EBELP = list[i].EBELP
-                bean.WERKS = list[i].WERKS
-                bean.LGORT = list[i].LGORT
                 bean.inNumber = list[i].inNumber
+                bean.content = mergeContent
                 bean.materialName = list[i].materialName
                 bean.materialNo = list[i].materialNo
-                bean.unit = list[i].unit
+                bean.unit = viewUnit
 
                 detail.add(bean)
             }
@@ -189,7 +174,6 @@ class ArrivalInTodoDetailActivity : BaseActivity()
         requestBody.warehouseId = warehouseId
         requestBody.supplierNo = supplierNo
         requestBody.creatorNo = creatorNo
-        //requestBody.content = content
         requestBody.moveType = "105"
         requestBody.inTime = time
         requestBody.sapOrderNo = sapOrderNo
@@ -224,7 +208,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
                 if (CodeConstant.SERVICE_SUCCESS == responseInfo.tag) {
                     // 入库成功（保存）
                     ZBUiUtils.showToast(responseInfo.message)
-                    runOnUiThread { finish() }
+                    finish()
                 } else {
                     ZBUiUtils.showToast(responseInfo.message)
                 }

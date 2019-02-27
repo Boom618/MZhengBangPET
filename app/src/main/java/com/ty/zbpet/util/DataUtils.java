@@ -70,14 +70,14 @@ public class DataUtils {
             if (i == 0) {
                 UserInfo.WarehouseListBean bean = new UserInfo.WarehouseListBean();
                 bean.setWarehouseId("3");
-                bean.setWarehouseName("仓库002");
-                bean.setWarehouseNo("CK201808000003");
+                bean.setWarehouseName("仓库1001");
+                bean.setWarehouseNo("1001");
                 userList.add(bean);
             } else {
                 UserInfo.WarehouseListBean bean = new UserInfo.WarehouseListBean();
                 bean.setWarehouseId("10");
-                bean.setWarehouseName("仓库001");
-                bean.setWarehouseNo("CK201808000008");
+                bean.setWarehouseName("仓库0002");
+                bean.setWarehouseNo("0002");
                 userList.add(bean);
             }
         }

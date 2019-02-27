@@ -48,6 +48,8 @@ class PickOutTodoDetailActivity : BaseActivity()
 
     lateinit var selectTime: String
     lateinit var sapOrderNo: String
+    lateinit var sapFirmNo: String
+    lateinit var content: String
 
     lateinit var warehouseId: String
     private var list: MutableList<MaterialDetails.ListBean> = ArrayList()
@@ -71,8 +73,10 @@ class PickOutTodoDetailActivity : BaseActivity()
 
     override fun initOneData() {
         sapOrderNo = intent.getStringExtra("sapOrderNo")
+        sapFirmNo = intent.getStringExtra("sapFirmNo")
+        content = intent.getStringExtra("content")
 
-        presenter.fetchPickOutTodoListDetails(sapOrderNo)
+        presenter.fetchPickOutTodoListDetails(sapOrderNo,sapFirmNo)
     }
 
     override fun initTwoView() {
@@ -144,17 +148,22 @@ class PickOutTodoDetailActivity : BaseActivity()
             val batchNo = view.findViewById<EditText>(R.id.et_batch_no).text.toString().trim { it <= ' ' }
             val materialId = list[i].materialId
             val supplierNo = list[i].supplierNo
-            val zkg = list[i].ZKG
 
             val id = positionId.get(i)
 
             val bean = MaterialDetails.ListBean()
             if (bulkNum.isNotEmpty() && carCode.isNotEmpty()) {
 
+                val subContent = list[i].content!!
+                val mergeContent = JsonStringMerge().StringMerge(subContent, content)
+
                 bean.positionId = id
-                bean.ZKG = zkg
+                bean.unit = list[i].unit
                 bean.supplierNo = supplierNo
                 bean.materialId = materialId
+                bean.content = mergeContent
+                bean.materialNo = list[i].materialNo
+                bean.materialName = list[i].materialName
                 bean.concentration = concentration
                 // 用户输入数据
                 bean.positionNo = carCode
@@ -176,6 +185,7 @@ class PickOutTodoDetailActivity : BaseActivity()
         requestBody.list = detail
         requestBody.warehouseId = warehouseId
         requestBody.outTime = time
+        requestBody.moveType = "261"
         requestBody.sapOrderNo = sapOrderNo
         requestBody.remark = remark
 

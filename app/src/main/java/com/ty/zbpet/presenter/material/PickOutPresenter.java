@@ -78,7 +78,7 @@ public class PickOutPresenter {
      *
      * @param sapOrderNo
      */
-    public void fetchPickOutTodoListDetails(String sapOrderNo) {
+    public void fetchPickOutTodoListDetails(String sapOrderNo,String sapFirmNo) {
 
 
         httpMethods.pickOutTodoListDetails(new SingleObserver<BaseResponse<MaterialDetails>>() {
@@ -107,7 +107,7 @@ public class PickOutPresenter {
                     ZBUiUtils.showToast("失败 : =" + pickOutDetailInfo.getMessage());
                 }
             }
-        }, sapOrderNo);
+        }, sapOrderNo,sapFirmNo);
     }
 
 

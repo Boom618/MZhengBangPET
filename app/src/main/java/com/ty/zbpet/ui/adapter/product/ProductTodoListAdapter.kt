@@ -16,7 +16,7 @@ class ProductTodoListAdapter(context: Context, layoutId: Int, datas: List<Produc
     override fun convert(holder: ViewHolder, list: ProductList.ListBean, position: Int) {
         holder.setText(R.id.tv_operator, "入库")
                 .setText(R.id.tv_no, list.sapOrderNo)
-                .setText(R.id.tv_produce_msg, list.productInfo)
+                .setText(R.id.tv_produce_msg, list.goodsName)
                 .setText(R.id.tv_date, list.orderTime)
                 .setText(R.id.tv_status, list.state)
     }

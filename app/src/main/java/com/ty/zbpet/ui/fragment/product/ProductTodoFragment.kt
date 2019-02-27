@@ -78,7 +78,8 @@ class ProductTodoFragment : BaseFragment(), ProductUiListInterface<ProductList.L
                 override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
                     val intent = Intent(activity, ProductTodoDetailActivity::class.java)
                     intent.putExtra("sapOrderNo", list[position].sapOrderNo)
-                    intent.putExtra("supplierId", list[position].supplierId)
+                    intent.putExtra("sapFirmNo", list[position].sapFirmNo)
+                    intent.putExtra("content", list[position].content)
                     startActivity(intent)
                 }
 

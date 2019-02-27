@@ -16,11 +16,11 @@ class ProductDoneDetailAdapter(context: Context, layoutId: Int, datas: List<Prod
 
     override fun convert(holder: ViewHolder, list: ProductDetails.ListBean, position: Int) {
         holder.setText(R.id.tv_name, list.goodsName)
-                .setText(R.id.tv_content, "文本：" + list.content!!)
+                //.setText(R.id.tv_content, "文本：" + list.content)
                 .setText(R.id.tv_start_code, "开始码：" + list.startQrCode!!)
                 .setText(R.id.tv_end_code, "结束码：" + list.endQrCode!!)
                 .setText(R.id.tv_box_num, "入库数量：" + list.number!!)
-                .setText(R.id.tv_sap, list.sapMaterialBatchNo)
+                .setText(R.id.tv_sap, "sap 物料：" + list.sapMaterialBatchNo)
                 .setText(R.id.tv_num, list.number!! + list.unit!!)
 
     }

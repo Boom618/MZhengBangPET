@@ -19,8 +19,7 @@ class PickOutTodoAdapter(context: Context, layoutId: Int, datas: List<MaterialLi
 
         holder!!.setText(R.id.tv_no, list.sapOrderNo)
                 .setText(R.id.tv_status, list.state)
-                .setText(R.id.tv_type, list.type)
-                .setText(R.id.tv_out_message, list.receiveInfo)
+                .setText(R.id.tv_out_message, list.goodsNo + " , " + list.goodsName)
                 .setText(R.id.tv_supplier, list.supplierName)
                 .setText(R.id.tv_date, list.orderTime)
 
