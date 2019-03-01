@@ -11,6 +11,7 @@ import com.scwang.smartrefresh.header.MaterialHeader
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter
 import com.ty.zbpet.R
+import com.ty.zbpet.bean.CarPositionNoData
 import com.ty.zbpet.bean.material.MaterialList
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
@@ -33,12 +34,15 @@ import kotlinx.android.synthetic.main.zb_content_list_fragment.view.*
  * 领料出库 已办列表
  */
 class PickOutDoneFragment : BaseFragment(), MaterialUiListInterface<MaterialList.ListBean> {
+    override fun showCarSuccess(position: Int, carData: CarPositionNoData?) {
 
+    }
 
-//    @BindView(R.id.recyclerView)
-//    internal var recyclerView: RecyclerView? = null
-//    @BindView(R.id.refreshLayout)
-//    internal var refreshLayout: RefreshLayout? = null
+    override fun showSuccess() {
+    }
+
+    override fun showError(msg: String?) {
+    }
 
     private var adapter: PickOutDoneAdapter? = null
 

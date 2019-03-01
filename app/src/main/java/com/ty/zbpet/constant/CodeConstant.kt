@@ -134,14 +134,14 @@ object CodeConstant {
 
     val SYSTEM_KEY = "system"
     val SYSTEM_VALUE = "android"
-    val SESSION_ID_KEY = "sessionId"
+    const val SESSION_ID_KEY = "sessionid"
     val CHANGE_ROLE_PHONE = "切换手机登录"
     val CHANGE_ROLE_COMPANY = "切换组织代码登录"
 
     /**
      * 用户数据
      */
-    val USER_DATA = "userData"
+    const val USER_DATA = "userData"
 
     /**
      * 质检列表 state

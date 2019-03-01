@@ -32,7 +32,7 @@
         <!-- .ui.activity.system.LoginActivity -->
         <!-- .ui.activity.system.QualityCheckTabActivity -->
         <activity
-            android:name=".ui.activity.MainActivity"
+            android:name=".ui.activity.system.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
@@ -43,10 +43,10 @@
 
         </activity>
 
-        <!--<activity-->
-            <!--android:name=".ui.activity.MainActivity"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:windowSoftInputMode="adjustResize|stateHidden" />-->
+        <activity
+            android:name=".ui.activity.MainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <activity
             android:name=".ui.activity.PrimaryActivity"
@@ -73,14 +73,6 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".ui.activity.system.QualityCheckActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity
-            android:name=".ui.activity.product.SendOutActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity
-            android:name=".ui.activity.product.ReturnGoodsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
@@ -123,6 +115,7 @@
         <activity android:name=".ui.activity.system.QualityCheckDoneDetailActivity" />
         <activity android:name=".ui.activity.system.UserUpDataPass" />
         <activity android:name=".ui.activity.MainCompanyActivity" />
+        <!--<activity android:name=".ui.activity.system.LoginActivity" />-->
         <!--<activity android:name=".ui.activity.system.QualityCheckTabActivity" />-->
 
     </application>

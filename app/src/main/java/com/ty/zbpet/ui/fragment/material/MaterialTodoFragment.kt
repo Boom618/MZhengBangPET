@@ -10,6 +10,7 @@ import com.scwang.smartrefresh.header.MaterialHeader
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter
 import com.ty.zbpet.R
+import com.ty.zbpet.bean.CarPositionNoData
 import com.ty.zbpet.bean.material.MaterialList
 import com.ty.zbpet.presenter.material.MaterialPresenter
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
@@ -31,6 +32,16 @@ import kotlinx.android.synthetic.main.zb_content_list_fragment.view.*
  * 待办 （ 入库 ） Fragment
  */
 class MaterialTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList.ListBean> {
+    override fun showCarSuccess(position: Int, carData: CarPositionNoData?) {
+
+    }
+
+    override fun showSuccess() {
+    }
+
+    override fun showError(msg: String?) {
+    }
+
     override val fragmentLayout: Int
         get() = R.layout.zb_content_list_fragment
 

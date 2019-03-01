@@ -7,30 +7,28 @@ import android.support.v7.widget.RecyclerView
 import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.View
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import com.pda.scanner.ScanReader
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.CarPositionNoData
-import com.ty.zbpet.bean.ResponseInfo
 import com.ty.zbpet.bean.material.MaterialDetails
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.data.DeepCopyData
 import com.ty.zbpet.data.SharedP
-import com.ty.zbpet.net.HttpMethods
 import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.material.MaterialPresenter
-import com.ty.zbpet.presenter.material.MaterialUiObjInterface
+import com.ty.zbpet.presenter.material.MaterialUiListInterface
 import com.ty.zbpet.ui.adapter.diffadapter.TodoCarCodeDiffUtil
 import com.ty.zbpet.ui.adapter.material.MaterialTodoDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
-import com.ty.zbpet.util.*
+import com.ty.zbpet.util.DataUtils
+import com.ty.zbpet.util.JsonStringMerge
+import com.ty.zbpet.util.ResourceUtil
+import com.ty.zbpet.util.ZBUiUtils
 import com.ty.zbpet.util.scan.ScanBoxInterface
 import com.ty.zbpet.util.scan.ScanObservable
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
-import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
@@ -39,22 +37,17 @@ import java.util.*
 
 /**
  * 原辅料——到货入库详情、待办
- *
- *
- * MaterialUiObjInterface<MaterialTodoDetailsData> ：数据接口
- * ScanBoxInterface                                ：扫码接口
- *
  * @author TY
  */
 class ArrivalInTodoDetailActivity : BaseActivity()
-        , MaterialUiObjInterface<MaterialDetails>
+        , MaterialUiListInterface<MaterialDetails.ListBean>
         , ScanBoxInterface {
 
     override val activityLayout: Int
         get() = R.layout.activity_content_row_two
 
     private lateinit var adapter: MaterialTodoDetailAdapter
-    private var list = ArrayList<MaterialDetails.ListBean>()
+    private var list = mutableListOf<MaterialDetails.ListBean>()
 
     private lateinit var sapOrderNo: String
     private lateinit var supplierNo: String
@@ -128,9 +121,18 @@ class ArrivalInTodoDetailActivity : BaseActivity()
 
             val view = rv_in_storage_detail.getChildAt(i)
 
+            var viewUnit = "KG"
+            val radioGroup = view.findViewById<RadioGroup>(R.id.radioGroup)
+            for (position in 0 until 3) {
+                val radioButton = radioGroup.getChildAt(position) as RadioButton
+                if (radioButton.isChecked) {
+                    viewUnit = radioButton.text.toString()
+                }
+            }
+
             // 含量手输
             val concentration = view.findViewById<EditText>(R.id.tv_box_num).text.toString().trim { it <= ' ' }
-            val viewUnit = view.findViewById<EditText>(R.id.et_zkg).text.toString().trim { it <= ' ' }
+            //val viewUnit = view.findViewById<EditText>(R.id.et_zkg).text.toString().trim { it <= ' ' }
             val viewCode = view.findViewById<EditText>(R.id.et_code).text.toString().trim { it <= ' ' }
             val viewNumber = view.findViewById<EditText>(R.id.et_bulk_num).text.toString().trim { it <= ' ' }
             val viewSap = view.findViewById<EditText>(R.id.et_batch_no).text.toString().trim { it <= ' ' }
@@ -138,7 +140,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
             val id = positionId.get(i)
 
             val bean = MaterialDetails.ListBean()
-            if (viewNumber.isNotEmpty() && viewCode.isNotEmpty() && viewUnit.isNotEmpty()) {
+            if (viewNumber.isNotEmpty() && viewCode.isNotEmpty()) {
 
                 val subContent = list[i].content!!
                 val mergeContent = JsonStringMerge().StringMerge(subContent, content)
@@ -151,12 +153,13 @@ class ArrivalInTodoDetailActivity : BaseActivity()
                 bean.supplierNo = list[i].supplierNo
                 bean.materialId = list[i].materialId
 
+                bean.content = mergeContent
                 bean.sapFirmNo = list[i].sapFirmNo
                 bean.inNumber = list[i].inNumber
-                bean.content = mergeContent
                 bean.materialName = list[i].materialName
                 bean.materialNo = list[i].materialNo
-                bean.unit = viewUnit
+                bean.unit = list[i].unit
+                //bean.unit = viewUnit
 
                 detail.add(bean)
             }
@@ -194,33 +197,12 @@ class ArrivalInTodoDetailActivity : BaseActivity()
         if (body == null) {
             return
         }
-
-        HttpMethods.getInstance().materialTodoInSave(object : SingleObserver<ResponseInfo> {
-            override fun onError(e: Throwable) {
-                ZBUiUtils.showToast(e.message)
-            }
-
-            override fun onSubscribe(d: Disposable) {
-
-            }
-
-            override fun onSuccess(responseInfo: ResponseInfo) {
-                if (CodeConstant.SERVICE_SUCCESS == responseInfo.tag) {
-                    // 入库成功（保存）
-                    ZBUiUtils.showToast(responseInfo.message)
-                    finish()
-                } else {
-                    ZBUiUtils.showToast(responseInfo.message)
-                }
-            }
-        }, body)
+        materialPresenter.materialTodoInSave(body)
     }
 
-    override fun detailObjData(obj: MaterialDetails) {
+    override fun showMaterial(lists: MutableList<MaterialDetails.ListBean>?) {
 
-//        list.clear()
-//        list.addAll(obj.list!!)
-        list = obj.list!!
+        list = lists!!
 
         val manager = LinearLayoutManager(ResourceUtil.getContext())
         rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
@@ -313,6 +295,21 @@ class ArrivalInTodoDetailActivity : BaseActivity()
         } else {
             ZBUiUtils.showToast("请扫正确的库位码")
         }
+    }
+
+    override fun showSuccess() {
+        finish()
+    }
+
+    override fun showError(msg: String?) {
+        ZBUiUtils.showToast(msg)
+    }
+
+
+    override fun showLoading() {
+    }
+
+    override fun hideLoading() {
     }
 
 

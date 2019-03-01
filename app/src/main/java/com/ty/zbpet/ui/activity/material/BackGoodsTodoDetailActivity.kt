@@ -54,8 +54,6 @@ class BackGoodsTodoDetailActivity : BaseActivity()
     private lateinit var creatorNo: String
     private lateinit var content: String
 
-    private var listPath = mutableListOf<String>()
-
     private var list: ArrayList<MaterialDetails.ListBean> = ArrayList()
 
     private val scanner = ScanReader.getScannerInstance()
@@ -104,16 +102,6 @@ class BackGoodsTodoDetailActivity : BaseActivity()
         tv_time!!.text = selectTime
         in_storage_detail!!.text = "退货明细"
 
-        listPath.add("数据 一")
-        listPath.add("数据 二")
-        listPath.add("数据 三")
-        tv_path.setOnClickListener {
-            ZBUiUtils.selectDialog(this,listPath,tv_path)
-        }
-
-        tv_type.setOnClickListener {
-            ZBUiUtils.selectDialog(this,listPath,tv_type)
-        }
 
         tv_time!!.setOnClickListener { v ->
             ZBUiUtils.showPickDate(v.context) { date, _ ->

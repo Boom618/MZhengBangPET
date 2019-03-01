@@ -49,9 +49,9 @@ class LoginActivity : BaseActivity(), UserInterface {
             } else {
                 val userName = et_phone!!.text.toString().trim { it <= ' ' }
                 val pass = et_phone_pwd!!.text.toString().trim { it <= ' ' }
-                val md5Pass = Md5.encryptMD5ToString("666666")
+                val md5Pass = Md5.encryptMD5ToString(pass)
 //                presenter.userLogin(userName, md5Pass)
-                presenter.userLogin("18500000000", md5Pass)
+                presenter.userLogin(userName, md5Pass)
             }
         }
 

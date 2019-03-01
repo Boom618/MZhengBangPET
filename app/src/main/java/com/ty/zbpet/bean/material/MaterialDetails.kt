@@ -58,10 +58,6 @@ class MaterialDetails {
         // 二版 入库新加字段
         var sapFirmNo: String? = null
         var content: String? = null
-        var MATKL: String? = null
-        var EBELP: String? = null
-        var WERKS: String? = null
-        var LGORT: String? = null
         var inNumber: String? = null
 
         // 二版 出库新加字段

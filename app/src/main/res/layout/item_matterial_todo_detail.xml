@@ -66,30 +66,68 @@
         android:paddingBottom="@dimen/space_10"
         android:visibility="visible">
 
+        <!--<EditText-->
+            <!--android:id="@+id/check_unit"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_marginTop="@dimen/space_5"-->
+            <!--android:layout_alignStart="@+id/et_batch_no"-->
+            <!--android:layout_alignEnd="@+id/et_batch_no"-->
+            <!--android:hint="含量："-->
+            <!--android:textColor="@color/txt_main_color"-->
+            <!--android:textSize="@dimen/text_14" />-->
+
+        <TextView
+            android:id="@+id/text_unit"
+            android:text="单位："
+            android:layout_marginTop="4dp"
+            android:layout_alignStart="@+id/et_batch_no"
+            android:textSize="@dimen/text_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:orientation="horizontal"
+            android:layout_toEndOf="@+id/text_unit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/rb_kg"
+                android:text="KG"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+            <RadioButton
+                android:id="@+id/rb_zkg"
+                android:text="ZKG"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <RadioButton
+                android:id="@+id/rb_pc"
+                android:text="PC"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RadioGroup>
+
+
         <EditText
             android:id="@+id/tv_box_num"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="@dimen/space_5"
-            android:layout_alignStart="@+id/et_batch_no"
-            android:layout_alignEnd="@+id/et_batch_no"
-            android:hint="含量："
-            android:textColor="@color/txt_main_color"
-            android:textSize="@dimen/text_14" />
-
-
-        <EditText
-            android:id="@+id/et_zkg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_box_num"
+            android:layout_below="@+id/radioGroup"
             android:layout_alignStart="@+id/et_batch_no"
             android:layout_alignEnd="@+id/et_batch_no"
             android:layout_marginTop="5dp"
             android:ellipsize="end"
-            android:hint="单位"
+            android:hint="含量"
             android:lines="1"
+            android:inputType="numberDecimal"
             android:imeOptions="actionNext"
             style="@style/itemSizeStyle"/>
 
@@ -97,7 +135,7 @@
             android:id="@+id/et_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/et_zkg"
+            android:layout_below="@+id/tv_box_num"
             android:layout_alignStart="@+id/et_batch_no"
             android:layout_alignEnd="@+id/et_batch_no"
             android:layout_marginTop="5dp"

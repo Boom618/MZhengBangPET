@@ -11,6 +11,7 @@ import com.scwang.smartrefresh.header.MaterialHeader
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter
 import com.ty.zbpet.R
+import com.ty.zbpet.bean.CarPositionNoData
 import com.ty.zbpet.bean.material.MaterialList
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
 import com.ty.zbpet.presenter.material.PickOutPresenter
@@ -36,6 +37,15 @@ import kotlinx.android.synthetic.main.zb_content_list_fragment.view.*
  * 领料出库 待办列表
  */
 class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList.ListBean> {
+    override fun showCarSuccess(position: Int, carData: CarPositionNoData?) {
+
+    }
+
+    override fun showSuccess() {
+    }
+
+    override fun showError(msg: String?) {
+    }
 
 
     private var adapter: PickOutTodoAdapter? = null

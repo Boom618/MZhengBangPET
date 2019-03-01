@@ -1,6 +1,7 @@
 package com.ty.zbpet.presenter.material;
 
 import com.ty.zbpet.bean.CarPositionNoData;
+import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.material.MaterialDetails;
 import com.ty.zbpet.bean.material.MaterialList;
 import com.ty.zbpet.net.HttpMethods;
@@ -129,7 +130,7 @@ public class MaterialPresenter {
     /**
      * 原辅料 待办 list  详情  MaterialPurchaseInData  MaterialDetailsData
      */
-    public void fetchTODOMaterialDetails(String sapFirmNo,String sapOrderNo,String supplierNo) {
+    public void fetchTODOMaterialDetails(String sapFirmNo, String sapOrderNo, String supplierNo) {
 
         httpMethods.getMaterialTodoListDetail(new SingleObserver<BaseResponse<MaterialDetails>>() {
 
@@ -140,7 +141,7 @@ public class MaterialPresenter {
 
             @Override
             public void onError(Throwable e) {
-                ZBUiUtils.showToast(e.getMessage());
+                materialListUi.showError(e.getMessage());
             }
 
             @Override
@@ -150,15 +151,13 @@ public class MaterialPresenter {
 
                     MaterialDetails data = info.getData();
 
-                    ZBLog.INSTANCE.d(data);
-
-                    materialObjUi.detailObjData(data);
+                    materialListUi.showMaterial(data.getList());
 
                 } else {
-                    ZBUiUtils.showToast(info.getMessage());
+                    materialListUi.showError(info.getMessage());
                 }
             }
-        }, sapFirmNo,sapOrderNo,supplierNo);
+        }, sapFirmNo, sapOrderNo, supplierNo);
     }
 
     /**
@@ -184,7 +183,7 @@ public class MaterialPresenter {
             public void onSuccess(CarPositionNoData responseInfo) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     // 库位码合法
-                    materialObjUi.showCarSuccess(position, responseInfo);
+                    materialListUi.showCarSuccess(position, responseInfo);
                 } else {
                     ZBUiUtils.showToast(responseInfo.getMessage());
                 }
@@ -197,7 +196,29 @@ public class MaterialPresenter {
     /**
      * 待办 保存
      */
-    public void materialTodeInSave(RequestBody body) {
+    public void materialTodoInSave(RequestBody body) {
+
+        httpMethods.materialTodoInSave(new SingleObserver<ResponseInfo>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo responseInfo) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag()) ) {
+                    // 入库成功（保存）
+                    materialListUi.showSuccess();
+                } else {
+                    materialListUi.showError(responseInfo.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                materialListUi.showError(e.getMessage());
+            }
+        }, body);
 
     }
 
@@ -265,5 +286,31 @@ public class MaterialPresenter {
         }, orderId);
     }
 
+    /**
+     * 已办冲销
+     * @param body
+     */
+    public void materialDoneInSave(RequestBody body){
+        httpMethods.materialDoneInSave(new SingleObserver<ResponseInfo>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo responseInfo) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    materialListUi.showSuccess();
+                } else {
+                    materialListUi.showError(responseInfo.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                materialListUi.showError(e.getMessage());
+            }
+        }, body);
+    }
 
 }

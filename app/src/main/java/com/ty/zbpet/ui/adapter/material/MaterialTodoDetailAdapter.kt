@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.InputType
 import android.view.View
 import android.widget.EditText
+import android.widget.RadioButton
 import android.widget.TextView
 
 import com.ty.zbpet.R
@@ -21,7 +22,7 @@ import com.zhy.adapter.recyclerview.base.ViewHolder
  *
  * 到货入库 （待办 详情）
  */
-class MaterialTodoDetailAdapter(private val context: Context, layoutId: Int, datas: List<MaterialDetails.ListBean>)
+class MaterialTodoDetailAdapter(context: Context, layoutId: Int, datas: List<MaterialDetails.ListBean>)
     : CommonAdapter<MaterialDetails.ListBean>(context, layoutId, datas) {
 
 
@@ -32,6 +33,9 @@ class MaterialTodoDetailAdapter(private val context: Context, layoutId: Int, dat
         val info = datas[position]
 
         val itemView = holder.itemView
+
+        val radioButton = itemView.findViewById<RadioButton>(R.id.rb_kg)
+        radioButton.isChecked = true
         // 库位码
         val etCode = itemView.findViewById<EditText>(R.id.et_code)
         // TYPE_NULL 禁止手机软键盘  TYPE_CLASS_TEXT : 开启软键盘。
@@ -49,8 +53,6 @@ class MaterialTodoDetailAdapter(private val context: Context, layoutId: Int, dat
             val tvNum = itemView.findViewById<TextView>(R.id.tv_num)
             tvNum.text = info.orderNumber + info.unit
 
-//            val tvBoxNum = itemView.findViewById<TextView>(R.id.tv_box_num)
-//            tvBoxNum.text = "含量：" + info.concentration + "%"
         } else {
             val bundle = payloads[0] as Bundle
             val positionNo = bundle.getString("positionNo")
