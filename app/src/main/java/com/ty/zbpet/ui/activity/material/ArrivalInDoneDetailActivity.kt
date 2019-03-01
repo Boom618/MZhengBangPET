@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 
 import com.ty.zbpet.R
+import com.ty.zbpet.bean.CarPositionNoData
 import com.ty.zbpet.bean.ResponseInfo
 import com.ty.zbpet.bean.material.MaterialDetails
 import com.ty.zbpet.bean.material.MaterialDoneSave
@@ -32,6 +33,7 @@ import java.util.Locale
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
+import kotlinx.android.synthetic.main.activity_content_reversal.*
 import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
 import java.util.ArrayList
@@ -44,33 +46,23 @@ import java.util.ArrayList
  */
 class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<MaterialDetails.ListBean> {
     override val activityLayout: Int
-        get() = R.layout.activity_content_row_two
+        get() = R.layout.activity_content_reversal//R.layout.activity_content_row_two
 
-    /**
-     * 时间选择
-     */
-    lateinit var selectTime: String
-
-    lateinit var orderId: String
-    lateinit var warehouseId: String
-    lateinit var sapOrderNo: String
-    lateinit var positionId: String
+    private lateinit var orderId: String
+    private lateinit var warehouseId: String
+    private lateinit var sapOrderNo: String
 
     private lateinit var listBean: List<MaterialDetails.ListBean>
 
-    lateinit var adapter: MaterialDoneDetailAdapter
+    private lateinit var adapter: MaterialDoneDetailAdapter
     private val materialPresenter = MaterialPresenter(this)
 
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
-        val sdf = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
-        selectTime = sdf.format(Date())
-        tv_time!!.text = selectTime
     }
 
     override fun initOneData() {
 
-//        mInWarehouseOrderId = intent.getStringExtra("mInWarehouseOrderId")
         sapOrderNo = intent.getStringExtra("sapOrderNo")
         warehouseId = intent.getStringExtra("warehouseId")
         orderId = intent.getStringExtra("orderId")
@@ -78,11 +70,8 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
 
     override fun initTwoView() {
 
-        val titleName = findViewById<TextView>(R.id.in_storage_detail)
-        titleName.text = "到货明细"
-        et_desc!!.inputType = InputType.TYPE_NULL
-
-        initToolBar(R.string.material_reversal, View.OnClickListener { materialDoneInSave(initRequestBody()) })
+        initToolBar(R.string.purchase_house_reversal)
+        bt_reversal.setOnClickListener { materialDoneInSave(initRequestBody()) }
     }
 
     /**
@@ -94,26 +83,7 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
         if (body == null) {
             return
         }
-        HttpMethods.getInstance().materialDoneInSave(object : SingleObserver<ResponseInfo> {
-            override fun onError(e: Throwable) {
-                ZBUiUtils.showToast(e.message)
-            }
-
-            override fun onSubscribe(d: Disposable) {
-
-            }
-
-            override fun onSuccess(responseInfo: ResponseInfo) {
-
-                if (CodeConstant.SERVICE_SUCCESS == responseInfo.tag) {
-                    ZBUiUtils.showToast(responseInfo.message)
-                    finish()
-                } else {
-                    ZBUiUtils.showToast(responseInfo.message)
-                }
-            }
-
-        }, body)
+        materialPresenter.materialDoneInSave(body)
 
     }
 
@@ -129,8 +99,8 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
         val size = listBean.size
 
         for (i in 0 until size ){
-            val view = rv_in_storage_detail.getChildAt(i)
-            val checkBox = view.findViewById<CheckBox>(R.id.iv_tag)
+            val view = recycler_reversal.getChildAt(i)
+            val checkBox = view.findViewById<CheckBox>(R.id.check)
             if (checkBox.isChecked) {
                 val bean = MaterialDoneSave.ListBean()
                 bean.id = listBean[i].id
@@ -159,37 +129,27 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
 
     override fun showMaterial(list: List<MaterialDetails.ListBean>) {
         listBean = list
-        positionId = list[0].positionId!!
 
         val manager = LinearLayoutManager(ResourceUtil.getContext())
-        rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
-        rv_in_storage_detail.layoutManager = manager
+        recycler_reversal.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+        recycler_reversal.layoutManager = manager
 
         // TODO 侧滑删除
         // detailRc.addOnItemTouchListener(new SwipeItemLayout.OnSwipeItemTouchListener(this));
-        adapter = MaterialDoneDetailAdapter(this, R.layout.item_material_done_detail, list)
-        rv_in_storage_detail.adapter = adapter
+//        adapter = MaterialDoneDetailAdapter(this, R.layout.item_material_done_detail, list)
+        adapter = MaterialDoneDetailAdapter(this, R.layout.item_reversal_check, list)
+        recycler_reversal.adapter = adapter
 
-        adapter.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+    }
+    override fun showCarSuccess(position: Int, carData: CarPositionNoData?) {
+    }
 
-            override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
-                val rlDetail = holder.itemView.findViewById<View>(R.id.view_gone)
-                val ivArrow = holder.itemView.findViewById<ImageView>(R.id.iv_arrow)
+    override fun showSuccess() {
+        finish()
+    }
 
-                if (rlDetail.visibility == View.VISIBLE) {
-                    rlDetail.visibility = View.GONE
-                    ivArrow.setImageResource(R.mipmap.ic_collapse)
-                } else {
-                    rlDetail.visibility = View.VISIBLE
-                    ivArrow.setImageResource(R.mipmap.ic_expand)
-                }
-            }
-
-            override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
-                return false
-            }
-        })
-
+    override fun showError(msg: String?) {
+        ZBUiUtils.showToast(msg)
     }
 
     override fun showLoading() {
