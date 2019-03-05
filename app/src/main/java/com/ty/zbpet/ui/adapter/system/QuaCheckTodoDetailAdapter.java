@@ -40,7 +40,7 @@ public class QuaCheckTodoDetailAdapter extends CommonAdapter<QualityCheckTodoDet
         etNumber.addTextChangedListener(new EditWatcher(position, CodeConstant.INSTANCE.getET_NUMBER_INT()));
 
         // 含量
-        etPercent.addTextChangedListener(new EditWatcher(position, CodeConstant.INSTANCE.getET_PERCENT_INT()));
+        etPercent.addTextChangedListener(new EditWatcher(position, CodeConstant.ET_PERCENT_INT));
 
 
     }

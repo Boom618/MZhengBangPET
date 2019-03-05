@@ -52,6 +52,7 @@ class PickOutTodoDetailActivity : BaseActivity()
     lateinit var content: String
 
     lateinit var warehouseId: String
+    lateinit var warehouseNo: String
     private var list: MutableList<MaterialDetails.ListBean> = ArrayList()
 
     private val scanner = ScanReader.getScannerInstance()
@@ -184,6 +185,7 @@ class PickOutTodoDetailActivity : BaseActivity()
 
         requestBody.list = detail
         requestBody.warehouseId = warehouseId
+        requestBody.warehouseNo = warehouseNo
         requestBody.outTime = time
         requestBody.moveType = "261"
         requestBody.sapOrderNo = sapOrderNo
@@ -234,6 +236,7 @@ class PickOutTodoDetailActivity : BaseActivity()
             val carId = carData.list!![0].id
             val positionNo = carData.list!![0].positionNo
             warehouseId = carData.list!![0].warehouseId!!
+            warehouseNo = carData.list!![0].warehouseNo!!
             positionId.put(position, carId)
 
 //            adapter.notifyItemChanged(position)
@@ -250,9 +253,6 @@ class PickOutTodoDetailActivity : BaseActivity()
 
 
     override fun detailObjData(obj: MaterialDetails) {
-
-//        warehouseId = obj.sapOrderNo!!
-//        list.clear()
 
         list = obj.list!!
         val manager = LinearLayoutManager(ResourceUtil.getContext())

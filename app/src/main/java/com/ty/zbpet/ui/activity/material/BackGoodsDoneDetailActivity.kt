@@ -22,7 +22,6 @@ import com.ty.zbpet.util.ZBUiUtils
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_content_reversal.*
-import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
 import java.util.*
 
@@ -35,7 +34,6 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
 
     lateinit var adapter: BackGoodsDoneDetailAdapter
 
-    lateinit var selectTime: String
     /**
      * 仓库 ID
      */
@@ -64,10 +62,8 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
 
     override fun initTwoView() {
 
-
         initToolBar(R.string.purchase_back_goods)
         bt_reversal.setOnClickListener { backGoodsDoneSave(initDoneBody()) }
-
     }
 
     /**
@@ -108,7 +104,7 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
 
         for (i in 0 until size) {
             val view = recycler_reversal.getChildAt(i)
-            val checkBox = view.findViewById<CheckBox>(R.id.iv_tag)
+            val checkBox = view.findViewById<CheckBox>(R.id.check)
             if (checkBox.isChecked) {
                 val bean = MaterialDoneSave.ListBean()
                 bean.id = listBean[i].id
@@ -122,14 +118,10 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
             return null
         }
 
-        val remark = et_desc!!.text.toString().trim { it <= ' ' }
-
         data.list = list
         data.orderId = orderId
         data.warehouseId = warehouseId
-        data.outTime = selectTime
         data.moveType = "102"
-        data.remark = remark
         val json = DataUtils.toJson(data, 1)
 
         return RequestBodyJson.requestBody(json)

@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.TextView
 import com.scwang.smartrefresh.header.MaterialHeader
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter
@@ -22,6 +23,7 @@ import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
+import kotlinx.android.synthetic.main.activity_main_todo_and_done.*
 import kotlinx.android.synthetic.main.zb_content_list_fragment.*
 import kotlinx.android.synthetic.main.zb_content_list_fragment.view.*
 
@@ -51,19 +53,29 @@ class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList
     private var adapter: PickOutTodoAdapter? = null
 
     private val materialPresenter = PickOutPresenter(this)
-    private var mParam1: String? = null
+    private lateinit var mParam1: String
 
     override val fragmentLayout: Int
         get() = R.layout.zb_content_list_fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (arguments != null) {
-            mParam1 = arguments!!.getString(ARG_PARAM1)
-        }
     }
 
+
     override fun onBaseCreate(view: View): View {
+
+        val leftTime = activity!!.findViewById<TextView>(R.id.tv_time_left)
+        val rightTime = activity!!.findViewById<TextView>(R.id.tv_time_right)
+
+//        leftTime.setOnClickListener {
+//            ZBUiUtils.showPickDate(it.context) { date, _ ->
+//                var selectTime = ZBUiUtils.getTime(date)
+//                leftTime.text = selectTime
+////
+//                ZBUiUtils.showToast(ZBUiUtils.getTime(date))
+//            }
+//        }
         // 设置 Header 样式
         view.refreshLayout!!.setRefreshHeader(MaterialHeader(this.context!!))
         // 设置 Footer 为 球脉冲 样式
@@ -131,7 +143,7 @@ class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList
 
     companion object {
 
-        private val ARG_PARAM1 = "param1"
+        private const val ARG_PARAM1 = "param1"
 
         /**
          * Use this factory method to create a new instance of

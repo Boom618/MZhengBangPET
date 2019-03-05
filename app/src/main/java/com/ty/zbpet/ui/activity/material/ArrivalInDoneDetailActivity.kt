@@ -115,9 +115,9 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
         }
 
         data.list = list
+        data.moveType = "106"
 
         val json = DataUtils.toJson(data, 1)
-
         return RequestBodyJson.requestBody(json)
 
     }

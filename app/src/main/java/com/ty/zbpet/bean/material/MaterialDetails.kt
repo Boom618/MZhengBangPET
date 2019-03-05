@@ -14,6 +14,7 @@ class MaterialDetails {
 
     // 保存
     var warehouseId: String? = null
+    var warehouseNo: String? = null
     var content: String? = null
     var moveType: String? = null
     var supplierNo: String? = null

@@ -58,7 +58,7 @@ object CodeConstant {
      * ET_SAP_INT           :67 SAP 物料
      * ET_CODE_FOCUS_INT    :68 库位码是否有焦点
      */
-    val ET_PERCENT_INT = 60
+    const val ET_PERCENT_INT = 60
     val ET_CONTENT_INT = 61
     val ET_ZKG_INT = 62
     val ET_NUMBER_INT = 63

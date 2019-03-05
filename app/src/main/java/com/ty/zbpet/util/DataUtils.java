@@ -96,42 +96,6 @@ public class DataUtils {
 
 
     /**
-     * 文本数据
-     */
-    private static SparseArray<SparseArray<String>> positionAndContent = new SparseArray(5);
-    private static SparseArray<String> contentArray = new SparseArray<>(20);
-
-    /**
-     * zkg 数据
-     */
-    private static SparseArray<SparseArray<String>> positionAndZkg = new SparseArray(5);
-    private static SparseArray<String> zkgArray = new SparseArray<>(20);
-
-    /**
-     * 库位码 数据
-     */
-    private static SparseArray<SparseArray<String>> positionAndCode = new SparseArray(5);
-    private static SparseArray<String> codeArray = new SparseArray<>(20);
-
-    /**
-     * 开始码 数据
-     */
-    private static SparseArray<SparseArray<String>> positionAndStartCode = new SparseArray(5);
-    private static SparseArray<String> startCodeArray = new SparseArray<>(20);
-
-    /**
-     * 结束码 数据
-     */
-    private static SparseArray<SparseArray<String>> positionAndEndCode = new SparseArray(5);
-    private static SparseArray<String> endCodeArray = new SparseArray<>(20);
-
-    /**
-     * SAP 数据
-     */
-    private static SparseArray<SparseArray<String>> positionAndSap = new SparseArray(5);
-    private static SparseArray<String> sapArray = new SparseArray<>(20);
-
-    /**
      * 库位码 焦点 数据
      */
     private static SparseArray<String> codeFocusArray = new SparseArray<>(5);
@@ -204,140 +168,6 @@ public class DataUtils {
         return goodsArray;
     }
 
-    /**
-     * 输入框 中文本数据
-     *
-     * @param position
-     * @param content
-     */
-    public static void setContent(int position, String content) {
-        contentArray.put(position, content);
-        positionAndContent.put(CodeConstant.INSTANCE.getET_CONTENT_INT(), contentArray);
-    }
-
-    public static SparseArray<String> getContent() {
-        SparseArray<String> contentArray = positionAndContent.get(CodeConstant.INSTANCE.getET_CONTENT_INT());
-        if (contentArray == null) {
-            contentArray = new SparseArray<>();
-            contentArray.put(0, "");
-        }
-        return contentArray;
-    }
-
-    /**
-     * 输入框 zkg 数据
-     *
-     * @param position
-     * @param zkg
-     */
-    public static void setZkg(int position, String zkg) {
-        zkgArray.put(position, zkg);
-        positionAndZkg.put(CodeConstant.INSTANCE.getET_ZKG_INT(), zkgArray);
-    }
-
-    public static SparseArray<String> getZkg() {
-        SparseArray<String> zkgArray = positionAndZkg.get(CodeConstant.INSTANCE.getET_ZKG_INT());
-        if (zkgArray == null) {
-            zkgArray = new SparseArray<>();
-            zkgArray.put(0, "");
-        }
-        return zkgArray;
-    }
-
-    /**
-     * 输入框 库位码 数据
-     *
-     * @param position
-     * @param coed
-     */
-    public static void setCode(int position, String coed) {
-        codeArray.put(position, coed);
-        positionAndCode.put(CodeConstant.INSTANCE.getET_CODE_INT(), codeArray);
-    }
-
-    public static SparseArray<String> getCode() {
-        SparseArray<String> codeArray = positionAndCode.get(CodeConstant.INSTANCE.getET_CODE_INT());
-        if (codeArray == null) {
-            codeArray = new SparseArray<>();
-            codeArray.put(0, "");
-        }
-        return codeArray;
-    }
-
-    /**
-     * 输入框 开始码 数据
-     *
-     * @param position
-     * @param coed
-     */
-    public static void setStartCode(int position, String coed) {
-        startCodeArray.put(position, coed);
-        positionAndStartCode.put(CodeConstant.INSTANCE.getET_START_CODE_INT(), startCodeArray);
-    }
-
-    public static SparseArray<String> getStartCode() {
-        SparseArray<String> startCodeArray = positionAndStartCode.get(CodeConstant.INSTANCE.getET_START_CODE_INT());
-        if (startCodeArray == null) {
-            startCodeArray = new SparseArray<>();
-            startCodeArray.put(0, "");
-        }
-        return startCodeArray;
-    }
-
-    /**
-     * 输入框 结束码 数据
-     *
-     * @param position
-     * @param coed
-     */
-    public static void setEndCode(int position, String coed) {
-        endCodeArray.put(position, coed);
-        positionAndEndCode.put(CodeConstant.INSTANCE.getET_END_CODE_INT(), endCodeArray);
-    }
-
-    public static SparseArray<String> getEndCode() {
-        SparseArray<String> endCodeArray = positionAndEndCode.get(CodeConstant.INSTANCE.getET_END_CODE_INT());
-        if (endCodeArray == null) {
-            endCodeArray = new SparseArray<>();
-            endCodeArray.put(0, "");
-        }
-        return endCodeArray;
-    }
-
-    /**
-     * 输入框 SAP 数据
-     *
-     * @param position
-     * @param sap
-     */
-    public static void setSap(int position, String sap) {
-        sapArray.put(position, sap);
-        positionAndSap.put(CodeConstant.INSTANCE.getET_SAP_INT(), sapArray);
-    }
-
-    public static SparseArray<String> getSap() {
-        SparseArray<String> sapArray = positionAndSap.get(CodeConstant.INSTANCE.getET_SAP_INT());
-        if (sapArray == null) {
-            sapArray = new SparseArray<>();
-            sapArray.put(0, "");
-        }
-        return sapArray;
-    }
-
-    /**
-     * 库位码是否有焦点 数据
-     *
-     * @param position
-     * @param focus
-     */
-    public static void setCodeFocus(int position, boolean focus) {
-        codeFocusArray.put(CodeConstant.INSTANCE.getET_CODE_FOCUS_INT(), position + "@" + focus);
-    }
-
-    public static String getCodeFocus() {
-
-        return codeFocusArray.get(CodeConstant.INSTANCE.getET_CODE_FOCUS_INT());
-    }
 
     /**
      * 用户选择图片存储
@@ -388,11 +218,11 @@ public class DataUtils {
      */
     public static void setPercent(int position, String percent) {
         percentArray.put(position, percent);
-        positionAndPercent.put(CodeConstant.INSTANCE.getET_PERCENT_INT(), percentArray);
+        positionAndPercent.put(CodeConstant.ET_PERCENT_INT, percentArray);
     }
 
     public static SparseArray<String> getPercent() {
-        SparseArray<String> percent = positionAndPercent.get(CodeConstant.INSTANCE.getET_PERCENT_INT());
+        SparseArray<String> percent = positionAndPercent.get(CodeConstant.ET_PERCENT_INT);
         if (percent == null) {
             percent = new SparseArray<>();
             percent.put(0, "");
@@ -409,13 +239,7 @@ public class DataUtils {
         positionAndWhich.put(CodeConstant.INSTANCE.getSELECT_GOODS(), null);
         positionAndFile.put(CodeConstant.INSTANCE.getSELECT_IMAGE(), null);
         positionAndNumber.put(CodeConstant.INSTANCE.getET_NUMBER_INT(), null);
-        positionAndPercent.put(CodeConstant.INSTANCE.getET_PERCENT_INT(), null);
-        positionAndContent.put(CodeConstant.INSTANCE.getET_CONTENT_INT(), null);
-        positionAndZkg.put(CodeConstant.INSTANCE.getET_ZKG_INT(), null);
-        positionAndCode.put(CodeConstant.INSTANCE.getET_CODE_INT(), null);
-        positionAndStartCode.put(CodeConstant.INSTANCE.getET_START_CODE_INT(), null);
-        positionAndEndCode.put(CodeConstant.INSTANCE.getET_END_CODE_INT(), null);
-        positionAndSap.put(CodeConstant.INSTANCE.getET_SAP_INT(), null);
+        positionAndPercent.put(CodeConstant.ET_PERCENT_INT, null);
         codeFocusArray.put(CodeConstant.INSTANCE.getET_CODE_FOCUS_INT(), null);
     }
 }

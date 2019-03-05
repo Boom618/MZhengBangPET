@@ -4,29 +4,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
     <ImageView
         android:id="@+id/top_background"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:background="@mipmap/topback" />
+        android:layout_height="100dp"
+        android:background="@mipmap/topback"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/iv_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/space_10"
+        android:src="@mipmap/ic_back"
         app:layout_constraintStart_toStartOf="parent"
-        android:src="@mipmap/ic_back"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/user_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
-        android:src="@mipmap/ic_launcher_round"
         android:layout_marginBottom="@dimen/space_15"
+        android:src="@mipmap/ic_launcher_round"
         app:layout_constraintBottom_toTopOf="@+id/company"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -52,6 +52,65 @@
         app:layout_constraintLeft_toRightOf="@+id/user_image"
         app:layout_constraintTop_toBottomOf="@+id/top_background" />
 
+    <View
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="@dimen/space_15"
+        android:layout_marginEnd="@dimen/space_15"
+        android:background="@drawable/shape_white_min_radius"
+        app:layout_constraintTop_toBottomOf="@+id/user_no" />
+
+    <TextView
+        android:id="@+id/inventory_tracking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_4"
+        android:text="@string/inventory_tracking"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_16"
+        app:layout_constraintStart_toStartOf="@+id/list"
+        app:layout_constraintTop_toTopOf="@+id/list" />
+
+    <ImageView
+        android:id="@+id/image_to_track"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/ic_collapse"
+        android:layout_marginEnd="@dimen/space_20"
+        app:layout_constraintBottom_toBottomOf="@+id/inventory_tracking"
+        app:layout_constraintEnd_toEndOf="parent" />
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:background="@color/split_line_color"
+        android:layout_marginStart="@dimen/space_15"
+        android:layout_marginEnd="@dimen/space_15"
+        app:layout_constraintTop_toTopOf="@+id/list"
+        android:layout_marginTop="@dimen/space_40"
+        android:layout_height="0.5dp"/>
+    <TextView
+        android:id="@+id/box_code_query"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_4"
+        android:text="@string/box_code_query"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_16"
+        app:layout_constraintStart_toStartOf="@+id/list"
+        app:layout_constraintTop_toTopOf="@+id/line" />
+
+    <ImageView
+        android:id="@+id/image_to_query"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/ic_collapse"
+        android:layout_marginEnd="@dimen/space_20"
+        app:layout_constraintBottom_toBottomOf="@+id/box_code_query"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <View
         android:id="@+id/company"
@@ -61,7 +120,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="@dimen/space_15"
         android:background="@drawable/shape_white_min_radius"
-        app:layout_constraintTop_toBottomOf="@+id/user_no" />
+        app:layout_constraintTop_toBottomOf="@+id/list" />
 
     <View
         android:id="@+id/line1"

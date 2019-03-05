@@ -45,7 +45,7 @@ class PickOutDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Materi
 
     private lateinit var sapOrderNo: String
     private lateinit var orderId: String
-    private var listBean = ArrayList<MaterialDetails.ListBean>()
+    private lateinit var listBean: List<MaterialDetails.ListBean>
 
     private val presenter = PickOutPresenter(this)
 
@@ -114,7 +114,7 @@ class PickOutDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Materi
 
         for (i in 0 until size ){
             val view = recycler_reversal.getChildAt(i)
-            val checkBox = view.findViewById<CheckBox>(R.id.iv_tag)
+            val checkBox = view.findViewById<CheckBox>(R.id.check)
             if (checkBox.isChecked) {
                 val bean = MaterialDoneSave.ListBean()
                 bean.id = listBean[i].id
@@ -129,6 +129,7 @@ class PickOutDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Materi
 
         data.list = list
         data.orderId = orderId
+        data.moveType = "262"
 
         val json = DataUtils.toJson(data, 1)
 
@@ -139,6 +140,7 @@ class PickOutDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Materi
         if (list.isEmpty()) {
             return
         }
+        listBean = list
 
         val manager = LinearLayoutManager(ResourceUtil.getContext())
         recycler_reversal.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))

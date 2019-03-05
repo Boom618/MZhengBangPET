@@ -19,7 +19,7 @@ import com.zhy.adapter.recyclerview.base.ViewHolder
  *
  * 领料出库 待办详情
  */
-class BackGoodsTodoDetailAdapter(private val context: Context, layoutId: Int, datas: List<MaterialDetails.ListBean>)
+class BackGoodsTodoDetailAdapter(context: Context, layoutId: Int, datas: List<MaterialDetails.ListBean>)
     : CommonAdapter<MaterialDetails.ListBean>(context, layoutId, datas) {
 
 

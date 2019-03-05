@@ -27,6 +27,7 @@
         android:background="@drawable/shape_orange_radius"
         android:text="采购类型"
         android:padding="@dimen/space_5"
+        android:visibility="invisible"
         android:textColor="@color/orange_color"
         android:textSize="@dimen/text_14"
         app:layout_constraintStart_toStartOf="parent"

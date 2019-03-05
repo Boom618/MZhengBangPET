@@ -22,7 +22,7 @@ class MaterialDoneAdapter(context: Context, layoutId: Int, datas: List<MaterialL
                 .setText(R.id.tv_status, listBean.state!! + "")
                 .setText(R.id.tv_type, "type :" + listBean.type!!)
                 .setText(R.id.tv_date, listBean.inTime)
-                .setText(R.id.tv_supplier, "供应商：? ")
+                .setText(R.id.tv_supplier, "供应商编号：" + listBean.supplierNo)
 
     }
 }
