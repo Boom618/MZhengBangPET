@@ -1,6 +1,7 @@
 package com.ty.zbpet.presenter.material;
 
 import com.ty.zbpet.bean.CarPositionNoData;
+import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.material.MaterialDetails;
 import com.ty.zbpet.bean.material.MaterialList;
 import com.ty.zbpet.net.HttpMethods;
@@ -12,6 +13,7 @@ import java.util.List;
 
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
+import okhttp3.RequestBody;
 
 /**
  * @author TY on 2018/10/29.
@@ -78,7 +80,7 @@ public class PickOutPresenter {
      *
      * @param sapOrderNo
      */
-    public void fetchPickOutTodoListDetails(String sapOrderNo,String sapFirmNo) {
+    public void fetchPickOutTodoListDetails(String sapOrderNo, String sapFirmNo) {
 
 
         httpMethods.pickOutTodoListDetails(new SingleObserver<BaseResponse<MaterialDetails>>() {
@@ -107,7 +109,7 @@ public class PickOutPresenter {
                     ZBUiUtils.showToast("失败 : =" + pickOutDetailInfo.getMessage());
                 }
             }
-        }, sapOrderNo,sapFirmNo);
+        }, sapOrderNo, sapFirmNo);
     }
 
 
@@ -119,7 +121,6 @@ public class PickOutPresenter {
     public void checkCarCode(final int position, final String positionNo) {
 
         httpMethods.checkCarCode(new SingleObserver<CarPositionNoData>() {
-
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;
@@ -127,20 +128,49 @@ public class PickOutPresenter {
 
             @Override
             public void onError(Throwable e) {
-                ZBUiUtils.showToast(e.getMessage());
+                listInterface.showError(e.getMessage());
             }
 
             @Override
             public void onSuccess(CarPositionNoData responseInfo) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     // 库位码合法
-                    objInterface.showCarSuccess(position, responseInfo);
+                    listInterface.showCarSuccess(position, responseInfo);
                 } else {
-                    ZBUiUtils.showToast(responseInfo.getMessage());
+                    listInterface.showError(responseInfo.getMessage());
                 }
 
             }
         }, positionNo);
+    }
+
+    /**
+     * 待办保存
+     *
+     * @param body
+     */
+    public void pickOutTodoSave(RequestBody body) {
+        httpMethods.pickOutTodoSave(new SingleObserver<ResponseInfo>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo responseInfo) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    listInterface.saveSuccess();
+                } else {
+                    listInterface.showError(responseInfo.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                listInterface.showError(e.getMessage());
+            }
+        }, body);
+
     }
 
     /**
@@ -169,7 +199,7 @@ public class PickOutPresenter {
                     ZBUiUtils.showToast("失败 : =" + response.getMessage());
                 }
             }
-        },type);
+        }, type);
     }
 
     /**
@@ -200,5 +230,34 @@ public class PickOutPresenter {
                 }
             }
         }, sapOrderNo);
+    }
+
+    /**
+     * 出库保存
+     *
+     * @param body
+     */
+    public void pickOutDoneSave(RequestBody body) {
+        httpMethods.pickOutTodoSave(new SingleObserver<ResponseInfo>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo responseInfo) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    listInterface.saveSuccess();
+                } else {
+                    listInterface.showError(responseInfo.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                listInterface.showError(e.getMessage());
+
+            }
+        }, body);
     }
 }

@@ -144,7 +144,7 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
     override fun showCarSuccess(position: Int, carData: CarPositionNoData?) {
     }
 
-    override fun showSuccess() {
+    override fun saveSuccess() {
         finish()
     }
 

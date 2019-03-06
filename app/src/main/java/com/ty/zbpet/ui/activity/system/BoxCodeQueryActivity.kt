@@ -59,5 +59,7 @@ class BoxCodeQueryActivity : BaseActivity(), ScanBoxInterface {
     override fun ScanSuccess(position: Int, msg: String?) {
         ZBUiUtils.showToast(msg)
 
+
+
     }
 }

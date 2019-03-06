@@ -20,7 +20,7 @@ import com.ty.zbpet.data.SharedP
 import com.ty.zbpet.net.HttpMethods
 import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.material.BackGoodsPresenter
-import com.ty.zbpet.presenter.material.MaterialUiObjInterface
+import com.ty.zbpet.presenter.material.MaterialUiListInterface
 import com.ty.zbpet.ui.adapter.diffadapter.TodoCarCodeDiffUtil
 import com.ty.zbpet.ui.adapter.material.BackGoodsTodoDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
@@ -35,13 +35,14 @@ import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * @author TY on 2018/11/22.
  * 采购退货 待办详情
  */
 class BackGoodsTodoDetailActivity : BaseActivity()
-        , MaterialUiObjInterface<MaterialDetails>
+        , MaterialUiListInterface<MaterialDetails.ListBean>
         , ScanBoxInterface {
 
 
@@ -54,7 +55,7 @@ class BackGoodsTodoDetailActivity : BaseActivity()
     private lateinit var creatorNo: String
     private lateinit var content: String
 
-    private var list: ArrayList<MaterialDetails.ListBean> = ArrayList()
+    private var list: MutableList<MaterialDetails.ListBean> = ArrayList()
 
     private val scanner = ScanReader.getScannerInstance()
     private val scanObservable = ScanObservable(this)
@@ -92,7 +93,7 @@ class BackGoodsTodoDetailActivity : BaseActivity()
 
         initToolBar(R.string.back_goods, View.OnClickListener { view ->
             ZBUiUtils.hideInputWindow(view.context, view)
-            pickOutTodoSave(initTodoBody())
+            backTodoSave(initTodoBody())
         })
 
 
@@ -116,7 +117,7 @@ class BackGoodsTodoDetailActivity : BaseActivity()
     /**
      * 出库 保存
      */
-    private fun pickOutTodoSave(body: RequestBody?) {
+    private fun backTodoSave(body: RequestBody?) {
 
         if (body == null) {
             return
@@ -260,7 +261,6 @@ class BackGoodsTodoDetailActivity : BaseActivity()
             warehouseId = carData.list!![0].warehouseId
             positionId.put(position, carId)
 
-//            adapter.notifyItemChanged(position)
             val deepCopyList = DeepCopyData.deepCopyList(list)
 
             deepCopyList[position].positionNo = positionNo
@@ -273,9 +273,9 @@ class BackGoodsTodoDetailActivity : BaseActivity()
     }
 
 
-    override fun detailObjData(details: MaterialDetails) {
+    override fun showMaterial(lists: MutableList<MaterialDetails.ListBean>?) {
 
-        list = details.list!!
+        list = lists!!
 
         val manager = LinearLayoutManager(ResourceUtil.getContext())
         rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
@@ -304,7 +304,21 @@ class BackGoodsTodoDetailActivity : BaseActivity()
                 return false
             }
         })
+    }
 
+    override fun showLoading() {
+    }
+
+    override fun hideLoading() {
+    }
+
+    override fun saveSuccess() {
+        ZBUiUtils.showToast("成功")
+        finish()
+    }
+
+    override fun showError(msg: String?) {
+        ZBUiUtils.showToast(msg)
     }
 
     override fun onDestroy() {

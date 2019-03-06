@@ -33,12 +33,12 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 tv_arrival_in_storage,
                 tv_pick_out_storage,
                 tv_purchase_returns,
-                tv_purchase_in_storage,
-                tv_produce_in_storage,
-                tv_send_out_storage,
-                tv_return_in_storage,
+//                tv_purchase_in_storage,
+//                tv_produce_in_storage,
+//                tv_send_out_storage,
+//                tv_return_in_storage,
 //                tv_inventory,
-                tv_transfer_storage,
+//                tv_transfer_storage,
                 tv_person_center)
     }
 

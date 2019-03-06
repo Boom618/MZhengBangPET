@@ -46,8 +46,7 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
     private val presenter = BackGoodsPresenter(this)
 
     override val activityLayout: Int
-        get() = R.layout.activity_content_reversal//R.layout.activity_content_row_two
-
+        get() = R.layout.activity_content_reversal
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
 

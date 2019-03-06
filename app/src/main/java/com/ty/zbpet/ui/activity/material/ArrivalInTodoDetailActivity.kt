@@ -297,7 +297,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
         }
     }
 
-    override fun showSuccess() {
+    override fun saveSuccess() {
         finish()
     }
 

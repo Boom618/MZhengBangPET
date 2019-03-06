@@ -22,32 +22,6 @@ object CodeConstant {
     const val SERVICE_SUCCESS = "success"
 
     /**
-     * 原辅料：
-     *
-     *
-     * 待办详情中的输入信息
-     * ZKG 单位
-     * 库位码
-     * sap 物料批次号
-     */
-    val ET_ZKG = "et_zkg"
-    val ET_CODE = "et_code"
-    val ET_BULK_NUM = "et_bulk_num"
-    val ET_BATCH_NO = "et_batch_no"
-
-    /**
-     * ET_START_CODE ：开始码
-     * ET_END_CODE：结束码
-     * ET_NUMBER：数量
-     * ET_CONTENT：文本
-     * ET_PERCENT_INT：质检 含量
-     */
-    val ET_START_CODE = "start_code "
-    val ET_END_CODE = "end_code"
-    val ET_NUMBER = "number"
-    val ET_CONTENT = "content"
-
-    /**
      * ET_PERCENT_INT       :60 含量
      * ET_CONTENT_INT       :61 文本
      * ET_ZKG_INT           :62 zkg
@@ -59,30 +33,24 @@ object CodeConstant {
      * ET_CODE_FOCUS_INT    :68 库位码是否有焦点
      */
     const val ET_PERCENT_INT = 60
-    val ET_CONTENT_INT = 61
-    val ET_ZKG_INT = 62
     val ET_NUMBER_INT = 63
-    val ET_CODE_INT = 64
-    val ET_START_CODE_INT = 65
-    val ET_END_CODE_INT = 66
-    val ET_SAP_INT = 67
     val ET_CODE_FOCUS_INT = 68
     /**
      * 按键码 131 or 135 : K3A手柄键   139 : G3A F1键
      */
-    val KEY_CODE_131 = 131
-    val KEY_CODE_135 = 135
-    val KEY_CODE_139 = 139
+    const val KEY_CODE_131 = 131
+    const val KEY_CODE_135 = 135
+    const val KEY_CODE_139 = 139
 
     /**
      * 跳转 Activity 类型
      */
-    val ACTIVITY_TYPE = "acType"
+    const val ACTIVITY_TYPE = "acType"
 
     /**
      * 扫码保存的信息(准备删除)
      */
-    val SCAN_BOX_KEY = "scan"
+    const val SCAN_BOX_KEY = "scan"
 
     /**
      * 扫码字符集

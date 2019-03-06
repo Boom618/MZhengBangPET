@@ -8,7 +8,8 @@ public class ApiNameConstant {
     /**
      * 徐坤
      */
-    public static final String BASE_URL = "http://192.168.11.2:3099/";
+//    public static final String BASE_URL = "http://192.168.11.2:3099/";
+    public static final String BASE_URL = "http://jxsh.zhengbang.com:3309/";
 //    public static final String BASE_URL = "http://10.88.1.159:3099/";
 
     /**

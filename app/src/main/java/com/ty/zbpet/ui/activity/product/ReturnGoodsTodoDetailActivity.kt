@@ -172,9 +172,9 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
         val detail = ArrayList<ProductTodoSave.DetailsBean>()
 
         // TODO 获取用户选择的仓库信息
-        val houseId = DataUtils.getHouseId()
+//        val houseId = DataUtils.getHouseId()
 
-        val warehouseList = userInfo!!.warehouseList
+//        val warehouseList = userInfo!!.warehouseList
 
         // 仓库信息
 //        val warehouseId: String?

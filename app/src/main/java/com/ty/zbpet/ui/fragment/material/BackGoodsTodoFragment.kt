@@ -30,7 +30,7 @@ class BackGoodsTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialLi
     override fun showCarSuccess(position: Int, carData: CarPositionNoData?) {
     }
 
-    override fun showSuccess() {
+    override fun saveSuccess() {
     }
 
     override fun showError(msg: String?) {

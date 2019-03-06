@@ -96,7 +96,7 @@ public class ScanObservable {
                         ZBLog.INSTANCE.e("doOnNext: 保存成功：" + s + "\n");
 
                         // 存 position 和 解析出来的库位码值： 1@KWM565658908
-                        mCache.put(CodeConstant.INSTANCE.getSCAN_BOX_KEY(), position + "@" + s);
+                        mCache.put(CodeConstant.SCAN_BOX_KEY, position + "@" + s);
                     }
                 })
                 // 指定 Subscriber 的回调发生在主线程

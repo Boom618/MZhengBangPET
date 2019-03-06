@@ -38,7 +38,7 @@ class PickOutDoneFragment : BaseFragment(), MaterialUiListInterface<MaterialList
 
     }
 
-    override fun showSuccess() {
+    override fun saveSuccess() {
     }
 
     override fun showError(msg: String?) {

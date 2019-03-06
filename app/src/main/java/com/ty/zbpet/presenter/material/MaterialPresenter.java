@@ -208,7 +208,7 @@ public class MaterialPresenter {
             public void onSuccess(ResponseInfo responseInfo) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag()) ) {
                     // 入库成功（保存）
-                    materialListUi.showSuccess();
+                    materialListUi.saveSuccess();
                 } else {
                     materialListUi.showError(responseInfo.getMessage());
                 }
@@ -300,7 +300,7 @@ public class MaterialPresenter {
             @Override
             public void onSuccess(ResponseInfo responseInfo) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
-                    materialListUi.showSuccess();
+                    materialListUi.saveSuccess();
                 } else {
                     materialListUi.showError(responseInfo.getMessage());
                 }

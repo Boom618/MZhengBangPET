@@ -27,15 +27,6 @@ class ProductTodoSave {
     var goodsInfo: String? = null
 
     class DetailsBean {
-        /**
-         * positionId : 1
-         * number : 4
-         * goodsId : 1786
-         * sapMaterialBatchNo : sap物料批次号
-         * goodsQrCodeStart : qr00001
-         * goodsQrCodeEnd : qr00100
-         * boxQrCode : ["box001","box002","box003","box004"]
-         */
 
         var positionId: String? = null
         var number: String? = null

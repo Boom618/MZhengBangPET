@@ -98,7 +98,6 @@ abstract class BaseFragment : Fragment() {
      */
     private fun clearCache() {
         mCache!!.put(CodeConstant.SCAN_BOX_KEY, "")
-        mCache!!.put(CodeConstant.ET_ZKG, "")
     }
 
     override fun onDestroy() {

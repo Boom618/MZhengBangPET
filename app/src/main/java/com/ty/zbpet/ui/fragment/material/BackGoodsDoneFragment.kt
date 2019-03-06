@@ -35,7 +35,7 @@ class BackGoodsDoneFragment : BaseFragment(), MaterialUiListInterface<MaterialLi
 
     }
 
-    override fun showSuccess() {
+    override fun saveSuccess() {
     }
 
     override fun showError(msg: String?) {

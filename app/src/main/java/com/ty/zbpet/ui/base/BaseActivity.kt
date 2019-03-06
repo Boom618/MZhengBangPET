@@ -147,7 +147,6 @@ abstract class BaseActivity : AppCompatActivity() {
     private fun clearCache() {
         // 库位码 内容
         mCache!!.put(CodeConstant.SCAN_BOX_KEY, "")
-        mCache!!.put(CodeConstant.ET_ZKG, "")
 
         //DataUtils.clearId();
     }

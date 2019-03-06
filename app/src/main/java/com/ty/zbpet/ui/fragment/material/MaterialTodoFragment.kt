@@ -36,7 +36,7 @@ class MaterialTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialLis
 
     }
 
-    override fun showSuccess() {
+    override fun saveSuccess() {
     }
 
     override fun showError(msg: String?) {
@@ -59,7 +59,6 @@ class MaterialTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialLis
         view.refreshLayout!!.setRefreshHeader(MaterialHeader(view.context!!))
         // 设置 Footer 为 球脉冲 样式
         view.refreshLayout!!.setRefreshFooter(BallPulseFooter(view.context!!).setSpinnerStyle(SpinnerStyle.Scale))
-
 
         return view
 
@@ -97,7 +96,6 @@ class MaterialTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialLis
             adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                 override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
                     val intent = Intent(activity, ArrivalInTodoDetailActivity::class.java)
-//                     val intent = Intent(activity, ArrivalInTodoDetailActivityR::class.java)
                     intent.putExtra("sapOrderNo", list[position].sapOrderNo)
                     intent.putExtra("supplierNo", list[position].supplierNo)
                     intent.putExtra("creatorNo", list[position].creatorNo)

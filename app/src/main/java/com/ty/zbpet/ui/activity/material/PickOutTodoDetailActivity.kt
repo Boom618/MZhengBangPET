@@ -12,25 +12,24 @@ import android.widget.ImageView
 import com.pda.scanner.ScanReader
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.CarPositionNoData
-import com.ty.zbpet.bean.ResponseInfo
 import com.ty.zbpet.bean.material.MaterialDetails
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.data.DeepCopyData
 import com.ty.zbpet.data.SharedP
-import com.ty.zbpet.net.HttpMethods
 import com.ty.zbpet.net.RequestBodyJson
-import com.ty.zbpet.presenter.material.MaterialUiObjInterface
+import com.ty.zbpet.presenter.material.MaterialUiListInterface
 import com.ty.zbpet.presenter.material.PickOutPresenter
 import com.ty.zbpet.ui.adapter.diffadapter.TodoCarCodeDiffUtil
 import com.ty.zbpet.ui.adapter.material.PickingTodoDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
-import com.ty.zbpet.util.*
+import com.ty.zbpet.util.DataUtils
+import com.ty.zbpet.util.JsonStringMerge
+import com.ty.zbpet.util.ResourceUtil
+import com.ty.zbpet.util.ZBUiUtils
 import com.ty.zbpet.util.scan.ScanBoxInterface
 import com.ty.zbpet.util.scan.ScanObservable
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
-import io.reactivex.SingleObserver
-import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
 import java.text.SimpleDateFormat
@@ -41,18 +40,19 @@ import java.util.*
  * 领料出库 待办详情
  */
 class PickOutTodoDetailActivity : BaseActivity()
-        , MaterialUiObjInterface<MaterialDetails>
+        , MaterialUiListInterface<MaterialDetails.ListBean>
         , ScanBoxInterface {
 
-    lateinit var adapter: PickingTodoDetailAdapter
 
-    lateinit var selectTime: String
-    lateinit var sapOrderNo: String
-    lateinit var sapFirmNo: String
-    lateinit var content: String
+    private lateinit var adapter: PickingTodoDetailAdapter
 
-    lateinit var warehouseId: String
-    lateinit var warehouseNo: String
+    private lateinit var selectTime: String
+    private lateinit var sapOrderNo: String
+    private lateinit var sapFirmNo: String
+    private lateinit var content: String
+
+    private lateinit var warehouseId: String
+    private lateinit var warehouseNo: String
     private var list: MutableList<MaterialDetails.ListBean> = ArrayList()
 
     private val scanner = ScanReader.getScannerInstance()
@@ -66,7 +66,6 @@ class PickOutTodoDetailActivity : BaseActivity()
 
     override val activityLayout: Int
         get() = R.layout.activity_content_row_two
-
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
 
@@ -111,27 +110,7 @@ class PickOutTodoDetailActivity : BaseActivity()
         if (body == null) {
             return
         }
-
-        HttpMethods.getInstance().pickOutTodoSave(object : SingleObserver<ResponseInfo> {
-
-            override fun onSubscribe(d: Disposable) {
-
-            }
-
-            override fun onError(e: Throwable) {
-                ZBUiUtils.showToast(e.message)
-            }
-
-            override fun onSuccess(responseInfo: ResponseInfo) {
-                if (CodeConstant.SERVICE_SUCCESS == responseInfo.tag) {
-                    // 入库成功（保存）
-                    ZBUiUtils.showToast(responseInfo.message)
-                    runOnUiThread { finish() }
-                } else {
-                    ZBUiUtils.showToast(responseInfo.message)
-                }
-            }
-        }, body)
+        presenter.pickOutTodoSave(body)
     }
 
     private fun initTodoBody(): RequestBody? {
@@ -239,7 +218,6 @@ class PickOutTodoDetailActivity : BaseActivity()
             warehouseNo = carData.list!![0].warehouseNo!!
             positionId.put(position, carId)
 
-//            adapter.notifyItemChanged(position)
             val deepCopyList = DeepCopyData.deepCopyList(list)
 
             deepCopyList[position].positionNo = positionNo
@@ -252,9 +230,9 @@ class PickOutTodoDetailActivity : BaseActivity()
     }
 
 
-    override fun detailObjData(obj: MaterialDetails) {
+    override fun showMaterial(lists: MutableList<MaterialDetails.ListBean>?) {
 
-        list = obj.list!!
+        list = lists!!
         val manager = LinearLayoutManager(ResourceUtil.getContext())
         rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
         rv_in_storage_detail.layoutManager = manager
@@ -282,6 +260,21 @@ class PickOutTodoDetailActivity : BaseActivity()
                 return false
             }
         })
+    }
+
+    override fun showLoading() {
+    }
+
+    override fun hideLoading() {
+    }
+
+    override fun saveSuccess() {
+        ZBUiUtils.showToast("成功")
+        finish()
+    }
+
+    override fun showError(msg: String?) {
+        ZBUiUtils.showToast(msg)
     }
 
     override fun onDestroy() {

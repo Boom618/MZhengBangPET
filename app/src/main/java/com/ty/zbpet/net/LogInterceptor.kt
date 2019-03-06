@@ -51,6 +51,6 @@ class LogInterceptor : Interceptor {
 
     companion object {
 
-        var TAG = "Http = "
+       const val TAG = "Http = "
     }
 }

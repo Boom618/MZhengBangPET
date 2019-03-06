@@ -23,7 +23,6 @@ import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
-import kotlinx.android.synthetic.main.activity_main_todo_and_done.*
 import kotlinx.android.synthetic.main.zb_content_list_fragment.*
 import kotlinx.android.synthetic.main.zb_content_list_fragment.view.*
 
@@ -43,7 +42,7 @@ class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList
 
     }
 
-    override fun showSuccess() {
+    override fun saveSuccess() {
     }
 
     override fun showError(msg: String?) {

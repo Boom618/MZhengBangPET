@@ -38,7 +38,7 @@ public interface MaterialUiListInterface<T> {
     /**
      * 保存成功
      */
-    void showSuccess();
+    void saveSuccess();
 
     /**
      * 失败

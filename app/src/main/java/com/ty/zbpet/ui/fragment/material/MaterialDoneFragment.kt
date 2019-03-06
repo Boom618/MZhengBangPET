@@ -32,7 +32,7 @@ class MaterialDoneFragment : BaseFragment(), MaterialUiListInterface<MaterialLis
     override fun showCarSuccess(position: Int, carData: CarPositionNoData?) {
     }
 
-    override fun showSuccess() {
+    override fun saveSuccess() {
     }
 
     override fun showError(msg: String?) {
@@ -86,8 +86,6 @@ class MaterialDoneFragment : BaseFragment(), MaterialUiListInterface<MaterialLis
             refreshLayout.finishLoadMore(1000)
             ZBUiUtils.showToast("没有更多数据了")
         }
-
-
     }
 
 

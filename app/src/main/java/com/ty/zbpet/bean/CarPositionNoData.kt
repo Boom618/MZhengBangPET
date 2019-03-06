@@ -8,13 +8,6 @@ package com.ty.zbpet.bean
 class CarPositionNoData {
 
 
-    /**
-     * tag : success
-     * status : 100
-     * message :
-     * count : 25
-     * list : [{"id":1,"positionNo":"P000001","warehouseId":"10","warehouseNo":"CK201808000008","state":1,"type":3,"companyNo":"C000014","createdAt":"2018-09-01T07:59:12.000Z","updatedAt":"2018-09-13T02:20:33.000Z","warehouse.id":10,"warehouse.warehouseName":"仓库001","commonvalue.commonNo":"C02","commonvalue.commonValueNo":3,"commonvalue.commonValueName":"卖场1-库位类型"}]
-     */
 
     var tag: String? = null
     var status: Int = 0
@@ -23,23 +16,6 @@ class CarPositionNoData {
     var list: List<ListBean>? = null
 
     class ListBean {
-        /**
-         * id : 1
-         * positionNo : P000001
-         * warehouseId : 10
-         * warehouseNo : CK201808000008
-         * state : 1
-         * type : 3
-         * companyNo : C000014
-         * createdAt : 2018-09-01T07:59:12.000Z
-         * updatedAt : 2018-09-13T02:20:33.000Z
-         *
-         * warehouse.id : 10
-         * warehouse.warehouseName : 仓库001
-         * commonvalue.commonNo : C02
-         * commonvalue.commonValueNo : 3
-         * commonvalue.commonValueName : 卖场1-库位类型
-         */
 
         var id: String? = null
         var positionNo: String? = null

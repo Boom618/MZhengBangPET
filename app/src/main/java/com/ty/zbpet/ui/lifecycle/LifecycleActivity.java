@@ -21,7 +21,7 @@ public class LifecycleActivity extends AppCompatActivity implements LifecycleOwn
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_inventory_detail);
+        setContentView(R.layout.activity_content_row_two);
         // 添加了这一行代码 注册监听
         getLifecycle().addObserver(pick);
         pick.connectListener();
