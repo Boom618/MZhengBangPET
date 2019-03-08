@@ -86,8 +86,11 @@ public interface ApiService {
      *
      * @return
      */
+    @FormUrlEncoded
     @POST(ApiNameConstant.GET_MATERIAL_IN_WAREHOUSE_ORDER_LIST)
-    Single<BaseResponse<MaterialList>> getMaterialTodoList();
+    Single<BaseResponse<MaterialList>> getMaterialTodoList(@Field("sapOrderNo") String sapOrderNo,
+                                                           @Field("startDate") String startDate,
+                                                           @Field("endDate") String endDate);
 
     /**
      * 获取原辅料采购 待办 详情
@@ -128,7 +131,10 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_MATERIAL_PURCHASE_LIST)
-    Single<BaseResponse<MaterialList>> getMaterialDoneList(@Field("type") String type);
+    Single<BaseResponse<MaterialList>> getMaterialDoneList(@Field("type") String type,
+                                                           @Field("sapOrderNo") String sapOrderNo,
+                                                           @Field("startDate") String startDate,
+                                                           @Field("endDate") String endDate);
 
     /**
      * 获取原辅料采购 已办列表详情
@@ -156,8 +162,11 @@ public interface ApiService {
      *
      * @return
      */
+    @FormUrlEncoded
     @POST(ApiNameConstant.PICK_OUT_TODO_LIST)
-    Single<BaseResponse<MaterialList>> pickOutTodoList();
+    Single<BaseResponse<MaterialList>> pickOutTodoList(@Field("sapOrderNo") String sapOrderNo,
+                                                       @Field("startDate") String startDate,
+                                                       @Field("endDate") String endDate);
 
     /**
      * 领料出库 - 待办 详情
@@ -187,7 +196,10 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.PICK_OUT_DONE_LIST)
-    Single<BaseResponse<MaterialList>> pickOutDoneList(@Field("type") String type);
+    Single<BaseResponse<MaterialList>> pickOutDoneList(@Field("type") String type,
+                                                       @Field("sapOrderNo") String sapOrderNo,
+                                                       @Field("startDate") String startDate,
+                                                       @Field("endDate") String endDate);
 
     /**
      * 领料出库 - 已办详情
@@ -216,8 +228,11 @@ public interface ApiService {
      *
      * @return
      */
+    @FormUrlEncoded
     @POST(ApiNameConstant.GET_BACK_GOODS_TODO_LIST)
-    Single<BaseResponse<MaterialList>> getBackTodoList();
+    Single<BaseResponse<MaterialList>> getBackTodoList(@Field("sapOrderNo") String sapOrderNo,
+                                                       @Field("startDate") String startDate,
+                                                       @Field("endDate") String endDate);
 
     /**
      * 采购退货 待办列表 详情
@@ -249,7 +264,10 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_BACK_GOODS_DONE_LIST)
-    Single<BaseResponse<MaterialList>> getBackDoneList(@Field("type") String type);
+    Single<BaseResponse<MaterialList>> getBackDoneList(@Field("type") String type,
+                                                       @Field("sapOrderNo") String sapOrderNo,
+                                                       @Field("startDate") String startDate,
+                                                       @Field("endDate") String endDate);
 
     /**
      * 采购退货 已办详情

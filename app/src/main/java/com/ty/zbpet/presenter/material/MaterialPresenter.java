@@ -10,7 +10,9 @@ import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.util.ZBLog;
 import com.ty.zbpet.util.ZBUiUtils;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
@@ -85,7 +87,7 @@ public class MaterialPresenter {
     /**
      * 原辅料 待办 list  业务逻辑
      */
-    public void fetchTODOMaterial() {
+    public void fetchTODOMaterial(String sapOrderNo, String startDate, String endDate) {
 
         materialListUi.showLoading();
 
@@ -98,32 +100,23 @@ public class MaterialPresenter {
 
             @Override
             public void onError(Throwable e) {
-                ZBUiUtils.showToast(e.getMessage());
+                materialListUi.showError(e.getMessage());
             }
 
             @Override
-            public void onSuccess(BaseResponse<MaterialList> infoList) {
+            public void onSuccess(BaseResponse<MaterialList> response) {
                 materialListUi.hideLoading();
 
-                if (CodeConstant.SERVICE_SUCCESS.equals(infoList.getTag())) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
-                    if (infoList != null && infoList.getData().getList().size() != 0) {
-                        List<MaterialList.ListBean> list = infoList.getData().getList();
+                    List<MaterialList.ListBean> list = response.getData().getList();
 
-                        // 数据
-                        materialListUi.showMaterial(list);
-
-
-                        // 保存数据(数据库，缓存。。。)
-                        //materialModel.saveMaterial();
-
-                    } else {
-                        ZBUiUtils.showToast("没有采购入库待办数据");
-                    }
+                    materialListUi.showMaterial(list);
+                }else{
+                    materialListUi.showError(response.getMessage());
                 }
-
             }
-        });
+        },sapOrderNo,startDate,endDate);
 
     }
 
@@ -225,7 +218,7 @@ public class MaterialPresenter {
     /**
      * 原材料 已办 列表
      */
-    public void fetchDoneMaterial(String type) {
+    public void fetchDoneMaterial(String type,String sapOrderNo,String startDate,String endDate) {
         httpMethods.getMaterialDoneList(new SingleObserver<BaseResponse<MaterialList>>() {
 
             @Override
@@ -235,20 +228,21 @@ public class MaterialPresenter {
 
             @Override
             public void onError(Throwable e) {
-                ZBUiUtils.showToast(e.getMessage());
+                materialListUi.showError(e.getMessage());
             }
 
             @Override
-            public void onSuccess(BaseResponse<MaterialList> infoList) {
+            public void onSuccess(BaseResponse<MaterialList> response) {
 
-                if (CodeConstant.SERVICE_SUCCESS.equals(infoList.getTag())) {
-                    List<MaterialList.ListBean> list = infoList.getData().getList();
+                if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
+                    List<MaterialList.ListBean> list = response.getData().getList();
                     materialListUi.showMaterial(list);
                 } else {
-                    ZBUiUtils.showToast(infoList.getMessage());
+                    ZBUiUtils.showToast(response.getMessage());
+                    materialListUi.showError(response.getMessage());
                 }
             }
-        }, type);
+        }, type,sapOrderNo,startDate,endDate);
     }
 
     /**

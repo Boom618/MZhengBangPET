@@ -46,11 +46,12 @@ import java.util.ArrayList
  */
 class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<MaterialDetails.ListBean> {
     override val activityLayout: Int
-        get() = R.layout.activity_content_reversal//R.layout.activity_content_row_two
+        get() = R.layout.activity_content_reversal
 
     private lateinit var orderId: String
     private lateinit var warehouseId: String
     private lateinit var sapOrderNo: String
+    private lateinit var supplierName: String
 
     private lateinit var listBean: List<MaterialDetails.ListBean>
 
@@ -64,6 +65,7 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
     override fun initOneData() {
 
         sapOrderNo = intent.getStringExtra("sapOrderNo")
+        supplierName = intent.getStringExtra("supplierName")
         warehouseId = intent.getStringExtra("warehouseId")
         orderId = intent.getStringExtra("orderId")
     }
@@ -115,6 +117,7 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
         }
 
         data.list = list
+        data.supplierName = supplierName
         data.moveType = "106"
 
         val json = DataUtils.toJson(data, 1)

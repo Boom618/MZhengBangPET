@@ -165,7 +165,7 @@ class ProductDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
             val manager = LinearLayoutManager(ResourceUtil.getContext())
             rv_in_storage_detail!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
             rv_in_storage_detail!!.layoutManager = manager
-            adapter = ProductDoneDetailAdapter(this, R.layout.item_produce_detail_done, list!!)
+            adapter = ProductDoneDetailAdapter(this, R.layout.item_produce_detail_done, list)
             rv_in_storage_detail!!.adapter = adapter
 
             adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
@@ -174,7 +174,7 @@ class ProductDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
                     val rlDetail = holder.itemView.findViewById<View>(R.id.rl_detail)
                     val ivArrow = holder.itemView.findViewById<ImageView>(R.id.iv_arrow)
 
-                    val boxQrCodeList = list!![position].boxQrCode
+                    val boxQrCodeList = list[position].boxQrCode
 
                     val bindingCode = holder.itemView.findViewById<Button>(R.id.btn_binding_code)
 

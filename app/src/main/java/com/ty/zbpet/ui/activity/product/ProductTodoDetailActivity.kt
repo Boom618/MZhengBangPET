@@ -273,7 +273,7 @@ class ProductTodoDetailActivity : BaseActivity()
             val manager = LinearLayoutManager(ResourceUtil.getContext())
             rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
             rv_in_storage_detail.layoutManager = manager
-            adapter = ProductTodoDetailAdapter(this, R.layout.item_produce_detail_todo, oldList!!)
+            adapter = ProductTodoDetailAdapter(this, R.layout.item_produce_detail_todo, oldList)
             rv_in_storage_detail.adapter = adapter
 
             adapter?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {

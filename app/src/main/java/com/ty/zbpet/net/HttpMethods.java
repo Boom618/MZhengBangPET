@@ -152,8 +152,9 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getMaterialTodoList(SingleObserver<BaseResponse<MaterialList>> subscriber) {
-        mService.getMaterialTodoList()
+    public void getMaterialTodoList(SingleObserver<BaseResponse<MaterialList>> subscriber,
+                                    String sapOrderNo, String startDate, String endDate) {
+        mService.getMaterialTodoList(sapOrderNo, startDate, endDate)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -163,8 +164,8 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getMaterialTodoListDetail(SingleObserver<BaseResponse<MaterialDetails>> subscriber, String sapFirmNo,String sapOrderNo,String supplierNo) {
-        mService.getMaterialTodoListDetail(sapFirmNo,sapOrderNo,supplierNo)
+    public void getMaterialTodoListDetail(SingleObserver<BaseResponse<MaterialDetails>> subscriber, String sapFirmNo, String sapOrderNo, String supplierNo) {
+        mService.getMaterialTodoListDetail(sapFirmNo, sapOrderNo, supplierNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -198,8 +199,9 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getMaterialDoneList(SingleObserver<BaseResponse<MaterialList>> subscriber, String type) {
-        mService.getMaterialDoneList(type)
+    public void getMaterialDoneList(SingleObserver<BaseResponse<MaterialList>> subscriber, String type,
+                                    String sapOrderNo,String startDate,String endDate) {
+        mService.getMaterialDoneList(type,sapOrderNo,startDate,endDate)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -235,8 +237,9 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void pickOutTodoList(SingleObserver<BaseResponse<MaterialList>> subscriber) {
-        mService.pickOutTodoList()
+    public void pickOutTodoList(SingleObserver<BaseResponse<MaterialList>> subscriber,
+                                String sapOrderNo,String startDate,String endDate) {
+        mService.pickOutTodoList(sapOrderNo,startDate,endDate)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
 
@@ -248,8 +251,8 @@ public class HttpMethods {
      * @param subscriber
      * @param sapOrderNo
      */
-    public void pickOutTodoListDetails(SingleObserver<BaseResponse<MaterialDetails>> subscriber, String sapOrderNo,String sapFirmNo) {
-        mService.pickOutTodoListDetail(sapOrderNo,sapFirmNo)
+    public void pickOutTodoListDetails(SingleObserver<BaseResponse<MaterialDetails>> subscriber, String sapOrderNo, String sapFirmNo) {
+        mService.pickOutTodoListDetail(sapOrderNo, sapFirmNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -270,8 +273,9 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void pickOutDoneList(SingleObserver<BaseResponse<MaterialList>> subscriber, String type) {
-        mService.pickOutDoneList(type)
+    public void pickOutDoneList(SingleObserver<BaseResponse<MaterialList>> subscriber, String type,
+                                String sapOrderNo,String startDate,String endDate) {
+        mService.pickOutDoneList(type,sapOrderNo,startDate,endDate)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
 
@@ -309,8 +313,9 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getBackTodoList(SingleObserver<BaseResponse<MaterialList>> subscriber) {
-        mService.getBackTodoList()
+    public void getBackTodoList(SingleObserver<BaseResponse<MaterialList>> subscriber,
+                                String sapOrderNo,String startDate,String endDate) {
+        mService.getBackTodoList(sapOrderNo,startDate,endDate)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -321,8 +326,8 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getBackTodoListInfo(SingleObserver<BaseResponse<MaterialDetails>> subscriber, String sapOrderNo,String sapFirmNo,String supplierNo) {
-        mService.getBackTodoListInfo(sapOrderNo,sapFirmNo,supplierNo)
+    public void getBackTodoListInfo(SingleObserver<BaseResponse<MaterialDetails>> subscriber, String sapOrderNo, String sapFirmNo, String supplierNo) {
+        mService.getBackTodoListInfo(sapOrderNo, sapFirmNo, supplierNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -343,8 +348,9 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getBackDoneList(SingleObserver<BaseResponse<MaterialList>> subscriber, String type) {
-        mService.getBackDoneList(type)
+    public void getBackDoneList(SingleObserver<BaseResponse<MaterialList>> subscriber, String type,
+                                String sapOrderNo,String startDate,String endDate) {
+        mService.getBackDoneList(type,sapOrderNo,startDate,endDate)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -394,8 +400,8 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getBuyInOrderInfo(SingleObserver<BaseResponse<ProductDetails>> subscriber, String sapOrderNo,String sapFirmNo,String supplierNo) {
-        mService.getBuyInOrderInfo(sapOrderNo,sapFirmNo,supplierNo)
+    public void getBuyInOrderInfo(SingleObserver<BaseResponse<ProductDetails>> subscriber, String sapOrderNo, String sapFirmNo, String supplierNo) {
+        mService.getBuyInOrderInfo(sapOrderNo, sapFirmNo, supplierNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }

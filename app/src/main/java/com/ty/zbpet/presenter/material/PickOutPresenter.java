@@ -47,7 +47,7 @@ public class PickOutPresenter {
     /**
      * 待办列表
      */
-    public void fetchPickOutTodoList() {
+    public void fetchPickOutTodoList(String sapOrderNo,String startDate,String endDate) {
         httpMethods.pickOutTodoList(new SingleObserver<BaseResponse<MaterialList>>() {
 
             @Override
@@ -57,7 +57,7 @@ public class PickOutPresenter {
 
             @Override
             public void onError(Throwable e) {
-                ZBUiUtils.showToast(e.getMessage());
+                listInterface.showError(e.getMessage());
             }
 
             @Override
@@ -68,10 +68,10 @@ public class PickOutPresenter {
                     listInterface.showMaterial(list);
 
                 } else {
-                    ZBUiUtils.showToast("失败 : =" + response.getMessage());
+                    listInterface.showError(response.getMessage());
                 }
             }
-        });
+        },sapOrderNo,startDate,endDate);
     }
 
 
@@ -82,7 +82,6 @@ public class PickOutPresenter {
      */
     public void fetchPickOutTodoListDetails(String sapOrderNo, String sapFirmNo) {
 
-
         httpMethods.pickOutTodoListDetails(new SingleObserver<BaseResponse<MaterialDetails>>() {
 
             @Override
@@ -92,21 +91,21 @@ public class PickOutPresenter {
 
             @Override
             public void onError(Throwable e) {
-                ZBUiUtils.showToast("失败 : =" + e.getMessage());
+                listInterface.showError(e.getMessage());
 
             }
 
 
             @Override
-            public void onSuccess(BaseResponse<MaterialDetails> pickOutDetailInfo) {
+            public void onSuccess(BaseResponse<MaterialDetails> response) {
 
-                if (CodeConstant.SERVICE_SUCCESS.equals(pickOutDetailInfo.getTag())) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
-                    MaterialDetails data = pickOutDetailInfo.getData();
-                    objInterface.detailObjData(data);
+                    MaterialDetails data = response.getData();
+                    listInterface.showMaterial(data.getList());
 
                 } else {
-                    ZBUiUtils.showToast("失败 : =" + pickOutDetailInfo.getMessage());
+                    listInterface.showError(response.getMessage());
                 }
             }
         }, sapOrderNo, sapFirmNo);
@@ -176,7 +175,7 @@ public class PickOutPresenter {
     /**
      * 已办列表
      */
-    public void fetchPickOutDoneList(String type) {
+    public void fetchPickOutDoneList(String type,String sapOrderNo,String startDate,String endDate) {
         httpMethods.pickOutDoneList(new SingleObserver<BaseResponse<MaterialList>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -185,7 +184,7 @@ public class PickOutPresenter {
 
             @Override
             public void onError(Throwable e) {
-                ZBUiUtils.showToast(e.getMessage());
+                listInterface.showError(e.getMessage());
             }
 
             @Override
@@ -196,10 +195,10 @@ public class PickOutPresenter {
                     listInterface.showMaterial(list);
 
                 } else {
-                    ZBUiUtils.showToast("失败 : =" + response.getMessage());
+                    listInterface.showError(response.getMessage());
                 }
             }
-        }, type);
+        }, type,sapOrderNo,startDate,endDate);
     }
 
     /**

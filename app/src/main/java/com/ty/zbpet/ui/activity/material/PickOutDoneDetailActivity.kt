@@ -64,7 +64,6 @@ class PickOutDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Materi
         if (body == null) {
             return
         }
-
         presenter.pickOutDoneSave(body)
     }
 

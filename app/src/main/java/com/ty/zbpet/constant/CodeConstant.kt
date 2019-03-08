@@ -11,6 +11,7 @@ object CodeConstant {
     /**
      *  Java 非静态类中 调 Kotlin 常量字段, const val ,需要 添加 【 const 】 修饰
      */
+    const val DATE_SIMPLE_Y_M_D = "yyyy-MM-dd"
     const val DATE_SIMPLE_H_M = "yyyy-MM-dd HH:mm"
     const val DATE_SIMPLE_H_M_S = "yyyy-MM-dd HH:mm:ss"
     const val DATE_START_TIME = "2010-01-01 00:00"

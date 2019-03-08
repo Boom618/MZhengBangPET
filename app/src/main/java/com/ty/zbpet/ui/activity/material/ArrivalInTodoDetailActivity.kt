@@ -51,6 +51,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
 
     private lateinit var sapOrderNo: String
     private lateinit var supplierNo: String
+    private lateinit var supplierName: String
     private lateinit var creatorNo: String
     private lateinit var sapFirmNo: String
     private lateinit var content: String
@@ -84,6 +85,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
         sapFirmNo = intent.getStringExtra("sapFirmNo")
         sapOrderNo = intent.getStringExtra("sapOrderNo")
         supplierNo = intent.getStringExtra("supplierNo")
+        supplierName = intent.getStringExtra("supplierName")
         creatorNo = intent.getStringExtra("creatorNo")
         content = intent.getStringExtra("content")
 
@@ -158,8 +160,8 @@ class ArrivalInTodoDetailActivity : BaseActivity()
                 bean.inNumber = list[i].inNumber
                 bean.materialName = list[i].materialName
                 bean.materialNo = list[i].materialNo
-                bean.unit = list[i].unit
-                //bean.unit = viewUnit
+//                bean.unit = list[i].unit
+                bean.unit = viewUnit
 
                 detail.add(bean)
             }
@@ -176,6 +178,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
         requestBody.list = detail
         requestBody.warehouseId = warehouseId
         requestBody.supplierNo = supplierNo
+        requestBody.supplierName = supplierName
         requestBody.creatorNo = creatorNo
         requestBody.moveType = "105"
         requestBody.inTime = time

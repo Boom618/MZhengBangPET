@@ -2,11 +2,11 @@ package com.ty.zbpet.ui.lifecycle;
 
 import android.arch.lifecycle.LifecycleOwner;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.ty.zbpet.R;
 
-import androidx.annotation.Nullable;
 
 
 /**

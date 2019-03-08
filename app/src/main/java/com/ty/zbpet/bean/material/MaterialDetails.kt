@@ -18,6 +18,7 @@ class MaterialDetails {
     var content: String? = null
     var moveType: String? = null
     var supplierNo: String? = null
+    var supplierName: String? = null
     var creatorNo: String? = null
     var outTime: String? = null
     var inTime: String? = null

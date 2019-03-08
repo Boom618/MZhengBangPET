@@ -71,12 +71,12 @@ public class BackGoodsPresenter {
     /**
      * 获取待办 列表
      */
-    public void fetchBackTodoList() {
+    public void fetchBackTodoList(String sapOrderNo, String startDate, String endDate) {
 
         httpMethods.getBackTodoList(new SingleObserver<BaseResponse<MaterialList>>() {
             @Override
             public void onError(Throwable e) {
-                ZBUiUtils.showToast(e.getMessage());
+                materialListUi.showError(e.getMessage());
             }
 
             @Override
@@ -92,24 +92,22 @@ public class BackGoodsPresenter {
 
                     materialListUi.showMaterial(list);
                 } else {
-                    ZBUiUtils.showToast(response.getMessage());
+                    materialListUi.showError(response.getMessage());
                 }
-
             }
-        });
+        }, sapOrderNo, startDate, endDate);
     }
 
 
     /**
      * 获取待办 详情
      */
-    public void fetchBackTodoListInfo(String sapOrderNo,String sapFirmNo,String supplierNo) {
+    public void fetchBackTodoListInfo(String sapOrderNo, String sapFirmNo, String supplierNo) {
 
         httpMethods.getBackTodoListInfo(new SingleObserver<BaseResponse<MaterialDetails>>() {
             @Override
             public void onError(Throwable e) {
-                ZBUiUtils.showToast(e.getMessage());
-
+                materialListUi.showError(e.getMessage());
             }
 
             @Override
@@ -122,14 +120,14 @@ public class BackGoodsPresenter {
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
-                    materialObjUi.detailObjData(response.getData());
+                    materialListUi.showMaterial(response.getData().getList());
 
                 } else {
-                    ZBUiUtils.showToast(response.getMessage());
+                    materialListUi.showError(response.getMessage());
                 }
 
             }
-        }, sapOrderNo,sapFirmNo,supplierNo);
+        }, sapOrderNo, sapFirmNo, supplierNo);
     }
 
 
@@ -156,7 +154,7 @@ public class BackGoodsPresenter {
             public void onSuccess(CarPositionNoData responseInfo) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     // 库位码合法
-                    materialObjUi.showCarSuccess(position, responseInfo);
+                    materialListUi.showCarSuccess(position, responseInfo);
                 } else {
                     ZBUiUtils.showToast(responseInfo.getMessage());
                 }
@@ -168,31 +166,31 @@ public class BackGoodsPresenter {
     /**
      * 已办 列表
      */
-    public void fetchBackDoneList(String type) {
+    public void fetchBackDoneList(String type, String sapOrderNo, String startDate, String endDate) {
         httpMethods.getBackDoneList(new SingleObserver<BaseResponse<MaterialList>>() {
             @Override
             public void onError(Throwable e) {
-                ZBUiUtils.showToast(e.getMessage());
+                materialListUi.showError(e.getMessage());
             }
 
             @Override
             public void onSubscribe(Disposable d) {
-
+                disposable = d;
             }
 
             @Override
-            public void onSuccess(BaseResponse<MaterialList> infoList) {
+            public void onSuccess(BaseResponse<MaterialList> response) {
 
-                if (CodeConstant.SERVICE_SUCCESS.equals(infoList.getTag())) {
-                    if (null != infoList && infoList.getData() != null) {
-                        List<MaterialList.ListBean> list = infoList.getData().getList();
+                if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
+                    if (null != response && response.getData() != null) {
+                        List<MaterialList.ListBean> list = response.getData().getList();
                         materialListUi.showMaterial(list);
                     }
                 } else {
-                    ZBUiUtils.showToast(infoList.getMessage());
+                    materialListUi.showError(response.getMessage());
                 }
             }
-        }, type);
+        }, type, sapOrderNo, startDate, endDate);
     }
 
     /**
@@ -202,22 +200,22 @@ public class BackGoodsPresenter {
         httpMethods.getBackDoneListInfo(new SingleObserver<BaseResponse<MaterialDetails>>() {
             @Override
             public void onError(Throwable e) {
-                ZBUiUtils.showToast(e.getMessage());
+                materialListUi.showError(e.getMessage());
             }
 
             @Override
             public void onSubscribe(Disposable d) {
-
+                disposable = d;
             }
 
             @Override
             public void onSuccess(BaseResponse<MaterialDetails> response) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
-                    materialObjUi.detailObjData(response.getData());
+                    materialListUi.showMaterial(response.getData().getList());
 
                 } else {
-                    ZBUiUtils.showToast(response.getMessage());
+                    materialListUi.showError(response.getMessage());
                 }
             }
         }, orderId);

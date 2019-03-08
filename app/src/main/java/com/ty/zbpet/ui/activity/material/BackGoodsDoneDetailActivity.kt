@@ -12,6 +12,7 @@ import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.net.HttpMethods
 import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.material.BackGoodsPresenter
+import com.ty.zbpet.presenter.material.MaterialUiListInterface
 import com.ty.zbpet.presenter.material.MaterialUiObjInterface
 import com.ty.zbpet.ui.adapter.material.BackGoodsDoneDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
@@ -29,8 +30,7 @@ import java.util.*
  * @author TY on 2018/11/22.
  * 采购退货 已办详情
  */
-class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiObjInterface<MaterialDetails> {
-
+class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiListInterface<MaterialDetails.ListBean> {
 
     lateinit var adapter: BackGoodsDoneDetailAdapter
 
@@ -41,7 +41,7 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
 
     lateinit var orderId: String
 
-    private var listBean  = ArrayList<MaterialDetails.ListBean>()
+    private var listBean  = mutableListOf<MaterialDetails.ListBean>()
 
     private val presenter = BackGoodsPresenter(this)
 
@@ -126,9 +126,9 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
         return RequestBodyJson.requestBody(json)
     }
 
-    override fun detailObjData(obj: MaterialDetails) {
+    override fun showMaterial(list: MutableList<MaterialDetails.ListBean>) {
 
-        listBean = obj.list!!
+        listBean = list
         warehouseId = listBean[0].warehouseId!!
 
         val manager = LinearLayoutManager(ResourceUtil.getContext())
@@ -142,6 +142,19 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiObjInterface<Mater
 
     override fun showCarSuccess(position: Int, carData: CarPositionNoData) {
 
+    }
+
+    override fun showLoading() {
+    }
+
+    override fun hideLoading() {
+    }
+
+    override fun saveSuccess() {
+    }
+
+    override fun showError(msg: String?) {
+        ZBUiUtils.showToast(msg)
     }
 
 

@@ -14,6 +14,7 @@ class MaterialDoneSave {
     var moveType: String? = null
     var sapProcOrder: String? = null
     var sapOrderNo: String? = null
+    var supplierName: String? = null
     var positionId: String? = null
     var outTime: String? = null
     var remark: String? = null

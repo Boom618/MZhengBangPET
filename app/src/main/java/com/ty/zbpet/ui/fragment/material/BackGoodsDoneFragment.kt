@@ -59,7 +59,7 @@ class BackGoodsDoneFragment : BaseFragment(), MaterialUiListInterface<MaterialLi
         isPrepared = true
         view.refreshLayout!!.setRefreshHeader(MaterialHeader(view.context))
         //设置 Footer 为 球脉冲 样式
-        view.refreshLayout!!.setRefreshFooter(BallPulseFooter(view.context).setSpinnerStyle(SpinnerStyle.Scale))
+        //view.refreshLayout!!.setRefreshFooter(BallPulseFooter(view.context).setSpinnerStyle(SpinnerStyle.Scale))
 
         return view
     }
@@ -68,7 +68,7 @@ class BackGoodsDoneFragment : BaseFragment(), MaterialUiListInterface<MaterialLi
     override fun loadData() {
         // 第一次获取数据  Kotlin 字段有下划线的是父类属性
         if (isPrepared && isVisble) {
-            presenter.fetchBackDoneList(CodeConstant.BACK_GOODS_TYPE)
+            presenter.fetchBackDoneList(CodeConstant.BACK_GOODS_TYPE,"","","")
         }
     }
 
@@ -79,14 +79,14 @@ class BackGoodsDoneFragment : BaseFragment(), MaterialUiListInterface<MaterialLi
             // 传入 false 表示刷新失败
             refreshLayout.finishRefresh(1000)
             // 刷新数据
-            presenter.fetchBackDoneList(CodeConstant.BACK_GOODS_TYPE)
+            presenter.fetchBackDoneList(CodeConstant.BACK_GOODS_TYPE,"","","")
             refresh = true
         }
-        refreshLayout!!.setOnLoadMoreListener { refreshLayout ->
-            // 传入 false 表示刷新失败
-            refreshLayout.finishLoadMore(1000)
-            ZBUiUtils.showToast("没有更多数据了")
-        }
+//        refreshLayout!!.setOnLoadMoreListener { refreshLayout ->
+//            // 传入 false 表示刷新失败
+//            refreshLayout.finishLoadMore(1000)
+//            ZBUiUtils.showToast("没有更多数据了")
+//        }
     }
 
 

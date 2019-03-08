@@ -5,6 +5,11 @@
     <color name="viewfinder_laser_transparent">#0003A9F4</color>
     <!--<color name="viewfinder_frame">@color/theme_color</color>-->
 
+    <color name="colorPrimary">#0B69B8</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <!--<color name="colorAccent">#D81B60</color>-->
+    <color name="colorAccent">#6f60aa</color>
+
     <color name="theme_color">#0B69B8</color>
     <color name="white">#FFFFFF</color>
     <color name="red">#d71345</color>

@@ -145,31 +145,6 @@ public class ZBUiUtils {
     /**
      * 选择 Dialog
      *
-     * @param context
-     * @param data
-     * @param textView
-     */
-    public static void selectDialog(Context context, final List<String> data, final TextView textView) {
-
-        NormalSelectionDialog.Builder builder = new NormalSelectionDialog.Builder(context);
-
-        builder.setTitleText("选择供应商")
-                .setOnItemListener(new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        textView.setText(data.get(which));
-                        dialog.dismiss();
-                    }
-                })
-                .build()
-                .setDatas(data)
-                .show();
-
-    }
-
-    /**
-     * 选择 Dialog
-     *
      * @param context  上下文
      * @param type     仓库还是商品
      * @param position 列表中的哪一列
@@ -203,30 +178,6 @@ public class ZBUiUtils {
     }
 
 
-    /**
-     * 发货出库
-     * 删除该 item
-     *
-     * @param context
-     */
-    public static void deleteItemDialog(Context context, String goodsName, NormalAlertDialog.onNormalOnclickListener listener) {
-        NormalAlertDialog dialog = new NormalAlertDialog.Builder(context)
-                .setTitleVisible(true)
-                .setTitleText("删除数据？")
-                .setRightButtonText("确认")
-                .setLeftButtonText("取消")
-                .setContentText(goodsName)
-                .setRightListener(listener)
-                .setLeftListener(new NormalAlertDialog.onNormalOnclickListener() {
-                    @Override
-                    public void onNormalClick(NormalAlertDialog dialog) {
-                        dialog.dismiss();
-                    }
-                })
-                .build();
-
-        dialog.show();
-    }
 
 
     /**

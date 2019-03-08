@@ -19,10 +19,8 @@ class MaterialDoneAdapter(context: Context, layoutId: Int, datas: List<MaterialL
     override fun convert(holder: ViewHolder, listBean: MaterialList.ListBean, position: Int) {
 
         holder.setText(R.id.tv_no, listBean.sapOrderNo)
-                .setText(R.id.tv_status, listBean.state!! + "")
-                .setText(R.id.tv_type, "type :" + listBean.type!!)
                 .setText(R.id.tv_date, listBean.inTime)
-                .setText(R.id.tv_supplier, "供应商编号：" + listBean.supplierNo)
+                .setText(R.id.tv_supplier, "供应商名称：" + listBean.supplierName)
 
     }
 }

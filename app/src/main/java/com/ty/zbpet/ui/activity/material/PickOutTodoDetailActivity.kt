@@ -53,7 +53,7 @@ class PickOutTodoDetailActivity : BaseActivity()
 
     private lateinit var warehouseId: String
     private lateinit var warehouseNo: String
-    private var list: MutableList<MaterialDetails.ListBean> = ArrayList()
+    private var list: MutableList<MaterialDetails.ListBean> = mutableListOf()
 
     private val scanner = ScanReader.getScannerInstance()
     private val scanObservable = ScanObservable(this)

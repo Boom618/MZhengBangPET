@@ -34,8 +34,7 @@ class MaterialTodoDetailAdapter(context: Context, layoutId: Int, datas: List<Mat
 
         val itemView = holder.itemView
 
-        val radioButton = itemView.findViewById<RadioButton>(R.id.rb_kg)
-        radioButton.isChecked = true
+
         // 库位码
         val etCode = itemView.findViewById<EditText>(R.id.et_code)
         // TYPE_NULL 禁止手机软键盘  TYPE_CLASS_TEXT : 开启软键盘。
@@ -47,6 +46,8 @@ class MaterialTodoDetailAdapter(context: Context, layoutId: Int, datas: List<Mat
             SharedP.putHasFocusAndPosition(view.context,hasFocus,position)
         }
         if (payloads.isEmpty()) {
+            val radioButton = itemView.findViewById<RadioButton>(R.id.rb_kg)
+            radioButton.isChecked = true
             val tvName = itemView.findViewById<TextView>(R.id.tv_name)
             tvName.text = info.materialName
 

@@ -22,6 +22,8 @@
         android:drawablePadding="@dimen/space_10"
         android:hint="请输入单号"
         android:padding="@dimen/space_7"
+        android:inputType="number"
+        android:imeOptions="actionSearch"
         android:textColor="@color/txt_minor_color"
         android:textSize="@dimen/text_14" />
 
@@ -54,7 +56,7 @@
             android:background="@drawable/shape_black_min_radius"
             android:gravity="center_vertical|center_horizontal"
             android:padding="@dimen/space_5"
-            android:text="2018-08-31 14:18"
+            android:text="2018-08-31"
             android:textColor="@color/txt_main_color"
             android:textSize="@dimen/text_14" />
 
@@ -67,7 +69,7 @@
             android:background="@drawable/shape_black_min_radius"
             android:gravity="center_vertical|center_horizontal"
             android:padding="@dimen/space_5"
-            android:text="2018-08-31 14:18"
+            android:text="2019-01-31"
             android:textColor="@color/txt_main_color"
             android:textSize="@dimen/text_14" />
 
