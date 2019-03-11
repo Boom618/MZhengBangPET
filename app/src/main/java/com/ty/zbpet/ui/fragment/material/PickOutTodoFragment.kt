@@ -15,6 +15,7 @@ import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.CarPositionNoData
+import com.ty.zbpet.bean.SearchMessage
 import com.ty.zbpet.bean.material.MaterialList
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
@@ -30,6 +31,9 @@ import com.ty.zbpet.util.ZBUiUtils
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import kotlinx.android.synthetic.main.zb_content_list_fragment.*
 import kotlinx.android.synthetic.main.zb_content_list_fragment.view.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 
 /**
@@ -51,75 +55,7 @@ class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList
         get() = R.layout.zb_content_list_fragment
 
     override fun onBaseCreate(view: View): View {
-
-        val searchView = activity!!.findViewById<EditText>(R.id.et_search)
-        val leftTime = activity!!.findViewById<TextView>(R.id.tv_time_left)
-        val rightTime = activity!!.findViewById<TextView>(R.id.tv_time_right)
-
-        val currentTime = TimeWidget.getCurrentTime()
-        var currentYear = TimeWidget.getCurrentYear()
-        var currentMonth = TimeWidget.getCurrentMonth()
-        if (currentMonth == 1) {
-            currentYear--
-            currentMonth = 12
-        } else {
-            currentMonth--
-        }
-        val month = if (currentMonth < 10) {
-            "0$currentMonth"
-        } else {
-            "$currentMonth"
-        }
-        leftTime.text = "$currentYear-$month-1"
-        rightTime.text = currentTime
-
-        leftTime.setOnClickListener {
-            ZBUiUtils.hideInputWindow(it.context, it)
-            TimeWidget.showPickDate(it.context) { date, v ->
-                val selectTime = TimeWidget.getTime(CodeConstant.DATE_SIMPLE_Y_M_D, date)
-                val rightString = rightTime.text.toString()
-                val sapOrderNo = searchView.text.toString()
-
-                val startTime = TimeWidget.StringToDate(selectTime)
-                val endTime = TimeWidget.StringToDate(rightString)
-                val result = TimeWidget.DateComparison(startTime, endTime)
-                if (result) {
-                    leftTime.text = selectTime
-                    materialPresenter.fetchPickOutTodoList(sapOrderNo, selectTime,rightString)
-                } else {
-                    ZBUiUtils.showToast("开始时间不能大于结束时间")
-                }
-            }
-        }
-
-        rightTime.setOnClickListener {
-            ZBUiUtils.hideInputWindow(it.context, it)
-            TimeWidget.showPickDate(it.context) { date, v ->
-                val selectTime = TimeWidget.getTime(CodeConstant.DATE_SIMPLE_Y_M_D, date)
-                val sapOrderNo = searchView.text.toString()
-                val leftString = leftTime.text.toString()
-
-                val startTime = TimeWidget.StringToDate(leftString)
-                val endTime = TimeWidget.StringToDate(selectTime)
-                val result = TimeWidget.DateComparison(startTime, endTime)
-                if (result) {
-                    rightTime.text = selectTime
-                    materialPresenter.fetchPickOutTodoList(sapOrderNo, leftString, selectTime)
-                } else {
-                    ZBUiUtils.showToast("结束时间不能小于开始时间")
-                }
-            }
-        }
-
-        searchView.setOnEditorActionListener { v, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                val searchString = v.text.toString().trim { it <= ' ' }
-                materialPresenter.fetchPickOutTodoList(searchString, "", "")
-                ZBUiUtils.hideInputWindow(v.context, v)
-            }
-            true
-        }
-
+        EventBus.getDefault().register(this)
         // 设置 Header 样式
         view.refreshLayout!!.setRefreshHeader(MaterialHeader(this.context!!))
         // 设置 Footer 为 球脉冲 样式
@@ -152,7 +88,6 @@ class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList
     override fun showMaterial(list: List<MaterialList.ListBean>) {
         if (list.isEmpty()) {
             ZBUiUtils.showToast("领料出库没有找到结果")
-            return
         }
 
         LayoutInit.initLayoutManager(ResourceUtil.getContext(), recyclerView)
@@ -178,6 +113,15 @@ class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList
         })
 
     }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEventMainThread(event: SearchMessage) {
+        if (isVisble) {
+            val search = event.getSearch()
+            val startTime = event.leftTime()
+            val endTime = event.rightTime()
+            materialPresenter.fetchPickOutTodoList(search,startTime,endTime)
+        }
+    }
 
     override fun showCarSuccess(position: Int, carData: CarPositionNoData?) {
 
@@ -196,6 +140,12 @@ class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList
 
     override fun hideLoading() {
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        materialPresenter.dispose()
+        EventBus.getDefault().unregister(this)
     }
 
     companion object {

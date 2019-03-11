@@ -238,7 +238,6 @@ public class MaterialPresenter {
                     List<MaterialList.ListBean> list = response.getData().getList();
                     materialListUi.showMaterial(list);
                 } else {
-                    ZBUiUtils.showToast(response.getMessage());
                     materialListUi.showError(response.getMessage());
                 }
             }

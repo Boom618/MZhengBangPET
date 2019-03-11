@@ -224,7 +224,7 @@
         android:drawablePadding="@dimen/space_3"
         android:gravity="center"
         android:padding="@dimen/space_3"
-        android:text="@string/label_check"
+        android:text="@string/label_inventory"
         android:textColor="@color/white"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintLeft_toLeftOf="parent"

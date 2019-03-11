@@ -93,4 +93,9 @@ class LoginActivity : BaseActivity(), UserInterface {
 
         ZBUiUtils.showToast(e)
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.dispose()
+    }
 }

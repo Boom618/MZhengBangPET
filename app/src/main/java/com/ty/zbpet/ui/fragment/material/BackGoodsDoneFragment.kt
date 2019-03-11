@@ -10,6 +10,7 @@ import com.scwang.smartrefresh.layout.constant.SpinnerStyle
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.CarPositionNoData
+import com.ty.zbpet.bean.SearchMessage
 import com.ty.zbpet.bean.material.MaterialList
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.presenter.material.BackGoodsPresenter
@@ -23,6 +24,9 @@ import com.ty.zbpet.util.ZBUiUtils
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import kotlinx.android.synthetic.main.fragment_recyclerview.*
 import kotlinx.android.synthetic.main.fragment_recyclerview.view.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * @author TY on 2018/11/26.
@@ -55,7 +59,7 @@ class BackGoodsDoneFragment : BaseFragment(), MaterialUiListInterface<MaterialLi
         get() = R.layout.fragment_recyclerview
 
     override fun onBaseCreate(view: View): View {
-
+        EventBus.getDefault().register(this)
         isPrepared = true
         view.refreshLayout!!.setRefreshHeader(MaterialHeader(view.context))
         //设置 Footer 为 球脉冲 样式
@@ -113,9 +117,17 @@ class BackGoodsDoneFragment : BaseFragment(), MaterialUiListInterface<MaterialLi
                     return false
                 }
             })
-        } else {
-            // 刷新列表
-            materialAdapter!!.notifyDataSetChanged()
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEventMainThread(event: SearchMessage) {
+        if (isVisble) {
+            refresh = true
+            val search = event.getSearch()
+            val startTime = event.leftTime()
+            val endTime = event.rightTime()
+            presenter.fetchBackDoneList(CodeConstant.BACK_GOODS_TYPE,search,startTime,endTime)
         }
     }
 
@@ -125,6 +137,11 @@ class BackGoodsDoneFragment : BaseFragment(), MaterialUiListInterface<MaterialLi
 
     override fun hideLoading() {
 
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.dispose()
+        EventBus.getDefault().unregister(this)
     }
 
     companion object {
