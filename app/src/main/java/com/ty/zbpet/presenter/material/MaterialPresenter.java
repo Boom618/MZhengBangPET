@@ -4,15 +4,12 @@ import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.material.MaterialDetails;
 import com.ty.zbpet.bean.material.MaterialList;
+import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
-import com.ty.zbpet.constant.CodeConstant;
-import com.ty.zbpet.util.ZBLog;
 import com.ty.zbpet.util.ZBUiUtils;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
@@ -30,15 +27,6 @@ public class MaterialPresenter {
      */
     private MaterialUiListInterface materialListUi;
 
-    /**
-     * 详情 接口
-     */
-    private MaterialUiObjInterface materialObjUi;
-
-    /**
-     * model 数据接口
-     */
-    private MaterialModelInterface materialModel = new MaterialModelInterfaceImpl();
 
     /**
      * API 网络
@@ -57,26 +45,6 @@ public class MaterialPresenter {
         httpMethods = HttpMethods.getInstance();
     }
 
-    /**
-     * 接收 object UI 接口
-     *
-     * @param materialObjUi
-     */
-    public MaterialPresenter(MaterialUiObjInterface materialObjUi) {
-        this.materialObjUi = materialObjUi;
-        httpMethods = HttpMethods.getInstance();
-    }
-
-    /**
-     * 接收 list UI 接口  And  mode 接口
-     *
-     * @param materialListUi
-     * @param materialModel
-     */
-    public MaterialPresenter(MaterialUiListInterface materialListUi, MaterialModelInterface materialModel) {
-        this.materialListUi = materialListUi;
-        this.materialModel = materialModel;
-    }
 
     public void dispose() {
         if (disposable != null) {

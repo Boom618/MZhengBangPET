@@ -29,7 +29,6 @@ class MaterialList {
         var inTime: String? = null
         var outTime: String? = null
         var sapOrderNo: String? = null
-        var mInWarehouseOrderId: String? = null
         var supplierName: String? = null
         var materialName: String? = null
         var orderId: String? = null

@@ -4,15 +4,9 @@ package com.ty.zbpet.ui.fragment.material
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.widget.EditText
-import android.widget.TextView
 import com.scwang.smartrefresh.header.MaterialHeader
-import com.scwang.smartrefresh.layout.constant.SpinnerStyle
-import com.scwang.smartrefresh.layout.footer.BallPulseFooter
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.CarPositionNoData
 import com.ty.zbpet.bean.SearchMessage
@@ -20,13 +14,14 @@ import com.ty.zbpet.bean.material.MaterialList
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
 import com.ty.zbpet.presenter.material.PickOutPresenter
+import com.ty.zbpet.ui.activity.material.PickOutDoneDetailActivity
 import com.ty.zbpet.ui.activity.material.PickOutTodoDetailActivity
 import com.ty.zbpet.ui.adapter.LayoutInit
+import com.ty.zbpet.ui.adapter.material.PickOutDoneAdapter
 import com.ty.zbpet.ui.adapter.material.PickOutTodoAdapter
 import com.ty.zbpet.ui.base.BaseFragment
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.ResourceUtil
-import com.ty.zbpet.util.TimeWidget
 import com.ty.zbpet.util.ZBUiUtils
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import kotlinx.android.synthetic.main.zb_content_list_fragment.*
@@ -47,9 +42,12 @@ import org.greenrobot.eventbus.ThreadMode
  * 领料出库 待办列表
  */
 class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList.ListBean> {
-    private var adapter: PickOutTodoAdapter? = null
 
-    private val materialPresenter = PickOutPresenter(this)
+    private lateinit var fragmentType:String
+    private var adapterTodo: PickOutTodoAdapter? = null
+    private var adapterDone: PickOutDoneAdapter? = null
+
+    private val presenter = PickOutPresenter(this)
 
     override val fragmentLayout: Int
         get() = R.layout.zb_content_list_fragment
@@ -64,7 +62,11 @@ class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList
     }
 
     override fun loadData() {
-        materialPresenter.fetchPickOutTodoList("", "", "")
+        fragmentType = arguments!!.getString(CodeConstant.FRAGMENT_TYPE)!!
+        when (fragmentType) {
+            CodeConstant.FRAGMENT_TODO -> presenter.fetchPickOutTodoList("", "", "")
+            CodeConstant.FRAGMENT_DONE -> presenter.fetchPickOutDoneList(CodeConstant.PICK_OUT_TYPE,"","","")
+        }
     }
 
     override fun onResume() {
@@ -74,7 +76,10 @@ class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList
             // 传入 false 表示刷新失败
             refreshLayout.finishRefresh(1000)
             // 刷新数据
-            materialPresenter.fetchPickOutTodoList("", "", "")
+            when (fragmentType) {
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchPickOutTodoList("", "", "")
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchPickOutDoneList(CodeConstant.PICK_OUT_TYPE,"","","")
+            }
         }
 //        refreshLayout!!.setOnLoadMoreListener { refreshLayout ->
 //            // 传入 false 表示刷新失败
@@ -91,35 +96,59 @@ class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList
         }
 
         LayoutInit.initLayoutManager(ResourceUtil.getContext(), recyclerView)
-        if (adapter == null) {
+        if (adapterTodo == null) {
             recyclerView!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
         }
-        adapter = PickOutTodoAdapter(context!!, R.layout.item_pick_out_todo, list)
-        recyclerView!!.adapter = adapter
+        when (fragmentType) {
+            CodeConstant.FRAGMENT_TODO -> {
+                adapterTodo = PickOutTodoAdapter(context!!, R.layout.item_pick_out_todo, list)
+                recyclerView!!.adapter = adapterTodo
 
-        adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
-            override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
-                val intent = Intent(activity, PickOutTodoDetailActivity::class.java)
-                intent.putExtra("sapOrderNo", list[position].sapOrderNo)
-                intent.putExtra("sapFirmNo", list[position].sapFirmNo)
-                intent.putExtra("content", list[position].content)
-                intent.putExtra("supplierId", list[position].supplierId)
-                startActivity(intent)
+                adapterTodo!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+                    override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
+                        val intent = Intent(activity, PickOutTodoDetailActivity::class.java)
+                        intent.putExtra("sapOrderNo", list[position].sapOrderNo)
+                        intent.putExtra("sapFirmNo", list[position].sapFirmNo)
+                        intent.putExtra("content", list[position].content)
+                        intent.putExtra("supplierId", list[position].supplierId)
+                        startActivity(intent)
+                    }
+
+                    override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
+                        return false
+                    }
+                })
             }
+            CodeConstant.FRAGMENT_DONE -> {
+                adapterDone = PickOutDoneAdapter(context!!, R.layout.item_pick_out_done, list)
+                recyclerView.adapter = adapterDone
 
-            override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
-                return false
+                adapterDone!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+                    override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
+                        val intent = Intent(activity, PickOutDoneDetailActivity::class.java)
+                        intent.putExtra("sapOrderNo", list[position].sapOrderNo)
+                        intent.putExtra("orderId", list[position].orderId)
+                        startActivity(intent)
+                    }
+
+                    override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
+                        return false
+                    }
+                })
             }
-        })
-
+        }
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEventMainThread(event: SearchMessage) {
         if (isVisble) {
             val search = event.getSearch()
             val startTime = event.leftTime()
             val endTime = event.rightTime()
-            materialPresenter.fetchPickOutTodoList(search,startTime,endTime)
+            when (fragmentType) {
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchPickOutTodoList(search,startTime,endTime)
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchPickOutDoneList(CodeConstant.PICK_OUT_TYPE,search,startTime,endTime)
+            }
         }
     }
 
@@ -144,25 +173,22 @@ class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList
 
     override fun onDestroy() {
         super.onDestroy()
-        materialPresenter.dispose()
+        presenter.dispose()
         EventBus.getDefault().unregister(this)
     }
 
     companion object {
-
-        private const val ARG_PARAM1 = "param1"
-
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
          * @return A new instance of fragment PickOutTodoFragment.
          */
-        fun newInstance(tag: String): PickOutTodoFragment {
+        fun newInstance(type: String): PickOutTodoFragment {
             val fragment = PickOutTodoFragment()
-            val args = Bundle()
-            args.putString(ARG_PARAM1, tag)
-            fragment.arguments = args
+            val bundle = Bundle()
+            bundle.putString(CodeConstant.FRAGMENT_TYPE, type)
+            fragment.arguments = bundle
             return fragment
         }
     }

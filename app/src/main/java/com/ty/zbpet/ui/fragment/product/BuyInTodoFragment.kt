@@ -2,7 +2,6 @@ package com.ty.zbpet.ui.fragment.product
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.scwang.smartrefresh.header.MaterialHeader
@@ -12,16 +11,15 @@ import com.ty.zbpet.bean.product.ProductList
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.presenter.product.BuyInPresenter
 import com.ty.zbpet.presenter.product.ProductUiListInterface
-import com.ty.zbpet.ui.activity.material.BackGoodsTodoDetailActivity
 import com.ty.zbpet.ui.activity.product.BuyInDoneDetailActivity
 import com.ty.zbpet.ui.activity.product.BuyInTodoDetailActivity
 import com.ty.zbpet.ui.adapter.LayoutInit
-import com.ty.zbpet.ui.adapter.material.BackGoodsTodoListAdapter
 import com.ty.zbpet.ui.adapter.product.BuyInDoneListAdapter
 import com.ty.zbpet.ui.adapter.product.BuyInTodoListAdapter
 import com.ty.zbpet.ui.base.BaseFragment
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.ResourceUtil
+import com.ty.zbpet.util.ZBUiUtils
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import kotlinx.android.synthetic.main.zb_content_list_fragment.*
 import kotlinx.android.synthetic.main.zb_content_list_fragment.view.*
@@ -56,14 +54,9 @@ class BuyInTodoFragment : BaseFragment(), ProductUiListInterface<ProductList.Lis
     override fun loadData() {
         fragmentType = arguments!!.getString(CodeConstant.FRAGMENT_TYPE)!!
         when (fragmentType) {
-            "todoFragment" -> presenter.fetchBuyInTodoList()
-            "doneFragment" -> presenter.fetchBuyInDoneList(CodeConstant.BUY_IN_TYPE)
+            CodeConstant.FRAGMENT_TODO -> presenter.fetchBuyInTodoList("", "", "")
+            CodeConstant.FRAGMENT_DONE -> presenter.fetchBuyInDoneList(CodeConstant.BUY_IN_TYPE, "", "", "")
         }
-//        if (fragmentType == "todoFragment") {
-//            presenter.fetchBuyInTodoList()
-//        }else{
-//            presenter.fetchBuyInDoneList(CodeConstant.BUY_IN_TYPE)
-//        }
     }
 
     override fun onResume() {
@@ -73,8 +66,8 @@ class BuyInTodoFragment : BaseFragment(), ProductUiListInterface<ProductList.Lis
             // 传入 false 表示刷新失败
             refreshLayout.finishRefresh(1000)
             when (fragmentType) {
-                "todoFragment" -> presenter.fetchBuyInTodoList()
-                "doneFragment" -> presenter.fetchBuyInDoneList(CodeConstant.BUY_IN_TYPE)
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchBuyInTodoList("", "", "")
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchBuyInDoneList(CodeConstant.BUY_IN_TYPE, "", "", "")
             }
             // 刷新数据
             //presenter.fetchBuyInTodoList()
@@ -87,54 +80,51 @@ class BuyInTodoFragment : BaseFragment(), ProductUiListInterface<ProductList.Lis
     }
 
     override fun showProduct(list: List<ProductList.ListBean>) {
+        if (list.isEmpty()) {
+            ZBUiUtils.showToast("外采入库没有找到结果")
+        }
 
+        LayoutInit.initLayoutManager(ResourceUtil.getContext(), recyclerView)
+        if (adapterTodo == null) {
+            recyclerView!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+        }
         when (fragmentType) {
-            "todoFragment" -> {
-                if (adapterTodo == null) {
-                    LayoutInit.initLayoutManager(ResourceUtil.getContext(),recyclerView)
-                    recyclerView!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+            CodeConstant.FRAGMENT_TODO -> {
+                adapterTodo = BuyInTodoListAdapter(ResourceUtil.getContext(), R.layout.item_material_todo, list)
+                recyclerView!!.adapter = adapterTodo
 
-                    adapterTodo = BuyInTodoListAdapter(ResourceUtil.getContext(), R.layout.item_material_todo, list)
-                    recyclerView!!.adapter = adapterTodo
+                adapterTodo!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+                    override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
+                        val intent = Intent(activity, BuyInTodoDetailActivity::class.java)
+                        intent.putExtra("sapOrderNo", list[position].sapOrderNo)
+                        intent.putExtra("supplierId", list[position].supplierId)
+                        intent.putExtra("sapFirmNo", list[position].sapFirmNo)
+                        intent.putExtra("content", list[position].content)
+                        intent.putExtra("supplierNo", list[position].supplierNo)
+                        startActivity(intent)
+                    }
 
-                    adapterTodo!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
-                        override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
-                            val intent = Intent(activity, BuyInTodoDetailActivity::class.java)
-                            intent.putExtra("sapOrderNo", list[position].sapOrderNo)
-                            intent.putExtra("supplierId", list[position].supplierId)
-                            intent.putExtra("sapFirmNo", list[position].sapFirmNo)
-                            intent.putExtra("content", list[position].content)
-                            intent.putExtra("supplierNo", list[position].supplierNo)
-                            startActivity(intent)
-                        }
-
-                        override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
-                            return false
-                        }
-                    })
-                }
+                    override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
+                        return false
+                    }
+                })
             }
-            "doneFragment" -> {
-                if (adapterDone == null) {
-                    LayoutInit.initLayoutManager(ResourceUtil.getContext(),recyclerView)
-                    recyclerView!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+            CodeConstant.FRAGMENT_DONE -> {
+                adapterDone = BuyInDoneListAdapter(ResourceUtil.getContext(), R.layout.activity_content_list_two, list!!)
+                recyclerView!!.adapter = adapterDone
 
-                    adapterDone = BuyInDoneListAdapter(ResourceUtil.getContext(), R.layout.activity_content_list_two, list!!)
-                    recyclerView!!.adapter = adapterDone
+                adapterDone?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+                    override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
+                        val intent = Intent(activity, BuyInDoneDetailActivity::class.java)
+                        intent.putExtra("orderId", list[position].id)
+                        intent.putExtra("sapOrderNo", list[position].sapOrderNo)
+                        startActivity(intent)
+                    }
 
-                    adapterDone?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
-                        override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
-                            val intent = Intent(activity, BuyInDoneDetailActivity::class.java)
-                            intent.putExtra("orderId", list[position].id)
-                            intent.putExtra("sapOrderNo", list[position].sapOrderNo)
-                            startActivity(intent)
-                        }
-
-                        override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
-                            return false
-                        }
-                    })
-                }
+                    override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
+                        return false
+                    }
+                })
             }
         }
 
@@ -147,10 +137,24 @@ class BuyInTodoFragment : BaseFragment(), ProductUiListInterface<ProductList.Lis
             val startTime = event.leftTime()
             val endTime = event.rightTime()
             when (fragmentType) {
-                "todoFragment" -> presenter.fetchBuyInTodoList()
-                "doneFragment" -> presenter.fetchBuyInDoneList(CodeConstant.BUY_IN_TYPE)
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchBuyInTodoList(search, startTime, endTime)
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchBuyInDoneList(CodeConstant.BUY_IN_TYPE, search, startTime, endTime)
             }
         }
+    }
+
+    override fun showLoading() {
+
+    }
+
+    override fun hideLoading() {
+    }
+
+    override fun saveSuccess() {
+    }
+
+    override fun showError(msg: String?) {
+        ZBUiUtils.showToast(msg)
     }
 
     override fun onDestroy() {

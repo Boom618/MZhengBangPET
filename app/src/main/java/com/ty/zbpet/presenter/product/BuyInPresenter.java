@@ -46,7 +46,7 @@ public class BuyInPresenter {
     /**
      * 待办列表
      */
-    public void fetchBuyInTodoList() {
+    public void fetchBuyInTodoList(String sapOrderNo,String startDate,String endDate) {
         httpMethods.getBuyInOrderList(new SingleObserver<BaseResponse<ProductList>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -61,15 +61,15 @@ public class BuyInPresenter {
                     listInterface.showProduct(list);
 
                 } else {
-                    ZBUiUtils.showToast("失败 : =" + response.getMessage());
+                    listInterface.showError(response.getMessage());
                 }
             }
 
             @Override
             public void onError(Throwable e) {
-                ZBUiUtils.showToast(e.getMessage());
+                listInterface.showError(e.getMessage());
             }
-        });
+        },sapOrderNo,startDate,endDate);
     }
 
 
@@ -91,18 +91,17 @@ public class BuyInPresenter {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
                     ProductDetails data = response.getData();
-                    List<ProductDetails.ListBean> list = response.getData().getList();
-//                    objInterface.detailObjData(data);
+                    List<ProductDetails.ListBean> list = data.getList();
                     listInterface.showProduct(list);
 
                 } else {
-                    ZBUiUtils.showToast("失败 : =" + response.getMessage());
+                    listInterface.showError(response.getMessage());
                 }
             }
 
             @Override
             public void onError(Throwable e) {
-                ZBUiUtils.showToast("失败 : =" + e.getMessage());
+                listInterface.showError(e.getMessage());
             }
         }, sapOrderNo,sapFirmNo,supplierNo);
     }
@@ -110,7 +109,7 @@ public class BuyInPresenter {
     /**
      * 已办列表
      */
-    public void fetchBuyInDoneList(String type) {
+    public void fetchBuyInDoneList(String type,String sapOrderNo,String startDate,String endDate) {
         httpMethods.getBuyInDoneList(new SingleObserver<BaseResponse<ProductList>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -133,7 +132,7 @@ public class BuyInPresenter {
             public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
             }
-        }, type);
+        }, type,sapOrderNo,startDate,endDate);
     }
 
     /**

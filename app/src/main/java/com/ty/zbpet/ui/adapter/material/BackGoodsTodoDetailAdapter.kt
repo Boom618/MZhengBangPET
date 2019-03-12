@@ -28,7 +28,6 @@ class BackGoodsTodoDetailAdapter(context: Context, layoutId: Int, datas: List<Ma
         val list = datas[position]
 
 
-
         // 1、库位码
         val etCode = holder.itemView.findViewById<EditText>(R.id.et_code)
         // TYPE_NULL 禁止手机软键盘  TYPE_CLASS_TEXT : 开启软键盘。
@@ -38,20 +37,16 @@ class BackGoodsTodoDetailAdapter(context: Context, layoutId: Int, datas: List<Ma
             // 关闭软键盘
             ZBUiUtils.hideInputWindow(view.context, view)
             // 焦点改变 接口回调
-            SharedP.putHasFocusAndPosition(view.context,hasFocus,position)
+            SharedP.putHasFocusAndPosition(view.context, hasFocus, position)
         }
         if (payloads.isEmpty()) {
             holder.setText(R.id.tv_name, list.materialName)
                     .setText(R.id.tv_num, list.orderNumber + "  " + list.unit)
-//                    .setText(R.id.tv_box_num_unit, "ZKG：" + list.ZKG!!)
-//                    .setText(R.id.bulk_num, "库存量：" + list.stockNumber!!)
-        }else{
+        } else {
             val bundle = payloads[0] as Bundle
             val positionNo = bundle.getString("positionNo")
             etCode.setText(positionNo)
         }
-
-
     }
 
     override fun convert(holder: ViewHolder, list: MaterialDetails.ListBean, position: Int) {

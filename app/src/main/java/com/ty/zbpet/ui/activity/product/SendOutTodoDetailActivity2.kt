@@ -284,7 +284,18 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
             carCodeArray.put(itemId, boxCodeList)
         }
     }
+    override fun showLoading() {
 
+    }
+
+    override fun hideLoading() {
+    }
+
+    override fun saveSuccess() {
+    }
+
+    override fun showError(msg: String?) {
+    }
 
     companion object {
 

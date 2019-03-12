@@ -291,7 +291,18 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
             carCodeArray.put(itemId, boxCodeList)
         }
     }
+    override fun showLoading() {
 
+    }
+
+    override fun hideLoading() {
+    }
+
+    override fun saveSuccess() {
+    }
+
+    override fun showError(msg: String?) {
+    }
 
     override fun onDestroy() {
         super.onDestroy()

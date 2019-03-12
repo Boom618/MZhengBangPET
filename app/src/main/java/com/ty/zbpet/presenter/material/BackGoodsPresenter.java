@@ -7,7 +7,6 @@ import com.ty.zbpet.bean.material.MaterialList;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
 import com.ty.zbpet.constant.CodeConstant;
-import com.ty.zbpet.util.ZBUiUtils;
 
 import java.util.List;
 
@@ -27,15 +26,6 @@ public class BackGoodsPresenter {
      */
     private MaterialUiListInterface materialListUi;
 
-    /**
-     * 详情 接口
-     */
-    private MaterialUiObjInterface materialObjUi;
-
-    /**
-     * model 数据接口
-     */
-    private MaterialModelInterface materialModel = new MaterialModelInterfaceImpl();
 
     /**
      * API 网络
@@ -51,16 +41,6 @@ public class BackGoodsPresenter {
      */
     public BackGoodsPresenter(MaterialUiListInterface materialUiInterface) {
         this.materialListUi = materialUiInterface;
-        httpMethods = HttpMethods.getInstance();
-    }
-
-    /**
-     * 接收 object UI 接口
-     *
-     * @param materialObjUi 构造方法
-     */
-    public BackGoodsPresenter(MaterialUiObjInterface materialObjUi) {
-        this.materialObjUi = materialObjUi;
         httpMethods = HttpMethods.getInstance();
     }
 

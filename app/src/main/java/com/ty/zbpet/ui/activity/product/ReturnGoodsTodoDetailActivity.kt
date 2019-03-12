@@ -305,6 +305,19 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
         }
     }
 
+    override fun showLoading() {
+
+    }
+
+    override fun hideLoading() {
+    }
+
+    override fun saveSuccess() {
+    }
+
+    override fun showError(msg: String?) {
+    }
+
     companion object {
 
         private const val REQUEST_SCAN_CODE = 1

@@ -23,15 +23,10 @@ import okhttp3.RequestBody;
 public class PickOutPresenter {
 
     private MaterialUiListInterface listInterface;
-    private MaterialUiObjInterface objInterface;
 
     private HttpMethods httpMethods;
     private Disposable disposable;
 
-    public PickOutPresenter(MaterialUiObjInterface objInterface) {
-        this.objInterface = objInterface;
-        httpMethods = HttpMethods.getInstance();
-    }
 
     public PickOutPresenter(MaterialUiListInterface listInterface) {
         this.listInterface = listInterface;

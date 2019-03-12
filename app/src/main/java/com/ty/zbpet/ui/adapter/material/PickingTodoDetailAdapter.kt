@@ -22,11 +22,8 @@ import com.zhy.adapter.recyclerview.base.ViewHolder
 class PickingTodoDetailAdapter(private val context: Context, layoutId: Int, datas: List<MaterialDetails.ListBean>)
     : CommonAdapter<MaterialDetails.ListBean>(context, layoutId, datas) {
 
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: MutableList<Any>) {
         val list = datas[position]
-
-
 
         // 库位码
         val etCode = holder.itemView.findViewById<EditText>(R.id.et_code)
@@ -42,14 +39,13 @@ class PickingTodoDetailAdapter(private val context: Context, layoutId: Int, data
         if (payloads.isEmpty()) {
             holder.setText(R.id.tv_name, list.materialName)
                     .setText(R.id.tv_num, list.requireNumber + "  " + list.unit)
-                    .setText(R.id.tv_require_num, "需求数量：" + list.requireNumber)
-                    .setText(R.id.tv_box_num_unit, "单位：" + list.unit!!)
+                    .setText(R.id.tv_require_num, "需求数量：${list.requireNumber}")
+                    .setText(R.id.tv_box_num_unit, "单位：${list.unit}")
         }else{
             val bundle = payloads[0] as Bundle
             val positionNo = bundle.getString("positionNo")
             etCode.setText(positionNo)
         }
-
     }
 
     override fun convert(holder: ViewHolder, list: MaterialDetails.ListBean, position: Int) {

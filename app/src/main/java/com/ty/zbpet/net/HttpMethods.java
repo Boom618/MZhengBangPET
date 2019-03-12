@@ -389,8 +389,9 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getBuyInOrderList(SingleObserver<BaseResponse<ProductList>> subscriber) {
-        mService.getBuyInOrderList()
+    public void getBuyInOrderList(SingleObserver<BaseResponse<ProductList>> subscriber,
+                                  String sapOrderNo,String startDate,String endDate) {
+        mService.getBuyInOrderList(sapOrderNo,startDate,endDate)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -422,8 +423,9 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getBuyInDoneList(SingleObserver<BaseResponse<ProductList>> subscriber, String type) {
-        mService.getBuyInDoneList(type)
+    public void getBuyInDoneList(SingleObserver<BaseResponse<ProductList>> subscriber, String type,
+                                 String sapOrderNo,String startDate,String endDate) {
+        mService.getBuyInDoneList(type,sapOrderNo,startDate,endDate)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }

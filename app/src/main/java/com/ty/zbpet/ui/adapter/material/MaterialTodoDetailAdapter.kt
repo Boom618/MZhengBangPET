@@ -19,12 +19,10 @@ import com.zhy.adapter.recyclerview.base.ViewHolder
 /**
  * @author TY on 2018/11/5.
  *
- *
  * 到货入库 （待办 详情）
  */
 class MaterialTodoDetailAdapter(context: Context, layoutId: Int, datas: List<MaterialDetails.ListBean>)
     : CommonAdapter<MaterialDetails.ListBean>(context, layoutId, datas) {
-
 
     /**
      * 重写带有 payloads 参数的 onBindViewHolder 方法, 才能配合 DiffUtil 正常使用
@@ -33,7 +31,6 @@ class MaterialTodoDetailAdapter(context: Context, layoutId: Int, datas: List<Mat
         val info = datas[position]
 
         val itemView = holder.itemView
-
 
         // 库位码
         val etCode = itemView.findViewById<EditText>(R.id.et_code)
@@ -59,7 +56,6 @@ class MaterialTodoDetailAdapter(context: Context, layoutId: Int, datas: List<Mat
             val positionNo = bundle.getString("positionNo")
             etCode.setText(positionNo)
         }
-
     }
 
     override fun convert(holder: ViewHolder, info: MaterialDetails.ListBean, position: Int) {

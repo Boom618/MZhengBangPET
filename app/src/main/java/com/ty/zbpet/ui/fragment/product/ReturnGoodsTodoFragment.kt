@@ -92,6 +92,19 @@ class ReturnGoodsTodoFragment : BaseFragment(), ProductUiListInterface<ProductLi
         }
     }
 
+    override fun showLoading() {
+
+    }
+
+    override fun hideLoading() {
+    }
+
+    override fun saveSuccess() {
+    }
+
+    override fun showError(msg: String?) {
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         presenter.dispose()

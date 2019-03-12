@@ -19,10 +19,6 @@ class PickOutDoneAdapter(context: Context, layoutId: Int, datas: List<MaterialLi
 
         holder!!.setText(R.id.tv_no, list.sapOrderNo)
                 .setText(R.id.tv_status, "已出库")
-//                .setText(R.id.tv_type, list.type)
-//                .setText(R.id.tv_move_type, "移动类型")
-//                .setText(R.id.tv_out_message, " 领料")
-//                .setText(R.id.tv_supplier, list.materialName)
                 .setText(R.id.tv_date, list.outTime)
 
     }

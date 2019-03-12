@@ -299,8 +299,11 @@ public interface ApiService {
      *
      * @return
      */
+    @FormUrlEncoded
     @POST(ApiNameConstant.GET_GOODS_PURCHASE_ORDER_LIST)
-    Single<BaseResponse<ProductList>> getBuyInOrderList();
+    Single<BaseResponse<ProductList>> getBuyInOrderList(@Field("sapOrderNo") String sapOrderNo,
+                                                        @Field("startDate") String startDate,
+                                                        @Field("endDate") String endDate);
 
     /**
      * 外采入库 待办详情
@@ -333,7 +336,10 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_PURCHASE_DONE_LIST)
-    Single<BaseResponse<ProductList>> getBuyInDoneList(@Field("type") String type);
+    Single<BaseResponse<ProductList>> getBuyInDoneList(@Field("type") String type,
+                                                       @Field("sapOrderNo") String sapOrderNo,
+                                                       @Field("startDate") String startDate,
+                                                       @Field("endDate") String endDate);
 
     /**
      * 外采入库 已办列表 详情

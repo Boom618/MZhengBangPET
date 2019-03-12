@@ -10,10 +10,13 @@ import com.ty.zbpet.R
 import com.ty.zbpet.bean.CarPositionNoData
 import com.ty.zbpet.bean.SearchMessage
 import com.ty.zbpet.bean.material.MaterialList
+import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.presenter.material.MaterialPresenter
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
+import com.ty.zbpet.ui.activity.material.ArrivalInDoneDetailActivity
 import com.ty.zbpet.ui.activity.material.ArrivalInTodoDetailActivity
 import com.ty.zbpet.ui.adapter.LayoutInit
+import com.ty.zbpet.ui.adapter.material.MaterialDoneAdapter
 import com.ty.zbpet.ui.adapter.material.MaterialTodoAdapter
 import com.ty.zbpet.ui.base.BaseFragment
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
@@ -38,8 +41,10 @@ class MaterialTodoFragment : BaseFragment(),MaterialUiListInterface<MaterialList
     override val fragmentLayout: Int
         get() = R.layout.zb_content_list_fragment
 
-    private var adapter: MaterialTodoAdapter? = null
-    private val materialPresenter = MaterialPresenter(this)
+    private lateinit var fragmentType:String
+    private var adapterTodo: MaterialTodoAdapter? = null
+    private var adapterDone: MaterialDoneAdapter? = null
+    private val presenter = MaterialPresenter(this)
 
     /**
      * 加载的 inflater.inflate  的 View
@@ -58,7 +63,11 @@ class MaterialTodoFragment : BaseFragment(),MaterialUiListInterface<MaterialList
     }
 
     override fun loadData() {
-        materialPresenter.fetchTODOMaterial("", "", "")
+        fragmentType = arguments!!.getString(CodeConstant.FRAGMENT_TYPE)!!
+        when (fragmentType) {
+            CodeConstant.FRAGMENT_TODO -> presenter.fetchTODOMaterial("", "", "")
+            CodeConstant.FRAGMENT_DONE -> presenter.fetchDoneMaterial(CodeConstant.BUY_IN_TYPE,"","","")
+        }
     }
 
     override fun onResume() {
@@ -68,7 +77,10 @@ class MaterialTodoFragment : BaseFragment(),MaterialUiListInterface<MaterialList
             // 传入 false 表示刷新失败
             refreshLayout.finishRefresh(1000)
             // 刷新数据
-            materialPresenter.fetchTODOMaterial("", "", "")
+            when (fragmentType) {
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchTODOMaterial("", "", "")
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchDoneMaterial(CodeConstant.BUY_IN_TYPE,"","","")
+            }
         }
 //        refreshLayout!!.setOnLoadMoreListener { refreshLayout ->
 //            // 传入 false 表示刷新失败
@@ -78,34 +90,56 @@ class MaterialTodoFragment : BaseFragment(),MaterialUiListInterface<MaterialList
     }
 
     override fun showMaterial(list: List<MaterialList.ListBean>) {
-        LayoutInit.initLayoutManager(ResourceUtil.getContext(), recyclerView)
 
-        if (adapter == null) {
+        LayoutInit.initLayoutManager(ResourceUtil.getContext(), recyclerView)
+        if (adapterTodo == null) {
             recyclerView.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
         }
         if (list.isEmpty()) {
             ZBUiUtils.showToast("采购入库没有找到结果")
         }
-        adapter = MaterialTodoAdapter(ResourceUtil.getContext(), R.layout.item_material_todo, list)
-        recyclerView.adapter = adapter
+        when(fragmentType){
+            CodeConstant.FRAGMENT_TODO ->{
+                adapterTodo = MaterialTodoAdapter(ResourceUtil.getContext(), R.layout.item_material_todo, list)
+                recyclerView.adapter = adapterTodo
 
-        adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
-            override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
-                val intent = Intent(activity, ArrivalInTodoDetailActivity::class.java)
-                intent.putExtra("sapOrderNo", list[position].sapOrderNo)
-                intent.putExtra("supplierNo", list[position].supplierNo)
-                intent.putExtra("supplierName", list[position].supplierName)
-                intent.putExtra("creatorNo", list[position].creatorNo)
-                intent.putExtra("sapFirmNo", list[position].sapFirmNo)
-                intent.putExtra("content", list[position].content)
-                startActivity(intent)
-            }
+                adapterTodo!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+                    override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
+                        val intent = Intent(activity, ArrivalInTodoDetailActivity::class.java)
+                        intent.putExtra("sapOrderNo", list[position].sapOrderNo)
+                        intent.putExtra("supplierNo", list[position].supplierNo)
+                        intent.putExtra("supplierName", list[position].supplierName)
+                        intent.putExtra("creatorNo", list[position].creatorNo)
+                        intent.putExtra("sapFirmNo", list[position].sapFirmNo)
+                        intent.putExtra("content", list[position].content)
+                        startActivity(intent)
+                    }
 
-            override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
-                return false
+                    override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
+                        return false
+                    }
+                })
             }
-        })
-//        }
+            CodeConstant.FRAGMENT_DONE ->{
+                adapterDone = MaterialDoneAdapter(this.context!!, R.layout.activity_content_list_three, list)
+                recyclerView!!.adapter = adapterDone
+                adapterDone!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+                    override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
+                        val intent = Intent(activity, ArrivalInDoneDetailActivity::class.java)
+                        intent.putExtra("sapOrderNo", list[position].sapOrderNo)
+                        intent.putExtra("supplierName", list[position].supplierName)
+                        intent.putExtra("warehouseId", list[position].warehouseId)
+                        intent.putExtra("orderId", list[position].orderId)
+                        startActivity(intent)
+                    }
+
+                    override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
+                        return false
+                    }
+                })
+            }
+        }
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -114,7 +148,10 @@ class MaterialTodoFragment : BaseFragment(),MaterialUiListInterface<MaterialList
             val search = event.getSearch()
             val startTime = event.leftTime()
             val endTime = event.rightTime()
-            materialPresenter.fetchTODOMaterial(search,startTime,endTime)
+            when (fragmentType) {
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchTODOMaterial(search,startTime,endTime)
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchDoneMaterial(CodeConstant.BUY_IN_TYPE,search,startTime,endTime)
+            }
         }
     }
     override fun showLoading() {
@@ -138,16 +175,16 @@ class MaterialTodoFragment : BaseFragment(),MaterialUiListInterface<MaterialList
 
     override fun onDestroy() {
         super.onDestroy()
-        materialPresenter.dispose()
+        presenter.dispose()
         EventBus.getDefault().unregister(this)
     }
 
     companion object {
 
-        fun newInstance(tag: String): MaterialTodoFragment {
+        fun newInstance(type: String): MaterialTodoFragment {
             val fragment = MaterialTodoFragment()
             val bundle = Bundle()
-            bundle.putString("someInt", tag)
+            bundle.putString(CodeConstant.FRAGMENT_TYPE, type)
             fragment.arguments = bundle
 
             return fragment

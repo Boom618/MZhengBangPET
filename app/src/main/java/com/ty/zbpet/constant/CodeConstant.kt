@@ -48,6 +48,8 @@ object CodeConstant {
      */
     const val ACTIVITY_TYPE = "acType"
     const val FRAGMENT_TYPE = "fgType"
+    const val FRAGMENT_TODO = "todoFg"
+    const val FRAGMENT_DONE = "doneFg"
 
     /**
      * 扫码字符集
