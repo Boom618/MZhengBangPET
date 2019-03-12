@@ -122,26 +122,7 @@ class BackGoodsTodoDetailActivity : BaseActivity()
         if (body == null) {
             return
         }
-
-        HttpMethods.getInstance().getBackTodoSave(object : SingleObserver<ResponseInfo> {
-            override fun onError(e: Throwable) {
-                ZBUiUtils.showToast(e.message)
-            }
-
-            override fun onSubscribe(d: Disposable) {
-
-            }
-
-            override fun onSuccess(responseInfo: ResponseInfo) {
-                if (CodeConstant.SERVICE_SUCCESS == responseInfo.tag) {
-                    // 入库成功（保存）
-                    ZBUiUtils.showToast(responseInfo.message)
-                    runOnUiThread { finish() }
-                } else {
-                    ZBUiUtils.showToast(responseInfo.message)
-                }
-            }
-        }, body)
+        presenter.backTodoSave(body)
     }
 
     /**
@@ -210,7 +191,6 @@ class BackGoodsTodoDetailActivity : BaseActivity()
         requestBody.moveType = "101"
         requestBody.outTime = time
         requestBody.remark = remark
-
 
         val json = DataUtils.toJson(requestBody, 1)
         return RequestBodyJson.requestBody(json)

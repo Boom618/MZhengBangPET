@@ -44,6 +44,7 @@ class PersonCenterActivity : BaseActivity(), UserInterface {
 
         iv_back.setOnClickListener { finish() }
 
+        image_to_track.setOnClickListener {gotoActivity(StockTrackActivity::class.java)}
         image_to_query.setOnClickListener {gotoActivity(BoxCodeQueryActivity::class.java)}
         btn_modify_pwd.setOnClickListener { gotoActivity(UserUpDataPass::class.java) }
         btn_cancel!!.setOnClickListener { exitApp() }

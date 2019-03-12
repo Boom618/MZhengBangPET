@@ -99,7 +99,6 @@
                 android:drawableStart="@mipmap/unmima"
                 android:drawablePadding="@dimen/space_15"
                 android:hint="@string/password"
-                android:imeActionId="@+id/login"
                 android:inputType="textPassword"
                 android:padding="@dimen/space_3"
                 android:textSize="@dimen/text_14"

@@ -1,6 +1,7 @@
 package com.ty.zbpet.presenter.material;
 
 import com.ty.zbpet.bean.CarPositionNoData;
+import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.material.MaterialDetails;
 import com.ty.zbpet.bean.material.MaterialList;
 import com.ty.zbpet.net.HttpMethods;
@@ -12,6 +13,7 @@ import java.util.List;
 
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
+import okhttp3.RequestBody;
 
 /**
  * @author TY on 2018/11/25.
@@ -134,7 +136,7 @@ public class BackGoodsPresenter {
     /**
      * 库位码校验
      *
-     * @param positionNo
+     * @param positionNo 库位码 KWM234542
      */
     public void checkCarCode(final int position, final String positionNo) {
 
@@ -147,7 +149,7 @@ public class BackGoodsPresenter {
 
             @Override
             public void onError(Throwable e) {
-                ZBUiUtils.showToast(e.getMessage());
+                materialListUi.showError(e.getMessage());
             }
 
             @Override
@@ -156,11 +158,37 @@ public class BackGoodsPresenter {
                     // 库位码合法
                     materialListUi.showCarSuccess(position, responseInfo);
                 } else {
-                    ZBUiUtils.showToast(responseInfo.getMessage());
+                    materialListUi.showError(responseInfo.getMessage());
                 }
-
             }
         }, positionNo);
+    }
+
+    /**
+     * 出库保存
+     * @param body body
+     */
+    public void backTodoSave(RequestBody body){
+        httpMethods.getBackTodoSave(new SingleObserver<ResponseInfo>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo responseInfo) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    materialListUi.saveSuccess();
+                }else{
+                    materialListUi.showError(responseInfo.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                materialListUi.showError(e.getMessage());
+            }
+        }, body);
     }
 
     /**
@@ -220,6 +248,33 @@ public class BackGoodsPresenter {
             }
         }, orderId);
 
+    }
+
+    /**
+     * 冲销保存
+     * @param body body
+     */
+    public void backDoneSave(RequestBody body){
+        httpMethods.getBackDoneSave(new SingleObserver<ResponseInfo>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo responseInfo) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    materialListUi.saveSuccess();
+                }else{
+                    materialListUi.showError(responseInfo.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                materialListUi.showError(e.getMessage());
+            }
+        }, body);
     }
 
 }

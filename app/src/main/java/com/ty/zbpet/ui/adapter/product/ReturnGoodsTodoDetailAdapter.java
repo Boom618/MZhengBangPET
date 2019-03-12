@@ -1,13 +1,9 @@
 package com.ty.zbpet.ui.adapter.product;
 
 import android.content.Context;
-import android.view.View;
-import android.widget.EditText;
 
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.product.ProductDetails;
-import com.ty.zbpet.constant.CodeConstant;
-import com.ty.zbpet.util.ZBUiUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 

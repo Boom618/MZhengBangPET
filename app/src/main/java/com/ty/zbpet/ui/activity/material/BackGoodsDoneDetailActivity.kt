@@ -5,23 +5,17 @@ import android.support.v7.widget.LinearLayoutManager
 import android.widget.CheckBox
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.CarPositionNoData
-import com.ty.zbpet.bean.ResponseInfo
 import com.ty.zbpet.bean.material.MaterialDetails
 import com.ty.zbpet.bean.material.MaterialDoneSave
-import com.ty.zbpet.constant.CodeConstant
-import com.ty.zbpet.net.HttpMethods
 import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.material.BackGoodsPresenter
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
-import com.ty.zbpet.presenter.material.MaterialUiObjInterface
 import com.ty.zbpet.ui.adapter.material.BackGoodsDoneDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils
-import io.reactivex.SingleObserver
-import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_content_reversal.*
 import okhttp3.RequestBody
 import java.util.*
@@ -73,26 +67,7 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
         if (body == null) {
             return
         }
-
-        HttpMethods.getInstance().getBackDoneSave(object : SingleObserver<ResponseInfo> {
-            override fun onError(e: Throwable) {
-                ZBUiUtils.showToast(e.message)
-            }
-
-            override fun onSubscribe(d: Disposable) {
-
-            }
-
-            override fun onSuccess(responseInfo: ResponseInfo) {
-                if (CodeConstant.SERVICE_SUCCESS == responseInfo.tag) {
-                    // 入库成功（保存）
-                    ZBUiUtils.showToast(responseInfo.message)
-                    runOnUiThread { finish() }
-                } else {
-                    ZBUiUtils.showToast(responseInfo.message)
-                }
-            }
-        }, body)
+        presenter.backDoneSave(body)
     }
 
     private fun initDoneBody(): RequestBody? {
@@ -151,6 +126,8 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
     }
 
     override fun saveSuccess() {
+        ZBUiUtils.showToast("成功")
+        finish()
     }
 
     override fun showError(msg: String?) {

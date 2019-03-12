@@ -49,7 +49,7 @@ public class ScanObservable {
      *
      * @param scanReader 扫码器
      * @param position   不在列表中处理，可以不用传 Position ，扫码的结果保证在 mCache 缓存中了
-     * @return
+     * @return Disposable
      */
     public Disposable scanBox(final Scanner scanReader, final int position) {
         /**
@@ -81,9 +81,9 @@ public class ScanObservable {
                     @Override
                     public String apply(@NonNull byte[] bytes) throws Exception {
 
-                        String utf8 = new String(bytes, Charset.forName(CodeConstant.INSTANCE.getCHARSET_UTF8()));
+                        String utf8 = new String(bytes, Charset.forName(CodeConstant.CHARSET_UTF8));
                         if (utf8.contains(CodeConstant.UNICODE_STRING)) {
-                            utf8 = new String(bytes, Charset.forName(CodeConstant.INSTANCE.getCHARSET_GBK()));
+                            utf8 = new String(bytes, Charset.forName(CodeConstant.CHARSET_GBK));
                         }
                         //String resultStr = utf8 + "\n";
 
@@ -96,7 +96,6 @@ public class ScanObservable {
                         ZBLog.INSTANCE.e("doOnNext: 保存成功：" + s + "\n");
 
                         // 存 position 和 解析出来的库位码值： 1@KWM565658908
-                        mCache.put(CodeConstant.SCAN_BOX_KEY, position + "@" + s);
                     }
                 })
                 // 指定 Subscriber 的回调发生在主线程

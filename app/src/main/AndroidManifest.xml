@@ -112,9 +112,11 @@
         <activity android:name=".ui.activity.system.QualityCheckDoneDetailActivity" />
         <activity android:name=".ui.activity.system.UserUpDataPass" />
         <activity android:name=".ui.activity.MainCompanyActivity" />
-        <activity android:name=".ui.activity.system.BoxCodeQueryActivity" />
+        <activity android:name=".ui.activity.system.StockTrackActivity" />
         <!--<activity android:name=".ui.activity.system.LoginActivity" />-->
         <activity android:name=".ui.activity.system.QualityCheckTabActivity" />
+        <activity android:name=".ui.activity.system.BoxCodeQueryActivity" />
+        <activity android:name=".ui.activity.system.LocationQueryActivity" />
 
     </application>
 

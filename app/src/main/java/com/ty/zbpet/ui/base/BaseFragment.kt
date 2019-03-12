@@ -97,7 +97,6 @@ abstract class BaseFragment : Fragment() {
      * 重置 ACache 中保存的的数据
      */
     private fun clearCache() {
-        mCache!!.put(CodeConstant.SCAN_BOX_KEY, "")
     }
 
     override fun onDestroy() {

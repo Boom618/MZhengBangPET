@@ -68,7 +68,8 @@ class PrimaryActivity : BaseActivity() {
                 initToolBar(R.string.label_purchase_in_storage)
 
                 val todoFragment = BuyInTodoFragment.newInstance("todoFragment")
-                val doneFragment = BuyInDoneFragment.newInstance("doneFragment")
+                val doneFragment = BuyInTodoFragment.newInstance("doneFragment")
+                //val doneFragment = BuyInDoneFragment.newInstance("doneFragment")
                 fragmentList.add(todoFragment)
                 fragmentList.add(doneFragment)
             }

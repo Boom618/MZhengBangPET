@@ -5,17 +5,11 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.widget.EditText
-import android.widget.TextView
 import com.scwang.smartrefresh.header.MaterialHeader
-import com.scwang.smartrefresh.layout.constant.SpinnerStyle
-import com.scwang.smartrefresh.layout.footer.BallPulseFooter
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.CarPositionNoData
 import com.ty.zbpet.bean.SearchMessage
 import com.ty.zbpet.bean.material.MaterialList
-import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.presenter.material.BackGoodsPresenter
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
 import com.ty.zbpet.ui.activity.material.BackGoodsTodoDetailActivity
@@ -56,7 +50,7 @@ class BackGoodsTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialLi
     }
 
     override fun loadData() {
-        presenter.fetchBackTodoList("","","")
+        presenter.fetchBackTodoList("", "", "")
     }
 
     override fun onResume() {
@@ -66,7 +60,7 @@ class BackGoodsTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialLi
             // 传入 false 表示刷新失败
             refreshLayout.finishRefresh(1000)
             // 刷新数据
-            presenter.fetchBackTodoList("","","")
+            presenter.fetchBackTodoList("", "", "")
             refresh = true
         }
 //        refreshLayout!!.setOnLoadMoreListener { refreshLayout ->
@@ -109,10 +103,11 @@ class BackGoodsTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialLi
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEventMainThread(event: SearchMessage) {
         if (isVisble) {
+            refresh = true
             val search = event.getSearch()
             val startTime = event.leftTime()
             val endTime = event.rightTime()
-            presenter.fetchBackTodoList(search,startTime,endTime)
+            presenter.fetchBackTodoList(search, startTime, endTime)
         }
     }
 
@@ -125,6 +120,7 @@ class BackGoodsTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialLi
     override fun showError(msg: String?) {
         ZBUiUtils.showToast(msg)
     }
+
     override fun showLoading() {
 
     }

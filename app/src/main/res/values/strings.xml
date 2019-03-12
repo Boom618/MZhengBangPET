@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MZhengBangPET</string>
+    <string name="app_name">正邦仓管</string>
     <string name="label_title">正邦仓库管理系统</string>
 
     <string name="label_transfer_storage">移库</string>

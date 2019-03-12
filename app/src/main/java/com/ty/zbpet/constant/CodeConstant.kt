@@ -47,18 +47,14 @@ object CodeConstant {
      * 跳转 Activity 类型
      */
     const val ACTIVITY_TYPE = "acType"
-
-    /**
-     * 扫码保存的信息(准备删除)
-     */
-    const val SCAN_BOX_KEY = "scan"
+    const val FRAGMENT_TYPE = "fgType"
 
     /**
      * 扫码字符集
      */
     const val UNICODE_STRING = "\ufffd"
-    val CHARSET_UTF8 = "utf8"
-    val CHARSET_GBK = "gbk"
+    const val CHARSET_UTF8 = "utf8"
+    const val CHARSET_GBK = "gbk"
 
     /**
      * 区分箱码绑定页面
@@ -68,15 +64,15 @@ object CodeConstant {
     /**
      * 原材料的入库 已办列表 （ 服务器定的规则 ）
      */
-    val BUY_IN_TYPE = "1"
-    val PICK_OUT_TYPE = "20"
-    val BACK_GOODS_TYPE = "21"
+    const val BUY_IN_TYPE = "1"
+    const val PICK_OUT_TYPE = "20"
+    const val BACK_GOODS_TYPE = "21"
 
     /**
      * 成品  已办列表 （ 服务器定的规则 ）
      */
-    val PRODUCT_TYPE = "2"
-    val RETURN_TYPE = "3"
+    const val PRODUCT_TYPE = "2"
+    const val RETURN_TYPE = "3"
 
     /**
      * 成品
@@ -94,7 +90,7 @@ object CodeConstant {
     /**
      * 腾讯 bug ID
      */
-    val BUGLY_APP_ID = "1bb4b12139"
+    const val BUG_LY_APP_ID = "1bb4b12139"
 
 
     /**

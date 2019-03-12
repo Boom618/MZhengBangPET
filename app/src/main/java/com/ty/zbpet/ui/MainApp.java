@@ -40,7 +40,7 @@ public class MainApp extends MultiDexApplication {
         // 日志 logger 库
         Logger.addLogAdapter(new AndroidLogAdapter());
         // bugly
-        CrashReport.initCrashReport(getApplicationContext(), CodeConstant.INSTANCE.getBUGLY_APP_ID(), false);
+        CrashReport.initCrashReport(getApplicationContext(), CodeConstant.BUG_LY_APP_ID, false);
 
         // 内存检测
         LeakCanary.install(this);

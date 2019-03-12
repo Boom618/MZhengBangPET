@@ -1,74 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="vertical">
 
     <include
         android:id="@+id/top"
         layout="@layout/layout_top_system" />
 
     <TextView
-        android:id="@+id/box_no"
-        app:layout_constraintTop_toBottomOf="@+id/top"
-        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/product_no"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/space_20"
         android:layout_marginTop="@dimen/space_20"
-        android:text="箱码编号：" />
+        android:text="产品二维码编号：" />
 
     <TextView
         android:id="@+id/query_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_20"
-        app:layout_constraintTop_toBottomOf="@+id/box_no"
-        app:layout_constraintStart_toStartOf="@+id/box_no"
+        android:layout_marginStart="@dimen/space_20"
         android:text="查询时间：" />
 
     <TextView
         android:id="@+id/query_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_20"
-        app:layout_constraintTop_toBottomOf="@+id/query_time"
-        app:layout_constraintStart_toStartOf="@+id/box_no"
+        android:layout_marginStart="@dimen/space_20"
         android:text="查询次数：" />
 
     <TextView
         android:id="@+id/product_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_40"
-        app:layout_constraintTop_toBottomOf="@+id/query_number"
-        app:layout_constraintStart_toStartOf="@+id/box_no"
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_30"
         android:text="产品名称：" />
 
+    <TextView
+        android:id="@+id/product_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_20"
+        android:text="生产订单：" />
 
     <TextView
         android:id="@+id/product_batch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_20"
-        app:layout_constraintTop_toBottomOf="@+id/product_name"
-        app:layout_constraintStart_toStartOf="@+id/box_no"
+        android:layout_marginStart="@dimen/space_20"
         android:text="生产批次：" />
 
     <TextView
         android:id="@+id/product_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_20"
-        app:layout_constraintTop_toBottomOf="@+id/product_batch"
-        app:layout_constraintStart_toStartOf="@+id/box_no"
+        android:layout_marginStart="@dimen/space_20"
         android:text="生产日期：" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_20"
+        android:background="@color/red"
+        android:text="产品溯源"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_18" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="@dimen/space_20" />
 
     <include
         layout="@layout/layout_bottom_system"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

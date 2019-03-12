@@ -145,10 +145,6 @@ abstract class BaseActivity : AppCompatActivity() {
      * 重置 ACache 中保存的的数据
      */
     private fun clearCache() {
-        // 库位码 内容
-        mCache!!.put(CodeConstant.SCAN_BOX_KEY, "")
-
-        //DataUtils.clearId();
     }
 
     fun <T : View> get(id: Int): T {
