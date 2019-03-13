@@ -64,7 +64,7 @@ class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList
     override fun loadData() {
         fragmentType = arguments!!.getString(CodeConstant.FRAGMENT_TYPE)!!
         when (fragmentType) {
-            CodeConstant.FRAGMENT_TODO -> presenter.fetchPickOutTodoList("", "", "")
+            CodeConstant.FRAGMENT_TODO -> presenter.fetchPickOutTodoList("","", "", "")
             CodeConstant.FRAGMENT_DONE -> presenter.fetchPickOutDoneList(CodeConstant.PICK_OUT_TYPE,"","","")
         }
     }
@@ -77,7 +77,7 @@ class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList
             refreshLayout.finishRefresh(1000)
             // 刷新数据
             when (fragmentType) {
-                CodeConstant.FRAGMENT_TODO -> presenter.fetchPickOutTodoList("", "", "")
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchPickOutTodoList("", "","", "")
                 CodeConstant.FRAGMENT_DONE -> presenter.fetchPickOutDoneList(CodeConstant.PICK_OUT_TYPE,"","","")
             }
         }
@@ -96,7 +96,7 @@ class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList
         }
 
         LayoutInit.initLayoutManager(ResourceUtil.getContext(), recyclerView)
-        if (adapterTodo == null) {
+        if (adapterTodo == null && adapterDone == null) {
             recyclerView!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
         }
         when (fragmentType) {
@@ -109,6 +109,8 @@ class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList
                         val intent = Intent(activity, PickOutTodoDetailActivity::class.java)
                         intent.putExtra("sapOrderNo", list[position].sapOrderNo)
                         intent.putExtra("sapFirmNo", list[position].sapFirmNo)
+                        intent.putExtra("orderTime", list[position].orderTime)
+                        intent.putExtra("sign", list[position].sign)
                         intent.putExtra("content", list[position].content)
                         intent.putExtra("supplierId", list[position].supplierId)
                         startActivity(intent)
@@ -142,11 +144,12 @@ class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEventMainThread(event: SearchMessage) {
         if (isVisble) {
+            val sign = event.sign()
             val search = event.getSearch()
             val startTime = event.leftTime()
             val endTime = event.rightTime()
             when (fragmentType) {
-                CodeConstant.FRAGMENT_TODO -> presenter.fetchPickOutTodoList(search,startTime,endTime)
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchPickOutTodoList(sign,search,startTime,endTime)
                 CodeConstant.FRAGMENT_DONE -> presenter.fetchPickOutDoneList(CodeConstant.PICK_OUT_TYPE,search,startTime,endTime)
             }
         }

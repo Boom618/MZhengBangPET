@@ -18,7 +18,7 @@
         android:layout_margin="@dimen/space_10"
         android:layout_toStartOf="@+id/main_stl"
         android:background="@drawable/shape_white_max_radius"
-        android:drawableStart="@mipmap/ic_search"
+        android:drawableStart="@mipmap/search_s"
         android:drawablePadding="@dimen/space_10"
         android:hint="请输入单号"
         android:padding="@dimen/space_7"

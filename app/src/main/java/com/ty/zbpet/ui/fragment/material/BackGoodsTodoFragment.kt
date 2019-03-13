@@ -34,7 +34,6 @@ import org.greenrobot.eventbus.ThreadMode
  */
 class BackGoodsTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList.ListBean> {
 
-
     private lateinit var fragmentType: String
     private val presenter = BackGoodsPresenter(this)
 
@@ -85,11 +84,11 @@ class BackGoodsTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialLi
     override fun showMaterial(list: List<MaterialList.ListBean>) {
 
         LayoutInit.initLayoutManager(ResourceUtil.getContext(), recyclerView)
-        if (adapterTodo == null) {
+        if (adapterTodo == null && adapterDone== null) {
             recyclerView.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
         }
         if (list.isEmpty()) {
-            ZBUiUtils.showToast("采购入库没有找到结果")
+            ZBUiUtils.showToast("采购退货没有找到结果")
         }
         when (fragmentType) {
             CodeConstant.FRAGMENT_TODO -> {

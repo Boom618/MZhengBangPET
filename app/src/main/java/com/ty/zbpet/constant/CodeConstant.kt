@@ -52,6 +52,12 @@ object CodeConstant {
     const val FRAGMENT_DONE = "doneFg"
 
     /**
+     * S  生产订单   Y 预留单号
+     */
+    const val SIGN_S = "S"
+    const val SIGN_Y = "Y"
+
+    /**
      * 扫码字符集
      */
     const val UNICODE_STRING = "\ufffd"

@@ -39,12 +39,14 @@ class PickingTodoDetailAdapter(private val context: Context, layoutId: Int, data
         if (payloads.isEmpty()) {
             holder.setText(R.id.tv_name, list.materialName)
                     .setText(R.id.tv_num, list.requireNumber + "  " + list.unit)
-                    .setText(R.id.tv_require_num, "需求数量：${list.requireNumber}")
+                    .setText(R.id.tv_content, "含量：${list.concentration}")
+                    .setText(R.id.tv_request_number, "需求数量：${list.requireNumber}")
                     .setText(R.id.tv_box_num_unit, "单位：${list.unit}")
         }else{
             val bundle = payloads[0] as Bundle
             val positionNo = bundle.getString("positionNo")
             etCode.setText(positionNo)
+            holder.setText(R.id.tv_batch_no,"SAP 物料批次号：")
         }
     }
 

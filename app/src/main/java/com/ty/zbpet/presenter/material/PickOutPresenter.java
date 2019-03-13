@@ -42,7 +42,7 @@ public class PickOutPresenter {
     /**
      * 待办列表
      */
-    public void fetchPickOutTodoList(String sapOrderNo,String startDate,String endDate) {
+    public void fetchPickOutTodoList(String sign,String sapOrderNo,String startDate,String endDate) {
         httpMethods.pickOutTodoList(new SingleObserver<BaseResponse<MaterialList>>() {
 
             @Override
@@ -66,7 +66,7 @@ public class PickOutPresenter {
                     listInterface.showError(response.getMessage());
                 }
             }
-        },sapOrderNo,startDate,endDate);
+        },sign,sapOrderNo,startDate,endDate);
     }
 
 
@@ -75,7 +75,7 @@ public class PickOutPresenter {
      *
      * @param sapOrderNo
      */
-    public void fetchPickOutTodoListDetails(String sapOrderNo, String sapFirmNo) {
+    public void fetchPickOutTodoListDetails(String sign,String sapOrderNo, String sapFirmNo,String orderTime) {
 
         httpMethods.pickOutTodoListDetails(new SingleObserver<BaseResponse<MaterialDetails>>() {
 
@@ -103,7 +103,7 @@ public class PickOutPresenter {
                     listInterface.showError(response.getMessage());
                 }
             }
-        }, sapOrderNo, sapFirmNo);
+        }, sign,sapOrderNo, sapFirmNo,orderTime);
     }
 
 
@@ -232,7 +232,7 @@ public class PickOutPresenter {
      * @param body
      */
     public void pickOutDoneSave(RequestBody body) {
-        httpMethods.pickOutTodoSave(new SingleObserver<ResponseInfo>() {
+        httpMethods.pickOutDoneSave(new SingleObserver<ResponseInfo>() {
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;

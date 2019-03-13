@@ -43,8 +43,21 @@ class MaterialTodoDetailAdapter(context: Context, layoutId: Int, datas: List<Mat
             SharedP.putHasFocusAndPosition(view.context,hasFocus,position)
         }
         if (payloads.isEmpty()) {
-            val radioButton = itemView.findViewById<RadioButton>(R.id.rb_kg)
-            radioButton.isChecked = true
+            val rbKG = itemView.findViewById<RadioButton>(R.id.rb_kg)
+            val rbZKG = itemView.findViewById<RadioButton>(R.id.rb_zkg)
+            val rbPC = itemView.findViewById<RadioButton>(R.id.rb_pc)
+            if (info.unit.isNullOrEmpty()) {
+                rbKG.isChecked = true
+            }else{
+                when(info.unit){
+                    "KG"-> rbKG.isChecked = true
+                    "ZKG"-> rbZKG.isChecked = true
+                    else -> {
+                        rbPC.isChecked = true
+                    }
+                }
+            }
+
             val tvName = itemView.findViewById<TextView>(R.id.tv_name)
             tvName.text = info.materialName
 

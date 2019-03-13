@@ -92,7 +92,7 @@ class MaterialTodoFragment : BaseFragment(),MaterialUiListInterface<MaterialList
     override fun showMaterial(list: List<MaterialList.ListBean>) {
 
         LayoutInit.initLayoutManager(ResourceUtil.getContext(), recyclerView)
-        if (adapterTodo == null) {
+        if (adapterTodo == null && adapterDone == null) {
             recyclerView.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
         }
         if (list.isEmpty()) {

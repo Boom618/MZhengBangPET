@@ -46,6 +46,8 @@ class PickOutTodoDetailActivity : BaseActivity()
 
     private lateinit var adapter: PickingTodoDetailAdapter
 
+    private lateinit var sign: String
+    private lateinit var orderTime: String
     private lateinit var selectTime: String
     private lateinit var sapOrderNo: String
     private lateinit var sapFirmNo: String
@@ -74,9 +76,11 @@ class PickOutTodoDetailActivity : BaseActivity()
     override fun initOneData() {
         sapOrderNo = intent.getStringExtra("sapOrderNo")
         sapFirmNo = intent.getStringExtra("sapFirmNo")
+        orderTime = intent.getStringExtra("orderTime")
         content = intent.getStringExtra("content")
+        sign = intent.getStringExtra("sign")
 
-        presenter.fetchPickOutTodoListDetails(sapOrderNo,sapFirmNo)
+        presenter.fetchPickOutTodoListDetails(sign, sapOrderNo, sapFirmNo, orderTime)
     }
 
     override fun initTwoView() {
@@ -122,10 +126,10 @@ class PickOutTodoDetailActivity : BaseActivity()
         for (i in 0 until size) {
             val view = rv_in_storage_detail.getChildAt(i)
 
-            val concentration = view.findViewById<EditText>(R.id.bulk_num).text.toString().trim { it <= ' ' }
+            //val concentration = view.findViewById<EditText>(R.id.bulk_num).text.toString().trim { it <= ' ' }
             val carCode = view.findViewById<EditText>(R.id.et_code).text.toString().trim { it <= ' ' }
             val bulkNum = view.findViewById<EditText>(R.id.et_number).text.toString().trim { it <= ' ' }
-            val batchNo = view.findViewById<EditText>(R.id.et_batch_no).text.toString().trim { it <= ' ' }
+            //val batchNo = view.findViewById<EditText>(R.id.et_batch_no).text.toString().trim { it <= ' ' }
             val materialId = list[i].materialId
             val supplierNo = list[i].supplierNo
 
@@ -144,11 +148,11 @@ class PickOutTodoDetailActivity : BaseActivity()
                 bean.content = mergeContent
                 bean.materialNo = list[i].materialNo
                 bean.materialName = list[i].materialName
-                bean.concentration = concentration
+                //bean.concentration = concentration
                 // 用户输入数据
                 bean.positionNo = carCode
                 bean.number = bulkNum
-                bean.sapMaterialBatchNo = batchNo
+                //bean.sapMaterialBatchNo = batchNo
 
                 detail.add(bean)
             }
@@ -230,9 +234,9 @@ class PickOutTodoDetailActivity : BaseActivity()
     }
 
 
-    override fun showMaterial(lists: MutableList<MaterialDetails.ListBean>?) {
+    override fun showMaterial(lists: MutableList<MaterialDetails.ListBean>) {
 
-        list = lists!!
+        list = lists
         val manager = LinearLayoutManager(ResourceUtil.getContext())
         rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
         rv_in_storage_detail.layoutManager = manager

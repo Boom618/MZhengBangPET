@@ -2,6 +2,8 @@ package com.ty.zbpet.ui.activity
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.view.MotionEvent
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
@@ -25,13 +27,15 @@ import java.util.*
  */
 class PrimaryActivity : BaseActivity() {
 
+    // 定点类型 ：默认生产订单
+    private var signType = false
+
     override val activityLayout: Int
         get() = R.layout.activity_main_todo_and_done
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
 
     }
-
 
     override fun initOneData() {
 
@@ -64,7 +68,7 @@ class PrimaryActivity : BaseActivity() {
                 fragmentList.add(todoFragment)
                 fragmentList.add(doneFragment)
             }
-            4 ->{
+            4 -> {
                 initToolBar(R.string.label_purchase_in_storage)
 
                 val todoFragment = BuyInTodoFragment.newInstance(CodeConstant.FRAGMENT_TODO)
@@ -73,14 +77,14 @@ class PrimaryActivity : BaseActivity() {
                 fragmentList.add(todoFragment)
                 fragmentList.add(doneFragment)
             }
-            5 ->{
+            5 -> {
                 initToolBar(R.string.label_produce_in_storage)
                 val todoFragment = ProductTodoFragment.newInstance(CodeConstant.FRAGMENT_TODO)
                 val doneFragment = ProductDoneFragment.newInstance(CodeConstant.FRAGMENT_DONE)
                 fragmentList.add(todoFragment)
                 fragmentList.add(doneFragment)
             }
-            6 ->{
+            6 -> {
                 initToolBar(R.string.label_send_out_storage)
                 val todoFragment = SendOutTodoFragment.newInstance(CodeConstant.FRAGMENT_TODO)
                 val doneFragment = SendOutDoneFragment.newInstance(CodeConstant.FRAGMENT_DONE)
@@ -88,7 +92,7 @@ class PrimaryActivity : BaseActivity() {
                 fragmentList.add(todoFragment)
                 fragmentList.add(doneFragment)
             }
-            7 ->{
+            7 -> {
                 initToolBar(R.string.label_return_sell)
                 val todoFragment = ReturnGoodsTodoFragment.newInstance(CodeConstant.FRAGMENT_TODO)
                 val doneFragment = ReturnGoodsDoneFragment.newInstance(CodeConstant.FRAGMENT_DONE)
@@ -132,12 +136,17 @@ class PrimaryActivity : BaseActivity() {
                 val rightString = rightTime.text.toString()
                 val sapOrderNo = searchView.text.toString()
 
+                val sign = when (signType) {
+                    false -> CodeConstant.SIGN_S
+                    true -> CodeConstant.SIGN_Y
+                }
+
                 val startTime = TimeWidget.StringToDate(selectTime)
                 val endTime = TimeWidget.StringToDate(rightString)
                 val result = TimeWidget.DateComparison(startTime, endTime)
                 if (result) {
                     leftTime.text = selectTime
-                    EventBus.getDefault().post(SearchMessage(sapOrderNo,selectTime,rightString))
+                    EventBus.getDefault().post(SearchMessage(sign,sapOrderNo, selectTime, rightString))
                 } else {
                     ZBUiUtils.showToast("开始时间不能大于结束时间")
                 }
@@ -151,12 +160,16 @@ class PrimaryActivity : BaseActivity() {
                 val sapOrderNo = searchView.text.toString()
                 val leftString = leftTime.text.toString()
 
+                val sign = when (signType) {
+                    false -> CodeConstant.SIGN_S
+                    true -> CodeConstant.SIGN_Y
+                }
                 val startTime = TimeWidget.StringToDate(leftString)
                 val endTime = TimeWidget.StringToDate(selectTime)
                 val result = TimeWidget.DateComparison(startTime, endTime)
                 if (result) {
                     rightTime.text = selectTime
-                    EventBus.getDefault().post(SearchMessage(sapOrderNo,leftString,selectTime))
+                    EventBus.getDefault().post(SearchMessage(sign,sapOrderNo, leftString, selectTime))
                 } else {
                     ZBUiUtils.showToast("结束时间不能小于开始时间")
                 }
@@ -166,11 +179,40 @@ class PrimaryActivity : BaseActivity() {
         searchView.setOnEditorActionListener { v, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 val searchString = v.text.toString().trim { it <= ' ' }
-                EventBus.getDefault().post(SearchMessage(searchString,"",""))
+                val sign = when (signType) {
+                    false -> CodeConstant.SIGN_S
+                    true -> CodeConstant.SIGN_Y
+                }
+                EventBus.getDefault().post(SearchMessage(sign,searchString, "", ""))
                 ZBUiUtils.hideInputWindow(v.context, v)
             }
             true
         }
+
+        et_search.setOnTouchListener(View.OnTouchListener { v, event ->
+            // compoundDrawables：对应位置 左 0，上 1，右 2，下 3
+            val drawable = et_search.compoundDrawables[0]
+            if (event.actionMasked == MotionEvent.ACTION_UP) {
+                // event.rawX:屏幕上获得触摸的实际位置
+                if (event.rawX <= (drawable.bounds.width())) {
+                    // 逻辑处理
+                    if (signType) {
+                        val d = resources.getDrawable(R.mipmap.search_s)
+                        d.setBounds(0,0,32,32)
+                        et_search.setCompoundDrawables(d,null,null,null)
+                        ZBUiUtils.showToast("请输入生产订单号")
+                    } else {
+                        val d = resources.getDrawable(R.mipmap.search_y)
+                        d.setBounds(0,0,32,32)
+                        et_search.setCompoundDrawables(d,null,null,null)
+                        ZBUiUtils.showToast("请输入预留单号")
+                    }
+                    signType = !signType
+                }
+                return@OnTouchListener false
+            }
+            false
+        })
 
     }
 

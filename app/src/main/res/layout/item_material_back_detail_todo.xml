@@ -68,7 +68,7 @@
         android:id="@+id/gone_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="visible"
         android:focusable="true"
         android:focusableInTouchMode="true"
         app:layout_constraintTop_toBottomOf="@+id/tv_num">
@@ -86,31 +86,58 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_box_num_unit"
+            android:id="@+id/tv_sap_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
-            android:text="单位 ："
+            android:text="SAP 批次号："
             android:textColor="@color/txt_main_color"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_content"
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
-            android:id="@+id/tv_request_number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:id="@+id/text_unit"
+            android:text="单位："
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginBottom="8dp"
-            android:ellipsize="end"
-            android:text="需求数量:"
-            style="@style/itemSizeStyle"
+            android:layout_marginTop="16dp"
+            android:textSize="@dimen/text_16"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_content" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_sap_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/text_unit"
+            app:layout_constraintLeft_toRightOf="@+id/text_unit">
+
+            <RadioButton
+                android:id="@+id/rb_kg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="KG" />
+
+            <RadioButton
+                android:id="@+id/rb_zkg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="ZKG" />
+
+            <RadioButton
+                android:id="@+id/rb_pc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="PC" />
+
+        </RadioGroup>
 
         <EditText
             android:id="@+id/et_code"
@@ -127,7 +154,7 @@
             android:imeOptions="actionNext"
             style="@style/itemSizeStyle"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_request_number" />
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
         <EditText
             android:id="@+id/et_number"
@@ -146,21 +173,6 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_code" />
-
-
-        <TextView
-            android:id="@+id/tv_batch_no"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="40dp"
-            android:text="SAP 物料批次号:"
-            style="@style/itemSizeStyle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_number" />
-
 
     </android.support.constraint.ConstraintLayout>
 

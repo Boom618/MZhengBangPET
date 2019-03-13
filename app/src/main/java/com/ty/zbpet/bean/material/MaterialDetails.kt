@@ -63,10 +63,7 @@ class MaterialDetails {
         var inNumber: String? = null
 
         // 二版 出库新加字段
-        var Posnr: String? = null
-        var Rsnum: String? = null
         var requireNumber: String? = null
-        var Lgort: String? = null
 
     }
 

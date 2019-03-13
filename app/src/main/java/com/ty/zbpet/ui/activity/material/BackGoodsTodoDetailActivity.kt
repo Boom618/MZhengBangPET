@@ -9,15 +9,15 @@ import android.view.KeyEvent
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import com.pda.scanner.ScanReader
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.CarPositionNoData
-import com.ty.zbpet.bean.ResponseInfo
 import com.ty.zbpet.bean.material.MaterialDetails
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.data.DeepCopyData
 import com.ty.zbpet.data.SharedP
-import com.ty.zbpet.net.HttpMethods
 import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.material.BackGoodsPresenter
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
@@ -29,8 +29,6 @@ import com.ty.zbpet.util.*
 import com.ty.zbpet.util.scan.ScanBoxInterface
 import com.ty.zbpet.util.scan.ScanObservable
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
-import io.reactivex.SingleObserver
-import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
 import java.text.SimpleDateFormat
@@ -139,10 +137,17 @@ class BackGoodsTodoDetailActivity : BaseActivity()
         for (i in 0 until size) {
             val view = rv_in_storage_detail.getChildAt(i)
 
-            val concentration = view.findViewById<EditText>(R.id.bulk_num).text.toString().trim { it <= ' ' }
+            var viewUnit = "KG"
+            val radioGroup = view.findViewById<RadioGroup>(R.id.radioGroup)
+            for (position in 0 until 3) {
+                val radioButton = radioGroup.getChildAt(position) as RadioButton
+                if (radioButton.isChecked) {
+                    viewUnit = radioButton.text.toString()
+                }
+            }
             val carCode = view.findViewById<EditText>(R.id.et_code).text.toString().trim { it <= ' ' }
             val bulkNum = view.findViewById<EditText>(R.id.et_number).text.toString().trim { it <= ' ' }
-            val batchNo = view.findViewById<EditText>(R.id.et_batch_no).text.toString().trim { it <= ' ' }
+            //val batchNo = view.findViewById<EditText>(R.id.et_batch_no).text.toString().trim { it <= ' ' }
 
             val id = positionId.get(i)
 
@@ -158,18 +163,18 @@ class BackGoodsTodoDetailActivity : BaseActivity()
                 bean.positionId = id
                 bean.materialId = materialId
                 bean.supplierId = supplierId
-                bean.unit = list[i].unit
+                //bean.unit = list[i].unit
+                bean.unit = viewUnit
                 bean.materialNo = list[i].materialNo
                 bean.materialName = list[i].materialName
+                bean.concentration = list[i].concentration
 
-                //bean.supplierNo = supplierNo
-                bean.concentration = concentration
                 // 新加 包含 sap 所有字段
                 bean.content = list[i].content
                 // 用户输入数据
                 bean.positionNo = carCode
                 bean.number = bulkNum
-                bean.sapMaterialBatchNo = batchNo
+                //bean.sapMaterialBatchNo = batchNo
 
                 detail.add(bean)
             }
@@ -260,7 +265,7 @@ class BackGoodsTodoDetailActivity : BaseActivity()
         val manager = LinearLayoutManager(ResourceUtil.getContext())
         rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
         rv_in_storage_detail.layoutManager = manager
-        adapter = BackGoodsTodoDetailAdapter(this, R.layout.item_material_detail_three_todo, list)
+        adapter = BackGoodsTodoDetailAdapter(this, R.layout.item_material_back_detail_todo, list)
         rv_in_storage_detail.adapter = adapter
 
         adapter.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {

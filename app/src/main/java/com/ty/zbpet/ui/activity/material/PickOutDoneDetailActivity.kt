@@ -103,10 +103,10 @@ class PickOutDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Materi
     }
 
     override fun showMaterial(list: List<MaterialDetails.ListBean>) {
+        listBean = list
         if (list.isEmpty()) {
             return
         }
-        listBean = list
 
         val manager = LinearLayoutManager(ResourceUtil.getContext())
         recycler_reversal.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))

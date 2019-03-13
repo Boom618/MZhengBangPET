@@ -238,8 +238,8 @@ public class HttpMethods {
      * @param subscriber
      */
     public void pickOutTodoList(SingleObserver<BaseResponse<MaterialList>> subscriber,
-                                String sapOrderNo,String startDate,String endDate) {
-        mService.pickOutTodoList(sapOrderNo,startDate,endDate)
+                                String sign,String sapOrderNo,String startDate,String endDate) {
+        mService.pickOutTodoList(sign,sapOrderNo,startDate,endDate)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
 
@@ -251,8 +251,9 @@ public class HttpMethods {
      * @param subscriber
      * @param sapOrderNo
      */
-    public void pickOutTodoListDetails(SingleObserver<BaseResponse<MaterialDetails>> subscriber, String sapOrderNo, String sapFirmNo) {
-        mService.pickOutTodoListDetail(sapOrderNo, sapFirmNo)
+    public void pickOutTodoListDetails(SingleObserver<BaseResponse<MaterialDetails>> subscriber,
+                                       String sign,String sapOrderNo, String sapFirmNo,String orderTime) {
+        mService.pickOutTodoListDetail(sign,sapOrderNo, sapFirmNo,orderTime)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }

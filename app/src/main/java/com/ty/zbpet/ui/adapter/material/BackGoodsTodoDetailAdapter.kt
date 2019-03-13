@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.InputType
 import android.view.View
 import android.widget.EditText
+import android.widget.RadioButton
 
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.material.MaterialDetails
@@ -26,10 +27,10 @@ class BackGoodsTodoDetailAdapter(context: Context, layoutId: Int, datas: List<Ma
     override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: MutableList<Any>) {
 
         val list = datas[position]
-
+        val itemView = holder.itemView
 
         // 1、库位码
-        val etCode = holder.itemView.findViewById<EditText>(R.id.et_code)
+        val etCode = itemView.findViewById<EditText>(R.id.et_code)
         // TYPE_NULL 禁止手机软键盘  TYPE_CLASS_TEXT : 开启软键盘。
         etCode.inputType = InputType.TYPE_NULL
 
@@ -40,8 +41,25 @@ class BackGoodsTodoDetailAdapter(context: Context, layoutId: Int, datas: List<Ma
             SharedP.putHasFocusAndPosition(view.context, hasFocus, position)
         }
         if (payloads.isEmpty()) {
+
+            val rbKG = itemView.findViewById<RadioButton>(R.id.rb_kg)
+            val rbZKG = itemView.findViewById<RadioButton>(R.id.rb_zkg)
+            val rbPC = itemView.findViewById<RadioButton>(R.id.rb_pc)
+            if (list.unit.isNullOrEmpty()) {
+                rbKG.isChecked = true
+            } else {
+                when (list.unit) {
+                    "KG" -> rbKG.isChecked = true
+                    "ZKG" -> rbZKG.isChecked = true
+                    else -> {
+                        rbPC.isChecked = true
+                    }
+                }
+            }
             holder.setText(R.id.tv_name, list.materialName)
                     .setText(R.id.tv_num, list.orderNumber + "  " + list.unit)
+                    .setText(R.id.tv_sap_no, "SAP 批次号：${list.sapMaterialBatchNo}")
+                    .setText(R.id.tv_content, "含量 ：${list.concentration}%")
         } else {
             val bundle = payloads[0] as Bundle
             val positionNo = bundle.getString("positionNo")

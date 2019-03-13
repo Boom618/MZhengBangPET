@@ -160,11 +160,13 @@ public interface ApiService {
     /**
      * 领料出库 - 待办 列表
      *
+     * @param sign S  生产订单   Y预留单号
      * @return
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.PICK_OUT_TODO_LIST)
-    Single<BaseResponse<MaterialList>> pickOutTodoList(@Field("sapOrderNo") String sapOrderNo,
+    Single<BaseResponse<MaterialList>> pickOutTodoList(@Field("sign") String sign,
+                                                       @Field("sapOrderNo") String sapOrderNo,
                                                        @Field("startDate") String startDate,
                                                        @Field("endDate") String endDate);
 
@@ -176,8 +178,10 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.PICK_OUT_TODO_LIST_INFO)
-    Single<BaseResponse<MaterialDetails>> pickOutTodoListDetail(@Field("sapOrderNo") String sapOrderNo,
-                                                                @Field("sapFirmNo") String sapFirmNo);
+    Single<BaseResponse<MaterialDetails>> pickOutTodoListDetail(@Field("sign") String sign,
+                                                                @Field("sapOrderNo") String sapOrderNo,
+                                                                @Field("sapFirmNo") String sapFirmNo,
+                                                                @Field("orderTime") String orderTime);
 
     /**
      * 领料出库 - 待办详情 保存

@@ -26,6 +26,7 @@ class MaterialList {
         var goodsNo: String? = null
         var goodsName: String? = null
         var type: String? = null
+        var sign: String? = null
         var inTime: String? = null
         var outTime: String? = null
         var sapOrderNo: String? = null
