@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_white_min_radius">
+
+    <TextView
+        android:id="@+id/tv_productNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/x20"
+        android:layout_marginTop="@dimen/x10"
+        android:text="成品代码："
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_product_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:text="成品名称："
+        app:layout_constraintStart_toStartOf="@+id/tv_productNo"
+        app:layout_constraintTop_toBottomOf="@+id/tv_productNo" />
+
+    <TextView
+        android:id="@+id/tv_former_house"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:text="原仓库："
+        app:layout_constraintStart_toStartOf="@+id/tv_productNo"
+        app:layout_constraintTop_toBottomOf="@+id/tv_product_name" />
+
+    <TextView
+        android:id="@+id/tv_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:text="库存数量："
+        app:layout_constraintStart_toStartOf="@+id/tv_productNo"
+        app:layout_constraintTop_toBottomOf="@+id/tv_former_house" />
+
+    <CheckBox
+        android:id="@+id/check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/x20"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_number"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:text="含量："
+        app:layout_constraintStart_toStartOf="@+id/tv_productNo"
+        app:layout_constraintTop_toBottomOf="@+id/tv_number" />
+
+    <TextView
+        android:id="@+id/tv_target_house"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:text="目标仓库："
+        app:layout_constraintStart_toStartOf="@+id/tv_productNo"
+        app:layout_constraintTop_toBottomOf="@+id/tv_content" />
+
+    <TextView
+        android:id="@+id/tv_select_house"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_black_min_radius"
+        android:drawableEnd="@mipmap/ic_bottom"
+        android:drawablePadding="@dimen/space_10"
+        android:gravity="center_vertical"
+        android:padding="@dimen/space_7"
+        android:text="正邦仓库："
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_target_house"
+        app:layout_constraintTop_toBottomOf="@+id/tv_content" />
+
+    <TextView
+        android:id="@+id/tv_move_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x30"
+        android:text="移库数量："
+        app:layout_constraintStart_toStartOf="@+id/tv_productNo"
+        app:layout_constraintTop_toBottomOf="@+id/tv_target_house" />
+
+    <Button
+        android:id="@+id/bt_scan_move"
+        android:text="@string/button_scan_move"
+        app:layout_constraintTop_toBottomOf="@+id/tv_select_house"
+        app:layout_constraintStart_toEndOf="@+id/tv_move_number"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/x10"
+        android:background="@drawable/shape_theme_min_radius"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</android.support.constraint.ConstraintLayout>

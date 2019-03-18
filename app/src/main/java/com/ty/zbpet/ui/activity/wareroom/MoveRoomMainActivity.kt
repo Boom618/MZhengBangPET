@@ -27,7 +27,7 @@ class MoveRoomMainActivity : BaseActivity() {
 
         move_room_materials.setOnClickListener { gotoActivity(MoveRoomMaterialsActivity::class.java) }
         reversal_materials.setOnClickListener { gotoActivity(ReversalMaterialsActivity::class.java) }
-        move_room_product.setOnClickListener { gotoActivity(MoveRoomMaterialsActivity::class.java) }
+        move_room_product.setOnClickListener { gotoActivity(ProductMoveActivity::class.java) }
         reversal_product.setOnClickListener { gotoActivity(MoveRoomMaterialsActivity::class.java) }
 
     }

@@ -74,7 +74,14 @@
     <string name="other_message">其他信息</string>
     <string name="check_message">质检信息</string>
     <string name="materials_move">原辅料移库</string>
+    <string name="materials_move_reversal">原辅料移库冲销</string>
     <string name="product_move">成品移库</string>
+    <string name="move_room_source">源库位</string>
+    <string name="move_room_target">目标库位</string>
+    <string name="button_commit">提交</string>
+    <string name="button_scan_code">扫码</string>
+    <string name="button_scan_move">扫码移库</string>
+    <string name="button_confirm">确定</string>
 
 
 

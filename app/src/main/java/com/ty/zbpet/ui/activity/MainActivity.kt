@@ -6,7 +6,7 @@ import com.ty.zbpet.R
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.ui.activity.system.PersonCenterActivity
 import com.ty.zbpet.ui.activity.system.QualityCheckTabActivity
-import com.ty.zbpet.ui.activity.system.TransferStorageActivity
+import com.ty.zbpet.ui.activity.wareroom.MoveRoomMainActivity
 import com.ty.zbpet.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main1.*
 
@@ -38,7 +38,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 //                tv_send_out_storage,
 //                tv_return_in_storage,
 //                tv_inventory,
-//                tv_transfer_storage,
+                tv_transfer_storage,
                 tv_person_center)
     }
 
@@ -88,7 +88,8 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 gotoActivity(QualityCheckTabActivity::class.java)
             R.id.tv_transfer_storage ->
                 //仓库管理——移库
-                gotoActivity(TransferStorageActivity::class.java)
+                //gotoActivity(TransferStorageActivity::class.java)
+                gotoActivity(MoveRoomMainActivity::class.java)
             R.id.tv_person_center ->
                 //个人中心
                 gotoActivity(PersonCenterActivity::class.java)

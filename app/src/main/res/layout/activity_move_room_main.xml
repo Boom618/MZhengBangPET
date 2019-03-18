@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/space_20"
-        android:layout_marginTop="@dimen/space_30"
+        android:layout_marginTop="@dimen/x40"
         android:layout_marginEnd="@dimen/space_20"
         android:background="@drawable/shape_btn_them"
         android:text="原辅料"
@@ -28,7 +28,7 @@
         android:layout_width="@dimen/x160"
         android:layout_height="@dimen/x160"
         android:text="移库"
-        android:layout_marginTop="@dimen/space_40"
+        android:layout_marginTop="@dimen/x40"
         android:textColor="@color/white"
         android:textSize="@dimen/text_22"
         android:background="@drawable/shape_btn_them"
@@ -41,7 +41,7 @@
         android:layout_width="@dimen/x160"
         android:layout_height="@dimen/x160"
         android:text="冲销"
-        android:layout_marginTop="@dimen/space_40"
+        android:layout_marginTop="@dimen/x40"
         android:textColor="@color/white"
         android:textSize="@dimen/text_22"
         android:background="@drawable/shape_btn_them"
@@ -62,8 +62,7 @@
         android:textSize="@dimen/text_22"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/move_room_materials" />
 
     <Button
         android:id="@+id/move_room_product"

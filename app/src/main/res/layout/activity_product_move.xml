@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/top"
+        layout="@layout/top_layout" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_product"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="@dimen/x20"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/bt_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginEnd="@dimen/space_20"
+        android:layout_marginBottom="@dimen/x20"
+        android:background="@drawable/shape_theme_min_radius"
+        android:text="@string/button_confirm"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_18" />
+
+</LinearLayout>
