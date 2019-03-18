@@ -31,7 +31,7 @@ import io.reactivex.schedulers.Schedulers;
 public class ScanObservable {
 
 
-    private static ACache mCache = MainApp.mCache;
+    //private static ACache mCache = MainApp.mCache;
     /**
      * 扫描成功提示音
      */
@@ -93,7 +93,6 @@ public class ScanObservable {
                 .doOnNext(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
-                        ZBLog.INSTANCE.e("doOnNext: 保存成功：" + s + "\n");
 
                         // 存 position 和 解析出来的库位码值： 1@KWM565658908
                     }

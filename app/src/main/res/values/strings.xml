@@ -73,6 +73,8 @@
     <string name="purchase_back_goods">采购退货明细冲销</string>
     <string name="other_message">其他信息</string>
     <string name="check_message">质检信息</string>
+    <string name="materials_move">原辅料移库</string>
+    <string name="product_move">成品移库</string>
 
 
 

@@ -43,7 +43,7 @@ import org.greenrobot.eventbus.ThreadMode
  */
 class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList.ListBean> {
 
-    private lateinit var fragmentType:String
+    private lateinit var fragmentType: String
     private var adapterTodo: PickOutTodoAdapter? = null
     private var adapterDone: PickOutDoneAdapter? = null
 
@@ -64,8 +64,8 @@ class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList
     override fun loadData() {
         fragmentType = arguments!!.getString(CodeConstant.FRAGMENT_TYPE)!!
         when (fragmentType) {
-            CodeConstant.FRAGMENT_TODO -> presenter.fetchPickOutTodoList("","", "", "")
-            CodeConstant.FRAGMENT_DONE -> presenter.fetchPickOutDoneList(CodeConstant.PICK_OUT_TYPE,"","","")
+            CodeConstant.FRAGMENT_TODO -> presenter.fetchPickOutTodoList("", "", "", "")
+            CodeConstant.FRAGMENT_DONE -> presenter.fetchPickOutDoneList(CodeConstant.PICK_OUT_TYPE, "", "", "")
         }
     }
 
@@ -77,8 +77,8 @@ class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList
             refreshLayout.finishRefresh(1000)
             // 刷新数据
             when (fragmentType) {
-                CodeConstant.FRAGMENT_TODO -> presenter.fetchPickOutTodoList("", "","", "")
-                CodeConstant.FRAGMENT_DONE -> presenter.fetchPickOutDoneList(CodeConstant.PICK_OUT_TYPE,"","","")
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchPickOutTodoList("", "", "", "")
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchPickOutDoneList(CodeConstant.PICK_OUT_TYPE, "", "", "")
             }
         }
 //        refreshLayout!!.setOnLoadMoreListener { refreshLayout ->
@@ -149,8 +149,8 @@ class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList
             val startTime = event.leftTime()
             val endTime = event.rightTime()
             when (fragmentType) {
-                CodeConstant.FRAGMENT_TODO -> presenter.fetchPickOutTodoList(sign,search,startTime,endTime)
-                CodeConstant.FRAGMENT_DONE -> presenter.fetchPickOutDoneList(CodeConstant.PICK_OUT_TYPE,search,startTime,endTime)
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchPickOutTodoList(sign, search, startTime, endTime)
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchPickOutDoneList(CodeConstant.PICK_OUT_TYPE, search, startTime, endTime)
             }
         }
     }

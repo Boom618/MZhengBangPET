@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/top"
+        layout="@layout/top_layout" />
+
+    <Button
+        android:id="@+id/title_materials"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_30"
+        android:layout_marginEnd="@dimen/space_20"
+        android:background="@drawable/shape_btn_them"
+        android:text="原辅料"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_22"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top" />
+
+    <Button
+        android:id="@+id/move_room_materials"
+        android:layout_width="@dimen/x160"
+        android:layout_height="@dimen/x160"
+        android:text="移库"
+        android:layout_marginTop="@dimen/space_40"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_22"
+        android:background="@drawable/shape_btn_them"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/reversal_materials"
+        app:layout_constraintTop_toBottomOf="@+id/title_materials" />
+
+    <Button
+        android:id="@+id/reversal_materials"
+        android:layout_width="@dimen/x160"
+        android:layout_height="@dimen/x160"
+        android:text="冲销"
+        android:layout_marginTop="@dimen/space_40"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_22"
+        android:background="@drawable/shape_btn_them"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/move_room_materials"
+        app:layout_constraintTop_toBottomOf="@+id/title_materials" />
+
+    <Button
+        android:id="@+id/title_product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_30"
+        android:layout_marginEnd="@dimen/space_20"
+        android:background="@drawable/shape_btn_them"
+        android:text="成品"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_22"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/move_room_product"
+        android:layout_width="@dimen/x160"
+        android:layout_height="@dimen/x160"
+        android:text="移库"
+        android:layout_marginTop="@dimen/space_40"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_22"
+        android:background="@drawable/shape_btn_them"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/reversal_product"
+        app:layout_constraintTop_toBottomOf="@+id/title_product" />
+
+    <Button
+        android:id="@+id/reversal_product"
+        android:layout_width="@dimen/x160"
+        android:layout_height="@dimen/x160"
+        android:text="冲销"
+        android:layout_marginTop="@dimen/space_40"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_22"
+        android:background="@drawable/shape_btn_them"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/move_room_product"
+        app:layout_constraintTop_toBottomOf="@+id/title_product" />
+
+</android.support.constraint.ConstraintLayout>

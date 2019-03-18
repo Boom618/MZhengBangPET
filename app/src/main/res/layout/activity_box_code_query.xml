@@ -22,7 +22,7 @@
         android:id="@+id/query_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_10"
         app:layout_constraintTop_toBottomOf="@+id/box_no"
         app:layout_constraintStart_toStartOf="@+id/box_no"
         android:text="查询时间：" />
@@ -31,7 +31,7 @@
         android:id="@+id/query_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_10"
         app:layout_constraintTop_toBottomOf="@+id/query_time"
         app:layout_constraintStart_toStartOf="@+id/box_no"
         android:text="查询次数：" />
@@ -50,7 +50,7 @@
         android:id="@+id/product_batch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_10"
         app:layout_constraintTop_toBottomOf="@+id/product_name"
         app:layout_constraintStart_toStartOf="@+id/box_no"
         android:text="生产批次：" />
@@ -59,7 +59,7 @@
         android:id="@+id/product_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_10"
         app:layout_constraintTop_toBottomOf="@+id/product_batch"
         app:layout_constraintStart_toStartOf="@+id/box_no"
         android:text="生产日期：" />

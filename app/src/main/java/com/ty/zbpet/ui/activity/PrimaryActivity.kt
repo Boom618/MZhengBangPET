@@ -27,8 +27,9 @@ import java.util.*
  */
 class PrimaryActivity : BaseActivity() {
 
-    // 定点类型 ：默认生产订单
+    // 领料类型 ：默认生产订单
     private var signType = false
+    private var intType = 1
 
     override val activityLayout: Int
         get() = R.layout.activity_main_todo_and_done
@@ -39,7 +40,7 @@ class PrimaryActivity : BaseActivity() {
 
     override fun initOneData() {
 
-        val intType = intent.getIntExtra(CodeConstant.ACTIVITY_TYPE, 1)
+        intType = intent.getIntExtra(CodeConstant.ACTIVITY_TYPE, 1)
 
         val fragmentList = ArrayList<Fragment>()
         when (intType) {
@@ -126,7 +127,8 @@ class PrimaryActivity : BaseActivity() {
         } else {
             "$currentMonth"
         }
-        leftTime.text = "$currentYear-$month-1"
+        //leftTime.text = "$currentYear-$month-1"
+        leftTime.text = String.format("%s-%s-1", currentYear, month)
         rightTime.text = currentTime
 
         leftTime.setOnClickListener {
@@ -146,7 +148,7 @@ class PrimaryActivity : BaseActivity() {
                 val result = TimeWidget.DateComparison(startTime, endTime)
                 if (result) {
                     leftTime.text = selectTime
-                    EventBus.getDefault().post(SearchMessage(sign,sapOrderNo, selectTime, rightString))
+                    EventBus.getDefault().post(SearchMessage(sign, sapOrderNo, selectTime, rightString))
                 } else {
                     ZBUiUtils.showToast("开始时间不能大于结束时间")
                 }
@@ -169,7 +171,7 @@ class PrimaryActivity : BaseActivity() {
                 val result = TimeWidget.DateComparison(startTime, endTime)
                 if (result) {
                     rightTime.text = selectTime
-                    EventBus.getDefault().post(SearchMessage(sign,sapOrderNo, leftString, selectTime))
+                    EventBus.getDefault().post(SearchMessage(sign, sapOrderNo, leftString, selectTime))
                 } else {
                     ZBUiUtils.showToast("结束时间不能小于开始时间")
                 }
@@ -183,7 +185,7 @@ class PrimaryActivity : BaseActivity() {
                     false -> CodeConstant.SIGN_S
                     true -> CodeConstant.SIGN_Y
                 }
-                EventBus.getDefault().post(SearchMessage(sign,searchString, "", ""))
+                EventBus.getDefault().post(SearchMessage(sign, searchString, "", ""))
                 ZBUiUtils.hideInputWindow(v.context, v)
             }
             true
@@ -198,13 +200,13 @@ class PrimaryActivity : BaseActivity() {
                     // 逻辑处理
                     if (signType) {
                         val d = resources.getDrawable(R.mipmap.search_s)
-                        d.setBounds(0,0,32,32)
-                        et_search.setCompoundDrawables(d,null,null,null)
+                        d.setBounds(0, 0, R.dimen.x32, R.dimen.x32)
+                        et_search.setCompoundDrawables(d, null, null, null)
                         ZBUiUtils.showToast("请输入生产订单号")
                     } else {
                         val d = resources.getDrawable(R.mipmap.search_y)
-                        d.setBounds(0,0,32,32)
-                        et_search.setCompoundDrawables(d,null,null,null)
+                        d.setBounds(0, 0, R.dimen.x32, R.dimen.x32)
+                        et_search.setCompoundDrawables(d, null, null, null)
                         ZBUiUtils.showToast("请输入预留单号")
                     }
                     signType = !signType

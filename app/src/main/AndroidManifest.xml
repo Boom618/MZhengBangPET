@@ -117,6 +117,11 @@
         <activity android:name=".ui.activity.system.QualityCheckTabActivity" />
         <activity android:name=".ui.activity.system.BoxCodeQueryActivity" />
         <activity android:name=".ui.activity.system.LocationQueryActivity" />
+        <activity android:name=".ui.activity.wareroom.MoveRoomMainActivity" />
+        <activity android:name=".ui.activity.wareroom.MoveRoomMaterialsActivity" />
+        <activity android:name=".ui.activity.wareroom.SourceLocationActivity" />
+        <activity android:name=".ui.activity.wareroom.TargetLocationActivity" />
+        <activity android:name=".ui.activity.wareroom.ReversalMaterialsActivity" />
 
     </application>
 
