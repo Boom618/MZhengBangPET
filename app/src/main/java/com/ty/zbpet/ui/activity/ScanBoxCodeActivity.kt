@@ -8,6 +8,8 @@ import android.view.View
 import com.pda.scanner.ScanReader
 import com.ty.zbpet.R
 import com.ty.zbpet.constant.CodeConstant
+import com.ty.zbpet.presenter.system.CommInterface
+import com.ty.zbpet.presenter.system.CommPresenter
 import com.ty.zbpet.ui.adapter.BindBoxCodeAdapter
 import com.ty.zbpet.ui.adapter.diffadapter.MaterialDiffUtil
 import com.ty.zbpet.ui.base.BaseActivity
@@ -23,7 +25,8 @@ import java.util.*
  * @author TY
  * 扫码功能
  */
-class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface {
+class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface , CommInterface {
+
     override val activityLayout: Int
         get() = R.layout.activity_scan_box_code
 
@@ -42,6 +45,8 @@ class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface {
     private var state: Boolean = false
     private val scanReader = ScanReader.getScannerInstance()
     private val scanObservable = ScanObservable(this)
+
+    private var presenter = CommPresenter(this)
 
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
@@ -78,7 +83,7 @@ class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface {
     /**
      * 返回上级 Ac
      */
-    private fun returnActivity(){
+    private fun returnActivity() {
         val intent = Intent()
         intent.putExtra("itemId", itemId)
         intent.putStringArrayListExtra("boxCodeList", boxCodeList)
@@ -120,7 +125,21 @@ class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface {
      */
     override fun ScanSuccess(position: Int, positionNo: String) {
 
-        checkBoxCode(positionNo)
+        presenter.urlAnalyze(positionNo)
+    }
+
+    override fun urlAnalyze(codeNo: String) {
+        checkBoxCode(codeNo)
+    }
+
+    override fun showError(msg: String) {
+        ZBUiUtils.showToast(msg)
+    }
+
+    override fun showLoading() {
+    }
+
+    override fun hideLoading() {
     }
 
     /**
@@ -145,7 +164,7 @@ class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface {
     }
 
     companion object {
-        private val RESULT_SCAN_CODE = 2
+        private const val RESULT_SCAN_CODE = 2
     }
 
 }

@@ -70,6 +70,11 @@ public class ApiNameConstant {
     public static final String CHECK_CAR_CODE = "resources/warePositionInfo/getPositionList";
 
     /**
+     * 扫码解析
+     */
+    public static final String URL_ANALYZE = "boxQrCode/boxQrCode/getBoxQrCode";
+
+    /**
      * 原辅料 -- 已办列表
      */
     public static final String GET_MATERIAL_PURCHASE_LIST = "stock/materialStock/getInWarehouseOrderList";

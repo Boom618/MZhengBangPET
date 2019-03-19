@@ -124,6 +124,15 @@ public interface ApiService {
     Single<CarPositionNoData> checkCarCode(@Query("positionNo") String positionNo);
 
     /**
+     * url 解析
+     *
+     * @param url url
+     * @return Single
+     */
+    @POST(ApiNameConstant.URL_ANALYZE)
+    Single<BaseResponse<String>> urlAnalyze(@Field("url") String url);
+
+    /**
      * 获取原辅料采购 已办列表
      *
      * @param type

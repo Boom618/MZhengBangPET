@@ -1,4 +1,4 @@
-package com.ty.zbpet.bean
+package com.ty.zbpet.bean.eventbus
 
 /**
  * @author TY on 2019/3/11.

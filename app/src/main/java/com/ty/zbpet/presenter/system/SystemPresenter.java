@@ -26,15 +26,15 @@ import okhttp3.RequestBody;
  */
 public class SystemPresenter {
 
-    SystemUiListInterface listInterface;
+    private SystemUiListInterface listInterface;
 
 
     /**
      * API 网络
      */
-    HttpMethods httpMethods;
+    private HttpMethods httpMethods;
 
-    Disposable disposable;
+    private Disposable disposable;
 
     public SystemPresenter(SystemUiListInterface listInterface) {
         this.listInterface = listInterface;
@@ -80,9 +80,10 @@ public class SystemPresenter {
 
     /**
      * 待办 详情
+     *
      * @param arrivalOrderNo
      */
-    public void fetchQualityCheckTodoInfo(String arrivalOrderNo){
+    public void fetchQualityCheckTodoInfo(String arrivalOrderNo) {
 
         httpMethods.getQualityCheckTodoInfo(new SingleObserver<BaseResponse<QualityCheckTodoDetails>>() {
             @Override
@@ -105,7 +106,7 @@ public class SystemPresenter {
             public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
             }
-        },arrivalOrderNo);
+        }, arrivalOrderNo);
     }
 
     /**
@@ -139,9 +140,10 @@ public class SystemPresenter {
 
     /**
      * 已办 详情
+     *
      * @param arrivalOrderNo
      */
-    public void fetchQualityCheckDoneInfo(String arrivalOrderNo){
+    public void fetchQualityCheckDoneInfo(String arrivalOrderNo) {
 
         httpMethods.getQualityCheckDoneInfo(new SingleObserver<BaseResponse<QualityCheckTodoList>>() {
             @Override
@@ -164,7 +166,7 @@ public class SystemPresenter {
             public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
             }
-        },arrivalOrderNo);
+        }, arrivalOrderNo);
     }
 
     /**

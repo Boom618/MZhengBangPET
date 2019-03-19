@@ -11,7 +11,7 @@ import com.ty.zbpet.BuildConfig
 object ZBLog {
 
 
-    private val TAG = "ZBLog"
+    private const val TAG = "ZBLog"
 
     /**
      * 是否开启 Logger

@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.scwang.smartrefresh.header.MaterialHeader
 import com.ty.zbpet.R
-import com.ty.zbpet.bean.SearchMessage
+import com.ty.zbpet.bean.eventbus.SearchMessage
 import com.ty.zbpet.bean.product.ProductList
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.presenter.product.BuyInPresenter

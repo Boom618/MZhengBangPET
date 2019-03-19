@@ -130,12 +130,12 @@ public class DataUtils {
     public static void setHouseId(int position, int which) {
 
         sparseArray.put(position, which);
-        positionAndWhich.put(CodeConstant.INSTANCE.getSELECT_HOUSE_BUY_IN(), sparseArray);
+        positionAndWhich.put(CodeConstant.SELECT_HOUSE_BUY_IN, sparseArray);
     }
 
     public static SparseArray<Integer> getHouseId() {
 
-        SparseArray<Integer> houseIdSArray = positionAndWhich.get(CodeConstant.INSTANCE.getSELECT_HOUSE_BUY_IN());
+        SparseArray<Integer> houseIdSArray = positionAndWhich.get(CodeConstant.SELECT_HOUSE_BUY_IN);
         if (houseIdSArray == null) {
             houseIdSArray = new SparseArray<>();
             houseIdSArray.put(0, 0);
@@ -235,7 +235,7 @@ public class DataUtils {
      * 清除 sparseArray 数据
      */
     public static void clearId() {
-        positionAndWhich.put(CodeConstant.INSTANCE.getSELECT_HOUSE_BUY_IN(), null);
+        positionAndWhich.put(CodeConstant.SELECT_HOUSE_BUY_IN, null);
         positionAndWhich.put(CodeConstant.INSTANCE.getSELECT_GOODS(), null);
         positionAndFile.put(CodeConstant.INSTANCE.getSELECT_IMAGE(), null);
         positionAndNumber.put(CodeConstant.INSTANCE.getET_NUMBER_INT(), null);

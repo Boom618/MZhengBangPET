@@ -9,7 +9,6 @@ import com.ty.zbpet.bean.material.MaterialDetails;
 import com.ty.zbpet.bean.material.MaterialList;
 import com.ty.zbpet.bean.product.ProductDetails;
 import com.ty.zbpet.bean.product.ProductList;
-import com.ty.zbpet.bean.product.ProductDetails;
 import com.ty.zbpet.bean.system.ImageData;
 import com.ty.zbpet.bean.system.QualityCheckTodoDetails;
 import com.ty.zbpet.bean.system.QualityCheckTodoList;
@@ -29,6 +28,8 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
+import okhttp3.logging.HttpLoggingInterceptor;
+import okhttp3.logging.HttpLoggingInterceptor.Level;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -64,12 +65,14 @@ public class HttpMethods {
     }
 
     private void init(String url) {
+        HttpLoggingInterceptor log = new HttpLoggingInterceptor();
+        log.setLevel(Level.BODY);
         //创建OKHttpClient
         OkHttpClient.Builder client = new OkHttpClient.Builder()
                 .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .addInterceptor(new SessionInterceptor())
-                // 日志拦截器
-                .addInterceptor(new LogInterceptor());
+                // 日志拦截器: new LogInterceptor()
+                .addInterceptor(log);
 
         mRetrofit = new Retrofit.Builder()
                 .client(client.build())
@@ -195,13 +198,23 @@ public class HttpMethods {
     }
 
     /**
+     * url 解析
+     */
+    public void urlAnalyze(SingleObserver<BaseResponse<String>> subscriber, String url) {
+        mService.urlAnalyze(url)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+
+    }
+
+    /**
      * 已办列表
      *
      * @param subscriber
      */
     public void getMaterialDoneList(SingleObserver<BaseResponse<MaterialList>> subscriber, String type,
-                                    String sapOrderNo,String startDate,String endDate) {
-        mService.getMaterialDoneList(type,sapOrderNo,startDate,endDate)
+                                    String sapOrderNo, String startDate, String endDate) {
+        mService.getMaterialDoneList(type, sapOrderNo, startDate, endDate)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -238,8 +251,8 @@ public class HttpMethods {
      * @param subscriber
      */
     public void pickOutTodoList(SingleObserver<BaseResponse<MaterialList>> subscriber,
-                                String sign,String sapOrderNo,String startDate,String endDate) {
-        mService.pickOutTodoList(sign,sapOrderNo,startDate,endDate)
+                                String sign, String sapOrderNo, String startDate, String endDate) {
+        mService.pickOutTodoList(sign, sapOrderNo, startDate, endDate)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
 
@@ -252,8 +265,8 @@ public class HttpMethods {
      * @param sapOrderNo
      */
     public void pickOutTodoListDetails(SingleObserver<BaseResponse<MaterialDetails>> subscriber,
-                                       String sign,String sapOrderNo, String sapFirmNo,String orderTime) {
-        mService.pickOutTodoListDetail(sign,sapOrderNo, sapFirmNo,orderTime)
+                                       String sign, String sapOrderNo, String sapFirmNo, String orderTime) {
+        mService.pickOutTodoListDetail(sign, sapOrderNo, sapFirmNo, orderTime)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -275,8 +288,8 @@ public class HttpMethods {
      * @param subscriber
      */
     public void pickOutDoneList(SingleObserver<BaseResponse<MaterialList>> subscriber, String type,
-                                String sapOrderNo,String startDate,String endDate) {
-        mService.pickOutDoneList(type,sapOrderNo,startDate,endDate)
+                                String sapOrderNo, String startDate, String endDate) {
+        mService.pickOutDoneList(type, sapOrderNo, startDate, endDate)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
 
@@ -315,8 +328,8 @@ public class HttpMethods {
      * @param subscriber
      */
     public void getBackTodoList(SingleObserver<BaseResponse<MaterialList>> subscriber,
-                                String sapOrderNo,String startDate,String endDate) {
-        mService.getBackTodoList(sapOrderNo,startDate,endDate)
+                                String sapOrderNo, String startDate, String endDate) {
+        mService.getBackTodoList(sapOrderNo, startDate, endDate)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -350,8 +363,8 @@ public class HttpMethods {
      * @param subscriber
      */
     public void getBackDoneList(SingleObserver<BaseResponse<MaterialList>> subscriber, String type,
-                                String sapOrderNo,String startDate,String endDate) {
-        mService.getBackDoneList(type,sapOrderNo,startDate,endDate)
+                                String sapOrderNo, String startDate, String endDate) {
+        mService.getBackDoneList(type, sapOrderNo, startDate, endDate)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -391,8 +404,8 @@ public class HttpMethods {
      * @param subscriber
      */
     public void getBuyInOrderList(SingleObserver<BaseResponse<ProductList>> subscriber,
-                                  String sapOrderNo,String startDate,String endDate) {
-        mService.getBuyInOrderList(sapOrderNo,startDate,endDate)
+                                  String sapOrderNo, String startDate, String endDate) {
+        mService.getBuyInOrderList(sapOrderNo, startDate, endDate)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -425,8 +438,8 @@ public class HttpMethods {
      * @param subscriber
      */
     public void getBuyInDoneList(SingleObserver<BaseResponse<ProductList>> subscriber, String type,
-                                 String sapOrderNo,String startDate,String endDate) {
-        mService.getBuyInDoneList(type,sapOrderNo,startDate,endDate)
+                                 String sapOrderNo, String startDate, String endDate) {
+        mService.getBuyInDoneList(type, sapOrderNo, startDate, endDate)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }

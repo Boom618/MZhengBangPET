@@ -8,7 +8,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
 import com.ty.zbpet.R
-import com.ty.zbpet.bean.SearchMessage
+import com.ty.zbpet.bean.eventbus.SearchMessage
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.fragment.material.*

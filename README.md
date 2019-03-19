@@ -22,6 +22,7 @@
 - 权限
 - Fragment 懒加载
 - rc 输入框取值:RecycleView.getChildAt(position) 得到 View
+- Rc button 冲突（利用 EventBus 解决）
 
 **技术点**
 
@@ -50,10 +51,9 @@
 - RecycleView 细节处理
 - Adapter 绑定事件处理
 - 列表分页加载
-- RxEasyHttp
-- Rc button 冲突
 - Kotlin 改版
 - 协程库使用
+- Session 失效跳转登录
 
 
 ## 困扰

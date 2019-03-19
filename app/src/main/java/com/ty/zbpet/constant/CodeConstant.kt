@@ -56,6 +56,11 @@ object CodeConstant {
      */
     const val SIGN_S = "S"
     const val SIGN_Y = "Y"
+    /**
+     * adapter 跳转
+     */
+    const val SELECT_TYPE = "select_house"
+    const val BUTTON_TYPE = "button_scan"
 
     /**
      * 扫码字符集
@@ -90,7 +95,7 @@ object CodeConstant {
      * SELECT_GOODS:        选择的是哪个商品
      * SELECT_IMAGE:        质检上传的图片
      */
-    val SELECT_HOUSE_BUY_IN = 100
+    const val SELECT_HOUSE_BUY_IN = 100
     val SELECT_GOODS = 300
     val SELECT_IMAGE = 700
 

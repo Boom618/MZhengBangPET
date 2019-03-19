@@ -10,6 +10,7 @@ import okhttp3.Response
 import android.support.v4.content.ContextCompat.startActivity
 import com.ty.zbpet.ui.activity.system.LoginActivity
 import android.content.Intent
+import com.ty.zbpet.ui.ActivitiesHelper
 import com.ty.zbpet.ui.MainApp
 
 
@@ -32,8 +33,9 @@ class SessionInterceptor : Interceptor {
             e.printStackTrace()
         }
 //        if (sessionId.isEmpty()) {
-//            val intent = Intent(MainApp.context, LoginActivity::class.java)
-//            MainApp.context.startActivity(intent)
+//            val activity = ActivitiesHelper.get().lastActivity
+//            val intent = Intent(activity, LoginActivity::class.java)
+//            activity.startActivity(intent)
 //        }
 
         val authorised = originalRequest.newBuilder()

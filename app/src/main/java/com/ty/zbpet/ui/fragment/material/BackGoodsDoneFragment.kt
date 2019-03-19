@@ -10,7 +10,7 @@
 //import com.scwang.smartrefresh.layout.footer.BallPulseFooter
 //import com.ty.zbpet.R
 //import com.ty.zbpet.bean.CarPositionNoData
-//import com.ty.zbpet.bean.SearchMessage
+//import com.ty.zbpet.bean.eventbus.SearchMessage
 //import com.ty.zbpet.bean.material.MaterialList
 //import com.ty.zbpet.constant.CodeConstant
 //import com.ty.zbpet.presenter.material.BackGoodsPresenter
