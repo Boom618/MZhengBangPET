@@ -4,15 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.text.TextUtils
 import android.util.SparseArray
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
-import com.dyhdyh.widget.loading.bar.LoadingBar
-import com.dyhdyh.widget.loading.dialog.LoadingDialog
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.ResponseInfo
 import com.ty.zbpet.bean.UserInfo
@@ -22,7 +18,7 @@ import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.net.HttpMethods
 import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.product.ProducePresenter
-import com.ty.zbpet.presenter.product.ProductUiObjInterface
+import com.ty.zbpet.presenter.product.ProductUiListInterface
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity
 import com.ty.zbpet.ui.adapter.product.ProductTodoDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
@@ -42,7 +38,7 @@ import java.util.*
  * @author TY
  */
 class ProductTodoDetailActivity : BaseActivity()
-        , ProductUiObjInterface<ProductDetails>{
+        , ProductUiListInterface<ProductDetails.ListBean> {
 
     private var adapter: ProductTodoDetailAdapter? = null
 
@@ -50,6 +46,7 @@ class ProductTodoDetailActivity : BaseActivity()
     private var sapOrderNo: String? = null
     private var sapFirmNo: String? = null
     private var content: String = ""
+    private var sign: String = ""
 
     private var oldList: List<ProductDetails.ListBean> = ArrayList()
 
@@ -58,7 +55,7 @@ class ProductTodoDetailActivity : BaseActivity()
     /**
      * 用户信息
      */
-    private var userInfo: UserInfo? = null
+    private lateinit var userInfo: UserInfo
 
     /**
      * 保存箱码的数据
@@ -97,12 +94,14 @@ class ProductTodoDetailActivity : BaseActivity()
         sapOrderNo = intent.getStringExtra("sapOrderNo")
         sapFirmNo = intent.getStringExtra("sapFirmNo")
         content = intent.getStringExtra("content")
+        sign = intent.getStringExtra("sign")
 
         // 仓库默认值设置
         DataUtils.setHouseId(0, 0)
 
-        userInfo = DataUtils.getUserInfo()
-        val warehouseList = userInfo!!.warehouseList
+        // 不登录用户数据：DataUtils.getUserInfo()
+        userInfo = SimpleCache.getUserInfo(CodeConstant.USER_DATA)
+        val warehouseList = userInfo.warehouseList
 
         val size = warehouseList!!.size
         for (i in 0 until size) {
@@ -110,12 +109,12 @@ class ProductTodoDetailActivity : BaseActivity()
         }
         tv_house!!.text = houseName[0]
 
-        presenter.fetchProductTodoInfo(sapOrderNo)
+        presenter.fetchProductTodoInfo(sign,sapOrderNo)
     }
 
     override fun initTwoView() {
 
-        initToolBar(R.string.label_produce_in_storage, View.OnClickListener { productTodoSave(initTodoBody()) })
+        initToolBar(R.string.label_produce_in_storage, "保存",View.OnClickListener { productTodoSave(initTodoBody()) })
 
         val format = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
         selectTime = format.format(Date())
@@ -152,7 +151,6 @@ class ProductTodoDetailActivity : BaseActivity()
         HttpMethods.getInstance().getProduceTodoSave(object : SingleObserver<ResponseInfo> {
             override fun onError(e: Throwable) {
                 ZBUiUtils.showToast(e.message)
-                LoadingDialog.cancel()
             }
 
             override fun onSubscribe(d: Disposable) {
@@ -167,7 +165,6 @@ class ProductTodoDetailActivity : BaseActivity()
                 } else {
                     ZBUiUtils.showToast(responseInfo.message)
                 }
-                LoadingDialog.cancel()
             }
         }, body)
     }
@@ -185,7 +182,7 @@ class ProductTodoDetailActivity : BaseActivity()
         // TODO 获取用户选择的仓库信息
         val houseId = DataUtils.getHouseId()
 
-        val warehouseList = userInfo!!.warehouseList
+        val warehouseList = userInfo.warehouseList
 
         // 仓库信息
         val warehouseId: String?
@@ -197,7 +194,7 @@ class ProductTodoDetailActivity : BaseActivity()
             warehouseName = warehouseList[0].warehouseName
         } else {
             val which = houseId.get(0)
-            warehouseId = warehouseList!![which!!].warehouseId
+            warehouseId = warehouseList!![which].warehouseId
             warehouseNo = warehouseList[which].warehouseNo
             warehouseName = warehouseList[which].warehouseName
         }
@@ -258,16 +255,14 @@ class ProductTodoDetailActivity : BaseActivity()
         requestBody.inTime = time
         requestBody.remark = remark
 
-        LoadingBar.make(loading_container).show()
-
         val json = DataUtils.toJson(requestBody, 1)
         return RequestBodyJson.requestBody(json)
     }
 
 
-    override fun detailObjData(details: ProductDetails) {
+    override fun showProduct(list: MutableList<ProductDetails.ListBean>?) {
 
-        oldList = details.list!!
+        oldList = list!!
 
         if (adapter == null) {
             val manager = LinearLayoutManager(ResourceUtil.getContext())
@@ -308,10 +303,21 @@ class ProductTodoDetailActivity : BaseActivity()
                     return false
                 }
             })
-        } else {
-            adapter!!.notifyDataSetChanged()
         }
 
+    }
+
+    override fun showLoading() {
+    }
+
+    override fun hideLoading() {
+    }
+
+    override fun saveSuccess() {
+    }
+
+    override fun showError(msg: String?) {
+        ZBUiUtils.showToast(msg)
     }
 
 

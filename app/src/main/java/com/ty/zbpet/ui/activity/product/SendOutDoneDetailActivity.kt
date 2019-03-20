@@ -80,7 +80,7 @@ class SendOutDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
     override fun initTwoView() {
 
 
-        initToolBar(R.string.pick_out_storage, View.OnClickListener { sendOutDoneSave(initDoneBody()) })
+        initToolBar(R.string.pick_out_storage, "保存",View.OnClickListener { sendOutDoneSave(initDoneBody()) })
 
         val format = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
         selectTime = format.format(Date())

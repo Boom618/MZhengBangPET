@@ -74,7 +74,7 @@ class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface , CommInterface {
         isOpen = scanInit()
 
         if (state) {
-            initToolBar(R.string.box_binding_list, View.OnClickListener { returnActivity() })
+            initToolBar(R.string.box_binding_list, "保存",View.OnClickListener { returnActivity() })
         } else {
             initToolBar(R.string.box_binding_list)
         }
@@ -126,6 +126,7 @@ class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface , CommInterface {
     override fun ScanSuccess(position: Int, positionNo: String) {
 
         presenter.urlAnalyze(positionNo)
+//        checkBoxCode(positionNo)
     }
 
     override fun urlAnalyze(codeNo: String) {

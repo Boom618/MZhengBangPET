@@ -19,7 +19,6 @@ class SendOutDoneListAdapter(context: Context, layoutId: Int, datas: List<Produc
                 .setText(R.id.tv_no, list.sapOrderNo)
                 .setText(R.id.tv_client_msg, list.customerInfo)
                 .setText(R.id.tv_send_msg, list.backInfo)
-                .setText(R.id.tv_product_msg, list.backInfo)
                 .setText(R.id.tv_date, list.outTime)
                 .setText(R.id.tv_status, list.state)
     }

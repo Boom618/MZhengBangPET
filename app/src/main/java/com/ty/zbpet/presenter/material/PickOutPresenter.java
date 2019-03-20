@@ -2,12 +2,16 @@ package com.ty.zbpet.presenter.material;
 
 import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.ResponseInfo;
+import com.ty.zbpet.bean.eventbus.UrlMessage;
 import com.ty.zbpet.bean.material.MaterialDetails;
 import com.ty.zbpet.bean.material.MaterialList;
+import com.ty.zbpet.bean.system.BoxCodeUrl;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
 import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.util.ZBUiUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -106,6 +110,36 @@ public class PickOutPresenter {
         }, sign,sapOrderNo, sapFirmNo,orderTime);
     }
 
+    /**
+     * URL 解析
+     *
+     * @param url
+     */
+    public void urlAnalyze(int position,String url) {
+        httpMethods.urlAnalyze(new SingleObserver<BaseResponse<BoxCodeUrl>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(BaseResponse<BoxCodeUrl> response) {
+
+                if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
+                    String qrCode = response.getData().getBoxQrCode();
+                    EventBus.getDefault().post(new UrlMessage(position,qrCode));
+                } else {
+                    listInterface.showError(response.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                listInterface.showError(e.getMessage());
+            }
+        }, url);
+
+    }
 
     /**
      * 库位码校验

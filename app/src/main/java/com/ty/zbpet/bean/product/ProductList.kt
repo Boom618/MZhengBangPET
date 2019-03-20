@@ -23,6 +23,7 @@ class ProductList {
         var creatorNo: String? = null
         var orderTime: String? = null
         var content: String? = null
+        var sign: String? = null
         var state: String? = null
 
         var supplierId: String? = null
@@ -31,6 +32,7 @@ class ProductList {
         var receiveInfo: String? = null
         var productInfo: String? = null
         var customerInfo: String? = null
+        var customerName: String? = null
         var goodsInfo: String? = null
 
         // 已办

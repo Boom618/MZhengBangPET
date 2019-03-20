@@ -35,7 +35,7 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(activityLayout)
-        rootView = layoutInflater.inflate(activityLayout,null,false)
+        rootView = layoutInflater.inflate(activityLayout, null, false)
 
         mUnbinder = ButterKnife.bind(this)
         mCache = ACache.get(application)
@@ -92,7 +92,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
 
     @JvmOverloads
-    protected fun initToolBar(intId: Int = 0, listener: View.OnClickListener? = null) {
+    protected fun initToolBar(midString: Int = 0, rightString: String? = null, listener: View.OnClickListener? = null) {
 
         // 左边返回
         findViewById<View>(R.id.iv_back).setOnClickListener {
@@ -102,45 +102,23 @@ abstract class BaseActivity : AppCompatActivity() {
 
         // 中间标题
         val midText = findViewById<TextView>(R.id.tv_title)
-        if (intId == 0) {
+        if (midString == 0) {
             midText.text = ""
         } else {
-            midText.setText(intId)
+            midText.setText(midString)
         }
 
         // 右边监听事件
         val right = findViewById<TextView>(R.id.tv_right)
 
-        if (null == listener) {
+        if (rightString.isNullOrEmpty()) {
             right.visibility = View.GONE
         } else {
+            right.text = rightString
             right.setOnClickListener(listener)
         }
 
     }
-
-    /**
-     * @param intId     中间标题
-     * @param rightText 右边文字
-     * @param listener  右边 listener
-     */
-    protected fun initToolBar(intId: Int, rightText: String, listener: View.OnClickListener) {
-        // 左边返回
-        findViewById<View>(R.id.iv_back).setOnClickListener {
-            clearCache()
-            finish()
-        }
-
-        // 中间标题
-        val topText = findViewById<TextView>(R.id.tv_title)
-        topText.setText(intId)
-
-        // 右边监听事件
-        val right = findViewById<TextView>(R.id.tv_right)
-        right.text = rightText
-        right.setOnClickListener(listener)
-    }
-
     /**
      * 重置 ACache 中保存的的数据
      */
@@ -169,14 +147,13 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    fun setViewOnClickListener(listener: View.OnClickListener, vararg views: View){
+    fun setViewOnClickListener(listener: View.OnClickListener, vararg views: View) {
         if (views.isNotEmpty()) {
             for (view in views) {
                 view.setOnClickListener(listener)
             }
         }
     }
-
 
 
     override fun onDestroy() {

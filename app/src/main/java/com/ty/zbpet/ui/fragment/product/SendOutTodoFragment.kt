@@ -41,7 +41,7 @@ class SendOutTodoFragment : BaseFragment(), ProductUiListInterface<ProductList.L
         // 设置 Header 样式
         view.refreshLayout!!.setRefreshHeader(MaterialHeader(context!!))
         // 设置 Footer 为 球脉冲 样式
-        view.refreshLayout!!.setRefreshFooter(BallPulseFooter(context!!).setSpinnerStyle(SpinnerStyle.Scale))
+        //view.refreshLayout!!.setRefreshFooter(BallPulseFooter(context!!).setSpinnerStyle(SpinnerStyle.Scale))
         return view
     }
 
@@ -58,11 +58,11 @@ class SendOutTodoFragment : BaseFragment(), ProductUiListInterface<ProductList.L
             // 刷新数据
             presenter.fetchSendOutTodoList()
         }
-        refreshLayout!!.setOnLoadMoreListener { refreshLayout ->
-            // 传入 false 表示刷新失败
-            refreshLayout.finishLoadMore(1000)
-            ZBUiUtils.showToast("没有更多数据了")
-        }
+//        refreshLayout!!.setOnLoadMoreListener { refreshLayout ->
+//            // 传入 false 表示刷新失败
+//            refreshLayout.finishLoadMore(1000)
+//            ZBUiUtils.showToast("没有更多数据了")
+//        }
     }
 
     override fun showProduct(list: List<ProductList.ListBean>) {

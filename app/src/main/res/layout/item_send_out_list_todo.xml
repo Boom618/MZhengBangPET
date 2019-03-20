@@ -54,18 +54,18 @@
         android:textColor="@color/txt_minor_color"
         android:textSize="@dimen/text_14" />
 
-    <TextView
-        android:id="@+id/tv_product_msg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_send_msg"
-        android:layout_marginBottom="@dimen/space_10"
-        android:layout_marginStart="@dimen/space_10"
-        android:layout_marginTop="@dimen/space_5"
-        android:paddingStart="@dimen/space_5"
-        android:text="成品信息"
-        android:textColor="@color/txt_minor_color"
-        android:textSize="@dimen/text_14" />
+    <!--<TextView-->
+        <!--android:id="@+id/tv_product_msg"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/tv_send_msg"-->
+        <!--android:layout_marginBottom="@dimen/space_10"-->
+        <!--android:layout_marginStart="@dimen/space_10"-->
+        <!--android:layout_marginTop="@dimen/space_5"-->
+        <!--android:paddingStart="@dimen/space_5"-->
+        <!--android:text="成品信息"-->
+        <!--android:textColor="@color/txt_minor_color"-->
+        <!--android:textSize="@dimen/text_14" />-->
 
     <LinearLayout
         android:layout_width="wrap_content"

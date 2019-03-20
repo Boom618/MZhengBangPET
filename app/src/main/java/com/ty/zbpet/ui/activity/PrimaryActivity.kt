@@ -47,16 +47,16 @@ class PrimaryActivity : BaseActivity() {
             1 -> {
                 initToolBar(R.string.label_purchase_storage)
 
-                val todoFragment = MaterialTodoFragment.newInstance(CodeConstant.FRAGMENT_TODO)
-                val doneFragment = MaterialTodoFragment.newInstance(CodeConstant.FRAGMENT_DONE)
+                val todoFragment = ArrivalInFragment.newInstance(CodeConstant.FRAGMENT_TODO)
+                val doneFragment = ArrivalInFragment.newInstance(CodeConstant.FRAGMENT_DONE)
                 fragmentList.add(todoFragment)
                 fragmentList.add(doneFragment)
             }
             2 -> {
                 initToolBar(R.string.label_pick_out_storage)
 
-                val todoFragment = PickOutTodoFragment.newInstance(CodeConstant.FRAGMENT_TODO)
-                val doneFragment = PickOutTodoFragment.newInstance(CodeConstant.FRAGMENT_DONE)
+                val todoFragment = PickOutFragment.newInstance(CodeConstant.FRAGMENT_TODO)
+                val doneFragment = PickOutFragment.newInstance(CodeConstant.FRAGMENT_DONE)
 
                 fragmentList.add(todoFragment)
                 fragmentList.add(doneFragment)
@@ -64,8 +64,8 @@ class PrimaryActivity : BaseActivity() {
             3 -> {
                 initToolBar(R.string.label_purchase_returns)
 
-                val todoFragment = BackGoodsTodoFragment.newInstance(CodeConstant.FRAGMENT_TODO)
-                val doneFragment = BackGoodsTodoFragment.newInstance(CodeConstant.FRAGMENT_DONE)
+                val todoFragment = BackGoodsFragment.newInstance(CodeConstant.FRAGMENT_TODO)
+                val doneFragment = BackGoodsFragment.newInstance(CodeConstant.FRAGMENT_DONE)
                 fragmentList.add(todoFragment)
                 fragmentList.add(doneFragment)
             }
@@ -81,7 +81,7 @@ class PrimaryActivity : BaseActivity() {
             5 -> {
                 initToolBar(R.string.label_produce_in_storage)
                 val todoFragment = ProductTodoFragment.newInstance(CodeConstant.FRAGMENT_TODO)
-                val doneFragment = ProductDoneFragment.newInstance(CodeConstant.FRAGMENT_DONE)
+                val doneFragment = ProductTodoFragment.newInstance(CodeConstant.FRAGMENT_DONE)
                 fragmentList.add(todoFragment)
                 fragmentList.add(doneFragment)
             }
@@ -133,7 +133,7 @@ class PrimaryActivity : BaseActivity() {
 
         leftTime.setOnClickListener {
             ZBUiUtils.hideInputWindow(it.context, it)
-            TimeWidget.showPickDate(it.context) { date, v ->
+            TimeWidget.showPickDate(it.context) { date, _ ->
                 val selectTime = TimeWidget.getTime(CodeConstant.DATE_SIMPLE_Y_M_D, date)
                 val rightString = rightTime.text.toString()
                 val sapOrderNo = searchView.text.toString()
@@ -157,7 +157,7 @@ class PrimaryActivity : BaseActivity() {
 
         rightTime.setOnClickListener {
             ZBUiUtils.hideInputWindow(it.context, it)
-            TimeWidget.showPickDate(it.context) { date, v ->
+            TimeWidget.showPickDate(it.context) { date, _ ->
                 val selectTime = TimeWidget.getTime(CodeConstant.DATE_SIMPLE_Y_M_D, date)
                 val sapOrderNo = searchView.text.toString()
                 val leftString = leftTime.text.toString()
@@ -191,7 +191,7 @@ class PrimaryActivity : BaseActivity() {
             true
         }
 
-        et_search.setOnTouchListener(View.OnTouchListener { v, event ->
+        et_search.setOnTouchListener(View.OnTouchListener { _, event ->
             // compoundDrawables：对应位置 左 0，上 1，右 2，下 3
             val drawable = et_search.compoundDrawables[0]
             if (event.actionMasked == MotionEvent.ACTION_UP) {

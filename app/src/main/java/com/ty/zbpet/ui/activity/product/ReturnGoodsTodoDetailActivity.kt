@@ -116,7 +116,7 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
 
     override fun initTwoView() {
 
-        initToolBar(R.string.label_return_sell, View.OnClickListener { view ->
+        initToolBar(R.string.label_return_sell, "保存",View.OnClickListener { view ->
             ZBUiUtils.hideInputWindow(view.context, view)
             returnGoodsTodoSave(initTodoBody())
         })

@@ -2,6 +2,7 @@ package com.ty.zbpet.ui.fragment.material
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.scwang.smartrefresh.header.MaterialHeader
@@ -10,13 +11,13 @@ import com.ty.zbpet.bean.CarPositionNoData
 import com.ty.zbpet.bean.eventbus.SearchMessage
 import com.ty.zbpet.bean.material.MaterialList
 import com.ty.zbpet.constant.CodeConstant
-import com.ty.zbpet.presenter.material.BackGoodsPresenter
+import com.ty.zbpet.presenter.material.MaterialPresenter
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
-import com.ty.zbpet.ui.activity.material.BackGoodsDoneDetailActivity
-import com.ty.zbpet.ui.activity.material.BackGoodsTodoDetailActivity
+import com.ty.zbpet.ui.activity.material.ArrivalInDoneDetailActivity
+import com.ty.zbpet.ui.activity.material.ArrivalInTodoDetailActivity
 import com.ty.zbpet.ui.adapter.LayoutInit
-import com.ty.zbpet.ui.adapter.material.BackGoodsDoneListAdapter
-import com.ty.zbpet.ui.adapter.material.BackGoodsTodoListAdapter
+import com.ty.zbpet.ui.adapter.material.MaterialDoneAdapter
+import com.ty.zbpet.ui.adapter.material.MaterialTodoAdapter
 import com.ty.zbpet.ui.base.BaseFragment
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.ResourceUtil
@@ -29,35 +30,43 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
- * @author TY on 2018/11/26.
+ * A simple [Fragment] subclass.
+ *
+ * @author TY
+ *
+ * 待办 （ 入库 ） Fragment
  */
-class BackGoodsTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList.ListBean> {
-
-    private lateinit var fragmentType: String
-    private val presenter = BackGoodsPresenter(this)
-
-    private var adapterTodo: BackGoodsTodoListAdapter? = null
-    private var adapterDone: BackGoodsDoneListAdapter? = null
+class ArrivalInFragment : BaseFragment(),MaterialUiListInterface<MaterialList.ListBean> {
 
     override val fragmentLayout: Int
         get() = R.layout.zb_content_list_fragment
 
+    private lateinit var fragmentType:String
+    private var adapterTodo: MaterialTodoAdapter? = null
+    private var adapterDone: MaterialDoneAdapter? = null
+    private val presenter = MaterialPresenter(this)
+
+    /**
+     * 加载的 inflater.inflate  的 View
+     *
+     * @param view layout inflate 的 View
+     */
     override fun onBaseCreate(view: View): View {
         EventBus.getDefault().register(this)
-
         // 设置 Header 样式
-        view.refreshLayout!!.setRefreshHeader(MaterialHeader(view.context))
+        view.refreshLayout!!.setRefreshHeader(MaterialHeader(view.context!!))
         // 设置 Footer 为 球脉冲 样式
-        //view.refreshLayout!!.setRefreshFooter(BallPulseFooter(view.context).setSpinnerStyle(SpinnerStyle.Scale))
+        //view.refreshLayout!!.setRefreshFooter(BallPulseFooter(view.context!!).setSpinnerStyle(SpinnerStyle.Scale))
+
         return view
+
     }
 
     override fun loadData() {
-
         fragmentType = arguments!!.getString(CodeConstant.FRAGMENT_TYPE)!!
         when (fragmentType) {
-            CodeConstant.FRAGMENT_TODO -> presenter.fetchBackTodoList("", "", "")
-            CodeConstant.FRAGMENT_DONE -> presenter.fetchBackDoneList(CodeConstant.BACK_GOODS_TYPE, "", "", "")
+            CodeConstant.FRAGMENT_TODO -> presenter.fetchTODOMaterial("", "", "")
+            CodeConstant.FRAGMENT_DONE -> presenter.fetchDoneMaterial(CodeConstant.BUY_IN_TYPE,"","","")
         }
     }
 
@@ -69,8 +78,8 @@ class BackGoodsTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialLi
             refreshLayout.finishRefresh(1000)
             // 刷新数据
             when (fragmentType) {
-                CodeConstant.FRAGMENT_TODO -> presenter.fetchBackTodoList("", "", "")
-                CodeConstant.FRAGMENT_DONE -> presenter.fetchBackDoneList(CodeConstant.BACK_GOODS_TYPE, "", "", "")
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchTODOMaterial("", "", "")
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchDoneMaterial(CodeConstant.BUY_IN_TYPE,"","","")
             }
         }
 //        refreshLayout!!.setOnLoadMoreListener { refreshLayout ->
@@ -83,24 +92,25 @@ class BackGoodsTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialLi
     override fun showMaterial(list: List<MaterialList.ListBean>) {
 
         LayoutInit.initLayoutManager(ResourceUtil.getContext(), recyclerView)
-        if (adapterTodo == null && adapterDone== null) {
+        if (adapterTodo == null && adapterDone == null) {
             recyclerView.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
         }
         if (list.isEmpty()) {
-            ZBUiUtils.showToast("采购退货没有找到结果")
+            ZBUiUtils.showToast("采购入库没有找到结果")
         }
-        when (fragmentType) {
-            CodeConstant.FRAGMENT_TODO -> {
-                adapterTodo = BackGoodsTodoListAdapter(this.context!!, R.layout.item_material_todo, list)
-                recyclerView!!.adapter = adapterTodo
+        when(fragmentType){
+            CodeConstant.FRAGMENT_TODO ->{
+                adapterTodo = MaterialTodoAdapter(ResourceUtil.getContext(), R.layout.item_material_todo, list)
+                recyclerView.adapter = adapterTodo
 
                 adapterTodo!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                     override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
-                        val intent = Intent(activity, BackGoodsTodoDetailActivity::class.java)
+                        val intent = Intent(activity, ArrivalInTodoDetailActivity::class.java)
                         intent.putExtra("sapOrderNo", list[position].sapOrderNo)
-                        intent.putExtra("sapFirmNo", list[position].sapFirmNo)
                         intent.putExtra("supplierNo", list[position].supplierNo)
+                        intent.putExtra("supplierName", list[position].supplierName)
                         intent.putExtra("creatorNo", list[position].creatorNo)
+                        intent.putExtra("sapFirmNo", list[position].sapFirmNo)
                         intent.putExtra("content", list[position].content)
                         startActivity(intent)
                     }
@@ -110,14 +120,14 @@ class BackGoodsTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialLi
                     }
                 })
             }
-            CodeConstant.FRAGMENT_DONE -> {
-                adapterDone = BackGoodsDoneListAdapter(this.context!!, R.layout.activity_content_list_three, list)
+            CodeConstant.FRAGMENT_DONE ->{
+                adapterDone = MaterialDoneAdapter(this.context!!, R.layout.activity_content_list_three, list)
                 recyclerView!!.adapter = adapterDone
-
                 adapterDone!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                     override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
-                        val intent = Intent(activity, BackGoodsDoneDetailActivity::class.java)
+                        val intent = Intent(activity, ArrivalInDoneDetailActivity::class.java)
                         intent.putExtra("sapOrderNo", list[position].sapOrderNo)
+                        intent.putExtra("supplierName", list[position].supplierName)
                         intent.putExtra("warehouseId", list[position].warehouseId)
                         intent.putExtra("orderId", list[position].orderId)
                         startActivity(intent)
@@ -129,8 +139,8 @@ class BackGoodsTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialLi
                 })
             }
         }
-    }
 
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEventMainThread(event: SearchMessage) {
@@ -139,28 +149,28 @@ class BackGoodsTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialLi
             val startTime = event.leftTime()
             val endTime = event.rightTime()
             when (fragmentType) {
-                CodeConstant.FRAGMENT_TODO -> presenter.fetchBackTodoList(search, startTime, endTime)
-                CodeConstant.FRAGMENT_DONE -> presenter.fetchBackDoneList(CodeConstant.BACK_GOODS_TYPE, search, startTime, endTime)
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchTODOMaterial(search,startTime,endTime)
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchDoneMaterial(CodeConstant.BUY_IN_TYPE,search,startTime,endTime)
             }
         }
     }
-
-    override fun showCarSuccess(position: Int, carData: CarPositionNoData?) {
-    }
-
-    override fun saveSuccess() {
-    }
-
-    override fun showError(msg: String?) {
-        ZBUiUtils.showToast(msg)
-    }
-
     override fun showLoading() {
 
     }
 
     override fun hideLoading() {
 
+    }
+
+    override fun showCarSuccess(position: Int, carData: CarPositionNoData?) {
+
+    }
+
+    override fun saveSuccess() {
+    }
+
+    override fun showError(msg: String) {
+        ZBUiUtils.showToast(msg)
     }
 
     override fun onDestroy() {
@@ -170,11 +180,13 @@ class BackGoodsTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialLi
     }
 
     companion object {
-        fun newInstance(type: String): BackGoodsTodoFragment {
-            val fragment = BackGoodsTodoFragment()
+
+        fun newInstance(type: String): ArrivalInFragment {
+            val fragment = ArrivalInFragment()
             val bundle = Bundle()
             bundle.putString(CodeConstant.FRAGMENT_TYPE, type)
             fragment.arguments = bundle
+
             return fragment
         }
     }

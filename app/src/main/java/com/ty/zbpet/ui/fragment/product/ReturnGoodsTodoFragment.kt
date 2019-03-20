@@ -40,7 +40,7 @@ class ReturnGoodsTodoFragment : BaseFragment(), ProductUiListInterface<ProductLi
         // 设置 Header 样式
         view.refreshLayout!!.setRefreshHeader(MaterialHeader(context!!))
         // 设置 Footer 为 球脉冲 样式
-        view.refreshLayout!!.setRefreshFooter(BallPulseFooter(context!!).setSpinnerStyle(SpinnerStyle.Scale))
+        //view.refreshLayout!!.setRefreshFooter(BallPulseFooter(context!!).setSpinnerStyle(SpinnerStyle.Scale))
         return view
     }
 
@@ -57,11 +57,11 @@ class ReturnGoodsTodoFragment : BaseFragment(), ProductUiListInterface<ProductLi
             // 刷新数据
             presenter.fetchReturnGoodsTodoList()
         }
-        refreshLayout!!.setOnLoadMoreListener { refreshLayout ->
-            // 传入 false 表示刷新失败
-            refreshLayout.finishLoadMore(1000)
-            ZBUiUtils.showToast("没有更多数据了")
-        }
+//        refreshLayout!!.setOnLoadMoreListener { refreshLayout ->
+//            // 传入 false 表示刷新失败
+//            refreshLayout.finishLoadMore(1000)
+//            ZBUiUtils.showToast("没有更多数据了")
+//        }
     }
 
     override fun showProduct(list: List<ProductList.ListBean>) {

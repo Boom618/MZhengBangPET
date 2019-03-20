@@ -12,9 +12,9 @@ import org.greenrobot.eventbus.EventBus
 
 /**
  * @author TY on 2019/3/18.
- * 成品移库
+ * 成品冲销
  */
-class ProductAdapter(context: Context, layout: Int, datas: MutableList<String>)
+class ProductReversalAdapter(context: Context, layout: Int, datas: MutableList<String>)
     : CommonAdapter<String>(context, layout, datas) {
 
     override fun convert(holder: ViewHolder, t: String?, position: Int) {
@@ -31,10 +31,6 @@ class ProductAdapter(context: Context, layout: Int, datas: MutableList<String>)
 
             EventBus.getDefault().post(AdapterButtonClick(position,CodeConstant.BUTTON_TYPE))
         }
-        holder.itemView.findViewById<TextView>(R.id.tv_select_house).setOnClickListener {
-            EventBus.getDefault().post(AdapterButtonClick(position,CodeConstant.SELECT_TYPE))
-        }
-
     }
 
 }

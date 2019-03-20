@@ -45,7 +45,7 @@ public class ProducePresenter {
     /**
      * 待办列表
      */
-    public void fetchProductTodoList() {
+    public void fetchProductTodoList(String sapOrderNo, String startDate, String endDate) {
         httpMethods.getProductTodoList(new SingleObserver<BaseResponse<ProductList>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -68,7 +68,7 @@ public class ProducePresenter {
             public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
             }
-        });
+        },sapOrderNo,startDate,endDate);
     }
 
 
@@ -77,7 +77,7 @@ public class ProducePresenter {
      *
      * @param sapOrderNo
      */
-    public void fetchProductTodoInfo(String sapOrderNo) {
+    public void fetchProductTodoInfo(String sign,String sapOrderNo) {
 
 
         httpMethods.getProduceOrderInfo(new SingleObserver<BaseResponse<ProductDetails>>() {
@@ -91,18 +91,18 @@ public class ProducePresenter {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
                     ProductDetails data = response.getData();
-                    objInterface.detailObjData(data);
+                    listInterface.showProduct(data.getList());
 
                 } else {
-                    ZBUiUtils.showToast("失败 : =" + response.getMessage());
+                    listInterface.showError(response.getMessage());
                 }
             }
 
             @Override
             public void onError(Throwable e) {
-                ZBUiUtils.showToast("失败 : =" + e.getMessage());
+                listInterface.showError(e.getMessage());
             }
-        }, sapOrderNo);
+        }, sign,sapOrderNo);
     }
 
     /**
@@ -120,18 +120,18 @@ public class ProducePresenter {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
                     ProductList data = response.getData();
-                    objInterface.detailObjData(data);
+                    listInterface.showProduct(data.getList());
 
                 } else {
-                    ZBUiUtils.showToast("失败 : =" + response.getMessage());
+                    listInterface.showError(response.getMessage());
                 }
             }
 
             @Override
             public void onError(Throwable e) {
-
+                listInterface.showError(e.getMessage());
             }
-        },type);
+        }, type);
     }
 
     /**

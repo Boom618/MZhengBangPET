@@ -43,7 +43,7 @@
 //
 ///**
 // * 发货出库 待办详情
-// *
+// * 【 ======== 动态添加 item ========】
 // * @author TY
 // */
 //class SendOutTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDetails.ListBean> {

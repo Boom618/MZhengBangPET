@@ -14,6 +14,8 @@
     <string name="label_product_inventory">成品库存</string>
     <string name="label_produce_in_storage">生产入库</string>
     <string name="label_purchase_in_storage">外采入库</string>
+    <string name="label_purchase_in_storage_reversal">外采入库冲销明细</string>
+    <string name="output_reversal">生产入库冲销详情</string>
     <string name="label_return_sell">销售退货</string>
     <string name="label_material_inventory">原辅料库存</string>
 
@@ -76,6 +78,7 @@
     <string name="materials_move">原辅料移库</string>
     <string name="materials_move_reversal">原辅料移库冲销</string>
     <string name="product_move">成品移库</string>
+    <string name="product_reversal">成品冲销</string>
     <string name="move_room_source">源库位</string>
     <string name="move_room_target">目标库位</string>
     <string name="button_commit">提交</string>

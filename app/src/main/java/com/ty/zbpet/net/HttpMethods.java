@@ -9,6 +9,7 @@ import com.ty.zbpet.bean.material.MaterialDetails;
 import com.ty.zbpet.bean.material.MaterialList;
 import com.ty.zbpet.bean.product.ProductDetails;
 import com.ty.zbpet.bean.product.ProductList;
+import com.ty.zbpet.bean.system.BoxCodeUrl;
 import com.ty.zbpet.bean.system.ImageData;
 import com.ty.zbpet.bean.system.QualityCheckTodoDetails;
 import com.ty.zbpet.bean.system.QualityCheckTodoList;
@@ -200,7 +201,7 @@ public class HttpMethods {
     /**
      * url 解析
      */
-    public void urlAnalyze(SingleObserver<BaseResponse<String>> subscriber, String url) {
+    public void urlAnalyze(SingleObserver<BaseResponse<BoxCodeUrl>> subscriber, String url) {
         mService.urlAnalyze(url)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -474,8 +475,9 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getProductTodoList(SingleObserver<BaseResponse<ProductList>> subscriber) {
-        mService.getProduceOrderList()
+    public void getProductTodoList(SingleObserver<BaseResponse<ProductList>> subscriber,
+                                   String sapOrderNo, String startDate, String endDate) {
+        mService.getProduceOrderList(sapOrderNo,startDate,endDate)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -485,8 +487,8 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getProduceOrderInfo(SingleObserver<BaseResponse<ProductDetails>> subscriber, String sapOrderNo) {
-        mService.getProduceOrderInfo(sapOrderNo)
+    public void getProduceOrderInfo(SingleObserver<BaseResponse<ProductDetails>> subscriber,String sign, String sapOrderNo) {
+        mService.getProduceOrderInfo(sign,sapOrderNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }

@@ -51,9 +51,9 @@
 - RecycleView 细节处理
 - Adapter 绑定事件处理
 - 列表分页加载
-- Kotlin 改版
 - 协程库使用
 - Session 失效跳转登录
+- P 层改写 Kotlin
 
 
 ## 困扰

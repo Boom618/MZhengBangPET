@@ -21,7 +21,6 @@ class ProductDetails {
         var goodsNo: String? = null
         var unit: String? = null
         var orderNumber: String? = null
-        var warehouseList: List<WarehouseListBean>? = null
 
         // 已办
         var id: String? = null
@@ -44,12 +43,5 @@ class ProductDetails {
         // 退货入库 信息
         var surplusNumber: String? = null
 
-        // 外采入库 每个列表都有仓库选项
-        class WarehouseListBean {
-
-            var warehouseId: String? = null
-            var warehouseNo: String? = null
-            var warehouseName: String? = null
-        }
     }
 }

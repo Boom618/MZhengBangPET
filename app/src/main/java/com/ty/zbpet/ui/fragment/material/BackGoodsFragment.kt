@@ -1,9 +1,7 @@
 package com.ty.zbpet.ui.fragment.material
 
-
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.scwang.smartrefresh.header.MaterialHeader
@@ -12,13 +10,13 @@ import com.ty.zbpet.bean.CarPositionNoData
 import com.ty.zbpet.bean.eventbus.SearchMessage
 import com.ty.zbpet.bean.material.MaterialList
 import com.ty.zbpet.constant.CodeConstant
+import com.ty.zbpet.presenter.material.BackGoodsPresenter
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
-import com.ty.zbpet.presenter.material.PickOutPresenter
-import com.ty.zbpet.ui.activity.material.PickOutDoneDetailActivity
-import com.ty.zbpet.ui.activity.material.PickOutTodoDetailActivity
+import com.ty.zbpet.ui.activity.material.BackGoodsDoneDetailActivity
+import com.ty.zbpet.ui.activity.material.BackGoodsTodoDetailActivity
 import com.ty.zbpet.ui.adapter.LayoutInit
-import com.ty.zbpet.ui.adapter.material.PickOutDoneAdapter
-import com.ty.zbpet.ui.adapter.material.PickOutTodoAdapter
+import com.ty.zbpet.ui.adapter.material.BackGoodsDoneListAdapter
+import com.ty.zbpet.ui.adapter.material.BackGoodsTodoListAdapter
 import com.ty.zbpet.ui.base.BaseFragment
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.ResourceUtil
@@ -30,42 +28,36 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-
 /**
- * A simple [Fragment] subclass.
- * Use the [PickOutTodoFragment.newInstance] factory method to
- * create an instance of this fragment.
- *
- * @author TY
- *
- *
- * 领料出库 待办列表
+ * @author TY on 2018/11/26.
  */
-class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList.ListBean> {
+class BackGoodsFragment : BaseFragment(), MaterialUiListInterface<MaterialList.ListBean> {
 
     private lateinit var fragmentType: String
-    private var adapterTodo: PickOutTodoAdapter? = null
-    private var adapterDone: PickOutDoneAdapter? = null
+    private val presenter = BackGoodsPresenter(this)
 
-    private val presenter = PickOutPresenter(this)
+    private var adapterTodo: BackGoodsTodoListAdapter? = null
+    private var adapterDone: BackGoodsDoneListAdapter? = null
 
     override val fragmentLayout: Int
         get() = R.layout.zb_content_list_fragment
 
     override fun onBaseCreate(view: View): View {
         EventBus.getDefault().register(this)
+
         // 设置 Header 样式
-        view.refreshLayout!!.setRefreshHeader(MaterialHeader(this.context!!))
+        view.refreshLayout!!.setRefreshHeader(MaterialHeader(view.context))
         // 设置 Footer 为 球脉冲 样式
-        //view.refreshLayout!!.setRefreshFooter(BallPulseFooter(this.context!!).setSpinnerStyle(SpinnerStyle.Scale))
+        //view.refreshLayout!!.setRefreshFooter(BallPulseFooter(view.context).setSpinnerStyle(SpinnerStyle.Scale))
         return view
     }
 
     override fun loadData() {
+
         fragmentType = arguments!!.getString(CodeConstant.FRAGMENT_TYPE)!!
         when (fragmentType) {
-            CodeConstant.FRAGMENT_TODO -> presenter.fetchPickOutTodoList("", "", "", "")
-            CodeConstant.FRAGMENT_DONE -> presenter.fetchPickOutDoneList(CodeConstant.PICK_OUT_TYPE, "", "", "")
+            CodeConstant.FRAGMENT_TODO -> presenter.fetchBackTodoList("", "", "")
+            CodeConstant.FRAGMENT_DONE -> presenter.fetchBackDoneList(CodeConstant.BACK_GOODS_TYPE, "", "", "")
         }
     }
 
@@ -77,8 +69,8 @@ class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList
             refreshLayout.finishRefresh(1000)
             // 刷新数据
             when (fragmentType) {
-                CodeConstant.FRAGMENT_TODO -> presenter.fetchPickOutTodoList("", "", "", "")
-                CodeConstant.FRAGMENT_DONE -> presenter.fetchPickOutDoneList(CodeConstant.PICK_OUT_TYPE, "", "", "")
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchBackTodoList("", "", "")
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchBackDoneList(CodeConstant.BACK_GOODS_TYPE, "", "", "")
             }
         }
 //        refreshLayout!!.setOnLoadMoreListener { refreshLayout ->
@@ -86,33 +78,30 @@ class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList
 //            refreshLayout.finishLoadMore(1000)
 //            ZBUiUtils.showToast("没有更多数据了")
 //        }
-
     }
 
-
     override fun showMaterial(list: List<MaterialList.ListBean>) {
-        if (list.isEmpty()) {
-            ZBUiUtils.showToast("领料出库没有找到结果")
-        }
 
         LayoutInit.initLayoutManager(ResourceUtil.getContext(), recyclerView)
-        if (adapterTodo == null && adapterDone == null) {
-            recyclerView!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+        if (adapterTodo == null && adapterDone== null) {
+            recyclerView.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+        }
+        if (list.isEmpty()) {
+            ZBUiUtils.showToast("采购退货没有找到结果")
         }
         when (fragmentType) {
             CodeConstant.FRAGMENT_TODO -> {
-                adapterTodo = PickOutTodoAdapter(context!!, R.layout.item_pick_out_todo, list)
+                adapterTodo = BackGoodsTodoListAdapter(this.context!!, R.layout.item_material_todo, list)
                 recyclerView!!.adapter = adapterTodo
 
                 adapterTodo!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                     override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
-                        val intent = Intent(activity, PickOutTodoDetailActivity::class.java)
+                        val intent = Intent(activity, BackGoodsTodoDetailActivity::class.java)
                         intent.putExtra("sapOrderNo", list[position].sapOrderNo)
                         intent.putExtra("sapFirmNo", list[position].sapFirmNo)
-                        intent.putExtra("orderTime", list[position].orderTime)
-                        intent.putExtra("sign", list[position].sign)
+                        intent.putExtra("supplierNo", list[position].supplierNo)
+                        intent.putExtra("creatorNo", list[position].creatorNo)
                         intent.putExtra("content", list[position].content)
-                        intent.putExtra("supplierId", list[position].supplierId)
                         startActivity(intent)
                     }
 
@@ -122,13 +111,14 @@ class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList
                 })
             }
             CodeConstant.FRAGMENT_DONE -> {
-                adapterDone = PickOutDoneAdapter(context!!, R.layout.item_pick_out_done, list)
-                recyclerView.adapter = adapterDone
+                adapterDone = BackGoodsDoneListAdapter(this.context!!, R.layout.activity_content_list_three, list)
+                recyclerView!!.adapter = adapterDone
 
                 adapterDone!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                     override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
-                        val intent = Intent(activity, PickOutDoneDetailActivity::class.java)
+                        val intent = Intent(activity, BackGoodsDoneDetailActivity::class.java)
                         intent.putExtra("sapOrderNo", list[position].sapOrderNo)
+                        intent.putExtra("warehouseId", list[position].warehouseId)
                         intent.putExtra("orderId", list[position].orderId)
                         startActivity(intent)
                     }
@@ -141,22 +131,21 @@ class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList
         }
     }
 
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEventMainThread(event: SearchMessage) {
         if (isVisble) {
-            val sign = event.sign()
             val search = event.getSearch()
             val startTime = event.leftTime()
             val endTime = event.rightTime()
             when (fragmentType) {
-                CodeConstant.FRAGMENT_TODO -> presenter.fetchPickOutTodoList(sign, search, startTime, endTime)
-                CodeConstant.FRAGMENT_DONE -> presenter.fetchPickOutDoneList(CodeConstant.PICK_OUT_TYPE, search, startTime, endTime)
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchBackTodoList(search, startTime, endTime)
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchBackDoneList(CodeConstant.BACK_GOODS_TYPE, search, startTime, endTime)
             }
         }
     }
 
     override fun showCarSuccess(position: Int, carData: CarPositionNoData?) {
-
     }
 
     override fun saveSuccess() {
@@ -181,14 +170,8 @@ class PickOutTodoFragment : BaseFragment(), MaterialUiListInterface<MaterialList
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @return A new instance of fragment PickOutTodoFragment.
-         */
-        fun newInstance(type: String): PickOutTodoFragment {
-            val fragment = PickOutTodoFragment()
+        fun newInstance(type: String): BackGoodsFragment {
+            val fragment = BackGoodsFragment()
             val bundle = Bundle()
             bundle.putString(CodeConstant.FRAGMENT_TYPE, type)
             fragment.arguments = bundle

@@ -12,6 +12,7 @@ import android.widget.ImageView
 import com.pda.scanner.ScanReader
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.CarPositionNoData
+import com.ty.zbpet.bean.eventbus.UrlMessage
 import com.ty.zbpet.bean.material.MaterialDetails
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.data.DeepCopyData
@@ -32,6 +33,9 @@ import com.ty.zbpet.util.scan.ScanObservable
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -70,7 +74,7 @@ class PickOutTodoDetailActivity : BaseActivity()
         get() = R.layout.activity_content_row_two
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
-
+        EventBus.getDefault().register(this)
     }
 
     override fun initOneData() {
@@ -85,7 +89,7 @@ class PickOutTodoDetailActivity : BaseActivity()
 
     override fun initTwoView() {
 
-        initToolBar(R.string.pick_out_storage, View.OnClickListener { view ->
+        initToolBar(R.string.pick_out_storage, "保存",View.OnClickListener { view ->
             ZBUiUtils.hideInputWindow(view.context, view)
             pickOutTodoSave(initTodoBody())
         })
@@ -211,7 +215,16 @@ class PickOutTodoDetailActivity : BaseActivity()
     override fun ScanSuccess(position: Int, positionNo: String) {
 
         //  服务器校验 库位码
-        presenter.checkCarCode(position, positionNo)
+        presenter.urlAnalyze(position, positionNo)
+//        presenter.checkCarCode(position, positionNo)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun urlEvent(event: UrlMessage){
+        val position = event.getPosition()
+        val qrCode = event.qrCode()
+        //  服务器校验 库位码
+        presenter.checkCarCode(position, qrCode)
     }
 
     override fun showCarSuccess(position: Int, carData: CarPositionNoData) {
@@ -283,6 +296,7 @@ class PickOutTodoDetailActivity : BaseActivity()
 
     override fun onDestroy() {
         super.onDestroy()
+        EventBus.getDefault().unregister(this)
         SharedP.clearFocusAndPosition(this)
     }
 }

@@ -11,7 +11,7 @@ public interface ProductUiListInterface<T> {
 
     /**
      * Http 数据
-     * @param list
+     * @param list list
      */
     void showProduct(List<T> list);
 

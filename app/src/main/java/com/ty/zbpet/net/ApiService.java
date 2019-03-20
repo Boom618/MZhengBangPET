@@ -7,6 +7,7 @@ import com.ty.zbpet.bean.material.MaterialDetails;
 import com.ty.zbpet.bean.material.MaterialList;
 import com.ty.zbpet.bean.product.ProductDetails;
 import com.ty.zbpet.bean.product.ProductList;
+import com.ty.zbpet.bean.system.BoxCodeUrl;
 import com.ty.zbpet.bean.system.ImageData;
 import com.ty.zbpet.bean.system.QualityCheckTodoDetails;
 import com.ty.zbpet.bean.system.QualityCheckTodoList;
@@ -129,14 +130,15 @@ public interface ApiService {
      * @param url url
      * @return Single
      */
+    @FormUrlEncoded
     @POST(ApiNameConstant.URL_ANALYZE)
-    Single<BaseResponse<String>> urlAnalyze(@Field("url") String url);
+    Single<BaseResponse<BoxCodeUrl>> urlAnalyze(@Field("url") String url);
 
     /**
      * 获取原辅料采购 已办列表
      *
-     * @param type
-     * @return
+     * @param type 服务器接口类型
+     * @return Single
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_MATERIAL_PURCHASE_LIST)
@@ -149,7 +151,7 @@ public interface ApiService {
      * 获取原辅料采购 已办列表详情
      *
      * @param orderId
-     * @return
+     * @return Single
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_MATERIAL_PURCHASE_LIST_INFO)
@@ -158,8 +160,8 @@ public interface ApiService {
     /**
      * 原辅料采购冲销入库(已办保存)
      *
-     * @param body
-     * @return
+     * @param body body
+     * @return Single
      */
     @POST(ApiNameConstant.PURCHASE_IN_RECALL_OUT)
     Single<ResponseInfo> purchaseInRecallOut(@Body RequestBody body);
@@ -170,7 +172,7 @@ public interface ApiService {
      * 领料出库 - 待办 列表
      *
      * @param sign S  生产订单   Y预留单号
-     * @return
+     * @return Single
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.PICK_OUT_TODO_LIST)
@@ -381,18 +383,23 @@ public interface ApiService {
      *
      * @return
      */
+    @FormUrlEncoded
     @POST(ApiNameConstant.GET_PRODUCE_ORDER_LIST)
-    Single<BaseResponse<ProductList>> getProduceOrderList();
+    Single<BaseResponse<ProductList>> getProduceOrderList(@Field("sapOrderNo") String sapOrderNo,
+                                                          @Field("startDate") String startDate,
+                                                          @Field("endDate") String endDate);
 
     /**
      * 生产入库 待办详情
      *
-     * @param sapOrderNo
-     * @return
+     * @param sign       生产/预留 单
+     * @param sapOrderNo sapNo
+     * @return Single
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_PRODUCE_ORDER_INFO)
-    Single<BaseResponse<ProductDetails>> getProduceOrderInfo(@Field("sapOrderNo") String sapOrderNo);
+    Single<BaseResponse<ProductDetails>> getProduceOrderInfo(@Field("sign") String sign,
+                                                             @Field("sapOrderNo") String sapOrderNo);
 
 
     /**

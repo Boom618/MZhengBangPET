@@ -16,7 +16,6 @@ class ReturnGoodsDoneListAdapter(context: Context, layoutId: Int, datas: List<Pr
 
     override fun convert(holder: ViewHolder, list: ProductList.ListBean, position: Int) {
         // 退货不需要显示 成品信息
-        holder.itemView.findViewById<View>(R.id.tv_product_msg).visibility = View.GONE
 
         holder.setText(R.id.tv_operator, "冲销")
                 .setText(R.id.tv_no, list.sapOrderNo)

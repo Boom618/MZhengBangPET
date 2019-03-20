@@ -1,5 +1,6 @@
 package com.ty.zbpet.presenter.system;
 
+import com.ty.zbpet.bean.system.BoxCodeUrl;
 import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
@@ -39,16 +40,17 @@ public class CommPresenter {
      * url 解析
      */
     public void urlAnalyze(String url) {
-        httpMethods.urlAnalyze(new SingleObserver<BaseResponse<String>>() {
+        httpMethods.urlAnalyze(new SingleObserver<BaseResponse<BoxCodeUrl>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;
             }
 
             @Override
-            public void onSuccess(BaseResponse<String> response) {
+            public void onSuccess(BaseResponse<BoxCodeUrl> response) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
-                    commInterface.urlAnalyze(response.getData());
+                    BoxCodeUrl data = response.getData();
+                    commInterface.urlAnalyze(data.getBoxQrCode());
                 } else {
                     commInterface.showError(response.getMessage());
                 }

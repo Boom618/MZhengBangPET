@@ -104,7 +104,7 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
 
     override fun initTwoView() {
 
-        initToolBar(R.string.label_send_out_storage, View.OnClickListener { view ->
+        initToolBar(R.string.label_send_out_storage, "保存",View.OnClickListener { view ->
             ZBUiUtils.hideInputWindow(view.context, view)
             sendOutTodoSave(initTodoBody())
         })
@@ -292,9 +292,11 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
     }
 
     override fun saveSuccess() {
+        finish()
     }
 
     override fun showError(msg: String?) {
+        ZBUiUtils.showToast(msg)
     }
 
     companion object {

@@ -123,6 +123,7 @@
         <activity android:name=".ui.activity.wareroom.TargetLocationActivity" />
         <activity android:name=".ui.activity.wareroom.ReversalMaterialsActivity" />
         <activity android:name=".ui.activity.wareroom.ProductMoveActivity" />
+        <activity android:name=".ui.activity.wareroom.ProductReversalActivity" />
 
     </application>
 

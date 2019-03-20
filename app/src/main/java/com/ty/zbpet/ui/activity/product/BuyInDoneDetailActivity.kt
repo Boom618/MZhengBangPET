@@ -28,6 +28,7 @@ import com.ty.zbpet.util.ZBUiUtils
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
+import kotlinx.android.synthetic.main.activity_content_reversal.*
 import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
 import java.text.SimpleDateFormat
@@ -57,7 +58,7 @@ class BuyInDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductDet
     private val presenter = BuyInPresenter(this)
 
     override val activityLayout: Int
-        get() = R.layout.activity_content_row_two
+        get() = R.layout.activity_content_reversal//activity_content_row_two
 
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
@@ -74,16 +75,11 @@ class BuyInDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductDet
 
     override fun initTwoView() {
 
-        initToolBar(R.string.label_purchase_in_storage, View.OnClickListener { buyInDoneSave(initDoneBody()) })
+        initToolBar(R.string.label_purchase_in_storage_reversal)
 
-        et_desc!!.inputType = InputType.TYPE_NULL
-
-        val format = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
-        selectTime = format.format(Date())
-
-        tv_time!!.text = selectTime
-        in_storage_detail!!.text = "到货明细"
-
+        bt_reversal.setOnClickListener {
+            buyInDoneSave(initDoneBody())
+        }
     }
 
     /**
@@ -119,8 +115,8 @@ class BuyInDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductDet
         val size = list!!.size
         val beans = ArrayList<ProductDoneSave.DetailsBean>()
         for (i in 0 until size) {
-            val view = rv_in_storage_detail.getChildAt(i)
-            val checkBox = view.findViewById<CheckBox>(R.id.iv_tag)
+            val view = recycler_reversal.getChildAt(i)
+            val checkBox = view.findViewById<CheckBox>(R.id.check)
 
             if (checkBox.isChecked) {
 
@@ -150,14 +146,12 @@ class BuyInDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductDet
             }
         }
 
-        val remark = et_desc!!.text.toString().trim { it <= ' ' }
 
         requestBody.list = beans
         requestBody.orderId = orderId
         requestBody.sapOrderNo = sapOrderNo
-        requestBody.moveType = "102"
-        requestBody.outTime = selectTime
-        requestBody.remark = remark
+        requestBody.moveType = "106"
+//        requestBody.outTime = selectTime
         val json = DataUtils.toJson(requestBody, 1)
 
         return RequestBodyJson.requestBody(json)
@@ -169,43 +163,42 @@ class BuyInDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductDet
 
         if (adapter == null) {
             val manager = LinearLayoutManager(ResourceUtil.getContext())
-            rv_in_storage_detail!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
-            rv_in_storage_detail!!.layoutManager = manager
-            adapter = BuyInDoneDetailAdapter(this, R.layout.item_product_detail_two_done, list!!)
-            rv_in_storage_detail!!.adapter = adapter
+            recycler_reversal.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+            recycler_reversal.layoutManager = manager
+//            adapter = BuyInDoneDetailAdapter(this, R.layout.item_product_detail_two_done, list!!)
+            adapter = BuyInDoneDetailAdapter(this, R.layout.item_reversal_check, list!!)
+            recycler_reversal.adapter = adapter
 
-            adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
-                override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
-
-                    val rlDetail = holder.itemView.findViewById<View>(R.id.gone_view)
-                    val ivArrow = holder.itemView.findViewById<ImageView>(R.id.iv_arrow)
-
-                    val boxQrCodeList = list!![position].boxQrCode
-
-                    val bindingCode = holder.itemView.findViewById<Button>(R.id.btn_binding_code)
-
-                    if (rlDetail.visibility == View.VISIBLE) {
-                        rlDetail.visibility = View.GONE
-                        ivArrow.setImageResource(R.mipmap.ic_collapse)
-                    } else {
-                        rlDetail.visibility = View.VISIBLE
-                        ivArrow.setImageResource(R.mipmap.ic_expand)
-                    }
-
-                    bindingCode.setOnClickListener {
-                        val intent = Intent(it.context, ScanBoxCodeActivity::class.java)
-                        intent.putExtra(CodeConstant.PAGE_STATE, false)
-                        intent.putStringArrayListExtra("boxCodeList", boxQrCodeList)
-                        startActivity(intent)
-                    }
-                }
-
-                override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
-                    return false
-                }
-            })
-        } else {
-            adapter!!.notifyDataSetChanged()
+//            adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+//                override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
+//
+//                    val rlDetail = holder.itemView.findViewById<View>(R.id.gone_view)
+//                    val ivArrow = holder.itemView.findViewById<ImageView>(R.id.iv_arrow)
+//
+//                    val boxQrCodeList = list!![position].boxQrCode
+//
+//                    val bindingCode = holder.itemView.findViewById<Button>(R.id.btn_binding_code)
+//
+//                    if (rlDetail.visibility == View.VISIBLE) {
+//                        rlDetail.visibility = View.GONE
+//                        ivArrow.setImageResource(R.mipmap.ic_collapse)
+//                    } else {
+//                        rlDetail.visibility = View.VISIBLE
+//                        ivArrow.setImageResource(R.mipmap.ic_expand)
+//                    }
+//
+//                    bindingCode.setOnClickListener {
+//                        val intent = Intent(it.context, ScanBoxCodeActivity::class.java)
+//                        intent.putExtra(CodeConstant.PAGE_STATE, false)
+//                        intent.putStringArrayListExtra("boxCodeList", boxQrCodeList)
+//                        startActivity(intent)
+//                    }
+//                }
+//
+//                override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
+//                    return false
+//                }
+//            })
         }
 
     }

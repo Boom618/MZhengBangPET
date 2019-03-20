@@ -140,7 +140,7 @@ public class QualityCheckTodoDetailActivity extends BaseActivity implements Syst
             }
         });
 
-        initToolBar(R.string.label_quality_check, new View.OnClickListener() {
+        initToolBar(R.string.label_quality_check, "保存",new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ZBUiUtils.hideInputWindow(v.getContext(), v);

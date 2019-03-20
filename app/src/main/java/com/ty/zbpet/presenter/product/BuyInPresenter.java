@@ -1,5 +1,6 @@
 package com.ty.zbpet.presenter.product;
 
+import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.product.ProductDetails;
 import com.ty.zbpet.bean.product.ProductList;
 import com.ty.zbpet.net.HttpMethods;
@@ -11,6 +12,7 @@ import java.util.List;
 
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
+import okhttp3.RequestBody;
 
 /**
  * @author TY on 2018/11/26.
@@ -46,7 +48,7 @@ public class BuyInPresenter {
     /**
      * 待办列表
      */
-    public void fetchBuyInTodoList(String sapOrderNo,String startDate,String endDate) {
+    public void fetchBuyInTodoList(String sapOrderNo, String startDate, String endDate) {
         httpMethods.getBuyInOrderList(new SingleObserver<BaseResponse<ProductList>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -69,7 +71,7 @@ public class BuyInPresenter {
             public void onError(Throwable e) {
                 listInterface.showError(e.getMessage());
             }
-        },sapOrderNo,startDate,endDate);
+        }, sapOrderNo, startDate, endDate);
     }
 
 
@@ -78,7 +80,7 @@ public class BuyInPresenter {
      *
      * @param sapOrderNo
      */
-    public void fetchBuyInTodoListDetails(String sapOrderNo,String sapFirmNo,String supplierNo) {
+    public void fetchBuyInTodoListDetails(String sapOrderNo, String sapFirmNo, String supplierNo) {
 
         httpMethods.getBuyInOrderInfo(new SingleObserver<BaseResponse<ProductDetails>>() {
             @Override
@@ -103,13 +105,41 @@ public class BuyInPresenter {
             public void onError(Throwable e) {
                 listInterface.showError(e.getMessage());
             }
-        }, sapOrderNo,sapFirmNo,supplierNo);
+        }, sapOrderNo, sapFirmNo, supplierNo);
+    }
+
+    /**
+     * 代办保存
+     *
+     * @param body body
+     */
+    public void buyInTodoSave(RequestBody body) {
+        httpMethods.getBuyInTodoSave(new SingleObserver<ResponseInfo>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo responseInfo) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    listInterface.saveSuccess();
+                } else {
+                    listInterface.showError(responseInfo.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                listInterface.showError(e.getMessage());
+            }
+        }, body);
     }
 
     /**
      * 已办列表
      */
-    public void fetchBuyInDoneList(String type,String sapOrderNo,String startDate,String endDate) {
+    public void fetchBuyInDoneList(String type, String sapOrderNo, String startDate, String endDate) {
         httpMethods.getBuyInDoneList(new SingleObserver<BaseResponse<ProductList>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -132,7 +162,7 @@ public class BuyInPresenter {
             public void onError(Throwable e) {
                 listInterface.showError(e.getMessage());
             }
-        }, type,sapOrderNo,startDate,endDate);
+        }, type, sapOrderNo, startDate, endDate);
     }
 
     /**

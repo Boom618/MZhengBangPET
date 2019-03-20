@@ -9,14 +9,11 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
 import com.ty.zbpet.R
-import com.ty.zbpet.bean.ResponseInfo
 import com.ty.zbpet.bean.UserInfo
 import com.ty.zbpet.bean.product.ProductDetails
 import com.ty.zbpet.bean.product.ProductTodoSave
 import com.ty.zbpet.constant.CodeConstant
-import com.ty.zbpet.net.HttpMethods
 import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.product.BuyInPresenter
 import com.ty.zbpet.presenter.product.ProductUiListInterface
@@ -26,8 +23,6 @@ import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.*
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
-import io.reactivex.SingleObserver
-import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
 import java.text.SimpleDateFormat
@@ -70,7 +65,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
     private var supplierId: String? = null
 
     /**
-     * 用户信息: DataUtils.getUserInfo()
+     * 用户信息:
      */
     private var userInfo: UserInfo? = null
 
@@ -90,7 +85,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
         // 仓库默认值设置　
         DataUtils.setHouseId(0, 0)
 
-        presenter.fetchBuyInTodoListDetails(sapOrderNo,sapFirmNo,supplierNo)
+        presenter.fetchBuyInTodoListDetails(sapOrderNo, sapFirmNo, supplierNo)
     }
 
     /**
@@ -98,7 +93,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
      */
     override fun initTwoView() {
 
-        initToolBar(R.string.label_purchase_in_storage, View.OnClickListener { view ->
+        initToolBar(R.string.label_purchase_in_storage, "保存",View.OnClickListener { view ->
             ZBUiUtils.hideInputWindow(view.context, view)
             buyInTodoSave(initTodoBody())
         })
@@ -108,7 +103,6 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
 
         tv_time!!.text = selectTime
         in_storage_detail!!.text = "到货明细"
-
 
         tv_time!!.setOnClickListener { v ->
             ZBUiUtils.showPickDate(v.context) { date, _ ->
@@ -129,25 +123,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
             return
         }
 
-        HttpMethods.getInstance().getBuyInTodoSave(object : SingleObserver<ResponseInfo> {
-            override fun onError(e: Throwable) {
-                ZBUiUtils.showToast(e.message)
-            }
-
-            override fun onSubscribe(d: Disposable) {
-
-            }
-
-            override fun onSuccess(responseInfo: ResponseInfo) {
-                if (CodeConstant.SERVICE_SUCCESS == responseInfo.tag) {
-                    // 入库成功（保存）
-                    ZBUiUtils.showToast(responseInfo.message)
-                    runOnUiThread { finish() }
-                } else {
-                    ZBUiUtils.showToast(responseInfo.message)
-                }
-            }
-        }, body)
+        presenter.buyInTodoSave(body)
     }
 
     /**
@@ -213,7 +189,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
         requestBody.inTime = time
         requestBody.sapOrderNo = sapOrderNo
         requestBody.supplierNo = supplierNo
-        requestBody.moveType = "101"
+        requestBody.moveType = "105"
         requestBody.remark = remark
 
         val json = DataUtils.toJson(requestBody, 1)
@@ -223,8 +199,6 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
 
     override fun showProduct(list: List<ProductDetails.ListBean>) {
 
-        // BuyInTodoDetails  含仓库信息 bean
-        // ProductDetailsIn  不含仓库信息 bean
         oldList = list
 
         if (adapter == null) {
@@ -271,10 +245,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
                     return false
                 }
             })
-        } else {
-            adapter!!.notifyDataSetChanged()
         }
-
     }
 
     /**
@@ -291,6 +262,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
             carCodeArray.put(itemId, boxCodeList)
         }
     }
+
     override fun showLoading() {
 
     }
@@ -299,9 +271,11 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
     }
 
     override fun saveSuccess() {
+        finish()
     }
 
     override fun showError(msg: String?) {
+        ZBUiUtils.showToast(msg)
     }
 
     override fun onDestroy() {
@@ -309,6 +283,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
 
         // TODO  清除仓库数据
         DataUtils.clearId()
+        presenter.dispose()
     }
 
     companion object {

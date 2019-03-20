@@ -85,7 +85,7 @@ class BuyInTodoFragment : BaseFragment(), ProductUiListInterface<ProductList.Lis
         }
 
         LayoutInit.initLayoutManager(ResourceUtil.getContext(), recyclerView)
-        if (adapterTodo == null) {
+        if (adapterTodo == null && adapterDone== null) {
             recyclerView!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
         }
         when (fragmentType) {
@@ -110,7 +110,7 @@ class BuyInTodoFragment : BaseFragment(), ProductUiListInterface<ProductList.Lis
                 })
             }
             CodeConstant.FRAGMENT_DONE -> {
-                adapterDone = BuyInDoneListAdapter(ResourceUtil.getContext(), R.layout.activity_content_list_two, list!!)
+                adapterDone = BuyInDoneListAdapter(ResourceUtil.getContext(), R.layout.activity_content_list_two, list)
                 recyclerView!!.adapter = adapterDone
 
                 adapterDone?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {

@@ -76,7 +76,7 @@ class ReturnGoodsDoneDetailActivity : BaseActivity(), ProductUiListInterface<Pro
 
     override fun initTwoView() {
 
-        initToolBar(R.string.label_return_sell, View.OnClickListener { returnGoodsDoneSave(initDoneBody()) })
+        initToolBar(R.string.label_return_sell, "保存",View.OnClickListener { returnGoodsDoneSave(initDoneBody()) })
 
         et_desc!!.inputType = InputType.TYPE_NULL
 

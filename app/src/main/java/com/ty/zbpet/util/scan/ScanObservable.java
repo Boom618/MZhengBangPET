@@ -111,7 +111,7 @@ public class ScanObservable {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        toneGenerator.startTone(ToneGenerator.TONE_CDMA_ALERT_AUTOREDIAL_LITE);
+                        //toneGenerator.startTone(ToneGenerator.TONE_CDMA_ALERT_AUTOREDIAL_LITE);
                         ZBUiUtils.showToast("扫码失败" + throwable.getMessage());
                     }
                 });

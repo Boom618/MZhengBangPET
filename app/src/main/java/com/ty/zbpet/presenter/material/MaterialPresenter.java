@@ -2,12 +2,16 @@ package com.ty.zbpet.presenter.material;
 
 import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.ResponseInfo;
+import com.ty.zbpet.bean.eventbus.UrlMessage;
 import com.ty.zbpet.bean.material.MaterialDetails;
 import com.ty.zbpet.bean.material.MaterialList;
+import com.ty.zbpet.bean.system.BoxCodeUrl;
 import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
 import com.ty.zbpet.util.ZBUiUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -80,11 +84,11 @@ public class MaterialPresenter {
                     List<MaterialList.ListBean> list = response.getData().getList();
 
                     materialListUi.showMaterial(list);
-                }else{
+                } else {
                     materialListUi.showError(response.getMessage());
                 }
             }
-        },sapOrderNo,startDate,endDate);
+        }, sapOrderNo, startDate, endDate);
 
     }
 
@@ -122,6 +126,37 @@ public class MaterialPresenter {
     }
 
     /**
+     * URL 解析
+     *
+     * @param url
+     */
+    public void urlAnalyze(int position,String url) {
+        httpMethods.urlAnalyze(new SingleObserver<BaseResponse<BoxCodeUrl>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(BaseResponse<BoxCodeUrl> response) {
+
+                if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
+                    String qrCode = response.getData().getBoxQrCode();
+                    EventBus.getDefault().post(new UrlMessage(position,qrCode));
+                } else {
+                    materialListUi.showError(response.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                materialListUi.showError(e.getMessage());
+            }
+        }, url);
+
+    }
+
+    /**
      * 库位码校验
      *
      * @param positionNo
@@ -137,7 +172,7 @@ public class MaterialPresenter {
 
             @Override
             public void onError(Throwable e) {
-                ZBUiUtils.showToast(e.getMessage());
+                materialListUi.showError(e.getMessage());
             }
 
             @Override
@@ -146,7 +181,7 @@ public class MaterialPresenter {
                     // 库位码合法
                     materialListUi.showCarSuccess(position, responseInfo);
                 } else {
-                    ZBUiUtils.showToast(responseInfo.getMessage());
+                    materialListUi.showError(responseInfo.getMessage());
                 }
 
             }
@@ -167,7 +202,7 @@ public class MaterialPresenter {
 
             @Override
             public void onSuccess(ResponseInfo responseInfo) {
-                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag()) ) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     // 入库成功（保存）
                     materialListUi.saveSuccess();
                 } else {
@@ -186,7 +221,7 @@ public class MaterialPresenter {
     /**
      * 原材料 已办 列表
      */
-    public void fetchDoneMaterial(String type,String sapOrderNo,String startDate,String endDate) {
+    public void fetchDoneMaterial(String type, String sapOrderNo, String startDate, String endDate) {
         httpMethods.getMaterialDoneList(new SingleObserver<BaseResponse<MaterialList>>() {
 
             @Override
@@ -209,7 +244,7 @@ public class MaterialPresenter {
                     materialListUi.showError(response.getMessage());
                 }
             }
-        }, type,sapOrderNo,startDate,endDate);
+        }, type, sapOrderNo, startDate, endDate);
     }
 
     /**
@@ -249,9 +284,10 @@ public class MaterialPresenter {
 
     /**
      * 已办冲销
+     *
      * @param body
      */
-    public void materialDoneInSave(RequestBody body){
+    public void materialDoneInSave(RequestBody body) {
         httpMethods.materialDoneInSave(new SingleObserver<ResponseInfo>() {
             @Override
             public void onSubscribe(Disposable d) {
