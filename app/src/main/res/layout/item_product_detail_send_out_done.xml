@@ -9,13 +9,14 @@
     android:layout_height="wrap_content">
 
 
-    <CheckBox
+    <ImageView
         android:id="@+id/iv_tag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
+        android:src="@mipmap/ic_product"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -67,22 +68,6 @@
         android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@+id/tv_num">
 
-        <!--<TextView-->
-            <!--android:id="@+id/tv_select_ware"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_margin="@dimen/text_22"-->
-            <!--android:background="@drawable/shape_black_min_radius"-->
-            <!--android:drawableStart="@mipmap/ic_date"-->
-            <!--android:drawableEnd="@mipmap/ic_bottom"-->
-            <!--android:drawablePadding="@dimen/space_10"-->
-            <!--android:gravity="center_vertical"-->
-            <!--android:padding="@dimen/space_7"-->
-            <!--android:text="商品1"-->
-            <!--android:textColor="@color/txt_main_color"-->
-            <!--android:textSize="@dimen/text_14"-->
-            <!--app:layout_constraintTop_toTopOf="parent" />-->
-
         <TextView
             android:id="@+id/tv_send_number"
             android:layout_width="match_parent"
@@ -93,7 +78,6 @@
             android:text="应发数量："
             android:textColor="@color/txt_main_color"
             android:textSize="@dimen/text_14"
-            android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -101,7 +85,7 @@
             android:id="@+id/tv_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="出库数量：2000"
+            android:text="出库数量：2000"
             android:layout_marginTop="@dimen/text_16"
             android:layout_marginStart="@dimen/text_16"
             android:layout_marginEnd="@dimen/text_16"
@@ -109,33 +93,35 @@
             android:textSize="@dimen/text_14"
             app:layout_constraintTop_toBottomOf="@+id/tv_send_number" />
 
-        <TextView
+        <EditText
             android:id="@+id/tv_start_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/text_16"
+            android:layout_marginTop="@dimen/x10"
             android:layout_marginStart="@dimen/text_16"
             android:layout_marginEnd="@dimen/text_16"
+            android:hint="起始值"
             style="@style/itemSizeStyle"
             app:layout_constraintTop_toBottomOf="@+id/tv_number" />
 
-        <TextView
+        <EditText
             android:id="@+id/tv_end_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/text_16"
+            android:layout_marginTop="@dimen/x10"
             android:layout_marginStart="@dimen/text_16"
             android:layout_marginEnd="@dimen/text_16"
             style="@style/itemSizeStyle"
+            android:hint="结束值"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_start_code" />
 
 
-        <TextView
+        <EditText
             android:id="@+id/tv_sap"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/text_16"
+            android:layout_marginTop="@dimen/x10"
             android:layout_marginStart="@dimen/text_16"
             android:layout_marginEnd="@dimen/text_16"
             android:hint="sap 物料批次号"

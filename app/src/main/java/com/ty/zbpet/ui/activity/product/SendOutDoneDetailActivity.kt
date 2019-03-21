@@ -7,42 +7,33 @@ import android.support.v7.widget.RecyclerView
 import android.text.InputType
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
-
 import com.ty.zbpet.R
-import com.ty.zbpet.bean.ResponseInfo
 import com.ty.zbpet.bean.product.ProductDetails
 import com.ty.zbpet.bean.product.ProductDoneSave
-import com.ty.zbpet.net.HttpMethods
-import com.ty.zbpet.presenter.product.ProductUiObjInterface
+import com.ty.zbpet.constant.CodeConstant
+import com.ty.zbpet.net.RequestBodyJson
+import com.ty.zbpet.presenter.product.ProductUiListInterface
 import com.ty.zbpet.presenter.product.SendOutPresenter
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity
 import com.ty.zbpet.ui.adapter.product.SendOutDoneDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
-import com.ty.zbpet.constant.CodeConstant
-import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.util.DataUtils
-import com.ty.zbpet.util.JsonStringMerge
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
-
-import java.text.SimpleDateFormat
-import java.util.ArrayList
-import java.util.Date
-import java.util.Locale
-
-import io.reactivex.SingleObserver
-import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * @author TY on 2018/11/22.
- * 发货出库 已办详情
+ * 发货出库 已办详情 (整单发货，整单冲销)
  */
-class SendOutDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductDetails> {
+class SendOutDoneDetailActivity : BaseActivity(), ProductUiListInterface<ProductDetails.ListBean> {
 
     private var adapter: SendOutDoneDetailAdapter? = null
 
@@ -56,7 +47,7 @@ class SendOutDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
      * 冲销 sapOrderNo
      */
     private var sapOrderNo: String? = null
-    private var list: List<ProductDetails.ListBean>? = ArrayList()
+    private var list: List<ProductDetails.ListBean> = ArrayList()
 
 
     private val presenter = SendOutPresenter(this)
@@ -80,7 +71,7 @@ class SendOutDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
     override fun initTwoView() {
 
 
-        initToolBar(R.string.pick_out_storage, "保存",View.OnClickListener { sendOutDoneSave(initDoneBody()) })
+        initToolBar(R.string.send_out_storage_reversal, "冲销", View.OnClickListener { sendOutDoneSave(initDoneBody()) })
 
         val format = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
         selectTime = format.format(Date())
@@ -94,55 +85,55 @@ class SendOutDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
     /**
      * 冲销 保存
      */
-    private fun sendOutDoneSave(body: RequestBody) {
+    private fun sendOutDoneSave(body: RequestBody?) {
 
-        HttpMethods.getInstance().getShipDoneSave(object : SingleObserver<ResponseInfo> {
-            override fun onError(e: Throwable) {
-                ZBUiUtils.showToast(e.message)
-            }
+        if (body == null) {
+            return
+        }
 
-            override fun onSubscribe(d: Disposable) {
+        presenter.sendOutDoneSave(body)
 
-            }
-
-            override fun onSuccess(responseInfo: ResponseInfo) {
-                if (CodeConstant.SERVICE_SUCCESS == responseInfo.tag) {
-                    // 入库成功（保存）
-                    ZBUiUtils.showToast(responseInfo.message)
-                    runOnUiThread { finish() }
-                } else {
-                    ZBUiUtils.showToast(responseInfo.message)
-                }
-            }
-        }, body)
     }
 
-    private fun initDoneBody(): RequestBody {
+    private fun initDoneBody(): RequestBody? {
 
         val requestBody = ProductDoneSave()
 
-        val size = list!!.size
+        val size = list.size
         val beans = ArrayList<ProductDoneSave.DetailsBean>()
         for (i in 0 until size) {
+            val view = rv_in_storage_detail.getChildAt(i)
+            val startCode = view.findViewById<EditText>(R.id.tv_start_code).text.toString().trim { it <= ' ' }
+            val endCode = view.findViewById<EditText>(R.id.tv_end_code).text.toString().trim { it <= ' ' }
+            val sap = view.findViewById<EditText>(R.id.tv_sap).text.toString().trim { it <= ' ' }
+
             val detailsBean = ProductDoneSave.DetailsBean()
 
-            val boxQrCodeList = list!![i].boxQrCode
-            val goodsId = list!![i].goodsId
-            val goodsNo = list!![i].goodsNo
-            val warehouseId = list!![i].warehouseId
-            val number = list!![i].number
+            val boxQrCodeList = list[i].boxQrCode
+            val goodsId = list[i].goodsId
+            val goodsNo = list[i].goodsNo
+            val warehouseId = list[i].warehouseId
+            val number = list[i].number
 
-            detailsBean.content = list!![i].content
-            detailsBean.id = list!![i].id
-            detailsBean.unit = list!![i].unit
-            detailsBean.goodsName = list!![i].goodsName
+            detailsBean.content = list[i].content
+            detailsBean.id = list[i].id
+            detailsBean.unit = list[i].unit
+            detailsBean.goodsName = list[i].goodsName
             detailsBean.number = number
             detailsBean.boxQrCode = boxQrCodeList
             detailsBean.warehouseId = warehouseId
+            detailsBean.startQrCode = startCode
+            detailsBean.endQrCode = endCode
+            detailsBean.sapMaterialBatchNo = sap
 
             detailsBean.goodsId = goodsId
             detailsBean.goodsNo = goodsNo
             beans.add(detailsBean)
+        }
+
+        if (beans.size == 0) {
+            ZBUiUtils.showToast("请完善您要发货的信息")
+            return null
         }
 
         requestBody.list = beans
@@ -155,23 +146,22 @@ class SendOutDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
         return RequestBodyJson.requestBody(json)
     }
 
-    override fun detailObjData(obj: ProductDetails) {
-
-        list = obj.list
+    override fun showProduct(lists: MutableList<ProductDetails.ListBean>?) {
+        list = lists!!
 
         if (adapter == null) {
             val manager = LinearLayoutManager(ResourceUtil.getContext())
             rv_in_storage_detail!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
             rv_in_storage_detail!!.layoutManager = manager
-            adapter = SendOutDoneDetailAdapter(this, R.layout.item_product_detail_send_out_done, list!!)
+            adapter = SendOutDoneDetailAdapter(this, R.layout.item_product_detail_send_out_done, list)
             rv_in_storage_detail!!.adapter = adapter
 
-            adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+            adapter?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                 override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
 
                     val rlDetail = holder.itemView.findViewById<View>(R.id.gone_view)
                     val ivArrow = holder.itemView.findViewById<ImageView>(R.id.iv_arrow)
-                    val boxQrCodeList = list!![position].boxQrCode
+                    val boxQrCodeList = list[position].boxQrCode
 
                     val bindingCode = holder.itemView.findViewById<Button>(R.id.btn_binding_code)
 
@@ -190,16 +180,32 @@ class SendOutDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductD
                         intent.putStringArrayListExtra("boxCodeList", boxQrCodeList)
                         startActivity(intent)
                     }
-
                 }
 
                 override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
                     return false
                 }
             })
-        } else {
-            adapter!!.notifyDataSetChanged()
         }
 
+    }
+
+    override fun showLoading() {
+    }
+
+    override fun hideLoading() {
+    }
+
+    override fun saveSuccess() {
+        finish()
+    }
+
+    override fun showError(msg: String?) {
+        ZBUiUtils.showToast(msg)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.dispose()
     }
 }

@@ -1,14 +1,8 @@
 package com.ty.zbpet.ui.activity.product
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.text.InputType
-import android.view.View
-import android.widget.Button
 import android.widget.CheckBox
-import android.widget.ImageView
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.ResponseInfo
 import com.ty.zbpet.bean.product.ProductDetails
@@ -17,28 +11,24 @@ import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.net.HttpMethods
 import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.product.BuyInPresenter
-import com.ty.zbpet.presenter.product.ProductUiObjInterface
-import com.ty.zbpet.ui.activity.ScanBoxCodeActivity
+import com.ty.zbpet.presenter.product.ProductUiListInterface
 import com.ty.zbpet.ui.adapter.product.BuyInDoneDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils
-import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_content_reversal.*
-import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
-import java.text.SimpleDateFormat
 import java.util.*
 
 /**
  * @author TY on 2018/11/22.
  * 外采入库 已办详情
  */
-class BuyInDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductDetails> {
+class BuyInDoneDetailActivity : BaseActivity(), ProductUiListInterface<ProductDetails.ListBean> {
 
     private var adapter: BuyInDoneDetailAdapter? = null
 
@@ -85,30 +75,14 @@ class BuyInDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductDet
     /**
      * 冲销 保存
      */
-    private fun buyInDoneSave(body: RequestBody) {
-
-        HttpMethods.getInstance().getBuyInDoneSave(object : SingleObserver<ResponseInfo> {
-            override fun onError(e: Throwable) {
-                ZBUiUtils.showToast(e.message)
-            }
-
-            override fun onSubscribe(d: Disposable) {
-
-            }
-
-            override fun onSuccess(responseInfo: ResponseInfo) {
-                if (CodeConstant.SERVICE_SUCCESS == responseInfo.tag) {
-                    // 入库成功（保存）
-                    ZBUiUtils.showToast(responseInfo.message)
-                    runOnUiThread { finish() }
-                } else {
-                    ZBUiUtils.showToast(responseInfo.message)
-                }
-            }
-        }, body)
+    private fun buyInDoneSave(body: RequestBody?) {
+        if (body == null) {
+            return
+        }
+        presenter.buyInDoneSave(body)
     }
 
-    private fun initDoneBody(): RequestBody {
+    private fun initDoneBody(): RequestBody? {
 
         val requestBody = ProductDoneSave()
 
@@ -145,6 +119,10 @@ class BuyInDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductDet
                 beans.add(detailsBean)
             }
         }
+        if (beans.size == 0) {
+            ZBUiUtils.showToast("请完善您要入库的信息")
+            return null
+        }
 
 
         requestBody.list = beans
@@ -157,9 +135,9 @@ class BuyInDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductDet
         return RequestBodyJson.requestBody(json)
     }
 
-    override fun detailObjData(obj: ProductDetails) {
+    override fun showProduct(lists: MutableList<ProductDetails.ListBean>?) {
 
-        list = obj.list
+        list = lists
 
         if (adapter == null) {
             val manager = LinearLayoutManager(ResourceUtil.getContext())
@@ -168,38 +146,20 @@ class BuyInDoneDetailActivity : BaseActivity(), ProductUiObjInterface<ProductDet
 //            adapter = BuyInDoneDetailAdapter(this, R.layout.item_product_detail_two_done, list!!)
             adapter = BuyInDoneDetailAdapter(this, R.layout.item_reversal_check, list!!)
             recycler_reversal.adapter = adapter
-
-//            adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
-//                override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
-//
-//                    val rlDetail = holder.itemView.findViewById<View>(R.id.gone_view)
-//                    val ivArrow = holder.itemView.findViewById<ImageView>(R.id.iv_arrow)
-//
-//                    val boxQrCodeList = list!![position].boxQrCode
-//
-//                    val bindingCode = holder.itemView.findViewById<Button>(R.id.btn_binding_code)
-//
-//                    if (rlDetail.visibility == View.VISIBLE) {
-//                        rlDetail.visibility = View.GONE
-//                        ivArrow.setImageResource(R.mipmap.ic_collapse)
-//                    } else {
-//                        rlDetail.visibility = View.VISIBLE
-//                        ivArrow.setImageResource(R.mipmap.ic_expand)
-//                    }
-//
-//                    bindingCode.setOnClickListener {
-//                        val intent = Intent(it.context, ScanBoxCodeActivity::class.java)
-//                        intent.putExtra(CodeConstant.PAGE_STATE, false)
-//                        intent.putStringArrayListExtra("boxCodeList", boxQrCodeList)
-//                        startActivity(intent)
-//                    }
-//                }
-//
-//                override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
-//                    return false
-//                }
-//            })
         }
+    }
 
+    override fun showLoading() {
+    }
+
+    override fun hideLoading() {
+    }
+
+    override fun saveSuccess() {
+        finish()
+    }
+
+    override fun showError(msg: String?) {
+        ZBUiUtils.showToast(msg)
     }
 }

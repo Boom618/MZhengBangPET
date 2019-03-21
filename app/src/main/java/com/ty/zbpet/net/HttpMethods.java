@@ -101,9 +101,9 @@ public class HttpMethods {
     /**
      * 用户登录
      *
-     * @param observer
-     * @param userName
-     * @param password
+     * @param observer observer
+     * @param userName userName
+     * @param password password
      */
     public void userLogin(SingleObserver<BaseResponse<UserInfo>> observer, String userName, String password) {
         mService.userLogin(userName, password)

@@ -1,5 +1,6 @@
 package com.ty.zbpet.presenter.product;
 
+import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.product.ProductDetails;
 import com.ty.zbpet.bean.product.ProductList;
 import com.ty.zbpet.net.HttpMethods;
@@ -11,6 +12,7 @@ import java.util.List;
 
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
+import okhttp3.RequestBody;
 
 /**
  * @author TY on 2018/11/26.
@@ -20,7 +22,6 @@ import io.reactivex.disposables.Disposable;
 public class ProducePresenter {
 
     private ProductUiListInterface listInterface;
-    private ProductUiObjInterface objInterface;
 
     private HttpMethods httpMethods;
     private Disposable disposable;
@@ -29,12 +30,6 @@ public class ProducePresenter {
         this.listInterface = listInterface;
         httpMethods = HttpMethods.getInstance();
     }
-
-    public ProducePresenter(ProductUiObjInterface objInterface) {
-        this.objInterface = objInterface;
-        httpMethods = HttpMethods.getInstance();
-    }
-
 
     public void dispose() {
         if (disposable != null) {
@@ -68,7 +63,7 @@ public class ProducePresenter {
             public void onError(Throwable e) {
                 ZBUiUtils.showToast(e.getMessage());
             }
-        },sapOrderNo,startDate,endDate);
+        }, sapOrderNo, startDate, endDate);
     }
 
 
@@ -77,7 +72,7 @@ public class ProducePresenter {
      *
      * @param sapOrderNo
      */
-    public void fetchProductTodoInfo(String sign,String sapOrderNo) {
+    public void fetchProductTodoInfo(String sign, String sapOrderNo) {
 
 
         httpMethods.getProduceOrderInfo(new SingleObserver<BaseResponse<ProductDetails>>() {
@@ -102,7 +97,33 @@ public class ProducePresenter {
             public void onError(Throwable e) {
                 listInterface.showError(e.getMessage());
             }
-        }, sign,sapOrderNo);
+        }, sign, sapOrderNo);
+    }
+
+    /**
+     * 代办保存
+     */
+    public void productTodoSave(RequestBody body) {
+        httpMethods.getProduceTodoSave(new SingleObserver<ResponseInfo>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo responseInfo) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    listInterface.saveSuccess();
+                } else {
+                    listInterface.showError(responseInfo.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                listInterface.showError(e.getMessage());
+            }
+        }, body);
     }
 
     /**
@@ -151,18 +172,47 @@ public class ProducePresenter {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
                     ProductDetails data = response.getData();
 
-                    objInterface.detailObjData(data);
+                    listInterface.showProduct(data.getList());
 
                 } else {
-                    ZBUiUtils.showToast("失败 : =" + response.getMessage());
+                    listInterface.showError(response.getMessage());
                 }
             }
 
             @Override
             public void onError(Throwable e) {
-                ZBUiUtils.showToast(e.getMessage());
+                listInterface.showError(e.getMessage());
             }
         }, orderId);
+    }
+
+    /**
+     * 已办冲销
+     *
+     * @param body
+     */
+    public void productDoneSave(RequestBody body) {
+        httpMethods.getProduceDoneSave(new SingleObserver<ResponseInfo>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo responseInfo) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    listInterface.saveSuccess();
+                } else {
+                    listInterface.showError(responseInfo.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                listInterface.showError(e.getMessage());
+            }
+        }, body);
+
     }
 
 }

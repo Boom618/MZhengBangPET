@@ -29,6 +29,7 @@ import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_content_row_three.*
 import okhttp3.RequestBody
+import java.lang.ref.ReferenceQueue
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -107,7 +108,7 @@ class ProductTodoDetailActivity : BaseActivity()
         for (i in 0 until size) {
             houseName.add(warehouseList[i].warehouseName.toString())
         }
-        tv_house!!.text = houseName[0]
+        //tv_house!!.text = houseName[0]
 
         presenter.fetchProductTodoInfo(sign,sapOrderNo)
     }
@@ -147,26 +148,8 @@ class ProductTodoDetailActivity : BaseActivity()
         if (body == null) {
             return
         }
+        presenter.productTodoSave(body)
 
-        HttpMethods.getInstance().getProduceTodoSave(object : SingleObserver<ResponseInfo> {
-            override fun onError(e: Throwable) {
-                ZBUiUtils.showToast(e.message)
-            }
-
-            override fun onSubscribe(d: Disposable) {
-
-            }
-
-            override fun onSuccess(responseInfo: ResponseInfo) {
-                if (CodeConstant.SERVICE_SUCCESS == responseInfo.tag) {
-                    // 入库成功（保存）
-                    ZBUiUtils.showToast(responseInfo.message)
-                    finish()
-                } else {
-                    ZBUiUtils.showToast(responseInfo.message)
-                }
-            }
-        }, body)
     }
 
     /**
@@ -243,8 +226,10 @@ class ProductTodoDetailActivity : BaseActivity()
             return null
         }
 
-        val remark = et_desc!!.text.toString().trim { it <= ' ' }
-        val time = tv_time!!.text.toString().trim { it <= ' ' }
+        val remark = et_desc.text.toString().trim { it <= ' ' }
+        val time = tv_time.text.toString().trim { it <= ' ' }
+        val productDate = product_date.text.toString().trim { it <= ' ' }
+        val productSap = product_sap.text.toString().trim { it <= ' ' }
 
         requestBody.list = detail
         requestBody.warehouseId = warehouseId
@@ -252,6 +237,8 @@ class ProductTodoDetailActivity : BaseActivity()
         requestBody.warehouseName = warehouseName
         requestBody.sapOrderNo = sapOrderNo
         requestBody.moveType = "101"
+        requestBody.productionDate = productDate
+        requestBody.productionBatchNo = productSap
         requestBody.inTime = time
         requestBody.remark = remark
 
@@ -314,6 +301,7 @@ class ProductTodoDetailActivity : BaseActivity()
     }
 
     override fun saveSuccess() {
+        finish()
     }
 
     override fun showError(msg: String?) {
@@ -334,6 +322,7 @@ class ProductTodoDetailActivity : BaseActivity()
 
         // 清除仓库数据
         DataUtils.clearId()
+        presenter.dispose()
     }
 
     companion object {

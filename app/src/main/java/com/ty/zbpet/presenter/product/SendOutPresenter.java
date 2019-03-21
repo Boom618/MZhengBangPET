@@ -1,5 +1,6 @@
 package com.ty.zbpet.presenter.product;
 
+import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.product.ProductDetails;
 import com.ty.zbpet.bean.product.ProductList;
 import com.ty.zbpet.net.HttpMethods;
@@ -11,29 +12,25 @@ import java.util.List;
 
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
+import okhttp3.RequestBody;
 
 /**
  * @author TY on 2018/11/26.
- *
+ * <p>
  * 发货出库 presenter
  */
 public class SendOutPresenter {
 
     private ProductUiListInterface listInterface;
-    private ProductUiObjInterface objInterface;
 
     private HttpMethods httpMethods;
     private Disposable disposable;
 
-    public SendOutPresenter(ProductUiListInterface listInterface){
+    public SendOutPresenter(ProductUiListInterface listInterface) {
         this.listInterface = listInterface;
         httpMethods = HttpMethods.getInstance();
     }
 
-    public SendOutPresenter(ProductUiObjInterface objInterface){
-        this.objInterface = objInterface;
-        httpMethods = HttpMethods.getInstance();
-    }
 
     public void dispose() {
         if (disposable != null) {
@@ -60,13 +57,13 @@ public class SendOutPresenter {
                     listInterface.showProduct(list);
 
                 } else {
-                    ZBUiUtils.showToast("失败 : =" + response.getMessage());
+                    listInterface.showError(response.getMessage());
                 }
             }
 
             @Override
             public void onError(Throwable e) {
-                ZBUiUtils.showToast(e.getMessage());
+                listInterface.showError(e.getMessage());
             }
         });
     }
@@ -91,19 +88,47 @@ public class SendOutPresenter {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
                     ProductDetails data = response.getData();
-                    //objInterface.detailObjData(data);
                     listInterface.showProduct(data.getList());
 
                 } else {
-                    ZBUiUtils.showToast("失败 : =" + response.getMessage());
+                    listInterface.showError(response.getMessage());
                 }
             }
 
             @Override
             public void onError(Throwable e) {
-                ZBUiUtils.showToast("失败 : =" + e.getMessage());
+                listInterface.showError(e.getMessage());
             }
         }, sapOrderNo);
+    }
+
+    /**
+     * 代办保存
+     *
+     * @param body body
+     */
+    public void sendOutTodoSave(RequestBody body) {
+        httpMethods.getShipTodoSave(new SingleObserver<ResponseInfo>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo responseInfo) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    listInterface.saveSuccess();
+                } else {
+                    listInterface.showError(responseInfo.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                listInterface.showError(e.getMessage());
+            }
+        }, body);
+
     }
 
     /**
@@ -123,20 +148,20 @@ public class SendOutPresenter {
                     ProductList data = response.getData();
                     if (data.getCount() == 0) {
                         ZBUiUtils.showToast("没有数据");
-                    }else {
-                        objInterface.detailObjData(data);
+                    } else {
+                        listInterface.showProduct(data.getList());
                     }
 
                 } else {
-                    ZBUiUtils.showToast("失败 : =" + response.getMessage());
+                    listInterface.showError(response.getMessage());
                 }
             }
 
             @Override
             public void onError(Throwable e) {
-
+                listInterface.showError(e.getMessage());
             }
-        },type);
+        }, type);
     }
 
     /**
@@ -156,18 +181,45 @@ public class SendOutPresenter {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
                     ProductDetails data = response.getData();
 
-                    objInterface.detailObjData(data);
+                    listInterface.showProduct(data.getList());
 
                 } else {
-                    ZBUiUtils.showToast("失败 : =" + response.getMessage());
+                    listInterface.showError(response.getMessage());
                 }
             }
 
             @Override
             public void onError(Throwable e) {
-                ZBUiUtils.showToast(e.getMessage());
+                listInterface.showError(e.getMessage());
             }
         }, orderId);
+    }
+
+    /**
+     * 已办保存
+     */
+    public void sendOutDoneSave(RequestBody body) {
+        httpMethods.getShipDoneSave(new SingleObserver<ResponseInfo>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo responseInfo) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    listInterface.saveSuccess();
+                } else {
+                    listInterface.showError(responseInfo.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                listInterface.showError(e.getMessage());
+            }
+        }, body);
+
     }
 
 

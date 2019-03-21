@@ -22,7 +22,6 @@ import okhttp3.RequestBody;
 public class BuyInPresenter {
 
     private ProductUiListInterface listInterface;
-    private ProductUiObjInterface objInterface;
 
     private HttpMethods httpMethods;
 
@@ -30,11 +29,6 @@ public class BuyInPresenter {
 
     public BuyInPresenter(ProductUiListInterface listInterface) {
         this.listInterface = listInterface;
-        httpMethods = HttpMethods.getInstance();
-    }
-
-    public BuyInPresenter(ProductUiObjInterface objInterface) {
-        this.objInterface = objInterface;
         httpMethods = HttpMethods.getInstance();
     }
 
@@ -182,19 +176,47 @@ public class BuyInPresenter {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
                     ProductDetails data = response.getData();
 
-                    objInterface.detailObjData(data);
+                    listInterface.showProduct(data.getList());
 
                 } else {
-                    ZBUiUtils.showToast("失败 : =" + response.getMessage());
+                    listInterface.showError(response.getMessage());
                 }
             }
 
             @Override
             public void onError(Throwable e) {
-                ZBUiUtils.showToast(e.getMessage());
+                listInterface.showError(e.getMessage());
             }
         }, orderId);
     }
 
+    /**
+     * 已办保存
+     *
+     * @param body
+     */
+    public void buyInDoneSave(RequestBody body) {
+
+        httpMethods.getBuyInDoneSave(new SingleObserver<ResponseInfo>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo responseInfo) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    listInterface.saveSuccess();
+                } else {
+                    listInterface.showError(responseInfo.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                listInterface.showError(e.getMessage());
+            }
+        }, body);
+    }
 
 }

@@ -10,33 +10,23 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
-
 import com.ty.zbpet.R
-import com.ty.zbpet.bean.ResponseInfo
 import com.ty.zbpet.bean.product.ProductDetails
 import com.ty.zbpet.bean.product.ProductTodoSave
-import com.ty.zbpet.net.HttpMethods
+import com.ty.zbpet.constant.CodeConstant
+import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.product.ProductUiListInterface
 import com.ty.zbpet.presenter.product.SendOutPresenter
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity
 import com.ty.zbpet.ui.adapter.product.SendOutTodoDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
-import com.ty.zbpet.constant.CodeConstant
-import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.util.*
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
-
-import java.text.SimpleDateFormat
-import java.util.ArrayList
-import java.util.Date
-import java.util.Locale
-
-import io.reactivex.SingleObserver
-import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * 发货出库 待办详情（ 直接显示列表数据  删除添加按钮）
@@ -104,7 +94,7 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
 
     override fun initTwoView() {
 
-        initToolBar(R.string.label_send_out_storage, "保存",View.OnClickListener { view ->
+        initToolBar(R.string.send_out_storage_detail, "保存",View.OnClickListener { view ->
             ZBUiUtils.hideInputWindow(view.context, view)
             sendOutTodoSave(initTodoBody())
         })
@@ -133,27 +123,8 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
         if (body == null) {
             return
         }
+        presenter.sendOutTodoSave(body)
 
-        HttpMethods.getInstance().getShipTodoSave(object : SingleObserver<ResponseInfo> {
-
-            override fun onSubscribe(d: Disposable) {
-
-            }
-
-            override fun onError(e: Throwable) {
-                ZBUiUtils.showToast(e.message)
-            }
-
-            override fun onSuccess(responseInfo: ResponseInfo) {
-                if (CodeConstant.SERVICE_SUCCESS == responseInfo.tag) {
-                    // 入库成功（保存）
-                    ZBUiUtils.showToast(responseInfo.message)
-                    finish()
-                } else {
-                    ZBUiUtils.showToast(responseInfo.message)
-                }
-            }
-        }, body)
     }
 
     /**
@@ -269,8 +240,6 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
                     return true
                 }
             })
-        } else {
-            adapter!!.notifyDataSetChanged()
         }
 
     }

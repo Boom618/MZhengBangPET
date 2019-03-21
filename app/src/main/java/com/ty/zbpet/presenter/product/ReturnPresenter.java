@@ -20,18 +20,12 @@ import io.reactivex.disposables.Disposable;
 public class ReturnPresenter {
 
     private ProductUiListInterface listInterface;
-    private ProductUiObjInterface objInterface;
 
     private HttpMethods httpMethods;
     private Disposable disposable;
 
     public ReturnPresenter(ProductUiListInterface listInterface) {
         this.listInterface = listInterface;
-        httpMethods = HttpMethods.getInstance();
-    }
-
-    public ReturnPresenter(ProductUiObjInterface objInterface) {
-        this.objInterface = objInterface;
         httpMethods = HttpMethods.getInstance();
     }
 
@@ -60,13 +54,13 @@ public class ReturnPresenter {
                     listInterface.showProduct(list);
 
                 } else {
-                    ZBUiUtils.showToast("失败 : =" + response.getMessage());
+                    listInterface.showError(response.getMessage());
                 }
             }
 
             @Override
             public void onError(Throwable e) {
-                ZBUiUtils.showToast(e.getMessage());
+                listInterface.showError(e.getMessage());
             }
         });
     }
@@ -93,13 +87,14 @@ public class ReturnPresenter {
 
                     listInterface.showProduct(list);
 
+                } else {
+                    listInterface.showError(response.getMessage());
                 }
-
             }
 
             @Override
             public void onError(Throwable e) {
-                ZBUiUtils.showToast(e.getMessage());
+                listInterface.showError(e.getMessage());
             }
         }, sapOrderNo);
     }
@@ -120,16 +115,16 @@ public class ReturnPresenter {
 
                     ProductList data = response.getData();
 
-                    objInterface.detailObjData(data);
+                    listInterface.showProduct(data.getList());
 
                 } else {
-                    ZBUiUtils.showToast("失败 : =" + response.getMessage());
+                    listInterface.showError(response.getMessage());
                 }
             }
 
             @Override
             public void onError(Throwable e) {
-
+                listInterface.showError(e.getMessage());
             }
         }, type);
     }
@@ -154,13 +149,14 @@ public class ReturnPresenter {
 
                     List<ProductDetails.ListBean> list = response.getData().getList();
                     listInterface.showProduct(list);
+                } else {
+                    listInterface.showError(response.getMessage());
                 }
-
             }
 
             @Override
             public void onError(Throwable e) {
-                ZBUiUtils.showToast(e.getMessage());
+                listInterface.showError(e.getMessage());
             }
         }, sapOrderNo);
     }

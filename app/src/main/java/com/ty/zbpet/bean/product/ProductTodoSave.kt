@@ -15,6 +15,8 @@ class ProductTodoSave {
     var moveType: String? = null
     var orderId: String? = null
     var remark: String? = null
+    var productionDate: String? = null
+    var productionBatchNo: String? = null
     var list: List<DetailsBean>? = null
 
     // 生产入库 仓库在外层

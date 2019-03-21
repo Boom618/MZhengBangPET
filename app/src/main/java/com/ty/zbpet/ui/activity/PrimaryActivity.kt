@@ -72,31 +72,31 @@ class PrimaryActivity : BaseActivity() {
             4 -> {
                 initToolBar(R.string.label_purchase_in_storage)
 
-                val todoFragment = BuyInTodoFragment.newInstance(CodeConstant.FRAGMENT_TODO)
-                val doneFragment = BuyInTodoFragment.newInstance(CodeConstant.FRAGMENT_DONE)
+                val todoFragment = BuyInFragment.newInstance(CodeConstant.FRAGMENT_TODO)
+                val doneFragment = BuyInFragment.newInstance(CodeConstant.FRAGMENT_DONE)
                 //val doneFragment = BuyInDoneFragment.newInstance("doneFragment")
                 fragmentList.add(todoFragment)
                 fragmentList.add(doneFragment)
             }
             5 -> {
                 initToolBar(R.string.label_produce_in_storage)
-                val todoFragment = ProductTodoFragment.newInstance(CodeConstant.FRAGMENT_TODO)
-                val doneFragment = ProductTodoFragment.newInstance(CodeConstant.FRAGMENT_DONE)
+                val todoFragment = ProductFragment.newInstance(CodeConstant.FRAGMENT_TODO)
+                val doneFragment = ProductFragment.newInstance(CodeConstant.FRAGMENT_DONE)
                 fragmentList.add(todoFragment)
                 fragmentList.add(doneFragment)
             }
             6 -> {
                 initToolBar(R.string.label_send_out_storage)
-                val todoFragment = SendOutTodoFragment.newInstance(CodeConstant.FRAGMENT_TODO)
-                val doneFragment = SendOutDoneFragment.newInstance(CodeConstant.FRAGMENT_DONE)
+                val todoFragment = SendOutFragment.newInstance(CodeConstant.FRAGMENT_TODO)
+                val doneFragment = SendOutFragment.newInstance(CodeConstant.FRAGMENT_DONE)
 
                 fragmentList.add(todoFragment)
                 fragmentList.add(doneFragment)
             }
             7 -> {
                 initToolBar(R.string.label_return_sell)
-                val todoFragment = ReturnGoodsTodoFragment.newInstance(CodeConstant.FRAGMENT_TODO)
-                val doneFragment = ReturnGoodsDoneFragment.newInstance(CodeConstant.FRAGMENT_DONE)
+                val todoFragment = ReturnGoodsFragment.newInstance(CodeConstant.FRAGMENT_TODO)
+                val doneFragment = ReturnGoodsFragment.newInstance(CodeConstant.FRAGMENT_DONE)
 
                 fragmentList.add(todoFragment)
                 fragmentList.add(doneFragment)
