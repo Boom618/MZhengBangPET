@@ -8,34 +8,25 @@ import android.text.InputType
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
-
 import com.ty.zbpet.R
-import com.ty.zbpet.bean.ResponseInfo
 import com.ty.zbpet.bean.product.ProductDetails
 import com.ty.zbpet.bean.product.ProductDoneSave
-import com.ty.zbpet.net.HttpMethods
+import com.ty.zbpet.constant.CodeConstant
+import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.product.ProductUiListInterface
 import com.ty.zbpet.presenter.product.ReturnPresenter
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity
 import com.ty.zbpet.ui.adapter.product.ReturnGoodsDoneDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
-import com.ty.zbpet.constant.CodeConstant
-import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
-
-import java.text.SimpleDateFormat
-import java.util.ArrayList
-import java.util.Date
-import java.util.Locale
-
-import io.reactivex.SingleObserver
-import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.activity_content_row_three.*
+import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * @author TY on 2018/11/22.
@@ -55,7 +46,7 @@ class ReturnGoodsDoneDetailActivity : BaseActivity(), ProductUiListInterface<Pro
     private val presenter = ReturnPresenter(this)
 
     override val activityLayout: Int
-        get() = R.layout.activity_content_row_three
+        get() = R.layout.activity_content_row_two
 
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
@@ -76,46 +67,31 @@ class ReturnGoodsDoneDetailActivity : BaseActivity(), ProductUiListInterface<Pro
 
     override fun initTwoView() {
 
-        initToolBar(R.string.label_return_sell, "保存",View.OnClickListener { returnGoodsDoneSave(initDoneBody()) })
+        initToolBar(R.string.label_return_sell, "冲销",
+                View.OnClickListener { returnGoodsDoneSave(initDoneBody()) })
 
         et_desc!!.inputType = InputType.TYPE_NULL
 
         val format = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
         selectTime = format.format(Date())
 
-        tv_time!!.text = selectTime
-        in_storage_detail!!.text = "入库明细"
+        tv_time.text = selectTime
+        in_storage_detail.text = "退货明细"
 
     }
 
     /**
      * 冲销 保存
      */
-    private fun returnGoodsDoneSave(body: RequestBody) {
+    private fun returnGoodsDoneSave(body: RequestBody?) {
+        if (body == null) {
+            return
+        }
+        presenter.getReturnDoneSave(body)
 
-        HttpMethods.getInstance().getReturnDoneSave(object : SingleObserver<ResponseInfo> {
-
-            override fun onSubscribe(d: Disposable) {
-
-            }
-
-            override fun onError(e: Throwable) {
-                ZBUiUtils.showToast(e.message)
-            }
-
-            override fun onSuccess(responseInfo: ResponseInfo) {
-                if (CodeConstant.SERVICE_SUCCESS == responseInfo.tag) {
-                    // 入库成功（保存）
-                    ZBUiUtils.showToast(responseInfo.message)
-                    runOnUiThread { finish() }
-                } else {
-                    ZBUiUtils.showToast(responseInfo.message)
-                }
-            }
-        }, body)
     }
 
-    private fun initDoneBody(): RequestBody {
+    private fun initDoneBody(): RequestBody? {
 
         val requestBody = ProductDoneSave()
 
@@ -145,6 +121,10 @@ class ReturnGoodsDoneDetailActivity : BaseActivity(), ProductUiListInterface<Pro
 
             beans.add(detailsBean)
         }
+        if (beans.size == 0) {
+            ZBUiUtils.showToast("请完善您要退货的信息")
+            return null
+        }
 
         //String remark = etDesc.getText().toString().trim();
 
@@ -161,7 +141,7 @@ class ReturnGoodsDoneDetailActivity : BaseActivity(), ProductUiListInterface<Pro
     override fun showProduct(list: List<ProductDetails.ListBean>) {
 
         oldList = list
-        tv_house!!.text = list[0].warehouseName
+        //tv_house!!.text = list[0].warehouseName
 
         if (adapter == null) {
             val manager = LinearLayoutManager(ResourceUtil.getContext())
@@ -202,10 +182,7 @@ class ReturnGoodsDoneDetailActivity : BaseActivity(), ProductUiListInterface<Pro
                     return false
                 }
             })
-        } else {
-            adapter!!.notifyDataSetChanged()
         }
-
     }
 
     override fun showLoading() {
@@ -216,8 +193,14 @@ class ReturnGoodsDoneDetailActivity : BaseActivity(), ProductUiListInterface<Pro
     }
 
     override fun saveSuccess() {
+        finish()
     }
 
     override fun showError(msg: String?) {
+        ZBUiUtils.showToast(msg)
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.dispose()
     }
 }

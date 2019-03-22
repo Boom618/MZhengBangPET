@@ -41,6 +41,8 @@
     <string name="label_modify_pwd">修改密码</string>
     <string name="label_contact_phone">联系电话</string>
     <string name="label_person_center">个人中心</string>
+    <string name="product_query">成品追踪</string>
+    <string name="position_query">库位码库存查询</string>
 
     <string name="label_warehouse">所在仓库</string>
     <string name="label_belong_company">归属企业</string>

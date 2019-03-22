@@ -2,15 +2,13 @@ package com.ty.zbpet.ui.activity.system
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.ImageView
-
 import com.ty.zbpet.R
 import com.ty.zbpet.presenter.user.UserInterface
 import com.ty.zbpet.presenter.user.UserPresenter
 import com.ty.zbpet.ui.ActivitiesHelper
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.util.SimpleCache
+import com.ty.zbpet.util.ZBUiUtils
 import kotlinx.android.synthetic.main.activity_person_center_c.*
 
 /**
@@ -19,8 +17,6 @@ import kotlinx.android.synthetic.main.activity_person_center_c.*
  * @author TY
  */
 class PersonCenterActivity : BaseActivity(), UserInterface {
-
-    private var userImage: ImageView? = null
 
     private var isExit = false
 
@@ -39,13 +35,12 @@ class PersonCenterActivity : BaseActivity(), UserInterface {
 
     override fun initTwoView() {
 
-        userImage = findViewById(R.id.user_select_image)
-        userImage!!.visibility = View.GONE
 
         iv_back.setOnClickListener { finish() }
 
-        image_to_track.setOnClickListener {gotoActivity(StockTrackActivity::class.java)}
-        image_to_query.setOnClickListener {gotoActivity(BoxCodeQueryActivity::class.java)}
+        ll_track.setOnClickListener { gotoActivity(StockTrackActivity::class.java) }
+//        image_to_query.setOnClickListener {gotoActivity(BoxCodeQueryActivity::class.java)}
+        image_to_query.setOnClickListener { gotoActivity(PositionQueryActivity::class.java) }
         btn_modify_pwd.setOnClickListener { gotoActivity(UserUpDataPass::class.java) }
         btn_cancel!!.setOnClickListener { exitApp() }
 
@@ -87,7 +82,7 @@ class PersonCenterActivity : BaseActivity(), UserInterface {
     }
 
     override fun onError(e: String) {
-
+        ZBUiUtils.showToast(e)
 
     }
 }

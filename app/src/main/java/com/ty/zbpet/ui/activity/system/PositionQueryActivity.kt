@@ -3,14 +3,15 @@ package com.ty.zbpet.ui.activity.system
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.View
 import com.pda.scanner.ScanReader
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.eventbus.ErrorMessage
-import com.ty.zbpet.bean.system.ProductQuery
+import com.ty.zbpet.bean.system.PositionCode
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.presenter.system.QueryPresenter
 import com.ty.zbpet.ui.adapter.LayoutInit
-import com.ty.zbpet.ui.adapter.system.QueryProductAdapter
+import com.ty.zbpet.ui.adapter.system.QueryPositionAdapter
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.ResourceUtil
@@ -18,7 +19,6 @@ import com.ty.zbpet.util.ZBUiUtils
 import com.ty.zbpet.util.scan.ScanBoxInterface
 import com.ty.zbpet.util.scan.ScanObservable
 import kotlinx.android.synthetic.main.activity_stock_track.*
-import kotlinx.android.synthetic.main.layout_top_system.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -27,9 +27,9 @@ import java.util.*
 
 /**
  * @author TY on 2019/3/5.
- * 成品追踪
+ * 库位码查询（单批，混批）
  */
-class StockTrackActivity : BaseActivity(), ScanBoxInterface {
+class PositionQueryActivity : BaseActivity(), ScanBoxInterface {
 
 
     private val scanner = ScanReader.getScannerInstance()
@@ -49,7 +49,17 @@ class StockTrackActivity : BaseActivity(), ScanBoxInterface {
     }
 
     override fun initTwoView() {
-        initToolBar(R.string.product_query)
+        initToolBar(R.string.position_query)
+
+        bt_title.text = "库存信息"
+        product_no.visibility = View.GONE
+        query_time.visibility = View.GONE
+        query_number.visibility = View.GONE
+
+        product_name.text = "库位码："
+        product_order.text = "库位类型："
+        product_batch.text = "查询时间："
+        product_time.text = "查询次数："
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
@@ -66,28 +76,30 @@ class StockTrackActivity : BaseActivity(), ScanBoxInterface {
     }
 
     override fun ScanSuccess(position: Int, msg: String) {
-        presenter.productQuery(msg)
+        presenter.positionQuery(msg)
     }
 
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun queryEvent(event: ProductQuery) {
+    fun queryEvent(event: PositionCode) {
         val formatter = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M_S)
         val curDate = Date(System.currentTimeMillis())
         val time = formatter.format(curDate)
-        product_no.text = "产品二维码编号：${event.qrCode}"
-        query_time.text = "查询时间：$time"
-        query_number.text = "查询次数："
-        product_name.text = "产品名称：${event.goodsName}"
-        product_order.text = "生产订单：${event.productionOrderNo}"
-        product_batch.text = "生产批次：${event.productionBatchNo}"
-        product_time.text = "生产日期：${event.productionDate}"
+        product_no.visibility = View.GONE
+        query_time.visibility = View.GONE
+        query_number.visibility = View.GONE
 
-        val list = event.materialList!!
+        product_name.text = "库位码：${event.positionNo}"
+        product_order.text = "库位类型：${event.type}"
+        product_batch.text = "查询时间：$time"
+        product_time.text = "查询次数："
+
+
+        val list = event.stockList!!
 
         LayoutInit.initLayoutManager(this, recycler)
         recycler.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
-        val adapter = QueryProductAdapter(this, R.layout.item_sys_query_pro, list)
+        val adapter = QueryPositionAdapter(this, R.layout.item_sys_query_position, list)
         recycler.adapter = adapter
 
     }

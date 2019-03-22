@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_white_min_radius"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/materials_name"
+        android:text="物料名称："
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginTop="@dimen/x6"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/into_batch"
+        android:text="入库批次："
+        android:layout_marginTop="@dimen/x6"
+        app:layout_constraintTop_toBottomOf="@+id/materials_name"
+        app:layout_constraintStart_toStartOf="@+id/materials_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/content"
+        android:text="含量："
+        android:layout_marginTop="@dimen/x6"
+        app:layout_constraintTop_toBottomOf="@+id/into_batch"
+        app:layout_constraintStart_toStartOf="@+id/materials_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/supplier_name"
+        android:text="供应商："
+        android:layout_marginTop="@dimen/x6"
+        app:layout_constraintTop_toBottomOf="@+id/content"
+        app:layout_constraintStart_toStartOf="@+id/materials_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/number"
+        android:text="库存数量："
+        android:layout_marginTop="@dimen/x6"
+        app:layout_constraintTop_toBottomOf="@+id/supplier_name"
+        app:layout_constraintStart_toStartOf="@+id/materials_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/unit"
+        android:text="单位："
+        android:layout_marginTop="@dimen/x6"
+        app:layout_constraintTop_toBottomOf="@+id/number"
+        app:layout_constraintStart_toStartOf="@+id/materials_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</android.support.constraint.ConstraintLayout>

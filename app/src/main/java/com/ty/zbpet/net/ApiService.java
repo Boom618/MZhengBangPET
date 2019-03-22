@@ -9,6 +9,8 @@ import com.ty.zbpet.bean.product.ProductDetails;
 import com.ty.zbpet.bean.product.ProductList;
 import com.ty.zbpet.bean.system.BoxCodeUrl;
 import com.ty.zbpet.bean.system.ImageData;
+import com.ty.zbpet.bean.system.PositionCode;
+import com.ty.zbpet.bean.system.ProductQuery;
 import com.ty.zbpet.bean.system.QualityCheckTodoDetails;
 import com.ty.zbpet.bean.system.QualityCheckTodoList;
 import com.ty.zbpet.constant.ApiNameConstant;
@@ -568,6 +570,31 @@ public interface ApiService {
     /**----------------------------------------------------------------------------------*/
     /**--------------------------------- 系统 --------------------------------------------*/
     /**----------------------------------------------------------------------------------*/
+
+    /**
+     * --------------------------------- 溯源 --------------------------------------------
+     */
+
+    /**
+     * 成品查询
+     *
+     * @param url URL
+     * @return Single
+     */
+    @FormUrlEncoded
+    @POST(ApiNameConstant.PRODUCT_QUERY)
+    Single<BaseResponse<ProductQuery>> getProductQuery(@Field("url") String url);
+
+    /**
+     * 库位码查询
+     *
+     * @param positionNo positionNo
+     * @return Single
+     */
+    @FormUrlEncoded
+    @POST(ApiNameConstant.POSITION_QUERY)
+    Single<BaseResponse<PositionCode>> getPositionQuery(@Field("positionNo") String positionNo);
+
 
     /**--------------------------------- 质检 --------------------------------------------*/
 

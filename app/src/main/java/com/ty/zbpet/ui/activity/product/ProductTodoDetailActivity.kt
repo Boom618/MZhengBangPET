@@ -10,12 +10,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import com.ty.zbpet.R
-import com.ty.zbpet.bean.ResponseInfo
 import com.ty.zbpet.bean.UserInfo
 import com.ty.zbpet.bean.product.ProductDetails
 import com.ty.zbpet.bean.product.ProductTodoSave
 import com.ty.zbpet.constant.CodeConstant
-import com.ty.zbpet.net.HttpMethods
 import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.product.ProducePresenter
 import com.ty.zbpet.presenter.product.ProductUiListInterface
@@ -25,11 +23,8 @@ import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.*
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
-import io.reactivex.SingleObserver
-import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_content_row_three.*
 import okhttp3.RequestBody
-import java.lang.ref.ReferenceQueue
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -265,12 +260,15 @@ class ProductTodoDetailActivity : BaseActivity()
                     val ivArrow = holder.itemView.findViewById<ImageView>(R.id.iv_arrow)
                     val bindingCode = holder.itemView.findViewById<Button>(R.id.btn_binding_code)
 
-                    if (rlDetail.visibility == View.VISIBLE) {
-                        rlDetail.visibility = View.GONE
-                        ivArrow.setImageResource(R.mipmap.ic_collapse)
-                    } else {
-                        rlDetail.visibility = View.VISIBLE
-                        ivArrow.setImageResource(R.mipmap.ic_expand)
+                    when (rlDetail.visibility) {
+                        View.VISIBLE -> {
+                            rlDetail.visibility = View.GONE
+                            ivArrow.setImageResource(R.mipmap.ic_collapse)
+                        }
+                        View.GONE -> {
+                            rlDetail.visibility = View.VISIBLE
+                            ivArrow.setImageResource(R.mipmap.ic_expand)
+                        }
                     }
 
                     bindingCode.setOnClickListener {

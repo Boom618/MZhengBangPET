@@ -8,8 +8,8 @@ public class ApiNameConstant {
     /**
      * 徐坤
      */
-//    public static final String BASE_URL = "http://192.168.11.2:3099/";
-    public static final String BASE_URL = "http://jxsh.zhengbang.com:3309/";
+    public static final String BASE_URL = "http://192.168.11.2:3099/";
+//    public static final String BASE_URL = "http://jxsh.zhengbang.com:3309/";
 
     /**
      * 顾炎
@@ -306,6 +306,19 @@ public class ApiNameConstant {
     /**----------------------------------------------------------------------------------*/
     /**--------------------------------- 系统 --------------------------------------------*/
     /**----------------------------------------------------------------------------------*/
+
+    /**--------------------------------- 溯源 --------------------------------------------*/
+
+    /**
+     * 成品溯源
+     */
+    public static final String PRODUCT_QUERY = "source/qrCodeSource/pdaQrCodeSourceInfo";
+
+    /**
+     * 库位码查询
+     */
+    public static final String POSITION_QUERY = "source/qrCodeSource/pdaPositionSourceInfo";
+
 
     /**--------------------------------- 质检 --------------------------------------------*/
 

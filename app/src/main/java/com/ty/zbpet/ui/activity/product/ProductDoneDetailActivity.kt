@@ -46,7 +46,7 @@ class ProductDoneDetailActivity : BaseActivity(), ProductUiListInterface<Product
     private val userInfo = DataUtils.getUserInfo()
 
     override val activityLayout: Int
-        get() = R.layout.activity_content_reversal//activity_content_row_three
+        get() = R.layout.activity_content_reversal
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
 
@@ -151,5 +151,9 @@ class ProductDoneDetailActivity : BaseActivity(), ProductUiListInterface<Product
 
     override fun showError(msg: String?) {
         ZBUiUtils.showToast(msg)
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.dispose()
     }
 }

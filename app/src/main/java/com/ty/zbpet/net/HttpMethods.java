@@ -11,6 +11,8 @@ import com.ty.zbpet.bean.product.ProductDetails;
 import com.ty.zbpet.bean.product.ProductList;
 import com.ty.zbpet.bean.system.BoxCodeUrl;
 import com.ty.zbpet.bean.system.ImageData;
+import com.ty.zbpet.bean.system.PositionCode;
+import com.ty.zbpet.bean.system.ProductQuery;
 import com.ty.zbpet.bean.system.QualityCheckTodoDetails;
 import com.ty.zbpet.bean.system.QualityCheckTodoList;
 import com.ty.zbpet.constant.ApiNameConstant;
@@ -477,7 +479,7 @@ public class HttpMethods {
      */
     public void getProductTodoList(SingleObserver<BaseResponse<ProductList>> subscriber,
                                    String sapOrderNo, String startDate, String endDate) {
-        mService.getProduceOrderList(sapOrderNo,startDate,endDate)
+        mService.getProduceOrderList(sapOrderNo, startDate, endDate)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -487,8 +489,8 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getProduceOrderInfo(SingleObserver<BaseResponse<ProductDetails>> subscriber,String sign, String sapOrderNo) {
-        mService.getProduceOrderInfo(sign,sapOrderNo)
+    public void getProduceOrderInfo(SingleObserver<BaseResponse<ProductDetails>> subscriber, String sign, String sapOrderNo) {
+        mService.getProduceOrderInfo(sign, sapOrderNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -684,6 +686,35 @@ public class HttpMethods {
     /**----------------------------------------------------------------------------------*/
     /**--------------------------------- 系统 --------------------------------------------*/
     /**----------------------------------------------------------------------------------*/
+
+    /**
+     * --------------------------------- 溯源 --------------------------------------------
+     */
+
+    /**
+     * 成品查询
+     *
+     * @param observer
+     * @param url
+     */
+    public void getProductQuery(SingleObserver<BaseResponse<ProductQuery>> observer, String url) {
+        mService.getProductQuery(url)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    /**
+     * 库位码查询
+     *
+     * @param observer
+     * @param positionNo
+     */
+    public void getPositionQuery(SingleObserver<BaseResponse<PositionCode>> observer, String positionNo) {
+        mService.getPositionQuery(positionNo)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
 
     /**
      * --------------------------------- 质检 --------------------------------------------

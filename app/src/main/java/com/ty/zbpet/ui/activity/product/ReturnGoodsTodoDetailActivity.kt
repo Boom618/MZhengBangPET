@@ -11,12 +11,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import com.ty.zbpet.R
-import com.ty.zbpet.bean.ResponseInfo
 import com.ty.zbpet.bean.UserInfo
 import com.ty.zbpet.bean.product.ProductDetails
 import com.ty.zbpet.bean.product.ProductTodoSave
 import com.ty.zbpet.constant.CodeConstant
-import com.ty.zbpet.net.HttpMethods
 import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.product.ProductUiListInterface
 import com.ty.zbpet.presenter.product.ReturnPresenter
@@ -26,9 +24,7 @@ import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.*
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
-import io.reactivex.SingleObserver
-import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.activity_content_row_three.*
+import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
 import java.text.SimpleDateFormat
 import java.util.*
@@ -37,7 +33,7 @@ import java.util.*
  * @author TY on 2018/11/22.
  * 退货入库 待办详情
  */
-class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDetails.ListBean>{
+class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDetails.ListBean> {
 
     private var adapter: ReturnGoodsTodoDetailAdapter? = null
 
@@ -63,11 +59,11 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
     /**
      * 保存用户在输入框中的数据
      */
-    private val carCodeArray:SparseArray<ArrayList<String>> = SparseArray(10)
+    private val carCodeArray: SparseArray<ArrayList<String>> = SparseArray(10)
     /**
      * 库位码 ID
      */
-    private val positionId:SparseArray<String> = SparseArray(10)
+    private val positionId: SparseArray<String> = SparseArray(10)
 
     /**
      * 仓库 ID
@@ -116,7 +112,7 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
 
     override fun initTwoView() {
 
-        initToolBar(R.string.label_return_sell, "保存",View.OnClickListener { view ->
+        initToolBar(R.string.label_return_sell, "保存", View.OnClickListener { view ->
             ZBUiUtils.hideInputWindow(view.context, view)
             returnGoodsTodoSave(initTodoBody())
         })
@@ -137,27 +133,8 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
         if (body == null) {
             return
         }
+        presenter.getReturnTodoSave(body)
 
-        HttpMethods.getInstance().getReturnTodoSave(object : SingleObserver<ResponseInfo> {
-
-            override fun onSubscribe(d: Disposable) {
-
-            }
-
-            override fun onError(e: Throwable) {
-                ZBUiUtils.showToast(e.message)
-            }
-
-            override fun onSuccess(responseInfo: ResponseInfo) {
-                if (CodeConstant.SERVICE_SUCCESS == responseInfo.tag) {
-                    // 入库成功（保存）
-                    ZBUiUtils.showToast(responseInfo.message)
-                    runOnUiThread { finish() }
-                } else {
-                    ZBUiUtils.showToast(responseInfo.message)
-                }
-            }
-        }, body)
     }
 
     /**
@@ -290,10 +267,7 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
                     return false
                 }
             })
-        } else {
-            adapter!!.notifyDataSetChanged()
         }
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -313,9 +287,16 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
     }
 
     override fun saveSuccess() {
+        finish()
     }
 
     override fun showError(msg: String?) {
+        ZBUiUtils.showToast(msg)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.dispose()
     }
 
     companion object {

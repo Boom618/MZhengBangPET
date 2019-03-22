@@ -1,5 +1,6 @@
 package com.ty.zbpet.presenter.product;
 
+import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.product.ProductDetails;
 import com.ty.zbpet.bean.product.ProductList;
 import com.ty.zbpet.net.HttpMethods;
@@ -11,6 +12,7 @@ import java.util.List;
 
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
+import okhttp3.RequestBody;
 
 /**
  * @author TY on 2018/11/26.
@@ -100,6 +102,35 @@ public class ReturnPresenter {
     }
 
     /**
+     * 代办保存
+     *
+     * @param body body
+     */
+    public void getReturnTodoSave(RequestBody body) {
+        httpMethods.getReturnTodoSave(new SingleObserver<ResponseInfo>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo responseInfo) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    listInterface.saveSuccess();
+                } else {
+                    listInterface.showError(responseInfo.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                listInterface.showError(e.getMessage());
+            }
+        }, body);
+
+    }
+
+    /**
      * 已办列表
      */
     public void fetchReturnGoodsDoneList(String type) {
@@ -161,5 +192,32 @@ public class ReturnPresenter {
         }, sapOrderNo);
     }
 
+    /**
+     * 已办保存
+     *
+     * @param body body
+     */
+    public void getReturnDoneSave(RequestBody body) {
+        httpMethods.getReturnDoneSave(new SingleObserver<ResponseInfo>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo responseInfo) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    listInterface.saveSuccess();
+                } else {
+                    listInterface.showError(responseInfo.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                listInterface.showError(e.getMessage());
+            }
+        }, body);
+    }
 
 }
