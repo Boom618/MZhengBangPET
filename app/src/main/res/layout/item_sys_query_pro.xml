@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/shape_white_min_radius"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -9,8 +9,8 @@
         android:id="@+id/materials_name"
         android:text="物料名称："
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="@dimen/space_20"
-        android:layout_marginTop="@dimen/space_10"
+        android:layout_marginStart="@dimen/x12"
+        android:layout_marginTop="@dimen/x4"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -18,7 +18,7 @@
     <TextView
         android:id="@+id/supplier_name"
         android:text="供应商："
-        android:layout_marginTop="@dimen/space_10"
+        android:layout_marginTop="@dimen/x4"
         app:layout_constraintTop_toBottomOf="@+id/materials_name"
         app:layout_constraintStart_toStartOf="@+id/materials_name"
         android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
     <TextView
         android:id="@+id/content"
         android:text="含量："
-        android:layout_marginTop="@dimen/space_10"
+        android:layout_marginTop="@dimen/x4"
         app:layout_constraintTop_toBottomOf="@+id/supplier_name"
         app:layout_constraintStart_toStartOf="@+id/materials_name"
         android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
     <TextView
         android:id="@+id/batch"
         android:text="批次："
-        android:layout_marginTop="@dimen/space_10"
+        android:layout_marginTop="@dimen/x4"
         app:layout_constraintTop_toBottomOf="@+id/content"
         app:layout_constraintStart_toStartOf="@+id/materials_name"
         android:layout_width="wrap_content"

@@ -40,7 +40,7 @@ class PersonCenterActivity : BaseActivity(), UserInterface {
 
         ll_track.setOnClickListener { gotoActivity(StockTrackActivity::class.java) }
 //        image_to_query.setOnClickListener {gotoActivity(BoxCodeQueryActivity::class.java)}
-        image_to_query.setOnClickListener { gotoActivity(PositionQueryActivity::class.java) }
+        ll_position.setOnClickListener { gotoActivity(PositionQueryActivity::class.java) }
         btn_modify_pwd.setOnClickListener { gotoActivity(UserUpDataPass::class.java) }
         btn_cancel!!.setOnClickListener { exitApp() }
 

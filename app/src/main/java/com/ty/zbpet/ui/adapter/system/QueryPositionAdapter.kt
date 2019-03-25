@@ -20,7 +20,7 @@ class QueryPositionAdapter(context: Context, layout: Int, datas: MutableList<Pos
                 .setText(R.id.supplier_name, "供应商：${list.supplierName}")
                 .setText(R.id.content, "含量：${list.concentration}")
                 .setText(R.id.number, "库存数量：${list.number}")
-                .setText(R.id.number, "单位：${list.unit}")
+                .setText(R.id.unit, "单位：${list.unit}")
 
     }
 }

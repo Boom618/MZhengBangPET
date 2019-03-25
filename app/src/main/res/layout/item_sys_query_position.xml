@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/shape_white_min_radius"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -9,7 +9,7 @@
         android:id="@+id/materials_name"
         android:text="物料名称："
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginStart="@dimen/x6"
         android:layout_marginTop="@dimen/x6"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_width="wrap_content"

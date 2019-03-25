@@ -54,12 +54,12 @@ class PositionQueryActivity : BaseActivity(), ScanBoxInterface {
         bt_title.text = "库存信息"
         product_no.visibility = View.GONE
         query_time.visibility = View.GONE
-        query_number.visibility = View.GONE
+        query_number.text = "库位码："
 
-        product_name.text = "库位码："
-        product_order.text = "库位类型："
-        product_batch.text = "查询时间："
-        product_time.text = "查询次数："
+        product_name.text = "库位类型："
+        product_order.text = "查询时间："
+        product_batch.text = "查询次数："
+        product_time.text = "库存总量："
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
@@ -87,12 +87,12 @@ class PositionQueryActivity : BaseActivity(), ScanBoxInterface {
         val time = formatter.format(curDate)
         product_no.visibility = View.GONE
         query_time.visibility = View.GONE
-        query_number.visibility = View.GONE
+        query_number.text = "库位码：${event.positionNo}"
 
-        product_name.text = "库位码：${event.positionNo}"
-        product_order.text = "库位类型：${event.type}"
-        product_batch.text = "查询时间：$time"
-        product_time.text = "查询次数："
+        product_name.text = "库位类型：${event.type}"
+        product_order.text = "查询时间：$time"
+        product_batch.text = "查询次数："
+        product_time.text = "库存总量：${event.sum}"
 
 
         val list = event.stockList!!
