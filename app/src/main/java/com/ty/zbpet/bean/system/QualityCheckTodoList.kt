@@ -19,6 +19,7 @@ class QualityCheckTodoList {
          */
 
         var arrivalOrderNo: String? = null
+        var sapOrderNo: String? = null
         var state: String? = null
         var arrivalTime: String? = null
         var type: String? = null

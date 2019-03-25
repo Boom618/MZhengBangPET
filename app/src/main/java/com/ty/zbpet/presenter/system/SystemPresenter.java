@@ -2,6 +2,9 @@ package com.ty.zbpet.presenter.system;
 
 import android.content.Context;
 
+import com.ty.zbpet.bean.eventbus.ErrorMessage;
+import com.ty.zbpet.bean.material.MaterialDetails;
+import com.ty.zbpet.bean.material.MaterialList;
 import com.ty.zbpet.bean.system.ImageData;
 import com.ty.zbpet.bean.system.QualityCheckTodoDetails;
 import com.ty.zbpet.bean.system.QualityCheckTodoList;
@@ -12,7 +15,10 @@ import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.util.DataUtils;
 import com.ty.zbpet.util.ZBUiUtils;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.SingleObserver;
@@ -38,7 +44,7 @@ public class SystemPresenter {
 
     public SystemPresenter(SystemUiListInterface listInterface) {
         this.listInterface = listInterface;
-        httpMethods = new HttpMethods(ApiNameConstant.BASE_URL2);
+        httpMethods = HttpMethods.getInstance();
 
     }
 
@@ -53,88 +59,98 @@ public class SystemPresenter {
      * 获取质检 待办列表
      */
     public void fetchQualityCheckTodoList() {
-        httpMethods.getQualityCheckTodoList(new SingleObserver<BaseResponse<QualityCheckTodoList>>() {
+        httpMethods.getMaterialTodoList(new SingleObserver<BaseResponse<MaterialList>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;
             }
 
             @Override
-            public void onSuccess(BaseResponse<QualityCheckTodoList> response) {
-
-                if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
-
-                    List<QualityCheckTodoList.DataBean> list = response.getData().getList();
-
-                    listInterface.showSystem(list);
-                }
+            public void onError(Throwable e) {
+                EventBus.getDefault().post(new ErrorMessage(e.getMessage()));
             }
 
             @Override
-            public void onError(Throwable e) {
-                ZBUiUtils.showToast(e.getMessage());
+            public void onSuccess(BaseResponse<MaterialList> response) {
+
+                if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
+
+                    List<MaterialList.ListBean> list = response.getData().getList();
+
+                    listInterface.showSystem(list);
+                } else {
+                    EventBus.getDefault().post(new ErrorMessage(response.getMessage()));
+                }
             }
-        });
+        }, "", "", "");
+
     }
 
 
     /**
      * 待办 详情
      *
-     * @param arrivalOrderNo
+     * @param sapFirmNo sapFirmNo
      */
-    public void fetchQualityCheckTodoInfo(String arrivalOrderNo) {
+    public void fetchQualityCheckTodoInfo(String sapFirmNo,String sapOrderNo,String supplierNo) {
 
-        httpMethods.getQualityCheckTodoInfo(new SingleObserver<BaseResponse<QualityCheckTodoDetails>>() {
+        httpMethods.getMaterialTodoListDetail(new SingleObserver<BaseResponse<MaterialDetails>>() {
+
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;
             }
 
             @Override
-            public void onSuccess(BaseResponse<QualityCheckTodoDetails> response) {
-
-                if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
-
-                    List<QualityCheckTodoDetails.DataBean> list = response.getData().getList();
-
-                    listInterface.showSystem(list);
-                }
+            public void onError(Throwable e) {
+                EventBus.getDefault().post(new ErrorMessage(e.getMessage()));
             }
 
             @Override
-            public void onError(Throwable e) {
-                ZBUiUtils.showToast(e.getMessage());
+            public void onSuccess(BaseResponse<MaterialDetails> info) {
+
+                if (CodeConstant.SERVICE_SUCCESS.equals(info.getTag())) {
+
+                    ArrayList<MaterialDetails.ListBean> list = info.getData().getList();
+
+                    EventBus.getDefault().post(list);
+
+                } else {
+                    EventBus.getDefault().post(new ErrorMessage(info.getMessage()));
+                }
             }
-        }, arrivalOrderNo);
+        }, sapFirmNo, sapOrderNo, supplierNo);
+
     }
 
     /**
      * 获取质检 已办列表
      */
-    public void fetchQualityCheckDoneList() {
-        httpMethods.getQualityCheckDoneList(new SingleObserver<BaseResponse<QualityCheckTodoList>>() {
+    public void fetchQualityCheckDoneList(String type, String sapOrderNo, String startDate, String endDate) {
+
+        httpMethods.getMaterialDoneList(new SingleObserver<BaseResponse<MaterialList>>() {
+
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;
             }
 
             @Override
-            public void onSuccess(BaseResponse<QualityCheckTodoList> response) {
-
-                if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
-
-                    List<QualityCheckTodoList.DataBean> list = response.getData().getList();
-
-                    listInterface.showSystem(list);
-                }
+            public void onError(Throwable e) {
+                EventBus.getDefault().post(new ErrorMessage(e.getMessage()));
             }
 
             @Override
-            public void onError(Throwable e) {
-                ZBUiUtils.showToast(e.getMessage());
+            public void onSuccess(BaseResponse<MaterialList> response) {
+
+                if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
+                    List<MaterialList.ListBean> list = response.getData().getList();
+                    listInterface.showSystem(list);
+                } else {
+                    EventBus.getDefault().post(new ErrorMessage(response.getMessage()));
+                }
             }
-        });
+        }, type, sapOrderNo, startDate, endDate);
     }
 
 
@@ -159,12 +175,14 @@ public class SystemPresenter {
                     List<QualityCheckTodoList.DataBean> list = response.getData().getList();
 
                     listInterface.showSystem(list);
+                }else{
+                    EventBus.getDefault().post(new ErrorMessage(response.getMessage()));
                 }
             }
 
             @Override
             public void onError(Throwable e) {
-                ZBUiUtils.showToast(e.getMessage());
+                EventBus.getDefault().post(new ErrorMessage(e.getMessage()));
             }
         }, arrivalOrderNo);
     }

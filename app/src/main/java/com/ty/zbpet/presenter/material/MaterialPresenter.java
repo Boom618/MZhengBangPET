@@ -1,22 +1,29 @@
 package com.ty.zbpet.presenter.material;
 
+import android.content.Context;
+
 import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.eventbus.UrlMessage;
 import com.ty.zbpet.bean.material.MaterialDetails;
 import com.ty.zbpet.bean.material.MaterialList;
 import com.ty.zbpet.bean.system.BoxCodeUrl;
+import com.ty.zbpet.bean.system.ImageData;
 import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
+import com.ty.zbpet.util.DataUtils;
 import com.ty.zbpet.util.ZBUiUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.File;
 import java.util.List;
 
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 /**
@@ -130,7 +137,7 @@ public class MaterialPresenter {
      *
      * @param url
      */
-    public void urlAnalyze(int position,String url) {
+    public void urlAnalyze(int position, String url) {
         httpMethods.urlAnalyze(new SingleObserver<BaseResponse<BoxCodeUrl>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -142,7 +149,7 @@ public class MaterialPresenter {
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
                     String qrCode = response.getData().getBoxQrCode();
-                    EventBus.getDefault().post(new UrlMessage(position,qrCode));
+                    EventBus.getDefault().post(new UrlMessage(position, qrCode));
                 } else {
                     materialListUi.showError(response.getMessage());
                 }
@@ -310,4 +317,74 @@ public class MaterialPresenter {
         }, body);
     }
 
+    /*
+     * ============================质检 =============================
+     * */
+
+
+    /**
+     * 上传质检照片
+     */
+    public void updateImage(Context context, final int position, String path) {
+
+
+        File file = new File(path);
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part imageBodyPart = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+
+        httpMethods.updateCheckImage(new SingleObserver<ImageData>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(ImageData responseInfo) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+
+                    String fileName = responseInfo.getFileName();
+                    // TODO 保存图片（目前只支持一张图片）
+                    DataUtils.setImageId(position, fileName);
+                    ZBUiUtils.showToast("图片上传成功");
+                } else {
+                    materialListUi.showError("图片上传失败");
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                materialListUi.showError(e.getMessage());
+            }
+        }, imageBodyPart);
+    }
+
+    /**
+     * 质检保存
+     *
+     * @param body
+     */
+    public void quaCheckTodoSave(RequestBody body) {
+        httpMethods.getQualityCheckTodoSave(new SingleObserver<ResponseInfo>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo responseInfo) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    materialListUi.saveSuccess();
+                } else {
+                    materialListUi.showError(responseInfo.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                materialListUi.showError(e.getMessage());
+            }
+        }, body);
+
+    }
 }

@@ -26,11 +26,11 @@ class MainCompanyActivity : BaseActivity() {
 
     override fun initTwoView() {
 
-        tv_inventory!!.setOnClickListener {
+        tv_inventory.setOnClickListener {
             //                gotoActivity(QualityCheckActivity.class);
             gotoActivity(QualityCheckTabActivity::class.java)
         }
 
-        tv_person_center!!.setOnClickListener { gotoActivity(PersonCenterActivity::class.java) }
+        tv_person_center.setOnClickListener { gotoActivity(PersonCenterActivity::class.java) }
     }
 }

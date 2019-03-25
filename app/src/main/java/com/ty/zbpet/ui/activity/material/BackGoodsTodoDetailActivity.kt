@@ -72,6 +72,7 @@ class BackGoodsTodoDetailActivity : BaseActivity()
      * 仓库 ID
      */
     private var warehouseId: String? = null
+    private var warehouseNo: String? = null
 
     override val activityLayout: Int
         get() = R.layout.activity_content_row_two
@@ -194,6 +195,7 @@ class BackGoodsTodoDetailActivity : BaseActivity()
 
         requestBody.list = detail
         requestBody.warehouseId = warehouseId
+        requestBody.warehouseNo = warehouseNo
         requestBody.sapOrderNo = sapOrderNo
         requestBody.supplierNo = supplierNo
         requestBody.creatorNo = creatorNo
@@ -256,6 +258,7 @@ class BackGoodsTodoDetailActivity : BaseActivity()
             val carId = carData.list!![0].id
             val positionNo = carData.list!![0].positionNo
             warehouseId = carData.list!![0].warehouseId
+            warehouseNo = carData.list!![0].warehouseNo
             positionId.put(position, carId)
 
             val deepCopyList = DeepCopyData.deepCopyList(list)

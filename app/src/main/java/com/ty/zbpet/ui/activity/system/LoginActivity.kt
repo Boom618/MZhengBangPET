@@ -39,20 +39,19 @@ class LoginActivity : BaseActivity(), UserInterface {
 
     override fun initTwoView() {
 
-        // 点击事件不响应
+        // 点击事件响应
         btn_login.setOnClickListener { _ ->
-            if (isCompany) {
-                val companyNo = et_company_no!!.text.toString().trim { it <= ' ' }
-                val userNo = et_user_no!!.text.toString().trim { it <= ' ' }
-                val pass = et_pwd!!.text.toString().trim { it <= ' ' }
-                gotoActivity(MainCompanyActivity::class.java, true)
-            } else {
-                val userName = et_phone!!.text.toString().trim { it <= ' ' }
-                val pass = et_phone_pwd!!.text.toString().trim { it <= ' ' }
-                val md5Pass = Md5.encryptMD5ToString(pass)
-//                presenter.userLogin(userName, md5Pass)
-                presenter.userLogin(userName, md5Pass)
-            }
+//            if (isCompany) {
+//                val companyNo = et_company_no!!.text.toString().trim { it <= ' ' }
+//                val userNo = et_user_no!!.text.toString().trim { it <= ' ' }
+//                val pass = et_pwd!!.text.toString().trim { it <= ' ' }
+//                gotoActivity(MainCompanyActivity::class.java, true)
+//            } else {
+//            }
+            val userName = et_phone!!.text.toString().trim { it <= ' ' }
+            val pass = et_phone_pwd!!.text.toString().trim { it <= ' ' }
+            val md5Pass = Md5.encryptMD5ToString(pass)
+            presenter.userLogin(userName, md5Pass)
         }
 
         tv_switch_way.setOnClickListener {
@@ -62,13 +61,13 @@ class LoginActivity : BaseActivity(), UserInterface {
             if (CodeConstant.CHANGE_ROLE_COMPANY == userRole) {
                 isCompany = true
                 changeUser.text = CodeConstant.CHANGE_ROLE_PHONE
-                rl_phone_login!!.visibility = View.GONE
-                rl_company_login!!.visibility = View.VISIBLE
+//                rl_phone_login!!.visibility = View.GONE
+//                rl_company_login!!.visibility = View.VISIBLE
             } else {
                 isCompany = false
                 changeUser.text = CodeConstant.CHANGE_ROLE_COMPANY
-                rl_phone_login!!.visibility = View.VISIBLE
-                rl_company_login!!.visibility = View.GONE
+//                rl_phone_login!!.visibility = View.VISIBLE
+//                rl_company_login!!.visibility = View.GONE
             }
         }
     }

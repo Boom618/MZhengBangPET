@@ -726,7 +726,7 @@ public class HttpMethods {
      * @param observer
      */
     public void getQualityCheckTodoList(SingleObserver<BaseResponse<QualityCheckTodoList>> observer) {
-        mService.getCheckTodoList(CodeConstant.INSTANCE.getCHECK_STATE_TODO())
+        mService.getCheckTodoList(CodeConstant.CHECK_STATE_TODO)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }

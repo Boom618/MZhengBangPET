@@ -1,4 +1,4 @@
-package com.ty.zbpet.ui.fragment.product
+package com.ty.zbpet.ui.fragment.system
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,16 +6,17 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.scwang.smartrefresh.header.MaterialHeader
 import com.ty.zbpet.R
+import com.ty.zbpet.bean.eventbus.ErrorMessage
 import com.ty.zbpet.bean.eventbus.SearchMessage
-import com.ty.zbpet.bean.product.ProductList
+import com.ty.zbpet.bean.material.MaterialList
 import com.ty.zbpet.constant.CodeConstant
-import com.ty.zbpet.presenter.product.ProductUiListInterface
-import com.ty.zbpet.presenter.product.SendOutPresenter
-import com.ty.zbpet.ui.activity.product.SendOutDoneDetailActivity
-import com.ty.zbpet.ui.activity.product.SendOutTodoDetailActivity2
+import com.ty.zbpet.presenter.system.SystemPresenter
+import com.ty.zbpet.presenter.system.SystemUiListInterface
+import com.ty.zbpet.ui.activity.system.QualityCheckDoneDetailActivity
+import com.ty.zbpet.ui.activity.system.QualityCheckTodoDetailActivity
 import com.ty.zbpet.ui.adapter.LayoutInit
-import com.ty.zbpet.ui.adapter.product.SendOutDoneListAdapter
-import com.ty.zbpet.ui.adapter.product.SendOutTodoListAdapter
+import com.ty.zbpet.ui.adapter.system.QuaCheckDoneListAdapter
+import com.ty.zbpet.ui.adapter.system.QuaCheckTodoListAdapter
 import com.ty.zbpet.ui.base.BaseFragment
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.ResourceUtil
@@ -28,38 +29,40 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
- * 成品——发货出库——未办
+ * 质检——未办
  *
  * @author TY
  */
-class SendOutFragment : BaseFragment(), ProductUiListInterface<ProductList.ListBean> {
+class QualityCheckFragment : BaseFragment(), SystemUiListInterface<MaterialList.ListBean> {
 
 
-    private val presenter = SendOutPresenter(this)
+    private val presenter = SystemPresenter(this)
 
-    private var adapterTodo: SendOutTodoListAdapter? = null
-    private var adapterDone: SendOutDoneListAdapter? = null
+    private var adapterTodo: QuaCheckTodoListAdapter? = null
+    private var adapterDone: QuaCheckDoneListAdapter? = null
 
-    private lateinit var fragmentType: String
+    private lateinit var fragmentType:String
 
     override val fragmentLayout: Int
         get() = R.layout.zb_content_list_fragment
 
     override fun onBaseCreate(view: View): View {
-        EventBus.getDefault().register(this)
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this)
+        }
 
         // 设置 Header 样式
-        view.refreshLayout!!.setRefreshHeader(MaterialHeader(context!!))
+        view.refreshLayout!!.setRefreshHeader(MaterialHeader(view.context))
         // 设置 Footer 为 球脉冲 样式
-        //view.refreshLayout!!.setRefreshFooter(BallPulseFooter(context!!).setSpinnerStyle(SpinnerStyle.Scale))
+        //view.refreshLayout!!.setRefreshFooter(BallPulseFooter(view.context).setSpinnerStyle(SpinnerStyle.Scale))
         return view
     }
 
     override fun loadData() {
         fragmentType = arguments!!.getString(CodeConstant.FRAGMENT_TYPE)!!
         when (fragmentType) {
-            CodeConstant.FRAGMENT_TODO -> presenter.fetchSendOutTodoList()
-            CodeConstant.FRAGMENT_DONE -> presenter.fetchSendOutDoneList(CodeConstant.PICK_OUT_TYPE)
+            CodeConstant.FRAGMENT_TODO -> presenter.fetchQualityCheckTodoList()
+            CodeConstant.FRAGMENT_DONE -> presenter.fetchQualityCheckDoneList(CodeConstant.BUY_IN_TYPE,"","","")
         }
     }
 
@@ -71,8 +74,8 @@ class SendOutFragment : BaseFragment(), ProductUiListInterface<ProductList.ListB
             refreshLayout.finishRefresh(1000)
             // 刷新数据
             when (fragmentType) {
-                CodeConstant.FRAGMENT_TODO -> presenter.fetchSendOutTodoList()
-                CodeConstant.FRAGMENT_DONE -> presenter.fetchSendOutDoneList(CodeConstant.PICK_OUT_TYPE)
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchQualityCheckTodoList()
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchQualityCheckDoneList(CodeConstant.BUY_IN_TYPE,"","","")
             }
         }
 //        refreshLayout!!.setOnLoadMoreListener { refreshLayout ->
@@ -82,28 +85,27 @@ class SendOutFragment : BaseFragment(), ProductUiListInterface<ProductList.ListB
 //        }
     }
 
-    override fun showProduct(list: List<ProductList.ListBean>) {
-
-        if (list.isEmpty()) {
-            ZBUiUtils.showToast("发货出库没有找到结果")
-        }
+    override fun showSystem(list: MutableList<MaterialList.ListBean>) {
 
         LayoutInit.initLayoutManager(ResourceUtil.getContext(), recyclerView)
         if (adapterTodo == null && adapterDone == null) {
             recyclerView.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
         }
+        if (list.isEmpty()) {
+            ZBUiUtils.showToast("质检没有找到结果")
+        }
 
-        when (fragmentType) {
+        when(fragmentType) {
             CodeConstant.FRAGMENT_TODO -> {
-                adapterTodo = SendOutTodoListAdapter(ResourceUtil.getContext(), R.layout.item_send_out_list_todo, list)
+                adapterTodo = QuaCheckTodoListAdapter(ResourceUtil.getContext(), R.layout.item_quality_list, list)
                 recyclerView.adapter = adapterTodo
-
                 adapterTodo?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                     override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
-                        val intent = Intent(activity, SendOutTodoDetailActivity2::class.java)
+                        val intent = Intent(activity, QualityCheckTodoDetailActivity::class.java)
+//                    intent.putExtra("arrivalOrderNo", list[position].arrivalOrderNo)
                         intent.putExtra("sapOrderNo", list[position].sapOrderNo)
                         intent.putExtra("sapFirmNo", list[position].sapFirmNo)
-                        intent.putExtra("content", list[position].content)
+                        intent.putExtra("supplierNo", list[position].supplierNo)
                         startActivity(intent)
                     }
 
@@ -113,14 +115,16 @@ class SendOutFragment : BaseFragment(), ProductUiListInterface<ProductList.ListB
                 })
             }
             CodeConstant.FRAGMENT_DONE -> {
-                adapterDone = SendOutDoneListAdapter(ResourceUtil.getContext(), R.layout.item_send_out_list_todo, list)
+                adapterDone = QuaCheckDoneListAdapter(ResourceUtil.getContext(), R.layout.item_quality_list, list)
                 recyclerView.adapter = adapterDone
 
-                adapterDone?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+                adapterDone!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                     override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
-                        val intent = Intent(activity, SendOutDoneDetailActivity::class.java)
-                        intent.putExtra("orderId", list[position].id)
+                        val intent = Intent(activity, QualityCheckDoneDetailActivity::class.java)
                         intent.putExtra("sapOrderNo", list[position].sapOrderNo)
+                        intent.putExtra("supplierName", list[position].supplierName)
+                        intent.putExtra("warehouseId", list[position].warehouseId)
+                        intent.putExtra("orderId", list[position].orderId)
                         startActivity(intent)
                     }
 
@@ -130,6 +134,12 @@ class SendOutFragment : BaseFragment(), ProductUiListInterface<ProductList.ListB
                 })
             }
         }
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun ErrorEvnet(event: ErrorMessage) {
+        ZBUiUtils.showToast(event.error())
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -139,35 +149,22 @@ class SendOutFragment : BaseFragment(), ProductUiListInterface<ProductList.ListB
             val startTime = event.leftTime()
             val endTime = event.rightTime()
             when (fragmentType) {
-                CodeConstant.FRAGMENT_TODO -> presenter.fetchSendOutTodoList()
-                CodeConstant.FRAGMENT_DONE -> presenter.fetchSendOutDoneList(CodeConstant.PICK_OUT_TYPE)
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchQualityCheckTodoList()
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchQualityCheckDoneList(CodeConstant.BUY_IN_TYPE,"","","")
             }
         }
-    }
-    override fun showLoading() {
-
-    }
-
-    override fun hideLoading() {
-    }
-
-    override fun saveSuccess() {
-    }
-
-    override fun showError(msg: String?) {
-        ZBUiUtils.showToast(msg)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        EventBus.getDefault().unregister(this)
         presenter.dispose()
+        EventBus.getDefault().unregister(this)
     }
 
     companion object {
 
-        fun newInstance(type: String): SendOutFragment {
-            val fragment = SendOutFragment()
+        fun newInstance(type: String): QualityCheckFragment {
+            val fragment = QualityCheckFragment()
             val bundle = Bundle()
             bundle.putString(CodeConstant.FRAGMENT_TYPE, type)
             fragment.arguments = bundle

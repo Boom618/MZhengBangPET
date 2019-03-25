@@ -3,9 +3,9 @@ package com.ty.zbpet.ui.activity.system
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.ty.zbpet.R
+import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.ui.base.BaseActivity
-import com.ty.zbpet.ui.fragment.system.QualityCheckDoneFragment
-import com.ty.zbpet.ui.fragment.system.QualityCheckTodoFragment
+import com.ty.zbpet.ui.fragment.system.QualityCheckFragment
 import com.ty.zbpet.util.TabLayoutViewPage
 import kotlinx.android.synthetic.main.activity_quality_check_tab.*
 import java.util.*
@@ -25,8 +25,8 @@ class QualityCheckTabActivity : BaseActivity() {
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
 
-        val todoFragment = QualityCheckTodoFragment.newInstance("todoFragment")
-        val doneFragment = QualityCheckDoneFragment.newInstance("doneFragment")
+        val todoFragment = QualityCheckFragment.newInstance(CodeConstant.FRAGMENT_TODO)
+        val doneFragment = QualityCheckFragment.newInstance(CodeConstant.FRAGMENT_DONE)
 
         mFragments.add(todoFragment)
         mFragments.add(doneFragment)

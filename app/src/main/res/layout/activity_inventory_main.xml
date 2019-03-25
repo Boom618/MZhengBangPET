@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/top"
+        layout="@layout/top_layout" />
+
+
+    <Button
+        android:id="@+id/materials"
+        android:layout_width="@dimen/x160"
+        android:layout_height="@dimen/x160"
+        android:layout_marginTop="@dimen/x40"
+        android:background="@drawable/shape_btn_them"
+        android:text="原辅料"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_22"
+        app:layout_constraintEnd_toStartOf="@+id/product"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top" />
+
+    <Button
+        android:id="@+id/product"
+        android:layout_width="@dimen/x160"
+        android:layout_height="@dimen/x160"
+        android:background="@drawable/shape_btn_them"
+        android:text="成品"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_22"
+        app:layout_constraintBottom_toBottomOf="@+id/materials"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/materials" />
+
+
+    <Button
+        android:id="@+id/delete_order"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/space_40"
+        android:background="@drawable/shape_btn_them"
+        android:text="盘点单据删除"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_22"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/product"
+        app:layout_constraintWidth_percent="0.8" />
+
+</android.support.constraint.ConstraintLayout>

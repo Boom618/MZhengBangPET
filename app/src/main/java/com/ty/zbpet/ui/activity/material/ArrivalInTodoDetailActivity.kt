@@ -60,6 +60,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
     private lateinit var sapFirmNo: String
     private lateinit var content: String
     private lateinit var warehouseId: String
+    private lateinit var warehouseNo: String
     /**
      * 时间选择
      */
@@ -181,6 +182,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
 
         requestBody.list = detail
         requestBody.warehouseId = warehouseId
+        requestBody.warehouseNo = warehouseNo
         requestBody.supplierNo = supplierNo
         requestBody.supplierName = supplierName
         requestBody.creatorNo = creatorNo
@@ -300,6 +302,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
             val carId = carData.list!![0].id
             val positionNo = carData.list!![0].positionNo
             warehouseId = carData.list!![0].warehouseId!!
+            warehouseNo = carData.list!![0].warehouseNo!!
             positionId.put(position, carId)
 
             val deepCopyList = DeepCopyData.deepCopyList(list)

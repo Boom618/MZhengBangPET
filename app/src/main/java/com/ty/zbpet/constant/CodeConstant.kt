@@ -124,6 +124,6 @@ object CodeConstant {
     /**
      * 质检列表 state
      */
-    val CHECK_STATE_TODO = "01"
+    const val CHECK_STATE_TODO = "01"
     val CHECK_STATE_DONE = "02"
 }

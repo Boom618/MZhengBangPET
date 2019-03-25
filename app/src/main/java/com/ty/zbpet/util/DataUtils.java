@@ -107,18 +107,6 @@ public class DataUtils {
     private static SparseArray<String> imageArray = new SparseArray<>(20);
 
     /**
-     * 质检数量
-     */
-    private static SparseArray<SparseArray<String>> positionAndNumber = new SparseArray<>(5);
-    private static SparseArray<String> numberArray = new SparseArray<>(20);
-
-    /**
-     * 质检含量
-     */
-    private static SparseArray<SparseArray<String>> positionAndPercent = new SparseArray<>(5);
-    private static SparseArray<String> percentArray = new SparseArray<>(20);
-
-    /**
      * SparseArray<SparseArray<Integer>> 采用这种结构是 key 必须唯一
      * <p>
      * SparseArray<Integer> 中
@@ -190,45 +178,7 @@ public class DataUtils {
         return imageFile;
     }
 
-    /**
-     * 质检 用户输入数量
-     *
-     * @param position item 位置
-     * @param percent  数量
-     */
-    public static void setNumber(int position, String percent) {
-        numberArray.put(position, percent);
-        positionAndNumber.put(CodeConstant.INSTANCE.getET_NUMBER_INT(), numberArray);
-    }
 
-    public static SparseArray<String> getNumber() {
-        SparseArray<String> number = positionAndNumber.get(CodeConstant.INSTANCE.getET_NUMBER_INT());
-        if (number == null) {
-            number = new SparseArray<>();
-            number.put(0, "");
-        }
-        return number;
-    }
-
-    /**
-     * 质检 用户输入含量
-     *
-     * @param position item 位置
-     * @param percent  含量
-     */
-    public static void setPercent(int position, String percent) {
-        percentArray.put(position, percent);
-        positionAndPercent.put(CodeConstant.ET_PERCENT_INT, percentArray);
-    }
-
-    public static SparseArray<String> getPercent() {
-        SparseArray<String> percent = positionAndPercent.get(CodeConstant.ET_PERCENT_INT);
-        if (percent == null) {
-            percent = new SparseArray<>();
-            percent.put(0, "");
-        }
-        return percent;
-    }
 
 
     /**
@@ -238,8 +188,6 @@ public class DataUtils {
         positionAndWhich.put(CodeConstant.SELECT_HOUSE_BUY_IN, null);
         positionAndWhich.put(CodeConstant.INSTANCE.getSELECT_GOODS(), null);
         positionAndFile.put(CodeConstant.INSTANCE.getSELECT_IMAGE(), null);
-        positionAndNumber.put(CodeConstant.INSTANCE.getET_NUMBER_INT(), null);
-        positionAndPercent.put(CodeConstant.ET_PERCENT_INT, null);
         codeFocusArray.put(CodeConstant.INSTANCE.getET_CODE_FOCUS_INT(), null);
     }
 }

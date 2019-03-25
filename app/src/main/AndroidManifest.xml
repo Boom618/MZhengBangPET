@@ -125,6 +125,7 @@
         <activity android:name=".ui.activity.wareroom.ProductMoveActivity" />
         <activity android:name=".ui.activity.wareroom.ProductReversalActivity" />
         <activity android:name=".ui.activity.system.PositionQueryActivity" />
+        <activity android:name=".ui.activity.wareroom.InventoryMainActivity" />
 
     </application>
 
