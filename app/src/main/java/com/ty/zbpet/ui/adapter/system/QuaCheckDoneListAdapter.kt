@@ -18,7 +18,7 @@ class QuaCheckDoneListAdapter(context: Context, layoutId: Int, datas: List<Mater
     override fun convert(holder: ViewHolder, list: MaterialList.ListBean, position: Int) {
         holder.setText(R.id.tv_operator, "修改")
                 .setText(R.id.tv_no, list.arrivalOrderNo)
-                .setText(R.id.tv_date, list.inTime)
+                .setText(R.id.tv_date, list.checkTime)
                 .setText(R.id.tv_type, list.type)
                 .setText(R.id.tv_status, list.state)
     }

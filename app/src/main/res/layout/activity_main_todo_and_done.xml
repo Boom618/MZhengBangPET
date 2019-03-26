@@ -23,6 +23,7 @@
         android:hint="请输入单号"
         android:padding="@dimen/space_7"
         android:inputType="number"
+        android:maxLines="1"
         android:imeOptions="actionSearch"
         android:textColor="@color/txt_minor_color"
         android:textSize="@dimen/text_14" />

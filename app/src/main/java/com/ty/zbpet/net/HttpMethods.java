@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.UserInfo;
+import com.ty.zbpet.bean.eventbus.system.CheckDoneDetailEvent;
 import com.ty.zbpet.bean.material.MaterialDetails;
 import com.ty.zbpet.bean.material.MaterialList;
 import com.ty.zbpet.bean.product.ProductDetails;
@@ -758,8 +759,9 @@ public class HttpMethods {
      *
      * @param observer
      */
-    public void getQualityCheckDoneList(SingleObserver<BaseResponse<QualityCheckTodoList>> observer) {
-        mService.getCheckDoneList(CodeConstant.INSTANCE.getCHECK_STATE_DONE())
+    public void getQualityCheckDoneList(SingleObserver<BaseResponse<MaterialList>> observer,
+                                        String sapOrderNo, String startDate, String endDate) {
+        mService.getCheckDoneList(CodeConstant.CHECK_STATE_DONE,sapOrderNo,startDate,endDate)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
@@ -769,8 +771,8 @@ public class HttpMethods {
      *
      * @param observer
      */
-    public void getQualityCheckDoneInfo(SingleObserver<BaseResponse<QualityCheckTodoList>> observer, String arrivalOrderNo) {
-        mService.getCheckDoneInfo(arrivalOrderNo)
+    public void getQualityCheckDoneInfo(SingleObserver<BaseResponse<CheckDoneDetailEvent>> observer, String id) {
+        mService.getCheckDoneInfo(id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }

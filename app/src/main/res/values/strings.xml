@@ -21,6 +21,7 @@
     <string name="label_material_inventory">原辅料库存</string>
 
     <string name="label_check">质检</string>
+    <string name="check_update">质检修改</string>
     <string name="label_quality_check">品管检验</string>
     <string name="label_inventory">盘点</string>
     <string name="company_no">组织代码</string>

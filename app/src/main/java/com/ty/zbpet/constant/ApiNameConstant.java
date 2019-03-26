@@ -341,7 +341,7 @@ public class ApiNameConstant {
     /**
      * 质检 已办列表
      */
-    public static final String GET_CHECK_DONE_LIST = "check/materialCheckReport/getMaterialPurchaseList";
+    public static final String GET_CHECK_DONE_LIST = "check/materialCheckReport/getMaterialCheckReportList";
 
     /**
      * 质检 已办详情

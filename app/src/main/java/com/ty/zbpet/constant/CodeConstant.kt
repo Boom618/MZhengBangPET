@@ -72,7 +72,7 @@ object CodeConstant {
     /**
      * 区分箱码绑定页面
      */
-    val PAGE_STATE = "state"
+    const val PAGE_STATE = "state"
 
     /**
      * 原材料的入库 已办列表 （ 服务器定的规则 ）
@@ -125,5 +125,5 @@ object CodeConstant {
      * 质检列表 state
      */
     const val CHECK_STATE_TODO = "01"
-    val CHECK_STATE_DONE = "02"
+    const val CHECK_STATE_DONE = "02"
 }

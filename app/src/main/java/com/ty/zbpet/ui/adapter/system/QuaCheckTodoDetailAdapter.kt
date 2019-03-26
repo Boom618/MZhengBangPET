@@ -26,7 +26,7 @@ class QuaCheckTodoDetailAdapter(context: Context, layoutId: Int, datas: List<Mat
 
 
         holder.setText(R.id.tv_name, dataBean.materialName)
-                .setText(R.id.tv_num, dataBean.number + dataBean.unit)
+                .setText(R.id.tv_num, dataBean.inNumber + dataBean.unit)
 
     }
 

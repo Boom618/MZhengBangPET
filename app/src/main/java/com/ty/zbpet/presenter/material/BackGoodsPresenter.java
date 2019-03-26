@@ -223,7 +223,7 @@ public class BackGoodsPresenter {
             public void onSuccess(BaseResponse<MaterialList> response) {
 
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
-                    if (null != response && response.getData() != null) {
+                    if (response.getData() != null) {
                         List<MaterialList.ListBean> list = response.getData().getList();
                         materialListUi.showMaterial(list);
                     }

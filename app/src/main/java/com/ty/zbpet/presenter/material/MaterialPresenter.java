@@ -4,7 +4,10 @@ import android.content.Context;
 
 import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.ResponseInfo;
+import com.ty.zbpet.bean.eventbus.ErrorMessage;
+import com.ty.zbpet.bean.eventbus.SuccessMessage;
 import com.ty.zbpet.bean.eventbus.UrlMessage;
+import com.ty.zbpet.bean.eventbus.system.CheckDoneDetailEvent;
 import com.ty.zbpet.bean.material.MaterialDetails;
 import com.ty.zbpet.bean.material.MaterialList;
 import com.ty.zbpet.bean.system.BoxCodeUrl;
@@ -53,6 +56,10 @@ public class MaterialPresenter {
      */
     public MaterialPresenter(MaterialUiListInterface materialUiInterface) {
         this.materialListUi = materialUiInterface;
+        httpMethods = HttpMethods.getInstance();
+    }
+
+    public MaterialPresenter() {
         httpMethods = HttpMethods.getInstance();
     }
 
@@ -360,9 +367,9 @@ public class MaterialPresenter {
     }
 
     /**
-     * 质检保存
+     * 质检代办保存
      *
-     * @param body
+     * @param body body
      */
     public void quaCheckTodoSave(RequestBody body) {
         httpMethods.getQualityCheckTodoSave(new SingleObserver<ResponseInfo>() {
@@ -385,6 +392,66 @@ public class MaterialPresenter {
                 materialListUi.showError(e.getMessage());
             }
         }, body);
+    }
 
+    /**
+     * 质检 已办 详情
+     *
+     * @param @id id值
+     */
+    public void fetchQualityCheckDoneInfo(String id) {
+
+        httpMethods.getQualityCheckDoneInfo(new SingleObserver<BaseResponse<CheckDoneDetailEvent>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(BaseResponse<CheckDoneDetailEvent> response) {
+
+                if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
+
+                    CheckDoneDetailEvent data = response.getData();
+
+                    EventBus.getDefault().post(data);
+                } else {
+                    EventBus.getDefault().post(new ErrorMessage(response.getMessage()));
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                EventBus.getDefault().post(new ErrorMessage(e.getMessage()));
+            }
+        }, id);
+    }
+
+    /**
+     * 质检已办保存
+     *
+     * @param body body
+     */
+    public void quaCheckDoneSave(RequestBody body) {
+        httpMethods.getQualityCheckDoneSave(new SingleObserver<ResponseInfo>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo responseInfo) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    EventBus.getDefault().post(new SuccessMessage("保存成功"));
+                } else {
+                    EventBus.getDefault().post(new ErrorMessage(responseInfo.getMessage()));
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                EventBus.getDefault().post(new ErrorMessage(e.getMessage()));
+            }
+        }, body);
     }
 }

@@ -151,10 +151,16 @@ class QualityCheckTodoDetailActivity : BaseActivity(), MaterialUiListInterface<M
         val list = ArrayList<QuaCheckModify.MaterialInfosBean>()
 
         val fileName = DataUtils.getImageFileName()
+        var fileString = ""
+        // fileName : 0d43f2c6a15f2587f81d23e6e3a2e5ae.jpg,da5c82971d620334025195f262733812.png
+        for (i in 0 until fileName.size()){
+            val imageName = fileName.get(i)
+            if (!TextUtils.isEmpty(imageName)) {
+                fileString += "$imageName,"
+            }
+        }
 
         val size = listBeans.size
-        // fileName : 0d43f2c6a15f2587f81d23e6e3a2e5ae.jpg,da5c82971d620334025195f262733812.png
-        var fileString = ""
 
         for (i in 0 until size) {
 
@@ -163,7 +169,6 @@ class QualityCheckTodoDetailActivity : BaseActivity(), MaterialUiListInterface<M
 
             val bean = QuaCheckModify.MaterialInfosBean()
             val dataBean = listBeans[i]
-            val imageName = fileName.get(i)
             val number = content.text.toString().trim { it <= ' ' }
             if (!TextUtils.isEmpty(number)) {
 
@@ -171,11 +176,8 @@ class QualityCheckTodoDetailActivity : BaseActivity(), MaterialUiListInterface<M
                 bean.materialNo = dataBean.materialNo
                 bean.materialName = dataBean.materialName
                 // 含量
-                bean.checkNum = number
+                bean.percent = number
                 list.add(bean)
-            }
-            if (!TextUtils.isEmpty(imageName)) {
-                fileString += "$imageName,"
             }
         }
 
@@ -191,10 +193,9 @@ class QualityCheckTodoDetailActivity : BaseActivity(), MaterialUiListInterface<M
             tempFile = fileString.substring(0, fileString.length - 1)
         }
 
-        //        String orderNo = "";
-
         infoBean.checkDesc = desc
         infoBean.checkTime = selectTime
+        infoBean.sapOrderNo = sapOrderNo
         infoBean.fileName = tempFile
 
         requestBody.materialInfos = list

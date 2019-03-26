@@ -32,7 +32,6 @@ class MaterialDetails {
         var materialName: String? = null
         var materialId: String? = null
         var materialNo: String? = null
-//        var unitS: String? = null
         var unit: String? = null
         var orderNumber: String? = null
         var stockNumber: String? = null

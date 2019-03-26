@@ -21,6 +21,7 @@ class QuaCheckModify {
          */
 
         var checkDesc: String? = null
+        var sapOrderNo: String? = null
         var checkTime: String? = null
         var companyNo: String? = null
         var creator: String? = null

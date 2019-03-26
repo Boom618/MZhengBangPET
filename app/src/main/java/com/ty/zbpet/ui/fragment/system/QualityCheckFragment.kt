@@ -29,7 +29,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
- * 质检——未办
+ * 质检——列表
  *
  * @author TY
  */
@@ -50,9 +50,10 @@ class QualityCheckFragment : BaseFragment(), SystemUiListInterface<MaterialList.
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this)
         }
+        view.recyclerView.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
 
         // 设置 Header 样式
-        view.refreshLayout!!.setRefreshHeader(MaterialHeader(view.context))
+        view.refreshLayout.setRefreshHeader(MaterialHeader(view.context))
         // 设置 Footer 为 球脉冲 样式
         //view.refreshLayout!!.setRefreshFooter(BallPulseFooter(view.context).setSpinnerStyle(SpinnerStyle.Scale))
         return view
@@ -61,8 +62,8 @@ class QualityCheckFragment : BaseFragment(), SystemUiListInterface<MaterialList.
     override fun loadData() {
         fragmentType = arguments!!.getString(CodeConstant.FRAGMENT_TYPE)!!
         when (fragmentType) {
-            CodeConstant.FRAGMENT_TODO -> presenter.fetchQualityCheckTodoList()
-            CodeConstant.FRAGMENT_DONE -> presenter.fetchQualityCheckDoneList(CodeConstant.BUY_IN_TYPE,"","","")
+            CodeConstant.FRAGMENT_TODO -> presenter.fetchQualityCheckTodoList("","","")
+            CodeConstant.FRAGMENT_DONE -> presenter.fetchQualityCheckDoneList("","","")
         }
     }
 
@@ -74,8 +75,8 @@ class QualityCheckFragment : BaseFragment(), SystemUiListInterface<MaterialList.
             refreshLayout.finishRefresh(1000)
             // 刷新数据
             when (fragmentType) {
-                CodeConstant.FRAGMENT_TODO -> presenter.fetchQualityCheckTodoList()
-                CodeConstant.FRAGMENT_DONE -> presenter.fetchQualityCheckDoneList(CodeConstant.BUY_IN_TYPE,"","","")
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchQualityCheckTodoList("","","")
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchQualityCheckDoneList("","","")
             }
         }
 //        refreshLayout!!.setOnLoadMoreListener { refreshLayout ->
@@ -88,9 +89,6 @@ class QualityCheckFragment : BaseFragment(), SystemUiListInterface<MaterialList.
     override fun showSystem(list: MutableList<MaterialList.ListBean>) {
 
         LayoutInit.initLayoutManager(ResourceUtil.getContext(), recyclerView)
-        if (adapterTodo == null && adapterDone == null) {
-            recyclerView.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
-        }
         if (list.isEmpty()) {
             ZBUiUtils.showToast("质检没有找到结果")
         }
@@ -102,7 +100,6 @@ class QualityCheckFragment : BaseFragment(), SystemUiListInterface<MaterialList.
                 adapterTodo?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                     override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
                         val intent = Intent(activity, QualityCheckTodoDetailActivity::class.java)
-//                    intent.putExtra("arrivalOrderNo", list[position].arrivalOrderNo)
                         intent.putExtra("sapOrderNo", list[position].sapOrderNo)
                         intent.putExtra("sapFirmNo", list[position].sapFirmNo)
                         intent.putExtra("supplierNo", list[position].supplierNo)
@@ -118,10 +115,12 @@ class QualityCheckFragment : BaseFragment(), SystemUiListInterface<MaterialList.
                 adapterDone = QuaCheckDoneListAdapter(ResourceUtil.getContext(), R.layout.item_quality_list, list)
                 recyclerView.adapter = adapterDone
 
-                adapterDone!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+                adapterDone?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                     override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
                         val intent = Intent(activity, QualityCheckDoneDetailActivity::class.java)
+                        intent.putExtra("id", list[position].id)
                         intent.putExtra("sapOrderNo", list[position].sapOrderNo)
+                        intent.putExtra("fileName", list[position].fileName)
                         intent.putExtra("supplierName", list[position].supplierName)
                         intent.putExtra("warehouseId", list[position].warehouseId)
                         intent.putExtra("orderId", list[position].orderId)
@@ -149,8 +148,8 @@ class QualityCheckFragment : BaseFragment(), SystemUiListInterface<MaterialList.
             val startTime = event.leftTime()
             val endTime = event.rightTime()
             when (fragmentType) {
-                CodeConstant.FRAGMENT_TODO -> presenter.fetchQualityCheckTodoList()
-                CodeConstant.FRAGMENT_DONE -> presenter.fetchQualityCheckDoneList(CodeConstant.BUY_IN_TYPE,"","","")
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchQualityCheckTodoList(search,startTime,endTime)
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchQualityCheckDoneList(search,startTime,endTime)
             }
         }
     }

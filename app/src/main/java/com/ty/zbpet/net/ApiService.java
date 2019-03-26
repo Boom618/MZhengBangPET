@@ -3,6 +3,7 @@ package com.ty.zbpet.net;
 import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.UserInfo;
+import com.ty.zbpet.bean.eventbus.system.CheckDoneDetailEvent;
 import com.ty.zbpet.bean.material.MaterialDetails;
 import com.ty.zbpet.bean.material.MaterialList;
 import com.ty.zbpet.bean.product.ProductDetails;
@@ -627,20 +628,23 @@ public interface ApiService {
     /**
      * 质检已办 列表
      *
-     * @return
+     * @return Single
      */
-    @FormUrlEncoded
-    @POST(ApiNameConstant.GET_CHECK_DONE_LIST)
-    Single<BaseResponse<QualityCheckTodoList>> getCheckDoneList(@Field("state") String state);
+    @GET(ApiNameConstant.GET_CHECK_DONE_LIST)
+    Single<BaseResponse<MaterialList>> getCheckDoneList(@Query("state") String state,
+                                                        @Query("sapOrderNo") String sapOrderNo,
+                                                        @Query("startDate") String startDate,
+                                                        @Query("endDate") String endDate);
+    //Single<BaseResponse<QualityCheckTodoList>> getCheckDoneList(@Field("state") String state);
 
     /**
      * 质检已办 详情
      *
-     * @return
+     * @return Single
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_CHECK_DONE_INFO)
-    Single<BaseResponse<QualityCheckTodoList>> getCheckDoneInfo(@Field("arrivalOrderNo") String arrivalOrderNo);
+    Single<BaseResponse<CheckDoneDetailEvent>> getCheckDoneInfo(@Field("id") String id);
 
     /**
      * 质检已办 保存

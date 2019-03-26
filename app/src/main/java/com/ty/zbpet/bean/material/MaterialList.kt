@@ -15,6 +15,7 @@ class MaterialList {
 
     class ListBean {
 
+        var id: String? = null
         var companyNo: String? = null
         var supplierId: String? = null
         var warehouseId: String? = null
@@ -29,6 +30,8 @@ class MaterialList {
         var sign: String? = null
         var inTime: String? = null
         var outTime: String? = null
+        var fileName: String? = null
+        var checkTime: String? = null
         var sapOrderNo: String? = null
         var supplierName: String? = null
         var materialName: String? = null
