@@ -332,7 +332,7 @@ public class MaterialPresenter {
     /**
      * 上传质检照片
      */
-    public void updateImage(Context context, final int position, String path) {
+    public void updateImage(final int position, String path) {
 
 
         File file = new File(path);
@@ -361,7 +361,7 @@ public class MaterialPresenter {
 
             @Override
             public void onError(Throwable e) {
-                materialListUi.showError(e.getMessage());
+                ZBUiUtils.showToast(e.getMessage());
             }
         }, imageBodyPart);
     }

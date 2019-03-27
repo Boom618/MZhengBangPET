@@ -13,11 +13,17 @@ import io.reactivex.Observable;
 /**
  * @author TY on 2018/12/12.
  * 知乎 相册选择
- *
  */
 public interface ZhiHuImagePicker {
 
-    @Gallery(componentClazz = ZhihuImagePickerActivity.class,openAsFragment = false)
+    /**
+     * 打开相册，选取照片
+     *
+     * @param context context
+     * @param config  config
+     * @return Observable
+     */
+    @Gallery(componentClazz = ZhihuImagePickerActivity.class, openAsFragment = false)
     Observable<Result> openGallery(Context context, SelectionSpec config);
 
     @Camera

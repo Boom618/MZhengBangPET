@@ -37,7 +37,7 @@
         <!-- .ui.activity.system.LoginActivity -->
         <!-- .ui.activity.system.QualityCheckTabActivity -->
         <activity
-            android:name=".ui.activity.system.LoginActivity"
+            android:name=".ui.activity.DemoMainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
@@ -77,19 +77,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
-            android:name=".ui.activity.system.QualityCheckActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity
-            android:name=".ui.activity.system.TransferStorageActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity
             android:name=".ui.activity.product.ProductTodoDetailActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity
-            android:name=".ui.activity.system.TransferStorageDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
 

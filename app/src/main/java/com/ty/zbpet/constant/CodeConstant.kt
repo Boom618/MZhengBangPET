@@ -97,7 +97,7 @@ object CodeConstant {
      */
     const val SELECT_HOUSE_BUY_IN = 100
     val SELECT_GOODS = 300
-    val SELECT_IMAGE = 700
+    const val SELECT_IMAGE = 700
 
 
     /**

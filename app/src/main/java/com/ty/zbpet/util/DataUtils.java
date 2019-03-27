@@ -165,12 +165,12 @@ public class DataUtils {
      */
     public static void setImageId(int position, String fileName) {
         imageArray.put(position, fileName);
-        positionAndFile.put(CodeConstant.INSTANCE.getSELECT_IMAGE(), imageArray);
+        positionAndFile.put(CodeConstant.SELECT_IMAGE, imageArray);
     }
 
     public static SparseArray<String> getImageFileName() {
 
-        SparseArray<String> imageFile = positionAndFile.get(CodeConstant.INSTANCE.getSELECT_IMAGE());
+        SparseArray<String> imageFile = positionAndFile.get(CodeConstant.SELECT_IMAGE);
         if (imageFile == null) {
             imageFile = new SparseArray<>();
             imageFile.put(0, "");
@@ -187,7 +187,7 @@ public class DataUtils {
     public static void clearId() {
         positionAndWhich.put(CodeConstant.SELECT_HOUSE_BUY_IN, null);
         positionAndWhich.put(CodeConstant.INSTANCE.getSELECT_GOODS(), null);
-        positionAndFile.put(CodeConstant.INSTANCE.getSELECT_IMAGE(), null);
+        positionAndFile.put(CodeConstant.SELECT_IMAGE, null);
         codeFocusArray.put(CodeConstant.INSTANCE.getET_CODE_FOCUS_INT(), null);
     }
 }

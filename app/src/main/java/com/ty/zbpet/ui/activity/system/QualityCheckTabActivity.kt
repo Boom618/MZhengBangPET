@@ -2,8 +2,6 @@ package com.ty.zbpet.ui.activity.system
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.view.MotionEvent
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
@@ -15,7 +13,6 @@ import com.ty.zbpet.ui.fragment.system.QualityCheckFragment
 import com.ty.zbpet.util.TabLayoutViewPage
 import com.ty.zbpet.util.TimeWidget
 import com.ty.zbpet.util.ZBUiUtils
-import kotlinx.android.synthetic.main.activity_main_todo_and_done.*
 import kotlinx.android.synthetic.main.activity_quality_check_tab.*
 import org.greenrobot.eventbus.EventBus
 import java.util.*
@@ -43,16 +40,15 @@ class QualityCheckTabActivity : BaseActivity() {
 
         initToolBar(R.string.label_check)
 
+        val page = TabLayoutViewPage()
+        page.setViewPageToTab(supportFragmentManager, viewpager, stl, mFragments)
+
     }
 
     override fun initOneData() {
-
     }
 
     override fun initTwoView() {
-
-        val viewPage = TabLayoutViewPage()
-        viewPage.setViewPageToTab(supportFragmentManager, viewpager, stl, mFragments)
 
     }
 

@@ -59,6 +59,8 @@ class QualityCheckDoneDetailActivity : BaseActivity() {
     private var imageAdapter: GridImageAdapter? = null
     private var selectList: MutableList<LocalMedia> = ArrayList()
     private val temp = ArrayList<LocalMedia>()
+    private val httpUrlRemote = "http://117.40.132.236:3099/"
+    private val httpUrlLocal = "http://192.168.11.2:3099/"
 
     private var listBeans: List<CheckDoneDetailEvent.CheckReportListBean> = ArrayList()
     private val presenter = MaterialPresenter()
@@ -145,7 +147,7 @@ class QualityCheckDoneDetailActivity : BaseActivity() {
         }
 
         if (list.size == 0) {
-            ZBUiUtils.showToast("请完善你要质检的信息")
+            ZBUiUtils.showToast("请完善你要质检修改的信息")
             return null
         }
 
@@ -155,9 +157,6 @@ class QualityCheckDoneDetailActivity : BaseActivity() {
         if (!TextUtils.isEmpty(fileString)) {
             tempFile = fileString.substring(0, fileString.length - 1)
         }
-
-        //        String orderNo = "";
-
         infoBean.checkDesc = desc
         infoBean.checkTime = selectTime
         infoBean.sapOrderNo = sapOrderNo
@@ -197,17 +196,23 @@ class QualityCheckDoneDetailActivity : BaseActivity() {
     }
 
     private fun initPath(pathList: MutableList<String>) {
-        val onAddPicClickListener = GridImageAdapter.onAddPicClickListener {
-            //   图片服务器地址：117.40.132.236:3099
-            for (i in 0 until pathList.size) {
-                val phone = LocalMedia()
-                phone.path = pathList[i]
-                selectList.add(phone)
-            }
 
+        //   图片服务器地址：117.40.132.236:3099
+        for (i in 0 until pathList.size) {
+            val phone = LocalMedia()
+            phone.path = httpUrlLocal + pathList[i]
+            selectList.add(phone)
+        }
+
+        val openGallery = PictureSelector.create(this@QualityCheckDoneDetailActivity)
+        openGallery.openGallery(chooseMode)
+                .selectionMedia(selectList)
+
+
+
+        val onAddPicClickListener = GridImageAdapter.onAddPicClickListener {
             // 进入相册 以下是例子：不需要的api可以不写
-            PictureSelector.create(this@QualityCheckDoneDetailActivity)
-                    .openGallery(chooseMode)
+            openGallery.openGallery(chooseMode)
                     .theme(themeId)
                     .maxSelectNum(3)
                     .minSelectNum(1)
@@ -227,7 +232,11 @@ class QualityCheckDoneDetailActivity : BaseActivity() {
         gridLayoutManager = GridLayoutManager(this, 3)
         gridLayoutManager!!.orientation = LinearLayoutManager.VERTICAL
         recycler_image.layoutManager = gridLayoutManager
+
         imageAdapter = GridImageAdapter(this@QualityCheckDoneDetailActivity, onAddPicClickListener)
+        imageAdapter?.setList(selectList)
+        imageAdapter?.setSelectMax(3)
+        recycler_image.adapter = imageAdapter
     }
 
 
@@ -248,10 +257,10 @@ class QualityCheckDoneDetailActivity : BaseActivity() {
                     // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
                     // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
                     selectList.addAll(temp)
-                    presenter.updateImage(this@QualityCheckDoneDetailActivity, selectList.size - 1, path)
-                    imageAdapter!!.setList(selectList)
+                    presenter.updateImage(selectList.size - 1, path)
+                    imageAdapter?.setList(selectList)
                     temp.clear()
-                    imageAdapter!!.notifyDataSetChanged()
+                    imageAdapter?.notifyDataSetChanged()
                 }
             }
         }

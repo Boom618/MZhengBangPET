@@ -2,6 +2,7 @@ package com.ty.zbpet.bean.eventbus.system
 
 /**
  * @author TY on 2019/3/26.
+ * 质检已办详情
  */
 class CheckDoneDetailEvent {
 

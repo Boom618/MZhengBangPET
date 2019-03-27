@@ -56,6 +56,7 @@ class QualityCheckTodoDetailActivity : BaseActivity(), MaterialUiListInterface<M
     private var imageAdapter: GridImageAdapter? = null
     private var selectList: MutableList<LocalMedia> = ArrayList()
     private val temp = ArrayList<LocalMedia>()
+    private val pathList = ArrayList<String>()
 
     /**
      * 中断请求
@@ -249,7 +250,7 @@ class QualityCheckTodoDetailActivity : BaseActivity(), MaterialUiListInterface<M
                     // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
                     // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
                     selectList.addAll(temp)
-                    presenter.updateImage(this@QualityCheckTodoDetailActivity, selectList.size - 1, path)
+                    presenter.updateImage(selectList.size - 1, path)
                     imageAdapter!!.setList(selectList)
                     temp.clear()
                     imageAdapter!!.notifyDataSetChanged()

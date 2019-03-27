@@ -194,7 +194,7 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.0'
 //    implementation 'androidx.core:core-ktx:1.0.1'
 
-    // image picker
+    // 知乎 image picker
     implementation 'com.github.qingmei2:rximagepicker:2.2.0'
     implementation 'com.github.qingmei2:rximagepicker_support_zhihu:2.2.0'
 

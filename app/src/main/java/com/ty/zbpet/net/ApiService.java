@@ -630,11 +630,12 @@ public interface ApiService {
      *
      * @return Single
      */
-    @GET(ApiNameConstant.GET_CHECK_DONE_LIST)
-    Single<BaseResponse<MaterialList>> getCheckDoneList(@Query("state") String state,
-                                                        @Query("sapOrderNo") String sapOrderNo,
-                                                        @Query("startDate") String startDate,
-                                                        @Query("endDate") String endDate);
+    @FormUrlEncoded
+    @POST(ApiNameConstant.GET_CHECK_DONE_LIST)
+    Single<BaseResponse<MaterialList>> getCheckDoneList(@Field("state") String state,
+                                                        @Field("sapOrderNo") String sapOrderNo,
+                                                        @Field("startDate") String startDate,
+                                                        @Field("endDate") String endDate);
     //Single<BaseResponse<QualityCheckTodoList>> getCheckDoneList(@Field("state") String state);
 
     /**
