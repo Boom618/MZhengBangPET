@@ -11,6 +11,7 @@ class ProductTodoSave {
     var inTime: String? = null
     var sapOrderNo: String? = null
     var supplierNo: String? = null
+    var supplierName: String? = null
     var creatorNo: String? = null
     var moveType: String? = null
     var orderId: String? = null

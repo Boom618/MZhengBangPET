@@ -6,7 +6,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.luck.picture.lib.PictureSelector
@@ -19,6 +18,7 @@ import com.ty.zbpet.R
 import com.ty.zbpet.bean.eventbus.system.ImageEvent
 import com.ty.zbpet.ui.adapter.system.RecyclerImageAdapter
 import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ZBUiUtils
 import com.ty.zbpet.util.image.ZhiHuImagePicker
 import kotlinx.android.synthetic.main.activity_demo.*
@@ -44,13 +44,13 @@ class DemoMainActivity : BaseActivity() {
 
         openGallery.setOnClickListener { openGallery(image) }
         openCamera.setOnClickListener { openCamera(image) }
+        list.add("http://f.hiphotos.baidu.com/image/pic/item/9c16fdfaaf51f3de19e15a669aeef01f3a297965.jpg")
+        list.add("http://d.hiphotos.baidu.com/image/pic/item/4e4a20a4462309f7dbef7b047c0e0cf3d7cad620.jpg")
+        DataUtils.saveImage("9c16fdfaaf51f3de19e15a669aeef01f3a297965.jpg")
+        DataUtils.saveImage("4e4a20a4462309f7dbef7b047c0e0cf3d7cad620.jpg")
     }
     val list = ArrayList<String>()
     override fun initTwoView() {
-
-        list.add("http://f.hiphotos.baidu.com/image/pic/item/9c16fdfaaf51f3de19e15a669aeef01f3a297965.jpg")
-        list.add("http://d.hiphotos.baidu.com/image/pic/item/4e4a20a4462309f7dbef7b047c0e0cf3d7cad620.jpg")
-//        list.add("http://d.hiphotos.baidu.com/image/pic/item/b812c8fcc3cec3fd37f1606dd888d43f869427df.jpg")
 
         val layoutManager = GridLayoutManager(this, 3)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -97,27 +97,10 @@ class DemoMainActivity : BaseActivity() {
         PictureSelector.create(this)
                 .openGallery(PictureMimeType.ofImage())
                 .isCamera(true)
+                .selectionMode(1)
                 .forResult(PictureConfig.CHOOSE_REQUEST)
 
 
-        // --------------------------------------------
-//        val imageView = event.getImageView()
-//        rxImagePicker.openGallery(this, ZhihuConfigurationBuilder(MimeType.ofImage(), false)
-//                .maxSelectable(1)
-//                .countable(true)
-////                .spanCount(1)
-//                .theme(R.style.Zhihu_Dracula)
-//                .build())
-//                .subscribe {
-//                    val uri = it.uri
-//                    Log.e("URI", "uri is $uri")
-//                    Log.e("URI", "uri path is ${uri.path}")
-//                    list.add(uri.path)
-//                    Glide.with(this@DemoMainActivity)
-//                            .load(it.uri)
-//                            .into(imageView)
-//                }
-//        adapter?.notifyDataSetChanged()
 
     }
 
@@ -142,6 +125,7 @@ class DemoMainActivity : BaseActivity() {
 //                    imageAdapter!!.setList(selectList)
 //                    temp.clear()
 //                    imageAdapter!!.notifyDataSetChanged()
+                    val imageList = DataUtils.getImagePathList()
                 }
             }
         }

@@ -68,12 +68,12 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
     /**
      * 仓库 ID
      */
-    private var warehouseId: String? = null
+//    private var warehouseId: String? = null
 
     /**
      * 仓库 name
      */
-    private val houseName = ArrayList<String>()
+//    private val houseName = ArrayList<String>()
 
     /**
      * 用户信息
@@ -94,15 +94,15 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
         content = intent.getStringExtra("content")
 
         // 仓库默认值设置
-        DataUtils.setHouseId(0, 0)
+//        DataUtils.setHouseId(0, 0)
 
         userInfo = DataUtils.getUserInfo()
-        val warehouseList = userInfo!!.warehouseList
+//        val warehouseList = userInfo!!.warehouseList
 
-        val size = warehouseList!!.size
-        for (i in 0 until size) {
-            houseName.add(warehouseList[i].warehouseName.toString())
-        }
+//        val size = warehouseList.size
+//        for (i in 0 until size) {
+//            houseName.add(warehouseList[i].warehouseName.toString())
+//        }
 
 //        selectHouse = findViewById(R.id.tv_house)
 //        tv_house!!.text = houseName[0]
@@ -213,8 +213,8 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
         val time = tv_time!!.text.toString().trim { it <= ' ' }
 
         requestBody.list = detail
-        requestBody.warehouseId = warehouseId
-        requestBody.warehouseNo = oldList[0].warehouseNo
+//        requestBody.warehouseId = warehouseId
+//        requestBody.warehouseNo = oldList[0].warehouseNo
         requestBody.sapOrderNo = sapOrderNo
         requestBody.moveType = "653"
         requestBody.inTime = time
@@ -230,12 +230,12 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
         oldList = list
         if (adapter == null) {
             val manager = LinearLayoutManager(ResourceUtil.getContext())
-            rv_in_storage_detail!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
-            rv_in_storage_detail!!.layoutManager = manager
+            rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+            rv_in_storage_detail.layoutManager = manager
             adapter = ReturnGoodsTodoDetailAdapter(this, R.layout.item_product_detail_two_todo, list)
-            rv_in_storage_detail!!.adapter = adapter
+            rv_in_storage_detail.adapter = adapter
 
-            adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+            adapter?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                 override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
 
                     val rlDetail = holder.itemView.findViewById<View>(R.id.gone_view)
@@ -273,7 +273,7 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_SCAN_CODE && resultCode == RESULT_SCAN_CODE) {
             itemId = data!!.getIntExtra("itemId", -1)
-            warehouseId = data.getStringExtra("warehouseId")
+//            warehouseId = data.getStringExtra("warehouseId")
             boxCodeList = data.getStringArrayListExtra("boxCodeList")
             carCodeArray.put(itemId, boxCodeList)
         }

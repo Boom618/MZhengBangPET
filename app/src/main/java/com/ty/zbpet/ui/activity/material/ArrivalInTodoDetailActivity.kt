@@ -139,7 +139,6 @@ class ArrivalInTodoDetailActivity : BaseActivity()
 
             // 含量手输
             val concentration = view.findViewById<EditText>(R.id.tv_box_num).text.toString().trim { it <= ' ' }
-            //val viewUnit = view.findViewById<EditText>(R.id.et_zkg).text.toString().trim { it <= ' ' }
             val viewCode = view.findViewById<EditText>(R.id.et_code).text.toString().trim { it <= ' ' }
             val viewNumber = view.findViewById<EditText>(R.id.et_bulk_num).text.toString().trim { it <= ' ' }
             val viewSap = view.findViewById<EditText>(R.id.et_batch_no).text.toString().trim { it <= ' ' }
@@ -165,7 +164,6 @@ class ArrivalInTodoDetailActivity : BaseActivity()
                 bean.inNumber = list[i].inNumber
                 bean.materialName = list[i].materialName
                 bean.materialNo = list[i].materialNo
-//                bean.unit = list[i].unit
                 bean.unit = viewUnit
 
                 detail.add(bean)
@@ -282,9 +280,9 @@ class ArrivalInTodoDetailActivity : BaseActivity()
     override fun ScanSuccess(position: Int, positionNo: String) {
 //        ZBUiUtils.showToast("URL ：$positionNo")
 
-        materialPresenter.urlAnalyze(position, positionNo)
+//        materialPresenter.urlAnalyze(position, positionNo)
         //  服务器校验 库位码
-        //materialPresenter.checkCarCode(position, positionNo)
+        materialPresenter.checkCarCode(position, positionNo)
 
     }
 

@@ -19,6 +19,7 @@ class QuaCheckDoneDetailAdapter(context: Context, layoutId: Int, datas: List<Che
     override fun convert(holder: ViewHolder, listBean: CheckDoneDetailEvent.CheckReportListBean, position: Int) {
         holder.setText(R.id.tv_name, listBean.materialName)
                 .setText(R.id.tv_num, "${listBean.checkNum} ${listBean.unit}")
+                .setText(R.id.et_content, "${listBean.percent}")
 
     }
 }

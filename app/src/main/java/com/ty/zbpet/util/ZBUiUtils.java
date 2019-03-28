@@ -11,6 +11,7 @@ import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.ty.zbpet.constant.CodeConstant;
+import com.ty.zbpet.data.SharedP;
 import com.ty.zbpet.ui.widght.NormalSelectionDialog;
 
 import java.text.SimpleDateFormat;
@@ -109,7 +110,8 @@ public class ZBUiUtils {
 
                         // 选择的仓库 还是 商品
                         if (CodeConstant.SELECT_HOUSE_BUY_IN == type) {
-                            DataUtils.setHouseId(position, which);
+                            //DataUtils.setHouseId(position, which);
+                            SharedP.putWarehouseId(context,which);
                         } else {
                             DataUtils.setGoodsId(position, which);
                         }

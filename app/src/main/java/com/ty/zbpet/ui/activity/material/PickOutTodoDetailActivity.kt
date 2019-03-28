@@ -215,8 +215,8 @@ class PickOutTodoDetailActivity : BaseActivity()
     override fun ScanSuccess(position: Int, positionNo: String) {
 
         //  服务器校验 库位码
-        presenter.urlAnalyze(position, positionNo)
-//        presenter.checkCarCode(position, positionNo)
+//        presenter.urlAnalyze(position, positionNo)
+        presenter.checkCarCode(position, positionNo)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

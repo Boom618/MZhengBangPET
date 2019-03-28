@@ -142,7 +142,7 @@ public class MaterialPresenter {
     /**
      * URL 解析
      *
-     * @param url
+     * @param url url
      */
     public void urlAnalyze(int position, String url) {
         httpMethods.urlAnalyze(new SingleObserver<BaseResponse<BoxCodeUrl>>() {
@@ -352,10 +352,13 @@ public class MaterialPresenter {
 
                     String fileName = responseInfo.getFileName();
                     // TODO 保存图片（目前只支持一张图片）
-                    DataUtils.setImageId(position, fileName);
+                    //DataUtils.setImageId(position, fileName);
+                    DataUtils.saveImage(fileName);
+
                     ZBUiUtils.showToast("图片上传成功");
                 } else {
-                    materialListUi.showError("图片上传失败");
+                    ZBUiUtils.showToast("图片上传失败");
+//                    materialListUi.showError("图片上传失败");
                 }
             }
 

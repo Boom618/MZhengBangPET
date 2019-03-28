@@ -100,6 +100,7 @@ class BackGoodsFragment : BaseFragment(), MaterialUiListInterface<MaterialList.L
                         intent.putExtra("sapOrderNo", list[position].sapOrderNo)
                         intent.putExtra("sapFirmNo", list[position].sapFirmNo)
                         intent.putExtra("supplierNo", list[position].supplierNo)
+                        intent.putExtra("supplierName", list[position].supplierName)
                         intent.putExtra("creatorNo", list[position].creatorNo)
                         intent.putExtra("content", list[position].content)
                         startActivity(intent)

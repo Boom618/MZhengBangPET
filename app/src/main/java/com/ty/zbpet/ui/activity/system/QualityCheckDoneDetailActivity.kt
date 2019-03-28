@@ -16,6 +16,7 @@ import com.ty.zbpet.R
 import com.ty.zbpet.bean.eventbus.ErrorMessage
 import com.ty.zbpet.bean.eventbus.SuccessMessage
 import com.ty.zbpet.bean.eventbus.system.CheckDoneDetailEvent
+import com.ty.zbpet.bean.eventbus.system.ImageEvent
 import com.ty.zbpet.bean.system.QuaCheckModify
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.net.RequestBodyJson
@@ -23,6 +24,7 @@ import com.ty.zbpet.presenter.material.MaterialPresenter
 import com.ty.zbpet.ui.adapter.LayoutInit
 import com.ty.zbpet.ui.adapter.system.GridImageAdapter
 import com.ty.zbpet.ui.adapter.system.QuaCheckDoneDetailAdapter
+import com.ty.zbpet.ui.adapter.system.RecyclerImageAdapter
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils
@@ -35,6 +37,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * @author TY on 2018/12/12.
@@ -56,8 +59,10 @@ class QualityCheckDoneDetailActivity : BaseActivity() {
     private var themeId: Int = 0
     private val chooseMode = PictureMimeType.ofImage()
 
-    private var imageAdapter: GridImageAdapter? = null
+//    private var imageAdapter: GridImageAdapter? = null
+    private var imageAdapter: RecyclerImageAdapter? = null
     private var selectList: MutableList<LocalMedia> = ArrayList()
+    private var imageList: ArrayList<String> = ArrayList()
     private val temp = ArrayList<LocalMedia>()
     private val httpUrlRemote = "http://117.40.132.236:3099/"
     private val httpUrlLocal = "http://192.168.11.2:3099/"
@@ -199,43 +204,25 @@ class QualityCheckDoneDetailActivity : BaseActivity() {
 
         //   图片服务器地址：117.40.132.236:3099
         for (i in 0 until pathList.size) {
-            val phone = LocalMedia()
-            phone.path = httpUrlLocal + pathList[i]
-            selectList.add(phone)
+//            val phone = LocalMedia()
+            DataUtils.saveImage(pathList[i])
+            imageList.add(httpUrlRemote + pathList[i])
+            //selectList.add(phone)
         }
 
-        val openGallery = PictureSelector.create(this@QualityCheckDoneDetailActivity)
-        openGallery.openGallery(chooseMode)
-                .selectionMedia(selectList)
+//        val openGallery = PictureSelector.create(this@QualityCheckDoneDetailActivity)
+//        openGallery.openGallery(chooseMode)
+//                .selectionMedia(selectList)
 
 
 
-        val onAddPicClickListener = GridImageAdapter.onAddPicClickListener {
-            // 进入相册 以下是例子：不需要的api可以不写
-            openGallery.openGallery(chooseMode)
-                    .theme(themeId)
-                    .maxSelectNum(3)
-                    .minSelectNum(1)
-                    .selectionMode(PictureConfig.SINGLE)
-                    // 是否显示拍照按钮
-                    .isCamera(true)
-                    // 是否传入已选图片
-                    .selectionMedia(selectList)
-                    // 预览图片时 是否增强左右滑动图片体验(图片滑动一半即可看到上一张是否选中)
-                    .previewEggs(false)
-                    // 小于100kb的图片不压缩
-                    .minimumCompressSize(100)
-                    //结果回调onActivityResult code
-                    .forResult(PictureConfig.CHOOSE_REQUEST)
-        }
+
 
         gridLayoutManager = GridLayoutManager(this, 3)
-        gridLayoutManager!!.orientation = LinearLayoutManager.VERTICAL
+        gridLayoutManager?.orientation = LinearLayoutManager.VERTICAL
         recycler_image.layoutManager = gridLayoutManager
 
-        imageAdapter = GridImageAdapter(this@QualityCheckDoneDetailActivity, onAddPicClickListener)
-        imageAdapter?.setList(selectList)
-        imageAdapter?.setSelectMax(3)
+        imageAdapter = RecyclerImageAdapter(this@QualityCheckDoneDetailActivity, imageList)
         recycler_image.adapter = imageAdapter
     }
 
@@ -251,19 +238,27 @@ class QualityCheckDoneDetailActivity : BaseActivity() {
                     temp.addAll(selectList)
                     selectList = PictureSelector.obtainMultipleResult(data)
                     val path = selectList[0].path
+                    imageList.add(path)
                     // 例如 LocalMedia 里面返回三种path
                     // 1.media.getPath(); 为原图path
                     // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
                     // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
                     // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
-                    selectList.addAll(temp)
-                    presenter.updateImage(selectList.size - 1, path)
-                    imageAdapter?.setList(selectList)
-                    temp.clear()
+                    presenter.updateImage(0, path)
                     imageAdapter?.notifyDataSetChanged()
                 }
             }
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun ImageEvent(event: ImageEvent) {
+
+        PictureSelector.create(this)
+                .openGallery(PictureMimeType.ofImage())
+                .isCamera(true)
+                .selectionMode(1)
+                .forResult(PictureConfig.CHOOSE_REQUEST)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

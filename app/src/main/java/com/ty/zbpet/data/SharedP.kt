@@ -11,6 +11,7 @@ object SharedP {
     /**
      * 存 点击库位码是否有焦点和位置
      */
+    @JvmStatic
     fun putHasFocusAndPosition(context: Context, hasFocus: Boolean, position: Int) {
         context.getSharedPreferences("shared", Context.MODE_PRIVATE)
                 .edit()
@@ -36,4 +37,19 @@ object SharedP {
                 .putInt("position", -1)
                 .apply()
     }
+
+    //  生产入库 仓库位置
+    @JvmStatic
+    fun putWarehouseId(context: Context, position: Int) {
+        context.getSharedPreferences("shared", Context.MODE_PRIVATE)
+                .edit()
+                .putInt("houseId", position)
+                .apply()
+    }
+    @JvmStatic
+    fun getWarehouseId(context: Context): Int {
+        return context.getSharedPreferences("shared", Context.MODE_PRIVATE)
+                .getInt("houseId", -1)
+    }
+
 }

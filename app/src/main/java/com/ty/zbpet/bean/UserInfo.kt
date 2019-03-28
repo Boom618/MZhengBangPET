@@ -18,7 +18,7 @@ class UserInfo : Serializable {
     var sessionId: String? = null
     var roleName: String? = null
     var roleId: List<String>? = null
-    var warehouseList: List<WarehouseListBean>? = null
+    lateinit var warehouseList: MutableList<WarehouseListBean>
 
     /**
      * WarehouseListBean 不序列化, 导致 UserInfo 类不能缓存到文件

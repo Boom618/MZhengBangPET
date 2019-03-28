@@ -54,6 +54,7 @@ class BackGoodsTodoDetailActivity : BaseActivity()
     private lateinit var sapOrderNo: String
     private lateinit var sapFirmNo: String
     private lateinit var supplierNo: String
+    private lateinit var supplierName: String
     private lateinit var creatorNo: String
     private lateinit var content: String
 
@@ -86,6 +87,7 @@ class BackGoodsTodoDetailActivity : BaseActivity()
         sapOrderNo = intent.getStringExtra("sapOrderNo")
         sapFirmNo = intent.getStringExtra("sapFirmNo")
         supplierNo = intent.getStringExtra("supplierNo")
+        supplierName = intent.getStringExtra("supplierName")
         creatorNo = intent.getStringExtra("creatorNo")
         content = intent.getStringExtra("content")
 
@@ -198,6 +200,7 @@ class BackGoodsTodoDetailActivity : BaseActivity()
         requestBody.warehouseNo = warehouseNo
         requestBody.sapOrderNo = sapOrderNo
         requestBody.supplierNo = supplierNo
+        requestBody.supplierName = supplierName
         requestBody.creatorNo = creatorNo
         requestBody.moveType = "101"
         requestBody.outTime = time
@@ -239,9 +242,9 @@ class BackGoodsTodoDetailActivity : BaseActivity()
     override fun ScanSuccess(position: Int, positionNo: String) {
         ZBUiUtils.showToast("库位码 ：$positionNo")
 
-        presenter.urlAnalyze(position, positionNo)
+//        presenter.urlAnalyze(position, positionNo)
         //  服务器校验 库位码
-        //presenter.checkCarCode(position, positionNo)
+        presenter.checkCarCode(position, positionNo)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

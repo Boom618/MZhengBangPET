@@ -13,7 +13,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.ty.zbpet.R;
 import com.ty.zbpet.bean.eventbus.system.ImageEvent;
-import com.ty.zbpet.util.ZBUiUtils;
+import com.ty.zbpet.util.DataUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -78,7 +78,6 @@ public class RecyclerImageAdapter extends RecyclerView.Adapter<RecyclerImageAdap
 
                 viewHolder.srcImage.setOnClickListener(v -> {
                     // 拍照和进入相册
-                    //ZBUiUtils.showToast("拍照和进入相册");
                     EventBus.getDefault().post(new ImageEvent(viewHolder.srcImage));
                 });
             } else {
@@ -136,6 +135,8 @@ public class RecyclerImageAdapter extends RecyclerView.Adapter<RecyclerImageAdap
                 // 通过源码分析应该是bindViewHolder()暂未绘制完成导致，
                 if (index != RecyclerView.NO_POSITION) {
                     pathList.remove(index);
+                    ArrayList<String> imageList = DataUtils.getImagePathList();
+                    imageList.remove(index);
                     notifyItemRemoved(index);
                     notifyItemRangeChanged(index, pathList.size());
                 }

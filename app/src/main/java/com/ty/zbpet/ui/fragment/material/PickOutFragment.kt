@@ -109,6 +109,7 @@ class PickOutFragment : BaseFragment(), MaterialUiListInterface<MaterialList.Lis
                         val intent = Intent(activity, PickOutTodoDetailActivity::class.java)
                         intent.putExtra("sapOrderNo", list[position].sapOrderNo)
                         intent.putExtra("sapFirmNo", list[position].sapFirmNo)
+                        intent.putExtra("supplierName", list[position].supplierName)
                         intent.putExtra("orderTime", list[position].orderTime)
                         intent.putExtra("sign", list[position].sign)
                         intent.putExtra("content", list[position].content)

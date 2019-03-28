@@ -21,8 +21,8 @@ android {
         applicationId "com.ty.zbpet"
         minSdkVersion ZBConfig.minSdkVersion
         targetSdkVersion ZBConfig.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode ZBConfig.versionCode
+        versionName ZBConfig.versionName
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
@@ -52,8 +52,8 @@ android {
     productFlavors {
         develop {
 
-            versionCode 1
-            versionName "1.0.0"
+            versionCode ZBConfig.versionCode
+            versionName ZBConfig.versionName
             signingConfig = signingConfigs.developRelease
 
             buildConfigField "String", "SERVICE_URL", ZBConfig.config.serviceDevelopUrl
@@ -62,8 +62,8 @@ android {
 
         master {
 
-            versionCode 1
-            versionName "1.0.0"
+            versionCode ZBConfig.versionCode
+            versionName ZBConfig.versionName
             signingConfig = signingConfigs.masterRelease
 
             buildConfigField "String", "SERVICE_URL", ZBConfig.config.serviceMasterUrl

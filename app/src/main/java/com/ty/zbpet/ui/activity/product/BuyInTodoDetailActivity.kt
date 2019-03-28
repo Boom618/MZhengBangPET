@@ -41,6 +41,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
     private var sapOrderNo: String? = null
     private var sapFirmNo: String? = null
     private var supplierNo: String? = null
+    private var supplierName: String? = null
     private var content: String = ""
 
     private var oldList: List<ProductDetails.ListBean> = ArrayList()
@@ -60,7 +61,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
     /**
      * 保存用户箱码的数据
      */
-    private val carCodeArray: SparseArray<ArrayList<String>> = SparseArray(10)
+//    private val carCodeArray: SparseArray<ArrayList<String>> = SparseArray(10)
 
     private var supplierId: String? = null
 
@@ -78,12 +79,11 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
         sapOrderNo = intent.getStringExtra("sapOrderNo")
         sapFirmNo = intent.getStringExtra("sapFirmNo")
         supplierNo = intent.getStringExtra("supplierNo")
+        supplierName = intent.getStringExtra("supplierName")
         content = intent.getStringExtra("content")
         supplierId = intent.getStringExtra("supplierId")
 
         userInfo = SimpleCache.getUserInfo(CodeConstant.USER_DATA)
-        // 仓库默认值设置　
-        DataUtils.setHouseId(0, 0)
 
         presenter.fetchBuyInTodoListDetails(sapOrderNo, sapFirmNo, supplierNo)
     }
@@ -139,12 +139,12 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
         val size = oldList.size
         for (i in 0 until size) {
             val view = rv_in_storage_detail.getChildAt(i)
-            val boxQrCode = carCodeArray.get(i)
+//            val boxQrCode = carCodeArray.get(i)
             val bulkNum = view.findViewById<EditText>(R.id.et_number).text.toString().trim { it <= ' ' }
             val batchNo = view.findViewById<EditText>(R.id.et_sap).text.toString().trim { it <= ' ' }
 
             val bean = ProductTodoSave.DetailsBean()
-            if (bulkNum.isNotEmpty() && !boxQrCode.isNullOrEmpty()) {
+            if (bulkNum.isNotEmpty()) {
                 val goodsId = oldList[i].goodsId
                 val goodsNo = oldList[i].goodsNo
                 val orderNumber = oldList[i].orderNumber
@@ -168,10 +168,10 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
                 bean.unit = oldList[i].unit
                 bean.goodsName = oldList[i].goodsName
 
-                bean.warehouseId = oldList[i].warehouseId
-                bean.warehouseNo = oldList[i].warehouseNo
+//                bean.warehouseId = oldList[i].warehouseId
+//                bean.warehouseNo = oldList[i].warehouseNo
 
-                bean.boxQrCode = boxQrCode
+//                bean.boxQrCode = boxQrCode
 
                 detail.add(bean)
             }
@@ -189,6 +189,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
         requestBody.inTime = time
         requestBody.sapOrderNo = sapOrderNo
         requestBody.supplierNo = supplierNo
+        requestBody.supplierName = supplierName
         requestBody.moveType = "105"
         requestBody.remark = remark
 
@@ -203,17 +204,17 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
 
         if (adapter == null) {
             val manager = LinearLayoutManager(ResourceUtil.getContext())
-            rv_in_storage_detail!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
-            rv_in_storage_detail!!.layoutManager = manager
+            rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+            rv_in_storage_detail.layoutManager = manager
             adapter = BuyInTodoDetailAdapter(this, R.layout.item_product_detail_two_todo, list)
-            rv_in_storage_detail!!.adapter = adapter
+            rv_in_storage_detail.adapter = adapter
 
-            adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+            adapter?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                 override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
 
                     val rlDetail = holder.itemView.findViewById<View>(R.id.gone_view)
                     val ivArrow = holder.itemView.findViewById<ImageView>(R.id.iv_arrow)
-                    val bindingCode = holder.itemView.findViewById<Button>(R.id.btn_binding_code)
+                    //val bindingCode = holder.itemView.findViewById<Button>(R.id.btn_binding_code)
 
                     if (rlDetail.visibility == View.VISIBLE) {
                         rlDetail.visibility = View.GONE
@@ -224,17 +225,17 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
                         ivArrow.setImageResource(R.mipmap.ic_expand)
                     }
 
-                    bindingCode.setOnClickListener {
-                        itemId = position
-                        val boxCodeList = carCodeArray.get(itemId)
-
-                        val intent = Intent(it.context, ScanBoxCodeActivity::class.java)
-                        intent.putExtra("itemId", itemId)
-                        intent.putExtra(CodeConstant.PAGE_STATE, true)
-                        intent.putStringArrayListExtra("boxCodeList", boxCodeList)
-
-                        startActivityForResult(intent, REQUEST_SCAN_CODE)
-                    }
+//                    bindingCode.setOnClickListener {
+//                        itemId = position
+//                        val boxCodeList = carCodeArray.get(itemId)
+//
+//                        val intent = Intent(it.context, ScanBoxCodeActivity::class.java)
+//                        intent.putExtra("itemId", itemId)
+//                        intent.putExtra(CodeConstant.PAGE_STATE, true)
+//                        intent.putStringArrayListExtra("boxCodeList", boxCodeList)
+//
+//                        startActivityForResult(intent, REQUEST_SCAN_CODE)
+//                    }
 
 
                     ZBUiUtils.hideInputWindow(view.context, view)
@@ -259,7 +260,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
         if (requestCode == REQUEST_SCAN_CODE && resultCode == RESULT_SCAN_CODE) {
             itemId = data!!.getIntExtra("itemId", -1)
             boxCodeList = data.getStringArrayListExtra("boxCodeList")
-            carCodeArray.put(itemId, boxCodeList)
+//            carCodeArray.put(itemId, boxCodeList)
         }
     }
 
@@ -281,8 +282,6 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
     override fun onDestroy() {
         super.onDestroy()
 
-        // TODO  清除仓库数据
-        DataUtils.clearId()
         presenter.dispose()
     }
 

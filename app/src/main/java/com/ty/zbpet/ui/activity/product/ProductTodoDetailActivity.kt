@@ -14,6 +14,7 @@ import com.ty.zbpet.bean.UserInfo
 import com.ty.zbpet.bean.product.ProductDetails
 import com.ty.zbpet.bean.product.ProductTodoSave
 import com.ty.zbpet.constant.CodeConstant
+import com.ty.zbpet.data.SharedP
 import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.product.ProducePresenter
 import com.ty.zbpet.presenter.product.ProductUiListInterface
@@ -52,15 +53,16 @@ class ProductTodoDetailActivity : BaseActivity()
      * 用户信息
      */
     private lateinit var userInfo: UserInfo
+    private lateinit var warehouseList: MutableList<UserInfo.WarehouseListBean>
 
     /**
      * 保存箱码的数据
      */
-    private val carCodeArray:SparseArray<ArrayList<String>> = SparseArray(10)
+    private val carCodeArray: SparseArray<ArrayList<String>> = SparseArray(10)
     /**
      * 库位码 ID
      */
-    private val positionId:SparseArray<String> = SparseArray(10)
+    private val positionId: SparseArray<String> = SparseArray(10)
 
 
     /**
@@ -93,31 +95,32 @@ class ProductTodoDetailActivity : BaseActivity()
         sign = intent.getStringExtra("sign")
 
         // 仓库默认值设置
-        DataUtils.setHouseId(0, 0)
+//        DataUtils.setHouseId(0, 0)
+        SharedP.putWarehouseId(this@ProductTodoDetailActivity, 0)
 
         // 不登录用户数据：DataUtils.getUserInfo()
         userInfo = SimpleCache.getUserInfo(CodeConstant.USER_DATA)
-        val warehouseList = userInfo.warehouseList
+        warehouseList = userInfo.warehouseList
 
-        val size = warehouseList!!.size
+        val size = warehouseList.size
         for (i in 0 until size) {
             houseName.add(warehouseList[i].warehouseName.toString())
         }
         //tv_house!!.text = houseName[0]
+        tv_house.text = warehouseList[0].warehouseName
 
-        presenter.fetchProductTodoInfo(sign,sapOrderNo)
+        presenter.fetchProductTodoInfo(sign, sapOrderNo)
     }
 
     override fun initTwoView() {
 
-        initToolBar(R.string.label_produce_in_storage, "保存",View.OnClickListener { productTodoSave(initTodoBody()) })
+        initToolBar(R.string.label_produce_in_storage, "保存", View.OnClickListener { productTodoSave(initTodoBody()) })
 
         val format = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
         selectTime = format.format(Date())
 
         tv_time!!.text = selectTime
         in_storage_detail!!.text = "入库明细"
-
 
         tv_time!!.setOnClickListener { v ->
             ZBUiUtils.showPickDate(v.context) { date, _ ->
@@ -158,7 +161,7 @@ class ProductTodoDetailActivity : BaseActivity()
         val detail = ArrayList<ProductTodoSave.DetailsBean>()
 
         // TODO 获取用户选择的仓库信息
-        val houseId = DataUtils.getHouseId()
+        val houseId = SharedP.getWarehouseId(this@ProductTodoDetailActivity)
 
         val warehouseList = userInfo.warehouseList
 
@@ -166,16 +169,10 @@ class ProductTodoDetailActivity : BaseActivity()
         val warehouseId: String?
         val warehouseNo: String?
         val warehouseName: String?
-        if (houseId == null) {
-            warehouseId = warehouseList!![0].warehouseId
-            warehouseNo = warehouseList[0].warehouseNo
-            warehouseName = warehouseList[0].warehouseName
-        } else {
-            val which = houseId.get(0)
-            warehouseId = warehouseList!![which].warehouseId
-            warehouseNo = warehouseList[which].warehouseNo
-            warehouseName = warehouseList[which].warehouseName
-        }
+
+        warehouseId = warehouseList[houseId].warehouseId
+        warehouseNo = warehouseList[houseId].warehouseNo
+        warehouseName = warehouseList[houseId].warehouseName
 
         val size = oldList.size
         for (i in 0 until size) {
@@ -318,8 +315,6 @@ class ProductTodoDetailActivity : BaseActivity()
     override fun onDestroy() {
         super.onDestroy()
 
-        // 清除仓库数据
-        DataUtils.clearId()
         presenter.dispose()
     }
 

@@ -105,35 +105,7 @@ public class DataUtils {
      */
     private static SparseArray<SparseArray<String>> positionAndFile = new SparseArray<>(5);
     private static SparseArray<String> imageArray = new SparseArray<>(20);
-
-    /**
-     * SparseArray<SparseArray<Integer>> 采用这种结构是 key 必须唯一
-     * <p>
-     * SparseArray<Integer> 中
-     * 外采入库 中仓库存值算法
-     *
-     * @param position 代表 item 中的 position 位置
-     * @param which    代表仓库选中的位置
-     */
-    public static void setHouseId(int position, int which) {
-
-        sparseArray.put(position, which);
-        positionAndWhich.put(CodeConstant.SELECT_HOUSE_BUY_IN, sparseArray);
-    }
-
-    public static SparseArray<Integer> getHouseId() {
-
-        SparseArray<Integer> houseIdSArray = positionAndWhich.get(CodeConstant.SELECT_HOUSE_BUY_IN);
-        if (houseIdSArray == null) {
-            houseIdSArray = new SparseArray<>();
-            houseIdSArray.put(0, 0);
-        }
-
-        // 取值:选择的是哪个仓库
-        //int which = houseIdSArray.get(position);
-
-        return houseIdSArray;
-    }
+    private static ArrayList<String> imageList = new ArrayList<>(5);
 
 
     /**
@@ -179,6 +151,16 @@ public class DataUtils {
     }
 
 
+    /**
+     * ----- 保存质检图片 --------
+     */
+    public static void saveImage(String fileName) {
+        imageList.add(fileName);
+    }
+
+    public static ArrayList<String> getImagePathList(){
+        return imageList;
+    }
 
 
     /**
