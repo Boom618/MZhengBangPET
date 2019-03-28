@@ -107,6 +107,7 @@ public class ReturnPresenter {
      * @param body body
      */
     public void getReturnTodoSave(RequestBody body) {
+        listInterface.showLoading();
         httpMethods.getReturnTodoSave(new SingleObserver<ResponseInfo>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -115,6 +116,7 @@ public class ReturnPresenter {
 
             @Override
             public void onSuccess(ResponseInfo responseInfo) {
+                listInterface.hideLoading();
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     listInterface.saveSuccess();
                 } else {
@@ -124,6 +126,7 @@ public class ReturnPresenter {
 
             @Override
             public void onError(Throwable e) {
+                listInterface.hideLoading();
                 listInterface.showError(e.getMessage());
             }
         }, body);
@@ -198,6 +201,7 @@ public class ReturnPresenter {
      * @param body body
      */
     public void getReturnDoneSave(RequestBody body) {
+        listInterface.showLoading();
         httpMethods.getReturnDoneSave(new SingleObserver<ResponseInfo>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -206,6 +210,7 @@ public class ReturnPresenter {
 
             @Override
             public void onSuccess(ResponseInfo responseInfo) {
+                listInterface.hideLoading();
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     listInterface.saveSuccess();
                 } else {
@@ -215,6 +220,7 @@ public class ReturnPresenter {
 
             @Override
             public void onError(Throwable e) {
+                listInterface.hideLoading();
                 listInterface.showError(e.getMessage());
             }
         }, body);

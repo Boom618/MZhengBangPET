@@ -12,10 +12,12 @@ import com.ty.zbpet.presenter.material.BackGoodsPresenter
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
 import com.ty.zbpet.ui.adapter.material.BackGoodsDoneDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import kotlinx.android.synthetic.main.activity_content_reversal.*
 import okhttp3.RequestBody
 import java.util.*
@@ -119,10 +121,13 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
 
     }
 
+    private var dialog: LoadingDialog? = null
     override fun showLoading() {
+        dialog = ShowDialog.showFullDialog(this@BackGoodsDoneDetailActivity, "保存中")
     }
 
     override fun hideLoading() {
+        dialog?.close()
     }
 
     override fun saveSuccess() {

@@ -108,6 +108,7 @@ public class SendOutPresenter {
      * @param body body
      */
     public void sendOutTodoSave(RequestBody body) {
+        listInterface.showLoading();
         httpMethods.getShipTodoSave(new SingleObserver<ResponseInfo>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -116,6 +117,7 @@ public class SendOutPresenter {
 
             @Override
             public void onSuccess(ResponseInfo responseInfo) {
+                listInterface.hideLoading();
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     listInterface.saveSuccess();
                 } else {
@@ -125,6 +127,7 @@ public class SendOutPresenter {
 
             @Override
             public void onError(Throwable e) {
+                listInterface.hideLoading();
                 listInterface.showError(e.getMessage());
             }
         }, body);
@@ -199,6 +202,7 @@ public class SendOutPresenter {
      * 已办保存
      */
     public void sendOutDoneSave(RequestBody body) {
+        listInterface.showLoading();
         httpMethods.getShipDoneSave(new SingleObserver<ResponseInfo>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -207,6 +211,7 @@ public class SendOutPresenter {
 
             @Override
             public void onSuccess(ResponseInfo responseInfo) {
+                listInterface.hideLoading();
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     listInterface.saveSuccess();
                 } else {
@@ -216,6 +221,7 @@ public class SendOutPresenter {
 
             @Override
             public void onError(Throwable e) {
+                listInterface.hideLoading();
                 listInterface.showError(e.getMessage());
             }
         }, body);

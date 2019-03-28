@@ -20,8 +20,10 @@ import com.ty.zbpet.presenter.product.SendOutPresenter
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity
 import com.ty.zbpet.ui.adapter.product.SendOutTodoDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.*
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
@@ -33,7 +35,7 @@ import java.util.*
  *
  * @author TY
  */
-class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<ProductDetails.ListBean>{
+class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<ProductDetails.ListBean> {
 
     private var adapter: SendOutTodoDetailAdapter? = null
 
@@ -94,7 +96,7 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
 
     override fun initTwoView() {
 
-        initToolBar(R.string.send_out_storage_detail, "保存",View.OnClickListener { view ->
+        initToolBar(R.string.send_out_storage_detail, "保存", View.OnClickListener { view ->
             ZBUiUtils.hideInputWindow(view.context, view)
             sendOutTodoSave(initTodoBody())
         })
@@ -253,11 +255,14 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
             carCodeArray.put(itemId, boxCodeList)
         }
     }
-    override fun showLoading() {
 
+    private var dialog: LoadingDialog? = null
+    override fun showLoading() {
+        dialog = ShowDialog.showFullDialog(this@SendOutTodoDetailActivity2, "保存中")
     }
 
     override fun hideLoading() {
+        dialog?.close()
     }
 
     override fun saveSuccess() {

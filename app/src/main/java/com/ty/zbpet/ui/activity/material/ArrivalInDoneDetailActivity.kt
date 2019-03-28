@@ -22,9 +22,11 @@ import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.net.RequestBodyJson
+import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -155,11 +157,12 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
         ZBUiUtils.showToast(msg)
     }
 
+    private var dialog: LoadingDialog? = null
     override fun showLoading() {
-
+        dialog = ShowDialog.showFullDialog(this@ArrivalInDoneDetailActivity, "保存中")
     }
 
     override fun hideLoading() {
-
+        dialog?.close()
     }
 }

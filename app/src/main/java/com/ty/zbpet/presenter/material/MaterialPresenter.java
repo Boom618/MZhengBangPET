@@ -207,6 +207,7 @@ public class MaterialPresenter {
      * 待办 保存
      */
     public void materialTodoInSave(RequestBody body) {
+        materialListUi.showLoading();
 
         httpMethods.materialTodoInSave(new SingleObserver<ResponseInfo>() {
             @Override
@@ -216,6 +217,7 @@ public class MaterialPresenter {
 
             @Override
             public void onSuccess(ResponseInfo responseInfo) {
+                materialListUi.hideLoading();
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     // 入库成功（保存）
                     materialListUi.saveSuccess();
@@ -226,6 +228,7 @@ public class MaterialPresenter {
 
             @Override
             public void onError(Throwable e) {
+                materialListUi.hideLoading();
                 materialListUi.showError(e.getMessage());
             }
         }, body);
@@ -302,6 +305,7 @@ public class MaterialPresenter {
      * @param body
      */
     public void materialDoneInSave(RequestBody body) {
+        materialListUi.showLoading();
         httpMethods.materialDoneInSave(new SingleObserver<ResponseInfo>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -310,6 +314,7 @@ public class MaterialPresenter {
 
             @Override
             public void onSuccess(ResponseInfo responseInfo) {
+                materialListUi.hideLoading();
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     materialListUi.saveSuccess();
                 } else {
@@ -319,6 +324,7 @@ public class MaterialPresenter {
 
             @Override
             public void onError(Throwable e) {
+                materialListUi.hideLoading();
                 materialListUi.showError(e.getMessage());
             }
         }, body);

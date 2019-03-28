@@ -44,7 +44,7 @@ public class UserPresenter {
      * @param password
      */
     public void userLogin(String userName, String password) {
-
+        userInterface.showLoading();
         httpMethods.userLogin(new SingleObserver<BaseResponse<UserInfo>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -53,7 +53,7 @@ public class UserPresenter {
 
             @Override
             public void onSuccess(BaseResponse<UserInfo> responseInfo) {
-
+                userInterface.hideLoading();
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
 
                     UserInfo data = responseInfo.getData();
@@ -70,6 +70,7 @@ public class UserPresenter {
 
             @Override
             public void onError(Throwable e) {
+                userInterface.hideLoading();
                 userInterface.onError(e.getMessage());
             }
         }, userName, password);
@@ -79,7 +80,7 @@ public class UserPresenter {
      * 退出登录
      */
     public void userLogOut() {
-
+        userInterface.showLoading();
         httpMethods.userLogOut(new SingleObserver<ResponseInfo>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -88,6 +89,7 @@ public class UserPresenter {
 
             @Override
             public void onSuccess(ResponseInfo responseInfo) {
+                userInterface.hideLoading();
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     userInterface.onSuccess();
                 }
@@ -95,7 +97,7 @@ public class UserPresenter {
 
             @Override
             public void onError(Throwable e) {
-
+                userInterface.hideLoading();
                 userInterface.onError(e.getMessage());
             }
         });
@@ -109,7 +111,7 @@ public class UserPresenter {
      * @param newPasswordAgain
      */
     public void userUpdatePass(String oldPassword, String newPassword, String newPasswordAgain) {
-
+        userInterface.showLoading();
         httpMethods.userUpdatePass(new SingleObserver<ResponseInfo>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -118,6 +120,7 @@ public class UserPresenter {
 
             @Override
             public void onSuccess(ResponseInfo responseInfo) {
+                userInterface.hideLoading();
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     userInterface.onSuccess();
                 }else{
@@ -127,6 +130,7 @@ public class UserPresenter {
 
             @Override
             public void onError(Throwable e) {
+                userInterface.hideLoading();
                 userInterface.onError(e.getMessage());
             }
         }, oldPassword, newPassword, newPasswordAgain);
@@ -137,7 +141,7 @@ public class UserPresenter {
      * 个人中心
      */
     public void userCenter() {
-
+        userInterface.showLoading();
         httpMethods.userCenter(new SingleObserver<ResponseInfo>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -146,6 +150,7 @@ public class UserPresenter {
 
             @Override
             public void onSuccess(ResponseInfo responseInfo) {
+                userInterface.hideLoading();
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     userInterface.onSuccess();
                 }
@@ -153,7 +158,7 @@ public class UserPresenter {
 
             @Override
             public void onError(Throwable e) {
-
+                userInterface.hideLoading();
                 userInterface.onError(e.getMessage());
             }
         });

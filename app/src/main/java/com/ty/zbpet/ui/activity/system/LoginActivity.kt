@@ -11,7 +11,9 @@ import com.ty.zbpet.ui.activity.MainActivity
 import com.ty.zbpet.ui.activity.MainCompanyActivity
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.data.Md5
+import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.util.ZBUiUtils
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import kotlinx.android.synthetic.main.activity_login.*
 
 /**
@@ -41,7 +43,7 @@ class LoginActivity : BaseActivity(), UserInterface {
 
         // 点击事件响应
         btn_login.setOnClickListener { _ ->
-//            if (isCompany) {
+            //            if (isCompany) {
 //                val companyNo = et_company_no!!.text.toString().trim { it <= ' ' }
 //                val userNo = et_user_no!!.text.toString().trim { it <= ' ' }
 //                val pass = et_pwd!!.text.toString().trim { it <= ' ' }
@@ -91,6 +93,15 @@ class LoginActivity : BaseActivity(), UserInterface {
     override fun onError(e: String) {
 
         ZBUiUtils.showToast(e)
+    }
+
+    private var dialog: LoadingDialog? = null
+    override fun showLoading() {
+        dialog = ShowDialog.showFullDialog(this@LoginActivity, "登录中。。。")
+    }
+
+    override fun hideLoading() {
+        dialog?.close()
     }
 
     override fun onDestroy() {

@@ -14,10 +14,12 @@ import com.ty.zbpet.presenter.product.BuyInPresenter
 import com.ty.zbpet.presenter.product.ProductUiListInterface
 import com.ty.zbpet.ui.adapter.product.BuyInDoneDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_content_reversal.*
@@ -149,10 +151,13 @@ class BuyInDoneDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
         }
     }
 
+    private var dialog: LoadingDialog? = null
     override fun showLoading() {
+        dialog = ShowDialog.showFullDialog(this@BuyInDoneDetailActivity, "保存中")
     }
 
     override fun hideLoading() {
+        dialog?.close()
     }
 
     override fun saveSuccess() {

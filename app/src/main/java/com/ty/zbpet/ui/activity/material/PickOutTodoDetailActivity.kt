@@ -23,6 +23,7 @@ import com.ty.zbpet.presenter.material.PickOutPresenter
 import com.ty.zbpet.ui.adapter.diffadapter.TodoCarCodeDiffUtil
 import com.ty.zbpet.ui.adapter.material.PickingTodoDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.JsonStringMerge
@@ -30,6 +31,7 @@ import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils
 import com.ty.zbpet.util.scan.ScanBoxInterface
 import com.ty.zbpet.util.scan.ScanObservable
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
@@ -89,7 +91,7 @@ class PickOutTodoDetailActivity : BaseActivity()
 
     override fun initTwoView() {
 
-        initToolBar(R.string.pick_out_storage, "保存",View.OnClickListener { view ->
+        initToolBar(R.string.pick_out_storage, "保存", View.OnClickListener { view ->
             ZBUiUtils.hideInputWindow(view.context, view)
             pickOutTodoSave(initTodoBody())
         })
@@ -220,7 +222,7 @@ class PickOutTodoDetailActivity : BaseActivity()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun urlEvent(event: UrlMessage){
+    fun urlEvent(event: UrlMessage) {
         val position = event.getPosition()
         val qrCode = event.qrCode()
         //  服务器校验 库位码
@@ -279,10 +281,13 @@ class PickOutTodoDetailActivity : BaseActivity()
         })
     }
 
+    private var dialog: LoadingDialog? = null
     override fun showLoading() {
+        dialog = ShowDialog.showFullDialog(this@PickOutTodoDetailActivity, "保存中")
     }
 
     override fun hideLoading() {
+        dialog?.close()
     }
 
     override fun saveSuccess() {

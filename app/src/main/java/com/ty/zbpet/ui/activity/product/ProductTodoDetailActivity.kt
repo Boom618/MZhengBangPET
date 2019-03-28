@@ -21,8 +21,10 @@ import com.ty.zbpet.presenter.product.ProductUiListInterface
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity
 import com.ty.zbpet.ui.adapter.product.ProductTodoDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.*
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import kotlinx.android.synthetic.main.activity_content_row_three.*
 import okhttp3.RequestBody
@@ -289,10 +291,13 @@ class ProductTodoDetailActivity : BaseActivity()
 
     }
 
+    private var dialog: LoadingDialog? = null
     override fun showLoading() {
+        dialog = ShowDialog.showFullDialog(this@ProductTodoDetailActivity, "保存中")
     }
 
     override fun hideLoading() {
+        dialog?.close()
     }
 
     override fun saveSuccess() {

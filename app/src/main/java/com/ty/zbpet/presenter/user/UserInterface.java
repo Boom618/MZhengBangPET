@@ -20,4 +20,14 @@ public interface UserInterface {
      */
     void onError(String e);
 
+    /**
+     * 保存加载 dialog
+     */
+    void showLoading();
+
+    /**
+     * 隐藏 dialog
+     */
+    void hideLoading();
+
 }

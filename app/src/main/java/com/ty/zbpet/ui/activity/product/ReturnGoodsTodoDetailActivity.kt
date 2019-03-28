@@ -21,8 +21,10 @@ import com.ty.zbpet.presenter.product.ReturnPresenter
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity
 import com.ty.zbpet.ui.adapter.product.ReturnGoodsTodoDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.*
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
@@ -66,16 +68,6 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
     private val positionId: SparseArray<String> = SparseArray(10)
 
     /**
-     * 仓库 ID
-     */
-//    private var warehouseId: String? = null
-
-    /**
-     * 仓库 name
-     */
-//    private val houseName = ArrayList<String>()
-
-    /**
      * 用户信息
      */
     private var userInfo: UserInfo? = null
@@ -93,19 +85,7 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
         sapFirmNo = intent.getStringExtra("sapFirmNo")
         content = intent.getStringExtra("content")
 
-        // 仓库默认值设置
-//        DataUtils.setHouseId(0, 0)
-
         userInfo = DataUtils.getUserInfo()
-//        val warehouseList = userInfo!!.warehouseList
-
-//        val size = warehouseList.size
-//        for (i in 0 until size) {
-//            houseName.add(warehouseList[i].warehouseName.toString())
-//        }
-
-//        selectHouse = findViewById(R.id.tv_house)
-//        tv_house!!.text = houseName[0]
 
         presenter.fetchReturnOrderInfo(sapOrderNo)
     }
@@ -147,26 +127,6 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
         val requestBody = ProductTodoSave()
 
         val detail = ArrayList<ProductTodoSave.DetailsBean>()
-
-        // TODO 获取用户选择的仓库信息
-//        val houseId = DataUtils.getHouseId()
-
-//        val warehouseList = userInfo!!.warehouseList
-
-        // 仓库信息
-//        val warehouseId: String?
-//        val warehouseNo: String?
-//        val warehouseName: String?
-//        if (houseId == null) {
-//            warehouseId = warehouseList!![0].warehouseId
-//            warehouseNo = warehouseList[0].warehouseNo
-//            warehouseName = warehouseList[0].warehouseName
-//        } else {
-//            val which = houseId.get(0)
-//            warehouseId = warehouseList!![which!!].warehouseId
-//            warehouseNo = warehouseList[which].warehouseNo
-//            warehouseName = warehouseList[which].warehouseName
-//        }
 
         val size = oldList.size
         for (i in 0 until size) {
@@ -279,11 +239,13 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
         }
     }
 
+    private var dialog: LoadingDialog? = null
     override fun showLoading() {
-
+        dialog = ShowDialog.showFullDialog(this@ReturnGoodsTodoDetailActivity, "保存中")
     }
 
     override fun hideLoading() {
+        dialog?.close()
     }
 
     override fun saveSuccess() {

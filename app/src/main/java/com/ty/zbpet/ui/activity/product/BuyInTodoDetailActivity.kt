@@ -20,8 +20,10 @@ import com.ty.zbpet.presenter.product.ProductUiListInterface
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity
 import com.ty.zbpet.ui.adapter.product.BuyInTodoDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.*
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
@@ -93,7 +95,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
      */
     override fun initTwoView() {
 
-        initToolBar(R.string.label_purchase_in_storage, "保存",View.OnClickListener { view ->
+        initToolBar(R.string.label_purchase_in_storage, "保存", View.OnClickListener { view ->
             ZBUiUtils.hideInputWindow(view.context, view)
             buyInTodoSave(initTodoBody())
         })
@@ -190,6 +192,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
         requestBody.sapOrderNo = sapOrderNo
         requestBody.supplierNo = supplierNo
         requestBody.supplierName = supplierName
+        requestBody.warehouseId = oldList[0].warehouseId
         requestBody.moveType = "105"
         requestBody.remark = remark
 
@@ -264,11 +267,13 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
         }
     }
 
+    private var dialog: LoadingDialog? = null
     override fun showLoading() {
-
+        dialog = ShowDialog.showFullDialog(this@BuyInTodoDetailActivity, "保存中")
     }
 
     override fun hideLoading() {
+        dialog?.close()
     }
 
     override fun saveSuccess() {

@@ -108,6 +108,7 @@ public class BuyInPresenter {
      * @param body body
      */
     public void buyInTodoSave(RequestBody body) {
+        listInterface.showLoading();
         httpMethods.getBuyInTodoSave(new SingleObserver<ResponseInfo>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -116,6 +117,7 @@ public class BuyInPresenter {
 
             @Override
             public void onSuccess(ResponseInfo responseInfo) {
+                listInterface.hideLoading();
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     listInterface.saveSuccess();
                 } else {
@@ -125,6 +127,7 @@ public class BuyInPresenter {
 
             @Override
             public void onError(Throwable e) {
+                listInterface.hideLoading();
                 listInterface.showError(e.getMessage());
             }
         }, body);
@@ -196,7 +199,7 @@ public class BuyInPresenter {
      * @param body
      */
     public void buyInDoneSave(RequestBody body) {
-
+        listInterface.showLoading();
         httpMethods.getBuyInDoneSave(new SingleObserver<ResponseInfo>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -205,6 +208,7 @@ public class BuyInPresenter {
 
             @Override
             public void onSuccess(ResponseInfo responseInfo) {
+                listInterface.hideLoading();
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     listInterface.saveSuccess();
                 } else {
@@ -214,6 +218,7 @@ public class BuyInPresenter {
 
             @Override
             public void onError(Throwable e) {
+                listInterface.hideLoading();
                 listInterface.showError(e.getMessage());
             }
         }, body);

@@ -182,6 +182,7 @@ public class BackGoodsPresenter {
      * @param body body
      */
     public void backTodoSave(RequestBody body){
+        materialListUi.showLoading();
         httpMethods.getBackTodoSave(new SingleObserver<ResponseInfo>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -190,6 +191,7 @@ public class BackGoodsPresenter {
 
             @Override
             public void onSuccess(ResponseInfo responseInfo) {
+                materialListUi.hideLoading();
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     materialListUi.saveSuccess();
                 }else{
@@ -199,6 +201,7 @@ public class BackGoodsPresenter {
 
             @Override
             public void onError(Throwable e) {
+                materialListUi.hideLoading();
                 materialListUi.showError(e.getMessage());
             }
         }, body);
@@ -268,6 +271,7 @@ public class BackGoodsPresenter {
      * @param body body
      */
     public void backDoneSave(RequestBody body){
+        materialListUi.showLoading();
         httpMethods.getBackDoneSave(new SingleObserver<ResponseInfo>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -276,6 +280,7 @@ public class BackGoodsPresenter {
 
             @Override
             public void onSuccess(ResponseInfo responseInfo) {
+                materialListUi.hideLoading();
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     materialListUi.saveSuccess();
                 }else{
@@ -285,6 +290,7 @@ public class BackGoodsPresenter {
 
             @Override
             public void onError(Throwable e) {
+                materialListUi.hideLoading();
                 materialListUi.showError(e.getMessage());
             }
         }, body);

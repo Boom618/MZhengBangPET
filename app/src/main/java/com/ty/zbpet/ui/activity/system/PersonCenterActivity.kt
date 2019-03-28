@@ -85,4 +85,11 @@ class PersonCenterActivity : BaseActivity(), UserInterface {
         ZBUiUtils.showToast(e)
 
     }
+
+    override fun showLoading() {
+
+    }
+
+    override fun hideLoading() {
+    }
 }

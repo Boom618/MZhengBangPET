@@ -178,6 +178,7 @@ public class PickOutPresenter {
      * @param body
      */
     public void pickOutTodoSave(RequestBody body) {
+        listInterface.showLoading();
         httpMethods.pickOutTodoSave(new SingleObserver<ResponseInfo>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -186,6 +187,7 @@ public class PickOutPresenter {
 
             @Override
             public void onSuccess(ResponseInfo responseInfo) {
+                listInterface.hideLoading();
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     listInterface.saveSuccess();
                 } else {
@@ -195,6 +197,7 @@ public class PickOutPresenter {
 
             @Override
             public void onError(Throwable e) {
+                listInterface.hideLoading();
                 listInterface.showError(e.getMessage());
             }
         }, body);
@@ -266,6 +269,7 @@ public class PickOutPresenter {
      * @param body
      */
     public void pickOutDoneSave(RequestBody body) {
+        listInterface.showLoading();
         httpMethods.pickOutDoneSave(new SingleObserver<ResponseInfo>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -274,6 +278,7 @@ public class PickOutPresenter {
 
             @Override
             public void onSuccess(ResponseInfo responseInfo) {
+                listInterface.hideLoading();
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     listInterface.saveSuccess();
                 } else {
@@ -283,6 +288,7 @@ public class PickOutPresenter {
 
             @Override
             public void onError(Throwable e) {
+                listInterface.hideLoading();
                 listInterface.showError(e.getMessage());
 
             }

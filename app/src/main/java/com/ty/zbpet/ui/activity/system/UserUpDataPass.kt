@@ -67,4 +67,11 @@ class UserUpDataPass : BaseActivity(), UserInterface {
     override fun onError(e: String) {
         ZBUiUtils.showToast(e)
     }
+
+    override fun showLoading() {
+
+    }
+
+    override fun hideLoading() {
+    }
 }

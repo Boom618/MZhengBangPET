@@ -3,7 +3,9 @@ package com.ty.zbpet.ui.activity
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.graphics.PorterDuff
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.ImageView
@@ -16,11 +18,14 @@ import com.qingmei2.rximagepicker_extension.MimeType
 import com.qingmei2.rximagepicker_extension_zhihu.ZhihuConfigurationBuilder
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.eventbus.system.ImageEvent
+import com.ty.zbpet.ui.MainApp.context
 import com.ty.zbpet.ui.adapter.system.RecyclerImageAdapter
 import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ZBUiUtils
 import com.ty.zbpet.util.image.ZhiHuImagePicker
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import kotlinx.android.synthetic.main.activity_demo.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -42,6 +47,7 @@ class DemoMainActivity : BaseActivity() {
 
     override fun initOneData() {
 
+
         openGallery.setOnClickListener { openGallery(image) }
         openCamera.setOnClickListener { openCamera(image) }
         list.add("http://f.hiphotos.baidu.com/image/pic/item/9c16fdfaaf51f3de19e15a669aeef01f3a297965.jpg")
@@ -49,6 +55,7 @@ class DemoMainActivity : BaseActivity() {
         DataUtils.saveImage("9c16fdfaaf51f3de19e15a669aeef01f3a297965.jpg")
         DataUtils.saveImage("4e4a20a4462309f7dbef7b047c0e0cf3d7cad620.jpg")
     }
+
     val list = ArrayList<String>()
     override fun initTwoView() {
 
@@ -59,33 +66,35 @@ class DemoMainActivity : BaseActivity() {
         adapter = RecyclerImageAdapter(this@DemoMainActivity, list)
         recycler_demo.adapter = adapter
 
+
     }
 
     private val rxImagePicker = RxImagePicker.create(ZhiHuImagePicker::class.java)
 
     @SuppressLint("CheckResult")
     private fun openGallery(imageView: ImageView) {
+        ShowDialog.showFullDialog(this@DemoMainActivity,"加载中")
 
-        rxImagePicker.openGallery(this, ZhihuConfigurationBuilder(MimeType.ofImage(), false)
-                .maxSelectable(1)
-                .countable(true)
-//                .spanCount(1)
-                .theme(R.style.Zhihu_Dracula)
-                .build())
-                .subscribe {
-                    Glide.with(this@DemoMainActivity)
-                            .load(it.uri)
-                            .into(imageView)
-                }
+//        rxImagePicker.openGallery(this, ZhihuConfigurationBuilder(MimeType.ofImage(), false)
+//                .maxSelectable(1)
+//                .countable(true)
+////                .spanCount(1)
+//                .theme(R.style.Zhihu_Dracula)
+//                .build())
+//                .subscribe {
+//                    Glide.with(this@DemoMainActivity)
+//                            .load(it.uri)
+//                            .into(imageView)
+//                }
     }
 
     @SuppressLint("CheckResult")
     private fun openCamera(imageView: ImageView) {
-        rxImagePicker.openCamera(this).subscribe {
-            Glide.with(this@DemoMainActivity)
-                    .load(it.uri)
-                    .into(imageView)
-        }
+//        rxImagePicker.openCamera(this).subscribe {
+//            Glide.with(this@DemoMainActivity)
+//                    .load(it.uri)
+//                    .into(imageView)
+//        }
 
     }
 
@@ -99,7 +108,6 @@ class DemoMainActivity : BaseActivity() {
                 .isCamera(true)
                 .selectionMode(1)
                 .forResult(PictureConfig.CHOOSE_REQUEST)
-
 
 
     }

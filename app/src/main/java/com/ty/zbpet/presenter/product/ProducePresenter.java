@@ -104,6 +104,7 @@ public class ProducePresenter {
      * 代办保存
      */
     public void productTodoSave(RequestBody body) {
+        listInterface.showLoading();
         httpMethods.getProduceTodoSave(new SingleObserver<ResponseInfo>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -112,6 +113,7 @@ public class ProducePresenter {
 
             @Override
             public void onSuccess(ResponseInfo responseInfo) {
+                listInterface.hideLoading();
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     listInterface.saveSuccess();
                 } else {
@@ -121,6 +123,7 @@ public class ProducePresenter {
 
             @Override
             public void onError(Throwable e) {
+                listInterface.hideLoading();
                 listInterface.showError(e.getMessage());
             }
         }, body);
@@ -192,6 +195,7 @@ public class ProducePresenter {
      * @param body
      */
     public void productDoneSave(RequestBody body) {
+        listInterface.showLoading();
         httpMethods.getProduceDoneSave(new SingleObserver<ResponseInfo>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -200,6 +204,7 @@ public class ProducePresenter {
 
             @Override
             public void onSuccess(ResponseInfo responseInfo) {
+                listInterface.hideLoading();
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     listInterface.saveSuccess();
                 } else {
@@ -209,6 +214,7 @@ public class ProducePresenter {
 
             @Override
             public void onError(Throwable e) {
+                listInterface.hideLoading();
                 listInterface.showError(e.getMessage());
             }
         }, body);

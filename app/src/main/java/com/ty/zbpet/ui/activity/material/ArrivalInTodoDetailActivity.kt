@@ -22,6 +22,7 @@ import com.ty.zbpet.presenter.material.MaterialUiListInterface
 import com.ty.zbpet.ui.adapter.diffadapter.TodoCarCodeDiffUtil
 import com.ty.zbpet.ui.adapter.material.MaterialTodoDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.JsonStringMerge
@@ -29,6 +30,7 @@ import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils
 import com.ty.zbpet.util.scan.ScanBoxInterface
 import com.ty.zbpet.util.scan.ScanObservable
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_content_row_two.*
@@ -99,7 +101,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
 
     override fun initTwoView() {
 
-        initToolBar(R.string.label_purchase_detail, "保存",View.OnClickListener {
+        initToolBar(R.string.label_purchase_detail, "保存", View.OnClickListener {
             ZBUiUtils.hideInputWindow(it.context, it)
             doPurchaseInRecallOut(initParam())
         })
@@ -287,7 +289,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun urlEvent(event:UrlMessage){
+    fun urlEvent(event: UrlMessage) {
         val position = event.getPosition()
         val qrCode = event.qrCode()
         //  服务器校验 库位码
@@ -323,11 +325,13 @@ class ArrivalInTodoDetailActivity : BaseActivity()
         ZBUiUtils.showToast(msg)
     }
 
-
+    private var dialog: LoadingDialog? = null
     override fun showLoading() {
+        dialog = ShowDialog.showFullDialog(this@ArrivalInTodoDetailActivity, "保存中")
     }
 
     override fun hideLoading() {
+        dialog?.close()
     }
 
 

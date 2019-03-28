@@ -9,6 +9,8 @@ import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.util.ACache;
+import com.xiasuhuei321.loadingdialog.manager.StyleManager;
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
 
 /**
  * @author TY
@@ -30,6 +32,12 @@ public class MainApp extends MultiDexApplication {
         context = this;
 
         mCache = ACache.get(context);
+        // dialog manager
+        StyleManager s = new StyleManager();
+        //在这里调用方法设置s的属性
+        s.Anim(false).repeatTime(0).contentSize(-1).intercept(true);
+        LoadingDialog.initStyle(s);
+
         // 日志 logger 库
         Logger.addLogAdapter(new AndroidLogAdapter());
         // bugly
