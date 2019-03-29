@@ -210,6 +210,7 @@ class ProductTodoDetailActivity : BaseActivity()
                 bean.goodsNo = oldList[i].goodsNo
                 bean.goodsName = oldList[i].goodsName
                 bean.boxQrCode = boxQrCode
+                bean.unit = oldList[i].unit
 
                 detail.add(bean)
             }

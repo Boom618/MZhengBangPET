@@ -381,6 +381,7 @@ public class MaterialPresenter {
      * @param body body
      */
     public void quaCheckTodoSave(RequestBody body) {
+        materialListUi.showLoading();
         httpMethods.getQualityCheckTodoSave(new SingleObserver<ResponseInfo>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -389,6 +390,7 @@ public class MaterialPresenter {
 
             @Override
             public void onSuccess(ResponseInfo responseInfo) {
+                materialListUi.hideLoading();
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     materialListUi.saveSuccess();
                 } else {
@@ -398,6 +400,7 @@ public class MaterialPresenter {
 
             @Override
             public void onError(Throwable e) {
+                materialListUi.hideLoading();
                 materialListUi.showError(e.getMessage());
             }
         }, body);

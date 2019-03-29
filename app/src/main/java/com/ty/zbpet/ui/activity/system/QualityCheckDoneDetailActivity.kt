@@ -210,14 +210,6 @@ class QualityCheckDoneDetailActivity : BaseActivity() {
             //selectList.add(phone)
         }
 
-//        val openGallery = PictureSelector.create(this@QualityCheckDoneDetailActivity)
-//        openGallery.openGallery(chooseMode)
-//                .selectionMedia(selectList)
-
-
-
-
-
         gridLayoutManager = GridLayoutManager(this, 3)
         gridLayoutManager?.orientation = LinearLayoutManager.VERTICAL
         recycler_image.layoutManager = gridLayoutManager

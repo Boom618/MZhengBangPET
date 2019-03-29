@@ -41,7 +41,7 @@ public class ReturnPresenter {
     /**
      * 待办列表
      */
-    public void fetchReturnGoodsTodoList() {
+    public void fetchReturnGoodsTodoList(String sapOrderNo, String startDate, String endDate) {
         httpMethods.getReturnOrderList(new SingleObserver<BaseResponse<ProductList>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -64,7 +64,7 @@ public class ReturnPresenter {
             public void onError(Throwable e) {
                 listInterface.showError(e.getMessage());
             }
-        });
+        }, sapOrderNo, startDate, endDate);
     }
 
 
@@ -136,7 +136,7 @@ public class ReturnPresenter {
     /**
      * 已办列表
      */
-    public void fetchReturnGoodsDoneList(String type) {
+    public void fetchReturnGoodsDoneList(String type, String sapOrderNo, String startDate, String endDate) {
         httpMethods.getReturnDoneList(new SingleObserver<BaseResponse<ProductList>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -160,7 +160,7 @@ public class ReturnPresenter {
             public void onError(Throwable e) {
                 listInterface.showError(e.getMessage());
             }
-        }, type);
+        }, type, sapOrderNo, startDate, endDate);
     }
 
 

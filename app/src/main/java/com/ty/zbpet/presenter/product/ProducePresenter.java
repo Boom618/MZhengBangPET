@@ -132,7 +132,7 @@ public class ProducePresenter {
     /**
      * 已办列表
      */
-    public void fetchProductDoneList(String type) {
+    public void fetchProductDoneList(String type,String sapOrderNo,String startDate,String endDate) {
         httpMethods.getProduceDoneList(new SingleObserver<BaseResponse<ProductList>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -155,7 +155,7 @@ public class ProducePresenter {
             public void onError(Throwable e) {
                 listInterface.showError(e.getMessage());
             }
-        }, type);
+        }, type,sapOrderNo,startDate,endDate);
     }
 
     /**

@@ -510,10 +510,11 @@ public class HttpMethods {
     /**
      * 生产入库 已办列表
      *
-     * @param subscriber
+     * @param subscriber Observer
      */
-    public void getProduceDoneList(SingleObserver<BaseResponse<ProductList>> subscriber, String type) {
-        mService.getProduceDoneList(type)
+    public void getProduceDoneList(SingleObserver<BaseResponse<ProductList>> subscriber, String type,
+                                   String sapOrderNo,String startDate,String endDate) {
+        mService.getProduceDoneList(type,sapOrderNo,startDate,endDate)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -549,8 +550,9 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getShipOrderList(SingleObserver<BaseResponse<ProductList>> subscriber) {
-        mService.getShipOrderList()
+    public void getShipOrderList(SingleObserver<BaseResponse<ProductList>> subscriber,
+                                 String sapOrderNo,String startDate,String endDate) {
+        mService.getShipOrderList(sapOrderNo,startDate,endDate)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -582,8 +584,9 @@ public class HttpMethods {
      *
      * @param subscriber
      */
-    public void getShipDoneList(SingleObserver<BaseResponse<ProductList>> subscriber, String type) {
-        mService.getShipDoneList(type)
+    public void getShipDoneList(SingleObserver<BaseResponse<ProductList>> subscriber, String type,
+            String sapOrderNo, String startDate, String endDate) {
+        mService.getShipDoneList(type,sapOrderNo,startDate,endDate)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -615,12 +618,13 @@ public class HttpMethods {
     /**--------------------------------- 退货入库 ----------------------------------------*/
 
     /**
-     * 退货入库 已办列表
+     * 退货入库 待办列表
      *
-     * @param subscriber
+     * @param subscriber Observer
      */
-    public void getReturnOrderList(SingleObserver<BaseResponse<ProductList>> subscriber) {
-        mService.getReturnOrderList()
+    public void getReturnOrderList(SingleObserver<BaseResponse<ProductList>> subscriber,
+                                   String sapOrderNo,String startDate,String endDate) {
+        mService.getReturnOrderList(sapOrderNo,startDate,endDate)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -650,10 +654,11 @@ public class HttpMethods {
     /**
      * 退货入库 已办列表
      *
-     * @param subscriber
+     * @param subscriber Observer
      */
-    public void getReturnDoneList(SingleObserver<BaseResponse<ProductList>> subscriber, String type) {
-        mService.getReturnDoneList(type)
+    public void getReturnDoneList(SingleObserver<BaseResponse<ProductList>> subscriber, String type,
+                                  String sapOrderNo,String startDate,String endDate) {
+        mService.getReturnDoneList(type,sapOrderNo,startDate,endDate)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }

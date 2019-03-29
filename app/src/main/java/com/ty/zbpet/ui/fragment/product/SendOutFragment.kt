@@ -58,8 +58,19 @@ class SendOutFragment : BaseFragment(), ProductUiListInterface<ProductList.ListB
     override fun loadData() {
         fragmentType = arguments!!.getString(CodeConstant.FRAGMENT_TYPE)!!
         when (fragmentType) {
-            CodeConstant.FRAGMENT_TODO -> presenter.fetchSendOutTodoList()
-            CodeConstant.FRAGMENT_DONE -> presenter.fetchSendOutDoneList(CodeConstant.PICK_OUT_TYPE)
+            //CodeConstant.FRAGMENT_TODO -> presenter.fetchSendOutTodoList()
+            CodeConstant.FRAGMENT_DONE -> presenter.fetchSendOutDoneList(CodeConstant.PICK_OUT_TYPE, "", "", "")
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (isVisble) {
+            fragmentType = arguments!!.getString(CodeConstant.FRAGMENT_TYPE)!!
+            when (fragmentType) {
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchSendOutTodoList("", "", "")
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchSendOutDoneList(CodeConstant.PICK_OUT_TYPE, "", "", "")
+            }
         }
     }
 
@@ -71,8 +82,8 @@ class SendOutFragment : BaseFragment(), ProductUiListInterface<ProductList.ListB
             refreshLayout.finishRefresh(1000)
             // 刷新数据
             when (fragmentType) {
-                CodeConstant.FRAGMENT_TODO -> presenter.fetchSendOutTodoList()
-                CodeConstant.FRAGMENT_DONE -> presenter.fetchSendOutDoneList(CodeConstant.PICK_OUT_TYPE)
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchSendOutTodoList("", "", "")
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchSendOutDoneList(CodeConstant.PICK_OUT_TYPE, "", "", "")
             }
         }
 //        refreshLayout!!.setOnLoadMoreListener { refreshLayout ->
@@ -139,11 +150,12 @@ class SendOutFragment : BaseFragment(), ProductUiListInterface<ProductList.ListB
             val startTime = event.leftTime()
             val endTime = event.rightTime()
             when (fragmentType) {
-                CodeConstant.FRAGMENT_TODO -> presenter.fetchSendOutTodoList()
-                CodeConstant.FRAGMENT_DONE -> presenter.fetchSendOutDoneList(CodeConstant.PICK_OUT_TYPE)
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchSendOutTodoList(search, startTime, endTime)
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchSendOutDoneList(CodeConstant.PICK_OUT_TYPE, search, startTime, endTime)
             }
         }
     }
+
     override fun showLoading() {
 
     }

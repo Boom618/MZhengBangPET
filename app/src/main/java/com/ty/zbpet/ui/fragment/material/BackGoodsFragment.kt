@@ -53,11 +53,21 @@ class BackGoodsFragment : BaseFragment(), MaterialUiListInterface<MaterialList.L
     }
 
     override fun loadData() {
-
         fragmentType = arguments!!.getString(CodeConstant.FRAGMENT_TYPE)!!
         when (fragmentType) {
-            CodeConstant.FRAGMENT_TODO -> presenter.fetchBackTodoList("", "", "")
+            //CodeConstant.FRAGMENT_TODO -> presenter.fetchBackTodoList("", "", "")
             CodeConstant.FRAGMENT_DONE -> presenter.fetchBackDoneList(CodeConstant.BACK_GOODS_TYPE, "", "", "")
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (isVisble) {
+            fragmentType = arguments!!.getString(CodeConstant.FRAGMENT_TYPE)!!
+            when (fragmentType) {
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchBackTodoList("", "", "")
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchBackDoneList(CodeConstant.BACK_GOODS_TYPE, "", "", "")
+            }
         }
     }
 

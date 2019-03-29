@@ -56,8 +56,19 @@ class BuyInFragment : BaseFragment(), ProductUiListInterface<ProductList.ListBea
     override fun loadData() {
         fragmentType = arguments!!.getString(CodeConstant.FRAGMENT_TYPE)!!
         when (fragmentType) {
-            CodeConstant.FRAGMENT_TODO -> presenter.fetchBuyInTodoList("", "", "")
+            //CodeConstant.FRAGMENT_TODO -> presenter.fetchBuyInTodoList("", "", "")
             CodeConstant.FRAGMENT_DONE -> presenter.fetchBuyInDoneList(CodeConstant.BUY_IN_TYPE, "", "", "")
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        fragmentType = arguments!!.getString(CodeConstant.FRAGMENT_TYPE)!!
+        if (isVisble) {
+            when (fragmentType) {
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchBuyInTodoList("", "", "")
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchBuyInDoneList(CodeConstant.BUY_IN_TYPE, "", "", "")
+            }
         }
     }
 

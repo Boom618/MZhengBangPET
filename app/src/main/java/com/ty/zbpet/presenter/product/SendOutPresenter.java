@@ -42,7 +42,7 @@ public class SendOutPresenter {
     /**
      * 待办列表
      */
-    public void fetchSendOutTodoList() {
+    public void fetchSendOutTodoList(String sapOrderNo, String startDate, String endDate) {
         httpMethods.getShipOrderList(new SingleObserver<BaseResponse<ProductList>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -65,7 +65,7 @@ public class SendOutPresenter {
             public void onError(Throwable e) {
                 listInterface.showError(e.getMessage());
             }
-        });
+        }, sapOrderNo, startDate, endDate);
     }
 
 
@@ -137,7 +137,7 @@ public class SendOutPresenter {
     /**
      * 已办列表
      */
-    public void fetchSendOutDoneList(String type) {
+    public void fetchSendOutDoneList(String type,String sapOrderNo, String startDate, String endDate) {
         httpMethods.getShipDoneList(new SingleObserver<BaseResponse<ProductList>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -164,7 +164,7 @@ public class SendOutPresenter {
             public void onError(Throwable e) {
                 listInterface.showError(e.getMessage());
             }
-        }, type);
+        }, type,sapOrderNo,startDate,endDate);
     }
 
     /**

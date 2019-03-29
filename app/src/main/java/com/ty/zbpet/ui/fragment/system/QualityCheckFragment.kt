@@ -41,7 +41,7 @@ class QualityCheckFragment : BaseFragment(), SystemUiListInterface<MaterialList.
     private var adapterTodo: QuaCheckTodoListAdapter? = null
     private var adapterDone: QuaCheckDoneListAdapter? = null
 
-    private lateinit var fragmentType:String
+    private lateinit var fragmentType: String
 
     override val fragmentLayout: Int
         get() = R.layout.zb_content_list_fragment
@@ -62,8 +62,19 @@ class QualityCheckFragment : BaseFragment(), SystemUiListInterface<MaterialList.
     override fun loadData() {
         fragmentType = arguments!!.getString(CodeConstant.FRAGMENT_TYPE)!!
         when (fragmentType) {
-            CodeConstant.FRAGMENT_TODO -> presenter.fetchQualityCheckTodoList("","","")
-            CodeConstant.FRAGMENT_DONE -> presenter.fetchQualityCheckDoneList("","","")
+            //CodeConstant.FRAGMENT_TODO -> presenter.fetchQualityCheckTodoList("", "", "")
+            CodeConstant.FRAGMENT_DONE -> presenter.fetchQualityCheckDoneList("", "", "")
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (isVisble) {
+            fragmentType = arguments!!.getString(CodeConstant.FRAGMENT_TYPE)!!
+            when (fragmentType) {
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchQualityCheckTodoList("", "", "")
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchQualityCheckDoneList("", "", "")
+            }
         }
     }
 
@@ -75,8 +86,8 @@ class QualityCheckFragment : BaseFragment(), SystemUiListInterface<MaterialList.
             refreshLayout.finishRefresh(1000)
             // 刷新数据
             when (fragmentType) {
-                CodeConstant.FRAGMENT_TODO -> presenter.fetchQualityCheckTodoList("","","")
-                CodeConstant.FRAGMENT_DONE -> presenter.fetchQualityCheckDoneList("","","")
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchQualityCheckTodoList("", "", "")
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchQualityCheckDoneList("", "", "")
             }
         }
 //        refreshLayout!!.setOnLoadMoreListener { refreshLayout ->
@@ -93,7 +104,7 @@ class QualityCheckFragment : BaseFragment(), SystemUiListInterface<MaterialList.
             ZBUiUtils.showToast("质检没有找到结果")
         }
 
-        when(fragmentType) {
+        when (fragmentType) {
             CodeConstant.FRAGMENT_TODO -> {
                 adapterTodo = QuaCheckTodoListAdapter(ResourceUtil.getContext(), R.layout.item_quality_list, list)
                 recyclerView.adapter = adapterTodo
@@ -148,8 +159,8 @@ class QualityCheckFragment : BaseFragment(), SystemUiListInterface<MaterialList.
             val startTime = event.leftTime()
             val endTime = event.rightTime()
             when (fragmentType) {
-                CodeConstant.FRAGMENT_TODO -> presenter.fetchQualityCheckTodoList(search,startTime,endTime)
-                CodeConstant.FRAGMENT_DONE -> presenter.fetchQualityCheckDoneList(search,startTime,endTime)
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchQualityCheckTodoList(search, startTime, endTime)
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchQualityCheckDoneList(search, startTime, endTime)
             }
         }
     }

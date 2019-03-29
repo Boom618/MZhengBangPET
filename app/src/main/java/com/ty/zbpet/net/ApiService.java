@@ -244,7 +244,10 @@ public interface ApiService {
     /**
      * 采购退货 待办列表
      *
-     * @return
+     * @param sapOrderNo 搜索单号
+     * @param startDate  开始时间
+     * @param endDate    结束时间
+     * @return Single
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_BACK_GOODS_TODO_LIST)
@@ -277,8 +280,11 @@ public interface ApiService {
     /**
      * 采购退货 已办列表
      *
-     * @param type
-     * @return
+     * @param type       type
+     * @param sapOrderNo 搜索单号
+     * @param startDate  开始时间
+     * @param endDate    结束时间
+     * @return Single
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_BACK_GOODS_DONE_LIST)
@@ -290,8 +296,8 @@ public interface ApiService {
     /**
      * 采购退货 已办详情
      *
-     * @param orderId
-     * @return
+     * @param orderId orderId
+     * @return Single
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_BACK_GOODS_DONE_LIST_INFO)
@@ -300,8 +306,8 @@ public interface ApiService {
     /**
      * 采购退货 已办保存
      *
-     * @param body
-     * @return
+     * @param body body
+     * @return Single
      */
     @POST(ApiNameConstant.GET_BACK_GOODS_DONE_SAVE)
     Single<ResponseInfo> getBackDoneSave(@Body RequestBody body);
@@ -315,7 +321,10 @@ public interface ApiService {
     /**
      * 外采入库 待办列表
      *
-     * @return
+     * @param sapOrderNo 搜索单号
+     * @param startDate  开始时间
+     * @param endDate    结束时间
+     * @return Single
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_GOODS_PURCHASE_ORDER_LIST)
@@ -339,8 +348,8 @@ public interface ApiService {
     /**
      * 外采入库 待办保存
      *
-     * @param body
-     * @return
+     * @param body body
+     * @return Single
      */
     @POST(ApiNameConstant.GET_PURCHASE_TODO_SAVE)
     Single<ResponseInfo> getBuyInTodoSave(@Body RequestBody body);
@@ -349,8 +358,11 @@ public interface ApiService {
     /**
      * 外采入库 已办列表
      *
-     * @param type
-     * @return
+     * @param type       type
+     * @param sapOrderNo 搜索单号
+     * @param startDate  开始时间
+     * @param endDate    结束时间
+     * @return single
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_PURCHASE_DONE_LIST)
@@ -362,8 +374,8 @@ public interface ApiService {
     /**
      * 外采入库 已办列表 详情
      *
-     * @param orderId
-     * @return
+     * @param orderId orderId
+     * @return Single
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_PURCHASE_DONE_LIST_INFO)
@@ -384,7 +396,10 @@ public interface ApiService {
     /**
      * 生产入库 待办列表
      *
-     * @return
+     * @param sapOrderNo 搜索单号
+     * @param startDate  开始时间
+     * @param endDate    结束时间
+     * @return Single
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_PRODUCE_ORDER_LIST)
@@ -418,12 +433,18 @@ public interface ApiService {
     /**
      * 生产入库 已办列表
      *
-     * @param type
-     * @return
+     * @param type       type
+     * @param sapOrderNo 搜索单号
+     * @param startDate  开始时间
+     * @param endDate    结束时间
+     * @return Single
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_PRODUCE_DONE_LIST)
-    Single<BaseResponse<ProductList>> getProduceDoneList(@Field("type") String type);
+    Single<BaseResponse<ProductList>> getProduceDoneList(@Field("type") String type,
+                                                         @Field("sapOrderNo") String sapOrderNo,
+                                                         @Field("startDate") String startDate,
+                                                         @Field("endDate") String endDate);
 
     /**
      * 生产入库 已办列表 详情
@@ -438,8 +459,8 @@ public interface ApiService {
     /**
      * 生产入库 已办保存
      *
-     * @param body
-     * @return
+     * @param body body
+     * @return Single
      */
     @POST(ApiNameConstant.GET_PRODUCE_DONE_SAVE)
     Single<ResponseInfo> getProduceDoneSave(@Body RequestBody body);
@@ -450,16 +471,19 @@ public interface ApiService {
     /**
      * 发货出库 待办列表
      *
-     * @return
+     * @return Single
      */
+    @FormUrlEncoded
     @POST(ApiNameConstant.GET_SHIP_ORDER_LIST)
-    Single<BaseResponse<ProductList>> getShipOrderList();
+    Single<BaseResponse<ProductList>> getShipOrderList(@Field("sapOrderNo") String sapOrderNo,
+                                                       @Field("startDate") String startDate,
+                                                       @Field("endDate") String endDate);
 
     /**
      * 发货出库 待办详情
      *
      * @param sapOrderNo
-     * @return
+     * @return Single
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_SHIP_ORDER_INFO)
@@ -479,12 +503,15 @@ public interface ApiService {
     /**
      * 发货出库 已办列表
      *
-     * @param type
-     * @return
+     * @param type type
+     * @return Single
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_SHIP_DONE_LIST)
-    Single<BaseResponse<ProductList>> getShipDoneList(@Field("type") String type);
+    Single<BaseResponse<ProductList>> getShipDoneList(@Field("type") String type,
+                                                      @Field("sapOrderNo") String sapOrderNo,
+                                                      @Field("startDate") String startDate,
+                                                      @Field("endDate") String endDate);
 
     /**
      * 发货出库 已办列表 详情
@@ -510,10 +537,16 @@ public interface ApiService {
     /**
      * 退货入库 待办列表
      *
-     * @return
+     * @param sapOrderNo 搜索单号
+     * @param startDate  开始时间
+     * @param endDate    结束时间
+     * @return Single
      */
+    @FormUrlEncoded
     @POST(ApiNameConstant.GET_RETURN_ORDER_LIST)
-    Single<BaseResponse<ProductList>> getReturnOrderList();
+    Single<BaseResponse<ProductList>> getReturnOrderList(@Field("sapOrderNo") String sapOrderNo,
+                                                         @Field("startDate") String startDate,
+                                                         @Field("endDate") String endDate);
 
     /**
      * 退货入库 待办详情
@@ -539,18 +572,24 @@ public interface ApiService {
     /**
      * 退货入库 已办列表
      *
-     * @param type
-     * @return
+     * @param type       type
+     * @param sapOrderNo 搜索单号
+     * @param startDate  开始时间
+     * @param endDate    结束时间
+     * @return Single
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_RETURN_DONE_LIST)
-    Single<BaseResponse<ProductList>> getReturnDoneList(@Field("type") String type);
+    Single<BaseResponse<ProductList>> getReturnDoneList(@Field("type") String type,
+                                                        @Field("sapOrderNo") String sapOrderNo,
+                                                        @Field("startDate") String startDate,
+                                                        @Field("endDate") String endDate);
 
     /**
      * 退货入库 已办列表 详情
      *
-     * @param orderId
-     * @return
+     * @param orderId orderId
+     * @return Single
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_RETURN_DONE_LIST_INFO)

@@ -41,7 +41,7 @@ class ArrivalInFragment : BaseFragment(),MaterialUiListInterface<MaterialList.Li
     override val fragmentLayout: Int
         get() = R.layout.zb_content_list_fragment
 
-    private lateinit var fragmentType:String
+    private var fragmentType = ""
     private var adapterTodo: MaterialTodoAdapter? = null
     private var adapterDone: MaterialDoneAdapter? = null
     private val presenter = MaterialPresenter(this)
@@ -65,15 +65,26 @@ class ArrivalInFragment : BaseFragment(),MaterialUiListInterface<MaterialList.Li
     override fun loadData() {
         fragmentType = arguments!!.getString(CodeConstant.FRAGMENT_TYPE)!!
         when (fragmentType) {
-            CodeConstant.FRAGMENT_TODO -> presenter.fetchTODOMaterial("", "", "")
+            //CodeConstant.FRAGMENT_TODO -> presenter.fetchTODOMaterial("", "", "")
             CodeConstant.FRAGMENT_DONE -> presenter.fetchDoneMaterial(CodeConstant.BUY_IN_TYPE,"","","")
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        fragmentType = arguments!!.getString(CodeConstant.FRAGMENT_TYPE)!!
+        if (isVisble) {
+            when (fragmentType) {
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchTODOMaterial("", "", "")
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchDoneMaterial(CodeConstant.BUY_IN_TYPE,"","","")
+            }
         }
     }
 
     override fun onResume() {
         super.onResume()
 
-        refreshLayout!!.setOnRefreshListener { refreshLayout ->
+        refreshLayout.setOnRefreshListener { refreshLayout ->
             // 传入 false 表示刷新失败
             refreshLayout.finishRefresh(1000)
             // 刷新数据

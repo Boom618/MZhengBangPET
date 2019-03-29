@@ -37,6 +37,7 @@ class MaterialDetails {
         var stockNumber: String? = null
         var concentration: String? = null
         var supplierNo: String? = null
+        var sapOrderNo: String? = null
         var supplierId: String? = null
         var positionNo: String? = null
         var supplierName: String? = null

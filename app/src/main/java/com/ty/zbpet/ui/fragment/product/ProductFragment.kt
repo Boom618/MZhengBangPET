@@ -57,10 +57,20 @@ class ProductFragment : BaseFragment(), ProductUiListInterface<ProductList.ListB
     override fun loadData() {
         fragmentType = arguments!!.getString(CodeConstant.FRAGMENT_TYPE)!!
         when (fragmentType) {
-            CodeConstant.FRAGMENT_TODO -> presenter.fetchProductTodoList("", "", "")
-            CodeConstant.FRAGMENT_DONE -> presenter.fetchProductDoneList(CodeConstant.PRODUCT_TYPE)
+            //CodeConstant.FRAGMENT_TODO -> presenter.fetchProductTodoList("", "", "")
+            CodeConstant.FRAGMENT_DONE -> presenter.fetchProductDoneList(CodeConstant.PRODUCT_TYPE, "", "", "")
         }
+    }
 
+    override fun onStart() {
+        super.onStart()
+        if (isVisble) {
+            fragmentType = arguments!!.getString(CodeConstant.FRAGMENT_TYPE)!!
+            when (fragmentType) {
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchProductTodoList("", "", "")
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchProductDoneList(CodeConstant.PRODUCT_TYPE, "", "", "")
+            }
+        }
     }
 
     override fun onResume() {
@@ -72,7 +82,7 @@ class ProductFragment : BaseFragment(), ProductUiListInterface<ProductList.ListB
             // 刷新数据
             when (fragmentType) {
                 CodeConstant.FRAGMENT_TODO -> presenter.fetchProductTodoList("", "", "")
-                CodeConstant.FRAGMENT_DONE -> presenter.fetchProductDoneList(CodeConstant.PRODUCT_TYPE)
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchProductDoneList(CodeConstant.PRODUCT_TYPE, "", "", "")
             }
         }
 //        refreshLayout!!.setOnLoadMoreListener { refreshLayout ->
@@ -141,7 +151,7 @@ class ProductFragment : BaseFragment(), ProductUiListInterface<ProductList.ListB
             val endTime = event.rightTime()
             when (fragmentType) {
                 CodeConstant.FRAGMENT_TODO -> presenter.fetchProductTodoList(search, startTime, endTime)
-                CodeConstant.FRAGMENT_DONE -> presenter.fetchProductDoneList(CodeConstant.PRODUCT_TYPE)
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchProductDoneList(CodeConstant.PRODUCT_TYPE, search, startTime, endTime)
             }
         }
     }

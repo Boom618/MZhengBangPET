@@ -64,8 +64,19 @@ class PickOutFragment : BaseFragment(), MaterialUiListInterface<MaterialList.Lis
     override fun loadData() {
         fragmentType = arguments!!.getString(CodeConstant.FRAGMENT_TYPE)!!
         when (fragmentType) {
-            CodeConstant.FRAGMENT_TODO -> presenter.fetchPickOutTodoList("", "", "", "")
+            //CodeConstant.FRAGMENT_TODO -> presenter.fetchPickOutTodoList("", "", "", "")
             CodeConstant.FRAGMENT_DONE -> presenter.fetchPickOutDoneList(CodeConstant.PICK_OUT_TYPE, "", "", "")
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (isVisble) {
+            fragmentType = arguments!!.getString(CodeConstant.FRAGMENT_TYPE)!!
+            when (fragmentType) {
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchPickOutTodoList("", "", "", "")
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchPickOutDoneList(CodeConstant.PICK_OUT_TYPE, "", "", "")
+            }
         }
     }
 

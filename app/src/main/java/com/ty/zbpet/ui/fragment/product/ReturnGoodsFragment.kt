@@ -56,8 +56,19 @@ class ReturnGoodsFragment : BaseFragment(), ProductUiListInterface<ProductList.L
     override fun loadData() {
         fragmentType = arguments!!.getString(CodeConstant.FRAGMENT_TYPE)!!
         when (fragmentType) {
-            CodeConstant.FRAGMENT_TODO -> presenter.fetchReturnGoodsTodoList()
-            CodeConstant.FRAGMENT_DONE -> presenter.fetchReturnGoodsDoneList(CodeConstant.RETURN_TYPE)
+            //CodeConstant.FRAGMENT_TODO -> presenter.fetchReturnGoodsTodoList("", "", "")
+            CodeConstant.FRAGMENT_DONE -> presenter.fetchReturnGoodsDoneList(CodeConstant.RETURN_TYPE,"", "", "")
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (isVisble) {
+            fragmentType = arguments!!.getString(CodeConstant.FRAGMENT_TYPE)!!
+            when (fragmentType) {
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchReturnGoodsTodoList("", "", "")
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchReturnGoodsDoneList(CodeConstant.RETURN_TYPE,"", "", "")
+            }
         }
     }
 
@@ -69,8 +80,8 @@ class ReturnGoodsFragment : BaseFragment(), ProductUiListInterface<ProductList.L
             refreshLayout.finishRefresh(1000)
             // 刷新数据
             when (fragmentType) {
-                CodeConstant.FRAGMENT_TODO -> presenter.fetchReturnGoodsTodoList()
-                CodeConstant.FRAGMENT_DONE -> presenter.fetchReturnGoodsDoneList(CodeConstant.RETURN_TYPE)
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchReturnGoodsTodoList("", "", "")
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchReturnGoodsDoneList(CodeConstant.RETURN_TYPE,"", "", "")
             }
         }
 //        refreshLayout!!.setOnLoadMoreListener { refreshLayout ->
@@ -136,8 +147,8 @@ class ReturnGoodsFragment : BaseFragment(), ProductUiListInterface<ProductList.L
             val startTime = event.leftTime()
             val endTime = event.rightTime()
             when (fragmentType) {
-                CodeConstant.FRAGMENT_TODO -> presenter.fetchReturnGoodsTodoList()
-                CodeConstant.FRAGMENT_DONE -> presenter.fetchReturnGoodsDoneList(CodeConstant.RETURN_TYPE)
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchReturnGoodsTodoList(search, startTime, endTime)
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchReturnGoodsDoneList(CodeConstant.RETURN_TYPE,search, startTime, endTime)
             }
         }
     }

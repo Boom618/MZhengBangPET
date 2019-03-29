@@ -26,10 +26,12 @@ import com.ty.zbpet.ui.adapter.LayoutInit
 import com.ty.zbpet.ui.adapter.system.GridImageAdapter
 import com.ty.zbpet.ui.adapter.system.QuaCheckTodoDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_content_qua_row_two.*
 import okhttp3.RequestBody
@@ -154,7 +156,7 @@ class QualityCheckTodoDetailActivity : BaseActivity(), MaterialUiListInterface<M
         val fileName = DataUtils.getImageFileName()
         var fileString = ""
         // fileName : 0d43f2c6a15f2587f81d23e6e3a2e5ae.jpg,da5c82971d620334025195f262733812.png
-        for (i in 0 until fileName.size()){
+        for (i in 0 until fileName.size()) {
             val imageName = fileName.get(i)
             if (!TextUtils.isEmpty(imageName)) {
                 fileString += "$imageName,"
@@ -263,12 +265,13 @@ class QualityCheckTodoDetailActivity : BaseActivity(), MaterialUiListInterface<M
 
     }
 
+    private var dialog: LoadingDialog? = null
     override fun showLoading() {
-
+        dialog = ShowDialog.showFullDialog(this@QualityCheckTodoDetailActivity, "保存中")
     }
 
     override fun hideLoading() {
-
+        dialog?.close()
     }
 
     override fun saveSuccess() {

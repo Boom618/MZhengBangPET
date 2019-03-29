@@ -2,43 +2,25 @@ package com.ty.zbpet.ui.activity.material
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.text.InputType
-import android.view.View
 import android.widget.CheckBox
-import android.widget.ImageView
-import android.widget.TextView
-
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.CarPositionNoData
-import com.ty.zbpet.bean.ResponseInfo
 import com.ty.zbpet.bean.material.MaterialDetails
 import com.ty.zbpet.bean.material.MaterialDoneSave
-import com.ty.zbpet.net.HttpMethods
+import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.material.MaterialPresenter
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
 import com.ty.zbpet.ui.adapter.material.MaterialDoneDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
-import com.ty.zbpet.ui.widght.SpaceItemDecoration
-import com.ty.zbpet.constant.CodeConstant
-import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.ui.widght.ShowDialog
+import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog
-
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
-
-import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
-import io.reactivex.SingleObserver
-import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_content_reversal.*
-import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
-import java.util.ArrayList
+import java.util.*
 
 /**
  * @author TY on 2018/11/14.
@@ -141,7 +123,6 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
 
         // TODO 侧滑删除
         // detailRc.addOnItemTouchListener(new SwipeItemLayout.OnSwipeItemTouchListener(this));
-//        adapter = MaterialDoneDetailAdapter(this, R.layout.item_material_done_detail, list)
         adapter = MaterialDoneDetailAdapter(this, R.layout.item_reversal_check, list)
         recycler_reversal.adapter = adapter
 

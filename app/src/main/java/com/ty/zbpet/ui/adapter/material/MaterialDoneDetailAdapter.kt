@@ -16,7 +16,7 @@ class MaterialDoneDetailAdapter(context: Context, layoutId: Int, datas: List<Mat
 
     override fun convert(holder: ViewHolder, listBean: MaterialDetails.ListBean, position: Int) {
 
-        holder.setText(R.id.tv_document_no, "采购子单号：${listBean.materialNo}")
+        holder.setText(R.id.tv_document_no, "采购子单号：${listBean.sapOrderNo}")
                 .setText(R.id.tv_material_name,"原辅料名称：${listBean.materialName}")
                 .setText(R.id.tv_number, "入库数量：${listBean.number}")
                 .setText(R.id.tv_solubility, "含量：${listBean.concentration}")
