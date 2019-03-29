@@ -112,7 +112,7 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
                 selectTime = ZBUiUtils.getTime(date)
                 tv_time!!.text = selectTime
 
-                ZBUiUtils.showToast(selectTime)
+                ZBUiUtils.showSuccess(selectTime)
             }
         }
     }
@@ -173,7 +173,7 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
         }
         // 没有合法的操作数据,不请求网络
         if (detail.size == 0) {
-            ZBUiUtils.showToast("请完善您要出库的信息")
+            ZBUiUtils.showWarning("请完善您要出库的信息")
             return null
         }
 
@@ -192,7 +192,6 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
 
 
         val json = DataUtils.toJson(requestBody, 1)
-        ZBLog.e("JSON $json")
         return RequestBodyJson.requestBody(json)
     }
 
@@ -270,7 +269,7 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
     }
 
     override fun showError(msg: String?) {
-        ZBUiUtils.showToast(msg)
+        ZBUiUtils.showError(msg)
     }
 
     companion object {

@@ -3,29 +3,22 @@ package com.ty.zbpet.ui.activity
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
-import android.graphics.PorterDuff
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.ImageView
-import com.bumptech.glide.Glide
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
 import com.qingmei2.rximagepicker.core.RxImagePicker
-import com.qingmei2.rximagepicker_extension.MimeType
-import com.qingmei2.rximagepicker_extension_zhihu.ZhihuConfigurationBuilder
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.eventbus.system.ImageEvent
-import com.ty.zbpet.ui.MainApp.context
 import com.ty.zbpet.ui.adapter.system.RecyclerImageAdapter
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ZBUiUtils
 import com.ty.zbpet.util.image.ZhiHuImagePicker
-import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import kotlinx.android.synthetic.main.activity_demo.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -120,7 +113,7 @@ class DemoMainActivity : BaseActivity() {
                     // 图片、视频、音频选择结果回调
                     val selectList = PictureSelector.obtainMultipleResult(data)
                     val path = selectList[0].path
-                    ZBUiUtils.showToast(path)
+                    ZBUiUtils.showSuccess(path)
                     list.add(path)
                     adapter?.notifyDataSetChanged()
                     // 例如 LocalMedia 里面返回三种path

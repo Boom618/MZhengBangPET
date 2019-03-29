@@ -5,7 +5,6 @@ import android.view.KeyEvent
 import com.pda.scanner.ScanReader
 import com.ty.zbpet.R
 import com.ty.zbpet.constant.CodeConstant
-import com.ty.zbpet.data.SharedP
 import com.ty.zbpet.ui.adapter.LayoutInit
 import com.ty.zbpet.ui.adapter.wareroom.TargetAdapter
 import com.ty.zbpet.ui.base.BaseActivity
@@ -42,7 +41,7 @@ class TargetLocationActivity : BaseActivity(), ScanBoxInterface {
     override fun initTwoView() {
         initToolBar(R.string.move_room_target)
         bt_confirm.setOnClickListener {
-            ZBUiUtils.showToast("确定")
+            ZBUiUtils.showSuccess("确定")
         }
     }
 

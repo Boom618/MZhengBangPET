@@ -129,7 +129,7 @@ class ProductTodoDetailActivity : BaseActivity()
                 selectTime = ZBUiUtils.getTime(date)
                 tv_time!!.text = selectTime
 
-                ZBUiUtils.showToast(selectTime)
+                ZBUiUtils.showSuccess(selectTime)
             }
         }
 
@@ -217,7 +217,7 @@ class ProductTodoDetailActivity : BaseActivity()
         }
         // 没有合法的操作数据,不请求网络
         if (detail.size == 0) {
-            ZBUiUtils.showToast("请完善您要入库的信息")
+            ZBUiUtils.showWarning("请完善您要入库的信息")
             return null
         }
 
@@ -306,7 +306,7 @@ class ProductTodoDetailActivity : BaseActivity()
     }
 
     override fun showError(msg: String?) {
-        ZBUiUtils.showToast(msg)
+        ZBUiUtils.showError(msg)
     }
 
 

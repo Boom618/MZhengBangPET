@@ -93,7 +93,7 @@ class QualityCheckFragment : BaseFragment(), SystemUiListInterface<MaterialList.
 //        refreshLayout!!.setOnLoadMoreListener { refreshLayout ->
 //            // 传入 false 表示刷新失败
 //            refreshLayout.finishLoadMore(1000)
-//            ZBUiUtils.showToast("没有更多数据了")
+//            ZBUiUtils.showSuccess("没有更多数据了")
 //        }
     }
 
@@ -101,7 +101,7 @@ class QualityCheckFragment : BaseFragment(), SystemUiListInterface<MaterialList.
 
         LayoutInit.initLayoutManager(ResourceUtil.getContext(), recyclerView)
         if (list.isEmpty()) {
-            ZBUiUtils.showToast("质检没有找到结果")
+            ZBUiUtils.showWarning("质检没有找到结果")
         }
 
         when (fragmentType) {
@@ -131,7 +131,6 @@ class QualityCheckFragment : BaseFragment(), SystemUiListInterface<MaterialList.
                         val intent = Intent(activity, QualityCheckDoneDetailActivity::class.java)
                         intent.putExtra("id", list[position].id)
                         intent.putExtra("sapOrderNo", list[position].sapOrderNo)
-                        intent.putExtra("fileName", list[position].fileName)
                         intent.putExtra("supplierName", list[position].supplierName)
                         intent.putExtra("warehouseId", list[position].warehouseId)
                         intent.putExtra("orderId", list[position].orderId)
@@ -149,7 +148,7 @@ class QualityCheckFragment : BaseFragment(), SystemUiListInterface<MaterialList.
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun ErrorEvnet(event: ErrorMessage) {
-        ZBUiUtils.showToast(event.error())
+        ZBUiUtils.showError(event.error())
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

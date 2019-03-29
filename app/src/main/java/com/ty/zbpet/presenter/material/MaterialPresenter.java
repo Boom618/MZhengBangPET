@@ -1,7 +1,5 @@
 package com.ty.zbpet.presenter.material;
 
-import android.content.Context;
-
 import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.eventbus.ErrorMessage;
@@ -277,7 +275,7 @@ public class MaterialPresenter {
 
             @Override
             public void onError(Throwable e) {
-                ZBUiUtils.showToast(e.getMessage());
+                ZBUiUtils.showSuccess(e.getMessage());
             }
 
             @Override
@@ -289,11 +287,11 @@ public class MaterialPresenter {
                         if (list != null && list.size() != 0) {
                             materialListUi.showMaterial(list);
                         } else {
-                            ZBUiUtils.showToast("没有采购入库已办详情数据");
+                            ZBUiUtils.showSuccess("没有采购入库已办详情数据");
                         }
                     }
                 } else {
-                    ZBUiUtils.showToast(infoList.getMessage());
+                    ZBUiUtils.showSuccess(infoList.getMessage());
                 }
             }
         }, orderId);
@@ -361,16 +359,16 @@ public class MaterialPresenter {
                     //DataUtils.setImageId(position, fileName);
                     DataUtils.saveImage(fileName);
 
-                    ZBUiUtils.showToast("图片上传成功");
+                    ZBUiUtils.showSuccess("图片上传成功");
                 } else {
-                    ZBUiUtils.showToast("图片上传失败");
+                    ZBUiUtils.showSuccess("图片上传失败");
 //                    materialListUi.showError("图片上传失败");
                 }
             }
 
             @Override
             public void onError(Throwable e) {
-                ZBUiUtils.showToast(e.getMessage());
+                ZBUiUtils.showSuccess(e.getMessage());
             }
         }, imageBodyPart);
     }

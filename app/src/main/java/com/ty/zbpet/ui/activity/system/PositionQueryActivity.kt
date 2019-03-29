@@ -106,7 +106,7 @@ class PositionQueryActivity : BaseActivity(), ScanBoxInterface {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun ErrorEvnet(event: ErrorMessage) {
-        ZBUiUtils.showToast(event.error())
+        ZBUiUtils.showError(event.error())
     }
 
     override fun onDestroy() {

@@ -124,7 +124,7 @@ class ReturnGoodsDoneDetailActivity : BaseActivity(), ProductUiListInterface<Pro
             beans.add(detailsBean)
         }
         if (beans.size == 0) {
-            ZBUiUtils.showToast("请完善您要退货的信息")
+            ZBUiUtils.showWarning("请完善您要退货的信息")
             return null
         }
 
@@ -201,7 +201,7 @@ class ReturnGoodsDoneDetailActivity : BaseActivity(), ProductUiListInterface<Pro
     }
 
     override fun showError(msg: String?) {
-        ZBUiUtils.showToast(msg)
+        ZBUiUtils.showError(msg)
     }
     override fun onDestroy() {
         super.onDestroy()

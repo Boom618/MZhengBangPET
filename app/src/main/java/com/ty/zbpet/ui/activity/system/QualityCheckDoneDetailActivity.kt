@@ -22,7 +22,6 @@ import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.material.MaterialPresenter
 import com.ty.zbpet.ui.adapter.LayoutInit
-import com.ty.zbpet.ui.adapter.system.GridImageAdapter
 import com.ty.zbpet.ui.adapter.system.QuaCheckDoneDetailAdapter
 import com.ty.zbpet.ui.adapter.system.RecyclerImageAdapter
 import com.ty.zbpet.ui.base.BaseActivity
@@ -48,7 +47,6 @@ class QualityCheckDoneDetailActivity : BaseActivity() {
     private var gridLayoutManager: GridLayoutManager? = null
     private var id: String? = null
     private var sapOrderNo: String? = null
-    private var fileName: String = ""
     private var supplierName: String? = null
     private var warehouseId: String? = null
     private var orderId: String? = null
@@ -57,7 +55,6 @@ class QualityCheckDoneDetailActivity : BaseActivity() {
     private var adapter: QuaCheckDoneDetailAdapter? = null
 
     private var themeId: Int = 0
-    private val chooseMode = PictureMimeType.ofImage()
 
 //    private var imageAdapter: GridImageAdapter? = null
     private var imageAdapter: RecyclerImageAdapter? = null
@@ -83,7 +80,6 @@ class QualityCheckDoneDetailActivity : BaseActivity() {
         id = intent.getStringExtra("id")
         sapOrderNo = intent.getStringExtra("sapOrderNo")
         supplierName = intent.getStringExtra("supplierName")
-        fileName = intent.getStringExtra("fileName")
         warehouseId = intent.getStringExtra("warehouseId")
         orderId = intent.getStringExtra("orderId")
 
@@ -152,7 +148,7 @@ class QualityCheckDoneDetailActivity : BaseActivity() {
         }
 
         if (list.size == 0) {
-            ZBUiUtils.showToast("请完善你要质检修改的信息")
+            ZBUiUtils.showWarning("请完善你要质检修改的信息")
             return null
         }
 
@@ -255,12 +251,12 @@ class QualityCheckDoneDetailActivity : BaseActivity() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun errorEvent(event: ErrorMessage) {
-        ZBUiUtils.showToast(event.error())
+        ZBUiUtils.showError(event.error())
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun successEvent(event: SuccessMessage) {
-        ZBUiUtils.showToast(event.success())
+        ZBUiUtils.showSuccess(event.success())
         finish()
     }
 

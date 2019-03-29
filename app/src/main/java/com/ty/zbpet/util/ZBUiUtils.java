@@ -19,13 +19,29 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import es.dmoral.toasty.Toasty;
+
 /**
  * @author TY
  */
 public class ZBUiUtils {
 
-    public static void showToast(String msg) {
-        Toast.makeText(ResourceUtil.getContext(), msg, Toast.LENGTH_SHORT).show();
+    public static void showSuccess(String msg) {
+//        Toasty.Config instance = Toasty.Config.getInstance();
+//        instance.setTextSize(16)
+//                .allowQueue(true)
+//                .apply();
+        Toasty.success(ResourceUtil.getContext(), msg, Toast.LENGTH_SHORT, false).show();
+        //Toast.makeText(ResourceUtil.getContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+
+    public static void showError(String msg) {
+        Toasty.error(ResourceUtil.getContext(), msg, Toast.LENGTH_SHORT, false).show();
+    }
+
+    public static void showWarning(String msg) {
+        Toasty.warning(ResourceUtil.getContext(), msg, Toast.LENGTH_SHORT, false).show();
     }
 
     /**
@@ -111,7 +127,7 @@ public class ZBUiUtils {
                         // 选择的仓库 还是 商品
                         if (CodeConstant.SELECT_HOUSE_BUY_IN == type) {
                             //DataUtils.setHouseId(position, which);
-                            SharedP.putWarehouseId(context,which);
+                            SharedP.putWarehouseId(context, which);
                         } else {
                             DataUtils.setGoodsId(position, which);
                         }

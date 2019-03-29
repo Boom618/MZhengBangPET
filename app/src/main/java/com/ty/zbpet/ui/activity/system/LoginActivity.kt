@@ -1,7 +1,6 @@
 package com.ty.zbpet.ui.activity.system
 
 import android.os.Bundle
-import android.view.View
 import android.widget.TextView
 import com.ty.zbpet.R
 import com.ty.zbpet.constant.CodeConstant
@@ -92,7 +91,7 @@ class LoginActivity : BaseActivity(), UserInterface {
 
     override fun onError(e: String) {
 
-        ZBUiUtils.showToast(e)
+        ZBUiUtils.showError(e)
     }
 
     private var dialog: LoadingDialog? = null

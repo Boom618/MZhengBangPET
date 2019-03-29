@@ -150,7 +150,7 @@ class PrimaryActivity : BaseActivity() {
                     leftTime.text = selectTime
                     EventBus.getDefault().post(SearchMessage(sign, sapOrderNo, selectTime, rightString))
                 } else {
-                    ZBUiUtils.showToast("开始时间不能大于结束时间")
+                    ZBUiUtils.showWarning("开始时间不能大于结束时间")
                 }
             }
         }
@@ -173,7 +173,7 @@ class PrimaryActivity : BaseActivity() {
                     rightTime.text = selectTime
                     EventBus.getDefault().post(SearchMessage(sign, sapOrderNo, leftString, selectTime))
                 } else {
-                    ZBUiUtils.showToast("结束时间不能小于开始时间")
+                    ZBUiUtils.showWarning("结束时间不能小于开始时间")
                 }
             }
         }
@@ -200,14 +200,14 @@ class PrimaryActivity : BaseActivity() {
                     // 逻辑处理
                     if (signType) {
                         val d = resources.getDrawable(R.mipmap.search_s)
-                        d.setBounds(0, 0, R.dimen.x32, R.dimen.x32)
+                        d.setBounds(0, 0, 32, 32)
                         et_search.setCompoundDrawables(d, null, null, null)
-                        ZBUiUtils.showToast("请输入生产订单号")
+                        ZBUiUtils.showWarning("请输入生产订单号")
                     } else {
                         val d = resources.getDrawable(R.mipmap.search_y)
-                        d.setBounds(0, 0, R.dimen.x32, R.dimen.x32)
+                        d.setBounds(0, 0, 32, 32)
                         et_search.setCompoundDrawables(d, null, null, null)
-                        ZBUiUtils.showToast("请输入预留单号")
+                        ZBUiUtils.showWarning("请输入预留单号")
                     }
                     signType = !signType
                 }

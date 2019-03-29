@@ -4,10 +4,7 @@ import android.media.AudioManager;
 import android.media.ToneGenerator;
 
 import com.pda.scanner.Scanner;
-import com.ty.zbpet.ui.MainApp;
-import com.ty.zbpet.util.ACache;
 import com.ty.zbpet.constant.CodeConstant;
-import com.ty.zbpet.util.ZBLog;
 import com.ty.zbpet.util.ZBUiUtils;
 
 import java.nio.charset.Charset;
@@ -112,7 +109,7 @@ public class ScanObservable {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         //toneGenerator.startTone(ToneGenerator.TONE_CDMA_ALERT_AUTOREDIAL_LITE);
-                        ZBUiUtils.showToast("扫码失败" + throwable.getMessage());
+                        ZBUiUtils.showSuccess("扫码失败" + throwable.getMessage());
                     }
                 });
 

@@ -20,7 +20,7 @@ class PickingDoneDetailAdapter(context: Context, layoutId: Int, datas: List<Mate
 
         holder.setText(R.id.tv_document_no, "生产/预留单号：${listBean.materialNo}")
                 .setText(R.id.tv_material_name,"原辅料名称：${listBean.materialName}")
-                .setText(R.id.tv_number, "出库数量：${listBean.giveNumber} ${listBean.unit}")
+                .setText(R.id.tv_number, "出库数量：${listBean.giveNumber}")
                 .setText(R.id.tv_solubility, "含量：${listBean.concentration}")
         holder.itemView.findViewById<TextView>(R.id.tv_batch_number).visibility = View.GONE
     }

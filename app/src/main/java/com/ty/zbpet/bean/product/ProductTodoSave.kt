@@ -42,6 +42,7 @@ class ProductTodoSave {
         var endQrCode: String? = null
         var content: String? = null
         var unit: String? = null
+        var bulkNumber: String? = null
         var boxQrCode: List<String>? = null
 
         // 外采入库 仓库在 list 中

@@ -4,11 +4,8 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.CheckBox
 import com.ty.zbpet.R
-import com.ty.zbpet.bean.ResponseInfo
 import com.ty.zbpet.bean.product.ProductDetails
 import com.ty.zbpet.bean.product.ProductDoneSave
-import com.ty.zbpet.constant.CodeConstant
-import com.ty.zbpet.net.HttpMethods
 import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.product.BuyInPresenter
 import com.ty.zbpet.presenter.product.ProductUiListInterface
@@ -20,8 +17,6 @@ import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog
-import io.reactivex.SingleObserver
-import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_content_reversal.*
 import okhttp3.RequestBody
 import java.util.*
@@ -122,7 +117,7 @@ class BuyInDoneDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
             }
         }
         if (beans.size == 0) {
-            ZBUiUtils.showToast("请完善您要入库的信息")
+            ZBUiUtils.showWarning("请完善您要入库的信息")
             return null
         }
 
@@ -165,6 +160,6 @@ class BuyInDoneDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
     }
 
     override fun showError(msg: String?) {
-        ZBUiUtils.showToast(msg)
+        ZBUiUtils.showError(msg)
     }
 }

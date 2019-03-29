@@ -5,11 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.View
 import android.widget.EditText
-import android.widget.TextView
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
@@ -129,7 +127,7 @@ class QualityCheckTodoDetailActivity : BaseActivity(), MaterialUiListInterface<M
                 selectTime = ZBUiUtils.getTime(date)
                 tv_time.text = selectTime
 
-                ZBUiUtils.showToast(selectTime)
+                ZBUiUtils.showSuccess(selectTime)
             }
         }
 
@@ -185,7 +183,7 @@ class QualityCheckTodoDetailActivity : BaseActivity(), MaterialUiListInterface<M
         }
 
         if (list.size == 0) {
-            ZBUiUtils.showToast("请完善你要质检的信息")
+            ZBUiUtils.showSuccess("请完善你要质检的信息")
             return null
         }
 
@@ -279,7 +277,7 @@ class QualityCheckTodoDetailActivity : BaseActivity(), MaterialUiListInterface<M
     }
 
     override fun showError(msg: String) {
-        ZBUiUtils.showToast(msg)
+        ZBUiUtils.showError(msg)
     }
 
     override fun onDestroy() {

@@ -246,7 +246,7 @@ public class PickOutPresenter {
 
             @Override
             public void onError(Throwable e) {
-                ZBUiUtils.showToast(e.getMessage());
+                ZBUiUtils.showSuccess(e.getMessage());
             }
 
             @Override
@@ -257,7 +257,7 @@ public class PickOutPresenter {
                     listInterface.showMaterial(list);
 
                 } else {
-                    ZBUiUtils.showToast("失败 : =" + response.getMessage());
+                    ZBUiUtils.showSuccess("失败 : =" + response.getMessage());
                 }
             }
         }, sapOrderNo);

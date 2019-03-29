@@ -106,7 +106,7 @@ class PickOutTodoDetailActivity : BaseActivity()
                 selectTime = ZBUiUtils.getTime(date)
                 tv_time!!.text = selectTime
 
-                ZBUiUtils.showToast(selectTime)
+                ZBUiUtils.showSuccess(selectTime)
             }
         }
 
@@ -165,7 +165,7 @@ class PickOutTodoDetailActivity : BaseActivity()
         }
         // 没有合法的操作数据,不请求网络
         if (detail.size == 0) {
-            ZBUiUtils.showToast("请完善您要出库的信息")
+            ZBUiUtils.showWarning("请完善您要出库的信息")
             return null
         }
 
@@ -244,7 +244,7 @@ class PickOutTodoDetailActivity : BaseActivity()
             val diffUtil = DiffUtil.calculateDiff(TodoCarCodeDiffUtil(list, deepCopyList))
             diffUtil.dispatchUpdatesTo(adapter)
         } else {
-            ZBUiUtils.showToast("请扫正确的库位码")
+            ZBUiUtils.showWarning("请扫正确的库位码")
         }
     }
 
@@ -291,12 +291,12 @@ class PickOutTodoDetailActivity : BaseActivity()
     }
 
     override fun saveSuccess() {
-        ZBUiUtils.showToast("成功")
+        ZBUiUtils.showSuccess("成功")
         finish()
     }
 
     override fun showError(msg: String?) {
-        ZBUiUtils.showToast(msg)
+        ZBUiUtils.showError(msg)
     }
 
     override fun onDestroy() {

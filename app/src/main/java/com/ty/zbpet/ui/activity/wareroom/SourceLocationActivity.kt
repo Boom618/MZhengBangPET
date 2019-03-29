@@ -5,7 +5,6 @@ import android.view.KeyEvent
 import com.pda.scanner.ScanReader
 import com.ty.zbpet.R
 import com.ty.zbpet.constant.CodeConstant
-import com.ty.zbpet.data.SharedP
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.util.ZBUiUtils
 import com.ty.zbpet.util.scan.ScanBoxInterface
@@ -43,7 +42,7 @@ class SourceLocationActivity : BaseActivity(), ScanBoxInterface {
      */
     private fun commit() {
         val number = edit_number.text.toString().trim { it >= ' ' }
-        ZBUiUtils.showToast(number)
+        ZBUiUtils.showSuccess(number)
 
     }
 

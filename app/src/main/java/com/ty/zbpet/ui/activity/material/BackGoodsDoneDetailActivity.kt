@@ -90,7 +90,7 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
         }
 
         if (list.size == 0) {
-            ZBUiUtils.showToast("请选择您要冲销的列表")
+            ZBUiUtils.showWarning("请选择您要冲销的列表")
             return null
         }
 
@@ -131,12 +131,12 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
     }
 
     override fun saveSuccess() {
-        ZBUiUtils.showToast("成功")
+        ZBUiUtils.showSuccess("成功")
         finish()
     }
 
     override fun showError(msg: String?) {
-        ZBUiUtils.showToast(msg)
+        ZBUiUtils.showError(msg)
     }
 
 

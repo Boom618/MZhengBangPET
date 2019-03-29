@@ -82,7 +82,7 @@ class PersonCenterActivity : BaseActivity(), UserInterface {
     }
 
     override fun onError(e: String) {
-        ZBUiUtils.showToast(e)
+        ZBUiUtils.showError(e)
 
     }
 

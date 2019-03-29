@@ -114,7 +114,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
                 //选中事件回调
                 selectTime = ZBUiUtils.getTime(date)
                 tv_time!!.text = selectTime
-                ZBUiUtils.showToast(selectTime)
+                ZBUiUtils.showSuccess(selectTime)
             }
         }
     }
@@ -174,7 +174,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
 
         // 没有合法的操作数据,不请求网络
         if (detail.size == 0) {
-            ZBUiUtils.showToast("请完善您要入库的信息")
+            ZBUiUtils.showWarning("请完善您要入库的信息")
             return null
         }
         val remark = et_desc!!.text.toString().trim { it <= ' ' }
@@ -280,7 +280,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
      * @param positionNo
      */
     override fun ScanSuccess(position: Int, positionNo: String) {
-//        ZBUiUtils.showToast("URL ：$positionNo")
+//        ZBUiUtils.showSuccess("URL ：$positionNo")
 
 //        materialPresenter.urlAnalyze(position, positionNo)
         //  服务器校验 库位码
@@ -313,7 +313,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
             diffUtil.dispatchUpdatesTo(adapter)
 
         } else {
-            ZBUiUtils.showToast("请扫正确的库位码")
+            ZBUiUtils.showWarning("请扫正确的库位码")
         }
     }
 
@@ -322,7 +322,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
     }
 
     override fun showError(msg: String?) {
-        ZBUiUtils.showToast(msg)
+        ZBUiUtils.showError(msg)
     }
 
     private var dialog: LoadingDialog? = null

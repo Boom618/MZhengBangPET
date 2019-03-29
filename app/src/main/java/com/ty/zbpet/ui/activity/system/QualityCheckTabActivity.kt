@@ -90,7 +90,7 @@ class QualityCheckTabActivity : BaseActivity() {
                     leftTime.text = selectTime
                     EventBus.getDefault().post(SearchMessage("", sapOrderNo, selectTime, rightString))
                 } else {
-                    ZBUiUtils.showToast("开始时间不能大于结束时间")
+                    ZBUiUtils.showWarning("开始时间不能大于结束时间")
                 }
             }
         }
@@ -109,7 +109,7 @@ class QualityCheckTabActivity : BaseActivity() {
                     rightTime.text = selectTime
                     EventBus.getDefault().post(SearchMessage("", sapOrderNo, leftString, selectTime))
                 } else {
-                    ZBUiUtils.showToast("结束时间不能小于开始时间")
+                    ZBUiUtils.showWarning("结束时间不能小于开始时间")
                 }
             }
         }

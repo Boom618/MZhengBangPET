@@ -95,7 +95,7 @@ class PickOutFragment : BaseFragment(), MaterialUiListInterface<MaterialList.Lis
 //        refreshLayout!!.setOnLoadMoreListener { refreshLayout ->
 //            // 传入 false 表示刷新失败
 //            refreshLayout.finishLoadMore(1000)
-//            ZBUiUtils.showToast("没有更多数据了")
+//            ZBUiUtils.showSuccess("没有更多数据了")
 //        }
 
     }
@@ -103,7 +103,7 @@ class PickOutFragment : BaseFragment(), MaterialUiListInterface<MaterialList.Lis
 
     override fun showMaterial(list: List<MaterialList.ListBean>) {
         if (list.isEmpty()) {
-            ZBUiUtils.showToast("领料出库没有找到结果")
+            ZBUiUtils.showWarning("领料出库没有找到结果")
         }
 
         LayoutInit.initLayoutManager(ResourceUtil.getContext(), recyclerView)
@@ -175,7 +175,7 @@ class PickOutFragment : BaseFragment(), MaterialUiListInterface<MaterialList.Lis
     }
 
     override fun showError(msg: String?) {
-        ZBUiUtils.showToast(msg)
+        ZBUiUtils.showError(msg)
     }
 
     override fun showLoading() {

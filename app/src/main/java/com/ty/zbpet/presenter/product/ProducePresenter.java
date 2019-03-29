@@ -55,13 +55,13 @@ public class ProducePresenter {
                     listInterface.showProduct(list);
 
                 } else {
-                    ZBUiUtils.showToast("失败 : =" + response.getMessage());
+                    ZBUiUtils.showSuccess("失败 : =" + response.getMessage());
                 }
             }
 
             @Override
             public void onError(Throwable e) {
-                ZBUiUtils.showToast(e.getMessage());
+                ZBUiUtils.showSuccess(e.getMessage());
             }
         }, sapOrderNo, startDate, endDate);
     }

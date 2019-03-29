@@ -150,7 +150,7 @@ public class SendOutPresenter {
 
                     ProductList data = response.getData();
                     if (data.getCount() == 0) {
-                        ZBUiUtils.showToast("没有数据");
+                        ZBUiUtils.showSuccess("没有数据");
                     } else {
                         listInterface.showProduct(data.getList());
                     }

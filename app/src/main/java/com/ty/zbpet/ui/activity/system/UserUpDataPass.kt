@@ -41,11 +41,11 @@ class UserUpDataPass : BaseActivity(), UserInterface {
             val newWordAgain = new_pass_again.text.toString().trim { it <= ' ' }
 
             if (oldWord.isEmpty() || newWord.isEmpty() || newWordAgain.isEmpty()) {
-                ZBUiUtils.showToast("密码不能为空")
+                ZBUiUtils.showWarning("密码不能为空")
                 return@OnClickListener
             }
             if (newWord != newWordAgain) {
-                ZBUiUtils.showToast("新密码不一致")
+                ZBUiUtils.showWarning("新密码不一致")
                 return@OnClickListener
             }
 
@@ -60,12 +60,12 @@ class UserUpDataPass : BaseActivity(), UserInterface {
 
 
     override fun onSuccess() {
-        ZBUiUtils.showToast("密码修改成功")
+        ZBUiUtils.showSuccess("密码修改成功")
         finish()
     }
 
     override fun onError(e: String) {
-        ZBUiUtils.showToast(e)
+        ZBUiUtils.showError(e)
     }
 
     override fun showLoading() {

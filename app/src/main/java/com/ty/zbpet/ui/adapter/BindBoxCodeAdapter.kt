@@ -49,7 +49,7 @@ class BindBoxCodeAdapter(mContext: Context, private val info: MutableList<String
      */
     private fun deleteItem(pos: Int) {
         if (pos == info!!.size) {
-            ZBUiUtils.showToast("请重新添加数据！")
+            ZBUiUtils.showWarning("请重新添加数据！")
             return
         }
         try {
@@ -61,7 +61,7 @@ class BindBoxCodeAdapter(mContext: Context, private val info: MutableList<String
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            ZBUiUtils.showToast("角标越界异常！")
+            ZBUiUtils.showWarning("角标越界异常！")
         }
 
     }

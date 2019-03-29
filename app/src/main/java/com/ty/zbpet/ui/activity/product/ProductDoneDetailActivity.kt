@@ -112,7 +112,7 @@ class ProductDoneDetailActivity : BaseActivity(), ProductUiListInterface<Product
             beans.add(detailsBean)
         }
         if (beans.size == 0) {
-            ZBUiUtils.showToast("请完善您要入库的信息")
+            ZBUiUtils.showWarning("请完善您要入库的信息")
             return null
         }
 
@@ -155,7 +155,7 @@ class ProductDoneDetailActivity : BaseActivity(), ProductUiListInterface<Product
     }
 
     override fun showError(msg: String?) {
-        ZBUiUtils.showToast(msg)
+        ZBUiUtils.showError(msg)
     }
 
     override fun onDestroy() {

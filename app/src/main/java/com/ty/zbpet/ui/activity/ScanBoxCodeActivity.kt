@@ -134,7 +134,7 @@ class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface , CommInterface {
     }
 
     override fun showError(msg: String) {
-        ZBUiUtils.showToast(msg)
+        ZBUiUtils.showError(msg)
     }
 
     override fun showLoading() {
@@ -151,7 +151,7 @@ class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface , CommInterface {
     private fun checkBoxCode(positionNo: String) {
 
         if (boxCodeList!!.contains(positionNo)) {
-            ZBUiUtils.showToast("该箱码扫码过")
+            ZBUiUtils.showWarning("该箱码扫码过")
         } else {
             //ArrayList<String> oldList = new ArrayList<>(boxCodeList);
             oldList.clear()

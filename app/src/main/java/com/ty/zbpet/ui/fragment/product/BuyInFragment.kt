@@ -88,13 +88,13 @@ class BuyInFragment : BaseFragment(), ProductUiListInterface<ProductList.ListBea
 //        refreshLayout!!.setOnLoadMoreListener { refreshLayout ->
 //            // 传入 false 表示刷新失败
 //            refreshLayout.finishLoadMore(1000)
-//            ZBUiUtils.showToast("没有更多数据了")
+//            ZBUiUtils.showSuccess("没有更多数据了")
 //        }
     }
 
     override fun showProduct(list: List<ProductList.ListBean>) {
         if (list.isEmpty()) {
-            ZBUiUtils.showToast("外采入库没有找到结果")
+            ZBUiUtils.showWarning("外采入库没有找到结果")
         }
 
         LayoutInit.initLayoutManager(ResourceUtil.getContext(), recyclerView)
@@ -168,7 +168,7 @@ class BuyInFragment : BaseFragment(), ProductUiListInterface<ProductList.ListBea
     }
 
     override fun showError(msg: String?) {
-        ZBUiUtils.showToast(msg)
+        ZBUiUtils.showError(msg)
     }
 
     override fun onDestroy() {

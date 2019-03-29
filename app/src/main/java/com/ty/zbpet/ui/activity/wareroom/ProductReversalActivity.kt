@@ -55,7 +55,7 @@ class ProductReversalActivity : BaseActivity() {
         if (checkBox.isChecked) {
 
         }
-        ZBUiUtils.showToast("提交")
+        ZBUiUtils.showSuccess("提交")
 
     }
 

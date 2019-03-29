@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_below="@+id/rv_in_storage_detail"
-    android:layout_marginStart="@dimen/x10"
-    android:paddingBottom="@dimen/x10"
+    android:layout_marginStart="@dimen/space_6"
+    android:layout_marginEnd="@dimen/space_10"
     android:background="@drawable/shape_white_min_radius"
-    android:orientation="vertical">
+    android:paddingBottom="@dimen/space_8">
+
 
     <ImageView
         android:id="@+id/iv_tag"
@@ -61,52 +61,54 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/rl_detail"
+        android:id="@+id/gone_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:focusable="true"
         android:visibility="gone"
+        android:focusable="true"
         android:focusableInTouchMode="true"
         app:layout_constraintTop_toBottomOf="@+id/tv_num">
 
         <TextView
-            android:id="@+id/tv_houseNo"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_select_ware"
+            style="@style/itemSizeStyle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="仓库编号:"
-            android:layout_marginTop="@dimen/x10"
-            android:textSize="@dimen/text_16"
-            android:layout_marginStart="@dimen/space_25"
+            android:layout_margin="@dimen/text_22"
+            android:padding="@dimen/space_7"
+            android:text="仓库编号：002"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/et_box_num"
-            style="@style/itemSizeStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_25"
-            android:hint="入库数量"
-            android:inputType="number"
-            app:layout_constraintEnd_toStartOf="@+id/et_bulk_num"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_houseNo" />
 
         <EditText
-            android:id="@+id/et_bulk_num"
+            android:id="@+id/et_number"
             style="@style/itemSizeStyle"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="@dimen/space_20"
+            android:layout_marginStart="@dimen/space_25"
             android:layout_marginEnd="@dimen/space_25"
-            android:layout_toEndOf="@+id/et_box_num"
-            android:hint="文本"
-            android:inputType="numberDecimal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/et_box_num"
-            app:layout_constraintTop_toBottomOf="@+id/tv_houseNo" />
+            android:ellipsize="end"
+            android:hint="退货数量：2000"
+            android:inputType="number"
+            android:lines="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_select_ware" />
+
+        <EditText
+            android:id="@+id/et_scattered"
+            style="@style/itemSizeStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_25"
+            android:layout_marginEnd="@dimen/space_25"
+            android:hint="散货数量"
+            android:inputType="number"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_number" />
 
         <EditText
             android:id="@+id/et_start_code"
@@ -114,24 +116,26 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_25"
+            android:layout_marginEnd="@dimen/space_25"
             android:hint="成品起始值"
             android:inputType="number"
             app:layout_constraintEnd_toStartOf="@+id/et_end_code"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_box_num" />
+            app:layout_constraintTop_toBottomOf="@+id/et_scattered" />
 
         <EditText
             android:id="@+id/et_end_code"
             style="@style/itemSizeStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_20"
+            android:layout_marginStart="@dimen/space_25"
             android:layout_marginEnd="@dimen/space_25"
             android:hint="成品结束值"
             android:inputType="number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/et_start_code"
-            app:layout_constraintTop_toBottomOf="@+id/et_box_num" />
+            app:layout_constraintTop_toBottomOf="@+id/et_scattered" />
+
 
         <EditText
             android:id="@+id/et_sap"
@@ -140,28 +144,32 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_25"
             android:layout_marginEnd="@dimen/space_25"
-            android:hint="SAP 物料"
+            android:hint="sap 物料批次号"
             android:imeOptions="actionDone"
             android:inputType="text"
             android:lines="1"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_start_code" />
+            app:layout_constraintTop_toBottomOf="@+id/et_end_code" />
+
 
         <Button
             android:id="@+id/btn_binding_code"
             android:layout_width="match_parent"
             android:layout_height="32dp"
-            android:layout_marginStart="@dimen/space_25"
+            android:layout_marginStart="@dimen/text_28"
             android:layout_marginTop="@dimen/space_10"
-            android:layout_marginEnd="@dimen/space_25"
+            android:layout_marginEnd="@dimen/text_28"
             android:layout_marginBottom="@dimen/space_10"
             android:background="@drawable/shape_theme_min_radius"
             android:text="箱码绑定"
-            app:layout_constraintTop_toBottomOf="@+id/et_sap"
             android:textColor="@color/white"
             android:textColorHint="@color/hint_color"
-            android:textSize="@dimen/text_16" />
+            android:textSize="@dimen/text_16"
+            app:layout_constraintTop_toBottomOf="@+id/et_sap" />
+
 
     </android.support.constraint.ConstraintLayout>
+
 
 </android.support.constraint.ConstraintLayout>

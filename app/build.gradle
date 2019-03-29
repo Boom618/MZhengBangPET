@@ -176,6 +176,8 @@ dependencies {
     implementation "com.dyhdyh.loadingbar:loadingbar:${ZBConfig.LoadingBarVersion}"
     // LoadingDialog
     implementation "com.github.ForgetAll:LoadingDialog:v1.0.4"
+    // Toasty
+    implementation 'com.github.GrenderG:Toasty:1.4.1'
 
     //1.1.0 API改动过大，老用户升级需谨慎 listView 刷新 {ZBConfig.SmartRefreshVersion}
     implementation "com.scwang.smartrefresh:SmartRefreshLayout:${ZBConfig.SmartRefreshVersion}"

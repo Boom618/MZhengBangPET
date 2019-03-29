@@ -4,9 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.SparseArray
 import android.view.View
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import com.ty.zbpet.R
@@ -17,7 +15,6 @@ import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.product.BuyInPresenter
 import com.ty.zbpet.presenter.product.ProductUiListInterface
-import com.ty.zbpet.ui.activity.ScanBoxCodeActivity
 import com.ty.zbpet.ui.adapter.product.BuyInTodoDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.ShowDialog
@@ -111,7 +108,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
                 selectTime = ZBUiUtils.getTime(date)
                 tv_time!!.text = selectTime
 
-                ZBUiUtils.showToast(selectTime)
+                ZBUiUtils.showSuccess(selectTime)
             }
         }
     }
@@ -180,7 +177,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
         }
         // 没有合法的操作数据,不请求网络
         if (detail.size == 0) {
-            ZBUiUtils.showToast("请完善您要入库的信息")
+            ZBUiUtils.showWarning("请完善您要入库的信息")
             return null
         }
 
@@ -281,7 +278,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
     }
 
     override fun showError(msg: String?) {
-        ZBUiUtils.showToast(msg)
+        ZBUiUtils.showError(msg)
     }
 
     override fun onDestroy() {

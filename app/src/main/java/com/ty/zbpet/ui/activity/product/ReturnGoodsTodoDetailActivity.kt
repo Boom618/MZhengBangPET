@@ -133,6 +133,7 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
             val view = rv_in_storage_detail.getChildAt(i)
             val boxQrCode = carCodeArray.get(i)
             val number = view.findViewById<EditText>(R.id.et_number).text.toString().trim()
+            val bulkNumber = view.findViewById<EditText>(R.id.et_scattered).text.toString().trim()
             val startCode = view.findViewById<EditText>(R.id.et_start_code).text.toString().trim()
             val endCode = view.findViewById<EditText>(R.id.et_end_code).text.toString().trim()
             val sap = view.findViewById<EditText>(R.id.et_sap).text.toString().trim()
@@ -159,6 +160,7 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
                 bean.startQrCode = startCode
                 bean.endQrCode = endCode
                 bean.sapMaterialBatchNo = sap
+                bean.bulkNumber = bulkNumber
                 bean.boxQrCode = boxQrCode
 
                 detail.add(bean)
@@ -166,15 +168,13 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
         }
         // 没有合法的操作数据,不请求网络
         if (detail.size == 0) {
-            ZBUiUtils.showToast("请完善您要退货的信息")
+            ZBUiUtils.showWarning("请完善您要退货的信息")
             return null
         }
         val remark = et_desc!!.text.toString().trim { it <= ' ' }
         val time = tv_time!!.text.toString().trim { it <= ' ' }
 
         requestBody.list = detail
-//        requestBody.warehouseId = warehouseId
-//        requestBody.warehouseNo = oldList[0].warehouseNo
         requestBody.sapOrderNo = sapOrderNo
         requestBody.moveType = "653"
         requestBody.inTime = time
@@ -192,7 +192,7 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
             val manager = LinearLayoutManager(ResourceUtil.getContext())
             rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
             rv_in_storage_detail.layoutManager = manager
-            adapter = ReturnGoodsTodoDetailAdapter(this, R.layout.item_product_detail_two_todo, list)
+            adapter = ReturnGoodsTodoDetailAdapter(this, R.layout.item_product_detail_return_todo, list)
             rv_in_storage_detail.adapter = adapter
 
             adapter?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
@@ -253,7 +253,7 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
     }
 
     override fun showError(msg: String?) {
-        ZBUiUtils.showToast(msg)
+        ZBUiUtils.showError(msg)
     }
 
     override fun onDestroy() {

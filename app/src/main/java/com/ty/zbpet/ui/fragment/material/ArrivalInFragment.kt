@@ -96,7 +96,7 @@ class ArrivalInFragment : BaseFragment(),MaterialUiListInterface<MaterialList.Li
 //        refreshLayout!!.setOnLoadMoreListener { refreshLayout ->
 //            // 传入 false 表示刷新失败
 //            refreshLayout.finishLoadMore(1000)
-//            ZBUiUtils.showToast("没有更多数据了")
+//            ZBUiUtils.showSuccess("没有更多数据了")
 //        }
     }
 
@@ -107,7 +107,7 @@ class ArrivalInFragment : BaseFragment(),MaterialUiListInterface<MaterialList.Li
             recyclerView.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
         }
         if (list.isEmpty()) {
-            ZBUiUtils.showToast("采购入库没有找到结果")
+            ZBUiUtils.showWarning("采购入库没有找到结果")
         }
         when(fragmentType){
             CodeConstant.FRAGMENT_TODO ->{
@@ -181,7 +181,7 @@ class ArrivalInFragment : BaseFragment(),MaterialUiListInterface<MaterialList.Li
     }
 
     override fun showError(msg: String) {
-        ZBUiUtils.showToast(msg)
+        ZBUiUtils.showError(msg)
     }
 
     override fun onDestroy() {

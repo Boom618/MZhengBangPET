@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.tbruyelle.rxpermissions2.Permission;
@@ -87,7 +86,7 @@ public class TestMainActivity extends BaseActivity {
     }
 
     private void openCamera(){
-        ZBUiUtils.showToast("允许 = 了权限!");
+        ZBUiUtils.showSuccess("允许 = 了权限!");
         Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         //这句作用是如果没有相机则该应用不会闪退，要是不加这句则当系统没有相机应用的时候该应用会闪退
         if (takePhotoIntent.resolveActivity(getPackageManager()) != null) {

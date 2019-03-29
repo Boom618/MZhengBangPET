@@ -134,7 +134,7 @@ class SendOutDoneDetailActivity : BaseActivity(), ProductUiListInterface<Product
         }
 
         if (beans.size == 0) {
-            ZBUiUtils.showToast("请完善您要发货的信息")
+            ZBUiUtils.showWarning("请完善您要发货的信息")
             return null
         }
 
@@ -206,7 +206,7 @@ class SendOutDoneDetailActivity : BaseActivity(), ProductUiListInterface<Product
     }
 
     override fun showError(msg: String?) {
-        ZBUiUtils.showToast(msg)
+        ZBUiUtils.showError(msg)
     }
 
     override fun onDestroy() {

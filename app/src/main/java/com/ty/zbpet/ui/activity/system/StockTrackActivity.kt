@@ -18,7 +18,6 @@ import com.ty.zbpet.util.ZBUiUtils
 import com.ty.zbpet.util.scan.ScanBoxInterface
 import com.ty.zbpet.util.scan.ScanObservable
 import kotlinx.android.synthetic.main.activity_stock_track.*
-import kotlinx.android.synthetic.main.layout_top_system.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -94,7 +93,7 @@ class StockTrackActivity : BaseActivity(), ScanBoxInterface {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun ErrorEvnet(event: ErrorMessage) {
-        ZBUiUtils.showToast(event.error())
+        ZBUiUtils.showError(event.error())
     }
 
     override fun onDestroy() {
