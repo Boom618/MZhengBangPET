@@ -8,6 +8,7 @@
     <string name="label_pick_out_storage">领料出库</string>
     <string name="label_purchase_returns">采购退货</string>
     <string name="label_purchase_storage">采购入库</string>
+    <string name="label_sales_stock">销售出库</string>
     <string name="label_send_out_storage">发货出库</string>
     <string name="send_out_storage_detail">发货出库详情</string>
     <string name="label_warehouse_manage">仓库管理</string>
@@ -81,6 +82,7 @@
     <string name="other_message">其他信息</string>
     <string name="check_message">质检信息</string>
     <string name="materials_move">原辅料移库</string>
+    <string name="materials_inventor">原辅料盘点</string>
     <string name="materials_move_reversal">原辅料移库冲销</string>
     <string name="product_move">成品移库</string>
     <string name="product_reversal">成品冲销</string>

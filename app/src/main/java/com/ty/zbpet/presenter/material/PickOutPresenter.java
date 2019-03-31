@@ -115,7 +115,7 @@ public class PickOutPresenter {
      *
      * @param url
      */
-    public void urlAnalyze(int position,String url) {
+    public void urlAnalyze(int position,String url,String goodsNo) {
         httpMethods.urlAnalyze(new SingleObserver<BaseResponse<BoxCodeUrl>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -137,7 +137,7 @@ public class PickOutPresenter {
             public void onError(Throwable e) {
                 listInterface.showError(e.getMessage());
             }
-        }, url);
+        }, url,goodsNo);
 
     }
 

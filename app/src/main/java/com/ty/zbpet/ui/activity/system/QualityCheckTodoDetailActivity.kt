@@ -90,6 +90,7 @@ class QualityCheckTodoDetailActivity : BaseActivity(), MaterialUiListInterface<M
     }
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
+        DataUtils.clearImagePath()
     }
 
     override fun initOneData() {
@@ -151,11 +152,11 @@ class QualityCheckTodoDetailActivity : BaseActivity(), MaterialUiListInterface<M
         val infoBean = QuaCheckModify.MaterialCheckReportInfoBean()
         val list = ArrayList<QuaCheckModify.MaterialInfosBean>()
 
-        val fileName = DataUtils.getImageFileName()
+        val fileName = DataUtils.getImagePathList()
         var fileString = ""
         // fileName : 0d43f2c6a15f2587f81d23e6e3a2e5ae.jpg,da5c82971d620334025195f262733812.png
-        for (i in 0 until fileName.size()) {
-            val imageName = fileName.get(i)
+        for (i in 0 until fileName.size) {
+            val imageName = fileName[i]
             if (!TextUtils.isEmpty(imageName)) {
                 fileString += "$imageName,"
             }

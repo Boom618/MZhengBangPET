@@ -11,6 +11,7 @@ import com.ty.zbpet.ui.activity.MainCompanyActivity
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.data.Md5
 import com.ty.zbpet.ui.widght.ShowDialog
+import com.ty.zbpet.util.SimpleCache
 import com.ty.zbpet.util.ZBUiUtils
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import kotlinx.android.synthetic.main.activity_login.*
@@ -82,7 +83,9 @@ class LoginActivity : BaseActivity(), UserInterface {
 
 
     override fun onSuccess() {
-        if (isCompany) {
+        val userInfo = SimpleCache.getUserInfo(CodeConstant.USER_DATA)
+        val roleName = userInfo.roleName
+         if (isCompany) {//if (roleName.equals("质检管理员")) {
             gotoActivity(MainCompanyActivity::class.java, true)
         } else {
             gotoActivity(MainActivity::class.java, true)

@@ -95,7 +95,7 @@ class PositionQueryActivity : BaseActivity(), ScanBoxInterface {
         product_time.text = "库存总量：${event.sum}"
 
 
-        val list = event.stockList!!
+        val list = event.list!!
 
         LayoutInit.initLayoutManager(this, recycler)
         recycler.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))

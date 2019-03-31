@@ -204,8 +204,8 @@ public class HttpMethods {
     /**
      * url 解析
      */
-    public void urlAnalyze(SingleObserver<BaseResponse<BoxCodeUrl>> subscriber, String url) {
-        mService.urlAnalyze(url)
+    public void urlAnalyze(SingleObserver<BaseResponse<BoxCodeUrl>> subscriber, String url,String goodsNo) {
+        mService.urlAnalyze(url,goodsNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
 
@@ -513,8 +513,8 @@ public class HttpMethods {
      * @param subscriber Observer
      */
     public void getProduceDoneList(SingleObserver<BaseResponse<ProductList>> subscriber, String type,
-                                   String sapOrderNo,String startDate,String endDate) {
-        mService.getProduceDoneList(type,sapOrderNo,startDate,endDate)
+                                   String sapOrderNo, String startDate, String endDate) {
+        mService.getProduceDoneList(type, sapOrderNo, startDate, endDate)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -551,8 +551,8 @@ public class HttpMethods {
      * @param subscriber
      */
     public void getShipOrderList(SingleObserver<BaseResponse<ProductList>> subscriber,
-                                 String sapOrderNo,String startDate,String endDate) {
-        mService.getShipOrderList(sapOrderNo,startDate,endDate)
+                                 String sapOrderNo, String startDate, String endDate) {
+        mService.getShipOrderList(sapOrderNo, startDate, endDate)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -585,8 +585,8 @@ public class HttpMethods {
      * @param subscriber
      */
     public void getShipDoneList(SingleObserver<BaseResponse<ProductList>> subscriber, String type,
-            String sapOrderNo, String startDate, String endDate) {
-        mService.getShipDoneList(type,sapOrderNo,startDate,endDate)
+                                String sapOrderNo, String startDate, String endDate) {
+        mService.getShipDoneList(type, sapOrderNo, startDate, endDate)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -623,8 +623,8 @@ public class HttpMethods {
      * @param subscriber Observer
      */
     public void getReturnOrderList(SingleObserver<BaseResponse<ProductList>> subscriber,
-                                   String sapOrderNo,String startDate,String endDate) {
-        mService.getReturnOrderList(sapOrderNo,startDate,endDate)
+                                   String sapOrderNo, String startDate, String endDate) {
+        mService.getReturnOrderList(sapOrderNo, startDate, endDate)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -657,8 +657,8 @@ public class HttpMethods {
      * @param subscriber Observer
      */
     public void getReturnDoneList(SingleObserver<BaseResponse<ProductList>> subscriber, String type,
-                                  String sapOrderNo,String startDate,String endDate) {
-        mService.getReturnDoneList(type,sapOrderNo,startDate,endDate)
+                                  String sapOrderNo, String startDate, String endDate) {
+        mService.getReturnDoneList(type, sapOrderNo, startDate, endDate)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -766,7 +766,7 @@ public class HttpMethods {
      */
     public void getQualityCheckDoneList(SingleObserver<BaseResponse<MaterialList>> observer,
                                         String sapOrderNo, String startDate, String endDate) {
-        mService.getCheckDoneList(CodeConstant.CHECK_STATE_DONE,sapOrderNo,startDate,endDate)
+        mService.getCheckDoneList(CodeConstant.CHECK_STATE_DONE, sapOrderNo, startDate, endDate)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
@@ -794,7 +794,29 @@ public class HttpMethods {
     }
 
     /**--------------------------------- 质检 End ----------------------------------------*/
+    /**--------------------------------- 盘点 start ----------------------------------------*/
 
+    /**
+     * 原辅料盘点
+     */
+    public void positionStock(SingleObserver<BaseResponse<PositionCode>> observer, String positionNo) {
+        mService.positionStock(positionNo)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+
+    }
+
+    /**
+     * 盘点提交
+     *
+     * @param observer
+     * @param body
+     */
+    public void positionStockSave(SingleObserver<ResponseInfo> observer, RequestBody body) {
+        mService.positionStockSave(body)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
 
     /**
      * --------------------------------- 图片上传 ----------------------------------------

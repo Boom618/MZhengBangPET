@@ -58,9 +58,10 @@ class QualityCheckDoneDetailActivity : BaseActivity() {
 
 //    private var imageAdapter: GridImageAdapter? = null
     private var imageAdapter: RecyclerImageAdapter? = null
-    private var selectList: MutableList<LocalMedia> = ArrayList()
-    private var imageList: ArrayList<String> = ArrayList()
-    private val temp = ArrayList<LocalMedia>()
+//    private var selectList: MutableList<LocalMedia> = ArrayList()
+    // 本地显示图片路径
+    private var imageListLocal: ArrayList<String> = ArrayList()
+
     private val httpUrlRemote = "http://117.40.132.236:3099/"
     private val httpUrlLocal = "http://192.168.11.2:3099/"
 
@@ -72,6 +73,7 @@ class QualityCheckDoneDetailActivity : BaseActivity() {
 
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
+        DataUtils.clearImagePath()
         EventBus.getDefault().register(this)
     }
 
@@ -116,11 +118,11 @@ class QualityCheckDoneDetailActivity : BaseActivity() {
         val infoBean = QuaCheckModify.MaterialCheckReportInfoBean()
         val list = ArrayList<QuaCheckModify.MaterialInfosBean>()
 
-        val fileName = DataUtils.getImageFileName()
+        val remoteList = DataUtils.getImagePathList()
         var fileString = ""
         // fileName : 0d43f2c6a15f2587f81d23e6e3a2e5ae.jpg,da5c82971d620334025195f262733812.png
-        for (i in 0 until fileName.size()) {
-            val imageName = fileName.get(i)
+        for (i in 0 until remoteList.size) {
+            val imageName = remoteList[i]
             if (!TextUtils.isEmpty(imageName)) {
                 fileString += "$imageName,"
             }
@@ -138,6 +140,7 @@ class QualityCheckDoneDetailActivity : BaseActivity() {
             val number = content.text.toString().trim { it <= ' ' }
             if (!TextUtils.isEmpty(number)) {
 
+                bean.id = dataBean.id
                 bean.unit = dataBean.unit
                 bean.materialNo = dataBean.materialNo
                 bean.materialName = dataBean.materialName
@@ -158,6 +161,7 @@ class QualityCheckDoneDetailActivity : BaseActivity() {
         if (!TextUtils.isEmpty(fileString)) {
             tempFile = fileString.substring(0, fileString.length - 1)
         }
+        infoBean.id = id
         infoBean.checkDesc = desc
         infoBean.checkTime = selectTime
         infoBean.sapOrderNo = sapOrderNo
@@ -167,7 +171,6 @@ class QualityCheckDoneDetailActivity : BaseActivity() {
         requestBody.materialCheckReportInfo = infoBean
 
         val json = DataUtils.toJson(requestBody, 1)
-
         return RequestBodyJson.requestBody(json)
 
     }
@@ -185,7 +188,7 @@ class QualityCheckDoneDetailActivity : BaseActivity() {
 
         val pathList = event.pathList!!
         initPath(pathList)
-        listBeans = event.checkReportList!!
+        listBeans = event.list!!
         if (adapter == null) {
 
             LayoutInit.initLayoutManager(ResourceUtil.getContext(), rv_in_storage_detail)
@@ -200,17 +203,15 @@ class QualityCheckDoneDetailActivity : BaseActivity() {
 
         //   图片服务器地址：117.40.132.236:3099
         for (i in 0 until pathList.size) {
-//            val phone = LocalMedia()
-            DataUtils.saveImage(pathList[i])
-            imageList.add(httpUrlRemote + pathList[i])
-            //selectList.add(phone)
+            DataUtils.saveImage(pathList[i].substring(6))
+            imageListLocal.add(httpUrlLocal + pathList[i])
         }
 
         gridLayoutManager = GridLayoutManager(this, 3)
         gridLayoutManager?.orientation = LinearLayoutManager.VERTICAL
         recycler_image.layoutManager = gridLayoutManager
 
-        imageAdapter = RecyclerImageAdapter(this@QualityCheckDoneDetailActivity, imageList)
+        imageAdapter = RecyclerImageAdapter(this@QualityCheckDoneDetailActivity, imageListLocal)
         recycler_image.adapter = imageAdapter
     }
 
@@ -223,10 +224,9 @@ class QualityCheckDoneDetailActivity : BaseActivity() {
             when (requestCode) {
                 PictureConfig.CHOOSE_REQUEST -> {
                     // 图片、视频、音频选择结果回调
-                    temp.addAll(selectList)
-                    selectList = PictureSelector.obtainMultipleResult(data)
+                    val selectList = PictureSelector.obtainMultipleResult(data)
                     val path = selectList[0].path
-                    imageList.add(path)
+                    imageListLocal.add(path)
                     // 例如 LocalMedia 里面返回三种path
                     // 1.media.getPath(); 为原图path
                     // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外

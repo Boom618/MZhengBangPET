@@ -10,14 +10,14 @@
     <ImageView
         android:id="@+id/image_top"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
+        app:layout_constraintTop_toTopOf="parent"
         android:background="@mipmap/hk1" />
 
     <ImageView
         android:id="@+id/zb_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:src="@mipmap/zblogo"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -28,7 +28,7 @@
         android:id="@+id/zb_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="14dp"
         android:text="@string/label_title"
         android:textColor="@color/white"
         android:textSize="@dimen/text_24"
@@ -41,7 +41,7 @@
     <ImageView
         android:id="@+id/image_material"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="175dp"
         android:background="@mipmap/hk2"
         app:layout_constraintTop_toBottomOf="@+id/image_top" />
 
@@ -58,24 +58,27 @@
 
     <TextView
         android:id="@+id/tv_arrival_in_storage"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constraintHorizontal_weight="1"
         android:background="@mipmap/qsback"
         android:drawableTop="@mipmap/dhicon"
+        android:layout_margin="@dimen/space_5"
         android:drawablePadding="@dimen/space_3"
         android:gravity="center"
         android:padding="@dimen/space_3"
         android:text="@string/label_arrival_storage"
         android:textColor="@color/white"
-        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/tv_pick_out_storage"
         app:layout_constraintTop_toBottomOf="@+id/tv_material_inventory" />
 
     <TextView
         android:id="@+id/tv_pick_out_storage"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constraintHorizontal_weight="1"
+        android:layout_margin="@dimen/space_5"
         android:background="@mipmap/lsback"
         android:drawableTop="@mipmap/llicon"
         android:drawablePadding="@dimen/space_3"
@@ -83,15 +86,17 @@
         android:padding="@dimen/space_3"
         android:text="@string/label_pick_out_storage"
         android:textColor="@color/white"
-        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintLeft_toRightOf="@id/tv_arrival_in_storage"
-        app:layout_constraintRight_toLeftOf="@id/tv_purchase_returns"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_material_inventory" />
 
     <TextView
         android:id="@+id/tv_purchase_returns"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_5"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="parent"
         android:background="@mipmap/qsback"
         android:drawableTop="@mipmap/cgicon"
         android:drawablePadding="@dimen/space_3"
@@ -99,10 +104,25 @@
         android:padding="@dimen/space_3"
         android:text="@string/label_purchase_returns"
         android:textColor="@color/white"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintLeft_toRightOf="@id/tv_pick_out_storage"
+        app:layout_constraintRight_toLeftOf="@id/tv_sales_stock"
+        app:layout_constraintTop_toBottomOf="@+id/tv_arrival_in_storage" />
+
+    <TextView
+        android:id="@+id/tv_sales_stock"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_5"
+        app:layout_constraintHorizontal_weight="1"
+        android:background="@mipmap/qsback"
+        android:drawableTop="@mipmap/cgicon"
+        android:drawablePadding="@dimen/space_3"
+        android:gravity="center"
+        android:padding="@dimen/space_3"
+        android:text="@string/label_sales_stock"
+        android:textColor="@color/white"
+        app:layout_constraintLeft_toRightOf="@id/tv_purchase_returns"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_material_inventory" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_arrival_in_storage" />
 
     <ImageView
         android:id="@+id/image_pick"
@@ -110,7 +130,7 @@
         android:layout_height="175dp"
         android:layout_marginTop="@dimen/space_5"
         android:background="@drawable/hk2"
-        app:layout_constraintTop_toBottomOf="@+id/image_material"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_purchase_returns"/>
 
     <TextView
         android:id="@+id/tv_product_inventory"
@@ -198,7 +218,6 @@
         android:id="@+id/image_warehouse_manage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_5"
         android:background="@drawable/hk2"
         app:layout_constraintTop_toBottomOf="@+id/image_pick" />
 

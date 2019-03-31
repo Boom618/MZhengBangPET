@@ -227,6 +227,7 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
                         itemId = position
                         val intent = Intent(it.context, ScanBoxCodeActivity::class.java)
                         intent.putExtra("itemId", itemId)
+                        intent.putExtra("goodsNo", list[position].goodsNo)
                         intent.putExtra(CodeConstant.PAGE_STATE, true)
                         intent.putStringArrayListExtra("boxCodeList", carCodeArray.get(itemId))
                         startActivityForResult(intent, REQUEST_SCAN_CODE)

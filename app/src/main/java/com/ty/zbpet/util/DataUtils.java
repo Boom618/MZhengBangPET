@@ -94,17 +94,9 @@ public class DataUtils {
     private static SparseArray<SparseArray<Integer>> positionAndWhich = new SparseArray(5);
     private static SparseArray<Integer> sparseArray = new SparseArray<>(20);
 
-
-    /**
-     * 库位码 焦点 数据
-     */
-    private static SparseArray<String> codeFocusArray = new SparseArray<>(5);
-
     /**
      * 质检图片
      */
-    private static SparseArray<SparseArray<String>> positionAndFile = new SparseArray<>(5);
-    private static SparseArray<String> imageArray = new SparseArray<>(20);
     private static ArrayList<String> imageList = new ArrayList<>(5);
 
 
@@ -129,27 +121,6 @@ public class DataUtils {
     }
 
 
-    /**
-     * 用户选择图片存储
-     *
-     * @param position item 位置
-     * @param fileName 文件名
-     */
-    public static void setImageId(int position, String fileName) {
-        imageArray.put(position, fileName);
-        positionAndFile.put(CodeConstant.SELECT_IMAGE, imageArray);
-    }
-
-    public static SparseArray<String> getImageFileName() {
-
-        SparseArray<String> imageFile = positionAndFile.get(CodeConstant.SELECT_IMAGE);
-        if (imageFile == null) {
-            imageFile = new SparseArray<>();
-            imageFile.put(0, "");
-        }
-        return imageFile;
-    }
-
 
     /**
      * ----- 保存质检图片 --------
@@ -158,8 +129,14 @@ public class DataUtils {
         imageList.add(fileName);
     }
 
-    public static ArrayList<String> getImagePathList(){
+    public static ArrayList<String> getImagePathList() {
         return imageList;
+    }
+
+    public static void clearImagePath() {
+        if (imageList != null) {
+            imageList.clear();
+        }
     }
 
 
@@ -169,7 +146,5 @@ public class DataUtils {
     public static void clearId() {
         positionAndWhich.put(CodeConstant.SELECT_HOUSE_BUY_IN, null);
         positionAndWhich.put(CodeConstant.INSTANCE.getSELECT_GOODS(), null);
-        positionAndFile.put(CodeConstant.SELECT_IMAGE, null);
-        codeFocusArray.put(CodeConstant.INSTANCE.getET_CODE_FOCUS_INT(), null);
     }
 }

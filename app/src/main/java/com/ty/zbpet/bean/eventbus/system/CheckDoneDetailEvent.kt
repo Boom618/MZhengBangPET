@@ -19,20 +19,20 @@ class CheckDoneDetailEvent {
     var id: String? = null
     var checkTime: String? = null
     var pathList: MutableList<String>? = null
-    var checkReportList: List<CheckReportListBean>? = null
+    var list: List<CheckReportListBean>? = null
 
     class CheckReportListBean {
 
-        var id: Int = 0
+        var id: String? = null
         var checkID: Int = 0
-        var companyNo: Any? = null
+        var companyNo: String? = null
         var arrivalOrderNo: String? = null
         var materialNo: String? = null
         var materialName: String? = null
-        var checkNum: Any? = null
+        var checkNum: String? = null
         var percent: Double = 0.toDouble()
         var unit: String? = null
-        var creator: Any? = null
+        var creator: String? = null
         var createdAt: String? = null
         var updatedAt: String? = null
     }

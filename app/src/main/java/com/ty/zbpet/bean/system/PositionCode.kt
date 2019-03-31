@@ -14,9 +14,10 @@ class PositionCode {
      */
 
     var positionNo: String? = null
+    var warehouseNo: String? = null
     var type: String? = null
     var sum: Int = 0
-    var stockList: MutableList<StockListBean>? = null
+    var list: MutableList<StockListBean>? = null
 
     class StockListBean {
         /**
@@ -29,12 +30,17 @@ class PositionCode {
          * unit : KG
          */
 
+        var stockId: String? = null
+        var positionNo: String? = null
+        var sapOrderNo: String? = null
         var materialName: String? = null
         var materialNo: String? = null
         var supplierNo: String? = null
+        var sapBatchNo: String? = null
         var supplierName: String? = null
         var concentration: Double = 0.toDouble()
-        var number: Int = 0
+        var number: String? = null
+        var checkNumber: String? = null
         var unit: String? = null
     }
 }

@@ -84,6 +84,7 @@ class ProductMoveActivity : BaseActivity() {
                 val intent = Intent(this, ScanBoxCodeActivity::class.java)
                 intent.putExtra(CodeConstant.PAGE_STATE, true)
                 intent.putExtra("itemId", position)
+                intent.putExtra("goodsNo", "")
                 intent.putStringArrayListExtra("boxCodeList", list)
                 startActivityForResult(intent, REQUEST_SCAN_CODE)
             }

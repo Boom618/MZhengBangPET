@@ -39,7 +39,7 @@ public class CommPresenter {
     /**
      * url 解析
      */
-    public void urlAnalyze(String url) {
+    public void urlAnalyze(String url,String goodsNo) {
         httpMethods.urlAnalyze(new SingleObserver<BaseResponse<BoxCodeUrl>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -60,7 +60,7 @@ public class CommPresenter {
             public void onError(Throwable e) {
                 commInterface.showError(e.getMessage());
             }
-        }, url);
+        }, url,goodsNo);
     }
 
 }

@@ -20,6 +20,7 @@ class QuaCheckModify {
          * fileName : 0d43f2c6a15f2587f81d23e6e3a2e5ae.jpg,da5c82971d620334025195f262733812.png(多个图片的名称以逗号隔开)
          */
 
+        var id: String? = null
         var checkDesc: String? = null
         var sapOrderNo: String? = null
         var checkTime: String? = null
@@ -39,6 +40,7 @@ class QuaCheckModify {
          * unit : 单位
          */
 
+        var id: String? = null
         var arrivalOrderNo: String? = null
         var checkNum: String? = null
         var materialName: String? = null

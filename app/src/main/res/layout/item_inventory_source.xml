@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_white_min_radius"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <TextView
+        android:id="@+id/position_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/x20"
+        android:layout_marginTop="@dimen/x30"
+        android:text="库位码号："
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_material_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:text="原辅料名称："
+        app:layout_constraintStart_toStartOf="@+id/position_no"
+        app:layout_constraintTop_toBottomOf="@+id/position_no" />
+
+    <TextView
+        android:id="@+id/tv_supplier_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:text="供应商名称："
+        app:layout_constraintStart_toStartOf="@+id/position_no"
+        app:layout_constraintTop_toBottomOf="@+id/tv_material_name" />
+
+
+    <TextView
+        android:id="@+id/tv_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:text="库存数量："
+        app:layout_constraintStart_toStartOf="@+id/position_no"
+        app:layout_constraintTop_toBottomOf="@+id/tv_supplier_name" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:text="含量："
+        app:layout_constraintStart_toStartOf="@+id/position_no"
+        app:layout_constraintTop_toBottomOf="@+id/tv_number" />
+
+    <TextView
+        android:id="@+id/tv_sap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:text="SAP 批次号："
+        app:layout_constraintStart_toStartOf="@+id/position_no"
+        app:layout_constraintTop_toBottomOf="@+id/tv_content" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/x5"
+        android:background="@color/split_line_color"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sap" />
+
+    <TextView
+        android:id="@+id/type"
+        android:layout_marginTop="@dimen/x20"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sap"
+        app:layout_constraintStart_toStartOf="@+id/position_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="类型：" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toEndOf="@+id/type"
+        app:layout_constraintBottom_toBottomOf="@+id/type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/rb_surplus"
+            android:text="盘盈"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RadioButton
+            android:id="@+id/rb_loss"
+            android:text="盘亏"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/tv_move"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x15"
+        android:text="实际数量："
+        app:layout_constraintStart_toStartOf="@+id/position_no"
+        app:layout_constraintTop_toBottomOf="@+id/type" />
+
+    <EditText
+        android:id="@+id/edit_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="100"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/tv_move"
+        app:layout_constraintTop_toBottomOf="@+id/type" />
+
+</android.support.constraint.ConstraintLayout>

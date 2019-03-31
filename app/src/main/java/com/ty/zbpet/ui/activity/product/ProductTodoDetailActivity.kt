@@ -109,7 +109,11 @@ class ProductTodoDetailActivity : BaseActivity()
             houseName.add(warehouseList[i].warehouseName.toString())
         }
         //tv_house!!.text = houseName[0]
-        tv_house.text = warehouseList[0].warehouseName
+        try {
+            tv_house.text = warehouseList[0].warehouseName
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
         presenter.fetchProductTodoInfo(sign, sapOrderNo)
     }
@@ -242,9 +246,9 @@ class ProductTodoDetailActivity : BaseActivity()
     }
 
 
-    override fun showProduct(list: MutableList<ProductDetails.ListBean>?) {
+    override fun showProduct(list: MutableList<ProductDetails.ListBean>) {
 
-        oldList = list!!
+        oldList = list
 
         if (adapter == null) {
             val manager = LinearLayoutManager(ResourceUtil.getContext())
@@ -275,6 +279,7 @@ class ProductTodoDetailActivity : BaseActivity()
                         itemId = position
                         val intent = Intent(it.context, ScanBoxCodeActivity::class.java)
                         intent.putExtra("itemId", itemId)
+                        intent.putExtra("goodsNo", list[position].goodsNo)
                         intent.putExtra(CodeConstant.PAGE_STATE, true)
                         intent.putStringArrayListExtra("boxCodeList", carCodeArray.get(itemId))
                         startActivityForResult(intent, REQUEST_SCAN_CODE)

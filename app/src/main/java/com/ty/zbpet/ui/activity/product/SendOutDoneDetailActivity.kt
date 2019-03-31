@@ -179,6 +179,7 @@ class SendOutDoneDetailActivity : BaseActivity(), ProductUiListInterface<Product
                     bindingCode.setOnClickListener {
                         val intent = Intent(it.context, ScanBoxCodeActivity::class.java)
                         intent.putExtra(CodeConstant.PAGE_STATE, false)
+                        intent.putExtra("goodsNo", list[position].goodsNo)
                         intent.putStringArrayListExtra("boxCodeList", boxQrCodeList)
                         startActivity(intent)
                     }

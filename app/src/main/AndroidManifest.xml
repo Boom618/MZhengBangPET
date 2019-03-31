@@ -115,6 +115,7 @@
         <activity android:name=".ui.activity.wareroom.ProductReversalActivity" />
         <activity android:name=".ui.activity.system.PositionQueryActivity" />
         <activity android:name=".ui.activity.wareroom.InventoryMainActivity" />
+        <activity android:name=".ui.activity.wareroom.MaterialsStockActivity" />
 
     </application>
 

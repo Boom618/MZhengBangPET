@@ -130,12 +130,14 @@ public interface ApiService {
     /**
      * url 解析
      *
-     * @param url url
+     * @param url     url
+     * @param goodsNo 商品编号
      * @return Single
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.URL_ANALYZE)
-    Single<BaseResponse<BoxCodeUrl>> urlAnalyze(@Field("url") String url);
+    Single<BaseResponse<BoxCodeUrl>> urlAnalyze(@Field("url") String url,
+                                                @Field("goodsNo") String goodsNo);
 
     /**
      * 获取原辅料采购 已办列表
@@ -693,6 +695,27 @@ public interface ApiService {
      */
     @POST(ApiNameConstant.GET_CHECK_DONE_SAVE)
     Single<ResponseInfo> getCheckDoneSave(@Body RequestBody body);
+
+    /**--------------------------------- 盘点 --------------------------------------------*/
+
+    /**
+     * 原辅料盘点
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiNameConstant.MATERIAL_POSITION_STOCK)
+    Single<BaseResponse<PositionCode>> positionStock(@Field("positionNo") String positionNo);
+
+    /**
+     * 盘点提交
+     *
+     * @param body
+     * @return Single
+     */
+    @POST(ApiNameConstant.MATERIAL_POSITION_STOCK_SAVE)
+    Single<ResponseInfo> positionStockSave(@Body RequestBody body);
+
 
     /**--------------------------------- 图片 --------------------------------------------*/
 

@@ -142,7 +142,7 @@ public class MaterialPresenter {
      *
      * @param url url
      */
-    public void urlAnalyze(int position, String url) {
+    public void urlAnalyze(int position, String url, String goodsNo) {
         httpMethods.urlAnalyze(new SingleObserver<BaseResponse<BoxCodeUrl>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -164,7 +164,7 @@ public class MaterialPresenter {
             public void onError(Throwable e) {
                 materialListUi.showError(e.getMessage());
             }
-        }, url);
+        }, url, goodsNo);
 
     }
 
@@ -399,7 +399,7 @@ public class MaterialPresenter {
             @Override
             public void onError(Throwable e) {
                 materialListUi.hideLoading();
-                materialListUi.showError(e.getMessage());
+                materialListUi.showError("保存失败");
             }
         }, body);
     }

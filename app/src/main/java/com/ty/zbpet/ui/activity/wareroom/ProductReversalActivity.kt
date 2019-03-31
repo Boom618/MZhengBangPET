@@ -82,6 +82,7 @@ class ProductReversalActivity : BaseActivity() {
                 val intent = Intent(this, ScanBoxCodeActivity::class.java)
                 intent.putExtra(CodeConstant.PAGE_STATE, false)
                 intent.putExtra("itemId", position)
+                intent.putExtra("goodsNo", "")
                 intent.putStringArrayListExtra("boxCodeList", list)
                 startActivity(intent)
             }

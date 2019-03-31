@@ -25,12 +25,14 @@ import java.util.*
  * @author TY
  * 扫码功能
  */
-class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface , CommInterface {
+class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface, CommInterface {
 
     override val activityLayout: Int
         get() = R.layout.activity_scan_box_code
 
     private var isOpen: Boolean = false
+    // 商品编号
+    private var goodsNo = ""
     /**
      * 箱码数据
      */
@@ -55,6 +57,7 @@ class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface , CommInterface {
 
     override fun initOneData() {
         itemId = intent.getIntExtra("itemId", -1)
+        goodsNo = intent.getStringExtra("goodsNo")
         state = intent.getBooleanExtra(CodeConstant.PAGE_STATE, false)
         boxCodeList = intent.getStringArrayListExtra("boxCodeList")
         if (boxCodeList == null) {
@@ -74,7 +77,7 @@ class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface , CommInterface {
         isOpen = scanInit()
 
         if (state) {
-            initToolBar(R.string.box_binding_list, "保存",View.OnClickListener { returnActivity() })
+            initToolBar(R.string.box_binding_list, "保存", View.OnClickListener { returnActivity() })
         } else {
             initToolBar(R.string.box_binding_list)
         }
@@ -125,7 +128,7 @@ class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface , CommInterface {
      */
     override fun ScanSuccess(position: Int, positionNo: String) {
 
-        presenter.urlAnalyze(positionNo)
+        presenter.urlAnalyze(positionNo, goodsNo)
 //        checkBoxCode(positionNo)
     }
 

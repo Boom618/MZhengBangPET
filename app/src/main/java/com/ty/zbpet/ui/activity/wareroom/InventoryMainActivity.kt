@@ -26,7 +26,7 @@ class InventoryMainActivity : BaseActivity() {
     override fun initTwoView() {
         initToolBar(R.string.label_inventory)
 
-//        materials.setOnClickListener { gotoActivity(MoveRoomMaterialsActivity::class.java) }
+        materials.setOnClickListener { gotoActivity(MaterialsStockActivity::class.java) }
 //        product.setOnClickListener { gotoActivity(ReversalMaterialsActivity::class.java) }
 //        delete_order.setOnClickListener { gotoActivity(ProductMoveActivity::class.java) }
 

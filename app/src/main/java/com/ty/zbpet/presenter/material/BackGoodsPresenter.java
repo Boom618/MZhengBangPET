@@ -120,7 +120,7 @@ public class BackGoodsPresenter {
      *
      * @param url
      */
-    public void urlAnalyze(int position,String url) {
+    public void urlAnalyze(int position,String url,String goodsNo) {
         httpMethods.urlAnalyze(new SingleObserver<BaseResponse<BoxCodeUrl>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -142,7 +142,7 @@ public class BackGoodsPresenter {
             public void onError(Throwable e) {
                 materialListUi.showError(e.getMessage());
             }
-        }, url);
+        }, url,goodsNo);
 
     }
 
