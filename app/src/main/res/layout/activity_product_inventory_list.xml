@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <include
+        android:id="@+id/top_layout"
+        layout="@layout/top_layout" />
+
+    <EditText
+        android:id="@+id/et_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_10"
+        android:background="@drawable/shape_white_max_radius"
+        android:hint="请输入单号"
+        android:imeOptions="actionSearch"
+        android:inputType="number"
+        android:maxLines="1"
+        android:padding="@dimen/space_7"
+        android:textColor="@color/txt_minor_color"
+        android:textSize="@dimen/text_14"
+        app:layout_constraintTop_toBottomOf="@+id/top_layout" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_inventory"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/x10"
+        app:layout_constraintTop_toBottomOf="@+id/et_search" />
+
+
+</android.support.constraint.ConstraintLayout>

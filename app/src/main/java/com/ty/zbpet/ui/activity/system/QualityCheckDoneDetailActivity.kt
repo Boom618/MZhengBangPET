@@ -204,7 +204,7 @@ class QualityCheckDoneDetailActivity : BaseActivity() {
         //   图片服务器地址：117.40.132.236:3099
         for (i in 0 until pathList.size) {
             DataUtils.saveImage(pathList[i].substring(6))
-            imageListLocal.add(httpUrlLocal + pathList[i])
+            imageListLocal.add(httpUrlRemote + pathList[i])
         }
 
         gridLayoutManager = GridLayoutManager(this, 3)

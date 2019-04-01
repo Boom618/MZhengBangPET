@@ -11,6 +11,7 @@ import com.ty.zbpet.bean.product.ProductList;
 import com.ty.zbpet.bean.system.BoxCodeUrl;
 import com.ty.zbpet.bean.system.ImageData;
 import com.ty.zbpet.bean.system.PositionCode;
+import com.ty.zbpet.bean.system.ProductInventorList;
 import com.ty.zbpet.bean.system.ProductQuery;
 import com.ty.zbpet.bean.system.QualityCheckTodoDetails;
 import com.ty.zbpet.bean.system.QualityCheckTodoList;
@@ -696,41 +697,74 @@ public interface ApiService {
     @POST(ApiNameConstant.GET_CHECK_DONE_SAVE)
     Single<ResponseInfo> getCheckDoneSave(@Body RequestBody body);
 
-    /**--------------------------------- 盘点 --------------------------------------------*/
+    /*--------------------------------- 盘点 --------------------------------------------*/
 
     /**
      * 原辅料盘点
      *
-     * @return
+     * @param positionNo 库位码
+     * @return Single
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.MATERIAL_POSITION_STOCK)
     Single<BaseResponse<PositionCode>> positionStock(@Field("positionNo") String positionNo);
 
     /**
-     * 盘点提交
+     * 原辅料盘点提交
      *
-     * @param body
+     * @param body body
      * @return Single
      */
     @POST(ApiNameConstant.MATERIAL_POSITION_STOCK_SAVE)
     Single<ResponseInfo> positionStockSave(@Body RequestBody body);
 
+    /**
+     * 成品盘点 列表
+     *
+     * @return Single
+     */
+    @GET(ApiNameConstant.GET_GOODS_LIST)
+    Single<BaseResponse<ProductInventorList.ListBean>> getGoodsList(@Query("pageSize") int pageSize,
+                                                                    @Query("goodsNo") String goodsNo,
+                                                                    @Query("pageNumber") int pageNumber);
 
-    /**--------------------------------- 图片 --------------------------------------------*/
+    /**
+     * 成品盘点 goodsNo
+     *
+     * @return Single
+     */
+    @GET(ApiNameConstant.GET_GOODS_LIST)
+    Single<String> getGoodsNo(@Query("goodsNo") String goodsNo);
+
+
+    /**
+     * 删除盘点记录
+     *
+     * @param id         id
+     * @param sapCheckNo sapCheckNo
+     * @return Single
+     */
+    @POST(ApiNameConstant.DELETE_CHECK)
+    Single<String> deleteCheck(@Field("id") String id, @Field("sapCheckNo") String sapCheckNo);
+
+    /*--------------------------------- 图片 --------------------------------------------*/
 
     /**
      * 质检 待办 上传图片
      *
      * @param description
      * @param part
-     * @return
+     * @return Single
      */
     @Multipart
     @POST(ApiNameConstant.POST_USER_QUA_CHECK_IMAGE)
     Single<ImageData> updateCheckImage1(@Part("file") RequestBody description,
                                         @Part MultipartBody.Part part);
 
+    /**
+     * @param part MultipartBody.Part
+     * @return Single
+     */
     @Multipart
     @POST(ApiNameConstant.POST_USER_QUA_CHECK_IMAGE)
     Single<ImageData> updateCheckImage(@Part MultipartBody.Part part);

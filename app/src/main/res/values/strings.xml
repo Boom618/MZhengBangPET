@@ -85,6 +85,9 @@
     <string name="materials_inventor">原辅料盘点</string>
     <string name="materials_move_reversal">原辅料移库冲销</string>
     <string name="product_move">成品移库</string>
+    <string name="product_inventor">成品盘点</string>
+    <string name="product_delete">单据删除</string>
+    <string name="delete">删除</string>
     <string name="product_reversal">成品冲销</string>
     <string name="move_room_source">源库位</string>
     <string name="move_room_target">目标库位</string>

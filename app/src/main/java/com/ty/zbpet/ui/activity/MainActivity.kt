@@ -64,7 +64,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             R.id.tv_sales_stock -> {
                 //原辅料——销售出库（新加）
                 bundle.putInt(CodeConstant.ACTIVITY_TYPE, 3)
-                gotoActivity(PrimaryActivity::class.java, false, bundle)
+                //gotoActivity(PrimaryActivity::class.java, false, bundle)
             }
             R.id.tv_purchase_in_storage -> {
                 //成品——外采入库

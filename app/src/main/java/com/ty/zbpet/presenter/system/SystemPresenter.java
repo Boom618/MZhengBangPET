@@ -5,6 +5,7 @@ import com.ty.zbpet.bean.eventbus.ErrorMessage;
 import com.ty.zbpet.bean.eventbus.SuccessMessage;
 import com.ty.zbpet.bean.material.MaterialList;
 import com.ty.zbpet.bean.system.PositionCode;
+import com.ty.zbpet.bean.system.ProductInventorList;
 import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
@@ -167,5 +168,57 @@ public class SystemPresenter {
             }
         }, body);
     }
+
+    /* ------------------------------------- 成品盘点 ------------------------------------- */
+
+    /**
+     * 成品盘点列表
+     */
+    public void getGoodsList(int pageSize,String goodsNo) {
+        httpMethods.getGoodsList(new SingleObserver<BaseResponse<ProductInventorList.ListBean>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(BaseResponse<ProductInventorList.ListBean> response) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
+                    List<ProductInventorList.ListBean> list = response.getList();
+                    EventBus.getDefault().post(list);
+                } else {
+                    EventBus.getDefault().post(new ErrorMessage(response.getMessage()));
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                EventBus.getDefault().post(new ErrorMessage(e.getMessage()));
+            }
+        }, pageSize,goodsNo);
+    }
+
+    /**
+     * 成品盘点
+     */
+//    public void getGoodsNo(String goodsNo) {
+//        httpMethods.getGoodsNo(new SingleObserver<String>() {
+//            @Override
+//            public void onSubscribe(Disposable d) {
+//                disposable = d;
+//            }
+//
+//            @Override
+//            public void onSuccess(String s) {
+//
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//                EventBus.getDefault().post(new ErrorMessage(e.getMessage()));
+//            }
+//        }, goodsNo);
+//
+//    }
 
 }

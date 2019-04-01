@@ -116,6 +116,9 @@
         <activity android:name=".ui.activity.system.PositionQueryActivity" />
         <activity android:name=".ui.activity.wareroom.InventoryMainActivity" />
         <activity android:name=".ui.activity.wareroom.MaterialsStockActivity" />
+        <activity android:name=".ui.activity.wareroom.ProductInventoryActivity" />
+        <activity android:name=".ui.activity.wareroom.ProductInventoryListActivity" />
+        <activity android:name=".ui.activity.wareroom.ProductDeleteListActivity" />
 
     </application>
 

@@ -96,11 +96,11 @@ object CodeConstant {
      * 用户 sessionId 全局
      */
 
-    val SYSTEM_KEY = "system"
-    val SYSTEM_VALUE = "android"
+    const val SYSTEM_KEY = "system"
+    const val SYSTEM_VALUE = "android"
     const val SESSION_ID_KEY = "sessionid"
-    val CHANGE_ROLE_PHONE = "切换手机登录"
-    val CHANGE_ROLE_COMPANY = "切换组织代码登录"
+    const val CHANGE_ROLE_PHONE = "切换手机登录"
+    const val CHANGE_ROLE_COMPANY = "切换组织代码登录"
 
     /**
      * 用户数据

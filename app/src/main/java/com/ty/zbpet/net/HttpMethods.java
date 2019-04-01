@@ -13,6 +13,7 @@ import com.ty.zbpet.bean.product.ProductList;
 import com.ty.zbpet.bean.system.BoxCodeUrl;
 import com.ty.zbpet.bean.system.ImageData;
 import com.ty.zbpet.bean.system.PositionCode;
+import com.ty.zbpet.bean.system.ProductInventorList;
 import com.ty.zbpet.bean.system.ProductQuery;
 import com.ty.zbpet.bean.system.QualityCheckTodoDetails;
 import com.ty.zbpet.bean.system.QualityCheckTodoList;
@@ -97,7 +98,7 @@ public class HttpMethods {
     }
 
 
-    /**
+    /*
      * --------------------------------- 系统登录 ----------------------------------------
      */
 
@@ -117,7 +118,7 @@ public class HttpMethods {
     /**
      * 用户登出
      *
-     * @param observer
+     * @param observer observer
      */
     public void userLogOut(SingleObserver<ResponseInfo> observer) {
         mService.userLogout()
@@ -128,10 +129,10 @@ public class HttpMethods {
     /**
      * 修改密码
      *
-     * @param observer
-     * @param oldPassword
-     * @param newPassword
-     * @param newPasswordAgain
+     * @param observer         observer
+     * @param oldPassword      原密码
+     * @param newPassword      新密码
+     * @param newPasswordAgain 新密码确认
      */
     public void userUpdatePass(SingleObserver<ResponseInfo> observer, String oldPassword
             , String newPassword, String newPasswordAgain) {
@@ -143,7 +144,7 @@ public class HttpMethods {
     /**
      * 个人中心
      *
-     * @param observer
+     * @param observer observer
      */
     public void userCenter(SingleObserver<ResponseInfo> observer) {
         mService.userCenter()
@@ -152,42 +153,42 @@ public class HttpMethods {
     }
 
 
-    /**--------------------------------- 到货入库 ----------------------------------------*/
+    /*--------------------------------- 到货入库 ----------------------------------------*/
 
     /**
      * 获取原辅料采购待办列表
      *
-     * @param subscriber
+     * @param observer observer
      */
-    public void getMaterialTodoList(SingleObserver<BaseResponse<MaterialList>> subscriber,
+    public void getMaterialTodoList(SingleObserver<BaseResponse<MaterialList>> observer,
                                     String sapOrderNo, String startDate, String endDate) {
         mService.getMaterialTodoList(sapOrderNo, startDate, endDate)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
+                .subscribe(observer);
     }
 
     /**
      * 获取原辅料采购 待办 详情
      *
-     * @param subscriber
+     * @param observer observer
      */
-    public void getMaterialTodoListDetail(SingleObserver<BaseResponse<MaterialDetails>> subscriber, String sapFirmNo, String sapOrderNo, String supplierNo) {
+    public void getMaterialTodoListDetail(SingleObserver<BaseResponse<MaterialDetails>> observer, String sapFirmNo, String sapOrderNo, String supplierNo) {
         mService.getMaterialTodoListDetail(sapFirmNo, sapOrderNo, supplierNo)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
+                .subscribe(observer);
     }
 
 
     /**
      * 待办 保存
      *
-     * @param subscriber
-     * @param body
+     * @param observer observer
+     * @param body     body
      */
-    public void materialTodoInSave(SingleObserver<ResponseInfo> subscriber, RequestBody body) {
+    public void materialTodoInSave(SingleObserver<ResponseInfo> observer, RequestBody body) {
         mService.materialPurchaseInSave(body)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
+                .subscribe(observer);
 
     }
 
@@ -204,8 +205,8 @@ public class HttpMethods {
     /**
      * url 解析
      */
-    public void urlAnalyze(SingleObserver<BaseResponse<BoxCodeUrl>> subscriber, String url,String goodsNo) {
-        mService.urlAnalyze(url,goodsNo)
+    public void urlAnalyze(SingleObserver<BaseResponse<BoxCodeUrl>> subscriber, String url, String goodsNo) {
+        mService.urlAnalyze(url, goodsNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
 
@@ -214,116 +215,116 @@ public class HttpMethods {
     /**
      * 已办列表
      *
-     * @param subscriber
+     * @param observer observer
      */
-    public void getMaterialDoneList(SingleObserver<BaseResponse<MaterialList>> subscriber, String type,
+    public void getMaterialDoneList(SingleObserver<BaseResponse<MaterialList>> observer, String type,
                                     String sapOrderNo, String startDate, String endDate) {
         mService.getMaterialDoneList(type, sapOrderNo, startDate, endDate)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
+                .subscribe(observer);
     }
 
     /**
      * 已办详情
      *
-     * @param subscriber
-     * @param orderId
+     * @param observer observer
+     * @param orderId  订单ID
      */
-    public void getMaterialDoneListDetail(SingleObserver<BaseResponse<MaterialDetails>> subscriber, String orderId) {
+    public void getMaterialDoneListDetail(SingleObserver<BaseResponse<MaterialDetails>> observer, String orderId) {
         mService.getMaterialDoneListDetail(orderId)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
+                .subscribe(observer);
     }
 
     /**
      * 原辅料到货冲销入库 已办 保存
      *
-     * @param subscriber
-     * @param body
+     * @param observer observer
+     * @param body     body
      */
-    public void materialDoneInSave(SingleObserver<ResponseInfo> subscriber, RequestBody body) {
+    public void materialDoneInSave(SingleObserver<ResponseInfo> observer, RequestBody body) {
         mService.purchaseInRecallOut(body)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
+                .subscribe(observer);
     }
 
-    /**--------------------------------- 领料出库 ----------------------------------------*/
+    /*--------------------------------- 领料出库 ----------------------------------------*/
 
     /**
      * 领料出库 待办列表
      *
-     * @param subscriber
+     * @param observer observer
      */
-    public void pickOutTodoList(SingleObserver<BaseResponse<MaterialList>> subscriber,
+    public void pickOutTodoList(SingleObserver<BaseResponse<MaterialList>> observer,
                                 String sign, String sapOrderNo, String startDate, String endDate) {
         mService.pickOutTodoList(sign, sapOrderNo, startDate, endDate)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
+                .subscribe(observer);
 
     }
 
     /**
      * 领料出库 待办详情
      *
-     * @param subscriber
-     * @param sapOrderNo
+     * @param observer   observer
+     * @param sapOrderNo SAP no
      */
-    public void pickOutTodoListDetails(SingleObserver<BaseResponse<MaterialDetails>> subscriber,
+    public void pickOutTodoListDetails(SingleObserver<BaseResponse<MaterialDetails>> observer,
                                        String sign, String sapOrderNo, String sapFirmNo, String orderTime) {
         mService.pickOutTodoListDetail(sign, sapOrderNo, sapFirmNo, orderTime)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
+                .subscribe(observer);
     }
 
     /**
      * 领料出库 待办详情 保存
      *
-     * @param subscriber
+     * @param observer observer
      */
-    public void pickOutTodoSave(SingleObserver<ResponseInfo> subscriber, RequestBody body) {
+    public void pickOutTodoSave(SingleObserver<ResponseInfo> observer, RequestBody body) {
         mService.pickOutTodoSave(body)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
+                .subscribe(observer);
     }
 
     /**
      * 领料出库 已办列表
      *
-     * @param subscriber
+     * @param observer observer
      */
-    public void pickOutDoneList(SingleObserver<BaseResponse<MaterialList>> subscriber, String type,
+    public void pickOutDoneList(SingleObserver<BaseResponse<MaterialList>> observer, String type,
                                 String sapOrderNo, String startDate, String endDate) {
         mService.pickOutDoneList(type, sapOrderNo, startDate, endDate)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
+                .subscribe(observer);
 
     }
 
     /**
      * 领料出库 已办详情
      *
-     * @param subscriber
-     * @param sapOrderNo
+     * @param observer   observer
+     * @param sapOrderNo sapOrderNo
      */
-    public void pickOutDoneListDetails(SingleObserver<BaseResponse<MaterialDetails>> subscriber, String sapOrderNo) {
+    public void pickOutDoneListDetails(SingleObserver<BaseResponse<MaterialDetails>> observer, String sapOrderNo) {
         mService.pickOutDoneListDetail(sapOrderNo)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
+                .subscribe(observer);
     }
 
     /**
      * 领料出库 已办详情 保存
      *
-     * @param subscriber
+     * @param observer observer
      */
-    public void pickOutDoneSave(SingleObserver<ResponseInfo> subscriber, RequestBody body) {
+    public void pickOutDoneSave(SingleObserver<ResponseInfo> observer, RequestBody body) {
         mService.pickOutDoneSave(body)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
+                .subscribe(observer);
     }
 
 
-    /**--------------------------------- 采购退货 ----------------------------------------*/
+    /*--------------------------------- 采购退货 ----------------------------------------*/
 
 
     /**
@@ -397,11 +398,12 @@ public class HttpMethods {
     }
 
 
-    /**----------------------------------------------------------------------------------*/
-    /**--------------------------------- 成品库存 ----------------------------------------*/
-    /**----------------------------------------------------------------------------------*/
+    /*----------------------------------------------------------------------------------*/
+    /*--------------------------------- 成品库存 ----------------------------------------*/
+    /*----------------------------------------------------------------------------------*/
 
-    /**--------------------------------- 外采入库 ----------------------------------------*/
+    /*--------------------------------- 外采入库 ----------------------------------------*/
+
     /**
      * 外采入库 待办列表
      *
@@ -471,7 +473,7 @@ public class HttpMethods {
                 .subscribe(subscriber);
     }
 
-    /**--------------------------------- 生产入库 ----------------------------------------*/
+    /*--------------------------------- 生产入库 ----------------------------------------*/
 
     /**
      * 生产入库 待办列表
@@ -543,7 +545,7 @@ public class HttpMethods {
     }
 
 
-    /**--------------------------------- 发货出库 ----------------------------------------*/
+    /*--------------------------------- 发货出库 ----------------------------------------*/
 
     /**
      * 发货出库 已办列表
@@ -615,7 +617,7 @@ public class HttpMethods {
     }
 
 
-    /**--------------------------------- 退货入库 ----------------------------------------*/
+    /*--------------------------------- 退货入库 ----------------------------------------*/
 
     /**
      * 退货入库 待办列表
@@ -687,13 +689,13 @@ public class HttpMethods {
     }
 
 
-    /**--------------------------------- End ----------------------------------------*/
+    /*--------------------------------- End ----------------------------------------*/
 
-    /**----------------------------------------------------------------------------------*/
-    /**--------------------------------- 系统 --------------------------------------------*/
-    /**----------------------------------------------------------------------------------*/
+    /*----------------------------------------------------------------------------------*/
+    /*--------------------------------- 系统 --------------------------------------------*/
+    /*----------------------------------------------------------------------------------*/
 
-    /**
+    /*
      * --------------------------------- 溯源 --------------------------------------------
      */
 
@@ -722,7 +724,7 @@ public class HttpMethods {
     }
 
 
-    /**
+    /*
      * --------------------------------- 质检 --------------------------------------------
      */
 
@@ -793,8 +795,8 @@ public class HttpMethods {
                 .subscribe(observer);
     }
 
-    /**--------------------------------- 质检 End ----------------------------------------*/
-    /**--------------------------------- 盘点 start ----------------------------------------*/
+    /*--------------------------------- 质检 End ----------------------------------------*/
+    /*--------------------------------- 盘点 start ----------------------------------------*/
 
     /**
      * 原辅料盘点
@@ -807,10 +809,10 @@ public class HttpMethods {
     }
 
     /**
-     * 盘点提交
+     * 原辅料盘点提交
      *
-     * @param observer
-     * @param body
+     * @param observer observer
+     * @param body     body
      */
     public void positionStockSave(SingleObserver<ResponseInfo> observer, RequestBody body) {
         mService.positionStockSave(body)
@@ -819,6 +821,34 @@ public class HttpMethods {
     }
 
     /**
+     * 成品盘点列表
+     */
+    public void getGoodsList(SingleObserver<BaseResponse<ProductInventorList.ListBean>> observer, int pageSize,String goodsNo) {
+        mService.getGoodsList(pageSize, goodsNo,10)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    /**
+     * 成品盘点 goodsNo
+     */
+    public void getGoodsNo(SingleObserver<String> observer, String goodsNo) {
+        mService.getGoodsNo(goodsNo)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    /**
+     * 删除盘点记录
+     */
+    public void deleteCheck(SingleObserver<String> observer, String id, String sapCheckNo) {
+        mService.deleteCheck(id, sapCheckNo)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+
+    }
+
+    /*
      * --------------------------------- 图片上传 ----------------------------------------
      */
 

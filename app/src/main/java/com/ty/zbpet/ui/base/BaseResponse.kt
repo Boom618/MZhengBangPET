@@ -11,4 +11,5 @@ class BaseResponse<T> : Serializable {
     var tag: String? = null
     var message: String? = null
     var data: T? = null
+    var list: MutableList<T>? = null
 }

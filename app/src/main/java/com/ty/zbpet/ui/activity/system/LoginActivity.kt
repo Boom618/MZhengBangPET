@@ -83,8 +83,6 @@ class LoginActivity : BaseActivity(), UserInterface {
 
 
     override fun onSuccess() {
-        val userInfo = SimpleCache.getUserInfo(CodeConstant.USER_DATA)
-        val roleName = userInfo.roleName
          if (isCompany) {//if (roleName.equals("质检管理员")) {
             gotoActivity(MainCompanyActivity::class.java, true)
         } else {

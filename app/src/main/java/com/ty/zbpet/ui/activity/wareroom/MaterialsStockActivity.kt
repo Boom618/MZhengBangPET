@@ -165,5 +165,6 @@ class MaterialsStockActivity : BaseActivity(), ScanBoxInterface {
     override fun onDestroy() {
         super.onDestroy()
         EventBus.getDefault().unregister(this)
+        presenter.dispose()
     }
 }
