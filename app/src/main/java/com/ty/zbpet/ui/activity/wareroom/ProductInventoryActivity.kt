@@ -5,17 +5,22 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.SparseArray
 import android.view.View
-import android.widget.TextView
 import com.ty.zbpet.R
+import com.ty.zbpet.bean.eventbus.system.EndLoadingMessage
+import com.ty.zbpet.bean.eventbus.system.StartLoadingMessage
 import com.ty.zbpet.bean.system.ProductInventorList
 import com.ty.zbpet.constant.CodeConstant
+import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.system.SystemPresenter
 import com.ty.zbpet.ui.ActivitiesHelper
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity
 import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.ui.widght.ShowDialog
+import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ZBUiUtils
-import kotlinx.android.synthetic.main.activity_product_move.*
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import kotlinx.android.synthetic.main.item_inventory_product.*
+import okhttp3.RequestBody
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -64,14 +69,43 @@ class ProductInventoryActivity : BaseActivity() {
 
     override fun initTwoView() {
         initToolBar(R.string.product_inventor, "提交", View.OnClickListener {
-            confirm()
+            confirm(initBody())
         })
     }
 
-    private fun confirm() {
-
+    private fun confirm(body: RequestBody?) {
         ZBUiUtils.showSuccess("提交")
+        if (body == null) {
+            return
+        }
+        presenter.goodsInventory(body)
 
+    }
+
+    private fun initBody(): RequestBody? {
+
+        val req = ProductInventorList()
+        val list = mutableListOf<ProductInventorList.ListBean>()
+        val checkNumber = codeList.size
+        if (checkNumber > 0) {
+            val bean = ProductInventorList.ListBean()
+
+            bean.goodsNo = checkNumber.toString()
+
+            list.add(bean)
+        }
+
+        if (list.size == 0) {
+            ZBUiUtils.showWarning("请输入盘点数量")
+            return null
+        }
+
+//        req.positionNo =  ""
+//        req.warehouseNo =  "warehouseNo"
+        req.list = list
+
+        val json = DataUtils.toJson(req, 1)
+        return RequestBodyJson.requestBody(json)
     }
 
     @SuppressLint("SetTextI18n")
@@ -90,26 +124,6 @@ class ProductInventoryActivity : BaseActivity() {
         }
     }
 
-    /*@Subscribe(threadMode = ThreadMode.MAIN)
-    fun eventAdapter(event: AdapterButtonClick) {
-        val position = event.position()
-        val type = event.type()
-        when (type) {
-            CodeConstant.BUTTON_TYPE -> {
-                val list = codeArray[position]
-                val intent = Intent(this, ScanBoxCodeActivity::class.java)
-                intent.putExtra(CodeConstant.PAGE_STATE, true)
-                intent.putExtra("itemId", position)
-                intent.putExtra("goodsNo", goodsNo)
-                intent.putStringArrayListExtra("boxCodeList", list)
-                startActivityForResult(intent, REQUEST_SCAN_CODE)
-            }
-            CodeConstant.SELECT_TYPE -> {
-            }
-        }
-
-    }*/
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_SCAN_CODE && resultCode == RESULT_SCAN_CODE) {
             itemId = data!!.getIntExtra("itemId", -1)
@@ -120,6 +134,17 @@ class ProductInventoryActivity : BaseActivity() {
 //            val textView = view.findViewById<TextView>(R.id.tv_actual_number)
             tv_actual_number.text = "实际数量22：$size"
         }
+    }
+
+    private var dialog: LoadingDialog? = null
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun ErrorEvnet(event: StartLoadingMessage) {
+        dialog = ShowDialog.showFullDialog(this, event.message())
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun ErrorEvnet(event: EndLoadingMessage) {
+        dialog?.close()
     }
 
     override fun onDestroy() {

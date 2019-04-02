@@ -3,6 +3,8 @@ package com.ty.zbpet.presenter.system;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.eventbus.ErrorMessage;
 import com.ty.zbpet.bean.eventbus.SuccessMessage;
+import com.ty.zbpet.bean.eventbus.system.EndLoadingMessage;
+import com.ty.zbpet.bean.eventbus.system.StartLoadingMessage;
 import com.ty.zbpet.bean.material.MaterialList;
 import com.ty.zbpet.bean.system.PositionCode;
 import com.ty.zbpet.bean.system.ProductInventorList;
@@ -197,6 +199,35 @@ public class SystemPresenter {
                 EventBus.getDefault().post(new ErrorMessage(e.getMessage()));
             }
         }, pageSize, goodsNo);
+    }
+
+    /**
+     * 成品盘点 提交
+     */
+    public void goodsInventory(RequestBody body) {
+        EventBus.getDefault().post(new StartLoadingMessage("保存中"));
+        httpMethods.goodsInventory(new SingleObserver<ResponseInfo>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo responseInfo) {
+                EventBus.getDefault().post(new EndLoadingMessage(""));
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    EventBus.getDefault().post(new SuccessMessage(responseInfo.getMessage()));
+                } else {
+                    EventBus.getDefault().post(new ErrorMessage(responseInfo.getMessage()));
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                EventBus.getDefault().post(new EndLoadingMessage(""));
+                EventBus.getDefault().post(new ErrorMessage(e.getMessage()));
+            }
+        }, body);
     }
 
     /**

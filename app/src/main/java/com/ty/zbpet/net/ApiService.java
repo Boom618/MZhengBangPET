@@ -751,6 +751,15 @@ public interface ApiService {
     Single<BaseResponse<ReceiptList>> getCheckList(@Field("type") String type);
 
     /**
+     * 成品盘点 提交
+     * @param body body
+     * @return Single
+     */
+    @FormUrlEncoded
+    @POST(ApiNameConstant.GOODS_INVENTORY)
+    Single<ResponseInfo> goodsInventory(@Body RequestBody body);
+
+    /**
      * 删除盘点记录
      *
      * @param id         id

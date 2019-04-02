@@ -8,8 +8,8 @@ public class ApiNameConstant {
     /**
      * 徐坤
      */
-    public static final String BASE_URL = "http://192.168.11.2:3099/";
-//    public static final String BASE_URL = "http://117.40.132.236:3099/";
+//    public static final String BASE_URL = "http://192.168.11.2:3099/";
+    public static final String BASE_URL = "http://117.40.132.236:3099/";
 //    public static final String BASE_URL = "http://jxsh.zhengbang.com:3309/";
 
     /**
@@ -379,6 +379,10 @@ public class ApiNameConstant {
      */
     public static final String GET_GOODS_STOCK = "stock/checkStock/getGoodsStock";
 
+    /**
+     * 成品盘点 提交
+     */
+    public static final String GOODS_INVENTORY = "stock/checkStock/goodsInventory";
 
     /**
      * 盘点列表

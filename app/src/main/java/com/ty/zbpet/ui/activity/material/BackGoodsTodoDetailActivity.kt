@@ -82,7 +82,6 @@ class BackGoodsTodoDetailActivity : BaseActivity()
 
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
-        EventBus.getDefault().register(this)
     }
 
     override fun initOneData() {
@@ -249,13 +248,6 @@ class BackGoodsTodoDetailActivity : BaseActivity()
         presenter.checkCarCode(position, positionNo, warehouseNo)
     }
 
-    /*@Subscribe(threadMode = ThreadMode.MAIN)
-    fun urlEvent(event: UrlMessage){
-        val position = event.getPosition()
-        val qrCode = event.qrCode()
-        //  服务器校验 库位码
-        presenter.checkCarCode(position, qrCode)
-    }*/
 
     override fun showCarSuccess(position: Int, carData: CarPositionNoData) {
         val count = carData.count
@@ -331,7 +323,6 @@ class BackGoodsTodoDetailActivity : BaseActivity()
 
     override fun onDestroy() {
         super.onDestroy()
-        EventBus.getDefault().unregister(this)
         SharedP.clearFocusAndPosition(this)
     }
 }

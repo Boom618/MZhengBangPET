@@ -196,8 +196,8 @@ public class HttpMethods {
     /**
      * 库位码校验
      */
-    public void checkCarCode(SingleObserver<CarPositionNoData> subscriber, String positionNo,String warehouseNo) {
-        mService.checkCarCode(positionNo,warehouseNo)
+    public void checkCarCode(SingleObserver<CarPositionNoData> subscriber, String positionNo, String warehouseNo) {
+        mService.checkCarCode(positionNo, warehouseNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
 
@@ -831,17 +831,17 @@ public class HttpMethods {
     }
 
     /**
-     * 成品盘点 goodsNo
+     * 成品盘点 提交
      */
-    public void getGoodsNo(SingleObserver<String> observer, String goodsNo) {
-        mService.getGoodsNo(goodsNo)
+    public void goodsInventory(SingleObserver<ResponseInfo> observer, RequestBody body) {
+        mService.goodsInventory(body)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
 
     /**
      * @param type 1产品盘点单 2原辅料盘点单
-     * 盘点单据列表
+     *             盘点单据列表
      */
     public void getCheckList(SingleObserver<BaseResponse<ReceiptList>> observer, String type) {
         mService.getCheckList(type)

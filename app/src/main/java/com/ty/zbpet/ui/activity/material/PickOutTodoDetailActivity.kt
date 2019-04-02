@@ -12,7 +12,6 @@ import android.widget.ImageView
 import com.pda.scanner.ScanReader
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.CarPositionNoData
-import com.ty.zbpet.bean.eventbus.UrlMessage
 import com.ty.zbpet.bean.material.MaterialDetails
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.data.DeepCopyData
@@ -35,9 +34,6 @@ import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -76,7 +72,6 @@ class PickOutTodoDetailActivity : BaseActivity()
         get() = R.layout.activity_content_row_two
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
-        EventBus.getDefault().register(this)
     }
 
     override fun initOneData() {
@@ -222,13 +217,6 @@ class PickOutTodoDetailActivity : BaseActivity()
         presenter.checkCarCode(position, positionNo,warehouseNo)
     }
 
-    /*@Subscribe(threadMode = ThreadMode.MAIN)
-    fun urlEvent(event: UrlMessage) {
-        val position = event.getPosition()
-        val qrCode = event.qrCode()
-        //  服务器校验 库位码
-        presenter.checkCarCode(position, qrCode)
-    }*/
 
     override fun showCarSuccess(position: Int, carData: CarPositionNoData) {
         if (carData.count > 0) {
@@ -302,7 +290,6 @@ class PickOutTodoDetailActivity : BaseActivity()
 
     override fun onDestroy() {
         super.onDestroy()
-        EventBus.getDefault().unregister(this)
         SharedP.clearFocusAndPosition(this)
     }
 }

@@ -77,14 +77,7 @@ class MaterialsStockActivity : BaseActivity(), ScanBoxInterface {
         val list = mutableListOf<PositionCode.StockListBean>()
         val size = rawData.list!!.size
         for (i in 0 until size) {
-//            var type = "盘盈"
             val view = recycler.getChildAt(i)
-//            val radioGroup = view.findViewById<RadioGroup>(R.id.radioGroup)
-//            val radioButton = radioGroup.getChildAt(0) as RadioButton
-//            type = when (radioButton.isChecked) {
-//                true -> "盘盈"
-//                false -> "盘亏"
-//            }
             val checkNumber = view.findViewById<EditText>(R.id.edit_number).text.toString().trim()
             if (!TextUtils.isEmpty(checkNumber)) {
                 val stockListBean = rawData.list!!

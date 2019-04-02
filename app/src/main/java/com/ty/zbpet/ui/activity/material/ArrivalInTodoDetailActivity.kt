@@ -11,7 +11,6 @@ import android.widget.*
 import com.pda.scanner.ScanReader
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.CarPositionNoData
-import com.ty.zbpet.bean.eventbus.UrlMessage
 import com.ty.zbpet.bean.material.MaterialDetails
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.data.DeepCopyData
@@ -34,11 +33,7 @@ import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_content_row_two.*
-import kotlinx.android.synthetic.main.item_matterial_todo_detail.*
 import okhttp3.RequestBody
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -83,7 +78,6 @@ class ArrivalInTodoDetailActivity : BaseActivity()
     private val materialPresenter = MaterialPresenter(this)
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
-        EventBus.getDefault().register(this)
         val sdf = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
         selectTime = sdf.format(Date())
         tv_time!!.text = selectTime
@@ -283,23 +277,12 @@ class ArrivalInTodoDetailActivity : BaseActivity()
      * @param positionNo
      */
     override fun ScanSuccess(position: Int, positionNo: String) {
-//        ZBUiUtils.showSuccess("URL ：$positionNo")
 
-//        materialPresenter.urlAnalyze(position, positionNo)
         //  服务器校验 库位码
         val warehouseNo = list[position].warehouseNo
         materialPresenter.checkCarCode(position, positionNo,warehouseNo)
 
     }
-
-    /*@Subscribe(threadMode = ThreadMode.MAIN)
-    fun urlEvent(event: UrlMessage) {
-        val position = event.getPosition()
-        val qrCode = event.qrCode()
-        //  服务器校验 库位码
-        materialPresenter.checkCarCode(position, qrCode)
-
-    }*/
 
     override fun showCarSuccess(position: Int, carData: CarPositionNoData) {
         if (carData.count > 0) {
@@ -343,7 +326,6 @@ class ArrivalInTodoDetailActivity : BaseActivity()
 
     override fun onDestroy() {
         super.onDestroy()
-        EventBus.getDefault().unregister(this)
         scanner?.close()
         SharedP.clearFocusAndPosition(this)
 
