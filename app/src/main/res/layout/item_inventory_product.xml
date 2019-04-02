@@ -76,51 +76,21 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_sap" />
 
     <TextView
-        android:id="@+id/type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/x20"
-        android:text="类型："
-        app:layout_constraintStart_toStartOf="@+id/sap_no"
-        app:layout_constraintTop_toBottomOf="@+id/tv_sap" />
-
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@+id/type"
-        app:layout_constraintStart_toEndOf="@+id/type">
-
-        <RadioButton
-            android:id="@+id/rb_surplus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="盘盈" />
-
-        <RadioButton
-            android:id="@+id/rb_loss"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="盘亏" />
-
-    </RadioGroup>
-
-    <TextView
         android:id="@+id/tv_actual_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/x15"
         android:text="实际数量：100"
         app:layout_constraintStart_toStartOf="@+id/sap_no"
-        app:layout_constraintTop_toBottomOf="@+id/type" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_sap" />
 
     <Button
         android:id="@+id/button_scan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="箱码扫码"
+        android:layout_marginStart="@dimen/x50"
         app:layout_constraintStart_toEndOf="@+id/tv_actual_number"
-        app:layout_constraintTop_toBottomOf="@+id/type" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_sap" />
 
 </android.support.constraint.ConstraintLayout>

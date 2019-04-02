@@ -87,6 +87,10 @@ class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface, CommInterface {
      * 返回上级 Ac
      */
     private fun returnActivity() {
+        if (boxCodeList!!.size == 0) {
+            ZBUiUtils.showWarning("请扫码")
+            return
+        }
         val intent = Intent()
         intent.putExtra("itemId", itemId)
         intent.putStringArrayListExtra("boxCodeList", boxCodeList)

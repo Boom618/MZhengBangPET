@@ -50,6 +50,7 @@ class MaterialDetails {
         var giveNumber: String? = null
         var positionId: String? = null
         var warehouseId: String? = null
+        var warehouseNo: String? = null
         var number: String? = null
         var sapMaterialBatchNo: String? = null
 

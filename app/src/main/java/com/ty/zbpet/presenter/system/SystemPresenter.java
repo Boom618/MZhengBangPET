@@ -6,6 +6,7 @@ import com.ty.zbpet.bean.eventbus.SuccessMessage;
 import com.ty.zbpet.bean.material.MaterialList;
 import com.ty.zbpet.bean.system.PositionCode;
 import com.ty.zbpet.bean.system.ProductInventorList;
+import com.ty.zbpet.bean.system.ReceiptList;
 import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
@@ -174,17 +175,17 @@ public class SystemPresenter {
     /**
      * 成品盘点列表
      */
-    public void getGoodsList(int pageSize,String goodsNo) {
-        httpMethods.getGoodsList(new SingleObserver<BaseResponse<ProductInventorList.ListBean>>() {
+    public void getGoodsList(int pageSize, String goodsNo) {
+        httpMethods.getGoodsList(new SingleObserver<BaseResponse<ProductInventorList>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;
             }
 
             @Override
-            public void onSuccess(BaseResponse<ProductInventorList.ListBean> response) {
+            public void onSuccess(BaseResponse<ProductInventorList> response) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
-                    List<ProductInventorList.ListBean> list = response.getList();
+                    List<ProductInventorList.ListBean> list = response.getData().getList();
                     EventBus.getDefault().post(list);
                 } else {
                     EventBus.getDefault().post(new ErrorMessage(response.getMessage()));
@@ -195,10 +196,66 @@ public class SystemPresenter {
             public void onError(Throwable e) {
                 EventBus.getDefault().post(new ErrorMessage(e.getMessage()));
             }
-        }, pageSize,goodsNo);
+        }, pageSize, goodsNo);
     }
 
     /**
+     * 盘点单据号列表
+     */
+    public void getCheckList(String type) {
+        httpMethods.getCheckList(new SingleObserver<BaseResponse<ReceiptList>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(BaseResponse<ReceiptList> response) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
+                    List<ReceiptList.ListBean> list = response.getData().getList();
+                    EventBus.getDefault().post(list);
+                } else {
+                    EventBus.getDefault().post(new ErrorMessage(response.getMessage()));
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                EventBus.getDefault().post(new ErrorMessage(e.getMessage()));
+            }
+        }, type);
+
+    }
+
+    /**
+     * 删除盘点列表
+     *
+     * @param id         id
+     * @param sapCheckNo sapCheckNo
+     */
+    public void deleteCheck(String id, String sapCheckNo) {
+        httpMethods.deleteCheck(new SingleObserver<ResponseInfo>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo response) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
+                    EventBus.getDefault().post(new SuccessMessage(response.getMessage()));
+                } else {
+                    EventBus.getDefault().post(new ErrorMessage(response.getMessage()));
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                EventBus.getDefault().post(new ErrorMessage(e.getMessage()));
+            }
+        }, id, sapCheckNo);
+    }
+    /*
      * 成品盘点
      */
 //    public void getGoodsNo(String goodsNo) {

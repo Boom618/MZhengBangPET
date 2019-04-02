@@ -151,7 +151,7 @@ public class BackGoodsPresenter {
      *
      * @param positionNo 库位码 KWM234542
      */
-    public void checkCarCode(final int position, final String positionNo) {
+    public void checkCarCode(final int position, final String positionNo,String warehouseNo) {
 
         httpMethods.checkCarCode(new SingleObserver<CarPositionNoData>() {
 
@@ -174,7 +174,7 @@ public class BackGoodsPresenter {
                     materialListUi.showError(responseInfo.getMessage());
                 }
             }
-        }, positionNo);
+        }, positionNo,warehouseNo);
     }
 
     /**

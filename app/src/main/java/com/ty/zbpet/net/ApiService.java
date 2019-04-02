@@ -15,6 +15,7 @@ import com.ty.zbpet.bean.system.ProductInventorList;
 import com.ty.zbpet.bean.system.ProductQuery;
 import com.ty.zbpet.bean.system.QualityCheckTodoDetails;
 import com.ty.zbpet.bean.system.QualityCheckTodoList;
+import com.ty.zbpet.bean.system.ReceiptList;
 import com.ty.zbpet.constant.ApiNameConstant;
 import com.ty.zbpet.ui.base.BaseResponse;
 
@@ -122,11 +123,13 @@ public interface ApiService {
     /**
      * 库位码检验
      *
-     * @param positionNo
-     * @return
+     * @param positionNo  库位码
+     * @param warehouseNo 仓库编号
+     * @return Single
      */
     @GET(ApiNameConstant.CHECK_CAR_CODE)
-    Single<CarPositionNoData> checkCarCode(@Query("positionNo") String positionNo);
+    Single<CarPositionNoData> checkCarCode(@Query("positionNo") String positionNo,
+                                           @Query("warehouseNo") String warehouseNo);
 
     /**
      * url 解析
@@ -724,7 +727,7 @@ public interface ApiService {
      * @return Single
      */
     @GET(ApiNameConstant.GET_GOODS_LIST)
-    Single<BaseResponse<ProductInventorList.ListBean>> getGoodsList(@Query("pageSize") int pageSize,
+    Single<BaseResponse<ProductInventorList>> getGoodsList(@Query("pageSize") int pageSize,
                                                                     @Query("goodsNo") String goodsNo,
                                                                     @Query("pageNumber") int pageNumber);
 
@@ -738,14 +741,25 @@ public interface ApiService {
 
 
     /**
+     * 盘点列表
+     *
+     * @param type 1产品盘点单 2原辅料盘点单
+     * @return Single
+     */
+    @FormUrlEncoded
+    @POST(ApiNameConstant.GET_CHECK_LIST)
+    Single<BaseResponse<ReceiptList>> getCheckList(@Field("type") String type);
+
+    /**
      * 删除盘点记录
      *
      * @param id         id
      * @param sapCheckNo sapCheckNo
      * @return Single
      */
+    @FormUrlEncoded
     @POST(ApiNameConstant.DELETE_CHECK)
-    Single<String> deleteCheck(@Field("id") String id, @Field("sapCheckNo") String sapCheckNo);
+    Single<ResponseInfo> deleteCheck(@Field("id") String id, @Field("sapCheckNo") String sapCheckNo);
 
     /*--------------------------------- 图片 --------------------------------------------*/
 

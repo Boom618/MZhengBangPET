@@ -33,7 +33,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 tv_arrival_in_storage,
                 tv_pick_out_storage,
                 tv_purchase_returns,
-                tv_sales_stock,
+//                tv_sales_stock,
                 tv_purchase_in_storage,
                 tv_produce_in_storage,
                 tv_send_out_storage,

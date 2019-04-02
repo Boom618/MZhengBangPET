@@ -1,21 +1,21 @@
 package com.ty.zbpet.ui.activity.wareroom
 
-import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
-import android.view.View
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.eventbus.ErrorMessage
-import com.ty.zbpet.bean.system.ProductInventorList
+import com.ty.zbpet.bean.eventbus.SuccessMessage
+import com.ty.zbpet.bean.eventbus.system.DeleteCheckMessage
+import com.ty.zbpet.bean.system.ReceiptList
 import com.ty.zbpet.presenter.system.SystemPresenter
 import com.ty.zbpet.ui.ActivitiesHelper
 import com.ty.zbpet.ui.adapter.LayoutInit
 import com.ty.zbpet.ui.adapter.wareroom.ProductDeleteAdapter
 import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.ui.widght.NormalAlertDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
+import com.ty.zbpet.util.DialogUtil
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils
-import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import kotlinx.android.synthetic.main.activity_product_inventory_list.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -29,6 +29,7 @@ class ProductDeleteListActivity : BaseActivity() {
 
 
     private val presenter = SystemPresenter()
+    private var adapter: ProductDeleteAdapter? = null
 
     override val activityLayout: Int
         get() = R.layout.activity_product_inventory_list
@@ -41,7 +42,8 @@ class ProductDeleteListActivity : BaseActivity() {
         initToolBar(R.string.product_delete)
         LayoutInit.initLayoutManager(this, recycler_inventory)
         recycler_inventory.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
-        presenter.getGoodsList(6, "")
+        //presenter.getGoodsList(6, "")
+        presenter.getCheckList("2")
     }
 
     override fun initTwoView() {
@@ -50,26 +52,32 @@ class ProductDeleteListActivity : BaseActivity() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun getGoodsList(list: MutableList<ProductInventorList.ListBean>) {
-        //val list = event
+    fun getGoodsList(list: MutableList<ReceiptList.ListBean>) {
+
         val activity = ActivitiesHelper.get().lastActivity
         if (activity is ProductDeleteListActivity) {
-            val adapter = ProductDeleteAdapter(this, R.layout.item_delete_product_list, list)
+            adapter = ProductDeleteAdapter(this, R.layout.item_delete_product_list, list)
             recycler_inventory.adapter = adapter
-
-            adapter.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
-                override fun onItemLongClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int): Boolean {
-                    return true
-                }
-
-                override fun onItemClick(view: View?, holder: RecyclerView.ViewHolder, position: Int) {
-                    val intent = Intent(this@ProductDeleteListActivity, ProductInventoryActivity::class.java)
-                    intent.putExtra("goodsNo", list[position].goodsNo)
-//                intent.putExtra("goodsNo", "90000947")
-                    startActivity(intent)
-                }
-            })
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun DeleteEvnet(event: DeleteCheckMessage) {
+        val id = event.getId()
+        val sapCheckNo = event.sapCheckNo()
+
+        DialogUtil.deleteItemDialog(this@ProductDeleteListActivity, "删除单据",
+                "确认删除该单据", NormalAlertDialog.onNormalOnclickListener {
+            presenter.deleteCheck(id, sapCheckNo)
+            it.dismiss()
+        })
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun successEvnet(event: SuccessMessage) {
+        //adapter?.notifyDataSetChanged()
+        presenter.getCheckList("2")
+        ZBUiUtils.showSuccess(event.success())
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

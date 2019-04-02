@@ -3,8 +3,97 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/x10"
     android:background="@drawable/shape_white_min_radius">
 
-    
+    <TextView
+        android:id="@+id/sap_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/x20"
+        android:layout_marginTop="@dimen/x8"
+        android:text="库存批次号："
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_material_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:text="原辅料名称："
+        app:layout_constraintStart_toStartOf="@+id/sap_no"
+        app:layout_constraintTop_toBottomOf="@+id/sap_no" />
+
+    <TextView
+        android:id="@+id/tv_supplier_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:text="供应商名称："
+        app:layout_constraintStart_toStartOf="@+id/sap_no"
+        app:layout_constraintTop_toBottomOf="@+id/tv_material_name" />
+
+
+    <TextView
+        android:id="@+id/tv_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:text="库存数量："
+        app:layout_constraintStart_toStartOf="@+id/sap_no"
+        app:layout_constraintTop_toBottomOf="@+id/tv_supplier_name" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:text="含量："
+        app:layout_constraintStart_toStartOf="@+id/sap_no"
+        app:layout_constraintTop_toBottomOf="@+id/tv_number" />
+
+    <TextView
+        android:id="@+id/tv_operator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:background="@mipmap/ic_circle"
+        android:gravity="center"
+        android:padding="@dimen/space_5"
+        android:text="@string/delete"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_14"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_supplier_name" />
+
+    <TextView
+        android:id="@+id/tv_sap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:text="SAP 批次号："
+        app:layout_constraintStart_toStartOf="@+id/sap_no"
+        app:layout_constraintTop_toBottomOf="@+id/tv_content" />
+
+    <!--<TextView-->
+        <!--android:id="@+id/type"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="@dimen/x10"-->
+        <!--android:text="类型：盘盈"-->
+        <!--app:layout_constraintStart_toStartOf="@+id/sap_no"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/tv_sap" />-->
+
+
+    <TextView
+        android:id="@+id/tv_actual_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:text="实际数量：100"
+        app:layout_constraintStart_toStartOf="@+id/sap_no"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sap" />
+
 
 </android.support.constraint.ConstraintLayout>

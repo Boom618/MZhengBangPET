@@ -34,6 +34,7 @@ import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_content_row_two.*
+import kotlinx.android.synthetic.main.item_matterial_todo_detail.*
 import okhttp3.RequestBody
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -76,6 +77,8 @@ class ArrivalInTodoDetailActivity : BaseActivity()
      * 库位码 ID
      */
     private val positionId: SparseArray<String> = SparseArray(10)
+    private val houseId: SparseArray<String> = SparseArray(10)
+    private val houseNo: SparseArray<String> = SparseArray(10)
 
     private val materialPresenter = MaterialPresenter(this)
 
@@ -284,18 +287,19 @@ class ArrivalInTodoDetailActivity : BaseActivity()
 
 //        materialPresenter.urlAnalyze(position, positionNo)
         //  服务器校验 库位码
-        materialPresenter.checkCarCode(position, positionNo)
+        val warehouseNo = list[position].warehouseNo
+        materialPresenter.checkCarCode(position, positionNo,warehouseNo)
 
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    /*@Subscribe(threadMode = ThreadMode.MAIN)
     fun urlEvent(event: UrlMessage) {
         val position = event.getPosition()
         val qrCode = event.qrCode()
         //  服务器校验 库位码
         materialPresenter.checkCarCode(position, qrCode)
 
-    }
+    }*/
 
     override fun showCarSuccess(position: Int, carData: CarPositionNoData) {
         if (carData.count > 0) {
@@ -304,6 +308,8 @@ class ArrivalInTodoDetailActivity : BaseActivity()
             warehouseId = carData.list!![0].warehouseId!!
             warehouseNo = carData.list!![0].warehouseNo!!
             positionId.put(position, carId)
+            houseId.put(position,warehouseId)
+            houseNo.put(position,warehouseNo)
 
             val deepCopyList = DeepCopyData.deepCopyList(list)
 

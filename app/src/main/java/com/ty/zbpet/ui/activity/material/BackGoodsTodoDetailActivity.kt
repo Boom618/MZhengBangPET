@@ -93,12 +93,12 @@ class BackGoodsTodoDetailActivity : BaseActivity()
         creatorNo = intent.getStringExtra("creatorNo")
         content = intent.getStringExtra("content")
 
-        presenter.fetchBackTodoListInfo(sapOrderNo,sapFirmNo,supplierNo)
+        presenter.fetchBackTodoListInfo(sapOrderNo, sapFirmNo, supplierNo)
     }
 
     override fun initTwoView() {
 
-        initToolBar(R.string.back_goods, "保存",View.OnClickListener { view ->
+        initToolBar(R.string.back_goods, "保存", View.OnClickListener { view ->
             ZBUiUtils.hideInputWindow(view.context, view)
             backTodoSave(initTodoBody())
         })
@@ -242,20 +242,20 @@ class BackGoodsTodoDetailActivity : BaseActivity()
     }
 
     override fun ScanSuccess(position: Int, positionNo: String) {
-        ZBUiUtils.showSuccess("库位码 ：$positionNo")
 
 //        presenter.urlAnalyze(position, positionNo)
         //  服务器校验 库位码
-        presenter.checkCarCode(position, positionNo)
+        val warehouseNo = list[position].warehouseNo
+        presenter.checkCarCode(position, positionNo, warehouseNo)
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    /*@Subscribe(threadMode = ThreadMode.MAIN)
     fun urlEvent(event: UrlMessage){
         val position = event.getPosition()
         val qrCode = event.qrCode()
         //  服务器校验 库位码
         presenter.checkCarCode(position, qrCode)
-    }
+    }*/
 
     override fun showCarSuccess(position: Int, carData: CarPositionNoData) {
         val count = carData.count

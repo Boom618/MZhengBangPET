@@ -80,7 +80,7 @@ class ProductInventoryActivity : BaseActivity() {
         val activity = ActivitiesHelper.get().lastActivity
         if (activity is ProductInventoryActivity) {
             val data = list[0]
-            sap_no.text = "库存批次号：${data.goodsNo}"
+            sap_no.text = "库存批次号：${data.companyNo}"
             tv_material_name.text = "原辅料名称：${data.goodsName}"
             tv_supplier_name.text = "供应商名称：${data.goodsName}"
             tv_number.text = "库存数量：${data.goodsName}"
@@ -116,9 +116,9 @@ class ProductInventoryActivity : BaseActivity() {
             codeList = data.getStringArrayListExtra("boxCodeList")
             codeArray.put(itemId, codeList)
             val size = codeList.size
-            val view = recycler_product.getChildAt(itemId)
-            val textView = view.findViewById<TextView>(R.id.tv_actual_number)
-            textView.text = "实际数量22：$size"
+//            val view = recycler_product.getChildAt(itemId)
+//            val textView = view.findViewById<TextView>(R.id.tv_actual_number)
+            tv_actual_number.text = "实际数量22：$size"
         }
     }
 

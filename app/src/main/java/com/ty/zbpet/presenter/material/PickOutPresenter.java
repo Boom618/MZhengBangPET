@@ -146,7 +146,7 @@ public class PickOutPresenter {
      *
      * @param positionNo
      */
-    public void checkCarCode(final int position, final String positionNo) {
+    public void checkCarCode(final int position, final String positionNo,String warehouseNo) {
 
         httpMethods.checkCarCode(new SingleObserver<CarPositionNoData>() {
             @Override
@@ -169,7 +169,7 @@ public class PickOutPresenter {
                 }
 
             }
-        }, positionNo);
+        }, positionNo,warehouseNo);
     }
 
     /**

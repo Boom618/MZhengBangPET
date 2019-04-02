@@ -47,6 +47,7 @@
     <string name="position_query">库位码库存查询</string>
 
     <string name="label_warehouse">所在仓库</string>
+    <string name="warehouse_no">仓库编号：</string>
     <string name="label_belong_company">归属企业</string>
     <string name="label_in_storage_time">入库时间</string>
     <string name="label_out_storage_time">出库时间</string>

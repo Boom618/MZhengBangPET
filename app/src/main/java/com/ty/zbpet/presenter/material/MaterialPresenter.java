@@ -171,9 +171,9 @@ public class MaterialPresenter {
     /**
      * 库位码校验
      *
-     * @param positionNo
+     * @param positionNo 库位码
      */
-    public void checkCarCode(final int position, final String positionNo) {
+    public void checkCarCode(final int position, final String positionNo, String warehouseNo) {
 
         httpMethods.checkCarCode(new SingleObserver<CarPositionNoData>() {
 
@@ -197,7 +197,7 @@ public class MaterialPresenter {
                 }
 
             }
-        }, positionNo);
+        }, positionNo, warehouseNo);
     }
 
 

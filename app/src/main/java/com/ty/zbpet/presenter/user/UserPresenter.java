@@ -40,8 +40,8 @@ public class UserPresenter {
     /**
      * 登录
      *
-     * @param userName
-     * @param password
+     * @param userName 手机号
+     * @param password 密码
      */
     public void userLogin(String userName, String password) {
         userInterface.showLoading();
@@ -63,7 +63,7 @@ public class UserPresenter {
 
                     SimpleCache.putObject(CodeConstant.USER_DATA, data);
                     SimpleCache.putString(CodeConstant.SESSION_ID_KEY, sessionId);
-                }else{
+                } else {
                     userInterface.onError(responseInfo.getMessage());
                 }
             }
@@ -71,7 +71,7 @@ public class UserPresenter {
             @Override
             public void onError(Throwable e) {
                 userInterface.hideLoading();
-                userInterface.onError(e.getMessage());
+                userInterface.onError("登录失败，请重试");
             }
         }, userName, password);
     }
@@ -123,7 +123,7 @@ public class UserPresenter {
                 userInterface.hideLoading();
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     userInterface.onSuccess();
-                }else{
+                } else {
                     userInterface.onError(responseInfo.getMessage());
                 }
             }

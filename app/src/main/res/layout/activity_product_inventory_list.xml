@@ -31,7 +31,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="@dimen/x10"
-        app:layout_constraintTop_toBottomOf="@+id/et_search" />
+        app:layout_constraintTop_toBottomOf="@+id/et_search"
+        app:layout_constraintVertical_weight="1" />
 
 
 </android.support.constraint.ConstraintLayout>

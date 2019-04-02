@@ -6,7 +6,6 @@ import android.text.InputType
 import android.view.View
 import android.widget.EditText
 import android.widget.RadioButton
-import android.widget.TextView
 
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.material.MaterialDetails
@@ -40,7 +39,7 @@ class MaterialTodoDetailAdapter(context: Context, layoutId: Int, datas: List<Mat
         etCode.onFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
             // 关闭软键盘
             ZBUiUtils.hideInputWindow(view.context, view)
-            SharedP.putHasFocusAndPosition(view.context,hasFocus,position)
+            SharedP.putHasFocusAndPosition(view.context, hasFocus, position)
         }
         if (payloads.isEmpty()) {
             val rbKG = itemView.findViewById<RadioButton>(R.id.rb_kg)
@@ -48,21 +47,24 @@ class MaterialTodoDetailAdapter(context: Context, layoutId: Int, datas: List<Mat
             val rbPC = itemView.findViewById<RadioButton>(R.id.rb_pc)
             if (info.unit.isNullOrEmpty()) {
                 rbKG.isChecked = true
-            }else{
-                when(info.unit){
-                    "KG"-> rbKG.isChecked = true
-                    "ZKG"-> rbZKG.isChecked = true
+            } else {
+                when (info.unit) {
+                    "KG" -> rbKG.isChecked = true
+                    "ZKG" -> rbZKG.isChecked = true
                     else -> {
                         rbPC.isChecked = true
                     }
                 }
             }
 
-            val tvName = itemView.findViewById<TextView>(R.id.tv_name)
-            tvName.text = info.materialName
-
-            val tvNum = itemView.findViewById<TextView>(R.id.tv_num)
-            tvNum.text = info.orderNumber + info.unit
+            holder.setText(R.id.tv_name, info.materialName)
+                    .setText(R.id.tv_num, info.orderNumber + info.unit)
+                    .setText(R.id.tv_houseNo, "仓库编号：${info.warehouseNo}")
+//            val tvName = itemView.findViewById<TextView>(R.id.tv_name)
+//            tvName.text = info.materialName
+//
+//            val tvNum = itemView.findViewById<TextView>(R.id.tv_num)
+//            tvNum.text = info.orderNumber + info.unit
 
         } else {
             val bundle = payloads[0] as Bundle

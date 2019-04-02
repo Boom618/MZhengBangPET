@@ -218,16 +218,17 @@ class PickOutTodoDetailActivity : BaseActivity()
 
         //  服务器校验 库位码
 //        presenter.urlAnalyze(position, positionNo)
-        presenter.checkCarCode(position, positionNo)
+        val warehouseNo = list[position].warehouseNo
+        presenter.checkCarCode(position, positionNo,warehouseNo)
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    /*@Subscribe(threadMode = ThreadMode.MAIN)
     fun urlEvent(event: UrlMessage) {
         val position = event.getPosition()
         val qrCode = event.qrCode()
         //  服务器校验 库位码
         presenter.checkCarCode(position, qrCode)
-    }
+    }*/
 
     override fun showCarSuccess(position: Int, carData: CarPositionNoData) {
         if (carData.count > 0) {

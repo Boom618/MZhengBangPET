@@ -41,7 +41,7 @@ class ProductInventoryListActivity : BaseActivity() {
         initToolBar(R.string.product_inventor)
         LayoutInit.initLayoutManager(this, recycler_inventory)
         recycler_inventory.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
-        presenter.getGoodsList(6,"")
+        presenter.getGoodsList(10,"")
     }
 
     override fun initTwoView() {
