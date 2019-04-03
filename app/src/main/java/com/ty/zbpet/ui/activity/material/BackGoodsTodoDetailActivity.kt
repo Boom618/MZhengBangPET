@@ -14,7 +14,6 @@ import android.widget.RadioGroup
 import com.pda.scanner.ScanReader
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.CarPositionNoData
-import com.ty.zbpet.bean.eventbus.UrlMessage
 import com.ty.zbpet.bean.material.MaterialDetails
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.data.DeepCopyData
@@ -27,16 +26,15 @@ import com.ty.zbpet.ui.adapter.material.BackGoodsTodoDetailAdapter
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
-import com.ty.zbpet.util.*
+import com.ty.zbpet.util.DataUtils
+import com.ty.zbpet.util.ResourceUtil
+import com.ty.zbpet.util.ZBUiUtils
 import com.ty.zbpet.util.scan.ScanBoxInterface
 import com.ty.zbpet.util.scan.ScanObservable
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -155,7 +153,6 @@ class BackGoodsTodoDetailActivity : BaseActivity()
             }
             val carCode = view.findViewById<EditText>(R.id.et_code).text.toString().trim { it <= ' ' }
             val bulkNum = view.findViewById<EditText>(R.id.et_number).text.toString().trim { it <= ' ' }
-            //val batchNo = view.findViewById<EditText>(R.id.et_batch_no).text.toString().trim { it <= ' ' }
 
             val id = positionId.get(i)
 
@@ -171,8 +168,8 @@ class BackGoodsTodoDetailActivity : BaseActivity()
                 bean.positionId = id
                 bean.materialId = materialId
                 bean.supplierId = supplierId
-                //bean.unit = list[i].unit
                 bean.unit = viewUnit
+                bean.warehouseNo = list[i].warehouseNo
                 bean.materialNo = list[i].materialNo
                 bean.materialName = list[i].materialName
                 bean.concentration = list[i].concentration
@@ -182,7 +179,6 @@ class BackGoodsTodoDetailActivity : BaseActivity()
                 // 用户输入数据
                 bean.positionNo = carCode
                 bean.number = bulkNum
-                //bean.sapMaterialBatchNo = batchNo
 
                 detail.add(bean)
             }
@@ -197,8 +193,8 @@ class BackGoodsTodoDetailActivity : BaseActivity()
         val time = tv_time.text.toString().trim { it <= ' ' }
 
         requestBody.list = detail
-        requestBody.warehouseId = warehouseId
-        requestBody.warehouseNo = warehouseNo
+//        requestBody.warehouseId = warehouseId
+//        requestBody.warehouseNo = warehouseNo
         requestBody.sapOrderNo = sapOrderNo
         requestBody.supplierNo = supplierNo
         requestBody.supplierName = supplierName
@@ -256,6 +252,11 @@ class BackGoodsTodoDetailActivity : BaseActivity()
             val positionNo = carData.list!![0].positionNo
             warehouseId = carData.list!![0].warehouseId
             warehouseNo = carData.list!![0].warehouseNo
+            val rawHouseNo = list[position].warehouseNo
+            if (warehouseNo != rawHouseNo) {
+                ZBUiUtils.showWarning("该库位是 $warehouseNo 请扫 $rawHouseNo 的库位码")
+                return
+            }
             positionId.put(position, carId)
 
             val deepCopyList = DeepCopyData.deepCopyList(list)
@@ -275,7 +276,7 @@ class BackGoodsTodoDetailActivity : BaseActivity()
         list = lists!!
 
         val manager = LinearLayoutManager(ResourceUtil.getContext())
-        rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+        rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
         rv_in_storage_detail.layoutManager = manager
         adapter = BackGoodsTodoDetailAdapter(this, R.layout.item_material_back_detail_todo, list)
         rv_in_storage_detail.adapter = adapter

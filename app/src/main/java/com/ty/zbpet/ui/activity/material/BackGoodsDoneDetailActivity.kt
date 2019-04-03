@@ -7,6 +7,7 @@ import com.ty.zbpet.R
 import com.ty.zbpet.bean.CarPositionNoData
 import com.ty.zbpet.bean.material.MaterialDetails
 import com.ty.zbpet.bean.material.MaterialDoneSave
+import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.material.BackGoodsPresenter
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
@@ -109,7 +110,7 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
         warehouseId = listBean[0].warehouseId!!
 
         val manager = LinearLayoutManager(ResourceUtil.getContext())
-        recycler_reversal.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+        recycler_reversal.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
         recycler_reversal.layoutManager = manager
         //adapter = BackGoodsDoneDetailAdapter(this, R.layout.item_material_detail_three_done, listBean)
         adapter = BackGoodsDoneDetailAdapter(this, R.layout.item_reversal_check, listBean)

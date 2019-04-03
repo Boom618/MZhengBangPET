@@ -28,6 +28,8 @@ object CodeConstant {
     const val KEY_CODE_131 = 131
     const val KEY_CODE_135 = 135
     const val KEY_CODE_139 = 139
+    // item 分割线
+    const val ITEM_DECORATION = 6
 
     /**
      * 跳转 Activity 类型

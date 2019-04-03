@@ -59,7 +59,7 @@ class BackGoodsTodoDetailAdapter(context: Context, layoutId: Int, datas: List<Ma
             holder.setText(R.id.tv_name, list.materialName)
                     .setText(R.id.tv_num, list.orderNumber + "  " + list.unit)
                     .setText(R.id.tv_sap_no, "SAP 批次号：${list.sapMaterialBatchNo}")
-                    .setText(R.id.tv_content, "含量 ：${list.concentration}")
+                    .setText(R.id.tv_house_no, "仓库编号 ：${list.warehouseNo}")
         } else {
             val bundle = payloads[0] as Bundle
             val positionNo = bundle.getString("positionNo")

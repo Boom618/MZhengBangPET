@@ -98,7 +98,7 @@ class ReturnGoodsFragment : BaseFragment(), ProductUiListInterface<ProductList.L
 
         LayoutInit.initLayoutManager(ResourceUtil.getContext(), recyclerView)
         if (adapterTodo == null && adapterDone == null) {
-            recyclerView!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+            recyclerView!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
         }
         when (fragmentType) {
             CodeConstant.FRAGMENT_TODO -> {

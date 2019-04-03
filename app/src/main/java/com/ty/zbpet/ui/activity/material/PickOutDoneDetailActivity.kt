@@ -7,6 +7,7 @@ import com.ty.zbpet.R
 import com.ty.zbpet.bean.CarPositionNoData
 import com.ty.zbpet.bean.material.MaterialDetails
 import com.ty.zbpet.bean.material.MaterialDoneSave
+import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
 import com.ty.zbpet.presenter.material.PickOutPresenter
@@ -111,7 +112,7 @@ class PickOutDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Materi
         }
 
         val manager = LinearLayoutManager(ResourceUtil.getContext())
-        recycler_reversal.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+        recycler_reversal.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
         recycler_reversal.layoutManager = manager
         adapter = PickingDoneDetailAdapter(this, R.layout.item_reversal_check, list)
         recycler_reversal.adapter = adapter

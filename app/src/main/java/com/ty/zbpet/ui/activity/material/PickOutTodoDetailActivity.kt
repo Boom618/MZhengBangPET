@@ -147,6 +147,7 @@ class PickOutTodoDetailActivity : BaseActivity()
                 bean.supplierNo = supplierNo
                 bean.materialId = materialId
                 bean.content = mergeContent
+                bean.warehouseNo = list[i].warehouseNo
                 bean.materialNo = list[i].materialNo
                 bean.materialName = list[i].materialName
                 //bean.concentration = concentration
@@ -168,8 +169,8 @@ class PickOutTodoDetailActivity : BaseActivity()
         val time = tv_time!!.text.toString().trim { it <= ' ' }
 
         requestBody.list = detail
-        requestBody.warehouseId = warehouseId
-        requestBody.warehouseNo = warehouseNo
+//        requestBody.warehouseId = warehouseId
+//        requestBody.warehouseNo = warehouseNo
         requestBody.outTime = time
         requestBody.moveType = "261"
         requestBody.sapOrderNo = sapOrderNo
@@ -224,6 +225,11 @@ class PickOutTodoDetailActivity : BaseActivity()
             val positionNo = carData.list!![0].positionNo
             warehouseId = carData.list!![0].warehouseId!!
             warehouseNo = carData.list!![0].warehouseNo!!
+            val rawHouseNo = list[position].warehouseNo
+            if (warehouseNo != rawHouseNo) {
+                ZBUiUtils.showWarning("该库位是 $warehouseNo 请扫 $rawHouseNo 的库位码")
+                return
+            }
             positionId.put(position, carId)
 
             val deepCopyList = DeepCopyData.deepCopyList(list)
@@ -242,7 +248,7 @@ class PickOutTodoDetailActivity : BaseActivity()
 
         list = lists
         val manager = LinearLayoutManager(ResourceUtil.getContext())
-        rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+        rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
         rv_in_storage_detail.layoutManager = manager
         adapter = PickingTodoDetailAdapter(this, R.layout.item_material_detail_three_todo, list)
         rv_in_storage_detail.adapter = adapter

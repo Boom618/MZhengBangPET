@@ -104,7 +104,7 @@ class ArrivalInFragment : BaseFragment(),MaterialUiListInterface<MaterialList.Li
 
         LayoutInit.initLayoutManager(ResourceUtil.getContext(), recyclerView)
         if (adapterTodo == null && adapterDone == null) {
-            recyclerView.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+            recyclerView.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
         }
         if (list.isEmpty()) {
             ZBUiUtils.showWarning("采购入库没有找到结果")

@@ -72,8 +72,6 @@ class ArrivalInTodoDetailActivity : BaseActivity()
      * 库位码 ID
      */
     private val positionId: SparseArray<String> = SparseArray(10)
-    private val houseId: SparseArray<String> = SparseArray(10)
-    private val houseNo: SparseArray<String> = SparseArray(10)
 
     private val materialPresenter = MaterialPresenter(this)
 
@@ -155,6 +153,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
                 bean.positionNo = viewCode
                 bean.sapMaterialBatchNo = viewSap
                 bean.positionId = id
+                bean.warehouseNo = list[i].warehouseNo
                 bean.supplierNo = list[i].supplierNo
                 bean.materialId = list[i].materialId
 
@@ -178,8 +177,8 @@ class ArrivalInTodoDetailActivity : BaseActivity()
         val time = tv_time!!.text.toString().trim { it <= ' ' }
 
         requestBody.list = detail
-        requestBody.warehouseId = warehouseId
-        requestBody.warehouseNo = warehouseNo
+//        requestBody.warehouseId = warehouseId
+//        requestBody.warehouseNo = warehouseNo
         requestBody.supplierNo = supplierNo
         requestBody.supplierName = supplierName
         requestBody.creatorNo = creatorNo
@@ -211,7 +210,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
         list = lists!!
 
         val manager = LinearLayoutManager(ResourceUtil.getContext())
-        rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+        rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
         rv_in_storage_detail.layoutManager = manager
         adapter = MaterialTodoDetailAdapter(this, R.layout.item_matterial_todo_detail, list)
         rv_in_storage_detail.adapter = adapter
@@ -280,7 +279,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
 
         //  服务器校验 库位码
         val warehouseNo = list[position].warehouseNo
-        materialPresenter.checkCarCode(position, positionNo,warehouseNo)
+        materialPresenter.checkCarCode(position, positionNo, warehouseNo)
 
     }
 
@@ -289,10 +288,15 @@ class ArrivalInTodoDetailActivity : BaseActivity()
             val carId = carData.list!![0].id
             val positionNo = carData.list!![0].positionNo
             warehouseId = carData.list!![0].warehouseId!!
+            // 扫库位码的 仓库编号
             warehouseNo = carData.list!![0].warehouseNo!!
+            // 入库仓库编号
+            val rawHouseNo = list[position].warehouseNo
+            if (warehouseNo != rawHouseNo) {
+                ZBUiUtils.showWarning("该库位是 $warehouseNo 请扫 $rawHouseNo 的库位码")
+                return
+            }
             positionId.put(position, carId)
-            houseId.put(position,warehouseId)
-            houseNo.put(position,warehouseNo)
 
             val deepCopyList = DeepCopyData.deepCopyList(list)
 

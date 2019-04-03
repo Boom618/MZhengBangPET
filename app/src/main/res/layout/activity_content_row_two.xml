@@ -55,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/in_storage_detail"
-                android:layout_margin="@dimen/space_10" />
+                android:layout_margin="@dimen/x6" />
 
             <View
                 android:id="@+id/line3"

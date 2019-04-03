@@ -34,19 +34,19 @@ class PickingTodoDetailAdapter(private val context: Context, layoutId: Int, data
             // 关闭软键盘
             ZBUiUtils.hideInputWindow(context, view)
             // 焦点改变 接口回调
-            SharedP.putHasFocusAndPosition(view.context,hasFocus,position)
+            SharedP.putHasFocusAndPosition(view.context, hasFocus, position)
         }
         if (payloads.isEmpty()) {
             holder.setText(R.id.tv_name, list.materialName)
                     .setText(R.id.tv_num, list.requireNumber + "  " + list.unit)
-                    .setText(R.id.tv_content, "含量：${list.concentration}")
+                    .setText(R.id.tv_house_no, "仓库编号：${list.warehouseNo}")
                     .setText(R.id.tv_request_number, "需求数量：${list.requireNumber}")
                     .setText(R.id.tv_box_num_unit, "单位：${list.unit}")
-        }else{
+        } else {
             val bundle = payloads[0] as Bundle
             val positionNo = bundle.getString("positionNo")
             etCode.setText(positionNo)
-            holder.setText(R.id.tv_batch_no,"SAP 物料批次号：")
+            holder.setText(R.id.tv_batch_no, "SAP 物料批次号：")
         }
     }
 

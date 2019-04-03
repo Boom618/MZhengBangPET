@@ -58,6 +58,7 @@ class MaterialsStockActivity : BaseActivity(), ScanBoxInterface {
 
     override fun initTwoView() {
         bt_commit.isEnabled = false
+        ZBUiUtils.showWarning("请扫库位码进行盘点")
         bt_commit.setOnClickListener {
             commitInventor(initDoneBody())
         }
