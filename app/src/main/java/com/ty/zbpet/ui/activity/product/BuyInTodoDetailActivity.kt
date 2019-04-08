@@ -167,10 +167,8 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
                 bean.unit = oldList[i].unit
                 bean.goodsName = oldList[i].goodsName
 
-//                bean.warehouseId = oldList[i].warehouseId
-//                bean.warehouseNo = oldList[i].warehouseNo
-
-//                bean.boxQrCode = boxQrCode
+                bean.warehouseId = oldList[i].warehouseId
+                bean.warehouseNo = oldList[i].warehouseNo
 
                 detail.add(bean)
             }
@@ -189,7 +187,6 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
         requestBody.sapOrderNo = sapOrderNo
         requestBody.supplierNo = supplierNo
         requestBody.supplierName = supplierName
-        requestBody.warehouseId = oldList[0].warehouseId
         requestBody.moveType = "105"
         requestBody.remark = remark
 
@@ -224,19 +221,6 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
                         rlDetail.visibility = View.VISIBLE
                         ivArrow.setImageResource(R.mipmap.ic_expand)
                     }
-
-//                    bindingCode.setOnClickListener {
-//                        itemId = position
-//                        val boxCodeList = carCodeArray.get(itemId)
-//
-//                        val intent = Intent(it.context, ScanBoxCodeActivity::class.java)
-//                        intent.putExtra("itemId", itemId)
-//                        intent.putExtra(CodeConstant.PAGE_STATE, true)
-//                        intent.putStringArrayListExtra("boxCodeList", boxCodeList)
-//
-//                        startActivityForResult(intent, REQUEST_SCAN_CODE)
-//                    }
-
 
                     ZBUiUtils.hideInputWindow(view.context, view)
 

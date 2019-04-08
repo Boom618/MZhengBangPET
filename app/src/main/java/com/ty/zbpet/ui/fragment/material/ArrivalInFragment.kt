@@ -139,7 +139,6 @@ class ArrivalInFragment : BaseFragment(),MaterialUiListInterface<MaterialList.Li
                         val intent = Intent(activity, ArrivalInDoneDetailActivity::class.java)
                         intent.putExtra("sapOrderNo", list[position].sapOrderNo)
                         intent.putExtra("supplierName", list[position].supplierName)
-                        intent.putExtra("warehouseId", list[position].warehouseId)
                         intent.putExtra("orderId", list[position].orderId)
                         startActivity(intent)
                     }

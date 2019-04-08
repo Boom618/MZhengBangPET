@@ -39,7 +39,7 @@ import org.greenrobot.eventbus.ThreadMode
  * @author TY
  *
  *
- * 领料出库 待办列表
+ * 领料出库列表
  */
 class PickOutFragment : BaseFragment(), MaterialUiListInterface<MaterialList.ListBean> {
 
@@ -113,9 +113,9 @@ class PickOutFragment : BaseFragment(), MaterialUiListInterface<MaterialList.Lis
         when (fragmentType) {
             CodeConstant.FRAGMENT_TODO -> {
                 adapterTodo = PickOutTodoAdapter(context!!, R.layout.item_pick_out_todo, list)
-                recyclerView!!.adapter = adapterTodo
+                recyclerView.adapter = adapterTodo
 
-                adapterTodo!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+                adapterTodo?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                     override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
                         val intent = Intent(activity, PickOutTodoDetailActivity::class.java)
                         intent.putExtra("sapOrderNo", list[position].sapOrderNo)
@@ -137,7 +137,7 @@ class PickOutFragment : BaseFragment(), MaterialUiListInterface<MaterialList.Lis
                 adapterDone = PickOutDoneAdapter(context!!, R.layout.item_pick_out_done, list)
                 recyclerView.adapter = adapterDone
 
-                adapterDone!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+                adapterDone?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                     override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
                         val intent = Intent(activity, PickOutDoneDetailActivity::class.java)
                         intent.putExtra("sapOrderNo", list[position].sapOrderNo)

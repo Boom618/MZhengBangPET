@@ -166,6 +166,7 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
                 bean.unit = rawData[i].unit
                 bean.goodsNo = rawData[i].goodsNo
                 bean.goodsName = rawData[i].goodsName
+                bean.warehouseId = rawData[i].warehouseId
                 bean.warehouseNo = rawData[i].warehouseNo
 
                 detail.add(bean)

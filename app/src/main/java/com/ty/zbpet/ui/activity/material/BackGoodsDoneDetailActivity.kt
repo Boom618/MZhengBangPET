@@ -97,7 +97,7 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
 
         data.list = list
         data.orderId = orderId
-        data.warehouseId = warehouseId
+//        data.warehouseId = warehouseId
         data.moveType = "102"
         val json = DataUtils.toJson(data, 1)
 

@@ -211,6 +211,8 @@ class ProductTodoDetailActivity : BaseActivity()
                 bean.endQrCode = endCode
 
                 bean.goodsId = goodsId
+                bean.warehouseId = oldList[i].warehouseId
+                bean.warehouseNo = oldList[i].warehouseNo
                 bean.goodsNo = oldList[i].goodsNo
                 bean.goodsName = oldList[i].goodsName
                 bean.boxQrCode = boxQrCode
@@ -231,8 +233,8 @@ class ProductTodoDetailActivity : BaseActivity()
         val productSap = product_sap.text.toString().trim { it <= ' ' }
 
         requestBody.list = detail
-        requestBody.warehouseId = warehouseId
-        requestBody.warehouseNo = warehouseNo
+//        requestBody.warehouseId = warehouseId
+//        requestBody.warehouseNo = warehouseNo
         requestBody.warehouseName = warehouseName
         requestBody.sapOrderNo = sapOrderNo
         requestBody.moveType = "101"

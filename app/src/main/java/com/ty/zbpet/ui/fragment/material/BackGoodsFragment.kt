@@ -30,6 +30,7 @@ import org.greenrobot.eventbus.ThreadMode
 
 /**
  * @author TY on 2018/11/26.
+ * 采购退货列表
  */
 class BackGoodsFragment : BaseFragment(), MaterialUiListInterface<MaterialList.ListBean> {
 

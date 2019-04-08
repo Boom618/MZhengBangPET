@@ -20,6 +20,7 @@ import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ZBUiUtils
 import com.ty.zbpet.util.image.ZhiHuImagePicker
 import kotlinx.android.synthetic.main.activity_demo.*
+import kotlinx.coroutines.runBlocking
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -88,6 +89,10 @@ class DemoMainActivity : BaseActivity() {
 //                    .load(it.uri)
 //                    .into(imageView)
 //        }
+
+        runBlocking {
+            println("--------------------")
+        }
 
     }
 

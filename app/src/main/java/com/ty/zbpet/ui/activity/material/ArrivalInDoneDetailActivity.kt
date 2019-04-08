@@ -34,7 +34,6 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
         get() = R.layout.activity_content_reversal
 
     private lateinit var orderId: String
-    private lateinit var warehouseId: String
     private lateinit var sapOrderNo: String
     private lateinit var supplierName: String
 
@@ -51,7 +50,6 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
 
         sapOrderNo = intent.getStringExtra("sapOrderNo")
         supplierName = intent.getStringExtra("supplierName")
-        warehouseId = intent.getStringExtra("warehouseId")
         orderId = intent.getStringExtra("orderId")
     }
 
