@@ -74,7 +74,6 @@ class PrimaryActivity : BaseActivity() {
 
                 val todoFragment = BuyInFragment.newInstance(CodeConstant.FRAGMENT_TODO)
                 val doneFragment = BuyInFragment.newInstance(CodeConstant.FRAGMENT_DONE)
-                //val doneFragment = BuyInDoneFragment.newInstance("doneFragment")
                 fragmentList.add(todoFragment)
                 fragmentList.add(doneFragment)
             }
@@ -191,30 +190,37 @@ class PrimaryActivity : BaseActivity() {
             true
         }
 
-        et_search.setOnTouchListener(View.OnTouchListener { _, event ->
-            // compoundDrawables：对应位置 左 0，上 1，右 2，下 3
-            val drawable = et_search.compoundDrawables[0]
-            if (event.actionMasked == MotionEvent.ACTION_UP) {
-                // event.rawX:屏幕上获得触摸的实际位置
-                if (event.rawX <= (drawable.bounds.width())) {
-                    // 逻辑处理
-                    if (signType) {
-                        val d = resources.getDrawable(R.mipmap.search_s)
-                        d.setBounds(0, 0, 32, 32)
-                        et_search.setCompoundDrawables(d, null, null, null)
-                        ZBUiUtils.showWarning("请输入生产订单号")
-                    } else {
-                        val d = resources.getDrawable(R.mipmap.search_y)
-                        d.setBounds(0, 0, 32, 32)
-                        et_search.setCompoundDrawables(d, null, null, null)
-                        ZBUiUtils.showWarning("请输入预留单号")
+        when(intType){
+            2 ->{
+                et_search.setOnTouchListener(View.OnTouchListener { _, event ->
+                    // compoundDrawables：对应位置 左 0，上 1，右 2，下 3
+                    val drawable = et_search.compoundDrawables[0]
+                    if (event.actionMasked == MotionEvent.ACTION_UP) {
+                        // event.rawX:屏幕上获得触摸的实际位置
+                        if (event.rawX <= (drawable.bounds.width())) {
+                            // 逻辑处理
+                            if (signType) {
+                                val d = resources.getDrawable(R.mipmap.search_s)
+                                d.setBounds(0, 0, 32, 32)
+                                et_search.setCompoundDrawables(d, null, null, null)
+                                ZBUiUtils.showWarning("请输入生产订单号")
+                            } else {
+                                val d = resources.getDrawable(R.mipmap.search_y)
+                                d.setBounds(0, 0, 32, 32)
+                                et_search.setCompoundDrawables(d, null, null, null)
+                                ZBUiUtils.showWarning("请输入预留单号")
+                            }
+                            signType = !signType
+                        }
+                        return@OnTouchListener false
                     }
-                    signType = !signType
-                }
-                return@OnTouchListener false
+                    false
+                })
             }
-            false
-        })
+            else ->{
+                et_search.setCompoundDrawables(null,null,null,null)
+            }
+        }
 
     }
 

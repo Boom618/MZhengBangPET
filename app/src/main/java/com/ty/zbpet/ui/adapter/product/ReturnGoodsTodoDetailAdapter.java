@@ -25,7 +25,7 @@ public class ReturnGoodsTodoDetailAdapter extends CommonAdapter<ProductDetails.L
     protected void convert(ViewHolder holder, ProductDetails.ListBean list, final int position) {
 
         holder.setText(R.id.tv_name, list.getGoodsName())
-                .setText(R.id.tv_select_ware, "所在仓库：" + list.getWarehouseNo())
+//                .setText(R.id.tv_select_ware, "所在仓库：" + list.getWarehouseNo())
                 .setText(R.id.tv_num, list.getNumber() + "  " + list.getUnit());
 
     }

@@ -67,6 +67,7 @@ class PickOutTodoDetailActivity : BaseActivity()
      * 库位码 ID
      */
     private val positionId: SparseArray<String> = SparseArray(10)
+    private val houseNo: SparseArray<String> = SparseArray(10)
 
     override val activityLayout: Int
         get() = R.layout.activity_content_row_two
@@ -135,6 +136,7 @@ class PickOutTodoDetailActivity : BaseActivity()
             val supplierNo = list[i].supplierNo
 
             val id = positionId.get(i)
+            val no = houseNo.get(i)
 
             val bean = MaterialDetails.ListBean()
             if (bulkNum.isNotEmpty() && carCode.isNotEmpty()) {
@@ -147,7 +149,7 @@ class PickOutTodoDetailActivity : BaseActivity()
                 bean.supplierNo = supplierNo
                 bean.materialId = materialId
                 bean.content = mergeContent
-                bean.warehouseNo = list[i].warehouseNo
+                bean.warehouseNo = no
                 bean.materialNo = list[i].materialNo
                 bean.materialName = list[i].materialName
                 //bean.concentration = concentration
@@ -227,10 +229,10 @@ class PickOutTodoDetailActivity : BaseActivity()
             warehouseNo = carData.list!![0].warehouseNo!!
             val rawHouseNo = list[position].warehouseNo
             if (warehouseNo != rawHouseNo) {
-                ZBUiUtils.showWarning("该库位是 $warehouseNo 请扫 $rawHouseNo 的库位码")
-                return
+                ZBUiUtils.showWarning("该库位是 $rawHouseNo 与扫码库位 $warehouseNo 不一致")
             }
             positionId.put(position, carId)
+            houseNo.put(position, warehouseNo)
 
             val deepCopyList = DeepCopyData.deepCopyList(list)
 

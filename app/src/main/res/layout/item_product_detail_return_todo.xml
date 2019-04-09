@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginStart="@dimen/space_6"
     android:layout_marginEnd="@dimen/space_10"
     android:background="@drawable/shape_white_min_radius"
@@ -32,7 +33,7 @@
         android:ellipsize="end"
         android:maxEms="12"
         android:maxLines="1"
-        android:text="联想台式电脑"
+        tools:text="联想台式电脑"
         app:layout_constraintStart_toEndOf="@+id/iv_tag"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,7 +46,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="4dp"
         android:layout_toStartOf="@+id/iv_arrow"
-        android:text="25箱"
+        tools:text="25箱"
         app:layout_constraintEnd_toStartOf="@+id/iv_arrow"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -71,16 +72,16 @@
         android:focusableInTouchMode="true"
         app:layout_constraintTop_toBottomOf="@+id/tv_num">
 
-        <TextView
-            android:id="@+id/tv_select_ware"
-            style="@style/itemSizeStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_22"
-            android:padding="@dimen/space_7"
-            android:text="仓库编号：002"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <!--<TextView-->
+            <!--android:id="@+id/tv_select_ware"-->
+            <!--style="@style/itemSizeStyle"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="@dimen/space_25"-->
+            <!--android:padding="@dimen/space_7"-->
+            <!--tools:text="仓库编号：002"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="parent" />-->
 
 
         <EditText
@@ -95,7 +96,7 @@
             android:inputType="number"
             android:lines="1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_select_ware" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/et_scattered"
@@ -116,7 +117,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_25"
-            android:layout_marginEnd="@dimen/space_25"
             android:hint="成品起始值"
             android:inputType="number"
             app:layout_constraintEnd_toStartOf="@+id/et_end_code"
@@ -128,7 +128,6 @@
             style="@style/itemSizeStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_25"
             android:layout_marginEnd="@dimen/space_25"
             android:hint="成品结束值"
             android:inputType="number"

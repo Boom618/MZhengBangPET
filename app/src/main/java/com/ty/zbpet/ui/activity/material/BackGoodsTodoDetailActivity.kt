@@ -68,6 +68,7 @@ class BackGoodsTodoDetailActivity : BaseActivity()
      * 库位码 ID
      */
     private val positionId: SparseArray<String> = SparseArray(10)
+    private val houseNo: SparseArray<String> = SparseArray(10)
 
     /**
      * 仓库 ID
@@ -155,6 +156,7 @@ class BackGoodsTodoDetailActivity : BaseActivity()
             val bulkNum = view.findViewById<EditText>(R.id.et_number).text.toString().trim { it <= ' ' }
 
             val id = positionId.get(i)
+            val no = houseNo.get(i)
 
             val supplierId = list[i].supplierId
             val materialId = list[i].materialId
@@ -169,7 +171,7 @@ class BackGoodsTodoDetailActivity : BaseActivity()
                 bean.materialId = materialId
                 bean.supplierId = supplierId
                 bean.unit = viewUnit
-                bean.warehouseNo = list[i].warehouseNo
+                bean.warehouseNo = no
                 bean.materialNo = list[i].materialNo
                 bean.materialName = list[i].materialName
                 bean.concentration = list[i].concentration
@@ -254,10 +256,10 @@ class BackGoodsTodoDetailActivity : BaseActivity()
             warehouseNo = carData.list!![0].warehouseNo
             val rawHouseNo = list[position].warehouseNo
             if (warehouseNo != rawHouseNo) {
-                ZBUiUtils.showWarning("该库位是 $warehouseNo 请扫 $rawHouseNo 的库位码")
-                return
+                ZBUiUtils.showWarning("该库位是 $rawHouseNo 与扫码库位 $warehouseNo 不一致")
             }
             positionId.put(position, carId)
+            houseNo.put(position, warehouseNo)
 
             val deepCopyList = DeepCopyData.deepCopyList(list)
 

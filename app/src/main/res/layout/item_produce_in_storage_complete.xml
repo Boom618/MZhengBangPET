@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_below="@+id/ll_top"
     android:layout_marginEnd="@dimen/space_10"
     android:layout_marginStart="@dimen/space_10"
@@ -13,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/space_10"
         android:layout_marginTop="@dimen/space_10"
-        android:text="201808071024"
+        tools:text="201808071024"
         android:textColor="@color/black"
         android:textSize="@dimen/text_18" />
 
@@ -26,7 +27,7 @@
         android:layout_marginTop="@dimen/space_5"
         android:background="@drawable/shape_green_radius"
         android:padding="@dimen/space_5"
-        android:text="状态"
+        tools:text="状态"
         android:textColor="@color/green_color"
         android:textSize="@dimen/text_14" />
 
@@ -39,7 +40,7 @@
         android:layout_marginTop="@dimen/space_5"
         android:layout_marginBottom="@dimen/space_10"
         android:paddingStart="@dimen/space_5"
-        android:text="生产信息"
+        tools:text="生产信息"
         android:textColor="@color/txt_minor_color"
         android:textSize="@dimen/text_14" />
 
@@ -68,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/space_5"
-            android:text="2018/08/21"
+            tools:text="2018/08/21"
             android:textColor="@color/txt_minor_color"
             android:textSize="@dimen/text_12" />
     </LinearLayout>

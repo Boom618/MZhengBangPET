@@ -125,13 +125,13 @@ class ProductTodoDetailActivity : BaseActivity()
         val format = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
         selectTime = format.format(Date())
 
-        tv_time!!.text = selectTime
+        tv_time.text = selectTime
         in_storage_detail!!.text = "入库明细"
 
-        tv_time!!.setOnClickListener { v ->
+        tv_time.setOnClickListener { v ->
             ZBUiUtils.showPickDate(v.context) { date, _ ->
                 selectTime = ZBUiUtils.getTime(date)
-                tv_time!!.text = selectTime
+                tv_time.text = selectTime
 
                 ZBUiUtils.showSuccess(selectTime)
             }
@@ -169,7 +169,7 @@ class ProductTodoDetailActivity : BaseActivity()
         // TODO 获取用户选择的仓库信息
         val houseId = SharedP.getWarehouseId(this@ProductTodoDetailActivity)
 
-        val warehouseList = userInfo.warehouseList
+//        val warehouseList = userInfo.warehouseList
 
         // 仓库信息
         val warehouseId: String?
@@ -211,8 +211,9 @@ class ProductTodoDetailActivity : BaseActivity()
                 bean.endQrCode = endCode
 
                 bean.goodsId = goodsId
-                bean.warehouseId = oldList[i].warehouseId
-                bean.warehouseNo = oldList[i].warehouseNo
+//                bean.warehouseId = oldList[i].warehouseId
+//                bean.warehouseNo = oldList[i].warehouseNo
+                bean.warehouseNo = warehouseNo
                 bean.goodsNo = oldList[i].goodsNo
                 bean.goodsName = oldList[i].goodsName
                 bean.boxQrCode = boxQrCode
@@ -235,7 +236,7 @@ class ProductTodoDetailActivity : BaseActivity()
         requestBody.list = detail
 //        requestBody.warehouseId = warehouseId
 //        requestBody.warehouseNo = warehouseNo
-        requestBody.warehouseName = warehouseName
+//        requestBody.warehouseName = warehouseName
         requestBody.sapOrderNo = sapOrderNo
         requestBody.moveType = "101"
         requestBody.productionDate = productDate

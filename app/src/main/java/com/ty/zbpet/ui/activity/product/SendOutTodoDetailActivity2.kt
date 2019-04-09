@@ -11,9 +11,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import com.ty.zbpet.R
+import com.ty.zbpet.bean.UserInfo
 import com.ty.zbpet.bean.product.ProductDetails
 import com.ty.zbpet.bean.product.ProductTodoSave
 import com.ty.zbpet.constant.CodeConstant
+import com.ty.zbpet.data.SharedP
 import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.product.ProductUiListInterface
 import com.ty.zbpet.presenter.product.SendOutPresenter
@@ -25,7 +27,7 @@ import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.*
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
-import kotlinx.android.synthetic.main.activity_content_row_two.*
+import kotlinx.android.synthetic.main.activity_product_row_three.*
 import okhttp3.RequestBody
 import java.text.SimpleDateFormat
 import java.util.*
@@ -64,6 +66,16 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
     private var boxCodeList = ArrayList<String>()
 
     /**
+     * 用户信息:
+     */
+    private lateinit var userInfo: UserInfo
+    private lateinit var warehouseList: MutableList<UserInfo.WarehouseListBean>
+    /**
+     * 仓库 name
+     */
+    private val houseName = java.util.ArrayList<String>()
+
+    /**
      * 列表 ID
      */
     private var itemId = -1
@@ -75,7 +87,7 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
     private var warehouseId: String? = null
 
     override val activityLayout: Int
-        get() = R.layout.activity_content_row_two
+        get() = R.layout.activity_product_row_three//activity_content_row_two
 
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
@@ -90,7 +102,17 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
         productInfo = intent.getStringExtra("productInfo")
         customerInfo = intent.getStringExtra("customerInfo")
         goodsInfo = intent.getStringExtra("goodsInfo")
-
+        userInfo = SimpleCache.getUserInfo(CodeConstant.USER_DATA)
+        warehouseList = userInfo.warehouseList
+        val size = warehouseList.size
+        for (i in 0 until size) {
+            houseName.add(warehouseList[i].warehouseName.toString())
+        }
+        try {
+            tv_house.text = warehouseList[0].warehouseName
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
         presenter.fetchSendOutTodoInfo(sapOrderNo)
     }
 
@@ -115,6 +137,8 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
                 ZBUiUtils.showSuccess(selectTime)
             }
         }
+        // 用户选择仓库信息
+        tv_house.setOnClickListener { v -> ZBUiUtils.selectDialog(v.context, CodeConstant.SELECT_HOUSE_BUY_IN, 0, houseName, tv_house) }
     }
 
     /**
@@ -139,6 +163,9 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
         val requestBody = ProductTodoSave()
 
         val detail = ArrayList<ProductTodoSave.DetailsBean>()
+
+        val houseId = SharedP.getWarehouseId(this)
+        val warehouseNo = warehouseList[houseId].warehouseNo
 
         val size = rawData.size
         for (i in 0 until size) {
@@ -166,8 +193,8 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
                 bean.unit = rawData[i].unit
                 bean.goodsNo = rawData[i].goodsNo
                 bean.goodsName = rawData[i].goodsName
-                bean.warehouseId = rawData[i].warehouseId
-                bean.warehouseNo = rawData[i].warehouseNo
+//                bean.warehouseId = rawData[i].warehouseId
+                bean.warehouseNo = warehouseNo
 
                 detail.add(bean)
             }
@@ -204,12 +231,12 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
 
         if (adapter == null) {
             val manager = LinearLayoutManager(ResourceUtil.getContext())
-            rv_in_storage_detail!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
-            rv_in_storage_detail!!.layoutManager = manager
+            rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+            rv_in_storage_detail.layoutManager = manager
             adapter = SendOutTodoDetailAdapter(this, R.layout.item_product_detail_send_out_todo, rawData)
-            rv_in_storage_detail!!.adapter = adapter
+            rv_in_storage_detail.adapter = adapter
 
-            adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+            adapter?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                 override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
 
                     val rlDetail = holder.itemView.findViewById<View>(R.id.gone_view)

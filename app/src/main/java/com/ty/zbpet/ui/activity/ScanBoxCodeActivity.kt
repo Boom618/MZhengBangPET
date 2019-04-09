@@ -104,7 +104,7 @@ class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface, CommInterface {
 
     override fun onDestroy() {
         super.onDestroy()
-        scanReader!!.close()
+        scanReader?.close()
     }
 
     override fun onKeyDown(keyCode: Int, event: android.view.KeyEvent): Boolean {

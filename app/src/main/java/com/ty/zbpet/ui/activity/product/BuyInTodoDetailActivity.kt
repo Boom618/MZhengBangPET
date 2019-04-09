@@ -12,6 +12,7 @@ import com.ty.zbpet.bean.UserInfo
 import com.ty.zbpet.bean.product.ProductDetails
 import com.ty.zbpet.bean.product.ProductTodoSave
 import com.ty.zbpet.constant.CodeConstant
+import com.ty.zbpet.data.SharedP
 import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.product.BuyInPresenter
 import com.ty.zbpet.presenter.product.ProductUiListInterface
@@ -22,7 +23,7 @@ import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.*
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
-import kotlinx.android.synthetic.main.activity_content_row_two.*
+import kotlinx.android.synthetic.main.activity_product_row_three.*
 import okhttp3.RequestBody
 import java.text.SimpleDateFormat
 import java.util.*
@@ -57,20 +58,21 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
      */
     private var itemId = -1
 
-    /**
-     * 保存用户箱码的数据
-     */
-//    private val carCodeArray: SparseArray<ArrayList<String>> = SparseArray(10)
-
     private var supplierId: String? = null
 
     /**
      * 用户信息:
      */
-    private var userInfo: UserInfo? = null
+    private lateinit var userInfo: UserInfo
+    private lateinit var warehouseList: MutableList<UserInfo.WarehouseListBean>
+    /**
+     * 仓库 name
+     */
+    private val houseName = java.util.ArrayList<String>()
 
     override val activityLayout: Int
-        get() = R.layout.activity_content_row_two
+        // 成品添加仓库选择、没有 生产时间、批次号
+        get() = R.layout.activity_product_row_three//activity_content_row_two
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {}
 
@@ -83,6 +85,16 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
         supplierId = intent.getStringExtra("supplierId")
 
         userInfo = SimpleCache.getUserInfo(CodeConstant.USER_DATA)
+        warehouseList = userInfo.warehouseList
+        val size = warehouseList.size
+        for (i in 0 until size) {
+            houseName.add(warehouseList[i].warehouseName.toString())
+        }
+        try {
+            tv_house.text = warehouseList[0].warehouseName
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
         presenter.fetchBuyInTodoListDetails(sapOrderNo, sapFirmNo, supplierNo)
     }
@@ -111,6 +123,8 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
                 ZBUiUtils.showSuccess(selectTime)
             }
         }
+        // 用户选择仓库信息
+        tv_house.setOnClickListener { v -> ZBUiUtils.selectDialog(v.context, CodeConstant.SELECT_HOUSE_BUY_IN, 0, houseName, tv_house) }
     }
 
     /**
@@ -134,6 +148,9 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
 
         val requestBody = ProductTodoSave()
         val detail = ArrayList<ProductTodoSave.DetailsBean>()
+
+        val houseId = SharedP.getWarehouseId(this)
+        val warehouseNo = warehouseList[houseId].warehouseNo
 
         val size = oldList.size
         for (i in 0 until size) {
@@ -167,8 +184,8 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
                 bean.unit = oldList[i].unit
                 bean.goodsName = oldList[i].goodsName
 
-                bean.warehouseId = oldList[i].warehouseId
-                bean.warehouseNo = oldList[i].warehouseNo
+//                bean.warehouseId = oldList[i].warehouseId
+                bean.warehouseNo = warehouseNo
 
                 detail.add(bean)
             }

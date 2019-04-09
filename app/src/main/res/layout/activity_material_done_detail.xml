@@ -62,7 +62,7 @@
                 android:layout_below="@+id/rc_done_detail_list"
                 android:layout_marginStart="@dimen/space_10"
                 android:layout_toEndOf="@+id/line1"
-                android:text="@string/material_remark"
+                android:text="@string/remark_message"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_18" />
 

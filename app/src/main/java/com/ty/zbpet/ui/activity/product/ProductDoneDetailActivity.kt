@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.product.ProductDetails
 import com.ty.zbpet.bean.product.ProductDoneSave
+import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.product.ProducePresenter
 import com.ty.zbpet.presenter.product.ProductUiListInterface
@@ -14,6 +15,7 @@ import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ResourceUtil
+import com.ty.zbpet.util.SimpleCache
 import com.ty.zbpet.util.ZBUiUtils
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import kotlinx.android.synthetic.main.activity_content_reversal.*
@@ -45,7 +47,7 @@ class ProductDoneDetailActivity : BaseActivity(), ProductUiListInterface<Product
     /**
      * 用户信息
      */
-    private val userInfo = DataUtils.getUserInfo()
+    private val userInfo = SimpleCache.getUserInfo(CodeConstant.USER_DATA)
 
     override val activityLayout: Int
         get() = R.layout.activity_content_reversal

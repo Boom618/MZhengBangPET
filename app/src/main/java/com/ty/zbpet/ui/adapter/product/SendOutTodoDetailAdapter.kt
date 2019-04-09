@@ -17,7 +17,7 @@ class SendOutTodoDetailAdapter(context: Context, layoutId: Int, datas: List<Prod
 
     override fun convert(holder: ViewHolder, list: ProductDetails.ListBean, position: Int) {
         holder.setText(R.id.tv_name, list.goodsName)
-                .setText(R.id.tv_select_ware, "所在仓库：" + list.warehouseNo)
+//                .setText(R.id.tv_select_ware, "所在仓库：" + list.warehouseNo)
                 .setText(R.id.tv_send_number, "发货数量：" + list.number)
                 .setText(R.id.tv_num, list.number + list.unit)
                 .setText(R.id.btn_binding_code, "箱码出库")

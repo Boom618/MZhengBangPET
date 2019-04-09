@@ -15,6 +15,7 @@ import com.ty.zbpet.bean.UserInfo
 import com.ty.zbpet.bean.product.ProductDetails
 import com.ty.zbpet.bean.product.ProductTodoSave
 import com.ty.zbpet.constant.CodeConstant
+import com.ty.zbpet.data.SharedP
 import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.product.ProductUiListInterface
 import com.ty.zbpet.presenter.product.ReturnPresenter
@@ -26,7 +27,7 @@ import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.*
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
-import kotlinx.android.synthetic.main.activity_content_row_two.*
+import kotlinx.android.synthetic.main.activity_product_row_three.*
 import okhttp3.RequestBody
 import java.text.SimpleDateFormat
 import java.util.*
@@ -70,10 +71,16 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
     /**
      * 用户信息
      */
-    private var userInfo: UserInfo? = null
+    private var userInfo: UserInfo = SimpleCache.getUserInfo(CodeConstant.USER_DATA)
+    private lateinit var warehouseList: MutableList<UserInfo.WarehouseListBean>
+
+    /**
+     * 仓库 name
+     */
+    private val houseName = java.util.ArrayList<String>()
 
     override val activityLayout: Int
-        get() = R.layout.activity_content_row_two
+        get() = R.layout.activity_product_row_three//activity_content_row_two
 
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
@@ -85,7 +92,17 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
         sapFirmNo = intent.getStringExtra("sapFirmNo")
         content = intent.getStringExtra("content")
 
-        userInfo = DataUtils.getUserInfo()
+        userInfo = SimpleCache.getUserInfo(CodeConstant.USER_DATA)
+        warehouseList = userInfo.warehouseList
+        val size = warehouseList.size
+        for (i in 0 until size) {
+            houseName.add(warehouseList[i].warehouseName.toString())
+        }
+        try {
+            tv_house.text = warehouseList[0].warehouseName
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
         presenter.fetchReturnOrderInfo(sapOrderNo)
     }
@@ -100,9 +117,19 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
         val format = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
         selectTime = format.format(Date())
 
-        tv_time!!.text = selectTime
-        in_storage_detail!!.text = "退货明细"
+        tv_time.text = selectTime
+        in_storage_detail.text = "退货明细"
 
+        tv_time.setOnClickListener { v ->
+            ZBUiUtils.showPickDate(v.context) { date, _ ->
+                selectTime = ZBUiUtils.getTime(date)
+                tv_time.text = selectTime
+
+                ZBUiUtils.showSuccess(selectTime)
+            }
+        }
+        // 用户选择仓库信息
+        tv_house.setOnClickListener { v -> ZBUiUtils.selectDialog(v.context, CodeConstant.SELECT_HOUSE_BUY_IN, 0, houseName, tv_house) }
     }
 
     /**
@@ -127,6 +154,8 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
         val requestBody = ProductTodoSave()
 
         val detail = ArrayList<ProductTodoSave.DetailsBean>()
+        val houseId = SharedP.getWarehouseId(this)
+        val warehouseNo = warehouseList[houseId].warehouseNo
 
         val size = oldList.size
         for (i in 0 until size) {
@@ -156,6 +185,7 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
                 bean.goodsNo = goodsNo
                 bean.unit = oldList[i].unit
                 bean.goodsName = oldList[i].goodsName
+                bean.warehouseNo = warehouseNo
                 bean.orderNumber = orderNumber
                 bean.startQrCode = startCode
                 bean.endQrCode = endCode
@@ -181,7 +211,7 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
         requestBody.remark = remark
 
         val json = DataUtils.toJson(requestBody, 1)
-        ZBLog.e("JSON $json")
+        //ZBLog.e("JSON $json")
         return RequestBodyJson.requestBody(json)
     }
 

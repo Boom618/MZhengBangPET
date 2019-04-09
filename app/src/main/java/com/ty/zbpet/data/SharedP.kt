@@ -49,7 +49,7 @@ object SharedP {
     @JvmStatic
     fun getWarehouseId(context: Context): Int {
         return context.getSharedPreferences("shared", Context.MODE_PRIVATE)
-                .getInt("houseId", -1)
+                .getInt("houseId", 0)
     }
 
 }

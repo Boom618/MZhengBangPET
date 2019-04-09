@@ -56,37 +56,37 @@ public class DataUtils {
     }
 
 
-    /**
-     * 假数据 处理
-     *
-     * @return
-     */
-    public static UserInfo getUserInfo() {
-
-        UserInfo userInfo = new UserInfo();
-
-        ArrayList<UserInfo.WarehouseListBean> userList = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            if (i == 0) {
-                UserInfo.WarehouseListBean bean = new UserInfo.WarehouseListBean();
-                bean.setWarehouseId("3");
-                bean.setWarehouseName("仓库1001");
-                bean.setWarehouseNo("1001");
-                userList.add(bean);
-            } else {
-                UserInfo.WarehouseListBean bean = new UserInfo.WarehouseListBean();
-                bean.setWarehouseId("10");
-                bean.setWarehouseName("仓库0002");
-                bean.setWarehouseNo("0002");
-                userList.add(bean);
-            }
-        }
-
-        userInfo.setUserName("正邦用户");
-        userInfo.setWarehouseList(userList);
-
-        return userInfo;
-    }
+//    /**
+//     * 假数据 处理
+//     *
+//     * @return
+//     */
+//    public static UserInfo getUserInfo() {
+//
+//        UserInfo userInfo = new UserInfo();
+//
+//        ArrayList<UserInfo.WarehouseListBean> userList = new ArrayList<>();
+//        for (int i = 0; i < 2; i++) {
+//            if (i == 0) {
+//                UserInfo.WarehouseListBean bean = new UserInfo.WarehouseListBean();
+//                bean.setWarehouseId("3");
+//                bean.setWarehouseName("仓库1001");
+//                bean.setWarehouseNo("1001");
+//                userList.add(bean);
+//            } else {
+//                UserInfo.WarehouseListBean bean = new UserInfo.WarehouseListBean();
+//                bean.setWarehouseId("10");
+//                bean.setWarehouseName("仓库0002");
+//                bean.setWarehouseNo("0002");
+//                userList.add(bean);
+//            }
+//        }
+//
+//        userInfo.setUserName("正邦用户");
+//        userInfo.setWarehouseList(userList);
+//
+//        return userInfo;
+//    }
 
     /**
      * 成品 仓库和商品

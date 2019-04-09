@@ -52,7 +52,16 @@ class PersonCenterActivity : BaseActivity(), UserInterface {
      */
     private fun exitApp() {
         isExit = true
-        presenter.userLogOut()
+//        presenter.userLogOut()
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                Intent.FLAG_ACTIVITY_NO_HISTORY
+        startActivity(intent)
+
+        SimpleCache.clearAll()
+        ActivitiesHelper.get().finishAll()
+        finish()
     }
 
 
