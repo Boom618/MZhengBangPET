@@ -4,9 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.eventbus.ErrorMessage
+import com.ty.zbpet.bean.eventbus.SearchMessage
 import com.ty.zbpet.bean.system.ProductInventorList
+import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.presenter.system.SystemPresenter
 import com.ty.zbpet.ui.ActivitiesHelper
 import com.ty.zbpet.ui.adapter.LayoutInit
@@ -40,12 +43,20 @@ class ProductInventoryListActivity : BaseActivity() {
     override fun initOneData() {
         initToolBar(R.string.product_inventor)
         LayoutInit.initLayoutManager(this, recycler_inventory)
-        recycler_inventory.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+        recycler_inventory.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
         presenter.getGoodsList(10,"")
     }
 
     override fun initTwoView() {
+        et_search.setOnEditorActionListener { v, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                val searchString = v.text.toString().trim { it <= ' ' }
 
+                presenter.getGoodsList(10,searchString)
+                ZBUiUtils.hideInputWindow(v.context, v)
+            }
+            true
+        }
 
     }
 

@@ -7,6 +7,7 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.crashreport.CrashReport;
+import com.ty.zbpet.config.AppInit;
 import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.util.ACache;
 import com.xiasuhuei321.loadingdialog.manager.StyleManager;
@@ -30,6 +31,7 @@ public class MainApp extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         context = this;
+        AppInit.init(this);
 
         mCache = ACache.get(context);
         // dialog manager

@@ -178,6 +178,8 @@ dependencies {
     implementation "com.github.ForgetAll:LoadingDialog:v1.0.4"
     // Toasty
     implementation 'com.github.GrenderG:Toasty:1.4.1'
+    // light key value 存值
+    implementation 'com.horizon.lightkv:lightkv:1.0.7'
 
     //1.1.0 API改动过大，老用户升级需谨慎 listView 刷新 {ZBConfig.SmartRefreshVersion}
     implementation "com.scwang.smartrefresh:SmartRefreshLayout:${ZBConfig.SmartRefreshVersion}"

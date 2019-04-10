@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
 import android.widget.ImageView
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
@@ -13,6 +14,7 @@ import com.luck.picture.lib.config.PictureMimeType
 import com.qingmei2.rximagepicker.core.RxImagePicker
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.eventbus.system.ImageEvent
+import com.ty.zbpet.config.AppData
 import com.ty.zbpet.ui.adapter.system.RecyclerImageAdapter
 import com.ty.zbpet.ui.base.BaseActivity
 import com.ty.zbpet.ui.widght.ShowDialog
@@ -59,6 +61,11 @@ class DemoMainActivity : BaseActivity() {
         recycler_demo.layoutManager = layoutManager
         adapter = RecyclerImageAdapter(this@DemoMainActivity, list)
         recycler_demo.adapter = adapter
+
+        val account = AppData.account
+        if (TextUtils.isEmpty(account)) {
+            AppData.account = "foo@gmail.com"
+        }
 
 
     }
