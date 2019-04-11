@@ -87,7 +87,7 @@ class PickOutTodoDetailActivity : BaseActivity()
 
     override fun initTwoView() {
 
-        initToolBar(R.string.pick_out_storage, "保存", View.OnClickListener { view ->
+        initToolBar(R.string.material_pick_out_details, "保存", View.OnClickListener { view ->
             ZBUiUtils.hideInputWindow(view.context, view)
             pickOutTodoSave(initTodoBody())
         })
@@ -95,12 +95,12 @@ class PickOutTodoDetailActivity : BaseActivity()
         val format = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
         selectTime = format.format(Date())
 
-        tv_time!!.text = selectTime
+        tv_time.text = selectTime
 
-        tv_time!!.setOnClickListener { v ->
+        tv_time.setOnClickListener { v ->
             ZBUiUtils.showPickDate(v.context) { date, _ ->
                 selectTime = ZBUiUtils.getTime(date)
-                tv_time!!.text = selectTime
+                tv_time.text = selectTime
 
                 ZBUiUtils.showSuccess(selectTime)
             }

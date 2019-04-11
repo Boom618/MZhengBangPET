@@ -9,10 +9,10 @@ import android.widget.TextView
 
 import com.ty.zbpet.R
 import com.ty.zbpet.util.ACache
-import com.ty.zbpet.constant.CodeConstant
 
 import butterknife.ButterKnife
 import butterknife.Unbinder
+import com.billy.android.loading.Gloading
 
 /**
  * @author TY
@@ -31,6 +31,9 @@ abstract class BaseActivity : AppCompatActivity() {
      * @return
      */
     protected abstract val activityLayout: Int
+
+    // 全局 Dialog
+    private var mHolder: Gloading.Holder? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +56,20 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+    }
+
+    private fun initLoadingStatus(){
+        mHolder = Gloading.getDefault().wrap(this)
+    }
+
+    protected fun showLoadSuccess(){
+        initLoadingStatus()
+        mHolder?.showLoadSuccess()
+    }
+
+    protected fun showLoadFailed(){
+        initLoadingStatus()
+        mHolder?.showLoadFailed()
     }
 
     /**
@@ -160,7 +177,7 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onDestroy()
         clearCache()
 
-        mUnbinder!!.unbind()
+        mUnbinder?.unbind()
     }
 }
 

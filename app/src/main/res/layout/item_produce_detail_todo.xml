@@ -70,17 +70,6 @@
         android:focusableInTouchMode="true"
         app:layout_constraintTop_toBottomOf="@+id/tv_num">
 
-        <TextView
-            android:id="@+id/tv_houseNo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="仓库编号:"
-            android:layout_marginTop="@dimen/x10"
-            android:textSize="@dimen/text_16"
-            android:layout_marginStart="@dimen/space_25"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <EditText
             android:id="@+id/et_box_num"
             style="@style/itemSizeStyle"
@@ -91,7 +80,7 @@
             android:inputType="number"
             app:layout_constraintEnd_toStartOf="@+id/et_bulk_num"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_houseNo" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/et_bulk_num"
@@ -106,7 +95,7 @@
             android:inputType="numberDecimal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/et_box_num"
-            app:layout_constraintTop_toBottomOf="@+id/tv_houseNo" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/et_start_code"

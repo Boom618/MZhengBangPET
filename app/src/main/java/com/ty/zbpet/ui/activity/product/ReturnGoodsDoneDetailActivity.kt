@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.text.InputType
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.product.ProductDetails
@@ -72,7 +73,7 @@ class ReturnGoodsDoneDetailActivity : BaseActivity(), ProductUiListInterface<Pro
         initToolBar(R.string.label_return_sell, "冲销",
                 View.OnClickListener { returnGoodsDoneSave(initDoneBody()) })
 
-        et_desc!!.inputType = InputType.TYPE_NULL
+        et_desc.inputType = InputType.TYPE_NULL
 
         val format = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
         selectTime = format.format(Date())
@@ -100,6 +101,11 @@ class ReturnGoodsDoneDetailActivity : BaseActivity(), ProductUiListInterface<Pro
         val size = oldList.size
         val beans = ArrayList<ProductDoneSave.DetailsBean>()
         for (i in 0 until size) {
+            val view = rv_in_storage_detail.getChildAt(i)
+            val numberStart = view.findViewById<EditText>(R.id.tv_start_code).text.toString().trim()
+            val numberEnd = view.findViewById<EditText>(R.id.tv_end_code).text.toString().trim()
+            val sap = view.findViewById<EditText>(R.id.tv_sap).text.toString().trim()
+
             val detailsBean = ProductDoneSave.DetailsBean()
 
             val boxQrCodeList = oldList[i].boxQrCode
@@ -120,6 +126,9 @@ class ReturnGoodsDoneDetailActivity : BaseActivity(), ProductUiListInterface<Pro
 
             detailsBean.goodsId = goodsId
             detailsBean.goodsNo = goodsNo
+            detailsBean.startQrCode = numberStart
+            detailsBean.endQrCode = numberEnd
+            detailsBean.sapMaterialBatchNo = sap
 
             beans.add(detailsBean)
         }
@@ -147,12 +156,12 @@ class ReturnGoodsDoneDetailActivity : BaseActivity(), ProductUiListInterface<Pro
 
         if (adapter == null) {
             val manager = LinearLayoutManager(ResourceUtil.getContext())
-            rv_in_storage_detail!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
-            rv_in_storage_detail!!.layoutManager = manager
+            rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
+            rv_in_storage_detail.layoutManager = manager
             adapter = ReturnGoodsDoneDetailAdapter(this, R.layout.item_product_detail_two_done, list)
-            rv_in_storage_detail!!.adapter = adapter
+            rv_in_storage_detail.adapter = adapter
 
-            adapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+            adapter?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                 override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
 
                     val rlDetail = holder.itemView.findViewById<View>(R.id.gone_view)

@@ -126,13 +126,13 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
         val format = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
         selectTime = format.format(Date())
 
-        tv_time!!.text = selectTime
+        tv_time.text = selectTime
         in_storage_detail!!.text = "发货明细"
 
-        tv_time!!.setOnClickListener { v ->
+        tv_time.setOnClickListener { v ->
             ZBUiUtils.showPickDate(v.context) { date, _ ->
                 selectTime = ZBUiUtils.getTime(date)
-                tv_time!!.text = selectTime
+                tv_time.text = selectTime
 
                 ZBUiUtils.showSuccess(selectTime)
             }

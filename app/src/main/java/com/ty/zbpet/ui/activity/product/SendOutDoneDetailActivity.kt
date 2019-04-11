@@ -78,10 +78,10 @@ class SendOutDoneDetailActivity : BaseActivity(), ProductUiListInterface<Product
         val format = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
         selectTime = format.format(Date())
 
-        tv_time!!.text = selectTime
-        in_storage_detail!!.text = "发货明细"
+        tv_time.text = selectTime
+        in_storage_detail.text = "发货明细"
 
-        et_desc!!.inputType = InputType.TYPE_NULL
+        et_desc.inputType = InputType.TYPE_NULL
     }
 
     /**
@@ -153,10 +153,10 @@ class SendOutDoneDetailActivity : BaseActivity(), ProductUiListInterface<Product
 
         if (adapter == null) {
             val manager = LinearLayoutManager(ResourceUtil.getContext())
-            rv_in_storage_detail!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
-            rv_in_storage_detail!!.layoutManager = manager
+            rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+            rv_in_storage_detail.layoutManager = manager
             adapter = SendOutDoneDetailAdapter(this, R.layout.item_product_detail_send_out_done, list)
-            rv_in_storage_detail!!.adapter = adapter
+            rv_in_storage_detail.adapter = adapter
 
             adapter?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                 override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {

@@ -96,7 +96,7 @@ class BackGoodsTodoDetailActivity : BaseActivity()
 
     override fun initTwoView() {
 
-        initToolBar(R.string.back_goods, "保存", View.OnClickListener { view ->
+        initToolBar(R.string.materials_back_goods_details, "保存", View.OnClickListener { view ->
             ZBUiUtils.hideInputWindow(view.context, view)
             backTodoSave(initTodoBody())
         })

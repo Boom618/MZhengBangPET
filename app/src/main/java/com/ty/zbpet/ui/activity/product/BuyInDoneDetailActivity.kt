@@ -31,8 +31,6 @@ class BuyInDoneDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
 
     private var adapter: BuyInDoneDetailAdapter? = null
 
-    private var selectTime: String? = null
-
     private var orderId: String? = null
     private var sapOrderNo: String? = null
 
@@ -41,8 +39,7 @@ class BuyInDoneDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
      */
     private val userInfo = SimpleCache.getUserInfo(CodeConstant.USER_DATA)
 
-    private var list: List<ProductDetails.ListBean>? = ArrayList()
-
+    private var list: List<ProductDetails.ListBean> = ArrayList()
 
     private val presenter = BuyInPresenter(this)
 
@@ -85,7 +82,7 @@ class BuyInDoneDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
 
         val requestBody = ProductDoneSave()
 
-        val size = list!!.size
+        val size = list.size
         val beans = ArrayList<ProductDoneSave.DetailsBean>()
         for (i in 0 until size) {
             val view = recycler_reversal.getChildAt(i)
@@ -95,16 +92,16 @@ class BuyInDoneDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
 
                 val detailsBean = ProductDoneSave.DetailsBean()
 
-                val boxQrCodeList = list!![i].boxQrCode
-                val goodsId = list!![i].goodsId
-                val goodsNo = list!![i].goodsNo
-                val warehouseId = list!![i].warehouseId
-                val number = list!![i].number
+                val boxQrCodeList = list[i].boxQrCode
+                val goodsId = list[i].goodsId
+                val goodsNo = list[i].goodsNo
+                val warehouseId = list[i].warehouseId
+                val number = list[i].number
 
-                val subContent = list!![i].content
+                val subContent = list[i].content
 
-                detailsBean.id = list!![i].id
-                detailsBean.unit = list!![i].unit
+                detailsBean.id = list[i].id
+                detailsBean.unit = list[i].unit
                 detailsBean.content = subContent
                 detailsBean.number = number
                 detailsBean.boxQrCode = boxQrCodeList
@@ -134,7 +131,7 @@ class BuyInDoneDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
         return RequestBodyJson.requestBody(json)
     }
 
-    override fun showProduct(lists: MutableList<ProductDetails.ListBean>?) {
+    override fun showProduct(lists: MutableList<ProductDetails.ListBean>) {
 
         list = lists
 
@@ -142,8 +139,7 @@ class BuyInDoneDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
             val manager = LinearLayoutManager(ResourceUtil.getContext())
             recycler_reversal.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
             recycler_reversal.layoutManager = manager
-//            adapter = BuyInDoneDetailAdapter(this, R.layout.item_product_detail_two_done, list!!)
-            adapter = BuyInDoneDetailAdapter(this, R.layout.item_reversal_check, list!!)
+            adapter = BuyInDoneDetailAdapter(this, R.layout.item_reversal_check, list)
             recycler_reversal.adapter = adapter
         }
     }

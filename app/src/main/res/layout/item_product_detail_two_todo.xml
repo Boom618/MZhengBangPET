@@ -79,7 +79,7 @@
             android:id="@+id/tv_select_ware"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_22"
+            android:layout_marginStart="@dimen/text_22"
             android:padding="@dimen/space_7"
             android:text="仓库编号：002"
             style="@style/itemSizeStyle"

@@ -3,6 +3,7 @@ package com.ty.zbpet.ui;
 import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 
+import com.billy.android.loading.Gloading;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;

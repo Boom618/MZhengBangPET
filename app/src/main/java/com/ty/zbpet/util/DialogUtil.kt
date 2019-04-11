@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.ty.zbpet.ui.widght.NormalAlertDialog
-import com.ty.zbpet.ui.widght.NormalSelectionDialog
 
 /**
  * @author TY on 2019/1/8.
@@ -48,24 +47,5 @@ object DialogUtil {
             .build()
 
         dialog.show()
-    }
-
-
-
-    /**
-     * 选择产品名称(发货出库)
-     */
-    fun selectSendName(context: Context, data: MutableList<String>) {
-        val selectDialog = NormalSelectionDialog.Builder(context)
-//            .setlTitleVisible(true)
-//            .setTitleText("产品名称")
-            .setOnItemListener { dialog, which ->
-                dialog.dismiss()
-                ZBUiUtils.showSuccess(data[which])
-
-            }
-            .build()
-            .setDatas(data)
-            .show()
     }
 }

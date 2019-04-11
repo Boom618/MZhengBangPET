@@ -176,6 +176,8 @@ dependencies {
     implementation "com.dyhdyh.loadingbar:loadingbar:${ZBConfig.LoadingBarVersion}"
     // LoadingDialog
     implementation "com.github.ForgetAll:LoadingDialog:v1.0.4"
+    // 解耦 dialog
+    implementation "com.billy.android:gloading:1.0.0"
     // Toasty
     implementation 'com.github.GrenderG:Toasty:1.4.1'
     // light key value 存值

@@ -15,10 +15,12 @@
     <string name="label_return_in_storage">退货入库</string>
     <string name="label_product_inventory">成品库存</string>
     <string name="label_produce_in_storage">生产入库</string>
+    <string name="label_produce_in_storage_detail">生产入库明细</string>
     <string name="label_purchase_in_storage">外采入库</string>
     <string name="label_purchase_in_storage_reversal">外采入库冲销明细</string>
     <string name="output_reversal">生产入库冲销详情</string>
     <string name="label_return_sell">销售退货</string>
+    <string name="label_return_sell_detail">销售退货明细</string>
     <string name="label_material_inventory">原辅料库存</string>
 
     <string name="label_check">质检</string>
@@ -74,11 +76,13 @@
     <string name="picking_details">领料明细</string>
     <string name="material_storage">入库</string>
     <string name="pick_out_storage">出库</string>
+    <string name="material_pick_out_details">领料出库详情</string>
     <string name="send_out_storage_reversal">发货出库详情冲销</string>
     <string name="pick_out_storage_reversal">领料出库明细冲销</string>
     <string name="material_reversal">冲销</string>
     <string name="purchase_house_reversal">采购入库明细冲销</string>
     <string name="back_goods">退货</string>
+    <string name="materials_back_goods_details">采购退货详情</string>
     <string name="purchase_back_goods">采购退货明细冲销</string>
 
     <string name="check_message">质检信息</string>
@@ -107,5 +111,6 @@
     <string name="where_house">所在仓库：</string>
     <string name="other_message">其他信息</string>
     <string name="remark_message">备注</string>
+    <string name="box_code_details">箱码明细</string>
 
 </resources>

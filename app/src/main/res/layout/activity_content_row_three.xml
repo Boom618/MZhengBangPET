@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingTop="20dp">
+        android:paddingTop="8dp">
 
         <View
             android:id="@+id/line"
@@ -38,7 +38,7 @@
         android:id="@+id/tv_house"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_15"
+        android:layout_marginTop="@dimen/space_8"
         android:layout_marginStart="@dimen/space_15"
         android:layout_marginEnd="@dimen/space_15"
         android:background="@drawable/shape_white_min_radius"

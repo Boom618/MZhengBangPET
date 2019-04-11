@@ -109,7 +109,7 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
 
     override fun initTwoView() {
 
-        initToolBar(R.string.label_return_sell, "保存", View.OnClickListener { view ->
+        initToolBar(R.string.label_return_sell_detail, "保存", View.OnClickListener { view ->
             ZBUiUtils.hideInputWindow(view.context, view)
             returnGoodsTodoSave(initTodoBody())
         })
@@ -211,7 +211,6 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
         requestBody.remark = remark
 
         val json = DataUtils.toJson(requestBody, 1)
-        //ZBLog.e("JSON $json")
         return RequestBodyJson.requestBody(json)
     }
 
@@ -220,7 +219,7 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
         oldList = list
         if (adapter == null) {
             val manager = LinearLayoutManager(ResourceUtil.getContext())
-            rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+            rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
             rv_in_storage_detail.layoutManager = manager
             adapter = ReturnGoodsTodoDetailAdapter(this, R.layout.item_product_detail_return_todo, list)
             rv_in_storage_detail.adapter = adapter

@@ -44,7 +44,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
     private var supplierName: String? = null
     private var content: String = ""
 
-    private var oldList: List<ProductDetails.ListBean> = ArrayList()
+    private var oldList: List<ProductDetails.ListBean> = mutableListOf()
 
     private val presenter = BuyInPresenter(this)
 
@@ -72,7 +72,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
 
     override val activityLayout: Int
         // 成品添加仓库选择、没有 生产时间、批次号
-        get() = R.layout.activity_product_row_three//activity_content_row_two
+        get() = R.layout.activity_content_row_two  //activity_product_row_three
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {}
 
@@ -85,16 +85,16 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
         supplierId = intent.getStringExtra("supplierId")
 
         userInfo = SimpleCache.getUserInfo(CodeConstant.USER_DATA)
-        warehouseList = userInfo.warehouseList
-        val size = warehouseList.size
-        for (i in 0 until size) {
-            houseName.add(warehouseList[i].warehouseName.toString())
-        }
-        try {
-            tv_house.text = warehouseList[0].warehouseName
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+//        warehouseList = userInfo.warehouseList
+//        val size = warehouseList.size
+//        for (i in 0 until size) {
+//            houseName.add(warehouseList[i].warehouseName.toString())
+//        }
+//        try {
+//            tv_house.text = warehouseList[0].warehouseName
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//        }
 
         presenter.fetchBuyInTodoListDetails(sapOrderNo, sapFirmNo, supplierNo)
     }
@@ -112,19 +112,19 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
         val format = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
         selectTime = format.format(Date())
 
-        tv_time!!.text = selectTime
-        in_storage_detail!!.text = "到货明细"
+        tv_time.text = selectTime
+        in_storage_detail.text = "到货明细"
 
-        tv_time!!.setOnClickListener { v ->
+        tv_time.setOnClickListener { v ->
             ZBUiUtils.showPickDate(v.context) { date, _ ->
                 selectTime = ZBUiUtils.getTime(date)
-                tv_time!!.text = selectTime
+                tv_time.text = selectTime
 
                 ZBUiUtils.showSuccess(selectTime)
             }
         }
         // 用户选择仓库信息
-        tv_house.setOnClickListener { v -> ZBUiUtils.selectDialog(v.context, CodeConstant.SELECT_HOUSE_BUY_IN, 0, houseName, tv_house) }
+        //tv_house.setOnClickListener { v -> ZBUiUtils.selectDialog(v.context, CodeConstant.SELECT_HOUSE_BUY_IN, 0, houseName, tv_house) }
     }
 
     /**
@@ -149,8 +149,8 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
         val requestBody = ProductTodoSave()
         val detail = ArrayList<ProductTodoSave.DetailsBean>()
 
-        val houseId = SharedP.getWarehouseId(this)
-        val warehouseNo = warehouseList[houseId].warehouseNo
+//        val houseId = SharedP.getWarehouseId(this)
+//        val warehouseNo = warehouseList[houseId].warehouseNo
 
         val size = oldList.size
         for (i in 0 until size) {
@@ -185,7 +185,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
                 bean.goodsName = oldList[i].goodsName
 
 //                bean.warehouseId = oldList[i].warehouseId
-                bean.warehouseNo = warehouseNo
+                bean.warehouseNo = oldList[i].warehouseNo
 
                 detail.add(bean)
             }
@@ -218,7 +218,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
 
         if (adapter == null) {
             val manager = LinearLayoutManager(ResourceUtil.getContext())
-            rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+            rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
             rv_in_storage_detail.layoutManager = manager
             adapter = BuyInTodoDetailAdapter(this, R.layout.item_product_detail_two_todo, list)
             rv_in_storage_detail.adapter = adapter
@@ -228,7 +228,6 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
 
                     val rlDetail = holder.itemView.findViewById<View>(R.id.gone_view)
                     val ivArrow = holder.itemView.findViewById<ImageView>(R.id.iv_arrow)
-                    //val bindingCode = holder.itemView.findViewById<Button>(R.id.btn_binding_code)
 
                     if (rlDetail.visibility == View.VISIBLE) {
                         rlDetail.visibility = View.GONE

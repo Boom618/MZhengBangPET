@@ -98,14 +98,14 @@ class ReturnGoodsFragment : BaseFragment(), ProductUiListInterface<ProductList.L
 
         LayoutInit.initLayoutManager(ResourceUtil.getContext(), recyclerView)
         if (adapterTodo == null && adapterDone == null) {
-            recyclerView!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
+            recyclerView.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
         }
         when (fragmentType) {
             CodeConstant.FRAGMENT_TODO -> {
                 adapterTodo = ReturnGoodsTodoListAdapter(ResourceUtil.getContext(), R.layout.item_send_out_list_todo, list)
-                recyclerView!!.adapter = adapterTodo
+                recyclerView.adapter = adapterTodo
 
-                adapterTodo!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+                adapterTodo?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                     override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
                         val intent = Intent(ResourceUtil.getContext(), ReturnGoodsTodoDetailActivity::class.java)
                         intent.putExtra("sapOrderNo", list[position].sapOrderNo)
@@ -122,9 +122,9 @@ class ReturnGoodsFragment : BaseFragment(), ProductUiListInterface<ProductList.L
             }
             CodeConstant.FRAGMENT_DONE -> {
                 adapterDone = ReturnGoodsDoneListAdapter(ResourceUtil.getContext(), R.layout.item_send_out_list_todo, list!!)
-                recyclerView!!.adapter = adapterDone
+                recyclerView.adapter = adapterDone
 
-                adapterDone!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+                adapterDone?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                     override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
                         val intent = Intent(activity, ReturnGoodsDoneDetailActivity::class.java)
                         intent.putExtra("orderId", list[position].id)

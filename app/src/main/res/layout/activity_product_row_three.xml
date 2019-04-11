@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_10"
                 android:layout_toEndOf="@+id/line1"
-                android:text="@string/picking_details"
+                android:text="@string/label_arrival_storage_detail"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_18" />
 

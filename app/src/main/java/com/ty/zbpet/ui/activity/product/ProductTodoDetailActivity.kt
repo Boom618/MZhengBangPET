@@ -120,13 +120,13 @@ class ProductTodoDetailActivity : BaseActivity()
 
     override fun initTwoView() {
 
-        initToolBar(R.string.label_produce_in_storage, "保存", View.OnClickListener { productTodoSave(initTodoBody()) })
+        initToolBar(R.string.label_produce_in_storage_detail, "保存", View.OnClickListener { productTodoSave(initTodoBody()) })
 
         val format = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
         selectTime = format.format(Date())
 
         tv_time.text = selectTime
-        in_storage_detail!!.text = "入库明细"
+        in_storage_detail.text = "入库明细"
 
         tv_time.setOnClickListener { v ->
             ZBUiUtils.showPickDate(v.context) { date, _ ->
@@ -252,10 +252,22 @@ class ProductTodoDetailActivity : BaseActivity()
     override fun showProduct(list: MutableList<ProductDetails.ListBean>) {
 
         oldList = list
+//        tv_house.text = warehouseList[0].warehouseName
+        for (i in 0 until warehouseList.size){
+            if (warehouseList[i].warehouseNo == list[0].warehouseNo) {
+                tv_house.text = warehouseList[i].warehouseName
+                SharedP.putWarehouseId(this, i)
+                break
+            }else{
+                if (i == warehouseList.size - 1){
+                    ZBUiUtils.showWarning("该物料仓库异常,请选择入库仓库")
+                }
+            }
+        }
 
         if (adapter == null) {
             val manager = LinearLayoutManager(ResourceUtil.getContext())
-            rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+            rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
             rv_in_storage_detail.layoutManager = manager
             adapter = ProductTodoDetailAdapter(this, R.layout.item_produce_detail_todo, oldList)
             rv_in_storage_detail.adapter = adapter

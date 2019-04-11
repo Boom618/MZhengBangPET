@@ -23,7 +23,7 @@ class PersonCenterActivity : BaseActivity(), UserInterface {
     private val presenter = UserPresenter(this)
 
     override val activityLayout: Int
-        get() = R.layout.activity_person_center_c
+        get() = R.layout.activity_person_center_c//collapsing
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
 
@@ -39,7 +39,6 @@ class PersonCenterActivity : BaseActivity(), UserInterface {
         iv_back.setOnClickListener { finish() }
 
         ll_track.setOnClickListener { gotoActivity(StockTrackActivity::class.java) }
-//        image_to_query.setOnClickListener {gotoActivity(BoxCodeQueryActivity::class.java)}
         ll_position.setOnClickListener { gotoActivity(PositionQueryActivity::class.java) }
         btn_modify_pwd.setOnClickListener { gotoActivity(UserUpDataPass::class.java) }
         btn_cancel!!.setOnClickListener { exitApp() }
