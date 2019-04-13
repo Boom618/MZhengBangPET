@@ -72,18 +72,6 @@
         android:focusableInTouchMode="true"
         app:layout_constraintTop_toBottomOf="@+id/tv_num">
 
-        <!--<TextView-->
-            <!--android:id="@+id/tv_select_ware"-->
-            <!--style="@style/itemSizeStyle"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginStart="@dimen/space_25"-->
-            <!--android:padding="@dimen/space_7"-->
-            <!--tools:text="仓库编号：002"-->
-            <!--app:layout_constraintStart_toStartOf="parent"-->
-            <!--app:layout_constraintTop_toTopOf="parent" />-->
-
-
         <EditText
             android:id="@+id/et_number"
             style="@style/itemSizeStyle"
@@ -106,7 +94,7 @@
             android:layout_marginStart="@dimen/space_25"
             android:layout_marginEnd="@dimen/space_25"
             android:hint="散货数量"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_number" />

@@ -263,7 +263,6 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_SCAN_CODE && resultCode == RESULT_SCAN_CODE) {
             itemId = data!!.getIntExtra("itemId", -1)
-//            warehouseId = data.getStringExtra("warehouseId")
             boxCodeList = data.getStringArrayListExtra("boxCodeList")
             carCodeArray.put(itemId, boxCodeList)
         }

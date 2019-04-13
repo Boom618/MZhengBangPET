@@ -4,6 +4,7 @@ import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.UserInfo;
 import com.ty.zbpet.bean.eventbus.system.CheckDoneDetailEvent;
+import com.ty.zbpet.bean.eventbus.system.PersonCenterEvent;
 import com.ty.zbpet.bean.material.MaterialDetails;
 import com.ty.zbpet.bean.material.MaterialList;
 import com.ty.zbpet.bean.product.ProductDetails;
@@ -83,7 +84,7 @@ public interface ApiService {
      * @return
      */
     @POST(ApiNameConstant.USER_CENTER)
-    Single<ResponseInfo> userCenter();
+    Single<BaseResponse<PersonCenterEvent>> userCenter();
 
     /**--------------------------------- 到货入库 ----------------------------------------*/
 

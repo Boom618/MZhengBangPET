@@ -19,6 +19,7 @@ class UserInfo : Serializable {
     var roleName: String? = null
     var roleId: List<String>? = null
     lateinit var warehouseList: MutableList<WarehouseListBean>
+    var companyInfo: CompanyBean? = null
 
     /**
      * WarehouseListBean 不序列化, 导致 UserInfo 类不能缓存到文件
@@ -33,5 +34,11 @@ class UserInfo : Serializable {
         var warehouseId: String? = null
         var warehouseNo: String? = null
         var warehouseName: String? = null
+    }
+
+    class CompanyBean:Serializable{
+        var companyNo = ""
+        var companyName = ""
+        var companyAddress = ""
     }
 }

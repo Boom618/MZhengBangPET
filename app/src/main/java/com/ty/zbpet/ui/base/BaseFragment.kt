@@ -25,7 +25,7 @@ abstract class BaseFragment : Fragment() {
      */
     private var mUnbinder: Unbinder? = null
 
-    protected var mCache: ACache? = null
+    private var mCache: ACache? = null
 
     /**
      * Fragment Layout

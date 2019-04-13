@@ -63,7 +63,50 @@
 - RecyclerView notifyItemChanged(position)  第一列输入框失去焦点,其他列表输入框有焦点
 
 
-## 疑问
+## 库
+
+```
+// 65536 问题
+implementation 'com.android.support:multidex:1.0.3'
+// glide 图片库
+implementation "com.github.bumptech.glide:glide:${ZBConfig.glideVersion}"
+// event bus 事件分发库
+implementation "org.greenrobot:eventbus:${ZBConfig.eventbusVersion}"
+//网络请求库
+implementation "com.squareup.okhttp3:okhttp:${ZBConfig.okhttp3Version}"
+implementation "com.squareup.retrofit2:retrofit:${ZBConfig.retrofit2Version}"
+implementation "com.squareup.retrofit2:adapter-rxjava2:${ZBConfig.retrofit2Version}"
+implementation "com.squareup.retrofit2:converter-gson:${ZBConfig.retrofit2Version}"
+implementation "com.squareup.okhttp3:logging-interceptor:${ZBConfig.okhttp3Version}"
+//rxjava相关依赖
+implementation "io.reactivex.rxjava2:rxjava:${ZBConfig.rx2Version}"
+implementation "io.reactivex.rxjava2:rxandroid:${ZBConfig.rx2AndroidVersion}"
+// gson 解析
+implementation "com.google.code.gson:gson:${ZBConfig.googleGsonVersion}"
+implementation "com.alibaba:fastjson:1.1.70.android"
+// Rx permissions 权限库
+implementation "com.github.tbruyelle:rxpermissions:${ZBConfig.rxpermissions_version}"
+// 时间选择框
+implementation "com.contrarywind:Android-PickerView:${ZBConfig.PickerViewVersion}"
+// Toasty
+implementation 'com.github.GrenderG:Toasty:1.4.1'
+// light key value 存值
+implementation 'com.horizon.lightkv:lightkv:1.0.7'
+// adapter
+implementation "com.zhy:base-rvadapter:${ZBConfig.rvadapterVersion}"
+// kotlin 标准库
+implementation "org.jetbrains.kotlin:kotlin-stdlib:${kotlin_version}"
+implementation "org.jetbrains.kotlin:kotlin-reflect:${kotlin_version}"
+// 相册选择
+implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
+// TabLayout 库
+implementation "com.flyco.tablayout:FlycoTabLayout_Lib:${ZBConfig.tablayout_version}"
+// bugly 管理
+implementation "com.tencent.bugly:crashreport:${ZBConfig.bugly_version}"
+// 沉浸状态栏
+implementation 'com.jaeger.statusbarutil:library:1.5.1'
+```
+
 
 - 用户登录约定：sessionId  、角色切换、 md5 加密
 

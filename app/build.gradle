@@ -30,6 +30,12 @@ android {
             abiFilters 'armeabi' //, 'armeabi-v7a', ''x86, 'x86_64', 'arm64-v8a'
         }
 //        signingConfig signingConfigs.developRelease
+        // alibaba ARouter
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
     }
 
     signingConfigs {
@@ -182,6 +188,11 @@ dependencies {
     implementation 'com.github.GrenderG:Toasty:1.4.1'
     // light key value 存值
     implementation 'com.horizon.lightkv:lightkv:1.0.7'
+    // arouter
+    implementation 'com.alibaba:arouter-api:1.4.1'
+    annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
+    // 沉浸状态栏
+    implementation 'com.jaeger.statusbarutil:library:1.5.1'
 
     //1.1.0 API改动过大，老用户升级需谨慎 listView 刷新 {ZBConfig.SmartRefreshVersion}
     implementation "com.scwang.smartrefresh:SmartRefreshLayout:${ZBConfig.SmartRefreshVersion}"

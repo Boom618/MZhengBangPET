@@ -2,10 +2,13 @@ package com.ty.zbpet.presenter.user;
 
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.UserInfo;
+import com.ty.zbpet.bean.eventbus.system.PersonCenterEvent;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.ui.base.BaseResponse;
 import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.util.SimpleCache;
+
+import org.greenrobot.eventbus.EventBus;
 
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
@@ -142,17 +145,20 @@ public class UserPresenter {
      */
     public void userCenter() {
         userInterface.showLoading();
-        httpMethods.userCenter(new SingleObserver<ResponseInfo>() {
+        httpMethods.userCenter(new SingleObserver<BaseResponse<PersonCenterEvent>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;
             }
 
             @Override
-            public void onSuccess(ResponseInfo responseInfo) {
+            public void onSuccess(BaseResponse<PersonCenterEvent> responseInfo) {
                 userInterface.hideLoading();
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
-                    userInterface.onSuccess();
+                    PersonCenterEvent data = responseInfo.getData();
+                    EventBus.getDefault().post(data);
+                }else{
+                    userInterface.onError(responseInfo.getMessage());
                 }
             }
 

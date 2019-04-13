@@ -820,8 +820,9 @@ public class SwipeItemLayout extends ViewGroup {
             View child = recyclerView.getChildAt(i);
             if (child instanceof SwipeItemLayout) {
                 SwipeItemLayout swipeItemLayout = (SwipeItemLayout) child;
-                if (swipeItemLayout.isOpen())
+                if (swipeItemLayout.isOpen()) {
                     swipeItemLayout.close();
+                }
             }
         }
     }

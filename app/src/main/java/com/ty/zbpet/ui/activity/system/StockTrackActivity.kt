@@ -3,6 +3,7 @@ package com.ty.zbpet.ui.activity.system
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.KeyEvent
+import com.jaeger.library.StatusBarUtil
 import com.pda.scanner.ScanReader
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.eventbus.ErrorMessage
@@ -48,6 +49,7 @@ class StockTrackActivity : BaseActivity(), ScanBoxInterface {
     }
 
     override fun initTwoView() {
+        StatusBarUtil.setColor(this, resources.getColor(R.color.red))
         initToolBar(R.string.product_query)
     }
 

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
+import com.jaeger.library.StatusBarUtil
 import com.pda.scanner.ScanReader
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.eventbus.ErrorMessage
@@ -49,6 +50,7 @@ class PositionQueryActivity : BaseActivity(), ScanBoxInterface {
     }
 
     override fun initTwoView() {
+        StatusBarUtil.setColor(this, resources.getColor(R.color.red))
         initToolBar(R.string.position_query)
 
         bt_title.text = "库存信息"

@@ -1,49 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/center_appbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/green_color"
+        android:background="@color/main_color"
         android:fitsSystemWindows="true"
         app:elevation="0dp">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toobar"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_height="140dp"
             app:contentScrim="@color/main_color"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:title="@string/box_code_query"
-            fresco:collapsedTitleGravity="center_horizontal"
-            fresco:expandedTitleGravity="center_horizontal"
-            fresco:expandedTitleMarginStart="30dp"
-            fresco:expandedTitleMarginTop="185dp">
+            app:collapsedTitleTextAppearance="@style/ToolBarTitleText"
+            app:expandedTitleMarginStart="120dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
             <!--app:layout_collapseMode="parallax"-->
             <ImageView
+                android:id="@+id/image_heard"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="@dimen/x20"
+                android:layout_marginTop="@dimen/x80"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_launcher_round" />
+
+            <TextView
+                android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/ic_launcher" />
+                android:textSize="@dimen/text_18"
+                android:textColor="@color/white"
+                android:layout_marginStart="@dimen/x100"
+                android:layout_marginTop="@dimen/x80"
+                android:text="Leemin" />
+
+            <TextView
+                android:id="@+id/job_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_18"
+                android:textColor="@color/white"
+                android:layout_marginStart="@dimen/x100"
+                android:layout_marginTop="@dimen/x120"
+                android:text="工号：001" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:titleTextColor="@color/blue">
+                app:titleTextColor="@color/white"
+                app:navigationIcon="@mipmap/ic_back" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/remark_message" />
-            </android.support.v7.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
@@ -53,34 +69,207 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
-            android:id="@+id/ll_track"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="@+id/list"
-            app:layout_constraintTop_toTopOf="@+id/list">
+            android:layout_height="match_parent">
+
+            <View
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginStart="@dimen/space_15"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="@dimen/space_15"
+                android:background="@drawable/shape_white_min_radius"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/ll_track"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/list">
+
+                <TextView
+                    android:id="@+id/inventory_tracking"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_20"
+                    android:layout_marginTop="@dimen/x10"
+                    android:text="@string/inventory_tracking"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_16" />
+
+                <ImageView
+                    android:id="@+id/image_to_track"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/x8"
+                    android:layout_marginEnd="@dimen/space_20"
+                    android:background="@mipmap/ic_collapse" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginStart="@dimen/space_15"
+                android:layout_marginTop="@dimen/space_40"
+                android:layout_marginEnd="@dimen/space_15"
+                android:background="@color/split_line_color"
+                app:layout_constraintTop_toTopOf="@+id/list" />
+
+            <LinearLayout
+                android:id="@+id/ll_position"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="@+id/list"
+                app:layout_constraintTop_toTopOf="@+id/line">
+
+                <TextView
+                    android:id="@+id/box_code_query"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_20"
+                    android:layout_marginTop="@dimen/x10"
+                    android:text="@string/box_code_query"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_16"/>
+
+                <ImageView
+                    android:id="@+id/image_to_query"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/x10"
+                    android:layout_marginEnd="@dimen/space_20"
+                    android:background="@mipmap/ic_collapse"/>
+
+            </LinearLayout>
+
+
+            <View
+                android:id="@+id/company"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginStart="@dimen/space_15"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="@dimen/space_15"
+                android:background="@drawable/shape_white_min_radius"
+                app:layout_constraintTop_toBottomOf="@+id/list" />
+
+            <View
+                android:id="@+id/line1"
+                android:layout_width="2dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="@dimen/space_10"
+                android:layout_marginTop="12dp"
+                android:background="@color/black"
+                app:layout_constraintLeft_toLeftOf="@+id/company"
+                app:layout_constraintTop_toTopOf="@+id/company" />
+
 
             <TextView
-                android:id="@+id/inventory_tracking"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space_20"
-                android:layout_marginTop="@dimen/x10"
-                android:layout_weight="1"
-                android:text="@string/inventory_tracking"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_16" />
-
-            <ImageView
-                android:id="@+id/image_to_track"
+                android:id="@+id/belong_company"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/x8"
-                android:layout_marginEnd="@dimen/space_20"
-                android:background="@mipmap/ic_collapse" />
+                android:layout_marginStart="@dimen/space_10"
+                android:layout_marginTop="@dimen/space_10"
+                android:text="@string/label_belong_company"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_18"
+                app:layout_constraintLeft_toLeftOf="@+id/line1"
+                app:layout_constraintTop_toTopOf="@+id/company" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/tv_belong_company"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_20"
+                android:layout_marginTop="50dp"
+                tools:text="正邦上海宝山淞南分部03仓库"
+                android:textColor="@color/txt_minor_color"
+                android:textSize="@dimen/text_16"
+                app:layout_constraintLeft_toLeftOf="@+id/line1"
+                app:layout_constraintTop_toTopOf="@+id/company" />
+
+            <View
+                android:id="@+id/phone"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginStart="@dimen/space_15"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="@dimen/space_15"
+                android:background="@drawable/shape_white_min_radius"
+                app:layout_constraintTop_toBottomOf="@+id/company" />
+
+            <View
+                android:id="@+id/line2"
+                android:layout_width="2dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="@dimen/space_10"
+                android:layout_marginTop="12dp"
+                android:background="@color/black"
+                app:layout_constraintLeft_toLeftOf="@+id/phone"
+                app:layout_constraintTop_toTopOf="@+id/phone" />
+
+
+            <TextView
+                android:id="@+id/user_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_10"
+                android:layout_marginTop="@dimen/space_10"
+                android:text="@string/label_contact_phone"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_18"
+                app:layout_constraintLeft_toLeftOf="@+id/line2"
+                app:layout_constraintTop_toTopOf="@+id/phone" />
+
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_20"
+                android:layout_marginTop="50dp"
+                tools:text="18566666666"
+                android:textColor="@color/txt_minor_color"
+                android:textSize="@dimen/text_16"
+                app:layout_constraintLeft_toLeftOf="@+id/line2"
+                app:layout_constraintTop_toTopOf="@+id/phone" />
+
+            <Button
+                android:id="@+id/btn_modify_pwd"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginTop="@dimen/space18"
+                android:layout_marginEnd="@dimen/space18"
+                android:background="@drawable/btn_login_selector"
+                android:text="@string/label_modify_pwd"
+                android:textColor="@drawable/btn_text_color"
+                android:textSize="@dimen/text_16"
+                app:layout_constraintRight_toLeftOf="@+id/btn_cancel"
+                app:layout_constraintTop_toBottomOf="@+id/phone" />
+
+            <Button
+                android:id="@+id/btn_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginStart="@dimen/space_10"
+                android:layout_marginTop="@dimen/space18"
+                android:layout_marginEnd="@dimen/space18"
+                android:background="@drawable/btn_login_selector"
+                android:text="@string/label_cancel"
+                android:textColor="@drawable/btn_text_color"
+                android:textSize="@dimen/text_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/phone" />
+
+        </android.support.constraint.ConstraintLayout>
 
 
     </android.support.v4.widget.NestedScrollView>

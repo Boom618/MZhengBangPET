@@ -6,6 +6,7 @@ import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.UserInfo;
 import com.ty.zbpet.bean.eventbus.system.CheckDoneDetailEvent;
+import com.ty.zbpet.bean.eventbus.system.PersonCenterEvent;
 import com.ty.zbpet.bean.material.MaterialDetails;
 import com.ty.zbpet.bean.material.MaterialList;
 import com.ty.zbpet.bean.product.ProductDetails;
@@ -147,7 +148,7 @@ public class HttpMethods {
      *
      * @param observer observer
      */
-    public void userCenter(SingleObserver<ResponseInfo> observer) {
+    public void userCenter(SingleObserver<BaseResponse<PersonCenterEvent>> observer) {
         mService.userCenter()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
