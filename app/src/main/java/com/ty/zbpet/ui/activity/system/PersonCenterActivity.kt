@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.service.autofill.UserData
 import android.support.design.widget.AppBarLayout
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory
 import android.widget.ImageView
@@ -13,7 +12,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.jaeger.library.StatusBarUtil
 import com.ty.zbpet.R
-import com.ty.zbpet.bean.UserInfo
 import com.ty.zbpet.bean.eventbus.system.PersonCenterEvent
 import com.ty.zbpet.presenter.user.UserInterface
 import com.ty.zbpet.presenter.user.UserPresenter
@@ -41,11 +39,17 @@ class PersonCenterActivity : BaseActivity(), UserInterface {
         get() = R.layout.activity_person_center_collapsing//collapsing
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
+        EventBus.getDefault().register(this)
 
     }
 
     override fun initOneData() {
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        presenter.userCenter()
     }
 
     override fun initTwoView() {
@@ -102,14 +106,6 @@ class PersonCenterActivity : BaseActivity(), UserInterface {
         SimpleCache.clearAll()
         ActivitiesHelper.get().finishAll()
         finish()
-    }
-
-
-    override fun onStart() {
-        super.onStart()
-        EventBus.getDefault().register(this)
-
-        presenter.userCenter()
     }
 
     @SuppressLint("SetTextI18n")

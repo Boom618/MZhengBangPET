@@ -20,7 +20,7 @@ class MaterialDoneAdapter(context: Context, layoutId: Int, datas: List<MaterialL
 
         holder.setText(R.id.tv_no, listBean.sapOrderNo)
                 .setText(R.id.tv_date, listBean.inTime)
-                .setText(R.id.tv_supplier, "供应商名称：${listBean.supplierName}")
+                .setText(R.id.tv_supplier, listBean.supplierName)
 
     }
 }

@@ -80,10 +80,14 @@ public class HttpMethods {
                 .addInterceptor(new SessionInterceptor())
                 // 日志拦截器: new LogInterceptor()
                 .addInterceptor(log);
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
 
         mRetrofit = new Retrofit.Builder()
                 .client(client.build())
-                .addConverterFactory(GsonConverterFactory.create(buildGson()))
+//                .addConverterFactory(GsonConverterFactory.create(buildGson()))
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .baseUrl(url)
                 .build();

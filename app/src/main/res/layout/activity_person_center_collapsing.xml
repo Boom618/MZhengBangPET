@@ -40,7 +40,7 @@
                 android:textColor="@color/white"
                 android:layout_marginStart="@dimen/x100"
                 android:layout_marginTop="@dimen/x80"
-                android:text="Leemin" />
+                android:text="姓名：" />
 
             <TextView
                 android:id="@+id/job_number"
@@ -50,7 +50,7 @@
                 android:textColor="@color/white"
                 android:layout_marginStart="@dimen/x100"
                 android:layout_marginTop="@dimen/x120"
-                android:text="工号：001" />
+                android:text="公司编号：" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"

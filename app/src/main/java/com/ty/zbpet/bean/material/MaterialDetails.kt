@@ -53,6 +53,7 @@ class MaterialDetails {
         var warehouseNo: String? = null
         var number: String? = null
         var sapMaterialBatchNo: String? = null
+        var sapBatchNo: String? = null
 
         // 已办 保存
         var orderId: String? = null

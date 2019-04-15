@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/shape_white_min_radius">
 
 
@@ -10,7 +11,7 @@
         android:id="@+id/tv_document_no"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="子单号：6789876"
+        tools:text="子单号：6789876"
         style="@style/reversalList"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -18,7 +19,7 @@
         android:id="@+id/tv_material_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="原辅料名称：汇5"
+        tools:text="原辅料名称：汇5"
         style="@style/reversalList"
         app:layout_constraintTop_toBottomOf="@+id/tv_document_no"/>
 
@@ -26,7 +27,7 @@
         android:id="@+id/tv_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="入库数量：5"
+        tools:text="入库数量：5"
         style="@style/reversalList"
         app:layout_constraintTop_toBottomOf="@+id/tv_material_name"/>
 
@@ -42,7 +43,7 @@
         android:id="@+id/tv_solubility"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="含量：22%"
+        tools:text="含量：22%"
         style="@style/reversalList"
         app:layout_constraintTop_toBottomOf="@+id/tv_number"/>
 
@@ -50,7 +51,7 @@
         android:id="@+id/tv_batch_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SAP 批次号：34567876543456"
+        tools:text="SAP 批次号：34567876543456"
         style="@style/reversalList"
         app:layout_constraintTop_toBottomOf="@+id/tv_solubility"/>
 

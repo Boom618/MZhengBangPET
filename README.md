@@ -54,6 +54,7 @@
 - 协程库使用
 - Session 失效跳转登录
 - P 层改写 Kotlin
+- 单 Activity + 多 Fragment
 
 
 ## 困扰

@@ -16,7 +16,7 @@
             android:id="@+id/recycler_reversal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="16dp"
+            android:layout_margin="6dp"
             android:layout_above="@+id/bt_reversal" />
 
         <Button
@@ -31,7 +31,7 @@
             android:layout_marginStart="@dimen/space_20"
             android:layout_marginEnd="@dimen/space_20"
             android:background="@drawable/shape_theme_min_radius"
-            android:text="冲销" />
+            android:text="@string/material_reversal" />
 
     </RelativeLayout>
 

@@ -20,7 +20,7 @@ class MaterialDoneDetailAdapter(context: Context, layoutId: Int, datas: List<Mat
                 .setText(R.id.tv_material_name,"原辅料名称：${listBean.materialName}")
                 .setText(R.id.tv_number, "入库数量：${listBean.number}")
                 .setText(R.id.tv_solubility, "含量：${listBean.concentration}")
-                .setText(R.id.tv_batch_number, "SAP 批次号：${listBean.sapMaterialBatchNo}")
+                .setText(R.id.tv_batch_number, "SAP 批次号：${listBean.sapBatchNo}")
 
     }
 

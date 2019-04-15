@@ -114,7 +114,7 @@ class ArrivalInFragment : BaseFragment(),MaterialUiListInterface<MaterialList.Li
                 adapterTodo = MaterialTodoAdapter(ResourceUtil.getContext(), R.layout.item_material_todo, list)
                 recyclerView.adapter = adapterTodo
 
-                adapterTodo!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+                adapterTodo?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                     override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
                         val intent = Intent(activity, ArrivalInTodoDetailActivity::class.java)
                         intent.putExtra("sapOrderNo", list[position].sapOrderNo)
@@ -132,9 +132,9 @@ class ArrivalInFragment : BaseFragment(),MaterialUiListInterface<MaterialList.Li
                 })
             }
             CodeConstant.FRAGMENT_DONE ->{
-                adapterDone = MaterialDoneAdapter(this.context!!, R.layout.activity_content_list_three, list)
-                recyclerView!!.adapter = adapterDone
-                adapterDone!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+                adapterDone = MaterialDoneAdapter(ResourceUtil.getContext(), R.layout.activity_content_list_three, list)
+                recyclerView.adapter = adapterDone
+                adapterDone?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                     override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
                         val intent = Intent(activity, ArrivalInDoneDetailActivity::class.java)
                         intent.putExtra("sapOrderNo", list[position].sapOrderNo)

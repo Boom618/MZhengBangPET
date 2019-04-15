@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -12,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="201808071024"
+        tools:text="201808071024"
         android:textColor="@color/black"
         android:textSize="@dimen/text_18"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,14 +25,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="供应商名称："
+        tools:text="供应商名称"
         android:textColor="@color/txt_minor_color"
         android:textSize="@dimen/text_14"
         android:maxLines="1"
         android:maxEms="22"
         android:ellipsize="end"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_no" />
+        app:layout_constraintBottom_toBottomOf="@+id/tv_operator" />
 
 
     <TextView
@@ -53,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
-        android:text="2018/08/21"
+        tools:text="2018/08/21"
         android:textColor="@color/txt_minor_color"
         android:textSize="@dimen/text_12"
         app:layout_constraintRight_toRightOf="parent"

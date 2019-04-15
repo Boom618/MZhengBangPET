@@ -84,7 +84,7 @@ public class MaterialPresenter {
 
             @Override
             public void onError(Throwable e) {
-                materialListUi.showError(e.getMessage());
+                materialListUi.showError("获取数据失败");
             }
 
             @Override
