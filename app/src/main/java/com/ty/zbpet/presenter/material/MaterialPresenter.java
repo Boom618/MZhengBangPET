@@ -12,7 +12,7 @@ import com.ty.zbpet.bean.system.BoxCodeUrl;
 import com.ty.zbpet.bean.system.ImageData;
 import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.net.HttpMethods;
-import com.ty.zbpet.ui.base.BaseResponse;
+import com.ty.zbpet.base.BaseResponse;
 import com.ty.zbpet.util.DataUtils;
 import com.ty.zbpet.util.ZBUiUtils;
 

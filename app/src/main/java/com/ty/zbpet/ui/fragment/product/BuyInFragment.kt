@@ -16,7 +16,7 @@ import com.ty.zbpet.ui.activity.product.BuyInTodoDetailActivity
 import com.ty.zbpet.ui.adapter.LayoutInit
 import com.ty.zbpet.ui.adapter.product.BuyInDoneListAdapter
 import com.ty.zbpet.ui.adapter.product.BuyInTodoListAdapter
-import com.ty.zbpet.ui.base.BaseFragment
+import com.ty.zbpet.base.BaseFragment
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils

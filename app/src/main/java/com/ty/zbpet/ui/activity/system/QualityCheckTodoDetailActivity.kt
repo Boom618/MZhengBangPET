@@ -23,7 +23,7 @@ import com.ty.zbpet.presenter.material.MaterialUiListInterface
 import com.ty.zbpet.ui.adapter.LayoutInit
 import com.ty.zbpet.ui.adapter.system.GridImageAdapter
 import com.ty.zbpet.ui.adapter.system.QuaCheckTodoDetailAdapter
-import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.base.BaseActivity
 import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils

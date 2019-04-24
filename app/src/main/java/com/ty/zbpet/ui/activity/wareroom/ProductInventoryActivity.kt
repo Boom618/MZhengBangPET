@@ -14,7 +14,7 @@ import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.system.SystemPresenter
 import com.ty.zbpet.ui.ActivitiesHelper
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity
-import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.base.BaseActivity
 import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ZBUiUtils

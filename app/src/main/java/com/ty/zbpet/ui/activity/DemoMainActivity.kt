@@ -16,7 +16,7 @@ import com.ty.zbpet.R
 import com.ty.zbpet.bean.eventbus.system.ImageEvent
 import com.ty.zbpet.config.AppData
 import com.ty.zbpet.ui.adapter.system.RecyclerImageAdapter
-import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.base.BaseActivity
 import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ZBUiUtils

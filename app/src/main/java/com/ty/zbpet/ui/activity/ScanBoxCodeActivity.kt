@@ -12,7 +12,7 @@ import com.ty.zbpet.presenter.system.CommInterface
 import com.ty.zbpet.presenter.system.CommPresenter
 import com.ty.zbpet.ui.adapter.BindBoxCodeAdapter
 import com.ty.zbpet.ui.adapter.diffadapter.MaterialDiffUtil
-import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.base.BaseActivity
 import com.ty.zbpet.ui.widght.DividerItemDecoration
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils

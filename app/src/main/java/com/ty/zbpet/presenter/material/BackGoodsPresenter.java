@@ -7,7 +7,7 @@ import com.ty.zbpet.bean.material.MaterialDetails;
 import com.ty.zbpet.bean.material.MaterialList;
 import com.ty.zbpet.bean.system.BoxCodeUrl;
 import com.ty.zbpet.net.HttpMethods;
-import com.ty.zbpet.ui.base.BaseResponse;
+import com.ty.zbpet.base.BaseResponse;
 import com.ty.zbpet.constant.CodeConstant;
 
 import org.greenrobot.eventbus.EventBus;

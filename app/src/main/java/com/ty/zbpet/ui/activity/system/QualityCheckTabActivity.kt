@@ -8,7 +8,7 @@ import android.widget.TextView
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.eventbus.SearchMessage
 import com.ty.zbpet.constant.CodeConstant
-import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.base.BaseActivity
 import com.ty.zbpet.ui.fragment.system.QualityCheckFragment
 import com.ty.zbpet.util.TabLayoutViewPage
 import com.ty.zbpet.util.TimeWidget

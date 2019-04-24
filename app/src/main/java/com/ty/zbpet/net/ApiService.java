@@ -18,7 +18,7 @@ import com.ty.zbpet.bean.system.QualityCheckTodoDetails;
 import com.ty.zbpet.bean.system.QualityCheckTodoList;
 import com.ty.zbpet.bean.system.ReceiptList;
 import com.ty.zbpet.constant.ApiNameConstant;
-import com.ty.zbpet.ui.base.BaseResponse;
+import com.ty.zbpet.base.BaseResponse;
 
 import io.reactivex.Single;
 import okhttp3.MultipartBody;

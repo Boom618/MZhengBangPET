@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.ty.zbpet.R;
-import com.ty.zbpet.ui.base.BaseActivity;
+import com.ty.zbpet.base.BaseActivity;
 import com.ty.zbpet.util.ZBUiUtils;
 
 import java.util.HashMap;

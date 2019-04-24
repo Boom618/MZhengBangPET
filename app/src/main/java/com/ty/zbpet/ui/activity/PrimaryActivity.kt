@@ -10,7 +10,7 @@ import android.widget.TextView
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.eventbus.SearchMessage
 import com.ty.zbpet.constant.CodeConstant
-import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.base.BaseActivity
 import com.ty.zbpet.ui.fragment.material.*
 import com.ty.zbpet.ui.fragment.product.*
 import com.ty.zbpet.util.TabLayoutViewPage

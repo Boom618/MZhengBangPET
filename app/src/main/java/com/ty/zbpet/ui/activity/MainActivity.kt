@@ -2,14 +2,12 @@ package com.ty.zbpet.ui.activity
 
 import android.os.Bundle
 import android.view.View
-import com.alibaba.android.arouter.launcher.ARouter
 import com.ty.zbpet.R
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.ui.activity.system.PersonCenterActivity
 import com.ty.zbpet.ui.activity.wareroom.InventoryMainActivity
 import com.ty.zbpet.ui.activity.wareroom.MoveRoomMainActivity
-import com.ty.zbpet.ui.base.BaseActivity
-import com.ty.zbpet.util.ZBUiUtils
+import com.ty.zbpet.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main1.*
 
 /**
@@ -91,12 +89,10 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             }
             R.id.tv_inventory ->
                 //仓库管理——盘点
-//                gotoActivity(InventoryMainActivity::class.java)
-            ZBUiUtils.showWarning("该功能正在开发中")
+                gotoActivity(InventoryMainActivity::class.java)
             R.id.tv_transfer_storage ->
                 //仓库管理——移库
-//                gotoActivity(MoveRoomMainActivity::class.java)
-                ZBUiUtils.showWarning("该功能正在开发中")
+                gotoActivity(MoveRoomMainActivity::class.java)
             R.id.tv_person_center ->
                 //个人中心
                 gotoActivity(PersonCenterActivity::class.java)

@@ -13,7 +13,7 @@ import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.presenter.system.QueryPresenter
 import com.ty.zbpet.ui.adapter.LayoutInit
 import com.ty.zbpet.ui.adapter.system.QueryPositionAdapter
-import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils

@@ -16,7 +16,7 @@ import com.ty.zbpet.bean.eventbus.system.PersonCenterEvent
 import com.ty.zbpet.presenter.user.UserInterface
 import com.ty.zbpet.presenter.user.UserPresenter
 import com.ty.zbpet.ui.ActivitiesHelper
-import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.base.BaseActivity
 import com.ty.zbpet.util.SimpleCache
 import com.ty.zbpet.util.ZBUiUtils
 import kotlinx.android.synthetic.main.activity_person_center_collapsing.*

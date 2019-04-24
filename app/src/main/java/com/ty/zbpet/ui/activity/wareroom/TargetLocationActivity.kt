@@ -7,7 +7,7 @@ import com.ty.zbpet.R
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.ui.adapter.LayoutInit
 import com.ty.zbpet.ui.adapter.wareroom.TargetAdapter
-import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils

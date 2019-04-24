@@ -8,10 +8,9 @@ import com.ty.zbpet.presenter.user.UserInterface
 import com.ty.zbpet.presenter.user.UserPresenter
 import com.ty.zbpet.ui.activity.MainActivity
 import com.ty.zbpet.ui.activity.MainCompanyActivity
-import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.base.BaseActivity
 import com.ty.zbpet.data.Md5
 import com.ty.zbpet.ui.widght.ShowDialog
-import com.ty.zbpet.util.SimpleCache
 import com.ty.zbpet.util.ZBUiUtils
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import kotlinx.android.synthetic.main.activity_login.*

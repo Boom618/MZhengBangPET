@@ -6,7 +6,7 @@ import com.ty.zbpet.R
 import com.ty.zbpet.data.Md5
 import com.ty.zbpet.presenter.user.UserInterface
 import com.ty.zbpet.presenter.user.UserPresenter
-import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.base.BaseActivity
 import com.ty.zbpet.util.ZBUiUtils
 import kotlinx.android.synthetic.main.activity_system_modify_pass.*
 

@@ -5,12 +5,10 @@ import android.view.KeyEvent
 import com.pda.scanner.ScanReader
 import com.ty.zbpet.R
 import com.ty.zbpet.constant.CodeConstant
-import com.ty.zbpet.data.SharedP
-import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.base.BaseActivity
 import com.ty.zbpet.util.scan.ScanBoxInterface
 import com.ty.zbpet.util.scan.ScanObservable
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.layout_top_system.*
 
 /**
  * @author TY on 2019/3/11.

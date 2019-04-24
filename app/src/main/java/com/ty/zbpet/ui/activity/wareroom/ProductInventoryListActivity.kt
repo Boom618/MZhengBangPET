@@ -7,14 +7,13 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.eventbus.ErrorMessage
-import com.ty.zbpet.bean.eventbus.SearchMessage
 import com.ty.zbpet.bean.system.ProductInventorList
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.presenter.system.SystemPresenter
 import com.ty.zbpet.ui.ActivitiesHelper
 import com.ty.zbpet.ui.adapter.LayoutInit
 import com.ty.zbpet.ui.adapter.wareroom.ProductInventoryAdapter
-import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils

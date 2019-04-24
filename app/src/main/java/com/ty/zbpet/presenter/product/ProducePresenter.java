@@ -4,7 +4,7 @@ import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.product.ProductDetails;
 import com.ty.zbpet.bean.product.ProductList;
 import com.ty.zbpet.net.HttpMethods;
-import com.ty.zbpet.ui.base.BaseResponse;
+import com.ty.zbpet.base.BaseResponse;
 import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.util.ZBUiUtils;
 

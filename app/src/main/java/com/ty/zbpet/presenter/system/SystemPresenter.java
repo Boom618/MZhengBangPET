@@ -11,7 +11,7 @@ import com.ty.zbpet.bean.system.ProductInventorList;
 import com.ty.zbpet.bean.system.ReceiptList;
 import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.net.HttpMethods;
-import com.ty.zbpet.ui.base.BaseResponse;
+import com.ty.zbpet.base.BaseResponse;
 
 import org.greenrobot.eventbus.EventBus;
 

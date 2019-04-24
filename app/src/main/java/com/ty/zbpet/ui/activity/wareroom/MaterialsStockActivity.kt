@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.KeyEvent
 import android.widget.EditText
-import android.widget.RadioButton
-import android.widget.RadioGroup
 import com.pda.scanner.ScanReader
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.eventbus.ErrorMessage
@@ -13,11 +11,10 @@ import com.ty.zbpet.bean.eventbus.SuccessMessage
 import com.ty.zbpet.bean.system.PositionCode
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.net.RequestBodyJson
-import com.ty.zbpet.presenter.system.QueryPresenter
 import com.ty.zbpet.presenter.system.SystemPresenter
 import com.ty.zbpet.ui.adapter.LayoutInit
 import com.ty.zbpet.ui.adapter.system.InventorySourceAdapter
-import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ResourceUtil
@@ -26,7 +23,6 @@ import com.ty.zbpet.util.scan.ScanBoxInterface
 import com.ty.zbpet.util.scan.ScanObservable
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_inventory_source.*
-import kotlinx.android.synthetic.main.item_inventory_source.*
 import okhttp3.RequestBody
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe

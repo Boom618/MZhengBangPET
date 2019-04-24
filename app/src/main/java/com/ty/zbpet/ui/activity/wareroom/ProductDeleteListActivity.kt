@@ -10,7 +10,7 @@ import com.ty.zbpet.presenter.system.SystemPresenter
 import com.ty.zbpet.ui.ActivitiesHelper
 import com.ty.zbpet.ui.adapter.LayoutInit
 import com.ty.zbpet.ui.adapter.wareroom.ProductDeleteAdapter
-import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.base.BaseActivity
 import com.ty.zbpet.ui.widght.NormalAlertDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DialogUtil

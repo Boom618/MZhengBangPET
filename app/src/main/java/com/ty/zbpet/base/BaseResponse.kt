@@ -1,4 +1,4 @@
-package com.ty.zbpet.ui.base
+package com.ty.zbpet.base
 
 import java.io.Serializable
 

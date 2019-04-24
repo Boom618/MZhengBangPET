@@ -2,7 +2,7 @@ package com.ty.zbpet.ui.activity.wareroom
 
 import android.os.Bundle
 import com.ty.zbpet.R
-import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_move_room_source_reversal.*
 
 /**

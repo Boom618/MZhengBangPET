@@ -17,7 +17,7 @@ import com.ty.zbpet.ui.activity.system.QualityCheckTodoDetailActivity
 import com.ty.zbpet.ui.adapter.LayoutInit
 import com.ty.zbpet.ui.adapter.system.QuaCheckDoneListAdapter
 import com.ty.zbpet.ui.adapter.system.QuaCheckTodoListAdapter
-import com.ty.zbpet.ui.base.BaseFragment
+import com.ty.zbpet.base.BaseFragment
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils

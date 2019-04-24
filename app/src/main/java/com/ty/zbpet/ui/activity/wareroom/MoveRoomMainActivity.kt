@@ -1,12 +1,9 @@
 package com.ty.zbpet.ui.activity.wareroom
 
 import android.os.Bundle
-import android.view.View
 import com.ty.zbpet.R
-import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_move_room_main.*
-import kotlinx.android.synthetic.main.activity_person_center_c.view.*
-import kotlinx.android.synthetic.main.widget_bottom_dialog.view.*
 
 /**
  * @author TY on 2019/3/14.

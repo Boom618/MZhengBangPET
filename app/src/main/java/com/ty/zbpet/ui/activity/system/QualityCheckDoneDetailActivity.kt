@@ -11,7 +11,6 @@ import android.widget.EditText
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
-import com.luck.picture.lib.entity.LocalMedia
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.eventbus.ErrorMessage
 import com.ty.zbpet.bean.eventbus.SuccessMessage
@@ -24,7 +23,7 @@ import com.ty.zbpet.presenter.material.MaterialPresenter
 import com.ty.zbpet.ui.adapter.LayoutInit
 import com.ty.zbpet.ui.adapter.system.QuaCheckDoneDetailAdapter
 import com.ty.zbpet.ui.adapter.system.RecyclerImageAdapter
-import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.base.BaseActivity
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ResourceUtil

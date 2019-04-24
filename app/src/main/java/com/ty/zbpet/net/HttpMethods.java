@@ -24,7 +24,7 @@ import com.ty.zbpet.net.gson.DoubleDefault0Adapter;
 import com.ty.zbpet.net.gson.IntegerDefault0Adapter;
 import com.ty.zbpet.net.gson.LongDefault0Adapter;
 import com.ty.zbpet.net.gson.StringDefault0Adapter;
-import com.ty.zbpet.ui.base.BaseResponse;
+import com.ty.zbpet.base.BaseResponse;
 import com.ty.zbpet.constant.CodeConstant;
 
 import java.util.concurrent.TimeUnit;

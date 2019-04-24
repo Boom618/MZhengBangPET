@@ -12,12 +12,11 @@ import com.ty.zbpet.bean.UserInfo
 import com.ty.zbpet.bean.product.ProductDetails
 import com.ty.zbpet.bean.product.ProductTodoSave
 import com.ty.zbpet.constant.CodeConstant
-import com.ty.zbpet.data.SharedP
 import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.product.BuyInPresenter
 import com.ty.zbpet.presenter.product.ProductUiListInterface
 import com.ty.zbpet.ui.adapter.product.BuyInTodoDetailAdapter
-import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.base.BaseActivity
 import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.*

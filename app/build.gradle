@@ -179,7 +179,9 @@ dependencies {
     implementation "com.orhanobut:logger:${ZBConfig.loggerVersion}"
 
     // loading bar
-    implementation "com.dyhdyh.loadingbar:loadingbar:${ZBConfig.LoadingBarVersion}"
+    //implementation "com.dyhdyh.loadingbar:loadingbar:${ZBConfig.LoadingBarVersion}"
+    // 单 Activity + 多 Fragment
+    implementation 'me.yokeyword:fragmentation:1.3.6'
     // LoadingDialog
     implementation "com.github.ForgetAll:LoadingDialog:v1.0.4"
     // 解耦 dialog

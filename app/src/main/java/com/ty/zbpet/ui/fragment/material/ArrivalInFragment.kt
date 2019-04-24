@@ -18,7 +18,7 @@ import com.ty.zbpet.ui.activity.material.ArrivalInTodoDetailActivity
 import com.ty.zbpet.ui.adapter.LayoutInit
 import com.ty.zbpet.ui.adapter.material.MaterialDoneAdapter
 import com.ty.zbpet.ui.adapter.material.MaterialTodoAdapter
-import com.ty.zbpet.ui.base.BaseFragment
+import com.ty.zbpet.base.BaseFragment
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils

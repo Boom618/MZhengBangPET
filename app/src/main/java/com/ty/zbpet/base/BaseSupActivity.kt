@@ -1,30 +1,20 @@
-package com.ty.zbpet.ui.base
+package com.ty.zbpet.base
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.util.SparseArray
 import android.view.View
 import android.widget.TextView
-
 import com.ty.zbpet.R
 import com.ty.zbpet.util.ACache
-
-import butterknife.ButterKnife
-import butterknife.Unbinder
-import com.billy.android.loading.Gloading
+import me.yokeyword.fragmentation.SupportActivity
 
 /**
  * @author TY
  */
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseSupActivity : SupportActivity() {
 
-    private var mUnbinder: Unbinder? = null
     private var mCache: ACache? = null
 
-    private val mView: SparseArray<View> = SparseArray(10)
-
-    private lateinit var rootView: View
     /**
      * Activity Layout 布局
      *
@@ -32,18 +22,13 @@ abstract class BaseActivity : AppCompatActivity() {
      */
     protected abstract val activityLayout: Int
 
-    // 全局 Dialog
-    private var mHolder: Gloading.Holder? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(activityLayout)
-        rootView = layoutInflater.inflate(activityLayout, null, false)
 
-        mUnbinder = ButterKnife.bind(this)
         mCache = ACache.get(application)
 
-        initOneData()
+        onCreateData()
 
         onBaseCreate(savedInstanceState)
     }
@@ -51,25 +36,11 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        initTwoView()
+        onStartView()
     }
 
     override fun onResume() {
         super.onResume()
-    }
-
-    private fun initLoadingStatus(){
-        mHolder = Gloading.getDefault().wrap(this)
-    }
-
-    protected fun showLoadSuccess(){
-        initLoadingStatus()
-        mHolder?.showLoadSuccess()
-    }
-
-    protected fun showLoadFailed(){
-        initLoadingStatus()
-        mHolder?.showLoadFailed()
     }
 
     /**
@@ -82,16 +53,16 @@ abstract class BaseActivity : AppCompatActivity() {
     /**
      * 初始化 Data
      */
-    protected abstract fun initOneData()
+    protected abstract fun onCreateData()
 
     /**
      * 初始化 View
      */
-    protected abstract fun initTwoView()
+    protected abstract fun onStartView()
+
 
     /**
-     * 打开一个 AC
-     *
+     * 打开一个Activity 默认 不关闭当前activity
      * @param clz                    跳转类
      * @param isCloseCurrentActivity 关闭当前页
      */
@@ -109,7 +80,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
 
     @JvmOverloads
-    protected fun initToolBar(midString: Int = 0, rightString: String? = null, listener: View.OnClickListener? = null) {
+    protected fun initToolBar(midId: Int = 0, rightText: String? = null, listener: View.OnClickListener? = null) {
 
         // 左边返回
         findViewById<View>(R.id.iv_back).setOnClickListener {
@@ -119,51 +90,28 @@ abstract class BaseActivity : AppCompatActivity() {
 
         // 中间标题
         val midText = findViewById<TextView>(R.id.tv_title)
-        if (midString == 0) {
-            midText.text = ""
-        } else {
-            midText.setText(midString)
-        }
+        if (midId == 0) midText.text = "" else midText.setText(midId)
 
         // 右边监听事件
         val right = findViewById<TextView>(R.id.tv_right)
+        if (rightText.isNullOrEmpty()) {
+            right.text = rightText
+        }
 
-        if (rightString.isNullOrEmpty()) {
+        if (null == listener) {
             right.visibility = View.GONE
         } else {
-            right.text = rightString
+
             right.setOnClickListener(listener)
         }
 
     }
-    /**
-     * 重置 ACache 中保存的的数据
-     */
-    private fun clearCache() {
-    }
 
-    fun <T : View> get(id: Int): T {
-        return bindView(id)
-    }
-
-    private fun <T : View> bindView(id: Int): T {
-
-        val view: T = rootView.findViewById(id)
-        mView.put(id, view)
-        return view
-    }
 
     /**
+     * 多个 View 设置点击事件
      * vararg 可变长度
      */
-    fun setViewOnClickListener(listener: View.OnClickListener, vararg ids: Int) {
-        if (ids.isNotEmpty()) {
-            for (id in ids) {
-                get<View>(id).setOnClickListener(listener)
-            }
-        }
-    }
-
     fun setViewOnClickListener(listener: View.OnClickListener, vararg views: View) {
         if (views.isNotEmpty()) {
             for (view in views) {
@@ -172,12 +120,15 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * 重置 ACache 中保存的的数据
+     */
+    private fun clearCache() {}
+
 
     override fun onDestroy() {
         super.onDestroy()
         clearCache()
 
-        mUnbinder?.unbind()
     }
 }
-

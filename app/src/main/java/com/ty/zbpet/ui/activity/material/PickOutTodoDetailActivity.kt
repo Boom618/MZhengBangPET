@@ -21,7 +21,7 @@ import com.ty.zbpet.presenter.material.MaterialUiListInterface
 import com.ty.zbpet.presenter.material.PickOutPresenter
 import com.ty.zbpet.ui.adapter.diffadapter.TodoCarCodeDiffUtil
 import com.ty.zbpet.ui.adapter.material.PickingTodoDetailAdapter
-import com.ty.zbpet.ui.base.BaseActivity
+import com.ty.zbpet.base.BaseActivity
 import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils
