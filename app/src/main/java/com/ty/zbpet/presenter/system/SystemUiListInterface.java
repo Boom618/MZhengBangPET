@@ -9,7 +9,7 @@ public interface SystemUiListInterface<T> {
 
     /**
      * Http 数据
-     * @param list
+     * @param list list
      */
     void showSystem(List<T> list);
 }

@@ -7,13 +7,13 @@ import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.ui.activity.system.PersonCenterActivity
 import com.ty.zbpet.ui.activity.wareroom.InventoryMainActivity
 import com.ty.zbpet.ui.activity.wareroom.MoveRoomMainActivity
-import com.ty.zbpet.base.BaseActivity
+import com.ty.zbpet.base.BaseSupActivity
 import kotlinx.android.synthetic.main.activity_main1.*
 
 /**
  * @author TY
  */
-class MainActivity : BaseActivity(), View.OnClickListener {
+class MainActivity : BaseSupActivity(), View.OnClickListener {
 
     override val activityLayout: Int
         get() = R.layout.activity_main1
@@ -23,11 +23,11 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     }
 
-    override fun initOneData() {
+    override fun onCreateData() {
 
     }
 
-    override fun initTwoView() {
+    override fun onStartView() {
 
         setViewOnClickListener(this,
                 tv_arrival_in_storage,
@@ -99,7 +99,10 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    override fun onBackPressed() {
+    /**
+     * 请使用 onBackPressedSupport 代替 onBackPressed   }
+     */
+    override fun onBackPressedSupport() {
         // exist app 会调用：onPause()和 onStop()
         moveTaskToBack(true)
     }

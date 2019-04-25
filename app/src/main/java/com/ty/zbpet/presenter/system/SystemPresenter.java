@@ -286,27 +286,7 @@ public class SystemPresenter {
             }
         }, id, sapCheckNo);
     }
-    /*
-     * 成品盘点
-     */
-//    public void getGoodsNo(String goodsNo) {
-//        httpMethods.getGoodsNo(new SingleObserver<String>() {
-//            @Override
-//            public void onSubscribe(Disposable d) {
-//                disposable = d;
-//            }
-//
-//            @Override
-//            public void onSuccess(String s) {
-//
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//                EventBus.getDefault().post(new ErrorMessage(e.getMessage()));
-//            }
-//        }, goodsNo);
-//
-//    }
+
+    /*--------------------------------- 移库 --------------------------------------------*/
 
 }

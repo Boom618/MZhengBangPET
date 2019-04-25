@@ -2,7 +2,6 @@
     <string name="app_name">正邦仓管</string>
     <string name="label_title">正邦仓库管理系统</string>
 
-    <string name="label_transfer_storage">移库</string>
     <string name="label_arrival_storage">采购入库</string>
     <string name="label_purchase_detail">入库详情</string>
     <string name="label_pick_out_storage">领料出库</string>
@@ -80,23 +79,22 @@
     <string name="material_pick_out_details">领料出库详情</string>
     <string name="send_out_storage_reversal">发货出库详情冲销</string>
     <string name="pick_out_storage_reversal">领料出库明细冲销</string>
-    <string name="material_reversal">冲销</string>
+
     <string name="purchase_house_reversal">采购入库明细冲销</string>
     <string name="back_goods">退货</string>
     <string name="materials_back_goods_details">采购退货详情</string>
     <string name="purchase_back_goods">采购退货明细冲销</string>
 
     <string name="check_message">质检信息</string>
-    <string name="materials_move">原辅料移库</string>
+
     <string name="materials_inventor">原辅料盘点</string>
     <string name="materials_move_reversal">原辅料移库冲销</string>
-    <string name="product_move">成品移库</string>
+
     <string name="product_inventor">成品盘点</string>
     <string name="product_delete">单据删除</string>
     <string name="delete">删除</string>
     <string name="product_reversal">成品冲销</string>
-    <string name="move_room_source">源库位</string>
-    <string name="move_room_target">目标库位</string>
+
     <string name="button_commit">提交</string>
     <string name="button_scan_code">扫码</string>
     <string name="button_scan_move">扫码移库</string>
@@ -104,8 +102,7 @@
 
 
     <string name="box_binding_list">箱码绑定明细</string>
-    <!--<string name="material_remark">备注</string>-->
-    <!--<string name="select_supplier">选择供应商</string>-->
+
 
     <!-- fixed tip 固定提示-->
     <string name="select_house">仓库选择</string>
@@ -113,5 +110,14 @@
     <string name="other_message">其他信息</string>
     <string name="remark_message">备注</string>
     <string name="box_code_details">箱码明细</string>
-
+    <!-- 移库 -->
+    <string name="raw_materials">原辅料</string>
+    <string name="finish_product">成品</string>
+    <string name="label_transfer_storage">移库</string>
+    <string name="material_reversal">冲销</string>
+    <string name="materials_move">原辅料移库</string>
+    <string name="move_room_source">源库位</string>
+    <string name="move_room_target">目标库位</string>
+    <string name="product_move">成品移库</string>
+    <string name="move_number">移库数量：</string>
 </resources>

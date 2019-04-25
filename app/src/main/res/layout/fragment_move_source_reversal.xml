@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_inventory_sap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/x20"
+        android:layout_marginTop="@dimen/x30"
+        android:text="库存批次号："
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_material_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:text="原辅料名称："
+        app:layout_constraintStart_toStartOf="@+id/tv_inventory_sap"
+        app:layout_constraintTop_toBottomOf="@+id/tv_inventory_sap" />
+
+    <TextView
+        android:id="@+id/tv_supplier_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:text="供应商名称："
+        app:layout_constraintStart_toStartOf="@+id/tv_inventory_sap"
+        app:layout_constraintTop_toBottomOf="@+id/tv_material_name" />
+
+    <TextView
+        android:id="@+id/tv_horse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:text="当前仓库："
+        app:layout_constraintStart_toStartOf="@+id/tv_inventory_sap"
+        app:layout_constraintTop_toBottomOf="@+id/tv_supplier_name" />
+
+    <TextView
+        android:id="@+id/tv_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:text="库存数量："
+        app:layout_constraintStart_toStartOf="@+id/tv_inventory_sap"
+        app:layout_constraintTop_toBottomOf="@+id/tv_horse" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:text="含量："
+        app:layout_constraintStart_toStartOf="@+id/tv_inventory_sap"
+        app:layout_constraintTop_toBottomOf="@+id/tv_number" />
+
+    <TextView
+        android:id="@+id/tv_sap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:text="SAP 批次号："
+        app:layout_constraintStart_toStartOf="@+id/tv_inventory_sap"
+        app:layout_constraintTop_toBottomOf="@+id/tv_content" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/x5"
+        android:background="@color/split_line_color"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sap" />
+
+    <TextView
+        android:id="@+id/tv_move"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x20"
+        android:text="移库数量："
+        app:layout_constraintStart_toStartOf="@+id/tv_inventory_sap"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sap" />
+
+
+
+    <Button
+        android:id="@+id/bt_commit"
+        android:text="@string/button_commit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_18"
+        android:textColor="@color/white"
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginEnd="@dimen/space_20"
+        android:layout_marginBottom="@dimen/x20"
+        android:background="@drawable/shape_theme_min_radius"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

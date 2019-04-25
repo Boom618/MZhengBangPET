@@ -17,7 +17,10 @@ class PositionCode {
     var warehouseNo: String? = null
     var type: String? = null
     var sum: Int = 0
+    // 溯源
     var list: MutableList<StockListBean>? = null
+    // 移库
+    var stockList: MutableList<StockListBean>? = null
 
     class StockListBean {
         /**

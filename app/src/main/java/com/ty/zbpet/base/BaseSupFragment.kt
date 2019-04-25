@@ -22,14 +22,11 @@ abstract class BaseSupFragment : SupportFragment() {
     protected abstract val fragmentLayout: Int
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View {
 
         val view = inflater.inflate(fragmentLayout, container, false)
 
-        // onBaseCreate(view);
         return onBaseCreate(view)
     }
 
@@ -55,13 +52,13 @@ abstract class BaseSupFragment : SupportFragment() {
         // 右边监听事件
         val right = _mActivity.findViewById<TextView>(R.id.tv_right)
         if (!rightText.isNullOrEmpty()) {
+            right.visibility = View.VISIBLE
             right.text = rightText
         }
 
-        if (null == listener) {
-            right.visibility = View.GONE
-        } else {
-            right.setOnClickListener(listener)
+        when (listener) {
+            null -> right.visibility = View.GONE
+            else -> right.setOnClickListener(listener)
         }
     }
 

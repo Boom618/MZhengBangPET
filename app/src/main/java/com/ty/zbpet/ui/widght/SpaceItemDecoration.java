@@ -4,6 +4,9 @@ import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+/**
+ * @author TY
+ */
 public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
 
     private int space;
@@ -23,8 +26,9 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
             outRect.top = space;
 
         } else {
-            if (parent.getChildAdapterPosition(view) != 0)
+            if (parent.getChildAdapterPosition(view) != 0) {
                 outRect.top = space;
+            }
         }
     }
 }

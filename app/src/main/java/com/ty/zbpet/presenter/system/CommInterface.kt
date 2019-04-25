@@ -2,7 +2,7 @@ package com.ty.zbpet.presenter.system
 
 /**
  * @author TY on 2019/3/19.
- * App 公共接口
+ * App 扫码公共接口
  */
 interface CommInterface {
 

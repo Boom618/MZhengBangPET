@@ -172,6 +172,7 @@ public class MaterialPresenter {
      * 库位码校验
      *
      * @param positionNo 库位码
+     * @param warehouseNo 仓库编号
      */
     public void checkCarCode(final int position, final String positionNo, String warehouseNo) {
 

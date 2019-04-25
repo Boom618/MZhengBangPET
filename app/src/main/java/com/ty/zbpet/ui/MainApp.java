@@ -1,6 +1,7 @@
 package com.ty.zbpet.ui;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.multidex.MultiDexApplication;
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -16,10 +17,12 @@ import com.ty.zbpet.util.ACache;
 import com.xiasuhuei321.loadingdialog.manager.StyleManager;
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
 
+import me.yokeyword.fragmentation.Fragmentation;
+import me.yokeyword.fragmentation.helper.ExceptionHandler;
+
 /**
  * @author TY
  */
-//public class MainApp extends Application {
 public class MainApp extends MultiDexApplication {
 
     public static Context context;
@@ -60,6 +63,18 @@ public class MainApp extends MultiDexApplication {
 
         // 管理任务栈
         ActivitiesHelper.init(this);
+
+        // yokeyword 大佬的 Fragment 库
+        Fragmentation.builder()
+                .stackViewMode(Fragmentation.BUBBLE)
+                .debug(true)
+                .handleException(new ExceptionHandler() {
+                    @Override
+                    public void onException(@NonNull Exception e) {
+                        // 处理捕获异常
+                    }
+                })
+                .install();
 
     }
 

@@ -43,7 +43,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * description:
- * author: XingZheng
  * date: 2016/11/22.
  *
  * @author TY
@@ -720,8 +719,8 @@ public class HttpMethods {
     /**
      * 库位码查询
      *
-     * @param observer
-     * @param positionNo
+     * @param observer observer
+     * @param positionNo 库位码
      */
     public void getPositionQuery(SingleObserver<BaseResponse<PositionCode>> observer, String positionNo) {
         mService.getPositionQuery(positionNo)
@@ -863,6 +862,43 @@ public class HttpMethods {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
 
+    }
+
+    /*--------------------------------- 移库 --------------------------------------------*/
+
+    // 源库位 移出
+    public void materialMoveOrder(SingleObserver<ResponseInfo> observer, RequestBody body) {
+        mService.materialMoveOrder(body)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    // 移库列表
+    public void moveList(SingleObserver<ResponseInfo> observer) {
+        mService.moveList()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    // 目标库位
+    public void moveMaterial(SingleObserver<ResponseInfo> observer, String id, String positionNo, String warehouseNo, String time) {
+        mService.moveMaterial(id, positionNo, warehouseNo, time)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    // 原辅料移库待冲销列表
+    public void reversalList(SingleObserver<ResponseInfo> observer) {
+        mService.reversalList()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    // 原辅料移库冲销
+    public void reversalMove(SingleObserver<ResponseInfo> observer, String id) {
+        mService.reversalMove(id)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
     }
 
     /*
