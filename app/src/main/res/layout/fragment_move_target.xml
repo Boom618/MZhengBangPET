@@ -1,36 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler"
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="0dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginTop="@dimen/x20"
+        android:layout_marginBottom="@dimen/x10"
+        android:text="请扫目标库位码："
+        android:textSize="@dimen/text_18" />
 
     <TextView
         android:id="@+id/tv_target"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/x20"
+        android:layout_marginStart="@dimen/space_20"
         android:layout_marginBottom="@dimen/x10"
-        android:layout_marginStart="@dimen/space_20"
-        android:text="目标库位码："
-        android:textSize="@dimen/text_18"/>
-
-    <Button
-        android:id="@+id/bt_confirm"
-        android:text="@string/button_confirm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:textColor="@color/red"
         android:textSize="@dimen/text_18"
-        android:textColor="@color/white"
-        android:layout_marginStart="@dimen/space_20"
-        android:layout_marginEnd="@dimen/space_20"
-        android:layout_marginBottom="@dimen/x20"
-        android:background="@drawable/shape_theme_min_radius"/>
+        tools:hint="请扫库位码" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_target"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+
+    <!--<Button-->
+    <!--android:id="@+id/bt_confirm"-->
+    <!--android:text="@string/button_confirm"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textSize="@dimen/text_18"-->
+    <!--android:textColor="@color/white"-->
+    <!--android:layout_marginStart="@dimen/space_20"-->
+    <!--android:layout_marginEnd="@dimen/space_20"-->
+    <!--android:layout_marginBottom="@dimen/x20"-->
+    <!--android:background="@drawable/shape_theme_min_radius"/>-->
 
 </LinearLayout>

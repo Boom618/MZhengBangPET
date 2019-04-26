@@ -9,6 +9,7 @@ import com.ty.zbpet.bean.eventbus.system.FragmentScanEvent
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.ui.fragment.wareroom.MoveRoomMainFrg
 import com.ty.zbpet.ui.fragment.wareroom.SourceLocationFrg
+import com.ty.zbpet.ui.fragment.wareroom.TargetLocationFrg
 import com.ty.zbpet.util.ZBUiUtils
 import com.ty.zbpet.util.scan.ScanBoxInterface
 import com.ty.zbpet.util.scan.ScanObservable
@@ -44,7 +45,7 @@ class MoveRoomMainActivity : BaseSupActivity(), ScanBoxInterface {
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if (topFragment is SourceLocationFrg) {
+        if (topFragment is SourceLocationFrg || topFragment is TargetLocationFrg) {
             if (keyCode == CodeConstant.KEY_CODE_131
                     || keyCode == CodeConstant.KEY_CODE_135
                     || keyCode == CodeConstant.KEY_CODE_139) {
@@ -60,8 +61,10 @@ class MoveRoomMainActivity : BaseSupActivity(), ScanBoxInterface {
     }
 
     override fun ScanSuccess(position: Int, msg: String?) {
-        EventBus.getDefault().post(FragmentScanEvent("source", msg))
-        //ZBUiUtils.showSuccess("position =  $position 库位码 = $msg")
+        when (topFragment) {
+            is SourceLocationFrg -> EventBus.getDefault().post(FragmentScanEvent("source", msg))
+            is TargetLocationFrg -> EventBus.getDefault().post(FragmentScanEvent("target", msg))
+        }
     }
 
     /**

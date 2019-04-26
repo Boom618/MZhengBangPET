@@ -9,16 +9,9 @@ import com.ty.zbpet.bean.material.MaterialDetails
 import com.ty.zbpet.bean.material.MaterialList
 import com.ty.zbpet.bean.product.ProductDetails
 import com.ty.zbpet.bean.product.ProductList
-import com.ty.zbpet.bean.system.BoxCodeUrl
-import com.ty.zbpet.bean.system.ImageData
-import com.ty.zbpet.bean.system.PositionCode
-import com.ty.zbpet.bean.system.ProductInventorList
-import com.ty.zbpet.bean.system.ProductQuery
-import com.ty.zbpet.bean.system.QualityCheckTodoDetails
-import com.ty.zbpet.bean.system.QualityCheckTodoList
-import com.ty.zbpet.bean.system.ReceiptList
 import com.ty.zbpet.constant.ApiNameConstant
 import com.ty.zbpet.base.BaseResponse
+import com.ty.zbpet.bean.system.*
 
 import io.reactivex.Single
 import okhttp3.MultipartBody
@@ -756,7 +749,6 @@ interface ApiService {
      * @param body body
      * @return Single
      */
-    @FormUrlEncoded
     @POST(ApiNameConstant.GOODS_INVENTORY)
     fun goodsInventory(@Body body: RequestBody): Single<ResponseInfo>
 
@@ -774,13 +766,12 @@ interface ApiService {
     /*--------------------------------- 移库 --------------------------------------------*/
 
     // 源库位 移出
-    @FormUrlEncoded
     @POST(ApiNameConstant.MATERIAL_MOVE_ORDER)
     fun materialMoveOrder(@Body body: RequestBody): Single<ResponseInfo>
 
     // 移库列表
     @POST(ApiNameConstant.MOVE_LIST)
-    fun moveList(): Single<ResponseInfo>
+    fun moveList(): Single<BaseResponse<PositionCode>>
 
     // 目标库位
     @FormUrlEncoded

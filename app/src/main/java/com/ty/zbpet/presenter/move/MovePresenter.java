@@ -6,8 +6,6 @@ import com.ty.zbpet.bean.system.PositionCode;
 import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.net.HttpMethods;
 
-import java.util.List;
-
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
 import okhttp3.RequestBody;
@@ -40,9 +38,9 @@ public class MovePresenter {
      *
      * @param positionNo 库位码
      */
-    public void positionQuery(String positionNo) {
+    public void positionStock(String positionNo) {
         compInterface.showLoading();
-        httpMethods.getPositionQuery(new SingleObserver<BaseResponse<PositionCode>>() {
+        httpMethods.positionStock(new SingleObserver<BaseResponse<PositionCode>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;
@@ -54,6 +52,7 @@ public class MovePresenter {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
                     PositionCode data = response.getData();
                     compInterface.showObjData(data);
+                    //EventBus.getDefault().post("");
                 } else {
                     compInterface.showError(response.getMessage());
                 }
@@ -80,7 +79,40 @@ public class MovePresenter {
             @Override
             public void onSuccess(ResponseInfo responseInfo) {
                 compInterface.hideLoading();
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    compInterface.responseSuccess();
+                } else {
+                    compInterface.showError(responseInfo.getMessage());
+                }
+            }
 
+            @Override
+            public void onError(Throwable e) {
+                compInterface.hideLoading();
+                compInterface.showError("移出源库位失败");
+            }
+        }, body);
+    }
+
+    /**
+     * 移库列表
+     */
+    public void moveList() {
+        compInterface.showLoading();
+        httpMethods.moveList(new SingleObserver<BaseResponse<PositionCode>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(BaseResponse<PositionCode> responseInfo) {
+                compInterface.hideLoading();
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    compInterface.showListData(responseInfo.getData().getList());
+                } else {
+                    compInterface.showError(responseInfo.getMessage());
+                }
             }
 
             @Override
@@ -88,6 +120,36 @@ public class MovePresenter {
                 compInterface.hideLoading();
                 compInterface.showError(e.getMessage());
             }
-        }, body);
+        });
+    }
+
+    /**
+     * 移入目标库位
+     */
+    public void moveMaterial(String id, String positionNo, String warehouseNo, String time) {
+        compInterface.showLoading();
+        httpMethods.moveMaterial(new SingleObserver<ResponseInfo>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo responseInfo) {
+                compInterface.hideLoading();
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    compInterface.responseSuccess();
+                } else {
+                    compInterface.showError(responseInfo.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                compInterface.hideLoading();
+                compInterface.showError(e.getMessage());
+            }
+        }, id, positionNo, warehouseNo, time);
+
     }
 }

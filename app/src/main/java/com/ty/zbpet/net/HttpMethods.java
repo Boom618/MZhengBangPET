@@ -2,6 +2,7 @@ package com.ty.zbpet.net;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.ty.zbpet.base.BaseResponse;
 import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.UserInfo;
@@ -20,12 +21,11 @@ import com.ty.zbpet.bean.system.QualityCheckTodoDetails;
 import com.ty.zbpet.bean.system.QualityCheckTodoList;
 import com.ty.zbpet.bean.system.ReceiptList;
 import com.ty.zbpet.constant.ApiNameConstant;
+import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.net.gson.DoubleDefault0Adapter;
 import com.ty.zbpet.net.gson.IntegerDefault0Adapter;
 import com.ty.zbpet.net.gson.LongDefault0Adapter;
 import com.ty.zbpet.net.gson.StringDefault0Adapter;
-import com.ty.zbpet.base.BaseResponse;
-import com.ty.zbpet.constant.CodeConstant;
 
 import java.util.concurrent.TimeUnit;
 
@@ -874,7 +874,7 @@ public class HttpMethods {
     }
 
     // 移库列表
-    public void moveList(SingleObserver<ResponseInfo> observer) {
+    public void moveList(SingleObserver<BaseResponse<PositionCode>> observer) {
         mService.moveList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

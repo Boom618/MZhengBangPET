@@ -13,14 +13,14 @@ class PositionCode {
      * sum : 478
      */
 
-    var positionNo: String? = null
-    var warehouseNo: String? = null
+    var positionNo: String = ""
+    var warehouseNo: String = ""
+    var count: String? = null
     var type: String? = null
-    var sum: Int = 0
+    var time: String? = null
+    var sum: String? = null
     // 溯源
     var list: MutableList<StockListBean>? = null
-    // 移库
-    var stockList: MutableList<StockListBean>? = null
 
     class StockListBean {
         /**
@@ -41,9 +41,14 @@ class PositionCode {
         var supplierNo: String? = null
         var sapBatchNo: String? = null
         var supplierName: String? = null
-        var concentration: Double = 0.toDouble()
+        var concentration: String? = null
         var number: String? = null
+        var moveNumber: String? = null
         var checkNumber: String? = null
         var unit: String? = null
+
+        // 目标库位
+        var id: String? = null
+        var type: String? = null
     }
 }
