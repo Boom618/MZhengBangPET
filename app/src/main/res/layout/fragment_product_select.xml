@@ -6,18 +6,18 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/house_target"
+        android:id="@+id/product_select"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/space_8"
-        android:text="@string/house_target"
+        android:text="@string/product_select"
         android:textColor="@color/black"
         android:textSize="@dimen/text_18"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_target_move"
+        android:id="@+id/tv_product"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/space_6"
@@ -29,15 +29,34 @@
         android:padding="@dimen/space_7"
         android:textColor="@color/txt_main_color"
         android:textSize="@dimen/text_14"
-        app:layout_constraintTop_toBottomOf="@+id/house_target"
-        tools:text="目标仓库" />
+        app:layout_constraintTop_toBottomOf="@+id/product_select"
+        tools:text="产品选择" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_target"
+    <TextView
+        android:id="@+id/house_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_8"
+        android:text="@string/house_select"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_18"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_product" />
+
+    <TextView
+        android:id="@+id/tv_house"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/space_5"
-        app:layout_constraintTop_toBottomOf="@+id/tv_target_move"
-        app:layout_constraintVertical_weight="1" />
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_6"
+        android:background="@drawable/shape_black_min_radius"
+        android:drawableStart="@mipmap/ic_date"
+        android:drawableEnd="@mipmap/ic_bottom"
+        android:drawablePadding="@dimen/space_10"
+        android:gravity="center_vertical"
+        android:padding="@dimen/space_7"
+        android:textColor="@color/txt_main_color"
+        android:textSize="@dimen/text_14"
+        app:layout_constraintTop_toBottomOf="@+id/house_select"
+        tools:text="仓库选择" />
 
 </android.support.constraint.ConstraintLayout>

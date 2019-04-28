@@ -109,7 +109,8 @@ public class MovePresenter {
             public void onSuccess(BaseResponse<PositionCode> responseInfo) {
                 compInterface.hideLoading();
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
-                    compInterface.showListData(responseInfo.getData().getList());
+//                    compInterface.showListData(responseInfo.getData().getList());
+                    compInterface.showObjData(responseInfo.getData());
                 } else {
                     compInterface.showError(responseInfo.getMessage());
                 }
@@ -150,6 +151,90 @@ public class MovePresenter {
                 compInterface.showError(e.getMessage());
             }
         }, id, positionNo, warehouseNo, time);
-
     }
+
+    /**
+     * 冲销列表
+     */
+    public void reversalList() {
+        compInterface.showLoading();
+        httpMethods.reversalList(new SingleObserver<BaseResponse<PositionCode>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+
+            }
+
+            @Override
+            public void onSuccess(BaseResponse<PositionCode> responseInfo) {
+                compInterface.hideLoading();
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    compInterface.showListData(responseInfo.getData().getList());
+                } else {
+                    compInterface.showError(responseInfo.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                compInterface.hideLoading();
+                compInterface.showError(e.getMessage());
+
+            }
+        });
+    }
+
+    /**
+     * 原辅料移库冲销
+     *
+     * @param body body
+     */
+    public void reversalMove(RequestBody body) {
+        httpMethods.reversalMove(new SingleObserver<ResponseInfo>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo responseInfo) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    compInterface.responseSuccess();
+                } else {
+                    compInterface.showError(responseInfo.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                compInterface.showError(e.getMessage());
+            }
+        }, body);
+    }
+
+    /**
+     * 选择仓库 产品
+     */
+    public void goodsStock(String goodsNo, String warehouseNo) {
+        compInterface.showLoading();
+        httpMethods.goodsStock(new SingleObserver<ResponseInfo>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo responseInfo) {
+                compInterface.hideLoading();
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                compInterface.showError(e.getMessage());
+
+            }
+        }, goodsNo, warehouseNo);
+    }
+
 }

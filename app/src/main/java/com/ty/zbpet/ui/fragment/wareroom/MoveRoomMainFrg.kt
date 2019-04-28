@@ -23,7 +23,7 @@ class MoveRoomMainFrg : BaseSupFragment() {
 
         view.move_room_materials.setOnClickListener { start(MaterialsMoveRoomFrg.newInstance()) }
         view.reversal_materials.setOnClickListener { start(MaterialsReversalFrg.newInstance()) }
-        view.move_room_product.setOnClickListener { start(ProductMoveFrg.newInstance()) }
+        view.move_room_product.setOnClickListener { start(ProductSelectFrg.newInstance()) }
         view.reversal_product.setOnClickListener { start(ProductReversalFrg.newInstance()) }
 
     }

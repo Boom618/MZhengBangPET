@@ -31,6 +31,8 @@ class TargetLocationFrg : BaseSupFragment(), ComplexInterface<PositionCode> {
     private var listSource = mutableListOf<PositionCode.StockListBean>()
     private val presenter: MovePresenter = MovePresenter(this)
     private var warehouseNo = ""
+    // 查的 列表 还是 目标库位
+    private var isList = true
 
     override val fragmentLayout: Int
         get() = R.layout.fragment_move_target
@@ -49,6 +51,7 @@ class TargetLocationFrg : BaseSupFragment(), ComplexInterface<PositionCode> {
             initReqBody()
         })
         presenter.moveList()
+        isList = true
     }
 
     private fun initReqBody() {
@@ -68,7 +71,7 @@ class TargetLocationFrg : BaseSupFragment(), ComplexInterface<PositionCode> {
             }
         }
         // id,positionNo,warehouseNo,time
-        presenter.moveMaterial(id, positionNo, warehouseNo, "2019-04-27")
+        presenter.moveMaterial(id, positionNo, warehouseNo, "")
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -80,19 +83,26 @@ class TargetLocationFrg : BaseSupFragment(), ComplexInterface<PositionCode> {
         }
         // TODO 根据库位码 查询 warehouseNo
         presenter.positionStock(positionNo)
+        isList = false
     }
 
     override fun showListData(list: MutableList<PositionCode>) {
-        listSource = list[0].list!!
-        context?.let { LayoutInit.initLayoutManager(it, recycler_target) }
-        recycler_target.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
-        adapter = context?.let { TargetAdapter(it, R.layout.item_move_target_frg, listSource) }
-        recycler_target.adapter = adapter
+
 
     }
 
     override fun showObjData(obj: PositionCode) {
-        warehouseNo = obj.warehouseNo
+        when (isList) {
+            true -> {
+                listSource = obj.list!!
+                context?.let { LayoutInit.initLayoutManager(it, recycler_target) }
+                recycler_target.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
+                adapter = context?.let { TargetAdapter(it, R.layout.item_move_target_frg, listSource) }
+                recycler_target.adapter = adapter
+            }
+            false -> warehouseNo = obj.warehouseNo
+        }
+
     }
 
     override fun responseSuccess() {

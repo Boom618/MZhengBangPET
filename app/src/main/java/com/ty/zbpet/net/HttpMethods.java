@@ -719,7 +719,7 @@ public class HttpMethods {
     /**
      * 库位码查询
      *
-     * @param observer observer
+     * @param observer   observer
      * @param positionNo 库位码
      */
     public void getPositionQuery(SingleObserver<BaseResponse<PositionCode>> observer, String positionNo) {
@@ -888,15 +888,29 @@ public class HttpMethods {
     }
 
     // 原辅料移库待冲销列表
-    public void reversalList(SingleObserver<ResponseInfo> observer) {
+    public void reversalList(SingleObserver<BaseResponse<PositionCode>> observer) {
         mService.reversalList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
 
     // 原辅料移库冲销
-    public void reversalMove(SingleObserver<ResponseInfo> observer, String id) {
-        mService.reversalMove(id)
+    public void reversalMove(SingleObserver<ResponseInfo> observer, RequestBody body) {
+        mService.reversalMove(body)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    // 获取产品仓库库存
+    public void goodsStock(SingleObserver<ResponseInfo> observer, String goodsNo, String warehouseNo) {
+        mService.goodsStock(goodsNo, warehouseNo)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    // 成品移出原仓库 TODO ==
+    public void goodsMoveOrder(SingleObserver<ResponseInfo> observer,RequestBody body){
+        mService.goodsMoveOrder(body)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }

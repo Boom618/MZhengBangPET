@@ -8,8 +8,8 @@ object ApiNameConstant {
     /**
      * 徐坤
      */
-    const val BASE_URL = "http://192.168.11.2:3000/"
-//    const val BASE_URL = "http://jxsh.zhengbang.com:3000/"
+//    const val BASE_URL = "http://192.168.11.2:3000/"
+    const val BASE_URL = "http://jxsh.zhengbang.com:3000/"
 
     /*--------------------------------- 系统登录 ---------------------------------------- */
 

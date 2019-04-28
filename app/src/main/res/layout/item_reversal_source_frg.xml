@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_white_min_radius">
+
+    <TextView
+        android:id="@+id/tv_position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/x20"
+        android:layout_marginTop="@dimen/x10"
+        android:text="当前库位："
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_inventory_sap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/x20"
+        android:layout_marginTop="@dimen/x10"
+        android:text="库存批次号："
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_position" />
+
+    <TextView
+        android:id="@+id/tv_material_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:text="原辅料名称："
+        app:layout_constraintStart_toStartOf="@+id/tv_inventory_sap"
+        app:layout_constraintTop_toBottomOf="@+id/tv_inventory_sap" />
+
+    <TextView
+        android:id="@+id/tv_supplier_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:text="供应商名称："
+        app:layout_constraintStart_toStartOf="@+id/tv_inventory_sap"
+        app:layout_constraintTop_toBottomOf="@+id/tv_material_name" />
+
+    <TextView
+        android:id="@+id/tv_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:text="库存数量："
+        app:layout_constraintStart_toStartOf="@+id/tv_inventory_sap"
+        app:layout_constraintTop_toBottomOf="@+id/tv_supplier_name" />
+
+    <CheckBox
+        android:id="@+id/check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/x20"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_number"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:text="含量："
+        app:layout_constraintStart_toStartOf="@+id/tv_inventory_sap"
+        app:layout_constraintTop_toBottomOf="@+id/tv_number" />
+
+    <TextView
+        android:id="@+id/tv_sap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/x10"
+        android:text="SAP 批次号："
+        app:layout_constraintStart_toStartOf="@+id/tv_inventory_sap"
+        app:layout_constraintTop_toBottomOf="@+id/tv_content" />
+
+</android.support.constraint.ConstraintLayout>

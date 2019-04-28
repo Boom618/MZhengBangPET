@@ -783,16 +783,25 @@ interface ApiService {
 
     // 原辅料移库待冲销列表
     @POST(ApiNameConstant.REVERSAL_LIST)
-    fun reversalList(): Single<ResponseInfo>
+    fun reversalList(): Single<BaseResponse<PositionCode>>
 
     // 原辅料移库冲销
-    @FormUrlEncoded
     @POST(ApiNameConstant.MOVE_RECALL)
-    fun reversalMove(@Field("id") id: String): Single<ResponseInfo>
+    fun reversalMove(@Body body: RequestBody): Single<ResponseInfo>
 
     // 查询 成品移库的数据
+    @FormUrlEncoded
     @POST(ApiNameConstant.GoodsStock)
-    fun GoodsStock():Single<ResponseInfo>
+    fun goodsStock(@Field("goodsNo") goodsNo: String,
+                   @Field("warehouseNo") warehouseNo: String): Single<ResponseInfo>
+
+    // 成品移出原仓库
+    @POST(ApiNameConstant.goodsMoveOrder)
+    fun goodsMoveOrder(@Body body: RequestBody): Single<ResponseInfo>
+
+    // 成品移入目标仓库
+    @POST(ApiNameConstant.goodsMove)
+    fun goodsMove(): Single<ResponseInfo>
 
 
     /*--------------------------------- 图片 --------------------------------------------*/

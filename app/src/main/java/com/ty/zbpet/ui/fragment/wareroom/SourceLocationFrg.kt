@@ -84,7 +84,6 @@ class SourceLocationFrg : BaseSupFragment(), ComplexInterface<PositionCode> {
         //data.time = "2019-02-26"
         data.warehouseNo = warehouseNo
 
-
         val json = Gson().toJson(data)
         return RequestBodyJson.requestBody(json)
 

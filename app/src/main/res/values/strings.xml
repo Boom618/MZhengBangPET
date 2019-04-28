@@ -120,4 +120,7 @@
     <string name="move_room_target">目标库位</string>
     <string name="product_move">成品移库</string>
     <string name="move_number">移库数量：</string>
+    <string name="product_select">产品选择</string>
+    <string name="house_select">仓库选择：</string>
+    <string name="house_target">目标仓库：</string>
 </resources>
