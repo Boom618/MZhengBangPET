@@ -7,6 +7,7 @@ import com.ty.zbpet.base.BaseSupFragment
 import com.ty.zbpet.bean.UserInfo
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.constant.TipString
+import com.ty.zbpet.data.SharedP
 import com.ty.zbpet.util.SimpleCache
 import com.ty.zbpet.util.ZBUiUtils
 import kotlinx.android.synthetic.main.fragment_product_move.view.*
@@ -32,6 +33,9 @@ class ProductMoveFrg : BaseSupFragment() {
         for (i in 0 until size) {
             houseList.add(warehouseList[i].warehouseName!!)
         }
+        // 默认值
+        view.tv_target_move.text = houseList[0]
+        SharedP.putWarehouseId(view.context, 0)
         view.tv_target_move.setOnClickListener {
             ZBUiUtils.selectDialog(it.context, CodeConstant.SELECT_HOUSE_BUY_IN, 0, houseList, view.tv_target_move)
         }

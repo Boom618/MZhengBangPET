@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.UserInfo
 import com.ty.zbpet.bean.product.ProductDetails
@@ -27,6 +28,7 @@ import com.ty.zbpet.util.*
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import kotlinx.android.synthetic.main.activity_content_row_three.*
+import kotlinx.android.synthetic.main.item_produce_detail_todo.*
 import okhttp3.RequestBody
 import java.text.SimpleDateFormat
 import java.util.*
@@ -111,7 +113,7 @@ class ProductTodoDetailActivity : BaseActivity()
         }
         //tv_house!!.text = houseName[0]
         try {
-            tv_house.text = warehouseList[0].warehouseName
+            tv_house.text = houseName[0]
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -181,7 +183,7 @@ class ProductTodoDetailActivity : BaseActivity()
 
             val boxQrCode = carCodeArray.get(i)
 
-            val bulkNum = view.findViewById<EditText>(R.id.et_box_num).text.toString().trim { it <= ' ' }
+            val bulkNum = view.findViewById<TextView>(R.id.tv_product_num).text.toString()
             val txt = view.findViewById<EditText>(R.id.et_bulk_num).text.toString().trim { it <= ' ' }
             val startCode = view.findViewById<EditText>(R.id.et_start_code).text.toString().trim { it <= ' ' }
             val endCode = view.findViewById<EditText>(R.id.et_end_code).text.toString().trim { it <= ' ' }
@@ -190,7 +192,7 @@ class ProductTodoDetailActivity : BaseActivity()
             val id = positionId.get(i)
 
             val bean = ProductTodoSave.DetailsBean()
-            if (bulkNum.isNotEmpty() && !boxQrCode.isNullOrEmpty()) {
+            if (!boxQrCode.isNullOrEmpty()) {
 
                 val goodsId = oldList[i].goodsId
 
@@ -242,13 +244,13 @@ class ProductTodoDetailActivity : BaseActivity()
     override fun showProduct(list: MutableList<ProductDetails.ListBean>) {
 
         oldList = list
-        for (i in 0 until warehouseList.size){
+        for (i in 0 until warehouseList.size) {
             if (warehouseList[i].warehouseNo == list[0].warehouseNo) {
                 tv_house.text = warehouseList[i].warehouseName
                 SharedP.putWarehouseId(this, i)
                 break
-            }else{
-                if (i == warehouseList.size - 1){
+            } else {
+                if (i == warehouseList.size - 1) {
                     ZBUiUtils.showWarning("该物料仓库异常,请选择入库仓库")
                 }
             }
@@ -328,6 +330,11 @@ class ProductTodoDetailActivity : BaseActivity()
             itemId = data!!.getIntExtra("itemId", -1)
             boxCodeList = data.getStringArrayListExtra("boxCodeList")
             carCodeArray.put(itemId, boxCodeList)
+
+            val view = rv_in_storage_detail.getChildAt(itemId)
+            val textView = view.findViewById<TextView>(R.id.tv_product_num)
+            textView.text = boxCodeList.size.toString()
+//            tv_product_num.text = boxCodeList.size.toString()
         }
     }
 
@@ -337,9 +344,4 @@ class ProductTodoDetailActivity : BaseActivity()
         presenter.dispose()
     }
 
-//    companion object {
-//
-//        private const val REQUEST_SCAN_CODE = 1
-//        private const val RESULT_SCAN_CODE = 2
-//    }
 }

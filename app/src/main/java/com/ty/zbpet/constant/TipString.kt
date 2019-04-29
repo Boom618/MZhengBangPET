@@ -14,6 +14,8 @@ object TipString {
     const val moveHouse = "移库"
     const val scanPlease = "请扫码"
     const val scanLocationSource = "请扫源库位"
+    const val boxCodeHasBeenScan = "该箱码扫码过"
     const val scanLocationTarget = "请扫目标库位"
+    const val toLeaveMessage = "请完善您要出库的信息"
 
 }

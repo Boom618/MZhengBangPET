@@ -327,7 +327,7 @@ public class HttpMethods {
     /**
      * 采购退货 待办列表
      *
-     * @param subscriber
+     * @param subscriber subscriber
      */
     public void getBackTodoList(SingleObserver<BaseResponse<MaterialList>> subscriber,
                                 String sapOrderNo, String startDate, String endDate) {
@@ -340,7 +340,7 @@ public class HttpMethods {
     /**
      * 采购退货 待办列表 详情
      *
-     * @param subscriber
+     * @param subscriber subscriber
      */
     public void getBackTodoListInfo(SingleObserver<BaseResponse<MaterialDetails>> subscriber, String sapOrderNo, String sapFirmNo, String supplierNo) {
         mService.getBackTodoListInfo(sapOrderNo, sapFirmNo, supplierNo)
@@ -351,7 +351,7 @@ public class HttpMethods {
     /**
      * 采购退货 待办保存
      *
-     * @param subscriber
+     * @param subscriber subscriber
      */
     public void getBackTodoSave(SingleObserver<ResponseInfo> subscriber, RequestBody body) {
         mService.getBackTodoSave(body)
@@ -362,7 +362,7 @@ public class HttpMethods {
     /**
      * 采购退货 已办列表
      *
-     * @param subscriber
+     * @param subscriber subscriber
      */
     public void getBackDoneList(SingleObserver<BaseResponse<MaterialList>> subscriber, String type,
                                 String sapOrderNo, String startDate, String endDate) {
@@ -375,7 +375,7 @@ public class HttpMethods {
     /**
      * 采购退货 已办列表 详情
      *
-     * @param subscriber
+     * @param subscriber subscriber
      */
     public void getBackDoneListInfo(SingleObserver<BaseResponse<MaterialDetails>> subscriber, String orderId) {
         mService.getBackDoneListInfo(orderId)
@@ -386,7 +386,7 @@ public class HttpMethods {
     /**
      * 采购退货 已办保存
      *
-     * @param subscriber
+     * @param subscriber subscriber
      */
     public void getBackDoneSave(SingleObserver<ResponseInfo> subscriber, RequestBody body) {
         mService.getBackDoneSave(body)
@@ -404,7 +404,7 @@ public class HttpMethods {
     /**
      * 外采入库 待办列表
      *
-     * @param subscriber
+     * @param subscriber subscriber
      */
     public void getBuyInOrderList(SingleObserver<BaseResponse<ProductList>> subscriber,
                                   String sapOrderNo, String startDate, String endDate) {
@@ -416,7 +416,7 @@ public class HttpMethods {
     /**
      * 外采入库 待办详情
      *
-     * @param subscriber
+     * @param subscriber subscriber
      */
     public void getBuyInOrderInfo(SingleObserver<BaseResponse<ProductDetails>> subscriber, String sapOrderNo, String sapFirmNo, String supplierNo) {
         mService.getBuyInOrderInfo(sapOrderNo, sapFirmNo, supplierNo)
@@ -427,7 +427,7 @@ public class HttpMethods {
     /**
      * 外采入库 待办保存
      *
-     * @param subscriber
+     * @param subscriber subscriber
      */
     public void getBuyInTodoSave(SingleObserver<ResponseInfo> subscriber, RequestBody body) {
         mService.getBuyInTodoSave(body)
@@ -438,7 +438,7 @@ public class HttpMethods {
     /**
      * 外采入库 已办列表
      *
-     * @param subscriber
+     * @param subscriber subscriber
      */
     public void getBuyInDoneList(SingleObserver<BaseResponse<ProductList>> subscriber, String type,
                                  String sapOrderNo, String startDate, String endDate) {
@@ -451,7 +451,7 @@ public class HttpMethods {
     /**
      * 外采入库 已办详情
      *
-     * @param subscriber
+     * @param subscriber subscriber
      */
     public void getBuyInDoneListInfo(SingleObserver<BaseResponse<ProductDetails>> subscriber, String orderId) {
         mService.getBuyInDoneListInfo(orderId)
@@ -462,7 +462,7 @@ public class HttpMethods {
     /**
      * 外采入库 已办保存
      *
-     * @param subscriber
+     * @param subscriber subscriber
      */
     public void getBuyInDoneSave(SingleObserver<ResponseInfo> subscriber, RequestBody body) {
         mService.getBuyInDoneSave(body)
@@ -475,7 +475,7 @@ public class HttpMethods {
     /**
      * 生产入库 待办列表
      *
-     * @param subscriber
+     * @param subscriber subscriber
      */
     public void getProductTodoList(SingleObserver<BaseResponse<ProductList>> subscriber,
                                    String sapOrderNo, String startDate, String endDate) {
@@ -487,7 +487,7 @@ public class HttpMethods {
     /**
      * 生产入库 待办详情
      *
-     * @param subscriber
+     * @param subscriber subscriber
      */
     public void getProduceOrderInfo(SingleObserver<BaseResponse<ProductDetails>> subscriber, String sign, String sapOrderNo) {
         mService.getProduceOrderInfo(sign, sapOrderNo)
@@ -498,7 +498,7 @@ public class HttpMethods {
     /**
      * 生产入库 待办保存
      *
-     * @param subscriber
+     * @param subscriber subscriber
      */
     public void getProduceTodoSave(SingleObserver<ResponseInfo> subscriber, RequestBody body) {
         mService.getProduceTodoSave(body)
@@ -522,7 +522,7 @@ public class HttpMethods {
     /**
      * 生产入库 已办详情
      *
-     * @param subscriber
+     * @param subscriber subscriber
      */
     public void getProduceDoneInfo(SingleObserver<BaseResponse<ProductDetails>> subscriber, String orderId) {
         mService.getProduceDoneInfo(orderId)
@@ -533,7 +533,7 @@ public class HttpMethods {
     /**
      * 生产入库 已办保存
      *
-     * @param subscriber
+     * @param subscriber subscriber
      */
     public void getProduceDoneSave(SingleObserver<ResponseInfo> subscriber, RequestBody body) {
         mService.getProduceDoneSave(body)
@@ -547,7 +547,7 @@ public class HttpMethods {
     /**
      * 发货出库 已办列表
      *
-     * @param subscriber
+     * @param subscriber subscriber
      */
     public void getShipOrderList(SingleObserver<BaseResponse<ProductList>> subscriber,
                                  String sapOrderNo, String startDate, String endDate) {
@@ -559,7 +559,7 @@ public class HttpMethods {
     /**
      * 发货出库 待办详情
      *
-     * @param subscriber
+     * @param subscriber subscriber
      */
     public void getShipOrderInfo(SingleObserver<BaseResponse<ProductDetails>> subscriber, String sapOrderNo) {
         mService.getShipOrderInfo(sapOrderNo)
@@ -570,7 +570,7 @@ public class HttpMethods {
     /**
      * 发货出库 待办保存
      *
-     * @param subscriber
+     * @param subscriber subscriber
      */
     public void getShipTodoSave(SingleObserver<ResponseInfo> subscriber, RequestBody body) {
         mService.getShipTodoSave(body)
@@ -581,7 +581,7 @@ public class HttpMethods {
     /**
      * 发货出库 已办列表
      *
-     * @param subscriber
+     * @param subscriber subscriber
      */
     public void getShipDoneList(SingleObserver<BaseResponse<ProductList>> subscriber, String type,
                                 String sapOrderNo, String startDate, String endDate) {
@@ -594,7 +594,7 @@ public class HttpMethods {
     /**
      * 发货出库 已办详情
      *
-     * @param subscriber
+     * @param subscriber subscriber
      */
     public void getShipDoneListInfo(SingleObserver<BaseResponse<ProductDetails>> subscriber, String orderId) {
         mService.getShipDoneListInfo(orderId)
@@ -605,7 +605,7 @@ public class HttpMethods {
     /**
      * 发货出库 已办保存
      *
-     * @param subscriber
+     * @param subscriber subscriber
      */
     public void getShipDoneSave(SingleObserver<ResponseInfo> subscriber, RequestBody body) {
         mService.getShipDoneSave(body)
@@ -631,7 +631,7 @@ public class HttpMethods {
     /**
      * 退货入库 待办详情
      *
-     * @param subscriber
+     * @param subscriber subscriber
      */
     public void getReturnOrderInfo(SingleObserver<BaseResponse<ProductDetails>> subscriber, String sapOrderNo) {
         mService.getReturnOrderInfo(sapOrderNo)
@@ -642,7 +642,7 @@ public class HttpMethods {
     /**
      * 退货入库 待办保存
      *
-     * @param subscriber
+     * @param subscriber subscriber
      */
     public void getReturnTodoSave(SingleObserver<ResponseInfo> subscriber, RequestBody body) {
         mService.getReturnTodoSave(body)
@@ -666,7 +666,7 @@ public class HttpMethods {
     /**
      * 退货入库 已办详情
      *
-     * @param subscriber
+     * @param subscriber subscriber
      */
     public void getReturnDoneListInfo(SingleObserver<BaseResponse<ProductDetails>> subscriber, String orderId) {
         mService.getReturnDoneListInfo(orderId)
@@ -677,7 +677,7 @@ public class HttpMethods {
     /**
      * 退货入库 已办保存
      *
-     * @param subscriber
+     * @param subscriber subscriber
      */
     public void getReturnDoneSave(SingleObserver<ResponseInfo> subscriber, RequestBody body) {
         mService.getReturnDoneSave(body)
@@ -699,8 +699,8 @@ public class HttpMethods {
     /**
      * 成品查询
      *
-     * @param observer
-     * @param url
+     * @param observer observer
+     * @param url URL
      */
     public void getProductQuery(SingleObserver<BaseResponse<ProductQuery>> observer, String url) {
         mService.getProductQuery(url)
@@ -726,31 +726,9 @@ public class HttpMethods {
      */
 
     /**
-     * 质检 待办列表
-     *
-     * @param observer
-     */
-    public void getQualityCheckTodoList(SingleObserver<BaseResponse<QualityCheckTodoList>> observer) {
-        mService.getCheckTodoList(CodeConstant.CHECK_STATE_TODO)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
-    }
-
-    /**
-     * 质检 待办详情
-     *
-     * @param observer
-     */
-    public void getQualityCheckTodoInfo(SingleObserver<BaseResponse<QualityCheckTodoDetails>> observer, String arrivalOrderNo) {
-        mService.getCheckTodoInfo(arrivalOrderNo)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
-    }
-
-    /**
      * 质检 待办保存
      *
-     * @param observer
+     * @param observer observer
      */
     public void getQualityCheckTodoSave(SingleObserver<ResponseInfo> observer, RequestBody body) {
         mService.getCheckTodoSave(body)
@@ -761,7 +739,7 @@ public class HttpMethods {
     /**
      * 质检 已办列表
      *
-     * @param observer
+     * @param observer observer
      */
     public void getQualityCheckDoneList(SingleObserver<BaseResponse<MaterialList>> observer,
                                         String sapOrderNo, String startDate, String endDate) {
@@ -773,7 +751,7 @@ public class HttpMethods {
     /**
      * 质检 已办详情
      *
-     * @param observer
+     * @param observer observer
      */
     public void getQualityCheckDoneInfo(SingleObserver<BaseResponse<CheckDoneDetailEvent>> observer, String id) {
         mService.getCheckDoneInfo(id)
@@ -784,7 +762,7 @@ public class HttpMethods {
     /**
      * 质检 已办保存
      *
-     * @param observer
+     * @param observer observer
      */
     public void getQualityCheckDoneSave(SingleObserver<ResponseInfo> observer, RequestBody body) {
         mService.getCheckDoneSave(body)
@@ -914,8 +892,8 @@ public class HttpMethods {
     /**
      * 上传图片
      *
-     * @param observer
-     * @param part
+     * @param observer observer
+     * @param part body
      */
     public void updateCheckImage(SingleObserver<ImageData> observer, MultipartBody.Part part) {
         mService.updateCheckImage(part)

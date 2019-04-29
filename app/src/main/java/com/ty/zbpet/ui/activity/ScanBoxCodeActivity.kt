@@ -20,7 +20,9 @@ import com.ty.zbpet.util.ZBUiUtils
 import com.ty.zbpet.util.scan.ScanBoxInterface
 import com.ty.zbpet.util.scan.ScanObservable
 import kotlinx.android.synthetic.main.activity_scan_box_code.*
+import java.lang.Exception
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * @author TY
@@ -60,7 +62,13 @@ class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface, CommInterface {
         itemId = intent.getIntExtra("itemId", -1)
         goodsNo = intent.getStringExtra("goodsNo")
         state = intent.getBooleanExtra(CodeConstant.PAGE_STATE, false)
-        boxCodeList = intent.getStringArrayListExtra("boxCodeList")
+        // 箱码列表 传过来有可能为 null 。
+        try {
+            boxCodeList = intent.getStringArrayListExtra("boxCodeList")
+        } catch (e: Exception) {
+            boxCodeList = ArrayList()
+            e.printStackTrace()
+        }
 
         val mLayoutManager = LinearLayoutManager(ResourceUtil.getContext())
         recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST, ResourceUtil.dip2px(1), ResourceUtil.getColor(R.color.split_line)))
@@ -157,7 +165,7 @@ class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface, CommInterface {
     private fun checkBoxCode(positionNo: String) {
 
         if (boxCodeList.contains(positionNo)) {
-            ZBUiUtils.showWarning("该箱码扫码过")
+            ZBUiUtils.showWarning(TipString.boxCodeHasBeenScan)
         } else {
             //ArrayList<String> oldList = new ArrayList<>(boxCodeList);
             oldList.clear()

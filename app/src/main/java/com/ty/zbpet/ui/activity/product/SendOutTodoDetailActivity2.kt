@@ -22,6 +22,7 @@ import com.ty.zbpet.presenter.product.SendOutPresenter
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity
 import com.ty.zbpet.ui.adapter.product.SendOutTodoDetailAdapter
 import com.ty.zbpet.base.BaseActivity
+import com.ty.zbpet.constant.TipString
 import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.*
@@ -73,7 +74,7 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
     /**
      * 仓库 name
      */
-    private val houseName = java.util.ArrayList<String>()
+    private val houseName = ArrayList<String>()
 
     /**
      * 列表 ID
@@ -193,7 +194,6 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
                 bean.unit = rawData[i].unit
                 bean.goodsNo = rawData[i].goodsNo
                 bean.goodsName = rawData[i].goodsName
-//                bean.warehouseId = rawData[i].warehouseId
                 bean.warehouseNo = warehouseNo
 
                 detail.add(bean)
@@ -201,7 +201,7 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
         }
         // 没有合法的操作数据,不请求网络
         if (detail.size == 0) {
-            ZBUiUtils.showWarning("请完善您要出库的信息")
+            ZBUiUtils.showWarning(TipString.toLeaveMessage)
             return null
         }
 
@@ -231,7 +231,7 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
 
         if (adapter == null) {
             val manager = LinearLayoutManager(ResourceUtil.getContext())
-            rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+            rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
             rv_in_storage_detail.layoutManager = manager
             adapter = SendOutTodoDetailAdapter(this, R.layout.item_product_detail_send_out_todo, rawData)
             rv_in_storage_detail.adapter = adapter

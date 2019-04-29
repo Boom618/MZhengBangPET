@@ -70,31 +70,24 @@
         android:focusableInTouchMode="true"
         app:layout_constraintTop_toBottomOf="@+id/tv_num">
 
-        <EditText
-            android:id="@+id/et_box_num"
-            style="@style/itemSizeStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+        <TextView
+            android:id="@+id/tv_number"
+            android:text="入库数量:"
+            android:layout_marginTop="@dimen/space_13"
             android:layout_marginStart="@dimen/space_25"
-            android:hint="入库数量"
-            android:inputType="number"
-            app:layout_constraintEnd_toStartOf="@+id/et_bulk_num"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-        <EditText
-            android:id="@+id/et_bulk_num"
-            style="@style/itemSizeStyle"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/tv_product_num"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="@dimen/space_20"
-            android:layout_marginEnd="@dimen/space_25"
-            android:layout_toEndOf="@+id/et_box_num"
-            android:hint="文本"
-            android:inputType="numberDecimal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/et_box_num"
+            android:layout_marginStart="@dimen/space_13"
+            android:text="0"
+            android:layout_marginTop="@dimen/space_13"
+            app:layout_constraintStart_toEndOf="@+id/tv_number"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
@@ -107,7 +100,7 @@
             android:inputType="number"
             app:layout_constraintEnd_toStartOf="@+id/et_end_code"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_box_num" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_product_num" />
 
         <EditText
             android:id="@+id/et_end_code"
@@ -120,7 +113,21 @@
             android:inputType="number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/et_start_code"
-            app:layout_constraintTop_toBottomOf="@+id/et_box_num" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_product_num" />
+
+        <EditText
+            android:id="@+id/et_bulk_num"
+            style="@style/itemSizeStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_25"
+            android:layout_marginEnd="@dimen/space_25"
+            android:hint="文本"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:lines="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_start_code" />
 
         <EditText
             android:id="@+id/et_sap"
@@ -134,7 +141,7 @@
             android:inputType="text"
             android:lines="1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_start_code" />
+            app:layout_constraintTop_toBottomOf="@+id/et_bulk_num" />
 
         <Button
             android:id="@+id/btn_binding_code"
