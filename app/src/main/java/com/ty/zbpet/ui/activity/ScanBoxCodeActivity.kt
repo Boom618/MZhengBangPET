@@ -13,6 +13,7 @@ import com.ty.zbpet.presenter.system.CommPresenter
 import com.ty.zbpet.ui.adapter.BindBoxCodeAdapter
 import com.ty.zbpet.ui.adapter.diffadapter.MaterialDiffUtil
 import com.ty.zbpet.base.BaseActivity
+import com.ty.zbpet.constant.TipString
 import com.ty.zbpet.ui.widght.DividerItemDecoration
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils
@@ -36,7 +37,7 @@ class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface, CommInterface {
     /**
      * 箱码数据
      */
-    private var boxCodeList: ArrayList<String>? = ArrayList()
+    private var boxCodeList: ArrayList<String> = ArrayList()
     private val oldList = ArrayList<String>()
     private var adapter: BindBoxCodeAdapter? = null
     private var itemId: Int = 0
@@ -60,15 +61,12 @@ class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface, CommInterface {
         goodsNo = intent.getStringExtra("goodsNo")
         state = intent.getBooleanExtra(CodeConstant.PAGE_STATE, false)
         boxCodeList = intent.getStringArrayListExtra("boxCodeList")
-        if (boxCodeList == null) {
-            boxCodeList = ArrayList()
-        }
 
         val mLayoutManager = LinearLayoutManager(ResourceUtil.getContext())
-        recyclerView!!.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST, ResourceUtil.dip2px(1), ResourceUtil.getColor(R.color.split_line)))
-        recyclerView!!.layoutManager = mLayoutManager
+        recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST, ResourceUtil.dip2px(1), ResourceUtil.getColor(R.color.split_line)))
+        recyclerView.layoutManager = mLayoutManager
         adapter = BindBoxCodeAdapter(ResourceUtil.getContext(), boxCodeList)
-        recyclerView!!.adapter = adapter
+        recyclerView.adapter = adapter
     }
 
     override fun initTwoView() {
@@ -77,7 +75,7 @@ class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface, CommInterface {
         isOpen = scanInit()
 
         if (state) {
-            initToolBar(R.string.box_binding_list, "保存", View.OnClickListener { returnActivity() })
+            initToolBar(R.string.box_binding_list, TipString.save, View.OnClickListener { returnActivity() })
         } else {
             initToolBar(R.string.box_binding_list)
         }
@@ -87,15 +85,16 @@ class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface, CommInterface {
      * 返回上级 Ac
      */
     private fun returnActivity() {
-        if (boxCodeList!!.size == 0) {
-            ZBUiUtils.showWarning("请扫码")
-            return
+        when (boxCodeList.size) {
+            0 -> ZBUiUtils.showWarning(TipString.scanPlease)
+            else -> {
+                val intent = Intent()
+                intent.putExtra("itemId", itemId)
+                intent.putStringArrayListExtra("boxCodeList", boxCodeList)
+                setResult(CodeConstant.RESULT_CODE, intent)
+                finish()
+            }
         }
-        val intent = Intent()
-        intent.putExtra("itemId", itemId)
-        intent.putStringArrayListExtra("boxCodeList", boxCodeList)
-        setResult(RESULT_SCAN_CODE, intent)
-        finish()
     }
 
     private fun scanInit(): Boolean {
@@ -157,22 +156,17 @@ class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface, CommInterface {
      */
     private fun checkBoxCode(positionNo: String) {
 
-        if (boxCodeList!!.contains(positionNo)) {
+        if (boxCodeList.contains(positionNo)) {
             ZBUiUtils.showWarning("该箱码扫码过")
         } else {
             //ArrayList<String> oldList = new ArrayList<>(boxCodeList);
             oldList.clear()
-            oldList.addAll(boxCodeList!!)
-            boxCodeList!!.add(positionNo)
-            if (adapter != null) {
-                val diffResult = DiffUtil.calculateDiff(MaterialDiffUtil(oldList, boxCodeList))
-                diffResult.dispatchUpdatesTo(adapter!!)
-            }
-        }
-    }
+            oldList.addAll(boxCodeList)
+            boxCodeList.add(positionNo)
+            val diffResult = DiffUtil.calculateDiff(MaterialDiffUtil(oldList, boxCodeList))
+            adapter?.let { diffResult.dispatchUpdatesTo(it) }
 
-    companion object {
-        private const val RESULT_SCAN_CODE = 2
+        }
     }
 
 }

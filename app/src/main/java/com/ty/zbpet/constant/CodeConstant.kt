@@ -75,6 +75,10 @@ object CodeConstant {
     const val PRODUCT_TYPE = "2"
     const val RETURN_TYPE = "3"
 
+    // 相机参数
+    const val REQUEST_CODE = 1
+    const val RESULT_CODE = 2
+
     /**
      * 成品
      *

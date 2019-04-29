@@ -30,6 +30,7 @@ import kotlinx.android.synthetic.main.activity_content_row_three.*
 import okhttp3.RequestBody
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * 生产入库 待办详情
@@ -169,16 +170,10 @@ class ProductTodoDetailActivity : BaseActivity()
         // TODO 获取用户选择的仓库信息
         val houseId = SharedP.getWarehouseId(this@ProductTodoDetailActivity)
 
-//        val warehouseList = userInfo.warehouseList
-
         // 仓库信息
-        val warehouseId: String?
         val warehouseNo: String?
-        val warehouseName: String?
 
-        warehouseId = warehouseList[houseId].warehouseId
         warehouseNo = warehouseList[houseId].warehouseNo
-        warehouseName = warehouseList[houseId].warehouseName
 
         val size = oldList.size
         for (i in 0 until size) {
@@ -211,8 +206,6 @@ class ProductTodoDetailActivity : BaseActivity()
                 bean.endQrCode = endCode
 
                 bean.goodsId = goodsId
-//                bean.warehouseId = oldList[i].warehouseId
-//                bean.warehouseNo = oldList[i].warehouseNo
                 bean.warehouseNo = warehouseNo
                 bean.goodsNo = oldList[i].goodsNo
                 bean.goodsName = oldList[i].goodsName
@@ -234,9 +227,6 @@ class ProductTodoDetailActivity : BaseActivity()
         val productSap = product_sap.text.toString().trim { it <= ' ' }
 
         requestBody.list = detail
-//        requestBody.warehouseId = warehouseId
-//        requestBody.warehouseNo = warehouseNo
-//        requestBody.warehouseName = warehouseName
         requestBody.sapOrderNo = sapOrderNo
         requestBody.moveType = "101"
         requestBody.productionDate = productDate
@@ -252,7 +242,6 @@ class ProductTodoDetailActivity : BaseActivity()
     override fun showProduct(list: MutableList<ProductDetails.ListBean>) {
 
         oldList = list
-//        tv_house.text = warehouseList[0].warehouseName
         for (i in 0 until warehouseList.size){
             if (warehouseList[i].warehouseNo == list[0].warehouseNo) {
                 tv_house.text = warehouseList[i].warehouseName
@@ -292,12 +281,16 @@ class ProductTodoDetailActivity : BaseActivity()
 
                     bindingCode.setOnClickListener {
                         itemId = position
+                        var bean = carCodeArray.get(itemId)
+                        if (bean == null) {
+                            bean = ArrayList()
+                        }
                         val intent = Intent(it.context, ScanBoxCodeActivity::class.java)
                         intent.putExtra("itemId", itemId)
                         intent.putExtra("goodsNo", list[position].goodsNo)
                         intent.putExtra(CodeConstant.PAGE_STATE, true)
-                        intent.putStringArrayListExtra("boxCodeList", carCodeArray.get(itemId))
-                        startActivityForResult(intent, REQUEST_SCAN_CODE)
+                        intent.putStringArrayListExtra("boxCodeList", bean)
+                        startActivityForResult(intent, CodeConstant.REQUEST_CODE)
                     }
 
                     ZBUiUtils.hideInputWindow(view.context, view)
@@ -331,7 +324,7 @@ class ProductTodoDetailActivity : BaseActivity()
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_SCAN_CODE && resultCode == RESULT_SCAN_CODE) {
+        if (requestCode == CodeConstant.REQUEST_CODE && resultCode == CodeConstant.RESULT_CODE) {
             itemId = data!!.getIntExtra("itemId", -1)
             boxCodeList = data.getStringArrayListExtra("boxCodeList")
             carCodeArray.put(itemId, boxCodeList)
@@ -344,9 +337,9 @@ class ProductTodoDetailActivity : BaseActivity()
         presenter.dispose()
     }
 
-    companion object {
-
-        private const val REQUEST_SCAN_CODE = 1
-        private const val RESULT_SCAN_CODE = 2
-    }
+//    companion object {
+//
+//        private const val REQUEST_SCAN_CODE = 1
+//        private const val RESULT_SCAN_CODE = 2
+//    }
 }

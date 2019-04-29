@@ -908,7 +908,7 @@ public class HttpMethods {
                 .subscribe(observer);
     }
 
-    // 成品移出原仓库 TODO ==
+    // 成品移出原仓库
     public void goodsMoveOrder(SingleObserver<ResponseInfo> observer,RequestBody body){
         mService.goodsMoveOrder(body)
                 .observeOn(AndroidSchedulers.mainThread())

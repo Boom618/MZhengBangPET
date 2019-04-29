@@ -12,6 +12,7 @@ object TipString {
     const val submit = "提交"
     const val define = "确定"
     const val moveHouse = "移库"
+    const val scanPlease = "请扫码"
     const val scanLocationSource = "请扫源库位"
     const val scanLocationTarget = "请扫目标库位"
 
