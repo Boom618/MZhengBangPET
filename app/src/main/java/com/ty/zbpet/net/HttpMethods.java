@@ -22,13 +22,7 @@ import com.ty.zbpet.bean.system.QualityCheckTodoList;
 import com.ty.zbpet.bean.system.ReceiptList;
 import com.ty.zbpet.constant.ApiNameConstant;
 import com.ty.zbpet.constant.CodeConstant;
-import com.ty.zbpet.net.gson.DoubleDefault0Adapter;
-import com.ty.zbpet.net.gson.IntegerDefault0Adapter;
-import com.ty.zbpet.net.gson.LongDefault0Adapter;
-import com.ty.zbpet.net.gson.StringDefault0Adapter;
-
 import java.util.concurrent.TimeUnit;
-
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -53,9 +47,7 @@ public class HttpMethods {
      * 默认超时时间
      */
     private static final int DEFAULT_TIMEOUT = 20;
-    private Retrofit mRetrofit;
     private ApiService mService;
-    private static Gson gson;
     private String baseUrl = ApiNameConstant.BASE_URL;
 
     public void setBaseUrl(String baseUrl) {
@@ -83,7 +75,7 @@ public class HttpMethods {
                 .setLenient()
                 .create();
 
-        mRetrofit = new Retrofit.Builder()
+        Retrofit mRetrofit = new Retrofit.Builder()
                 .client(client.build())
 //                .addConverterFactory(GsonConverterFactory.create(buildGson()))
                 .addConverterFactory(GsonConverterFactory.create(gson))
@@ -932,23 +924,5 @@ public class HttpMethods {
     }
 
 
-    /**
-     * --------------------------------- Gson  ----------------------------------------
-     */
-
-    private static Gson buildGson() {
-        if (gson == null) {
-            gson = new GsonBuilder()
-                    .registerTypeAdapter(Integer.class, new IntegerDefault0Adapter())
-                    .registerTypeAdapter(int.class, new IntegerDefault0Adapter())
-                    .registerTypeAdapter(Double.class, new DoubleDefault0Adapter())
-                    .registerTypeAdapter(double.class, new DoubleDefault0Adapter())
-                    .registerTypeAdapter(Long.class, new LongDefault0Adapter())
-                    .registerTypeAdapter(long.class, new LongDefault0Adapter())
-                    .registerTypeAdapter(String.class, new StringDefault0Adapter())
-                    .create();
-        }
-        return gson;
-    }
 
 }
