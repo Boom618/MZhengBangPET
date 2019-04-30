@@ -117,10 +117,13 @@
     <string name="material_reversal">冲销</string>
     <string name="materials_move">原辅料移库</string>
     <string name="move_room_source">源库位</string>
+    <string name="move_house_source">原仓库</string>
     <string name="move_room_target">目标库位</string>
+    <string name="move_house_target">目标仓库</string>
     <string name="product_move">成品移库</string>
     <string name="move_number">移库数量：</string>
     <string name="product_select">产品选择</string>
     <string name="house_select">仓库选择：</string>
     <string name="house_target">目标仓库：</string>
+    <string name="reversal_select">冲销选择</string>
 </resources>

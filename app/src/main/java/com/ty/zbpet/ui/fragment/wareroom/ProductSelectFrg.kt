@@ -45,7 +45,6 @@ class ProductSelectFrg : BaseSupFragment(), ComplexInterface<String> {
         // 产品名称
         view.tv_product.setOnClickListener {
             //ZBUiUtils.selectDialog(it.context, CodeConstant.SELECT_HOUSE_BUY_IN, 0, houseList, view.tv_product)
-            //presenter.goodsStock(goodsNo, warehouseNo)
         }
 
         // 默认值
@@ -56,9 +55,7 @@ class ProductSelectFrg : BaseSupFragment(), ComplexInterface<String> {
             ZBUiUtils.selectDialog(it.context, CodeConstant.SELECT_HOUSE_BUY_IN, 0, houseList, view.tv_house)
 
 //            val which = SharedP.getWarehouseId(it.context)
-//            warehouseNo = warehouseList[which].warehouseNo
 //
-//            presenter.goodsStock(goodsNo, warehouseNo)
         }
         return view
     }

@@ -45,7 +45,7 @@
             android:layout_marginTop="@dimen/x20"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="成品代码：" />
+            android:text="成品代码：" />
 
         <TextView
             android:id="@+id/tv_product_name"
@@ -54,7 +54,7 @@
             android:layout_marginTop="@dimen/x10"
             app:layout_constraintStart_toStartOf="@+id/tv_product_code"
             app:layout_constraintTop_toBottomOf="@+id/tv_product_code"
-            tools:text="成品名称：" />
+            android:text="成品名称：" />
 
         <TextView
             android:id="@+id/tv_old_house"
@@ -63,7 +63,7 @@
             android:layout_marginTop="@dimen/x10"
             app:layout_constraintStart_toStartOf="@+id/tv_product_code"
             app:layout_constraintTop_toBottomOf="@+id/tv_product_name"
-            tools:text="原仓库：" />
+            android:text="原仓库：" />
 
         <TextView
             android:id="@+id/tv_number"
@@ -72,7 +72,7 @@
             android:layout_marginTop="@dimen/x10"
             app:layout_constraintStart_toStartOf="@+id/tv_product_code"
             app:layout_constraintTop_toBottomOf="@+id/tv_old_house"
-            tools:text="库存数量：" />
+            android:text="库存数量：" />
 
         <TextView
             android:id="@+id/tv_content"
@@ -81,7 +81,7 @@
             android:layout_marginTop="@dimen/x10"
             app:layout_constraintStart_toStartOf="@+id/tv_product_code"
             app:layout_constraintTop_toBottomOf="@+id/tv_number"
-            tools:text="含量：" />
+            android:text="含量：" />
 
         <TextView
             android:id="@+id/tv_move_number"
@@ -90,7 +90,14 @@
             android:layout_marginTop="@dimen/x10"
             app:layout_constraintStart_toStartOf="@+id/tv_product_code"
             app:layout_constraintTop_toBottomOf="@+id/tv_content"
-            tools:text="移库数量：" />
+            android:text="移库数量：" />
+
+        <Button
+            android:id="@+id/bt_scan_pro"
+            android:text="扫码移库"
+            app:layout_constraintTop_toBottomOf="@+id/tv_move_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
 
     </android.support.constraint.ConstraintLayout>

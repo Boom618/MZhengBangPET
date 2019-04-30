@@ -800,12 +800,27 @@ interface ApiService {
     fun goodsMoveOrder(@Body body: RequestBody): Single<ResponseInfo>
 
     // 获取成品移库单
+    @FormUrlEncoded
     @POST(ApiNameConstant.moveProductList)
-    fun moveProductList():Single<ResponseInfo>
+    fun moveProductList(): Single<ResponseInfo>
 
     // 成品移入目标仓库
     @POST(ApiNameConstant.goodsMoveToTarget)
-    fun goodsMoveToTarget(): Single<ResponseInfo>
+    fun goodsMoveToTarget(@Body body: RequestBody): Single<ResponseInfo>
+
+    // 成品待冲销列表
+    @POST(ApiNameConstant.goodsRecallList)
+    fun goodsRecallList(): Single<ResponseInfo>
+
+    // 成品冲销
+    @FormUrlEncoded
+    @POST(ApiNameConstant.goodsMoveRecall)
+    fun goodsMoveRecall(@Field("id") id: String): Single<ResponseInfo>
+
+    // 成品移出源库位冲销(314冲销)
+    @FormUrlEncoded
+    @POST(ApiNameConstant.goodsSourceRecall1)
+    fun goodsSourceRecall1(@Field("id") id: String): Single<ResponseInfo>
 
 
     /*--------------------------------- 图片 --------------------------------------------*/

@@ -892,6 +892,13 @@ public class HttpMethods {
                 .subscribe(observer);
     }
 
+    // 成品待冲销列表
+    public void goodsRecallList(SingleObserver<ResponseInfo> observer){
+        mService.goodsRecallList()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
     /*
      * --------------------------------- 图片上传 ----------------------------------------
      */

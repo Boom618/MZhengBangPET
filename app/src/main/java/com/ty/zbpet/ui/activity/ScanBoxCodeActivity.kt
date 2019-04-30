@@ -172,8 +172,8 @@ class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface, CommInterface {
      */
     override fun ScanSuccess(position: Int, positionNo: String) {
 
-        presenter.urlAnalyze(positionNo, goodsNo)
-//        checkBoxCode(positionNo)
+//        presenter.urlAnalyze(positionNo, goodsNo)
+        checkBoxCode(positionNo)
     }
 
     override fun urlAnalyze(codeNo: String) {

@@ -30,8 +30,6 @@ class ProductMoveActivity : BaseActivity() {
     private var itemId = 0
     private var codeList = ArrayList<String>()
     private var codeArray: SparseArray<ArrayList<String>> = SparseArray(10)
-    private val REQUEST_SCAN_CODE = 1
-    private val RESULT_SCAN_CODE = 2
 
     private var adapter: ProductMoveAdapter? = null
 
@@ -77,8 +75,7 @@ class ProductMoveActivity : BaseActivity() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun eventAdapter(event: AdapterButtonClick) {
         val position = event.position()
-        val type = event.type()
-        when(type){
+        when(event.type()){
             CodeConstant.BUTTON_TYPE ->{
                 val list = codeArray[position]
                 val intent = Intent(this, ScanBoxCodeActivity::class.java)
@@ -86,7 +83,7 @@ class ProductMoveActivity : BaseActivity() {
                 intent.putExtra("itemId", position)
                 intent.putExtra("goodsNo", "")
                 intent.putStringArrayListExtra("boxCodeList", list)
-                startActivityForResult(intent, REQUEST_SCAN_CODE)
+                startActivityForResult(intent, CodeConstant.REQUEST_CODE)
             }
             CodeConstant.SELECT_TYPE ->{
             }
@@ -95,7 +92,7 @@ class ProductMoveActivity : BaseActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_SCAN_CODE && resultCode == RESULT_SCAN_CODE) {
+        if (requestCode == CodeConstant.REQUEST_CODE && resultCode == CodeConstant.RESULT_CODE) {
             itemId = data!!.getIntExtra("itemId", -1)
             codeList = data.getStringArrayListExtra("boxCodeList")
             codeArray.put(itemId, codeList)

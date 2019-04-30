@@ -13,6 +13,7 @@ object TipString {
     const val define = "确定"
     const val moveHouse = "移库"
     const val scanPlease = "请扫码"
+    const val moveSuccess = "移库成功"
     const val deleteBoxCode = "删除箱码"
     const val boxCodeNumber = "已扫箱码数量"
     const val scanLocationSource = "请扫源库位"

@@ -269,7 +269,7 @@ public class MovePresenter {
     /**
      * 获取成品移库单 314待冲销列表
      */
-    private void moveProductList() {
+    public void moveProductList() {
         httpMethods.moveProductList(new SingleObserver<ResponseInfo>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -292,4 +292,29 @@ public class MovePresenter {
         });
     }
 
+    /**
+     * 成品待冲销列表
+     */
+    public void goodsRecallList() {
+        httpMethods.goodsRecallList(new SingleObserver<ResponseInfo>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo responseInfo) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    compInterface.responseSuccess();
+                } else {
+                    compInterface.showError(responseInfo.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                compInterface.showError(e.getMessage());
+            }
+        });
+    }
 }
