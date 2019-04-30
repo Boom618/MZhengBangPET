@@ -27,7 +27,7 @@ import okhttp3.RequestBody
 class MaterialsReversalFrg : BaseSupFragment(), ComplexInterface<PositionCode.StockListBean> {
 
     private var adapter: MaterialReversalAdapter? = null
-    private var reverList: MutableList<PositionCode.StockListBean> = mutableListOf()
+    private var reversalList: MutableList<PositionCode.StockListBean> = mutableListOf()
     private val presenter: MovePresenter = MovePresenter(this)
 
     override val fragmentLayout: Int
@@ -56,13 +56,13 @@ class MaterialsReversalFrg : BaseSupFragment(), ComplexInterface<PositionCode.St
             val view = recycler_mater.getChildAt(i)
             val checkBox = view.findViewById<CheckBox>(R.id.check)
             if (checkBox.isChecked) {
-                stockId = reverList[i].stockId
+                stockId = reversalList[i].stockId
             }
         }
 
 
 
-        val json = Gson().toJson(reverList)
+        val json = Gson().toJson(reversalList)
         return RequestBodyJson.requestBody(json)
     }
 
@@ -74,7 +74,7 @@ class MaterialsReversalFrg : BaseSupFragment(), ComplexInterface<PositionCode.St
     }
 
     override fun showListData(list: MutableList<PositionCode.StockListBean>) {
-        reverList = list
+        reversalList = list
         context?.let { LayoutInit.initLayoutManager(it, recycler_mater) }
         recycler_mater.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
         adapter = context?.let { MaterialReversalAdapter(it, R.layout.item_reversal_source_frg, list) }

@@ -885,6 +885,13 @@ public class HttpMethods {
                 .subscribe(observer);
     }
 
+    // 获取成品移库单
+    public void moveProductList(SingleObserver<ResponseInfo> observer){
+        mService.moveProductList()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
     /*
      * --------------------------------- 图片上传 ----------------------------------------
      */

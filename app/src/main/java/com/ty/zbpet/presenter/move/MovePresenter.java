@@ -237,4 +237,59 @@ public class MovePresenter {
         }, goodsNo, warehouseNo);
     }
 
+
+    /**
+     * 成品移出原仓库
+     *
+     * @param body body
+     */
+    public void goodsMoveOrder(RequestBody body) {
+        httpMethods.goodsMoveOrder(new SingleObserver<ResponseInfo>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo responseInfo) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    compInterface.responseSuccess();
+                } else {
+                    compInterface.showError(responseInfo.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                compInterface.showError(e.getMessage());
+            }
+        }, body);
+    }
+
+    /**
+     * 获取成品移库单 314待冲销列表
+     */
+    private void moveProductList() {
+        httpMethods.moveProductList(new SingleObserver<ResponseInfo>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo responseInfo) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    compInterface.responseSuccess();
+                } else {
+                    compInterface.showError(responseInfo.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                compInterface.showError(e.getMessage());
+            }
+        });
+    }
+
 }

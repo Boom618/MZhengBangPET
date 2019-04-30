@@ -262,11 +262,14 @@ object ApiNameConstant {
     // 成品移出源库位
     const val goodsMoveOrder = "stock/moveStock/createGoodsMoveOrder"
 
+    // 获取成品移库单
+    const val moveProductList = "stock/moveStock/getGoodsMoveList"
+
     // 成品移入目标库位
-    const val goodsMove = "stock/moveStock/goodsMove"
+    const val goodsMoveToTarget = "stock/moveStock/goodsMove"
 
     // 成品待冲销列表
-    const val goodsMoveList = "stock/moveStock/goodsMoveList"
+    const val goodsRecallList = "stock/moveStock/goodsMoveList"
 
     // 成品冲销
     const val goodsMoveRecall = "stock/moveStock/goodsMoveRecall"

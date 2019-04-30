@@ -799,9 +799,13 @@ interface ApiService {
     @POST(ApiNameConstant.goodsMoveOrder)
     fun goodsMoveOrder(@Body body: RequestBody): Single<ResponseInfo>
 
+    // 获取成品移库单
+    @POST(ApiNameConstant.moveProductList)
+    fun moveProductList():Single<ResponseInfo>
+
     // 成品移入目标仓库
-    @POST(ApiNameConstant.goodsMove)
-    fun goodsMove(): Single<ResponseInfo>
+    @POST(ApiNameConstant.goodsMoveToTarget)
+    fun goodsMoveToTarget(): Single<ResponseInfo>
 
 
     /*--------------------------------- 图片 --------------------------------------------*/

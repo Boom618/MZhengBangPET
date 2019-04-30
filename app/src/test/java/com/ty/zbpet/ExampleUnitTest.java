@@ -1,10 +1,14 @@
 package com.ty.zbpet;
 
+import android.util.Log;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.ty.zbpet.util.JsonStringMerge;
 
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -33,5 +37,18 @@ public class ExampleUnitTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void list_add() {
+        ArrayList<String> list = new ArrayList<>();
+        list.add("1111");
+        list.add("2222");
+        list.add("3333");
+        System.out.println(list.get(0));
+        list.add(0, "aaaa");
+
+        String s = list.get(0);
+        System.out.println(s);
     }
 }
