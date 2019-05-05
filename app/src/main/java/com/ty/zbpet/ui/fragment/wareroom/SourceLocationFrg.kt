@@ -79,6 +79,10 @@ class SourceLocationFrg : BaseSupFragment(), ComplexInterface<PositionCode> {
                 return null
             }*/
         }
+        if (listBean.size == 0) {
+            ZBUiUtils.showWarning("移库数量不能为空")
+            return null
+        }
         data.list = listBean
         data.positionNo = positionNo
         //data.time = "2019-02-26"

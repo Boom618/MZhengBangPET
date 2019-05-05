@@ -10,6 +10,9 @@ import okhttp3.Response
 import android.support.v4.content.ContextCompat.startActivity
 import com.ty.zbpet.ui.activity.system.LoginActivity
 import android.content.Intent
+import com.google.gson.Gson
+import com.ty.zbpet.bean.ResponseInfo
+import com.ty.zbpet.constant.TipString
 import com.ty.zbpet.ui.ActivitiesHelper
 import com.ty.zbpet.ui.MainApp
 
@@ -25,6 +28,7 @@ class SessionInterceptor : Interceptor {
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
+        val response = chain.proceed(chain.request())
 
         var sessionId = ""
         try {
@@ -37,6 +41,14 @@ class SessionInterceptor : Interceptor {
 //            val intent = Intent(activity, LoginActivity::class.java)
 //            activity.startActivity(intent)
 //        }
+        val content = response.body()!!.string()
+        val fromJson = Gson().fromJson(content, ResponseInfo::class.java)
+        if (fromJson.tag == "500") {// || fromJson.status == "500"
+            val activity = ActivitiesHelper.get().lastActivity
+            val intent = Intent(activity, LoginActivity::class.java)
+            activity.startActivity(intent)
+            throw Throwable(TipString.loginRetry)
+        }
 
         val authorised = originalRequest.newBuilder()
                 //.header(CodeConstant.SESSION_ID_KEY, "uIXH5MJxyDY4TXQXUL_BL4WvHLZyy4Vf")

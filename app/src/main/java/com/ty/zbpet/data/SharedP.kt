@@ -38,18 +38,19 @@ object SharedP {
                 .apply()
     }
 
-    //  生产入库 仓库位置
+    //  生产入库 仓库位置/
     @JvmStatic
-    fun putWarehouseId(context: Context, position: Int) {
+    fun putGoodsOrHouseId(context: Context, position: Int, type: String) {
         context.getSharedPreferences("shared", Context.MODE_PRIVATE)
                 .edit()
-                .putInt("houseId", position)
+                .putInt(type, position)
                 .apply()
     }
+
     @JvmStatic
-    fun getWarehouseId(context: Context): Int {
+    fun getGoodsOrHouseId(context: Context, type: String): Int {
         return context.getSharedPreferences("shared", Context.MODE_PRIVATE)
-                .getInt("houseId", 0)
+                .getInt(type, 0)
     }
 
 }

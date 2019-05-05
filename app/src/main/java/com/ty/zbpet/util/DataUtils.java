@@ -5,7 +5,6 @@ import android.util.SparseArray;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.ty.zbpet.bean.UserInfo;
 import com.ty.zbpet.constant.CodeConstant;
 
 import java.util.ArrayList;
@@ -89,38 +88,9 @@ public class DataUtils {
 //    }
 
     /**
-     * 成品 仓库和商品
-     */
-    private static SparseArray<SparseArray<Integer>> positionAndWhich = new SparseArray(5);
-    private static SparseArray<Integer> sparseArray = new SparseArray<>(20);
-
-    /**
      * 质检图片
      */
     private static ArrayList<String> imageList = new ArrayList<>(5);
-
-
-    /**
-     * 发货出库 中的商品存值算法
-     *
-     * @param position
-     * @param which
-     */
-    public static void setGoodsId(int position, int which) {
-        sparseArray.put(position, which);
-        positionAndWhich.put(CodeConstant.INSTANCE.getSELECT_GOODS(), sparseArray);
-    }
-
-    public static SparseArray<Integer> getGoodsId() {
-        SparseArray<Integer> goodsArray = positionAndWhich.get(CodeConstant.INSTANCE.getSELECT_GOODS());
-        if (goodsArray == null) {
-            goodsArray = new SparseArray<>();
-            goodsArray.put(0, 0);
-        }
-        return goodsArray;
-    }
-
-
 
     /**
      * ----- 保存质检图片 --------
@@ -137,14 +107,5 @@ public class DataUtils {
         if (imageList != null) {
             imageList.clear();
         }
-    }
-
-
-    /**
-     * 清除 sparseArray 数据
-     */
-    public static void clearId() {
-        positionAndWhich.put(CodeConstant.SELECT_HOUSE_BUY_IN, null);
-        positionAndWhich.put(CodeConstant.INSTANCE.getSELECT_GOODS(), null);
     }
 }

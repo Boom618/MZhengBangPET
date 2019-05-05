@@ -28,7 +28,6 @@ import com.ty.zbpet.util.*
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import kotlinx.android.synthetic.main.activity_content_row_three.*
-import kotlinx.android.synthetic.main.item_produce_detail_todo.*
 import okhttp3.RequestBody
 import java.text.SimpleDateFormat
 import java.util.*
@@ -101,7 +100,7 @@ class ProductTodoDetailActivity : BaseActivity()
 
         // 仓库默认值设置
 //        DataUtils.setHouseId(0, 0)
-        SharedP.putWarehouseId(this@ProductTodoDetailActivity, 0)
+        SharedP.putGoodsOrHouseId(this@ProductTodoDetailActivity, 0,CodeConstant.TYPE_HOUSE)
 
         // 不登录用户数据：DataUtils.getUserInfo()
         userInfo = SimpleCache.getUserInfo(CodeConstant.USER_DATA)
@@ -141,7 +140,7 @@ class ProductTodoDetailActivity : BaseActivity()
         }
 
         // 用户选择仓库信息
-        tv_house!!.setOnClickListener { v -> ZBUiUtils.selectDialog(v.context, CodeConstant.SELECT_HOUSE_BUY_IN, 0, houseName, tv_house) }
+        tv_house!!.setOnClickListener { v -> ZBUiUtils.selectDialog(v.context, CodeConstant.TYPE_HOUSE, 0, houseName, tv_house) }
 
     }
 
@@ -170,7 +169,7 @@ class ProductTodoDetailActivity : BaseActivity()
         val detail = ArrayList<ProductTodoSave.DetailsBean>()
 
         // TODO 获取用户选择的仓库信息
-        val houseId = SharedP.getWarehouseId(this@ProductTodoDetailActivity)
+        val houseId = SharedP.getGoodsOrHouseId(this@ProductTodoDetailActivity,CodeConstant.TYPE_HOUSE)
 
         // 仓库信息
         val warehouseNo: String?
@@ -247,7 +246,7 @@ class ProductTodoDetailActivity : BaseActivity()
         for (i in 0 until warehouseList.size) {
             if (warehouseList[i].warehouseNo == list[0].warehouseNo) {
                 tv_house.text = warehouseList[i].warehouseName
-                SharedP.putWarehouseId(this, i)
+                SharedP.putGoodsOrHouseId(this, i,CodeConstant.TYPE_HOUSE)
                 break
             } else {
                 if (i == warehouseList.size - 1) {

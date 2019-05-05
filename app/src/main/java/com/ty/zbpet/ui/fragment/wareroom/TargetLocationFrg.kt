@@ -47,11 +47,16 @@ class TargetLocationFrg : BaseSupFragment(), ComplexInterface<PositionCode> {
      */
     override fun onSupportVisible() {
         super.onSupportVisible()
+
+        presenter.moveList()
+        isList = true
+    }
+
+    override fun onStart() {
+        super.onStart()
         initToolBar(R.string.move_room_target, TipString.define, View.OnClickListener {
             initReqBody()
         })
-        presenter.moveList()
-        isList = true
     }
 
     private fun initReqBody() {
@@ -64,13 +69,15 @@ class TargetLocationFrg : BaseSupFragment(), ComplexInterface<PositionCode> {
         val count = listSource.size
         for (i in 0 until count) {
             val view = recycler_target.getChildAt(i)
-            val checkBox = view.findViewById<CheckBox>(R.id.check)
+            //val checkBox = view.findViewById<CheckBox>(R.id.check)
+//            view?.let { view.check }
+            val checkBox = view?.let { view.findViewById(R.id.check) as CheckBox}
             // TODO 单选 待完善
-            if (checkBox.isChecked) {
-                id = listSource[i].id!!
-            }
+//            if (checkBox.isChecked) {
+//                id = listSource[i].id!!
+//            }
+            checkBox?.let { if (it.isChecked) id = listSource[i].id!! }
         }
-        // id,positionNo,warehouseNo,time
         presenter.moveMaterial(id, positionNo, warehouseNo, "")
     }
 

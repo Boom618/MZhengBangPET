@@ -114,7 +114,7 @@ public class ZBUiUtils {
      * @param data     数据集
      * @param textView 控件
      */
-    public static void selectDialog(Context context, final int type, final int position, final List<String> data, final TextView textView) {
+    public static void selectDialog(Context context, final String type, final int position, final List<String> data, final TextView textView) {
 
         NormalSelectionDialog.Builder builder = new NormalSelectionDialog.Builder(context);
 
@@ -125,11 +125,10 @@ public class ZBUiUtils {
                         textView.setText(data.get(which));
 
                         // 选择的仓库 还是 商品
-                        if (CodeConstant.SELECT_HOUSE_BUY_IN == type) {
-                            //DataUtils.setHouseId(position, which);
-                            SharedP.putWarehouseId(context, which);
+                        if (CodeConstant.TYPE_HOUSE.equals(type)) {
+                            SharedP.putGoodsOrHouseId(context, which,CodeConstant.TYPE_HOUSE);
                         } else {
-                            DataUtils.setGoodsId(position, which);
+                            SharedP.putGoodsOrHouseId(context, which,CodeConstant.TYPE_GOODS);
                         }
 
                         dialog.dismiss();

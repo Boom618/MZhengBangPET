@@ -123,7 +123,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
             }
         }
         // 用户选择仓库信息
-        //tv_house.setOnClickListener { v -> ZBUiUtils.selectDialog(v.context, CodeConstant.SELECT_HOUSE_BUY_IN, 0, houseName, tv_house) }
+        //tv_house.setOnClickListener { v -> ZBUiUtils.selectDialog(v.context, CodeConstant.TYPE_HOUSE, 0, houseName, tv_house) }
     }
 
     /**
@@ -148,7 +148,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
         val requestBody = ProductTodoSave()
         val detail = ArrayList<ProductTodoSave.DetailsBean>()
 
-//        val houseId = SharedP.getWarehouseId(this)
+//        val houseId = SharedP.getGoodsOrHouseId(this)
 //        val warehouseNo = warehouseList[houseId].warehouseNo
 
         val size = oldList.size

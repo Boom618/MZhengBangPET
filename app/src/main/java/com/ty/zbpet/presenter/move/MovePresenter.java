@@ -2,9 +2,17 @@ package com.ty.zbpet.presenter.move;
 
 import com.ty.zbpet.base.BaseResponse;
 import com.ty.zbpet.bean.ResponseInfo;
+import com.ty.zbpet.bean.eventbus.ErrorMessage;
 import com.ty.zbpet.bean.system.PositionCode;
+import com.ty.zbpet.bean.system.ProductInventorList;
 import com.ty.zbpet.constant.CodeConstant;
+import com.ty.zbpet.constant.TipString;
 import com.ty.zbpet.net.HttpMethods;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.net.SocketTimeoutException;
+import java.util.List;
 
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
@@ -52,7 +60,6 @@ public class MovePresenter {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
                     PositionCode data = response.getData();
                     compInterface.showObjData(data);
-                    //EventBus.getDefault().post("");
                 } else {
                     compInterface.showError(response.getMessage());
                 }
@@ -109,7 +116,6 @@ public class MovePresenter {
             public void onSuccess(BaseResponse<PositionCode> responseInfo) {
                 compInterface.hideLoading();
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
-//                    compInterface.showListData(responseInfo.getData().getList());
                     compInterface.showObjData(responseInfo.getData());
                 } else {
                     compInterface.showError(responseInfo.getMessage());
@@ -207,7 +213,11 @@ public class MovePresenter {
 
             @Override
             public void onError(Throwable e) {
-                compInterface.showError(e.getMessage());
+                if (e instanceof SocketTimeoutException) {
+                    compInterface.showError(TipString.loginRetry);
+                } else {
+                    compInterface.showError(e.getMessage());
+                }
             }
         }, body);
     }
@@ -217,24 +227,59 @@ public class MovePresenter {
      */
     public void goodsStock(String goodsNo, String warehouseNo) {
         compInterface.showLoading();
-        httpMethods.goodsStock(new SingleObserver<ResponseInfo>() {
+        httpMethods.goodsStock(new SingleObserver<BaseResponse<ProductInventorList>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;
             }
 
             @Override
-            public void onSuccess(ResponseInfo responseInfo) {
+            public void onSuccess(BaseResponse<ProductInventorList> responseInfo) {
                 compInterface.hideLoading();
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    compInterface.showListData(responseInfo.getData().getList());
+                }else{
+                    compInterface.showError(responseInfo.getMessage());
+                }
+            }
 
+            @Override
+            public void onError(Throwable e) {
+                if (e instanceof SocketTimeoutException) {
+                    compInterface.showError(TipString.loginRetry);
+                } else {
+                    compInterface.showError(e.getMessage());
+                }
+
+            }
+        }, goodsNo, warehouseNo);
+    }
+
+    /**
+     * 获取产品列表
+     */
+    public void getGoodsList(int pageSize, String goodsNo) {
+        httpMethods.getGoodsList(new SingleObserver<BaseResponse<ProductInventorList>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(BaseResponse<ProductInventorList> response) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
+                    List<ProductInventorList.ListBean> list = response.getData().getList();
+                    compInterface.showListData(list);
+                } else {
+                    compInterface.showError(response.getMessage());
+                }
             }
 
             @Override
             public void onError(Throwable e) {
                 compInterface.showError(e.getMessage());
-
             }
-        }, goodsNo, warehouseNo);
+        }, pageSize, goodsNo);
     }
 
 

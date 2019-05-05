@@ -83,12 +83,12 @@ object CodeConstant {
      * 成品
      *
      *
-     * SELECT_HOUSE_BUY_IN : 选择的是哪个仓库
-     * SELECT_GOODS:        选择的是哪个商品
+     * TYPE_HOUSE : 选择的是哪个仓库
+     * TYPE_GOODS:        选择的是哪个商品
      * SELECT_IMAGE:        质检上传的图片
      */
-    const val SELECT_HOUSE_BUY_IN = 100
-    val SELECT_GOODS = 300
+    const val TYPE_HOUSE = "house"
+    const val TYPE_GOODS = "goods"
     const val SELECT_IMAGE = 700
 
 

@@ -46,7 +46,7 @@ public class HttpMethods {
     /**
      * 默认超时时间
      */
-    private static final int DEFAULT_TIMEOUT = 20;
+    private static final int DEFAULT_TIMEOUT = 60;
     private ApiService mService;
     private String baseUrl = ApiNameConstant.BASE_URL;
 
@@ -68,6 +68,7 @@ public class HttpMethods {
         //创建OKHttpClient
         OkHttpClient.Builder client = new OkHttpClient.Builder()
                 .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+                .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .addInterceptor(new SessionInterceptor())
                 // 日志拦截器: new LogInterceptor()
                 .addInterceptor(log);
@@ -872,7 +873,7 @@ public class HttpMethods {
     }
 
     // 获取产品仓库库存
-    public void goodsStock(SingleObserver<ResponseInfo> observer, String goodsNo, String warehouseNo) {
+    public void goodsStock(SingleObserver<BaseResponse<ProductInventorList>> observer, String goodsNo, String warehouseNo) {
         mService.goodsStock(goodsNo, warehouseNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

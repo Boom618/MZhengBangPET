@@ -2,24 +2,13 @@ package com.ty.zbpet.ui.fragment.wareroom
 
 import android.os.Bundle
 import android.view.View
-import android.widget.CheckBox
 import com.ty.zbpet.R
 import com.ty.zbpet.base.BaseSupFragment
-import com.ty.zbpet.bean.eventbus.system.FragmentScanEvent
 import com.ty.zbpet.bean.system.PositionCode
-import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.constant.TipString
 import com.ty.zbpet.presenter.move.ComplexInterface
 import com.ty.zbpet.presenter.move.MovePresenter
-import com.ty.zbpet.ui.adapter.LayoutInit
-import com.ty.zbpet.ui.adapter.wareroom.TargetAdapter
-import com.ty.zbpet.ui.widght.SpaceItemDecoration
-import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils
-import kotlinx.android.synthetic.main.fragment_move_target.*
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 
 /**
  * @author TY on 2019/4/24.

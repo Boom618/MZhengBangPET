@@ -725,15 +725,6 @@ interface ApiService {
                      @Query("pageNumber") pageNumber: Int): Single<BaseResponse<ProductInventorList>>
 
     /**
-     * 成品盘点 goodsNo
-     *
-     * @return Single
-     */
-    @GET(ApiNameConstant.GET_GOODS_LIST)
-    fun getGoodsNo(@Query("goodsNo") goodsNo: String): Single<String>
-
-
-    /**
      * 盘点列表
      *
      * @param type 1产品盘点单 2原辅料盘点单
@@ -793,14 +784,13 @@ interface ApiService {
     @FormUrlEncoded
     @POST(ApiNameConstant.GoodsStock)
     fun goodsStock(@Field("goodsNo") goodsNo: String,
-                   @Field("warehouseNo") warehouseNo: String): Single<ResponseInfo>
+                   @Field("warehouseNo") warehouseNo: String): Single<BaseResponse<ProductInventorList>>
 
     // 成品移出原仓库
     @POST(ApiNameConstant.goodsMoveOrder)
     fun goodsMoveOrder(@Body body: RequestBody): Single<ResponseInfo>
 
     // 获取成品移库单
-    @FormUrlEncoded
     @POST(ApiNameConstant.moveProductList)
     fun moveProductList(): Single<ResponseInfo>
 

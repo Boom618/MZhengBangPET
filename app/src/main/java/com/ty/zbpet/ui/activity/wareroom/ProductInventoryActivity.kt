@@ -46,7 +46,7 @@ class ProductInventoryActivity : BaseActivity() {
     override fun onBaseCreate(savedInstanceState: Bundle?) {
         EventBus.getDefault().register(this)
         goodsNo = intent.getStringExtra("goodsNo")
-        presenter.getGoodsList(0, goodsNo)
+        presenter.getGoodsList(10, goodsNo)
     }
 
     override fun initOneData() {

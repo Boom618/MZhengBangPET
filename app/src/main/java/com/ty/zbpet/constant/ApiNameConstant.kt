@@ -224,7 +224,7 @@ object ApiNameConstant {
     // 盘点提交
     const val MATERIAL_POSITION_STOCK_SAVE = "stock/checkStock/materialInventory"
 
-    // 盘点 成品列表
+    // 盘点 成品列表(也是移库产品列表)
     const val GET_GOODS_LIST = "resources/goodsInfo/getGoodsList"
 
     // 成品盘点扫箱码

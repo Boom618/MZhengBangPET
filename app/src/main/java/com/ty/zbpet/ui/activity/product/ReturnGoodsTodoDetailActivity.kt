@@ -129,7 +129,7 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
             }
         }
         // 用户选择仓库信息
-        tv_house.setOnClickListener { v -> ZBUiUtils.selectDialog(v.context, CodeConstant.SELECT_HOUSE_BUY_IN, 0, houseName, tv_house) }
+        tv_house.setOnClickListener { v -> ZBUiUtils.selectDialog(v.context, CodeConstant.TYPE_HOUSE, 0, houseName, tv_house) }
     }
 
     /**
@@ -154,7 +154,7 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
         val requestBody = ProductTodoSave()
 
         val detail = ArrayList<ProductTodoSave.DetailsBean>()
-        val houseId = SharedP.getWarehouseId(this)
+        val houseId = SharedP.getGoodsOrHouseId(this,CodeConstant.TYPE_HOUSE)
         val warehouseNo = warehouseList[houseId].warehouseNo
 
         val size = oldList.size

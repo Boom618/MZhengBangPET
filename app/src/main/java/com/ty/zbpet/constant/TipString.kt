@@ -15,6 +15,7 @@ object TipString {
     const val scanPlease = "请扫码"
     const val moveSuccess = "移库成功"
     const val deleteBoxCode = "删除箱码"
+    const val loginRetry = "连接超时,请重试"
     const val boxCodeNumber = "已扫箱码数量"
     const val scanLocationSource = "请扫源库位"
     const val boxCodeHasBeenScan = "该箱码扫码过"

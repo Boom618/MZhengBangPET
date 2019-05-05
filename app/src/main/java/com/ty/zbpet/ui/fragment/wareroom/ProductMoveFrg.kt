@@ -7,6 +7,7 @@ import com.google.gson.Gson
 import com.ty.zbpet.R
 import com.ty.zbpet.base.BaseSupFragment
 import com.ty.zbpet.bean.UserInfo
+import com.ty.zbpet.bean.system.ProductInventorList
 import com.ty.zbpet.bean.system.ProductMove
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.constant.TipString
@@ -35,6 +36,10 @@ class ProductMoveFrg : BaseSupFragment(), ComplexInterface<String> {
     // 箱码列表
     private var boxCodeList: ArrayList<String> = ArrayList()
     // outWarehouseNo(移出仓库/源仓库),inWarehouseNo（移入仓库/目标仓库）
+    private var sum: String? = null
+    private var goodsNo: String? = null
+    private var goodsName: String? = null
+    private var warehouseNo: String? = null
     private var outWarehouseNo = ""
     private var inWarehouseNo = ""
     private var warehouseList: MutableList<UserInfo.WarehouseListBean> = mutableListOf()
@@ -49,10 +54,24 @@ class ProductMoveFrg : BaseSupFragment(), ComplexInterface<String> {
             houseList.add(warehouseList[i].warehouseName!!)
         }
         // 默认值
-        view.tv_target_move.text = houseList[0]
-        SharedP.putWarehouseId(view.context, 0)
+        try {
+            view.tv_target_move.text = houseList[0]
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        sum = arguments?.getString("sum")
+        goodsNo = arguments?.getString("goodsNo")
+        goodsName = arguments?.getString("goodsName")
+        warehouseNo = arguments?.getString("warehouseNo")
+
+        view.tv_number.text = "库存数量：$sum"
+        view.tv_product_code.text = "成品代码：$goodsNo"
+        view.tv_product_name.text = "成品名称：$goodsName"
+        view.tv_old_house.text = "原仓库：$warehouseNo"
+
+        SharedP.putGoodsOrHouseId(view.context, 0, CodeConstant.TYPE_HOUSE)
         view.tv_target_move.setOnClickListener {
-            ZBUiUtils.selectDialog(it.context, CodeConstant.SELECT_HOUSE_BUY_IN, 0, houseList, view.tv_target_move)
+            ZBUiUtils.selectDialog(it.context, CodeConstant.TYPE_HOUSE, 0, houseList, view.tv_target_move)
         }
         view.bt_scan_pro.setOnClickListener {
             val intent = Intent(it.context, ScanBoxCodeActivity::class.java)
@@ -70,20 +89,20 @@ class ProductMoveFrg : BaseSupFragment(), ComplexInterface<String> {
     override fun onSupportVisible() {
         super.onSupportVisible()
         initToolBar(R.string.product_move, TipString.moveHouse, View.OnClickListener {
-            val which = SharedP.getWarehouseId(it.context)
+            val which = SharedP.getGoodsOrHouseId(it.context, CodeConstant.TYPE_HOUSE)
             warehouseList[which].warehouseNo?.let { houseNo ->
                 inWarehouseNo = houseNo
             }
-            pop()
+            initBody()
         })
     }
     // goodsNo,goodsName,list(箱码列表),outWarehouseNo(移出仓库/源仓库),inWarehouseNo（移入仓库/目标仓库）
 
     private fun initBody() {
         val bean = ProductMove()
-        bean.goodsNo = ""
-        bean.goodsName = ""
-        bean.outWarehouseNo = "源仓库"
+        bean.goodsNo = goodsNo
+        bean.goodsName = goodsName
+        bean.outWarehouseNo = warehouseNo
         bean.inWarehouseNo = inWarehouseNo
         bean.list = boxCodeList
 
@@ -110,6 +129,7 @@ class ProductMoveFrg : BaseSupFragment(), ComplexInterface<String> {
     }
 
     override fun responseSuccess() {
+        pop()
         ZBUiUtils.showSuccess(TipString.moveSuccess)
     }
 
@@ -124,11 +144,14 @@ class ProductMoveFrg : BaseSupFragment(), ComplexInterface<String> {
     }
 
     companion object {
-        fun newInstance(): ProductMoveFrg {
+        fun newInstance(list: MutableList<ProductInventorList.ListBean>): ProductMoveFrg {
             val fragment = ProductMoveFrg()
 
             val bundle = Bundle()
-            bundle.putString("type", "type")
+            bundle.putString("goodsNo", list[0].goodsNo)
+            bundle.putString("goodsName", list[0].goodsName)
+            bundle.putString("warehouseNo", list[0].warehouseNo)
+            bundle.putString("sum", list[0].sum)
             fragment.arguments = bundle
 
             return fragment

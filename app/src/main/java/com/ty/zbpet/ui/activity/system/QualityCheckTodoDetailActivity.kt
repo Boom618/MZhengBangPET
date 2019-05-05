@@ -283,6 +283,5 @@ class QualityCheckTodoDetailActivity : BaseActivity(), MaterialUiListInterface<M
 
     override fun onDestroy() {
         super.onDestroy()
-        DataUtils.clearId()
     }
 }

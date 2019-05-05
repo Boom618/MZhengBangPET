@@ -51,18 +51,17 @@ class MaterialsReversalFrg : BaseSupFragment(), ComplexInterface<PositionCode.St
     private fun initBody(): RequestBody? {
 
         val size = recycler_mater.childCount
-        var stockId: String? = null
+        var stockId = 0
         for (i in 0 until size) {
             val view = recycler_mater.getChildAt(i)
             val checkBox = view.findViewById<CheckBox>(R.id.check)
             if (checkBox.isChecked) {
-                stockId = reversalList[i].stockId
+                stockId = i
             }
         }
 
 
-
-        val json = Gson().toJson(reversalList)
+        val json = Gson().toJson(reversalList[stockId])
         return RequestBodyJson.requestBody(json)
     }
 
