@@ -39,8 +39,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_8"
-        android:layout_marginStart="@dimen/space_15"
-        android:layout_marginEnd="@dimen/space_15"
+        android:layout_marginStart="@dimen/x6"
+        android:layout_marginEnd="@dimen/x6"
         android:background="@drawable/shape_white_min_radius"
         android:drawableStart="@mipmap/ic_date"
         android:drawableEnd="@mipmap/ic_bottom"
@@ -85,7 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/in_storage_detail"
-                android:layout_margin="@dimen/space_10" />
+                android:layout_margin="@dimen/x6" />
 
             <View
                 android:id="@+id/line3"

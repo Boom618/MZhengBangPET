@@ -15,14 +15,17 @@ import com.ty.zbpet.bean.product.ProductList;
 import com.ty.zbpet.bean.system.BoxCodeUrl;
 import com.ty.zbpet.bean.system.ImageData;
 import com.ty.zbpet.bean.system.PositionCode;
+import com.ty.zbpet.bean.system.ProMoveList;
 import com.ty.zbpet.bean.system.ProductInventorList;
+import com.ty.zbpet.bean.system.ProductMove;
 import com.ty.zbpet.bean.system.ProductQuery;
-import com.ty.zbpet.bean.system.QualityCheckTodoDetails;
-import com.ty.zbpet.bean.system.QualityCheckTodoList;
 import com.ty.zbpet.bean.system.ReceiptList;
 import com.ty.zbpet.constant.ApiNameConstant;
 import com.ty.zbpet.constant.CodeConstant;
+
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -701,7 +704,7 @@ public class HttpMethods {
      * 成品查询
      *
      * @param observer observer
-     * @param url URL
+     * @param url      URL
      */
     public void getProductQuery(SingleObserver<BaseResponse<ProductQuery>> observer, String url) {
         mService.getProductQuery(url)
@@ -880,21 +883,29 @@ public class HttpMethods {
     }
 
     // 成品移出原仓库
-    public void goodsMoveOrder(SingleObserver<ResponseInfo> observer,RequestBody body){
+    public void goodsMoveOrder(SingleObserver<ResponseInfo> observer, RequestBody body) {
         mService.goodsMoveOrder(body)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
 
     // 获取成品移库单
-    public void moveProductList(SingleObserver<ResponseInfo> observer){
+    public void moveProductList(SingleObserver<BaseResponse<ProMoveList>> observer) {
         mService.moveProductList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
 
+    // 成品移入目标仓库
+    public void goodsMoveToTarget(SingleObserver<ResponseInfo> observer, String id, String goodsNo, String goodsName) {
+        mService.goodsMoveToTarget(id, goodsNo, goodsName, "")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+
     // 成品待冲销列表
-    public void goodsRecallList(SingleObserver<ResponseInfo> observer){
+    public void goodsRecallList(SingleObserver<ResponseInfo> observer) {
         mService.goodsRecallList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
@@ -908,14 +919,13 @@ public class HttpMethods {
      * 上传图片
      *
      * @param observer observer
-     * @param part body
+     * @param part     body
      */
     public void updateCheckImage(SingleObserver<ImageData> observer, MultipartBody.Part part) {
         mService.updateCheckImage(part)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
-
 
 
 }

@@ -66,7 +66,7 @@ class ProductSelectFrg : BaseSupFragment(), ComplexInterface<ProductInventorList
 
     override fun onStart() {
         super.onStart()
-        presenter.getGoodsList(20, "")
+        presenter.getGoodsList(5, "")
         isResult = false
     }
 
@@ -87,7 +87,7 @@ class ProductSelectFrg : BaseSupFragment(), ComplexInterface<ProductInventorList
         warehouseNo = houseWhich?.let { warehouseList[it].warehouseNo }
         val goodsNo = goodsWhich?.let { goodNoList[it] }
 
-        presenter.goodsStock("90003111", warehouseNo)
+        presenter.goodsStock("90002889", warehouseNo)
         isResult = true
 //        start(ProductMoveFrg.newInstance())
 

@@ -24,6 +24,7 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Query
+import java.util.ArrayList
 
 /**
  * @author TY
@@ -792,11 +793,15 @@ interface ApiService {
 
     // 获取成品移库单
     @POST(ApiNameConstant.moveProductList)
-    fun moveProductList(): Single<ResponseInfo>
+    fun moveProductList(): Single<BaseResponse<ProMoveList>>
 
     // 成品移入目标仓库
+    @FormUrlEncoded
     @POST(ApiNameConstant.goodsMoveToTarget)
-    fun goodsMoveToTarget(@Body body: RequestBody): Single<ResponseInfo>
+    fun goodsMoveToTarget(@Field("id") id: String,
+                          @Field("goodsNo") goodsNo: String,
+                          @Field("goodsName") goodsName: String,
+                          @Field("time") time: String): Single<ResponseInfo>
 
     // 成品待冲销列表
     @POST(ApiNameConstant.goodsRecallList)

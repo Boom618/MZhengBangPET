@@ -16,7 +16,8 @@ class ReversalSelectFrg : BaseSupFragment() {
 
     override fun onBaseCreate(view: View): View {
         view.reversal_source.setOnClickListener {
-            start(ProSourceReversalFrg.newInstance())
+            // start(ProSourceReversalFrg.newInstance())
+            start(ProTargetHouseFrg.newInstance("reversal"))
         }
         view.reversal_target.setOnClickListener {
             start(ProTargetReversalFrg.newInstance())

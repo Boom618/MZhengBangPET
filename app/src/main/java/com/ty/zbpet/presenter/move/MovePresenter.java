@@ -4,7 +4,9 @@ import com.ty.zbpet.base.BaseResponse;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.eventbus.ErrorMessage;
 import com.ty.zbpet.bean.system.PositionCode;
+import com.ty.zbpet.bean.system.ProMoveList;
 import com.ty.zbpet.bean.system.ProductInventorList;
+import com.ty.zbpet.bean.system.ProductMove;
 import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.constant.TipString;
 import com.ty.zbpet.net.HttpMethods;
@@ -12,6 +14,7 @@ import com.ty.zbpet.net.HttpMethods;
 import org.greenrobot.eventbus.EventBus;
 
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.SingleObserver;
@@ -238,7 +241,7 @@ public class MovePresenter {
                 compInterface.hideLoading();
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     compInterface.showListData(responseInfo.getData().getList());
-                }else{
+                } else {
                     compInterface.showError(responseInfo.getMessage());
                 }
             }
@@ -315,7 +318,37 @@ public class MovePresenter {
      * 获取成品移库单 314待冲销列表
      */
     public void moveProductList() {
-        httpMethods.moveProductList(new SingleObserver<ResponseInfo>() {
+        compInterface.showLoading();
+        httpMethods.moveProductList(new SingleObserver<BaseResponse<ProMoveList>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(BaseResponse<ProMoveList> responseInfo) {
+                compInterface.hideLoading();
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    compInterface.showListData(responseInfo.getData().getList());
+                } else {
+                    compInterface.showError(responseInfo.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                compInterface.hideLoading();
+                compInterface.showError(e.getMessage());
+            }
+        });
+    }
+
+    /**
+     * 成品移入目标仓库
+     *
+     */
+    public void goodsMoveToTarget(String id, String goodsNo, String goodsName) {
+        httpMethods.goodsMoveToTarget(new SingleObserver<ResponseInfo>() {
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;
@@ -334,7 +367,7 @@ public class MovePresenter {
             public void onError(Throwable e) {
                 compInterface.showError(e.getMessage());
             }
-        });
+        }, id, goodsNo, goodsName);
     }
 
     /**

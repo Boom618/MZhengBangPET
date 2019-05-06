@@ -11,6 +11,7 @@ object TipString {
     const val save = "保存"
     const val submit = "提交"
     const val define = "确定"
+    const val reversal = "冲销"
     const val moveHouse = "移库"
     const val scanPlease = "请扫码"
     const val moveSuccess = "移库成功"

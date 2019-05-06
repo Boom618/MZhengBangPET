@@ -19,7 +19,7 @@ class ProMoveSelectFrg : BaseSupFragment() {
             start(ProductSelectFrg.newInstance())
         }
         view.move_target.setOnClickListener {
-            start(ProTargetHouseFrg.newInstance())
+            start(ProTargetHouseFrg.newInstance("move"))
         }
         return view
     }

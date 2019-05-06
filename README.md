@@ -23,7 +23,8 @@
 - Fragment 懒加载
 - rc 输入框取值:RecycleView.getChildAt(position) 得到 View
 - Rc button 冲突（利用 EventBus 解决）
-- Rc 中单选 CheckBox
+- Rc 中单选 CheckBox,改用 button
+- okHttp 拦截器 chain.request() 会导致网络多次调用
 
 **技术点**
 

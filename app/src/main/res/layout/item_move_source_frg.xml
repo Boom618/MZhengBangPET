@@ -70,13 +70,6 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_content"
         tools:text="SAP 批次号：" />
 
-    <!--<View-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="0.5dp"-->
-    <!--android:layout_marginTop="@dimen/x5"-->
-    <!--android:background="@color/split_line_color"-->
-    <!--app:layout_constraintTop_toBottomOf="@+id/tv_sap" />-->
-
     <TextView
         android:id="@+id/tv_move"
         android:layout_width="wrap_content"

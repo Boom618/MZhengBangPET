@@ -21,16 +21,16 @@
     <application
         android:name=".ui.MainApp"
         android:allowBackup="true"
+        android:appComponentFactory="whateverString"
+        android:fullBackupContent="true"
         android:icon="@mipmap/zblogo"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:networkSecurityConfig="@xml/network_security_config"
-        tools:replace="android:appComponentFactory"
-        android:appComponentFactory="whateverString"
         tools:ignore="GoogleAppIndexingWarning"
-        android:fullBackupContent="true"
+        tools:replace="android:appComponentFactory"
         tools:targetApi="n">
         <!-- .ui.activity.MainActivity -->
         <!-- .ui.TestMainActivity -->
@@ -86,8 +86,9 @@
             android:name=".ui.activity.ScanBoxCodeActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity android:name=".ui.activity.material.BackGoodsTodoDetailActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.material.BackGoodsTodoDetailActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.material.BackGoodsDoneDetailActivity" />
         <activity android:name=".ui.activity.material.PickOutDoneDetailActivity" />
         <activity android:name=".ui.activity.product.BuyInTodoDetailActivity" />
@@ -102,17 +103,10 @@
         <activity android:name=".ui.activity.system.UserUpDataPass" />
         <activity android:name=".ui.activity.MainCompanyActivity" />
         <activity android:name=".ui.activity.system.StockTrackActivity" />
-        <!--<activity android:name=".ui.activity.system.LoginActivity" />-->
         <activity android:name=".ui.activity.system.QualityCheckTabActivity" />
         <activity android:name=".ui.activity.system.BoxCodeQueryActivity" />
         <activity android:name=".ui.activity.system.LocationQueryActivity" />
         <activity android:name=".ui.activity.wareroom.MoveRoomMainActivity" />
-        <activity android:name=".ui.activity.wareroom.MoveRoomMaterialsActivity" />
-        <activity android:name=".ui.activity.wareroom.SourceLocationActivity" />
-        <activity android:name=".ui.activity.wareroom.TargetLocationActivity" />
-        <activity android:name=".ui.activity.wareroom.ReversalMaterialsActivity" />
-        <activity android:name=".ui.activity.wareroom.ProductMoveActivity" />
-        <activity android:name=".ui.activity.wareroom.ProductReversalActivity" />
         <activity android:name=".ui.activity.system.PositionQueryActivity" />
         <activity android:name=".ui.activity.wareroom.InventoryMainActivity" />
         <activity android:name=".ui.activity.wareroom.MaterialsStockActivity" />

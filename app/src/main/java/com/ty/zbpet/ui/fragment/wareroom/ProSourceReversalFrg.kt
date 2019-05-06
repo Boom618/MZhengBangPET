@@ -31,7 +31,7 @@ class ProSourceReversalFrg : BaseSupFragment(), ComplexInterface<PositionCode> {
 
     override fun onStart() {
         super.onStart()
-        initToolBar(R.string.move_house_source, TipString.define, View.OnClickListener {
+        initToolBar(R.string.move_house_source, TipString.reversal, View.OnClickListener {
             createOrder(initReqBody())
         })
         presenter.moveProductList()
@@ -79,7 +79,7 @@ class ProSourceReversalFrg : BaseSupFragment(), ComplexInterface<PositionCode> {
     }
 
     override fun responseSuccess() {
-        pop()
+        //pop()
     }
 
     override fun showLoading() {
