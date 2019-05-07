@@ -275,7 +275,7 @@ object ApiNameConstant {
     const val goodsMoveRecall = "stock/moveStock/goodsMoveRecall"
 
     // 成品移出源库位冲销(314冲销)
-    const val goodsSourceRecall1 = "stock/moveStock/sourceWarehouseRecall"
+    const val goodsSourceRecall = "stock/moveStock/sourceWarehouseRecall"
 
     /*--------------------------------- 图片 --------------------------------------------*/
     // 质检 待办 上传图片

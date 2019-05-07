@@ -21,6 +21,7 @@ import com.ty.zbpet.presenter.material.MaterialUiListInterface
 import com.ty.zbpet.ui.adapter.diffadapter.TodoCarCodeDiffUtil
 import com.ty.zbpet.ui.adapter.material.MaterialTodoDetailAdapter
 import com.ty.zbpet.base.BaseActivity
+import com.ty.zbpet.constant.TipString
 import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils
@@ -179,8 +180,6 @@ class ArrivalInTodoDetailActivity : BaseActivity()
         val time = tv_time!!.text.toString().trim { it <= ' ' }
 
         requestBody.list = detail
-//        requestBody.warehouseId = warehouseId
-//        requestBody.warehouseNo = warehouseNo
         requestBody.supplierNo = supplierNo
         requestBody.supplierName = supplierName
         requestBody.creatorNo = creatorNo
@@ -322,7 +321,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
 
     private var dialog: LoadingDialog? = null
     override fun showLoading() {
-        dialog = ShowDialog.showFullDialog(this@ArrivalInTodoDetailActivity, "保存中")
+        dialog = ShowDialog.showFullDialog(this, TipString.saveIng)
     }
 
     override fun hideLoading() {

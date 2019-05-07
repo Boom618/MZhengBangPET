@@ -65,7 +65,6 @@ class ArrivalInFragment : BaseFragment(),MaterialUiListInterface<MaterialList.Li
     override fun loadData() {
         fragmentType = arguments!!.getString(CodeConstant.FRAGMENT_TYPE)!!
         when (fragmentType) {
-            //CodeConstant.FRAGMENT_TODO -> presenter.fetchTODOMaterial("", "", "")
             CodeConstant.FRAGMENT_DONE -> presenter.fetchDoneMaterial(CodeConstant.BUY_IN_TYPE,"","","")
         }
     }

@@ -199,6 +199,7 @@ public class MovePresenter {
      * @param body body
      */
     public void reversalMove(RequestBody body) {
+        compInterface.showLoading();
         httpMethods.reversalMove(new SingleObserver<ResponseInfo>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -207,6 +208,7 @@ public class MovePresenter {
 
             @Override
             public void onSuccess(ResponseInfo responseInfo) {
+                compInterface.hideLoading();
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     compInterface.responseSuccess();
                 } else {
@@ -216,6 +218,7 @@ public class MovePresenter {
 
             @Override
             public void onError(Throwable e) {
+                compInterface.hideLoading();
                 if (e instanceof SocketTimeoutException) {
                     compInterface.showError(TipString.loginRetry);
                 } else {
@@ -292,6 +295,7 @@ public class MovePresenter {
      * @param body body
      */
     public void goodsMoveOrder(RequestBody body) {
+        compInterface.showLoading();
         httpMethods.goodsMoveOrder(new SingleObserver<ResponseInfo>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -300,6 +304,7 @@ public class MovePresenter {
 
             @Override
             public void onSuccess(ResponseInfo responseInfo) {
+                compInterface.hideLoading();
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     compInterface.responseSuccess();
                 } else {
@@ -309,6 +314,7 @@ public class MovePresenter {
 
             @Override
             public void onError(Throwable e) {
+                compInterface.hideLoading();
                 compInterface.showError(e.getMessage());
             }
         }, body);
@@ -345,9 +351,9 @@ public class MovePresenter {
 
     /**
      * 成品移入目标仓库
-     *
      */
     public void goodsMoveToTarget(String id, String goodsNo, String goodsName) {
+        compInterface.showLoading();
         httpMethods.goodsMoveToTarget(new SingleObserver<ResponseInfo>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -356,6 +362,7 @@ public class MovePresenter {
 
             @Override
             public void onSuccess(ResponseInfo responseInfo) {
+                compInterface.hideLoading();
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     compInterface.responseSuccess();
                 } else {
@@ -365,16 +372,20 @@ public class MovePresenter {
 
             @Override
             public void onError(Throwable e) {
+                compInterface.hideLoading();
                 compInterface.showError(e.getMessage());
             }
         }, id, goodsNo, goodsName);
     }
 
     /**
-     * 成品待冲销列表
+     * 成品移出源库位冲销
+     *
+     * @param id id
      */
-    public void goodsRecallList() {
-        httpMethods.goodsRecallList(new SingleObserver<ResponseInfo>() {
+    public void goodsSourceRecall(String id) {
+        compInterface.showLoading();
+        httpMethods.goodsSourceRecall(new SingleObserver<ResponseInfo>() {
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;
@@ -382,6 +393,7 @@ public class MovePresenter {
 
             @Override
             public void onSuccess(ResponseInfo responseInfo) {
+                compInterface.hideLoading();
                 if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
                     compInterface.responseSuccess();
                 } else {
@@ -391,8 +403,69 @@ public class MovePresenter {
 
             @Override
             public void onError(Throwable e) {
+                compInterface.hideLoading();
+                compInterface.showError(e.getMessage());
+            }
+        }, id);
+    }
+
+    /**
+     * 成品待冲销列表
+     */
+    public void goodsRecallList() {
+        compInterface.showLoading();
+        httpMethods.goodsRecallList(new SingleObserver<BaseResponse<ProMoveList>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(BaseResponse<ProMoveList> responseInfo) {
+                compInterface.hideLoading();
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    compInterface.showListData(responseInfo.getData().getList());
+                } else {
+                    compInterface.showError(responseInfo.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                compInterface.hideLoading();
                 compInterface.showError(e.getMessage());
             }
         });
+    }
+
+    /**
+     * 成品冲销（316冲销/目标仓库冲销）
+     *
+     * @param id id
+     */
+    public void goodsMoveRecall(String id) {
+        compInterface.showLoading();
+        httpMethods.goodsMoveRecall(new SingleObserver<ResponseInfo>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo responseInfo) {
+                compInterface.hideLoading();
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    compInterface.responseSuccess();
+                } else {
+                    compInterface.showError(responseInfo.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                compInterface.hideLoading();
+                compInterface.showError(e.getMessage());
+            }
+        }, id);
     }
 }

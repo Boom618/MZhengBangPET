@@ -13,6 +13,7 @@ import com.ty.zbpet.presenter.material.MaterialPresenter
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
 import com.ty.zbpet.ui.adapter.material.MaterialDoneDetailAdapter
 import com.ty.zbpet.base.BaseActivity
+import com.ty.zbpet.constant.TipString
 import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils
@@ -83,7 +84,7 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
         val list = ArrayList<MaterialDoneSave.ListBean>()
         val size = listBean.size
 
-        for (i in 0 until size ){
+        for (i in 0 until size) {
             val view = recycler_reversal.getChildAt(i)
             val checkBox = view.findViewById<CheckBox>(R.id.check)
             if (checkBox.isChecked) {
@@ -94,7 +95,7 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
             }
         }
 
-        if(list.size == 0){
+        if (list.size == 0) {
             ZBUiUtils.showWarning("请选择您要冲销的列表")
             return null
         }
@@ -126,6 +127,7 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
         recycler_reversal.adapter = adapter
 
     }
+
     override fun showCarSuccess(position: Int, carData: CarPositionNoData?) {
     }
 
@@ -139,7 +141,7 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
 
     private var dialog: LoadingDialog? = null
     override fun showLoading() {
-        dialog = ShowDialog.showFullDialog(this@ArrivalInDoneDetailActivity, "保存中")
+        dialog = ShowDialog.showFullDialog(this@ArrivalInDoneDetailActivity, TipString.saveIng)
     }
 
     override fun hideLoading() {

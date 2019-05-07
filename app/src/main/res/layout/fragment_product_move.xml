@@ -35,6 +35,8 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/text_18"
+        android:background="@drawable/shape_white_min_radius"
         app:layout_constraintTop_toBottomOf="@+id/tv_target_move">
 
         <TextView
@@ -43,72 +45,69 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/x20"
             android:layout_marginTop="@dimen/x20"
+            android:text="成品代码："
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="成品代码：" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_product_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/x10"
+            android:text="成品名称："
             app:layout_constraintStart_toStartOf="@+id/tv_product_code"
-            app:layout_constraintTop_toBottomOf="@+id/tv_product_code"
-            android:text="成品名称：" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_product_code" />
 
         <TextView
             android:id="@+id/tv_old_house"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/x10"
+            android:text="原仓库："
             app:layout_constraintStart_toStartOf="@+id/tv_product_code"
-            app:layout_constraintTop_toBottomOf="@+id/tv_product_name"
-            android:text="原仓库：" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_product_name" />
 
         <TextView
             android:id="@+id/tv_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/x10"
+            android:text="库存数量："
             app:layout_constraintStart_toStartOf="@+id/tv_product_code"
-            app:layout_constraintTop_toBottomOf="@+id/tv_old_house"
-            android:text="库存数量：" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_old_house" />
 
         <TextView
             android:id="@+id/tv_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/x10"
+            android:text="含量："
             app:layout_constraintStart_toStartOf="@+id/tv_product_code"
-            app:layout_constraintTop_toBottomOf="@+id/tv_number"
-            android:text="含量：" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_number" />
 
         <TextView
             android:id="@+id/tv_move_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/x10"
+            android:text="移库数量："
             app:layout_constraintStart_toStartOf="@+id/tv_product_code"
-            app:layout_constraintTop_toBottomOf="@+id/tv_content"
-            android:text="移库数量：" />
-
-        <Button
-            android:id="@+id/bt_scan_pro"
-            android:text="扫码移库"
-            app:layout_constraintTop_toBottomOf="@+id/tv_move_number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_content" />
 
 
     </android.support.constraint.ConstraintLayout>
 
+    <Button
+        android:id="@+id/bt_scan_pro"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/x10"
+        android:background="@drawable/shape_theme_min_radius"
+        android:text="扫码移库"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_18"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_weight="1" />
 
-    <!--<android.support.v7.widget.RecyclerView-->
-    <!--android:id="@+id/recycler_target"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:layout_margin="@dimen/space_5"-->
-    <!--app:layout_constraintTop_toBottomOf="@+id/tv_target_move"-->
-    <!--app:layout_constraintVertical_weight="1" />-->
 
 </android.support.constraint.ConstraintLayout>

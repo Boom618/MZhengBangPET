@@ -1,6 +1,7 @@
 package com.ty.zbpet.ui.fragment.wareroom
 
 import android.os.Bundle
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.CheckBox
 import com.google.gson.Gson
@@ -14,9 +15,12 @@ import com.ty.zbpet.presenter.move.ComplexInterface
 import com.ty.zbpet.presenter.move.MovePresenter
 import com.ty.zbpet.ui.adapter.LayoutInit
 import com.ty.zbpet.ui.adapter.wareroom.MaterialReversalAdapter
+import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog
+import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import kotlinx.android.synthetic.main.fragment_move_source_reversal.*
 import okhttp3.RequestBody
 
@@ -27,6 +31,7 @@ import okhttp3.RequestBody
 class MaterialsReversalFrg : BaseSupFragment(), ComplexInterface<PositionCode.StockListBean> {
 
     private var adapter: MaterialReversalAdapter? = null
+    private var selectPosition = -1
     private var reversalList: MutableList<PositionCode.StockListBean> = mutableListOf()
     private val presenter: MovePresenter = MovePresenter(this)
 
@@ -42,7 +47,7 @@ class MaterialsReversalFrg : BaseSupFragment(), ComplexInterface<PositionCode.St
      */
     override fun onSupportVisible() {
         super.onSupportVisible()
-        initToolBar(R.string.materials_move_reversal, TipString.submit, View.OnClickListener {
+        initToolBar(R.string.materials_move_reversal, TipString.reversal, View.OnClickListener {
             reqFun(initBody())
         })
         presenter.reversalList()
@@ -51,6 +56,7 @@ class MaterialsReversalFrg : BaseSupFragment(), ComplexInterface<PositionCode.St
     private fun initBody(): RequestBody? {
 
         val size = recycler_mater.childCount
+        // TODO   view.findViewById 取值问题
         var stockId = 0
         for (i in 0 until size) {
             val view = recycler_mater.getChildAt(i)
@@ -59,10 +65,14 @@ class MaterialsReversalFrg : BaseSupFragment(), ComplexInterface<PositionCode.St
                 stockId = i
             }
         }
-
-
-        val json = Gson().toJson(reversalList[stockId])
-        return RequestBodyJson.requestBody(json)
+        when (selectPosition == -1) {
+            true -> ZBUiUtils.showWarning(TipString.reversalSelect)
+            else -> {
+                val json = Gson().toJson(reversalList[selectPosition])
+                return RequestBodyJson.requestBody(json)
+            }
+        }
+        return null
     }
 
     private fun reqFun(body: RequestBody?) {
@@ -79,6 +89,17 @@ class MaterialsReversalFrg : BaseSupFragment(), ComplexInterface<PositionCode.St
         adapter = context?.let { MaterialReversalAdapter(it, R.layout.item_reversal_source_frg, list) }
         recycler_mater.adapter = adapter
 
+        adapter?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+            override fun onItemLongClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int): Boolean {
+                return true
+            }
+
+            override fun onItemClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int) {
+                adapter?.setSelection(position)
+                selectPosition = position
+            }
+        })
+
     }
 
     override fun showObjData(obj: PositionCode.StockListBean) {
@@ -86,13 +107,16 @@ class MaterialsReversalFrg : BaseSupFragment(), ComplexInterface<PositionCode.St
 
     override fun responseSuccess() {
         pop()
-        ZBUiUtils.showSuccess("冲销成功")
+        ZBUiUtils.showSuccess(TipString.reversalSuccess)
     }
 
+    private var dialog: LoadingDialog? = null
     override fun showLoading() {
+        dialog = ShowDialog.showFullDialog(_mActivity, TipString.reversalIng)
     }
 
     override fun hideLoading() {
+        dialog?.close()
     }
 
     override fun showError(msg: String) {

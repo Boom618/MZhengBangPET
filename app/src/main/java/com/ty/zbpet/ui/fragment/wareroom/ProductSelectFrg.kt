@@ -2,6 +2,7 @@ package com.ty.zbpet.ui.fragment.wareroom
 
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import com.ty.zbpet.R
 import com.ty.zbpet.base.BaseSupFragment
 import com.ty.zbpet.bean.UserInfo
@@ -13,6 +14,7 @@ import com.ty.zbpet.presenter.move.ComplexInterface
 import com.ty.zbpet.presenter.move.MovePresenter
 import com.ty.zbpet.util.SimpleCache
 import com.ty.zbpet.util.ZBUiUtils
+import kotlinx.android.synthetic.main.fragment_product_select.*
 import kotlinx.android.synthetic.main.fragment_product_select.view.*
 
 /**
@@ -28,7 +30,8 @@ class ProductSelectFrg : BaseSupFragment(), ComplexInterface<ProductInventorList
     private var isResult = false
     private var warehouseNo: String? = null
     private var houseList: MutableList<String> = mutableListOf()
-    private var goodNoList: MutableList<String> = mutableListOf()
+//    private var goodNoList: MutableList<String> = mutableListOf()
+    private var goodsNo: String = ""
     private var goodsNameList: MutableList<String> = mutableListOf()
     private var warehouseList: MutableList<UserInfo.WarehouseListBean> = mutableListOf()
 
@@ -46,8 +49,18 @@ class ProductSelectFrg : BaseSupFragment(), ComplexInterface<ProductInventorList
         }
 
         // 产品名称
-        view.tv_product.setOnClickListener {
-            ZBUiUtils.selectDialog(it.context, CodeConstant.TYPE_GOODS, 0, goodsNameList, view.tv_product)
+//        view.tv_product.setOnClickListener {
+//            ZBUiUtils.selectDialog(it.context, CodeConstant.TYPE_GOODS, 0, goodsNameList, view.tv_product)
+//        }
+        // 产品搜索
+        view.edit_search.setOnEditorActionListener { v, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                val searchString = v.text.toString().trim { it <= ' ' }
+                presenter.getGoodsList(5, searchString)
+                isResult = false
+            }
+            ZBUiUtils.hideInputWindow(v.context, v)
+            true
         }
 
         // 默认值
@@ -66,8 +79,8 @@ class ProductSelectFrg : BaseSupFragment(), ComplexInterface<ProductInventorList
 
     override fun onStart() {
         super.onStart()
-        presenter.getGoodsList(5, "")
-        isResult = false
+//        presenter.getGoodsList(5, "90002889")
+//        isResult = false
     }
 
     /**
@@ -85,12 +98,9 @@ class ProductSelectFrg : BaseSupFragment(), ComplexInterface<ProductInventorList
         val houseWhich = context?.let { SharedP.getGoodsOrHouseId(it, CodeConstant.TYPE_HOUSE) }
         val goodsWhich = context?.let { SharedP.getGoodsOrHouseId(it, CodeConstant.TYPE_GOODS) }
         warehouseNo = houseWhich?.let { warehouseList[it].warehouseNo }
-        val goodsNo = goodsWhich?.let { goodNoList[it] }
 
-        presenter.goodsStock("90002889", warehouseNo)
+        presenter.goodsStock(goodsNo, warehouseNo)
         isResult = true
-//        start(ProductMoveFrg.newInstance())
-
 
     }
 
@@ -99,10 +109,17 @@ class ProductSelectFrg : BaseSupFragment(), ComplexInterface<ProductInventorList
         if (isResult) {
             start(ProductMoveFrg.newInstance(list))
         } else {
-            val size = list.size
-            for (i in 0 until size) {
-                goodsNameList.add(list[i].goodsName!!)
-                goodNoList.add(list[i].goodsNo!!)
+            when (list.size) {
+                0 -> {
+                    ZBUiUtils.showSuccess(TipString.searchResultNot)
+                    search_result.text = "产品名称："
+                    goodsNo = ""
+                }
+                1 -> {
+                    goodsNo = list[0].goodsNo!!
+                    search_result.text = "产品名称：${list[0].goodsName}"
+                }
+                else -> search_result.text = "产品名称："
             }
         }
 

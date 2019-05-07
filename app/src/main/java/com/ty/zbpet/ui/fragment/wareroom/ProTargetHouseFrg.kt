@@ -11,21 +11,22 @@ import com.ty.zbpet.constant.TipString
 import com.ty.zbpet.presenter.move.ComplexInterface
 import com.ty.zbpet.presenter.move.MovePresenter
 import com.ty.zbpet.ui.adapter.LayoutInit
-import com.ty.zbpet.ui.adapter.wareroom.ProMoveReverAdapter
+import com.ty.zbpet.ui.adapter.wareroom.ProReversalSourceAdapter
+import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import kotlinx.android.synthetic.main.fragment_move_source.*
-import okhttp3.RequestBody
 
 /**
  * @author TY on 2019/4/24.
- * 移入目标仓库 [ 冲销到原仓库 ]
+ * 移入目标仓库 [ 冲销原仓库 ]
  */
 class ProTargetHouseFrg : BaseSupFragment(), ComplexInterface<ProMoveList.ListBean> {
 
-    private var adapter: ProMoveReverAdapter? = null
+    private var adapter: ProReversalSourceAdapter? = null
     private var type: String? = null
     private var selectPost = -1
     private var moveList: MutableList<ProMoveList.ListBean> = mutableListOf()
@@ -52,10 +53,10 @@ class ProTargetHouseFrg : BaseSupFragment(), ComplexInterface<ProMoveList.ListBe
                     initReqBody()
                 })
             }
-            else -> {
+            "reversal" -> {
                 // 冲销
                 initToolBar(R.string.move_house_source, TipString.reversal, View.OnClickListener {
-                    // TODO　＝＝　createOrder(initReqBody())
+                    goodsSourceRecall()
                 })
             }
         }
@@ -64,18 +65,27 @@ class ProTargetHouseFrg : BaseSupFragment(), ComplexInterface<ProMoveList.ListBe
 
     private fun initReqBody() {
 
-        val orderId = moveList[selectPost].orderId
-        val goodsNo = moveList[selectPost].goodsNo
-        val goodsName = moveList[selectPost].goodsName
+        when (selectPost == -1) {
+            true -> ZBUiUtils.showWarning(TipString.moveSelect)
+            else -> {
+                val orderId = moveList[selectPost].orderId
+                val goodsNo = moveList[selectPost].goodsNo
+                val goodsName = moveList[selectPost].goodsName
 
-        presenter.goodsMoveToTarget(orderId, goodsNo, goodsName)
-
+                presenter.goodsMoveToTarget(orderId, goodsNo, goodsName)
+            }
+        }
     }
 
     // 源库位 移出 冲销
-    private fun materialMove(body: RequestBody) {
-
-        presenter.materialMoveOrder(body)
+    private fun goodsSourceRecall() {
+        when (selectPost == -1) {
+            true -> ZBUiUtils.showWarning(TipString.reversalSelect)
+            else -> {
+                val orderId = moveList[selectPost].orderId
+                presenter.goodsSourceRecall(orderId)
+            }
+        }
     }
 
 
@@ -84,7 +94,7 @@ class ProTargetHouseFrg : BaseSupFragment(), ComplexInterface<ProMoveList.ListBe
         context?.let { LayoutInit.initLayoutManager(it, recycler_source) }
         recycler_source.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
 
-        adapter = context?.let { ProMoveReverAdapter(it, R.layout.item_move_target_two_frg, list) }
+        adapter = context?.let { ProReversalSourceAdapter(it, R.layout.item_move_target_two_frg, list) }
         recycler_source.adapter = adapter
 
         adapter?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
@@ -105,13 +115,22 @@ class ProTargetHouseFrg : BaseSupFragment(), ComplexInterface<ProMoveList.ListBe
 
     override fun responseSuccess() {
         pop()
-        ZBUiUtils.showSuccess("移库成功")
+        when (type) {
+            "move" -> ZBUiUtils.showSuccess(TipString.moveSuccess)
+            "reversal" -> ZBUiUtils.showSuccess(TipString.reversalSuccess)
+        }
     }
 
+    private var dialog: LoadingDialog? = null
     override fun showLoading() {
+        when (type) {
+            "move" -> dialog = ShowDialog.showFullDialog(_mActivity, TipString.moveHouseIng)
+            "reversal" -> dialog = ShowDialog.showFullDialog(_mActivity, TipString.reversalIng)
+        }
     }
 
     override fun hideLoading() {
+        dialog?.close()
     }
 
     override fun showError(msg: String) {

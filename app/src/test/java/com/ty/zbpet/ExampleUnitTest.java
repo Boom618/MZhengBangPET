@@ -50,5 +50,8 @@ public class ExampleUnitTest {
 
         String s = list.get(0);
         System.out.println(s);
+
+        boolean empty = "".isEmpty();
+        System.out.println("empty = " + empty);
     }
 }

@@ -803,7 +803,7 @@ public class HttpMethods {
      * 成品盘点列表
      */
     public void getGoodsList(SingleObserver<BaseResponse<ProductInventorList>> observer, int pageSize, String goodsNo) {
-        mService.getGoodsList(pageSize, goodsNo, 10)
+        mService.getGoodsList(pageSize, goodsNo, 0)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
@@ -903,10 +903,24 @@ public class HttpMethods {
                 .subscribe(observer);
     }
 
+    // 成品移出源库位冲销(314冲销)
+    public void goodsSourceRecall(SingleObserver<ResponseInfo> observer, String id){
+        mService.goodsSourceRecall(id)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
 
     // 成品待冲销列表
-    public void goodsRecallList(SingleObserver<ResponseInfo> observer) {
+    public void goodsRecallList(SingleObserver<BaseResponse<ProMoveList>> observer) {
         mService.goodsRecallList()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+
+    // 成品冲销（316冲销/目标仓库冲销）
+    public void goodsMoveRecall(SingleObserver<ResponseInfo> observer, String id){
+        mService.goodsMoveRecall(id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }

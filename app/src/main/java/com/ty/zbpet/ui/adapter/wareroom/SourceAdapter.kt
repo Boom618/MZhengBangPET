@@ -18,7 +18,7 @@ class SourceAdapter(context: Context, layout: Int, datas: MutableList<PositionCo
         holder.setText(R.id.tv_inventory_sap, "库存批次号：${list.materialNo}")
                 .setText(R.id.tv_material_name, "原辅料名称：${list.materialName}")
                 .setText(R.id.tv_supplier_name, "供应商名称：${list.supplierName}")
-                .setText(R.id.tv_horse, "当前仓库：")
+                .setText(R.id.tv_horse, "当前库位：${list.positionNo}")
                 .setText(R.id.tv_number, "库存数量：${list.number}")
                 .setText(R.id.tv_content, "含量：${list.concentration}")
                 .setText(R.id.tv_sap, "SAP 批次号：")

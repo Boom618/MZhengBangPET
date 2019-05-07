@@ -19,5 +19,11 @@ class ProMoveList {
         var outWarehouseNo: String? = null
         var inWarehouseNo: String? = null
         var boxQrCode: String? = null
+
+        // 目标仓库冲销
+        var id: String? = null
+        var number: String? = null
+        var supplierNo: String? = null
+
     }
 }

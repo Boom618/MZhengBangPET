@@ -1,6 +1,7 @@
 package com.ty.zbpet.ui.fragment.wareroom
 
 import android.os.Bundle
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.CheckBox
 import com.ty.zbpet.R
@@ -13,9 +14,12 @@ import com.ty.zbpet.presenter.move.ComplexInterface
 import com.ty.zbpet.presenter.move.MovePresenter
 import com.ty.zbpet.ui.adapter.LayoutInit
 import com.ty.zbpet.ui.adapter.wareroom.TargetAdapter
+import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog
+import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import kotlinx.android.synthetic.main.fragment_move_target.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -33,6 +37,7 @@ class TargetLocationFrg : BaseSupFragment(), ComplexInterface<PositionCode> {
     private var warehouseNo = ""
     // 查的 列表 还是 目标库位
     private var isList = true
+    private var selectPosition = -1
 
     override val fragmentLayout: Int
         get() = R.layout.fragment_move_target
@@ -65,20 +70,14 @@ class TargetLocationFrg : BaseSupFragment(), ComplexInterface<PositionCode> {
             ZBUiUtils.showWarning(TipString.scanLocationTarget)
             return
         }
-        var id = ""
-        val count = listSource.size
-        for (i in 0 until count) {
-            val view = recycler_target.getChildAt(i)
-            //val checkBox = view.findViewById<CheckBox>(R.id.check)
-//            view?.let { view.check }
-            val checkBox = view?.let { view.findViewById(R.id.check) as CheckBox}
-            // TODO 单选 待完善
-//            if (checkBox.isChecked) {
-//                id = listSource[i].id!!
-//            }
-            checkBox?.let { if (it.isChecked) id = listSource[i].id!! }
+        when (selectPosition == -1) {
+            true -> ZBUiUtils.showWarning(TipString.moveSelect)
+            else -> {
+                val id = listSource[selectPosition].id
+                presenter.moveMaterial(id, positionNo, warehouseNo, "")
+            }
         }
-        presenter.moveMaterial(id, positionNo, warehouseNo, "")
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -106,6 +105,17 @@ class TargetLocationFrg : BaseSupFragment(), ComplexInterface<PositionCode> {
                 recycler_target.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
                 adapter = context?.let { TargetAdapter(it, R.layout.item_move_target_frg, listSource) }
                 recycler_target.adapter = adapter
+
+                adapter?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+                    override fun onItemLongClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int): Boolean {
+                        return true
+                    }
+
+                    override fun onItemClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int) {
+                        adapter?.setSelection(position)
+                        selectPosition = position
+                    }
+                })
             }
             false -> warehouseNo = obj.warehouseNo
         }
@@ -114,12 +124,16 @@ class TargetLocationFrg : BaseSupFragment(), ComplexInterface<PositionCode> {
 
     override fun responseSuccess() {
         pop()
+        ZBUiUtils.showSuccess(TipString.moveSuccess)
     }
 
+    private var dialog: LoadingDialog? = null
     override fun showLoading() {
+        dialog = ShowDialog.showFullDialog(_mActivity, TipString.moveHouseIng)
     }
 
     override fun hideLoading() {
+        dialog?.close()
     }
 
     override fun showError(msg: String) {

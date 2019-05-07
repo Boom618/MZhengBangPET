@@ -1,8 +1,8 @@
 package com.ty.zbpet.ui.fragment.wareroom
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
-import android.widget.EditText
 import com.google.gson.Gson
 import com.ty.zbpet.R
 import com.ty.zbpet.base.BaseSupFragment
@@ -15,10 +15,13 @@ import com.ty.zbpet.presenter.move.ComplexInterface
 import com.ty.zbpet.presenter.move.MovePresenter
 import com.ty.zbpet.ui.adapter.LayoutInit
 import com.ty.zbpet.ui.adapter.wareroom.SourceAdapter
+import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import kotlinx.android.synthetic.main.fragment_move_source.*
+import kotlinx.android.synthetic.main.item_move_source_frg.view.*
 import okhttp3.RequestBody
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -58,8 +61,8 @@ class SourceLocationFrg : BaseSupFragment(), ComplexInterface<PositionCode> {
         val size = list.size
         for (i in 0 until size) {
             val view = recycler_source.getChildAt(i)
-            val number = view.findViewById<EditText>(R.id.edit_number).text.toString().trim()
-            if (number.isNotEmpty()) {
+            val number = view?.edit_number?.text.toString().trim()
+            if (!TextUtils.isEmpty(number) || number != "null") {
                 val bean = PositionCode.StockListBean()
 
                 bean.unit = list[i].unit
@@ -74,18 +77,14 @@ class SourceLocationFrg : BaseSupFragment(), ComplexInterface<PositionCode> {
                 bean.materialName = list[i].materialName
                 bean.concentration = list[i].concentration
                 listBean.add(bean)
-            } /*else {
-                ZBUiUtils.showWarning("移库数量不能为空")
-                return null
-            }*/
+            }
         }
         if (listBean.size == 0) {
-            ZBUiUtils.showWarning("移库数量不能为空")
+            ZBUiUtils.showWarning(TipString.moveSelect)
             return null
         }
         data.list = listBean
         data.positionNo = positionNo
-        //data.time = "2019-02-26"
         data.warehouseNo = warehouseNo
 
         val json = Gson().toJson(data)
@@ -143,12 +142,16 @@ class SourceLocationFrg : BaseSupFragment(), ComplexInterface<PositionCode> {
 
     override fun responseSuccess() {
         pop()
+        ZBUiUtils.showSuccess(TipString.moveSuccess)
     }
 
+    private var dialog: LoadingDialog? = null
     override fun showLoading() {
+        dialog = ShowDialog.showFullDialog(_mActivity, TipString.moveHouseIng)
     }
 
     override fun hideLoading() {
+        dialog?.close()
     }
 
 

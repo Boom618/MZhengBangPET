@@ -16,8 +16,10 @@ import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.move.ComplexInterface
 import com.ty.zbpet.presenter.move.MovePresenter
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity
+import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.util.SimpleCache
 import com.ty.zbpet.util.ZBUiUtils
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import kotlinx.android.synthetic.main.fragment_product_move.*
 import kotlinx.android.synthetic.main.fragment_product_move.view.*
 
@@ -96,7 +98,6 @@ class ProductMoveFrg : BaseSupFragment(), ComplexInterface<String> {
             initBody()
         })
     }
-    // goodsNo,goodsName,list(箱码列表),outWarehouseNo(移出仓库/源仓库),inWarehouseNo（移入仓库/目标仓库）
 
     private fun initBody() {
         val bean = ProductMove()
@@ -133,10 +134,13 @@ class ProductMoveFrg : BaseSupFragment(), ComplexInterface<String> {
         ZBUiUtils.showSuccess(TipString.moveSuccess)
     }
 
+    private var dialog: LoadingDialog? = null
     override fun showLoading() {
+        dialog = ShowDialog.showFullDialog(_mActivity, TipString.moveHouseIng)
     }
 
     override fun hideLoading() {
+        dialog?.close()
     }
 
     override fun showError(msg: String) {

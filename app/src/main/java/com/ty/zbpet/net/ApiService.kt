@@ -803,19 +803,20 @@ interface ApiService {
                           @Field("goodsName") goodsName: String,
                           @Field("time") time: String): Single<ResponseInfo>
 
+    // 成品移出源库位冲销(314冲销)
+    @FormUrlEncoded
+    @POST(ApiNameConstant.goodsSourceRecall)
+    fun goodsSourceRecall(@Field("id") id: String): Single<ResponseInfo>
+
     // 成品待冲销列表
     @POST(ApiNameConstant.goodsRecallList)
-    fun goodsRecallList(): Single<ResponseInfo>
+    fun goodsRecallList(): Single<BaseResponse<ProMoveList>>
 
-    // 成品冲销
+    // 成品冲销（316冲销/目标仓库冲销）
     @FormUrlEncoded
     @POST(ApiNameConstant.goodsMoveRecall)
     fun goodsMoveRecall(@Field("id") id: String): Single<ResponseInfo>
 
-    // 成品移出源库位冲销(314冲销)
-    @FormUrlEncoded
-    @POST(ApiNameConstant.goodsSourceRecall1)
-    fun goodsSourceRecall1(@Field("id") id: String): Single<ResponseInfo>
 
 
     /*--------------------------------- 图片 --------------------------------------------*/
