@@ -77,12 +77,6 @@ class ProductSelectFrg : BaseSupFragment(), ComplexInterface<ProductInventorList
         return view
     }
 
-    override fun onStart() {
-        super.onStart()
-//        presenter.getGoodsList(5, "90002889")
-//        isResult = false
-    }
-
     /**
      * 用户可见时 回调
      */
@@ -99,14 +93,23 @@ class ProductSelectFrg : BaseSupFragment(), ComplexInterface<ProductInventorList
         val goodsWhich = context?.let { SharedP.getGoodsOrHouseId(it, CodeConstant.TYPE_GOODS) }
         warehouseNo = houseWhich?.let { warehouseList[it].warehouseNo }
 
-        presenter.goodsStock(goodsNo, warehouseNo)
-        isResult = true
+        if (goodsNo.isNotBlank()) {
+            presenter.goodsStock(goodsNo, warehouseNo)
+            isResult = true
+        }else{
+            ZBUiUtils.showSuccess(TipString.searchResultNot)
+        }
+
 
     }
 
     override fun showListData(list: MutableList<ProductInventorList.ListBean>) {
 
         if (isResult) {
+            if (list.size == 0) {
+                ZBUiUtils.showSuccess(TipString.searchResultNot)
+                return
+            }
             start(ProductMoveFrg.newInstance(list))
         } else {
             when (list.size) {

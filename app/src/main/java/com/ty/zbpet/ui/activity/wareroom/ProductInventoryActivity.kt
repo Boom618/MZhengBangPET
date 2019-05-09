@@ -15,6 +15,7 @@ import com.ty.zbpet.presenter.system.SystemPresenter
 import com.ty.zbpet.ui.ActivitiesHelper
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity
 import com.ty.zbpet.base.BaseActivity
+import com.ty.zbpet.constant.TipString
 import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ZBUiUtils
@@ -68,16 +69,16 @@ class ProductInventoryActivity : BaseActivity() {
     }
 
     override fun initTwoView() {
-        initToolBar(R.string.product_inventor, "提交", View.OnClickListener {
+        initToolBar(R.string.product_inventor, TipString.submit, View.OnClickListener {
             confirm(initBody())
         })
     }
 
     private fun confirm(body: RequestBody?) {
-        ZBUiUtils.showSuccess("提交")
         if (body == null) {
             return
         }
+        ZBUiUtils.showSuccess(TipString.success)
         presenter.goodsInventory(body)
 
     }
@@ -96,12 +97,10 @@ class ProductInventoryActivity : BaseActivity() {
         }
 
         if (list.size == 0) {
-            ZBUiUtils.showWarning("请输入盘点数量")
+            ZBUiUtils.showWarning(TipString.scanBoxCodePlease)
             return null
         }
 
-//        req.positionNo =  ""
-//        req.warehouseNo =  "warehouseNo"
         req.list = list
 
         val json = DataUtils.toJson(req, 1)
@@ -116,10 +115,10 @@ class ProductInventoryActivity : BaseActivity() {
             val data = list[0]
             sap_no.text = "库存批次号：${data.companyNo}"
             tv_material_name.text = "原辅料名称：${data.goodsName}"
-            tv_supplier_name.text = "供应商名称：${data.goodsName}"
-            tv_number.text = "库存数量：${data.goodsName}"
-            tv_content.text = "含量：${data.goodsName}"
-            tv_sap.text = "SAP 批次号：${data.goodsName}"
+            tv_supplier_name.text = "供应商名称：${data.registrationHolder}"
+            tv_number.text = "库存数量："
+            tv_content.text = "含量："
+            tv_sap.text = "SAP 批次号："
             tv_actual_number.text = "实际数量："
         }
     }
@@ -130,9 +129,7 @@ class ProductInventoryActivity : BaseActivity() {
             codeList = data.getStringArrayListExtra("boxCodeList")
             codeArray.put(itemId, codeList)
             val size = codeList.size
-//            val view = recycler_product.getChildAt(itemId)
-//            val textView = view.findViewById<TextView>(R.id.tv_actual_number)
-            tv_actual_number.text = "实际数量22：$size"
+            tv_actual_number.text = "实际数量：$size"
         }
     }
 

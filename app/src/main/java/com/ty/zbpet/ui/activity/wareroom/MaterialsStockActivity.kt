@@ -15,6 +15,7 @@ import com.ty.zbpet.presenter.system.SystemPresenter
 import com.ty.zbpet.ui.adapter.LayoutInit
 import com.ty.zbpet.ui.adapter.system.InventorySourceAdapter
 import com.ty.zbpet.base.BaseActivity
+import com.ty.zbpet.constant.TipString
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ResourceUtil
@@ -134,11 +135,14 @@ class MaterialsStockActivity : BaseActivity(), ScanBoxInterface {
         rawData = event
 
         val list = event.list!!
-
-        LayoutInit.initLayoutManager(this, recycler)
-        recycler.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
-        val adapter = InventorySourceAdapter(this, R.layout.item_inventory_source, list)
-        recycler.adapter = adapter
+        if (list.size == 0) {
+            ZBUiUtils.showSuccess(TipString.materialsLocaNot)
+        }else{
+            LayoutInit.initLayoutManager(this, recycler)
+            recycler.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+            val adapter = InventorySourceAdapter(this, R.layout.item_inventory_source, list)
+            recycler.adapter = adapter
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

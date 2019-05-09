@@ -65,16 +65,16 @@ public class MainApp extends MultiDexApplication {
         ActivitiesHelper.init(this);
 
         // yokeyword 大佬的 Fragment 库
-        Fragmentation.builder()
-                .stackViewMode(Fragmentation.BUBBLE)
-                .debug(true)
-                .handleException(new ExceptionHandler() {
-                    @Override
-                    public void onException(@NonNull Exception e) {
-                        // 处理捕获异常
-                    }
-                })
-                .install();
+//        Fragmentation.builder()
+//                .stackViewMode(Fragmentation.BUBBLE)
+//                .debug(true)
+//                .handleException(new ExceptionHandler() {
+//                    @Override
+//                    public void onException(@NonNull Exception e) {
+//                        // 处理捕获异常
+//                    }
+//                })
+//                .install();
 
     }
 

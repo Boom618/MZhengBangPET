@@ -25,6 +25,7 @@ class ProductInventorList {
         var companyNo: String? = null
         var goodsNo: String? = null
         var goodsName: String? = null
+        var registrationHolder: String? = null
         var unit: String? = null
         var state: String? = null
 

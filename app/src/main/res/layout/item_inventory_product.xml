@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/space_13"
     android:background="@drawable/shape_white_min_radius"
     android:focusable="true"
     android:focusableInTouchMode="true">
 
     <include
         android:id="@+id/top"
-        app:layout_constraintTop_toTopOf="parent"
-        layout="@layout/top_layout" />
+        layout="@layout/top_layout"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/sap_no"
@@ -80,17 +81,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/x15"
-        android:text="实际数量：100"
+        android:text="实际数量：0"
         app:layout_constraintStart_toStartOf="@+id/sap_no"
         app:layout_constraintTop_toBottomOf="@+id/tv_sap" />
 
     <Button
         android:id="@+id/button_scan"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="箱码扫码"
-        android:layout_marginStart="@dimen/x50"
+        android:layout_margin="@dimen/space_13"
+        android:background="@drawable/shape_theme_min_radius"
+        android:text="@string/box_scan"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_18"
         app:layout_constraintStart_toEndOf="@+id/tv_actual_number"
-        app:layout_constraintTop_toBottomOf="@+id/tv_sap" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_actual_number" />
 
 </android.support.constraint.ConstraintLayout>

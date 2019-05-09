@@ -127,4 +127,5 @@
     <string name="house_select">仓库选择：</string>
     <string name="house_target">目标仓库：</string>
     <string name="reversal_select">冲销选择</string>
+    <string name="box_scan">箱码扫码</string>
 </resources>

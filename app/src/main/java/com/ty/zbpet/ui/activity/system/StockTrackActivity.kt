@@ -87,7 +87,7 @@ class StockTrackActivity : BaseActivity(), ScanBoxInterface {
         val list = event.materialList!!
 
         LayoutInit.initLayoutManager(this, recycler)
-        recycler.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+        recycler.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION)), false))
         val adapter = QueryProductAdapter(this, R.layout.item_sys_query_pro, list)
         recycler.adapter = adapter
 
