@@ -75,7 +75,7 @@ class ProductInventoryListActivity : BaseActivity() {
                 override fun onItemClick(view: View?, holder: RecyclerView.ViewHolder, position: Int) {
                     val intent = Intent(this@ProductInventoryListActivity, ProductInventoryActivity::class.java)
                     intent.putExtra("goodsNo", list[position].goodsNo)
-//                intent.putExtra("goodsNo", "90000947")
+                    intent.putExtra("goodsName", list[position].goodsName)
                     startActivity(intent)
                 }
             })

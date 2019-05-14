@@ -121,6 +121,7 @@ public class SystemPresenter {
      * 原辅料盘点
      */
     public void positionStock(String positionNo) {
+        EventBus.getDefault().post(new StartLoadingMessage("保存中"));
         httpMethods.positionStock(new SingleObserver<BaseResponse<PositionCode>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -129,6 +130,7 @@ public class SystemPresenter {
 
             @Override
             public void onSuccess(BaseResponse<PositionCode> response) {
+                EventBus.getDefault().post(new EndLoadingMessage(""));
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
                     PositionCode data = response.getData();
 
@@ -140,6 +142,7 @@ public class SystemPresenter {
 
             @Override
             public void onError(Throwable e) {
+                EventBus.getDefault().post(new EndLoadingMessage(""));
                 EventBus.getDefault().post(new ErrorMessage(e.getMessage()));
 
             }

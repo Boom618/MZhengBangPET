@@ -91,6 +91,10 @@ object CodeConstant {
     const val TYPE_GOODS = "goods"
     const val SELECT_IMAGE = 700
 
+    // 移库类型
+    const val MOVE_TYPE_601 = "601"
+
+
 
     /**
      * 腾讯 bug ID

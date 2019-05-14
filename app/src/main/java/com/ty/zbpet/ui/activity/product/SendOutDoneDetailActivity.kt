@@ -19,6 +19,7 @@ import com.ty.zbpet.presenter.product.SendOutPresenter
 import com.ty.zbpet.ui.activity.ScanBoxCodeActivity
 import com.ty.zbpet.ui.adapter.product.SendOutDoneDetailAdapter
 import com.ty.zbpet.base.BaseActivity
+import com.ty.zbpet.constant.TipString
 import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils
@@ -79,7 +80,7 @@ class SendOutDoneDetailActivity : BaseActivity(), ProductUiListInterface<Product
         selectTime = format.format(Date())
 
         tv_time.text = selectTime
-        in_storage_detail.text = "发货明细"
+        in_storage_detail.text = TipString.sendOutDetail
 
         et_desc.inputType = InputType.TYPE_NULL
     }

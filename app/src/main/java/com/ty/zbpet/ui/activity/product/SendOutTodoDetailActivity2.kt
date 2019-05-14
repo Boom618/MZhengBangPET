@@ -88,7 +88,7 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
     private var warehouseId: String? = null
 
     override val activityLayout: Int
-        get() = R.layout.activity_product_row_three//activity_content_row_two
+        get() = R.layout.activity_product_row_three
 
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
@@ -119,7 +119,7 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
 
     override fun initTwoView() {
 
-        initToolBar(R.string.send_out_storage_detail, "保存", View.OnClickListener { view ->
+        initToolBar(R.string.send_out_storage_detail, TipString.save, View.OnClickListener { view ->
             ZBUiUtils.hideInputWindow(view.context, view)
             sendOutTodoSave(initTodoBody())
         })
@@ -128,7 +128,7 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
         selectTime = format.format(Date())
 
         tv_time.text = selectTime
-        in_storage_detail!!.text = "发货明细"
+        in_storage_detail.text = "发货明细"
 
         tv_time.setOnClickListener { v ->
             ZBUiUtils.showPickDate(v.context) { date, _ ->
@@ -205,15 +205,15 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
             return null
         }
 
-        val remark = et_desc!!.text.toString().trim { it <= ' ' }
-        val time = tv_time!!.text.toString().trim { it <= ' ' }
+        val remark = et_desc.text.toString().trim { it <= ' ' }
+        val time = tv_time.text.toString().trim { it <= ' ' }
 
         requestBody.productInfo = productInfo
         requestBody.customerInfo = customerInfo
         requestBody.goodsInfo = goodsInfo
 
         requestBody.list = detail
-        requestBody.moveType = "601"
+        requestBody.moveType = CodeConstant.MOVE_TYPE_601
         requestBody.sapOrderNo = sapOrderNo
         requestBody.inTime = time
         requestBody.remark = remark

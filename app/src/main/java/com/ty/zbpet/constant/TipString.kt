@@ -21,6 +21,7 @@ object TipString {
     const val reversalIng = "冲销中。。。"
     const val moveHouseIng = "移库中。。。"
     const val reversalSuccess = "冲销成功"
+    const val sendOutDetail = "发货明细"
     const val moveSelect = "请选择移库的项"
     const val loginRetry = "连接超时,请重试"
     const val boxCodeNumber = "已扫箱码数量"

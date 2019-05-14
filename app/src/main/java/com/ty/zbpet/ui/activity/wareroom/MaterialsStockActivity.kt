@@ -3,6 +3,7 @@ package com.ty.zbpet.ui.activity.wareroom
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.KeyEvent
+import android.view.View
 import android.widget.EditText
 import com.pda.scanner.ScanReader
 import com.ty.zbpet.R
@@ -15,13 +16,17 @@ import com.ty.zbpet.presenter.system.SystemPresenter
 import com.ty.zbpet.ui.adapter.LayoutInit
 import com.ty.zbpet.ui.adapter.system.InventorySourceAdapter
 import com.ty.zbpet.base.BaseActivity
+import com.ty.zbpet.bean.eventbus.system.EndLoadingMessage
+import com.ty.zbpet.bean.eventbus.system.StartLoadingMessage
 import com.ty.zbpet.constant.TipString
+import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils
 import com.ty.zbpet.util.scan.ScanBoxInterface
 import com.ty.zbpet.util.scan.ScanObservable
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_inventory_source.*
 import okhttp3.RequestBody
@@ -54,7 +59,7 @@ class MaterialsStockActivity : BaseActivity(), ScanBoxInterface {
     }
 
     override fun initTwoView() {
-        bt_commit.isEnabled = false
+        bt_commit.visibility = View.INVISIBLE
         ZBUiUtils.showWarning("请扫库位码进行盘点")
         bt_commit.setOnClickListener {
             commitInventor(initDoneBody())
@@ -131,7 +136,7 @@ class MaterialsStockActivity : BaseActivity(), ScanBoxInterface {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun queryEvent(event: PositionCode) {
-        bt_commit.isEnabled = true
+        bt_commit.visibility = View.VISIBLE
         rawData = event
 
         val list = event.list!!
@@ -154,6 +159,17 @@ class MaterialsStockActivity : BaseActivity(), ScanBoxInterface {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun ErrorEvnet(event: ErrorMessage) {
         ZBUiUtils.showError(event.error())
+    }
+
+    private var dialog: LoadingDialog? = null
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun ErrorEvnet(event: StartLoadingMessage) {
+        dialog = ShowDialog.showFullDialog(this, event.message())
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun ErrorEvnet(event: EndLoadingMessage) {
+        dialog?.close()
     }
 
     override fun onDestroy() {
