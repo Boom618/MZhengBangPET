@@ -34,4 +34,11 @@ object TipString {
     const val scanLocationTarget = "请扫目标库位"
     const val toLeaveMessage = "请完善您要出库的信息"
 
+
+    //  销售出库
+    const val salesOutOfStock = "销售出库"
+    const val outOfHouse = "出库"
+
+
+
 }

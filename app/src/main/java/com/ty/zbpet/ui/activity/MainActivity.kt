@@ -34,7 +34,7 @@ class MainActivity : BaseSupActivity(), View.OnClickListener {
                 tv_arrival_in_storage,
                 tv_pick_out_storage,
                 tv_purchase_returns,
-//                tv_sales_stock,
+                tv_sales_stock,
                 tv_purchase_in_storage,
                 tv_produce_in_storage,
                 tv_send_out_storage,
@@ -64,8 +64,8 @@ class MainActivity : BaseSupActivity(), View.OnClickListener {
             }
             R.id.tv_sales_stock -> {
                 //原辅料——销售出库（新加）
-                bundle.putInt(CodeConstant.ACTIVITY_TYPE, 3)
-                //gotoActivity(PrimaryActivity::class.java, false, bundle)
+                bundle.putInt(CodeConstant.ACTIVITY_TYPE, 10)
+                gotoActivity(PrimaryActivity::class.java, false, bundle)
             }
             R.id.tv_purchase_in_storage -> {
                 //成品——外采入库

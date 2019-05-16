@@ -93,6 +93,15 @@ object ApiNameConstant {
     // 采购退货 已办保存
     const val GET_BACK_GOODS_DONE_SAVE = "stock/materialStock/mReturnRecallIn"
 
+    /*--------------------------------- 销售出库 ----------------------------------------*/
+
+    // 销售出库列表 待办列表
+    const val SaleOrderList = "sap/zbSap/getMaterialSaleOrderList"
+    // 销售出库详情
+    const val SaleOrderInfo = "sap/zbSap/getMaterialSaleOrderInfo"
+    // 销售出库
+    const val SaleOut = "stock/materialStock/mSaleOut"
+
     /*----------------------------------------------------------------------------------*/
     /*--------------------------------- 成品库存 ----------------------------------------*/
     /*----------------------------------------------------------------------------------*/

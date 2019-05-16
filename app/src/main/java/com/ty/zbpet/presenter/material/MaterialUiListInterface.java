@@ -14,14 +14,14 @@ public interface MaterialUiListInterface<T> {
 
     /**
      * Http 数据
-     * @param list
+     * @param list list
      */
     void showMaterial(List<T> list);
 
     /**
      * 扫库位码
-     * @param position
-     * @param carData
+     * @param position position
+     * @param carData carData
      */
     void showCarSuccess(int position, CarPositionNoData carData);
 
@@ -42,7 +42,7 @@ public interface MaterialUiListInterface<T> {
 
     /**
      * 失败
-     * @param msg
+     * @param msg msg
      */
     void showError(String msg);
 }

@@ -69,6 +69,14 @@ class PrimaryActivity : BaseActivity() {
                 fragmentList.add(todoFragment)
                 fragmentList.add(doneFragment)
             }
+            10 -> {
+                initToolBar(R.string.sales_out_of_stock)
+
+                val todoFragment = SaleOrderFragment.newInstance(CodeConstant.FRAGMENT_TODO)
+                val doneFragment = SaleOrderFragment.newInstance(CodeConstant.FRAGMENT_DONE)
+                fragmentList.add(todoFragment)
+                fragmentList.add(doneFragment)
+            }
             4 -> {
                 initToolBar(R.string.label_purchase_in_storage)
 
@@ -190,8 +198,8 @@ class PrimaryActivity : BaseActivity() {
             true
         }
 
-        when(intType){
-            2 ->{
+        when (intType) {
+            2, 10 -> {
                 et_search.setOnTouchListener(View.OnTouchListener { _, event ->
                     // compoundDrawables：对应位置 左 0，上 1，右 2，下 3
                     val drawable = et_search.compoundDrawables[0]
@@ -217,8 +225,8 @@ class PrimaryActivity : BaseActivity() {
                     false
                 })
             }
-            else ->{
-                et_search.setCompoundDrawables(null,null,null,null)
+            else -> {
+                et_search.setCompoundDrawables(null, null, null, null)
             }
         }
 

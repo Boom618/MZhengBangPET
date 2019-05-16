@@ -103,6 +103,9 @@
 
     <string name="box_binding_list">箱码绑定明细</string>
 
+    <!--销售出库-->
+    <string name="sales_out_of_stock">销售出库</string>
+    <string name="sales_out_of_stock_details">销售出库详情</string>
 
     <!-- fixed tip 固定提示-->
     <string name="select_house">仓库选择</string>

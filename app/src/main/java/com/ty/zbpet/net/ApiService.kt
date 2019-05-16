@@ -313,6 +313,26 @@ interface ApiService {
     @POST(ApiNameConstant.GET_BACK_GOODS_DONE_SAVE)
     fun getBackDoneSave(@Body body: RequestBody): Single<ResponseInfo>
 
+    /**----------------------------销售出库 ------------------------------------------- */
+
+    @FormUrlEncoded
+    @POST(ApiNameConstant.SaleOrderList)
+    fun getSaleOrderList(@Field("type") type: String,
+                         @Field("sapOrderNo") sapOrderNo: String,
+                         @Field("startDate") startDate: String,
+                         @Field("endDate") endDate: String): Single<BaseResponse<MaterialList>>
+
+    @FormUrlEncoded
+    @POST(ApiNameConstant.SaleOrderInfo)
+    fun saleOrderInfo(@Field("sign") sing: String,
+                      @Field("sapOrderNo") sapOrderNo: String,
+                      @Field("sapFirmNo") sapFirmNo: String,
+                      @Field("supplierNo") supplierNo: String): Single<BaseResponse<MaterialDetails>>
+
+    @POST(ApiNameConstant.SaleOut)
+    fun saleOut(@Body body: RequestBody): Single<ResponseInfo>
+
+
     /**---------------------------------------------------------------------------------- */
     /**--------------------------------- 成品库存 ---------------------------------------- */
     /**---------------------------------------------------------------------------------- */
@@ -816,7 +836,6 @@ interface ApiService {
     @FormUrlEncoded
     @POST(ApiNameConstant.goodsMoveRecall)
     fun goodsMoveRecall(@Field("id") id: String): Single<ResponseInfo>
-
 
 
     /*--------------------------------- 图片 --------------------------------------------*/

@@ -399,6 +399,27 @@ public class HttpMethods {
     }
 
 
+    /*--------------------------------销售出库-----------------------------------------*/
+
+    public void getSaleOrderList(SingleObserver<BaseResponse<MaterialList>> subscriber,
+                                 String type, String sapOrderNo, String startDate, String endDate) {
+        mService.getSaleOrderList(type, sapOrderNo, startDate, endDate)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public void saleOrderInfo(SingleObserver<BaseResponse<MaterialDetails>> subscriber,
+                              String sing, String sapOrderNo, String sapFirmNo, String supplierNo) {
+        mService.saleOrderInfo(sing, sapOrderNo, sapFirmNo, supplierNo)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    public void saleOut(SingleObserver<ResponseInfo> subscriber, RequestBody body) {
+        mService.saleOut(body)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
     /*----------------------------------------------------------------------------------*/
     /*--------------------------------- 成品库存 ----------------------------------------*/
     /*----------------------------------------------------------------------------------*/
@@ -904,7 +925,7 @@ public class HttpMethods {
     }
 
     // 成品移出源库位冲销(314冲销)
-    public void goodsSourceRecall(SingleObserver<ResponseInfo> observer, String id){
+    public void goodsSourceRecall(SingleObserver<ResponseInfo> observer, String id) {
         mService.goodsSourceRecall(id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
@@ -919,7 +940,7 @@ public class HttpMethods {
     }
 
     // 成品冲销（316冲销/目标仓库冲销）
-    public void goodsMoveRecall(SingleObserver<ResponseInfo> observer, String id){
+    public void goodsMoveRecall(SingleObserver<ResponseInfo> observer, String id) {
         mService.goodsMoveRecall(id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

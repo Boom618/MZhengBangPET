@@ -2,19 +2,14 @@ package com.ty.zbpet.presenter.move;
 
 import com.ty.zbpet.base.BaseResponse;
 import com.ty.zbpet.bean.ResponseInfo;
-import com.ty.zbpet.bean.eventbus.ErrorMessage;
 import com.ty.zbpet.bean.system.PositionCode;
 import com.ty.zbpet.bean.system.ProMoveList;
 import com.ty.zbpet.bean.system.ProductInventorList;
-import com.ty.zbpet.bean.system.ProductMove;
 import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.constant.TipString;
 import com.ty.zbpet.net.HttpMethods;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.net.SocketTimeoutException;
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.SingleObserver;

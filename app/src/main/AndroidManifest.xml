@@ -113,6 +113,7 @@
         <activity android:name=".ui.activity.wareroom.ProductInventoryActivity" />
         <activity android:name=".ui.activity.wareroom.ProductInventoryListActivity" />
         <activity android:name=".ui.activity.wareroom.ProductDeleteListActivity" />
+        <activity android:name=".ui.activity.material.SaleTodoDetailActivity" />
 
     </application>
 
