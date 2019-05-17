@@ -1,6 +1,7 @@
 package com.ty.zbpet.presenter.material;
 
 import com.ty.zbpet.base.BaseResponse;
+import com.ty.zbpet.bean.CarPositionNoData;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.material.MaterialDetails;
 import com.ty.zbpet.bean.material.MaterialList;
@@ -109,7 +110,42 @@ public class SaleOrderPresenter {
             }
         }, sing, sapOrderNo, sapFirmNo, supplierNo);
     }
+    /**
+     * 库位码校验
+     *
+     * @param positionNo
+     */
+    public void checkCarCode(final int position, final String positionNo,String warehouseNo) {
 
+        httpMethods.checkCarCode(new SingleObserver<CarPositionNoData>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                view.showError(e.getMessage());
+            }
+
+            @Override
+            public void onSuccess(CarPositionNoData responseInfo) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(responseInfo.getTag())) {
+                    // 库位码合法
+                    view.showCarSuccess(position, responseInfo);
+                } else {
+                    view.showError(responseInfo.getMessage());
+                }
+
+            }
+        }, positionNo,warehouseNo);
+    }
+
+
+    /**
+     * 销售出库保存
+     * @param body
+     */
     public void saleOut(RequestBody body) {
         view.showLoading();
         httpMethods.saleOut(new SingleObserver<ResponseInfo>() {

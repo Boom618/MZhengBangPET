@@ -21,6 +21,7 @@ class MaterialDetails {
     var supplierName: String? = null
     var creatorNo: String? = null
     var outTime: String? = null
+    var sign: String? = null
     var inTime: String? = null
     var remark: String? = null
 

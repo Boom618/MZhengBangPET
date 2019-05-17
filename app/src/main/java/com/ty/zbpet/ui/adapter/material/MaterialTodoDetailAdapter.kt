@@ -60,11 +60,6 @@ class MaterialTodoDetailAdapter(context: Context, layoutId: Int, datas: List<Mat
             holder.setText(R.id.tv_name, info.materialName)
                     .setText(R.id.tv_num, info.orderNumber + info.unit)
                     .setText(R.id.tv_houseNo, "仓库编号：${info.warehouseNo}")
-//            val tvName = itemView.findViewById<TextView>(R.id.tv_name)
-//            tvName.text = info.materialName
-//
-//            val tvNum = itemView.findViewById<TextView>(R.id.tv_num)
-//            tvNum.text = info.orderNumber + info.unit
 
         } else {
             val bundle = payloads[0] as Bundle

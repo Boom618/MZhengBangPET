@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions' // kotlin-android 中包含了这个插件
+apply plugin: 'kotlin-android-extensions' // kotlin-android 中包含了这个插件 免去 findViewBy
 
 def ZBConfig = rootProject.ext
 

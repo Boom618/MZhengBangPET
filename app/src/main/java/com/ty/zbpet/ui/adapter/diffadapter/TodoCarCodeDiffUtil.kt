@@ -46,7 +46,7 @@ class TodoCarCodeDiffUtil(private val mOldList: List<MaterialDetails.ListBean>?,
      * 注意：返回的这个对象会在什么地方收到呢？实际上在 RecyclerView.Adapter 中有两个 onBindViewHolder 方法，
      * 一个是我们必须要重写的，而另一个的第三个参数就是一个 payload 的列表：
      */
-    override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
+    override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Bundle {
         val listBean = mNewList?.get(newItemPosition)
         val diffBundle = Bundle()
         diffBundle.putString("positionNo",listBean?.positionNo)

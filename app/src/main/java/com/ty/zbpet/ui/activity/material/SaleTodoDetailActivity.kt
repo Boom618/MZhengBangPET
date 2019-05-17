@@ -23,6 +23,7 @@ import com.ty.zbpet.ui.adapter.material.PickingTodoDetailAdapter
 import com.ty.zbpet.base.BaseActivity
 import com.ty.zbpet.constant.TipString
 import com.ty.zbpet.presenter.material.SaleOrderPresenter
+import com.ty.zbpet.ui.adapter.material.SaleTodoDetailAdapter
 import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils
@@ -47,7 +48,7 @@ class SaleTodoDetailActivity : BaseActivity()
         , ScanBoxInterface {
 
 
-    private lateinit var adapter: PickingTodoDetailAdapter
+    private lateinit var adapter: SaleTodoDetailAdapter
 
     private lateinit var sign: String
     private lateinit var selectTime: String
@@ -170,7 +171,7 @@ class SaleTodoDetailActivity : BaseActivity()
 
         requestBody.list = detail
         requestBody.outTime = time
-        requestBody.moveType = "261"
+        requestBody.sign = sign
         requestBody.sapOrderNo = sapOrderNo
         requestBody.supplierNo = supplierNo
         requestBody.remark = remark
@@ -214,7 +215,7 @@ class SaleTodoDetailActivity : BaseActivity()
         //  服务器校验 库位码
 //        presenter.urlAnalyze(position, positionNo)
         val warehouseNo = list[position].warehouseNo
-//        presenter.checkCarCode(position, positionNo,warehouseNo)
+        presenter.checkCarCode(position, positionNo,warehouseNo)
     }
 
 
@@ -249,7 +250,7 @@ class SaleTodoDetailActivity : BaseActivity()
         val manager = LinearLayoutManager(ResourceUtil.getContext())
         rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
         rv_in_storage_detail.layoutManager = manager
-        adapter = PickingTodoDetailAdapter(this, R.layout.item_material_detail_three_todo, list)
+        adapter = SaleTodoDetailAdapter(this, R.layout.item_material_detail_three_todo, list)
         rv_in_storage_detail.adapter = adapter
 
         adapter.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
@@ -280,7 +281,7 @@ class SaleTodoDetailActivity : BaseActivity()
 
     private var dialog: LoadingDialog? = null
     override fun showLoading() {
-        dialog = ShowDialog.showFullDialog(this@SaleTodoDetailActivity, "保存中")
+        dialog = ShowDialog.showFullDialog(this@SaleTodoDetailActivity, "加载中")
     }
 
     override fun hideLoading() {
