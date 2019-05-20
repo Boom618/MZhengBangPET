@@ -101,6 +101,8 @@ object ApiNameConstant {
     const val SaleOrderInfo = "sap/zbSap/getMaterialSaleOrderInfo"
     // 销售出库
     const val SaleOut = "stock/materialStock/mSaleOut"
+    // 销售冲销
+    const val SaleInList = "stock/materialStock/mSaleRecallIn"
 
     /*----------------------------------------------------------------------------------*/
     /*--------------------------------- 成品库存 ----------------------------------------*/

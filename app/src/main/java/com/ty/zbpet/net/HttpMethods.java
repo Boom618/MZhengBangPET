@@ -420,6 +420,12 @@ public class HttpMethods {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
+    public void saleInList(SingleObserver<ResponseInfo> subscriber,RequestBody body){
+        mService.saleInList(body)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
     /*----------------------------------------------------------------------------------*/
     /*--------------------------------- 成品库存 ----------------------------------------*/
     /*----------------------------------------------------------------------------------*/

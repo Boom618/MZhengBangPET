@@ -68,6 +68,7 @@ object CodeConstant {
     const val BUY_IN_TYPE = "1"
     const val PICK_OUT_TYPE = "20"
     const val BACK_GOODS_TYPE = "21"
+    const val SALE_ORDER_TYPE = "22"
 
     /**
      * 成品  已办列表 （ 服务器定的规则 ）

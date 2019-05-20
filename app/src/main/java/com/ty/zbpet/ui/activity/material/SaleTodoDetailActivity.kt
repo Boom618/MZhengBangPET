@@ -19,7 +19,6 @@ import com.ty.zbpet.data.SharedP
 import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
 import com.ty.zbpet.ui.adapter.diffadapter.TodoCarCodeDiffUtil
-import com.ty.zbpet.ui.adapter.material.PickingTodoDetailAdapter
 import com.ty.zbpet.base.BaseActivity
 import com.ty.zbpet.constant.TipString
 import com.ty.zbpet.presenter.material.SaleOrderPresenter
@@ -54,6 +53,7 @@ class SaleTodoDetailActivity : BaseActivity()
     private lateinit var selectTime: String
     private lateinit var sapOrderNo: String
     private lateinit var supplierNo: String
+    private lateinit var supplierName: String
     private lateinit var sapFirmNo: String
     private lateinit var content: String
 
@@ -81,6 +81,7 @@ class SaleTodoDetailActivity : BaseActivity()
         sapOrderNo = intent.getStringExtra("sapOrderNo")
         sapFirmNo = intent.getStringExtra("sapFirmNo")
         supplierNo = intent.getStringExtra("supplierNo")
+        supplierName = intent.getStringExtra("supplierName")
         content = intent.getStringExtra("content")
         sign = intent.getStringExtra("sign")
 
@@ -133,6 +134,7 @@ class SaleTodoDetailActivity : BaseActivity()
 
             val carCode = view.findViewById<EditText>(R.id.et_code).text.toString().trim { it <= ' ' }
             val bulkNum = view.findViewById<EditText>(R.id.et_number).text.toString().trim { it <= ' ' }
+            val batchNo = view.findViewById<EditText>(R.id.et_batchNo).text.toString().trim { it <= ' ' }
             val materialId = list[i].materialId
             val supplierNo = list[i].supplierNo
 
@@ -156,6 +158,7 @@ class SaleTodoDetailActivity : BaseActivity()
                 // 用户输入数据
                 bean.positionNo = carCode
                 bean.number = bulkNum
+                bean.sapBatchNo = batchNo
 
                 detail.add(bean)
             }
@@ -174,6 +177,7 @@ class SaleTodoDetailActivity : BaseActivity()
         requestBody.sign = sign
         requestBody.sapOrderNo = sapOrderNo
         requestBody.supplierNo = supplierNo
+        requestBody.supplierName = supplierName
         requestBody.remark = remark
 
         val json = DataUtils.toJson(requestBody, 1)
@@ -250,7 +254,7 @@ class SaleTodoDetailActivity : BaseActivity()
         val manager = LinearLayoutManager(ResourceUtil.getContext())
         rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
         rv_in_storage_detail.layoutManager = manager
-        adapter = SaleTodoDetailAdapter(this, R.layout.item_material_detail_three_todo, list)
+        adapter = SaleTodoDetailAdapter(this, R.layout.item_material_sale_detail_todo, list)
         rv_in_storage_detail.adapter = adapter
 
         adapter.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {

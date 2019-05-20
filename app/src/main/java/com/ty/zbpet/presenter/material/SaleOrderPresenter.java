@@ -10,6 +10,7 @@ import com.ty.zbpet.constant.TipString;
 import com.ty.zbpet.net.HttpMethods;
 
 import java.net.SocketTimeoutException;
+import java.util.List;
 
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
@@ -110,12 +111,13 @@ public class SaleOrderPresenter {
             }
         }, sing, sapOrderNo, sapFirmNo, supplierNo);
     }
+
     /**
      * 库位码校验
      *
      * @param positionNo
      */
-    public void checkCarCode(final int position, final String positionNo,String warehouseNo) {
+    public void checkCarCode(final int position, final String positionNo, String warehouseNo) {
 
         httpMethods.checkCarCode(new SingleObserver<CarPositionNoData>() {
             @Override
@@ -138,13 +140,14 @@ public class SaleOrderPresenter {
                 }
 
             }
-        }, positionNo,warehouseNo);
+        }, positionNo, warehouseNo);
     }
 
 
     /**
      * 销售出库保存
-     * @param body
+     *
+     * @param body body
      */
     public void saleOut(RequestBody body) {
         view.showLoading();
@@ -161,6 +164,97 @@ public class SaleOrderPresenter {
                     view.saveSuccess();
                 } else {
                     view.showError(responseInfo.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                view.hideLoading();
+                if (e instanceof SocketTimeoutException) {
+                    view.showError(TipString.loginRetry);
+                } else {
+                    view.showError(e.getMessage());
+                }
+            }
+        }, body);
+    }
+
+    /**
+     * 已办列表
+     */
+    public void fetchPickOutDoneList(String type, String sapOrderNo, String startDate, String endDate) {
+        httpMethods.pickOutDoneList(new SingleObserver<BaseResponse<MaterialList>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                view.showError(e.getMessage());
+            }
+
+            @Override
+            public void onSuccess(BaseResponse<MaterialList> response) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
+
+                    List<MaterialList.ListBean> list = response.getData().getList();
+                    view.showMaterial(list);
+
+                } else {
+                    view.showError(response.getMessage());
+                }
+            }
+        }, type, sapOrderNo, startDate, endDate);
+    }
+
+    /**
+     * 已办 详情
+     */
+    public void fetchBackDoneListInfo(String orderId) {
+        httpMethods.getBackDoneListInfo(new SingleObserver<BaseResponse<MaterialDetails>>() {
+            @Override
+            public void onError(Throwable e) {
+                view.showError(e.getMessage());
+            }
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(BaseResponse<MaterialDetails> response) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
+
+                    view.showMaterial(response.getData().getList());
+
+                } else {
+                    view.showError(response.getMessage());
+                }
+            }
+        }, orderId);
+
+    }
+
+    /**
+     * 销售冲销
+     */
+    public void saleInList(RequestBody body) {
+        view.showLoading();
+        httpMethods.saleInList(new SingleObserver<ResponseInfo>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(ResponseInfo response) {
+                view.hideLoading();
+                if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
+                    view.saveSuccess();
+                } else {
+                    view.showError(response.getMessage());
                 }
             }
 

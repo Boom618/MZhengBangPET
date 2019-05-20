@@ -332,6 +332,9 @@ interface ApiService {
     @POST(ApiNameConstant.SaleOut)
     fun saleOut(@Body body: RequestBody): Single<ResponseInfo>
 
+    @POST(ApiNameConstant.SaleInList)
+    fun saleInList(@Body body: RequestBody): Single<ResponseInfo>
+
 
     /**---------------------------------------------------------------------------------- */
     /**--------------------------------- 成品库存 ---------------------------------------- */

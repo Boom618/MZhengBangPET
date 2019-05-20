@@ -46,7 +46,6 @@ class SaleTodoDetailAdapter(private val context: Context, layoutId: Int, datas: 
             val bundle = payloads[0] as Bundle
             val positionNo = bundle.getString("positionNo")
             etCode.setText(positionNo)
-            holder.setText(R.id.tv_batch_no, "SAP 物料批次号：")
         }
     }
 
