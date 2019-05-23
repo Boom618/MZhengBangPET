@@ -45,8 +45,6 @@ public class ExampleUnitTest {
         list.add("1111");
         list.add("2222");
         list.add("3333");
-        System.out.println(list.get(0));
-        list.add(0, "aaaa");
 
         String s = list.get(0);
         System.out.println(s);

@@ -33,6 +33,7 @@
     <string name="user_no">用户编号</string>
     <string name="action_sign_in">登录</string>
     <string name="inventory_tracking">库存追踪</string>
+    <string name="inventory_tracking_position">库位码库存查询</string>
     <string name="box_code_query">箱码查询</string>
     <string name="zb_slogan">以人为本 以正兴邦</string>
     <string name="action_sign_in_short">登录</string>

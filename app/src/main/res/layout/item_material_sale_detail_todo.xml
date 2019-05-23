@@ -140,7 +140,7 @@
             android:ellipsize="end"
             android:hint="出库数量：2000"
             android:singleLine="true"
-            android:imeOptions="actionDone"
+            android:imeOptions="actionNext"
             android:inputType="number"
             style="@style/itemSizeStyle"
             app:layout_constraintHorizontal_chainStyle="packed"
@@ -157,6 +157,8 @@
             android:layout_marginEnd="40dp"
             android:hint="SAP 物料批次号"
             style="@style/itemSizeStyle"
+            android:inputType="none"
+            android:imeOptions="actionDone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_number" />

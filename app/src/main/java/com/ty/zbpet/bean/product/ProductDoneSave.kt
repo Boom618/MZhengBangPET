@@ -16,6 +16,7 @@ class ProductDoneSave {
     var sapOrderNo: String? = null
     var orderId: String? = null
     var moveType: String? = null
+    var deleteSign = false
     var remark: String? = null
     var list: List<DetailsBean>? = null
 

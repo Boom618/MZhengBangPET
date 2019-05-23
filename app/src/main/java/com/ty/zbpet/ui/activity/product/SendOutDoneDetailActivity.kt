@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.text.InputType
 import android.view.View
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageView
 import com.ty.zbpet.R
@@ -64,7 +65,7 @@ class SendOutDoneDetailActivity : BaseActivity(), ProductUiListInterface<Product
     }
 
     override fun initOneData() {
-
+        checkbox_del.visibility = View.VISIBLE
         orderId = intent.getStringExtra("orderId")
         sapOrderNo = intent.getStringExtra("sapOrderNo")
 
@@ -101,7 +102,7 @@ class SendOutDoneDetailActivity : BaseActivity(), ProductUiListInterface<Product
     private fun initDoneBody(): RequestBody? {
 
         val requestBody = ProductDoneSave()
-
+        val checkDel = checkbox_del.isChecked
         val size = list.size
         val beans = ArrayList<ProductDoneSave.DetailsBean>()
         for (i in 0 until size) {
@@ -143,6 +144,7 @@ class SendOutDoneDetailActivity : BaseActivity(), ProductUiListInterface<Product
         requestBody.orderId = orderId
         requestBody.moveType = "602"
         requestBody.sapOrderNo = sapOrderNo
+        requestBody.deleteSign = checkDel
         requestBody.inTime = selectTime
         val json = DataUtils.toJson(requestBody, 1)
 

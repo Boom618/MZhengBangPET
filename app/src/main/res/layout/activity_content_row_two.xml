@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <include
@@ -37,6 +37,16 @@
                 android:text="@string/picking_details"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_18" />
+
+
+            <CheckBox
+                android:id="@+id/checkbox_del"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/x20"
+                android:text="删除交货单"
+                android:visibility="gone" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_in_storage_detail"
@@ -85,9 +95,9 @@
                     android:drawablePadding="@dimen/space_10"
                     android:gravity="center_vertical"
                     android:padding="@dimen/space_7"
-                    tools:text="2018-08-31 14:18"
                     android:textColor="@color/txt_main_color"
-                    android:textSize="@dimen/text_14" />
+                    android:textSize="@dimen/text_14"
+                    tools:text="2018-08-31 14:18" />
 
 
                 <EditText

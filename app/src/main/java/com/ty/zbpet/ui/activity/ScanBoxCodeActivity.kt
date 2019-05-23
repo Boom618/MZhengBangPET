@@ -76,7 +76,7 @@ class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface, CommInterface {
         recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST, ResourceUtil.dip2px(1), ResourceUtil.getColor(R.color.split_line)))
         recyclerView.layoutManager = mLayoutManager
 //        adapter = BindBoxCodeAdapter(ResourceUtil.getContext(), boxCodeList)
-        adapter = ScanBoxCodeAdapter(ResourceUtil.getContext(), R.layout.item_box_code, boxCodeList)
+        adapter = ScanBoxCodeAdapter(ResourceUtil.getContext(), R.layout.item_box_code, state, boxCodeList)
         recyclerView.adapter = adapter
         adapter?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
             override fun onItemLongClick(view: View?, holder: RecyclerView.ViewHolder, position: Int): Boolean {
@@ -85,7 +85,6 @@ class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface, CommInterface {
 
             override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
                 val imageDel = holder.itemView.findViewById<ImageView>(R.id.iv_del)
-
                 imageDel.setOnClickListener {
                     val size = boxCodeList.size
                     try {

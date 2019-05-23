@@ -31,6 +31,9 @@
         android:text="联想台式电脑"
         android:textColor="@color/txt_main_color"
         android:textSize="@dimen/text_14"
+        android:maxLines="1"
+        android:maxEms="16"
+        android:ellipsize="end"
         app:layout_constraintStart_toEndOf="@+id/iv_tag"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -70,12 +73,13 @@
 
         <TextView
             android:id="@+id/tv_send_number"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/x8"
             android:layout_marginStart="@dimen/text_16"
             android:layout_marginEnd="@dimen/text_16"
             android:text="应发数量："
+            app:layout_constraintStart_toStartOf="parent"
             android:textColor="@color/txt_main_color"
             android:textSize="@dimen/text_14"
             app:layout_constraintTop_toTopOf="parent" />
@@ -139,7 +143,7 @@
             android:layout_marginTop="@dimen/space_10"
             android:layout_marginEnd="@dimen/text_28"
             android:background="@drawable/shape_theme_min_radius"
-            android:text="箱码绑定"
+            android:text="箱码查看"
             android:textColor="@color/white"
             android:textColorHint="@color/hint_color"
             android:textSize="@dimen/text_16"

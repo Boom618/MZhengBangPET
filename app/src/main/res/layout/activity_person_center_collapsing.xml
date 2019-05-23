@@ -73,84 +73,127 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <View
-                android:id="@+id/list"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
+            <LinearLayout
+                android:id="@+id/ll_list"
                 android:layout_marginStart="@dimen/space_15"
                 android:layout_marginTop="10dp"
+                android:orientation="vertical"
                 android:layout_marginEnd="@dimen/space_15"
+                app:layout_constraintTop_toTopOf="parent"
                 android:background="@drawable/shape_white_min_radius"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <LinearLayout
-                android:id="@+id/ll_track"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/list">
+                android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/inventory_tracking"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                <LinearLayout
+                    android:id="@+id/ll_track"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/space_20"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/list">
+
+                    <TextView
+                        android:id="@+id/inventory_tracking"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_20"
+                        android:layout_marginTop="@dimen/x10"
+                        android:text="@string/inventory_tracking_position"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_16" />
+
+                    <ImageView
+                        android:id="@+id/image_to_track"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/x8"
+                        android:layout_marginEnd="@dimen/space_20"
+                        android:background="@mipmap/ic_collapse" />
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginStart="@dimen/space_15"
                     android:layout_marginTop="@dimen/x10"
-                    android:text="@string/inventory_tracking"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_16" />
+                    android:layout_marginEnd="@dimen/space_15"
+                    android:background="@color/split_line_color"
+                    app:layout_constraintTop_toTopOf="@+id/list" />
 
-                <ImageView
-                    android:id="@+id/image_to_track"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/ll_position"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/x8"
-                    android:layout_marginEnd="@dimen/space_20"
-                    android:background="@mipmap/ic_collapse" />
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="@+id/list"
+                    app:layout_constraintTop_toTopOf="@+id/line">
+
+                    <TextView
+                        android:id="@+id/box_code_query"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_20"
+                        android:layout_marginTop="@dimen/x10"
+                        android:text="@string/box_code_query"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_16"/>
+
+                    <ImageView
+                        android:id="@+id/image_to_query"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/x10"
+                        android:layout_marginEnd="@dimen/space_20"
+                        android:background="@mipmap/ic_collapse"/>
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/line01"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginStart="@dimen/space_15"
+                    android:layout_marginTop="@dimen/x10"
+                    android:layout_marginEnd="@dimen/space_15"
+                    android:background="@color/split_line_color"
+                    app:layout_constraintTop_toTopOf="@+id/list" />
+
+                <LinearLayout
+                    android:id="@+id/ll_products"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="@dimen/x10"
+                    app:layout_constraintStart_toStartOf="@+id/list"
+                    app:layout_constraintTop_toTopOf="@+id/line">
+
+                    <TextView
+                        android:id="@+id/tv_products"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_20"
+                        android:layout_marginTop="@dimen/x10"
+                        android:text="成品溯源"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_16"/>
+
+                    <ImageView
+                        android:id="@+id/image_products"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/x10"
+                        android:layout_marginEnd="@dimen/space_20"
+                        android:background="@mipmap/ic_collapse"/>
+
+                </LinearLayout>
+
 
             </LinearLayout>
-
-            <View
-                android:id="@+id/line"
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginStart="@dimen/space_15"
-                android:layout_marginTop="@dimen/space_40"
-                android:layout_marginEnd="@dimen/space_15"
-                android:background="@color/split_line_color"
-                app:layout_constraintTop_toTopOf="@+id/list" />
-
-            <LinearLayout
-                android:id="@+id/ll_position"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="@+id/list"
-                app:layout_constraintTop_toTopOf="@+id/line">
-
-                <TextView
-                    android:id="@+id/box_code_query"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/space_20"
-                    android:layout_marginTop="@dimen/x10"
-                    android:text="@string/box_code_query"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_16"/>
-
-                <ImageView
-                    android:id="@+id/image_to_query"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/x10"
-                    android:layout_marginEnd="@dimen/space_20"
-                    android:background="@mipmap/ic_collapse"/>
-
-            </LinearLayout>
-
 
             <View
                 android:id="@+id/company"
@@ -160,7 +203,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="@dimen/space_15"
                 android:background="@drawable/shape_white_min_radius"
-                app:layout_constraintTop_toBottomOf="@+id/list" />
+                app:layout_constraintTop_toBottomOf="@+id/ll_list" />
 
             <View
                 android:id="@+id/line1"

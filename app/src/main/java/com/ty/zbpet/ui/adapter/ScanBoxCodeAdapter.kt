@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import butterknife.ButterKnife
 import com.ty.zbpet.R
 import com.ty.zbpet.util.ZBUiUtils
@@ -16,12 +17,15 @@ import kotlinx.android.synthetic.main.item_box_code.view.*
 /**
  * @author TY
  */
-class ScanBoxCodeAdapter(mContext: Context, layout: Int, info: MutableList<String>)
+class ScanBoxCodeAdapter(mContext: Context, layout: Int, private val showDel: Boolean, info: MutableList<String>)
     : CommonAdapter<String>(mContext, layout, info) {
 
     override fun convert(holder: ViewHolder, codeString: String, position: Int) {
 
         holder.setText(R.id.tv_box_code, codeString)
+        if (!showDel) {
+            holder.itemView.findViewById<ImageView>(R.id.iv_del).visibility = View.GONE
+        }
 
     }
 }
