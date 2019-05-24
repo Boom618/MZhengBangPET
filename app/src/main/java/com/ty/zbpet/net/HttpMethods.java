@@ -592,8 +592,9 @@ public class HttpMethods {
      *
      * @param subscriber subscriber
      */
-    public void getShipOrderInfo(SingleObserver<BaseResponse<ProductDetails>> subscriber, String sapOrderNo) {
-        mService.getShipOrderInfo(sapOrderNo)
+    public void getShipOrderInfo(SingleObserver<BaseResponse<ProductDetails>> subscriber,
+                                 String sign,String sapOrderNo,String supplierNo,String customerNo,String sapFirmNo) {
+        mService.getShipOrderInfo(sign,sapOrderNo,supplierNo,customerNo,sapFirmNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -728,7 +729,7 @@ public class HttpMethods {
      */
 
     /**
-     * 成品查询
+     * 成品溯源
      *
      * @param observer observer
      * @param url      URL

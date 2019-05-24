@@ -27,7 +27,7 @@ import java.util.*
 
 /**
  * @author TY on 2019/3/5.
- * 成品追踪
+ * 成品溯源
  */
 class StockTrackActivity : BaseActivity(), ScanBoxInterface {
 

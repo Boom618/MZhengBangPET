@@ -74,7 +74,7 @@ public class SendOutPresenter {
      *
      * @param sapOrderNo BuyInTodoDetails
      */
-    public void fetchSendOutTodoInfo(String sapOrderNo) {
+    public void fetchSendOutTodoInfo(String sign,String sapOrderNo,String supplierNo,String customerNo,String sapFirmNo) {
 
 
         httpMethods.getShipOrderInfo(new SingleObserver<BaseResponse<ProductDetails>>() {
@@ -99,7 +99,7 @@ public class SendOutPresenter {
             public void onError(Throwable e) {
                 listInterface.showError(e.getMessage());
             }
-        }, sapOrderNo);
+        }, sign,sapOrderNo,supplierNo,customerNo,sapFirmNo);
     }
 
     /**

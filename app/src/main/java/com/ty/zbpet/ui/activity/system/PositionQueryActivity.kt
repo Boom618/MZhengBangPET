@@ -60,7 +60,7 @@ class PositionQueryActivity : BaseActivity(), ScanBoxInterface {
 
         product_name.text = "库位类型："
         product_order.text = "查询时间："
-        product_batch.text = "查询次数："
+        product_batch.visibility = View.GONE
         product_time.text = "库存总量："
     }
 
@@ -93,7 +93,7 @@ class PositionQueryActivity : BaseActivity(), ScanBoxInterface {
 
         product_name.text = "库位类型：${event.type}"
         product_order.text = "查询时间：$time"
-        product_batch.text = "查询次数："
+        product_batch.visibility = View.GONE
         product_time.text = "库存总量：${event.sum}"
 
 

@@ -506,12 +506,16 @@ interface ApiService {
     /**
      * 发货出库 待办详情
      *
-     * @param sapOrderNo
+     * @param sapOrderNo  sign，sapFirmNo，supplierNo
      * @return Single
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_SHIP_ORDER_INFO)
-    fun getShipOrderInfo(@Field("sapOrderNo") sapOrderNo: String): Single<BaseResponse<ProductDetails>>
+    fun getShipOrderInfo(@Field("sign") sign: String,
+                         @Field("sapOrderNo") sapOrderNo: String,
+                         @Field("supplierNo") supplierNo: String,
+                         @Field("customerNo") customerNo: String,
+                         @Field("sapFirmNo") sapFirmNo: String): Single<BaseResponse<ProductDetails>>
 
 
     /**
@@ -640,7 +644,7 @@ interface ApiService {
      */
 
     /**
-     * 成品查询
+     * 成品溯源
      *
      * @param url URL
      * @return Single

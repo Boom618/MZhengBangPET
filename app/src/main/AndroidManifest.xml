@@ -105,7 +105,6 @@
         <activity android:name=".ui.activity.system.StockTrackActivity" />
         <activity android:name=".ui.activity.system.QualityCheckTabActivity" />
         <activity android:name=".ui.activity.system.BoxCodeQueryActivity" />
-        <activity android:name=".ui.activity.system.LocationQueryActivity" />
         <activity android:name=".ui.activity.wareroom.MoveRoomMainActivity" />
         <activity android:name=".ui.activity.system.PositionQueryActivity" />
         <activity android:name=".ui.activity.wareroom.InventoryMainActivity" />

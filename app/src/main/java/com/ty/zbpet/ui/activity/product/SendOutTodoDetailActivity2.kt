@@ -45,6 +45,9 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
     private var selectTime: String? = null
     private var sapOrderNo: String? = null
     private var sapFirmNo: String? = null
+    private var supplierNo: String? = null
+    private var customerNo: String? = null
+    private var sign: String? = null
     private var content: String = ""
 
     /**
@@ -98,7 +101,10 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
     override fun initOneData() {
         sapOrderNo = intent.getStringExtra("sapOrderNo")
         sapFirmNo = intent.getStringExtra("sapFirmNo")
+        supplierNo = intent.getStringExtra("supplierNo")
+        customerNo = intent.getStringExtra("customerNo")
         content = intent.getStringExtra("content")
+        sign = intent.getStringExtra("sign")
 
         productInfo = intent.getStringExtra("productInfo")
         customerInfo = intent.getStringExtra("customerInfo")
@@ -114,7 +120,7 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        presenter.fetchSendOutTodoInfo(sapOrderNo)
+        presenter.fetchSendOutTodoInfo(sign,sapOrderNo,supplierNo,customerNo,sapFirmNo)
     }
 
     override fun initTwoView() {
@@ -212,6 +218,7 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
         requestBody.customerInfo = customerInfo
         requestBody.goodsInfo = goodsInfo
 
+        requestBody.sign = sign
         requestBody.list = detail
         requestBody.moveType = CodeConstant.MOVE_TYPE_601
         requestBody.sapOrderNo = sapOrderNo

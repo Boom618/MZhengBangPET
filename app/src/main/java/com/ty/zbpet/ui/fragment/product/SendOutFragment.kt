@@ -114,7 +114,10 @@ class SendOutFragment : BaseFragment(), ProductUiListInterface<ProductList.ListB
                         val intent = Intent(activity, SendOutTodoDetailActivity2::class.java)
                         intent.putExtra("sapOrderNo", list[position].sapOrderNo)
                         intent.putExtra("sapFirmNo", list[position].sapFirmNo)
+                        intent.putExtra("supplierNo", list[position].supplierNo)
+                        intent.putExtra("customerNo", list[position].customerNo)
                         intent.putExtra("content", list[position].content)
+                        intent.putExtra("sign", list[position].sign)
                         startActivity(intent)
                     }
 

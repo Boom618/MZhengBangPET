@@ -27,7 +27,7 @@ class QueryPresenter {
     }
 
     /**
-     * 成品查询
+     * 成品溯源
      */
     fun productQuery(url: String) {
         httpMethods.getProductQuery(object : SingleObserver<BaseResponse<ProductQuery>> {

@@ -67,10 +67,12 @@ class PersonCenterActivity : BaseActivity(), UserInterface {
             }
         })
 
-        // 成品溯源、库位码库存查询、箱码查询
+        // 库位码库存查询
         ll_track.setOnClickListener { gotoActivity(PositionQueryActivity::class.java) }
-        ll_position.setOnClickListener { gotoActivity(StockTrackActivity::class.java) }
-        ll_products.setOnClickListener { ZBUiUtils.showWarning("调试中") }
+        // 箱码查询
+        ll_position.setOnClickListener { ZBUiUtils.showWarning("调试中") }
+        // 成品溯源
+        ll_products.setOnClickListener { gotoActivity(StockTrackActivity::class.java) }
         btn_modify_pwd.setOnClickListener { gotoActivity(UserUpDataPass::class.java) }
         btn_cancel.setOnClickListener { exitApp() }
         loadCirclePic(this, image_heard)

@@ -11,6 +11,7 @@ import com.ty.zbpet.ui.ActivitiesHelper
 import com.ty.zbpet.ui.adapter.LayoutInit
 import com.ty.zbpet.ui.adapter.wareroom.ProductDeleteAdapter
 import com.ty.zbpet.base.BaseActivity
+import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.ui.widght.NormalAlertDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DialogUtil
@@ -41,7 +42,7 @@ class ProductDeleteListActivity : BaseActivity() {
     override fun initOneData() {
         initToolBar(R.string.product_delete)
         LayoutInit.initLayoutManager(this, recycler_inventory)
-        recycler_inventory.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+        recycler_inventory.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
         //presenter.getGoodsList(6, "")
         presenter.getCheckList("2")
     }

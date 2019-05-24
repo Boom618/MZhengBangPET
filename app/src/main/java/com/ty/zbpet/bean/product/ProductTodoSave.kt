@@ -12,7 +12,6 @@ class ProductTodoSave {
     var sapOrderNo: String? = null
     var supplierNo: String? = null
     var supplierName: String? = null
-    var creatorNo: String? = null
     var moveType: String? = null
     var orderId: String? = null
     var remark: String? = null
@@ -28,6 +27,7 @@ class ProductTodoSave {
     var productInfo: String? = null
     var customerInfo: String? = null
     var goodsInfo: String? = null
+    var sign: String? = null
 
     class DetailsBean {
 

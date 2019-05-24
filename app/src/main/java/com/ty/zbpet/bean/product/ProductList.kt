@@ -15,12 +15,11 @@ class ProductList {
         // 待办
         var sapOrderNo: String? = null
         var sapFirmNo: String? = null
-        var orderType: String? = null
         var goodsNo: String? = null
         var goodsName: String? = null
         var supplierNo: String? = null
+        var customerNo: String? = null
         var supplierName: String? = null
-        var creatorNo: String? = null
         var orderTime: String? = null
         var content: String? = null
         var sign: String? = null
@@ -29,23 +28,15 @@ class ProductList {
         var supplierId: String? = null
         var type: String? = null
         var backInfo: String? = null
-        var receiveInfo: String? = null
         var productInfo: String? = null
         var customerInfo: String? = null
         var customerName: String? = null
-        var goodsInfo: String? = null
 
         // 已办
         var id: String? = null
-        var inWarhouseOrderNo: String? = null
         var companyNo: String? = null
         var inTime: String? = null
         var outTime: String? = null
-        var productionBatchNo: String? = null
-        var recallOrderId: String? = null
-        var userId: String? = null
-        var creator: String? = null
-        var createdAt: String? = null
-        var updatedAt: String? = null
+
     }
 }
