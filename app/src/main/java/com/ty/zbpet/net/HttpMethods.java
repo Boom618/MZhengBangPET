@@ -846,11 +846,11 @@ public class HttpMethods {
     }
 
     /**
-     * @param type 1产品盘点单 2原辅料盘点单
+     * 1产品盘点单 2原辅料盘点单
      *             盘点单据列表
      */
-    public void getCheckList(SingleObserver<BaseResponse<ReceiptList>> observer, String type) {
-        mService.getCheckList(type)
+    public void getCheckList(SingleObserver<BaseResponse<ReceiptList>> observer) {
+        mService.getCheckList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
 

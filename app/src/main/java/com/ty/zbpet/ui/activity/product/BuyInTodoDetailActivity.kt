@@ -17,6 +17,7 @@ import com.ty.zbpet.presenter.product.BuyInPresenter
 import com.ty.zbpet.presenter.product.ProductUiListInterface
 import com.ty.zbpet.ui.adapter.product.BuyInTodoDetailAdapter
 import com.ty.zbpet.base.BaseActivity
+import com.ty.zbpet.constant.TipString
 import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.*
@@ -63,11 +64,6 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
      * 用户信息:
      */
     private lateinit var userInfo: UserInfo
-    private lateinit var warehouseList: MutableList<UserInfo.WarehouseListBean>
-    /**
-     * 仓库 name
-     */
-    private val houseName = java.util.ArrayList<String>()
 
     override val activityLayout: Int
         // 成品添加仓库选择、没有 生产时间、批次号
@@ -84,16 +80,6 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
         supplierId = intent.getStringExtra("supplierId")
 
         userInfo = SimpleCache.getUserInfo(CodeConstant.USER_DATA)
-//        warehouseList = userInfo.warehouseList
-//        val size = warehouseList.size
-//        for (i in 0 until size) {
-//            houseName.add(warehouseList[i].warehouseName.toString())
-//        }
-//        try {
-//            tv_house.text = warehouseList[0].warehouseName
-//        } catch (e: Exception) {
-//            e.printStackTrace()
-//        }
 
         presenter.fetchBuyInTodoListDetails(sapOrderNo, sapFirmNo, supplierNo)
     }
@@ -103,7 +89,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
      */
     override fun initTwoView() {
 
-        initToolBar(R.string.label_purchase_in_storage, "保存", View.OnClickListener { view ->
+        initToolBar(R.string.label_purchase_in_storage, TipString.save, View.OnClickListener { view ->
             ZBUiUtils.hideInputWindow(view.context, view)
             buyInTodoSave(initTodoBody())
         })
@@ -122,8 +108,6 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
                 ZBUiUtils.showSuccess(selectTime)
             }
         }
-        // 用户选择仓库信息
-        //tv_house.setOnClickListener { v -> ZBUiUtils.selectDialog(v.context, CodeConstant.TYPE_HOUSE, 0, houseName, tv_house) }
     }
 
     /**
@@ -148,13 +132,9 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
         val requestBody = ProductTodoSave()
         val detail = ArrayList<ProductTodoSave.DetailsBean>()
 
-//        val houseId = SharedP.getGoodsOrHouseId(this)
-//        val warehouseNo = warehouseList[houseId].warehouseNo
-
         val size = oldList.size
         for (i in 0 until size) {
             val view = rv_in_storage_detail.getChildAt(i)
-//            val boxQrCode = carCodeArray.get(i)
             val bulkNum = view.findViewById<EditText>(R.id.et_number).text.toString().trim { it <= ' ' }
             val batchNo = view.findViewById<EditText>(R.id.et_sap).text.toString().trim { it <= ' ' }
 
@@ -183,7 +163,6 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
                 bean.unit = oldList[i].unit
                 bean.goodsName = oldList[i].goodsName
 
-//                bean.warehouseId = oldList[i].warehouseId
                 bean.warehouseNo = oldList[i].warehouseNo
 
                 detail.add(bean)
@@ -265,7 +244,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
 
     private var dialog: LoadingDialog? = null
     override fun showLoading() {
-        dialog = ShowDialog.showFullDialog(this@BuyInTodoDetailActivity, "保存中")
+        dialog = ShowDialog.showFullDialog(this@BuyInTodoDetailActivity, "正邦 SAP 正在处理中")
     }
 
     override fun hideLoading() {

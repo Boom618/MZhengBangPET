@@ -16,6 +16,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/order_type"
+        android:text="单据类型"
+        android:textSize="@dimen/text_16"
+        android:layout_marginEnd="@dimen/x26"
+        android:textColor="@color/main_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
         android:id="@+id/tv_material_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -71,18 +82,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/x10"
-        android:text="SAP 批次号："
+        android:text="盘点单据号："
         app:layout_constraintStart_toStartOf="@+id/sap_no"
         app:layout_constraintTop_toBottomOf="@+id/tv_content" />
-
-    <!--<TextView-->
-        <!--android:id="@+id/type"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="@dimen/x10"-->
-        <!--android:text="类型：盘盈"-->
-        <!--app:layout_constraintStart_toStartOf="@+id/sap_no"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/tv_sap" />-->
 
 
     <TextView

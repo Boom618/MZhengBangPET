@@ -205,7 +205,6 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
                 detail.add(bean)
             }
         }
-        // 没有合法的操作数据,不请求网络
         if (detail.size == 0) {
             ZBUiUtils.showWarning(TipString.toLeaveMessage)
             return null

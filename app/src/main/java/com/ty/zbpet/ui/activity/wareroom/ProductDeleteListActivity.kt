@@ -11,12 +11,16 @@ import com.ty.zbpet.ui.ActivitiesHelper
 import com.ty.zbpet.ui.adapter.LayoutInit
 import com.ty.zbpet.ui.adapter.wareroom.ProductDeleteAdapter
 import com.ty.zbpet.base.BaseActivity
+import com.ty.zbpet.bean.eventbus.system.EndLoadingMessage
+import com.ty.zbpet.bean.eventbus.system.StartLoadingMessage
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.ui.widght.NormalAlertDialog
+import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DialogUtil
 import com.ty.zbpet.util.ResourceUtil
 import com.ty.zbpet.util.ZBUiUtils
+import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import kotlinx.android.synthetic.main.activity_product_inventory_list.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -43,8 +47,7 @@ class ProductDeleteListActivity : BaseActivity() {
         initToolBar(R.string.product_delete)
         LayoutInit.initLayoutManager(this, recycler_inventory)
         recycler_inventory.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
-        //presenter.getGoodsList(6, "")
-        presenter.getCheckList("2")
+        presenter.getCheckList()
     }
 
     override fun initTwoView() {
@@ -76,14 +79,24 @@ class ProductDeleteListActivity : BaseActivity() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun successEvnet(event: SuccessMessage) {
-        //adapter?.notifyDataSetChanged()
-        presenter.getCheckList("2")
+        presenter.getCheckList()
         ZBUiUtils.showSuccess(event.success())
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun ErrorEvnet(event: ErrorMessage) {
         ZBUiUtils.showError(event.error())
+    }
+
+    private var dialog: LoadingDialog? = null
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun ErrorEvnet(event: StartLoadingMessage) {
+        dialog = ShowDialog.showFullDialog(this, event.message())
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun ErrorEvnet(event: EndLoadingMessage) {
+        dialog?.close()
     }
 
     override fun onDestroy() {

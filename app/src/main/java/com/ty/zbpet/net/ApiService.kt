@@ -758,9 +758,8 @@ interface ApiService {
      * @param type 1产品盘点单 2原辅料盘点单
      * @return Single
      */
-    @FormUrlEncoded
     @POST(ApiNameConstant.GET_CHECK_LIST)
-    fun getCheckList(@Field("type") type: String): Single<BaseResponse<ReceiptList>>
+    fun getCheckList(): Single<BaseResponse<ReceiptList>>
 
     /**
      * 成品盘点 提交

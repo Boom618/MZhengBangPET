@@ -236,7 +236,7 @@ public class SystemPresenter {
     /**
      * 盘点单据号列表
      */
-    public void getCheckList(String type) {
+    public void getCheckList() {
         httpMethods.getCheckList(new SingleObserver<BaseResponse<ReceiptList>>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -257,7 +257,7 @@ public class SystemPresenter {
             public void onError(Throwable e) {
                 EventBus.getDefault().post(new ErrorMessage(e.getMessage()));
             }
-        }, type);
+        });
 
     }
 
@@ -268,6 +268,7 @@ public class SystemPresenter {
      * @param sapCheckNo sapCheckNo
      */
     public void deleteCheck(String id, String sapCheckNo) {
+        EventBus.getDefault().post(new StartLoadingMessage("SAP 删除数据中"));
         httpMethods.deleteCheck(new SingleObserver<ResponseInfo>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -276,6 +277,7 @@ public class SystemPresenter {
 
             @Override
             public void onSuccess(ResponseInfo response) {
+                EventBus.getDefault().post(new EndLoadingMessage(""));
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
                     EventBus.getDefault().post(new SuccessMessage(response.getMessage()));
                 } else {
@@ -285,6 +287,7 @@ public class SystemPresenter {
 
             @Override
             public void onError(Throwable e) {
+                EventBus.getDefault().post(new EndLoadingMessage(""));
                 EventBus.getDefault().post(new ErrorMessage(e.getMessage()));
             }
         }, id, sapCheckNo);

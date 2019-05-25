@@ -20,9 +20,6 @@ class ReceiptList {
         var type: String? = null
         var sapCheckNo: String? = null
         var content: String? = null
-        var creator: String? = null
-        var createdAt: String? = null
-        var updatedAt: String? = null
         var sapOrderNo: String? = null
         var number: String? = null
         var concentration: String? = null

@@ -24,11 +24,12 @@ class ProductDeleteAdapter(context: Context, layout: Int, datas: MutableList<Rec
     override fun convert(holder: ViewHolder, list: ReceiptList.ListBean, position: Int) {
 
         holder.setText(R.id.sap_no,"库存批次号：${list.companyNo}")
+                .setText(R.id.order_type,"${list.type}")
                 .setText(R.id.tv_material_name,"原辅料名称：${list.skuName}")
                 .setText(R.id.tv_supplier_name,"供应商名称：${list.supplierName}")
                 .setText(R.id.tv_number,"库存数量：${list.number}")
                 .setText(R.id.tv_content,"含量：${list.concentration}")
-                .setText(R.id.tv_sap,"SAP 批次号：${list.sapOrderNo}")
+                .setText(R.id.tv_sap,"盘点单据号：${list.sapOrderNo}")
                 .setText(R.id.tv_actual_number,"实际数量：${list.number}")
 
         holder.itemView.findViewById<TextView>(R.id.tv_operator).setOnClickListener {
