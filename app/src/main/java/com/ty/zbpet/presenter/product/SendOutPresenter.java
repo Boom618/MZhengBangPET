@@ -148,12 +148,7 @@ public class SendOutPresenter {
             public void onSuccess(BaseResponse<ProductList> response) {
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
 
-                    ProductList data = response.getData();
-                    if (data.getCount() == 0) {
-                        ZBUiUtils.showSuccess("没有数据");
-                    } else {
-                        listInterface.showProduct(data.getList());
-                    }
+                    listInterface.showProduct(response.getData().getList());
 
                 } else {
                     listInterface.showError(response.getMessage());

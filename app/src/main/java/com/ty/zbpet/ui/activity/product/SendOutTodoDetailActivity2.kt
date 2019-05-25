@@ -32,6 +32,7 @@ import kotlinx.android.synthetic.main.activity_product_row_three.*
 import okhttp3.RequestBody
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * 发货出库 待办详情（ 直接显示列表数据  删除添加按钮）
@@ -67,7 +68,7 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
     /**
      * 箱码
      */
-    private var boxCodeList = ArrayList<String>()
+    private var boxCodeList = ArrayList<String>(16)
 
     /**
      * 用户信息:
@@ -77,7 +78,7 @@ class SendOutTodoDetailActivity2 : BaseActivity(), ProductUiListInterface<Produc
     /**
      * 仓库 name
      */
-    private val houseName = ArrayList<String>()
+    private val houseName = ArrayList<String>(16)
 
     /**
      * 列表 ID

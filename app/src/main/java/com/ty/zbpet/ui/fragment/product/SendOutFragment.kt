@@ -86,11 +86,6 @@ class SendOutFragment : BaseFragment(), ProductUiListInterface<ProductList.ListB
                 CodeConstant.FRAGMENT_DONE -> presenter.fetchSendOutDoneList(CodeConstant.PICK_OUT_TYPE, "", "", "")
             }
         }
-//        refreshLayout!!.setOnLoadMoreListener { refreshLayout ->
-//            // 传入 false 表示刷新失败
-//            refreshLayout.finishLoadMore(1000)
-//            ZBUiUtils.showSuccess("没有更多数据了")
-//        }
     }
 
     override fun showProduct(list: List<ProductList.ListBean>) {

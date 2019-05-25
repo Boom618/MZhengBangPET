@@ -55,7 +55,6 @@ class PersonCenterActivity : BaseActivity(), UserInterface {
     override fun initTwoView() {
         StatusBarUtil.setColor(this, StatusBarUtil.DEFAULT_STATUS_BAR_ALPHA)
 
-//        iv_back.setOnClickListener { finish() }
         toolbar.setNavigationOnClickListener { finish() }
 
         center_appbar_layout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
@@ -70,7 +69,7 @@ class PersonCenterActivity : BaseActivity(), UserInterface {
         // 库位码库存查询
         ll_track.setOnClickListener { gotoActivity(PositionQueryActivity::class.java) }
         // 箱码查询
-        ll_position.setOnClickListener { ZBUiUtils.showWarning("调试中") }
+        // ll_position.setOnClickListener { ZBUiUtils.showWarning("调试中") }
         // 成品溯源
         ll_products.setOnClickListener { gotoActivity(StockTrackActivity::class.java) }
         btn_modify_pwd.setOnClickListener { gotoActivity(UserUpDataPass::class.java) }

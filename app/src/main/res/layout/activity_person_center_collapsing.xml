@@ -123,44 +123,44 @@
                     android:background="@color/split_line_color"
                     app:layout_constraintTop_toTopOf="@+id/list" />
 
-                <LinearLayout
-                    android:id="@+id/ll_position"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintStart_toStartOf="@+id/list"
-                    app:layout_constraintTop_toTopOf="@+id/line">
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/ll_position"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--app:layout_constraintStart_toStartOf="@+id/list"-->
+                    <!--app:layout_constraintTop_toTopOf="@+id/line">-->
 
-                    <TextView
-                        android:id="@+id/box_code_query"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/space_20"
-                        android:layout_marginTop="@dimen/x10"
-                        android:text="@string/box_code_query"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/text_16"/>
+                    <!--<TextView-->
+                        <!--android:id="@+id/box_code_query"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginStart="@dimen/space_20"-->
+                        <!--android:layout_marginTop="@dimen/x10"-->
+                        <!--android:text="@string/box_code_query"-->
+                        <!--android:textColor="@color/black"-->
+                        <!--android:textSize="@dimen/text_16"/>-->
 
-                    <ImageView
-                        android:id="@+id/image_to_query"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/x10"
-                        android:layout_marginEnd="@dimen/space_20"
-                        android:background="@mipmap/ic_collapse"/>
+                    <!--<ImageView-->
+                        <!--android:id="@+id/image_to_query"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginTop="@dimen/x10"-->
+                        <!--android:layout_marginEnd="@dimen/space_20"-->
+                        <!--android:background="@mipmap/ic_collapse"/>-->
 
-                </LinearLayout>
+                <!--</LinearLayout>-->
 
-                <View
-                    android:id="@+id/line01"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_marginStart="@dimen/space_15"
-                    android:layout_marginTop="@dimen/x10"
-                    android:layout_marginEnd="@dimen/space_15"
-                    android:background="@color/split_line_color"
-                    app:layout_constraintTop_toTopOf="@+id/list" />
+                <!--<View-->
+                    <!--android:id="@+id/line01"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="0.5dp"-->
+                    <!--android:layout_marginStart="@dimen/space_15"-->
+                    <!--android:layout_marginTop="@dimen/x10"-->
+                    <!--android:layout_marginEnd="@dimen/space_15"-->
+                    <!--android:background="@color/split_line_color"-->
+                    <!--app:layout_constraintTop_toTopOf="@+id/list" />-->
 
                 <LinearLayout
                     android:id="@+id/ll_products"

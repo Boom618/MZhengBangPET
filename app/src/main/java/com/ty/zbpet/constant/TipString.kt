@@ -39,6 +39,10 @@ object TipString {
     const val salesOutOfStock = "销售出库"
     const val outOfHouse = "出库"
 
+    // 盘点
+    const val deleteOrder = "删除单据"
+    const val deleteOrderYes = "确认删除该单据"
+
 
 
 }

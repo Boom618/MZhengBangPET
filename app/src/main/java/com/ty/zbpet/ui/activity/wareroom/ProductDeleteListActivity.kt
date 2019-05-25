@@ -14,6 +14,7 @@ import com.ty.zbpet.base.BaseActivity
 import com.ty.zbpet.bean.eventbus.system.EndLoadingMessage
 import com.ty.zbpet.bean.eventbus.system.StartLoadingMessage
 import com.ty.zbpet.constant.CodeConstant
+import com.ty.zbpet.constant.TipString
 import com.ty.zbpet.ui.widght.NormalAlertDialog
 import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
@@ -70,8 +71,8 @@ class ProductDeleteListActivity : BaseActivity() {
         val id = event.getId()
         val sapCheckNo = event.sapCheckNo()
 
-        DialogUtil.deleteItemDialog(this@ProductDeleteListActivity, "删除单据",
-                "确认删除该单据", NormalAlertDialog.onNormalOnclickListener {
+        DialogUtil.deleteItemDialog(this@ProductDeleteListActivity, TipString.deleteOrder,
+                TipString.deleteOrderYes, NormalAlertDialog.onNormalOnclickListener {
             presenter.deleteCheck(id, sapCheckNo)
             it.dismiss()
         })

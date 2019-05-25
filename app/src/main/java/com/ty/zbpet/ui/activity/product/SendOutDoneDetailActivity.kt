@@ -51,7 +51,7 @@ class SendOutDoneDetailActivity : BaseActivity(), ProductUiListInterface<Product
      * 冲销 sapOrderNo
      */
     private var sapOrderNo: String? = null
-    private var list: List<ProductDetails.ListBean> = ArrayList()
+    private var list: List<ProductDetails.ListBean> = ArrayList(16)
 
 
     private val presenter = SendOutPresenter(this)
