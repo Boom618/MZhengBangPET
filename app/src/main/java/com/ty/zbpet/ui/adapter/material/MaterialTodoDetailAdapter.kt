@@ -6,11 +6,11 @@ import android.text.InputType
 import android.view.View
 import android.widget.EditText
 import android.widget.RadioButton
-
+import android.widget.TextView
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.material.MaterialDetails
 import com.ty.zbpet.data.SharedP
-import com.ty.zbpet.util.*
+import com.ty.zbpet.util.ZBUiUtils
 import com.zhy.adapter.recyclerview.CommonAdapter
 import com.zhy.adapter.recyclerview.base.ViewHolder
 
@@ -41,6 +41,31 @@ class MaterialTodoDetailAdapter(context: Context, layoutId: Int, datas: List<Mat
             ZBUiUtils.hideInputWindow(view.context, view)
             SharedP.putHasFocusAndPosition(view.context, hasFocus, position)
         }
+        // 选择订单
+        val orderList = info.deliveryOrderList
+        val select = itemView.findViewById<TextView>(R.id.tv_select_order)
+        // 【这个控件不可见，主要用途是 存 deliveryOrderLine 这个值 。 偷懒.png】
+        val orderLine = itemView.findViewById<TextView>(R.id.tv_invisible_line)
+        val number = itemView.findViewById<EditText>(R.id.et_bulk_num)
+        val batchNo = itemView.findViewById<EditText>(R.id.et_batch_no)
+        if (orderList == null) {
+            // sign 为 NB 不显示 下拉框
+            select.visibility = View.GONE
+        } else {
+            val orderNoStr = ArrayList<String>(16)
+            for (i in 0 until orderList.size) {
+                orderList[i].deliveryOrderNo?.let { orderNoStr.add(it) }
+            }
+            // 默认值
+            select.text = orderList[0].deliveryOrderNo
+            orderLine.text = orderList[0].deliveryOrderLine
+            number.setText(orderList[0].number)
+            batchNo.setText(orderList[0].sapBatchNo)
+
+            select.visibility = View.VISIBLE
+            select.setOnClickListener { v -> ZBUiUtils.selectOrder(v.context, orderNoStr, orderList, select,orderLine, number, batchNo) }
+        }
+
         if (payloads.isEmpty()) {
             val rbKG = itemView.findViewById<RadioButton>(R.id.rb_kg)
             val rbZKG = itemView.findViewById<RadioButton>(R.id.rb_zkg)

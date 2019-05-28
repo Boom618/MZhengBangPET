@@ -4,17 +4,20 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.ty.zbpet.bean.material.MaterialDetails;
 import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.data.SharedP;
 import com.ty.zbpet.ui.widght.NormalSelectionDialog;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -126,9 +129,9 @@ public class ZBUiUtils {
 
                         // 选择的仓库 还是 商品
                         if (CodeConstant.TYPE_HOUSE.equals(type)) {
-                            SharedP.putGoodsOrHouseId(context, which,CodeConstant.TYPE_HOUSE);
+                            SharedP.putGoodsOrHouseId(context, which, CodeConstant.TYPE_HOUSE);
                         } else {
-                            SharedP.putGoodsOrHouseId(context, which,CodeConstant.TYPE_GOODS);
+                            SharedP.putGoodsOrHouseId(context, which, CodeConstant.TYPE_GOODS);
                         }
 
                         dialog.dismiss();
@@ -138,5 +141,40 @@ public class ZBUiUtils {
                 .setDatas(data)
                 .show();
 
+    }
+
+    // -------------------------------------- 原辅料采购入库 -------------------------------
+
+    /**
+     * 采购入库 订单选择
+     *
+     * @param context context
+     * @param data    list 数据
+     * @param self    textView 控件
+     */
+    public static void selectOrder(Context context, List<String> orderList, final List<MaterialDetails.OrderList> data,
+                                   final TextView self,final TextView orderLine, final EditText number, final EditText batNo) {
+        NormalSelectionDialog.Builder builder = new NormalSelectionDialog.Builder(context);
+
+        builder.setTitleText("选择订单")
+                .setOnItemListener(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String orderNo = data.get(which).getDeliveryOrderNo();
+                        String line = data.get(which).getDeliveryOrderLine();
+                        String count = data.get(which).getNumber();
+                        String batch = data.get(which).getSapBatchNo();
+
+                        self.setText(orderNo);
+                        orderLine.setText(line);
+                        number.setText(count);
+                        batNo.setText(batch);
+
+                        dialog.dismiss();
+                    }
+                })
+                .build()
+                .setDatas(orderList)
+                .show();
     }
 }

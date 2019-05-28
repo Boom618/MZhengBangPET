@@ -99,7 +99,8 @@ class QualityCheckTodoDetailActivity : BaseActivity(), MaterialUiListInterface<M
         sapFirmNo = intent.getStringExtra("sapFirmNo")
         supplierNo = intent.getStringExtra("supplierNo")
 
-        presenter.fetchTODOMaterialDetails(sapFirmNo, sapOrderNo, supplierNo)
+        // 原辅料采购 添加的 sign 标识字段
+        presenter.fetchTODOMaterialDetails("",sapFirmNo, sapOrderNo, supplierNo)
 
         // 质检图片样式
         themeId = R.style.picture_default_style

@@ -140,7 +140,7 @@ class ProductTodoDetailActivity : BaseActivity()
         }
 
         // 用户选择仓库信息
-        tv_house!!.setOnClickListener { v -> ZBUiUtils.selectDialog(v.context, CodeConstant.TYPE_HOUSE, 0, houseName, tv_house) }
+        tv_house.setOnClickListener { v -> ZBUiUtils.selectDialog(v.context, CodeConstant.TYPE_HOUSE, 0, houseName, tv_house) }
 
     }
 

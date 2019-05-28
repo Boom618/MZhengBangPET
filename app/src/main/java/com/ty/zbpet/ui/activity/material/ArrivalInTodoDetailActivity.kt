@@ -37,6 +37,7 @@ import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * 原辅料——到货入库详情、待办
@@ -58,6 +59,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
     private lateinit var creatorNo: String
     private lateinit var sapFirmNo: String
     private lateinit var content: String
+    private lateinit var sign: String
     private lateinit var warehouseId: String
     private lateinit var warehouseNo: String
     /**
@@ -80,7 +82,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
     override fun onBaseCreate(savedInstanceState: Bundle?) {
         val sdf = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
         selectTime = sdf.format(Date())
-        tv_time!!.text = selectTime
+        tv_time.text = selectTime
 
     }
 
@@ -92,13 +94,14 @@ class ArrivalInTodoDetailActivity : BaseActivity()
         supplierName = intent.getStringExtra("supplierName")
         creatorNo = intent.getStringExtra("creatorNo")
         content = intent.getStringExtra("content")
+        sign = intent.getStringExtra("sign")
 
-        materialPresenter.fetchTODOMaterialDetails(sapFirmNo, sapOrderNo, supplierNo)
+        materialPresenter.fetchTODOMaterialDetails(sign, sapFirmNo, sapOrderNo, supplierNo)
     }
 
     override fun initTwoView() {
 
-        initToolBar(R.string.label_purchase_detail, "保存", View.OnClickListener {
+        initToolBar(R.string.label_purchase_detail, TipString.save, View.OnClickListener {
             ZBUiUtils.hideInputWindow(it.context, it)
             doPurchaseInRecallOut(initParam())
         })
@@ -106,7 +109,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
         val titleName = findViewById<TextView>(R.id.in_storage_detail)
         titleName.text = "到货明细"
 
-        tv_time!!.setOnClickListener {
+        tv_time.setOnClickListener {
             ZBUiUtils.showPickDate(it.context) { date, _ ->
                 //选中事件回调
                 selectTime = ZBUiUtils.getTime(date)
@@ -126,6 +129,8 @@ class ArrivalInTodoDetailActivity : BaseActivity()
         for (i in 0 until size) {
 
             val view = rv_in_storage_detail.getChildAt(i)
+            val orderNo = view.findViewById<TextView>(R.id.tv_select_order)
+            val orderLine = view.findViewById<TextView>(R.id.tv_invisible_line)
 
             var viewUnit = "KG"
             val radioGroup = view.findViewById<RadioGroup>(R.id.radioGroup)
@@ -166,6 +171,20 @@ class ArrivalInTodoDetailActivity : BaseActivity()
                 bean.materialName = list[i].materialName
                 bean.materialNo = list[i].materialNo
                 bean.unit = viewUnit
+                // 二期添加 公司间采购、外采
+                val deliveryList = ArrayList<MaterialDetails.OrderList>(10)
+                val order = MaterialDetails.OrderList()
+                if (orderNo.visibility == View.VISIBLE) {
+                    // 是公司间采购 有下拉选择
+                    order.deliveryOrderNo = orderNo.text.toString()
+                    order.deliveryOrderLine = orderLine.text.toString()
+                    order.sapBatchNo = viewSap
+                    order.number = viewNumber
+                    order.unit = viewUnit
+                    deliveryList.add(order)
+                    bean.deliveryOrderList = deliveryList
+                }
+
 
                 detail.add(bean)
             }
@@ -206,9 +225,9 @@ class ArrivalInTodoDetailActivity : BaseActivity()
         materialPresenter.materialTodoInSave(body)
     }
 
-    override fun showMaterial(lists: MutableList<MaterialDetails.ListBean>?) {
+    override fun showMaterial(lists: MutableList<MaterialDetails.ListBean>) {
 
-        list = lists!!
+        list = lists
 
         val manager = LinearLayoutManager(ResourceUtil.getContext())
         rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
@@ -315,7 +334,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
         finish()
     }
 
-    override fun showError(msg: String?) {
+    override fun showError(msg: String) {
         ZBUiUtils.showError(msg)
     }
 

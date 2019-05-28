@@ -107,7 +107,7 @@ public class MaterialPresenter {
     /**
      * 原辅料 待办 list  详情  MaterialPurchaseInData  MaterialDetailsData
      */
-    public void fetchTODOMaterialDetails(String sapFirmNo, String sapOrderNo, String supplierNo) {
+    public void fetchTODOMaterialDetails(String sign,String sapFirmNo, String sapOrderNo, String supplierNo) {
 
         httpMethods.getMaterialTodoListDetail(new SingleObserver<BaseResponse<MaterialDetails>>() {
 
@@ -134,7 +134,7 @@ public class MaterialPresenter {
                     materialListUi.showError(info.getMessage());
                 }
             }
-        }, sapFirmNo, sapOrderNo, supplierNo);
+        },sign, sapFirmNo, sapOrderNo, supplierNo);
     }
 
     /**

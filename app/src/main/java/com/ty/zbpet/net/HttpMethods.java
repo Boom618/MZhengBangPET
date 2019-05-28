@@ -173,8 +173,9 @@ public class HttpMethods {
      *
      * @param observer observer
      */
-    public void getMaterialTodoListDetail(SingleObserver<BaseResponse<MaterialDetails>> observer, String sapFirmNo, String sapOrderNo, String supplierNo) {
-        mService.getMaterialTodoListDetail(sapFirmNo, sapOrderNo, supplierNo)
+    public void getMaterialTodoListDetail(SingleObserver<BaseResponse<MaterialDetails>> observer,
+                                          String sign, String sapFirmNo, String sapOrderNo, String supplierNo) {
+        mService.getMaterialTodoListDetail(sign, sapFirmNo, sapOrderNo, supplierNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
@@ -421,7 +422,7 @@ public class HttpMethods {
                 .subscribe(subscriber);
     }
 
-    public void saleInList(SingleObserver<ResponseInfo> subscriber,RequestBody body){
+    public void saleInList(SingleObserver<ResponseInfo> subscriber, RequestBody body) {
         mService.saleInList(body)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
@@ -593,8 +594,8 @@ public class HttpMethods {
      * @param subscriber subscriber
      */
     public void getShipOrderInfo(SingleObserver<BaseResponse<ProductDetails>> subscriber,
-                                 String sign,String sapOrderNo,String supplierNo,String customerNo,String sapFirmNo) {
-        mService.getShipOrderInfo(sign,sapOrderNo,supplierNo,customerNo,sapFirmNo)
+                                 String sign, String sapOrderNo, String supplierNo, String customerNo, String sapFirmNo) {
+        mService.getShipOrderInfo(sign, sapOrderNo, supplierNo, customerNo, sapFirmNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
@@ -847,7 +848,7 @@ public class HttpMethods {
 
     /**
      * 1产品盘点单 2原辅料盘点单
-     *             盘点单据列表
+     * 盘点单据列表
      */
     public void getCheckList(SingleObserver<BaseResponse<ReceiptList>> observer) {
         mService.getCheckList()

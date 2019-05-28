@@ -122,6 +122,7 @@ class ArrivalInFragment : BaseFragment(),MaterialUiListInterface<MaterialList.Li
                         intent.putExtra("creatorNo", list[position].creatorNo)
                         intent.putExtra("sapFirmNo", list[position].sapFirmNo)
                         intent.putExtra("content", list[position].content)
+                        intent.putExtra("sign", list[position].sign)
                         startActivity(intent)
                     }
 

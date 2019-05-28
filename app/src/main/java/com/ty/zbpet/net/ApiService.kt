@@ -101,7 +101,8 @@ interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_MATERIAL_IN_WAREHOUSE_ORDER_INFO)
-    fun getMaterialTodoListDetail(@Field("sapFirmNo") sapFirmNo: String,
+    fun getMaterialTodoListDetail(@Field("sign") sign: String,
+                                  @Field("sapFirmNo") sapFirmNo: String,
                                   @Field("sapOrderNo") sapOrderNo: String,
                                   @Field("supplierNo") supplierNo: String): Single<BaseResponse<MaterialDetails>>
 

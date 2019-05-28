@@ -35,7 +35,6 @@ class MaterialDetails {
         var materialNo: String? = null
         var unit: String? = null
         var orderNumber: String? = null
-        var stockNumber: String? = null
         var concentration: String? = null
         var supplierNo: String? = null
         var sapOrderNo: String? = null
@@ -68,6 +67,17 @@ class MaterialDetails {
         // 二版 出库新加字段
         var requireNumber: String? = null
 
+        // 二版 采购入库类型
+        var deliveryOrderList: ArrayList<OrderList>? = null
+
+    }
+
+    class OrderList {
+        var deliveryOrderNo: String? = null
+        var deliveryOrderLine: String? = null
+        var sapBatchNo: String? = null
+        var number: String? = null
+        var unit: String? = null
     }
 
 

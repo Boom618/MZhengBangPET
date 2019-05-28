@@ -17,13 +17,12 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/space_10">
 
-        <!-- android:src="@mipmap/ic_product" -->
         <ImageView
             android:id="@+id/iv_tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:src="@mipmap/ic_product"/>
+            android:src="@mipmap/ic_product" />
 
         <TextView
             android:id="@+id/tv_name"
@@ -32,10 +31,10 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/space_5"
             android:layout_toEndOf="@id/iv_tag"
-            android:text="联想台式电脑"
-            android:maxLines="1"
-            android:maxEms="10"
             android:ellipsize="end"
+            android:maxEms="10"
+            android:maxLines="1"
+            android:text="联想台式电脑"
             android:textColor="@color/txt_main_color"
             android:textSize="@dimen/text_14" />
 
@@ -67,111 +66,142 @@
         android:paddingStart="@dimen/space_10"
         android:paddingEnd="@dimen/space_10"
         android:paddingBottom="@dimen/space_10"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <TextView
             android:id="@+id/tv_houseNo"
-            android:text="@string/warehouse_no"
-            android:textSize="@dimen/text_16"
-            android:layout_marginBottom="@dimen/x10"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignStart="@+id/et_batch_no"
-            android:layout_height="wrap_content" />
+            android:layout_marginBottom="@dimen/x10"
+            android:text="@string/warehouse_no"
+            android:textSize="@dimen/text_16" />
+
+        <TextView
+            android:id="@+id/tv_invisible_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:text="111" />
+
         <TextView
             android:id="@+id/text_unit"
-            android:text="单位："
-            android:layout_below="@+id/tv_houseNo"
-            android:layout_marginTop="4dp"
-            android:layout_alignStart="@+id/et_batch_no"
-            android:textSize="@dimen/text_16"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_houseNo"
+            android:layout_alignStart="@+id/et_batch_no"
+            android:layout_marginTop="4dp"
+            android:text="单位："
+            android:textSize="@dimen/text_16" />
 
         <RadioGroup
             android:id="@+id/radioGroup"
-            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/tv_houseNo"
             android:layout_toEndOf="@+id/text_unit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/rb_kg"
-                android:text="KG"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_height="wrap_content" />
+                android:text="KG" />
+
             <RadioButton
                 android:id="@+id/rb_zkg"
-                android:text="ZKG"
-                android:layout_weight="1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="ZKG" />
+
             <RadioButton
                 android:id="@+id/rb_pc"
-                android:text="PC"
-                android:layout_weight="1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="PC" />
 
         </RadioGroup>
 
-
-        <EditText
-            android:id="@+id/tv_box_num"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/tv_select_order"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/radioGroup"
             android:layout_alignStart="@+id/et_batch_no"
             android:layout_alignEnd="@+id/et_batch_no"
             android:layout_marginTop="5dp"
-            android:ellipsize="end"
-            android:hint="含量"
-            android:lines="1"
-            android:inputType="numberDecimal"
-            android:imeOptions="actionNext"
-            style="@style/itemSizeStyle"/>
+            android:background="@drawable/shape_black_min_radius"
+            android:drawableEnd="@mipmap/ic_bottom"
+            android:gravity="center_vertical"
+            android:padding="@dimen/space_7"
+            android:text="选择订单"
+            android:textColor="@color/txt_main_color" />
 
         <EditText
             android:id="@+id/et_code"
+            style="@style/itemSizeStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_box_num"
+            android:layout_below="@+id/tv_select_order"
             android:layout_alignStart="@+id/et_batch_no"
             android:layout_alignEnd="@+id/et_batch_no"
             android:layout_marginTop="5dp"
             android:ellipsize="end"
             android:hint="库位码"
-            android:lines="1"
             android:imeOptions="actionNext"
-            style="@style/itemSizeStyle"/>
+            android:lines="1" />
 
-        <EditText
-            android:id="@+id/et_bulk_num"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/et_code"
-            android:layout_alignStart="@+id/et_batch_no"
-            android:layout_alignEnd="@+id/et_batch_no"
-            android:hint="入库数量 : 123"
-            android:inputType="number"
-            android:lines="1"
-            android:imeOptions="actionNext"
-            style="@style/itemSizeStyle"/>
+            android:layout_marginStart="@dimen/x15"
+            android:layout_marginEnd="@dimen/space_25"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/tv_box_num"
+                style="@style/itemSizeStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:hint="含量"
+                android:imeOptions="actionNext"
+                android:inputType="numberDecimal"
+                android:lines="1" />
+
+            <EditText
+                android:id="@+id/et_bulk_num"
+                style="@style/itemSizeStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="入库数量 : 123"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:lines="1" />
+
+        </LinearLayout>
+
 
         <EditText
             android:id="@+id/et_batch_no"
+            style="@style/itemSizeStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/et_bulk_num"
+            android:layout_below="@+id/layout"
             android:layout_marginStart="@dimen/x15"
             android:layout_marginTop="@dimen/space_5"
             android:layout_marginEnd="@dimen/space_25"
             android:hint="sap 物料批次号"
-            android:inputType="text"
-            android:lines="1"
             android:imeOptions="actionDone"
-            style="@style/itemSizeStyle"/>
+            android:inputType="text"
+            android:lines="1" />
 
     </RelativeLayout>
 

@@ -17,12 +17,10 @@ class MaterialList {
 
         var id: String? = null
         var companyNo: String? = null
-        var supplierId: String? = null
         var warehouseId: String? = null
         var supplierNo: String? = null
         var creatorNo: String? = null
         var arrivalOrderNo: String? = null
-        var amount: String? = null
         var state: String? = null
         var goodsNo: String? = null
         var goodsName: String? = null
@@ -30,7 +28,6 @@ class MaterialList {
         var sign: String? = null
         var inTime: String? = null
         var outTime: String? = null
-        var fileName: String? = null
         var checkTime: String? = null
         var sapOrderNo: String? = null
         var supplierName: String? = null
@@ -41,8 +38,6 @@ class MaterialList {
         var content: String? = null
 
         // 待办
-        var receiveInfo: String? = null
-        var backInfo: String? = null
         var orderTime: String? = null
 
     }
