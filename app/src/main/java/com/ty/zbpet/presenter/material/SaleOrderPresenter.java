@@ -47,7 +47,7 @@ public class SaleOrderPresenter {
      * @param startDate  startDate
      * @param endDate    endDate
      */
-    public void getSaleOrderList(String type, String sapOrderNo, String startDate, String endDate) {
+    public void getSaleOrderList(String sapOrderNo, String startDate, String endDate) {
         view.showLoading();
         httpMethods.getSaleOrderList(new SingleObserver<BaseResponse<MaterialList>>() {
             @Override
@@ -74,7 +74,7 @@ public class SaleOrderPresenter {
                     view.showError(e.getMessage());
                 }
             }
-        }, type, sapOrderNo, startDate, endDate);
+        }, "", sapOrderNo, startDate, endDate);
     }
 
     /**

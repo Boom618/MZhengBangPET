@@ -8,6 +8,14 @@
         android:id="@+id/top_layout"
         layout="@layout/top_layout" />
 
+    <CheckBox
+        android:id="@+id/order_del"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/x20"
+        android:text="删除交货单"
+        android:visibility="gone" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

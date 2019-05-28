@@ -199,7 +199,7 @@ class PrimaryActivity : BaseActivity() {
         }
 
         when (intType) {
-            2, 10 -> {
+            2 -> {
                 et_search.setOnTouchListener(View.OnTouchListener { _, event ->
                     // compoundDrawables：对应位置 左 0，上 1，右 2，下 3
                     val drawable = et_search.compoundDrawables[0]

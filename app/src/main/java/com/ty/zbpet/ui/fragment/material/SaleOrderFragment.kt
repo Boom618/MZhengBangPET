@@ -55,7 +55,7 @@ class SaleOrderFragment : BaseFragment(), MaterialUiListInterface<MaterialList.L
     override fun loadData() {
         fragmentType = arguments!!.getString(CodeConstant.FRAGMENT_TYPE)!!
         when (fragmentType) {
-            CodeConstant.FRAGMENT_TODO -> presenter.getSaleOrderList("", "", "", "")
+            CodeConstant.FRAGMENT_TODO -> presenter.getSaleOrderList( "", "", "")
             CodeConstant.FRAGMENT_DONE -> presenter.fetchPickOutDoneList(CodeConstant.SALE_ORDER_TYPE, "", "", "")
         }
     }
@@ -65,7 +65,7 @@ class SaleOrderFragment : BaseFragment(), MaterialUiListInterface<MaterialList.L
         if (isVisble) {
             fragmentType = arguments!!.getString(CodeConstant.FRAGMENT_TYPE)!!
             when (fragmentType) {
-                CodeConstant.FRAGMENT_TODO -> presenter.getSaleOrderList("", "", "", "")
+                CodeConstant.FRAGMENT_TODO -> presenter.getSaleOrderList(  "","", "")
                 CodeConstant.FRAGMENT_DONE -> presenter.fetchPickOutDoneList(CodeConstant.SALE_ORDER_TYPE, "", "", "")
             }
         }
@@ -79,7 +79,7 @@ class SaleOrderFragment : BaseFragment(), MaterialUiListInterface<MaterialList.L
             refreshLayout.finishRefresh(1000)
             // 刷新数据
             when (fragmentType) {
-                CodeConstant.FRAGMENT_TODO -> presenter.getSaleOrderList("", "", "", "")
+                CodeConstant.FRAGMENT_TODO -> presenter.getSaleOrderList("", "", "")
                 CodeConstant.FRAGMENT_DONE -> presenter.fetchPickOutDoneList(CodeConstant.SALE_ORDER_TYPE, "", "", "")
             }
         }
@@ -142,12 +142,12 @@ class SaleOrderFragment : BaseFragment(), MaterialUiListInterface<MaterialList.L
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEventMainThread(event: SearchMessage) {
         if (isVisble) {
-            val sign = event.sign()
+            //val sign = event.sign()
             val search = event.getSearch()
             val startTime = event.leftTime()
             val endTime = event.rightTime()
             when (fragmentType) {
-                CodeConstant.FRAGMENT_TODO -> presenter.getSaleOrderList(sign, search, startTime, endTime)
+                CodeConstant.FRAGMENT_TODO -> presenter.getSaleOrderList(search, startTime, endTime)
                 CodeConstant.FRAGMENT_DONE -> presenter.fetchPickOutDoneList(CodeConstant.SALE_ORDER_TYPE, "", "", "")
             }
         }

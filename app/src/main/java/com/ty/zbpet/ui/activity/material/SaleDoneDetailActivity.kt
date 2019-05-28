@@ -2,6 +2,7 @@ package com.ty.zbpet.ui.activity.material
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import android.widget.CheckBox
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.CarPositionNoData
@@ -51,7 +52,7 @@ class SaleDoneDetailActivity : BaseActivity(), MaterialUiListInterface<MaterialD
     }
 
     override fun initOneData() {
-
+        order_del.visibility = View.VISIBLE
         orderId = intent.getStringExtra("orderId")
 
         presenter.fetchBackDoneListInfo(orderId)
@@ -79,6 +80,7 @@ class SaleDoneDetailActivity : BaseActivity(), MaterialUiListInterface<MaterialD
         val data = MaterialDoneSave()
         val list = ArrayList<MaterialDoneSave.ListBean>()
         val size = listBean.size
+        val checked = order_del.isChecked
 
         for (i in 0 until size) {
             val view = recycler_reversal.getChildAt(i)
@@ -97,6 +99,7 @@ class SaleDoneDetailActivity : BaseActivity(), MaterialUiListInterface<MaterialD
 
         data.list = list
         data.orderId = orderId
+        data.deleteSign = checked
         data.moveType = "102"
         val json = DataUtils.toJson(data, 1)
 
