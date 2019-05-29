@@ -1,5 +1,7 @@
 package com.ty.zbpet.bean.product
 
+import java.util.ArrayList
+
 /**
  * @author TY on 2018/11/25.
  * 产品详情 bean 待办保存
@@ -49,5 +51,16 @@ class ProductTodoSave {
         var warehouseId: String? = null
         var warehouseNo: String? = null
         var warehouseName: String? = null
+        // 二版 采购入库类型
+        var deliveryOrderList: ArrayList<OrderList>? = null
+
+    }
+
+    class OrderList {
+        var deliveryOrderNo: String? = null
+        var deliveryOrderLine: String? = null
+        var sapBatchNo: String? = null
+        var number: String? = null
+        var unit: String? = null
     }
 }

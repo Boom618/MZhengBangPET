@@ -11,6 +11,7 @@ import com.ty.zbpet.bean.material.MaterialList;
 import com.ty.zbpet.bean.system.BoxCodeUrl;
 import com.ty.zbpet.bean.system.ImageData;
 import com.ty.zbpet.constant.CodeConstant;
+import com.ty.zbpet.constant.TipString;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.base.BaseResponse;
 import com.ty.zbpet.util.DataUtils;
@@ -19,6 +20,7 @@ import com.ty.zbpet.util.ZBUiUtils;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
+import java.net.SocketTimeoutException;
 import java.util.List;
 
 import io.reactivex.SingleObserver;
@@ -107,7 +109,7 @@ public class MaterialPresenter {
     /**
      * 原辅料 待办 list  详情  MaterialPurchaseInData  MaterialDetailsData
      */
-    public void fetchTODOMaterialDetails(String sign,String sapFirmNo, String sapOrderNo, String supplierNo) {
+    public void fetchTODOMaterialDetails(String sign, String sapFirmNo, String sapOrderNo, String supplierNo) {
 
         httpMethods.getMaterialTodoListDetail(new SingleObserver<BaseResponse<MaterialDetails>>() {
 
@@ -134,7 +136,7 @@ public class MaterialPresenter {
                     materialListUi.showError(info.getMessage());
                 }
             }
-        },sign, sapFirmNo, sapOrderNo, supplierNo);
+        }, sign, sapFirmNo, sapOrderNo, supplierNo);
     }
 
     /**
@@ -171,7 +173,7 @@ public class MaterialPresenter {
     /**
      * 库位码校验
      *
-     * @param positionNo 库位码
+     * @param positionNo  库位码
      * @param warehouseNo 仓库编号
      */
     public void checkCarCode(final int position, final String positionNo, String warehouseNo) {
@@ -228,7 +230,11 @@ public class MaterialPresenter {
             @Override
             public void onError(Throwable e) {
                 materialListUi.hideLoading();
-                materialListUi.showError(e.getMessage());
+                if (e instanceof SocketTimeoutException) {
+                    materialListUi.showError((TipString.loginRetry));
+                } else {
+                    materialListUi.showError(e.getMessage());
+                }
             }
         }, body);
 

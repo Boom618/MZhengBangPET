@@ -45,25 +45,30 @@ class MaterialTodoDetailAdapter(context: Context, layoutId: Int, datas: List<Mat
         val orderList = info.deliveryOrderList
         val select = itemView.findViewById<TextView>(R.id.tv_select_order)
         // 【这个控件不可见，主要用途是 存 deliveryOrderLine 这个值 。 偷懒.png】
-        val orderLine = itemView.findViewById<TextView>(R.id.tv_invisible_line)
-        val number = itemView.findViewById<EditText>(R.id.et_bulk_num)
-        val batchNo = itemView.findViewById<EditText>(R.id.et_batch_no)
+        val orderLineView = itemView.findViewById<TextView>(R.id.tv_invisible_line)
+        val numberView = itemView.findViewById<EditText>(R.id.et_bulk_num)
+        val batchNoView = itemView.findViewById<EditText>(R.id.et_batch_no)
         if (orderList == null) {
             // sign 为 NB 不显示 下拉框
             select.visibility = View.GONE
         } else {
             val orderNoStr = ArrayList<String>(16)
             for (i in 0 until orderList.size) {
-                orderList[i].deliveryOrderNo?.let { orderNoStr.add(it) }
+                val number = orderList[i].number
+                val sapBatchNo = orderList[i].sapBatchNo
+                val orderNo = orderList[i].deliveryOrderNo
+                val temp = "$orderNo-$number-$sapBatchNo"
+                orderNoStr.add(temp)
             }
             // 默认值
             select.text = orderList[0].deliveryOrderNo
-            orderLine.text = orderList[0].deliveryOrderLine
-            number.setText(orderList[0].number)
-            batchNo.setText(orderList[0].sapBatchNo)
+            orderLineView.text = orderList[0].deliveryOrderLine
+            numberView.setText(orderList[0].number)
+            batchNoView.setText(orderList[0].sapBatchNo)
 
             select.visibility = View.VISIBLE
-            select.setOnClickListener { v -> ZBUiUtils.selectOrder(v.context, orderNoStr, orderList, select,orderLine, number, batchNo) }
+            select.setOnClickListener { v -> ZBUiUtils.selectOrder(v.context,
+                    orderNoStr, orderList, select,orderLineView, numberView, batchNoView) }
         }
 
         if (payloads.isEmpty()) {

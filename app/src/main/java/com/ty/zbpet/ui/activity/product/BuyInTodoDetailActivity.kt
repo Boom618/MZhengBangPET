@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.UserInfo
 import com.ty.zbpet.bean.product.ProductDetails
@@ -42,6 +43,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
     private var sapFirmNo: String? = null
     private var supplierNo: String? = null
     private var supplierName: String? = null
+    private var sign: String? = null
     private var content: String = ""
 
     private var oldList: List<ProductDetails.ListBean> = mutableListOf()
@@ -77,11 +79,12 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
         supplierNo = intent.getStringExtra("supplierNo")
         supplierName = intent.getStringExtra("supplierName")
         content = intent.getStringExtra("content")
+        sign = intent.getStringExtra("sign")
         supplierId = intent.getStringExtra("supplierId")
 
         userInfo = SimpleCache.getUserInfo(CodeConstant.USER_DATA)
 
-        presenter.fetchBuyInTodoListDetails(sapOrderNo, sapFirmNo, supplierNo)
+        presenter.fetchBuyInTodoListDetails(sign, sapOrderNo, sapFirmNo, supplierNo)
     }
 
     /**
@@ -135,6 +138,9 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
         val size = oldList.size
         for (i in 0 until size) {
             val view = rv_in_storage_detail.getChildAt(i)
+
+            val orderNo = view.findViewById<TextView>(R.id.tv_select_order_pro)
+            val line = view.findViewById<TextView>(R.id.tv_invisible_line)
             val bulkNum = view.findViewById<EditText>(R.id.et_number).text.toString().trim { it <= ' ' }
             val batchNo = view.findViewById<EditText>(R.id.et_sap).text.toString().trim { it <= ' ' }
 
@@ -165,6 +171,19 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
 
                 bean.warehouseNo = oldList[i].warehouseNo
 
+                val deliveryList = ArrayList<ProductTodoSave.OrderList>(5)
+                val order = ProductTodoSave.OrderList()
+                if (orderNo.visibility == View.VISIBLE) {
+                    // 是公司间采购 有下拉选择
+                    order.deliveryOrderNo = orderNo.text.toString()
+                    order.deliveryOrderLine = line.text.toString()
+                    order.sapBatchNo = batchNo
+                    order.number = bulkNum
+                    order.unit = oldList[i].unit
+                    deliveryList.add(order)
+                    bean.deliveryOrderList = deliveryList
+                }
+
                 detail.add(bean)
             }
         }
@@ -174,8 +193,8 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
             return null
         }
 
-        val remark = et_desc!!.text.toString().trim { it <= ' ' }
-        val time = tv_time!!.text.toString().trim { it <= ' ' }
+        val remark = et_desc.text.toString().trim { it <= ' ' }
+        val time = tv_time.text.toString().trim { it <= ' ' }
 
         requestBody.list = detail
         requestBody.inTime = time
@@ -183,6 +202,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
         requestBody.supplierNo = supplierNo
         requestBody.supplierName = supplierName
         requestBody.moveType = "105"
+        requestBody.sign = sign
         requestBody.remark = remark
 
         val json = DataUtils.toJson(requestBody, 1)
@@ -210,7 +230,6 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
                     if (rlDetail.visibility == View.VISIBLE) {
                         rlDetail.visibility = View.GONE
                         ivArrow.setImageResource(R.mipmap.ic_collapse)
-
                     } else {
                         rlDetail.visibility = View.VISIBLE
                         ivArrow.setImageResource(R.mipmap.ic_expand)

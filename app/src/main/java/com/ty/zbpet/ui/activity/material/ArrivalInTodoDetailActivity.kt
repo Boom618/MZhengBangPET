@@ -172,7 +172,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
                 bean.materialNo = list[i].materialNo
                 bean.unit = viewUnit
                 // 二期添加 公司间采购、外采
-                val deliveryList = ArrayList<MaterialDetails.OrderList>(10)
+                val deliveryList = ArrayList<MaterialDetails.OrderList>(5)
                 val order = MaterialDetails.OrderList()
                 if (orderNo.visibility == View.VISIBLE) {
                     // 是公司间采购 有下拉选择
@@ -204,6 +204,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
         requestBody.creatorNo = creatorNo
         requestBody.moveType = "105"
         requestBody.inTime = time
+        requestBody.sign = sign
         requestBody.sapOrderNo = sapOrderNo
         requestBody.remark = remark
 

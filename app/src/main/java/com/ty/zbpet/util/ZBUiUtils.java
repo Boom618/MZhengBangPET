@@ -12,6 +12,7 @@ import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.ty.zbpet.bean.material.MaterialDetails;
+import com.ty.zbpet.bean.product.ProductDetails;
 import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.data.SharedP;
 import com.ty.zbpet.ui.widght.NormalSelectionDialog;
@@ -146,13 +147,48 @@ public class ZBUiUtils {
     // -------------------------------------- 原辅料采购入库 -------------------------------
 
     /**
-     * 采购入库 订单选择
+     * 原辅料 --> 采购入库 订单选择
      *
      * @param context context
      * @param data    list 数据
      * @param self    textView 控件
      */
     public static void selectOrder(Context context, List<String> orderList, final List<MaterialDetails.OrderList> data,
+                                   final TextView self,final TextView orderLine, final EditText number, final EditText batNo) {
+        NormalSelectionDialog.Builder builder = new NormalSelectionDialog.Builder(context);
+
+        builder.setTitleText("选择订单")
+                .setOnItemListener(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String orderNo = data.get(which).getDeliveryOrderNo();
+                        String line = data.get(which).getDeliveryOrderLine();
+                        String count = data.get(which).getNumber();
+                        String batch = data.get(which).getSapBatchNo();
+
+                        self.setText(orderNo);
+                        orderLine.setText(line);
+                        number.setText(count);
+                        batNo.setText(batch);
+
+                        dialog.dismiss();
+                    }
+                })
+                .build()
+                .setDatas(orderList)
+                .show();
+    }
+
+    // -------------------------------------- 成品采购入库 -------------------------------
+
+    /**
+     * 成品 --> 采购入库 订单选择
+     *
+     * @param context context
+     * @param data    list 数据
+     * @param self    textView 控件
+     */
+    public static void selectOrderPro(Context context, List<String> orderList, final List<ProductDetails.OrderList> data,
                                    final TextView self,final TextView orderLine, final EditText number, final EditText batNo) {
         NormalSelectionDialog.Builder builder = new NormalSelectionDialog.Builder(context);
 

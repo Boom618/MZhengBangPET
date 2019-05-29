@@ -365,7 +365,8 @@ interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.GET_GOODS_PURCHASE_ORDER_INFO)
-    fun getBuyInOrderInfo(@Field("sapOrderNo") sapOrderNo: String,
+    fun getBuyInOrderInfo(@Field("sign") sign: String,
+                          @Field("sapOrderNo") sapOrderNo: String,
                           @Field("sapFirmNo") sapFirmNo: String,
                           @Field("supplierNo") supplierNo: String): Single<BaseResponse<ProductDetails>>
 

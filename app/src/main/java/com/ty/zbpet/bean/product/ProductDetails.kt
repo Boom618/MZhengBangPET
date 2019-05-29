@@ -36,12 +36,16 @@ class ProductDetails {
         var state: String? = null
         var orderId: String? = null
         var boxQrCode: ArrayList<String>? = null
+        // 二版 采购入库类型
+        var deliveryOrderList: ArrayList<OrderList>? = null
 
-        // 生产入库
-        var sendNumber: String? = null
+    }
 
-        // 退货入库 信息
-        var surplusNumber: String? = null
-
+    class OrderList {
+        var deliveryOrderNo: String? = null
+        var deliveryOrderLine: String? = null
+        var sapBatchNo: String? = null
+        var number: String? = null
+        var unit: String? = null
     }
 }

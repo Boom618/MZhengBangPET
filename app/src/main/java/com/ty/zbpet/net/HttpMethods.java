@@ -450,8 +450,9 @@ public class HttpMethods {
      *
      * @param subscriber subscriber
      */
-    public void getBuyInOrderInfo(SingleObserver<BaseResponse<ProductDetails>> subscriber, String sapOrderNo, String sapFirmNo, String supplierNo) {
-        mService.getBuyInOrderInfo(sapOrderNo, sapFirmNo, supplierNo)
+    public void getBuyInOrderInfo(SingleObserver<BaseResponse<ProductDetails>> subscriber,
+                                  String sign,String sapOrderNo, String sapFirmNo, String supplierNo) {
+        mService.getBuyInOrderInfo(sign,sapOrderNo, sapFirmNo, supplierNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }

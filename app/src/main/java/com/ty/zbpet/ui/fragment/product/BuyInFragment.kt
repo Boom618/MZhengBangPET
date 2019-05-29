@@ -114,6 +114,7 @@ class BuyInFragment : BaseFragment(), ProductUiListInterface<ProductList.ListBea
                         intent.putExtra("sapFirmNo", list[position].sapFirmNo)
                         intent.putExtra("supplierName", list[position].supplierName)
                         intent.putExtra("content", list[position].content)
+                        intent.putExtra("sign", list[position].sign)
                         intent.putExtra("supplierNo", list[position].supplierNo)
                         startActivity(intent)
                     }

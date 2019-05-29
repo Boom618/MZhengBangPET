@@ -3,10 +3,12 @@ package com.ty.zbpet.presenter.product;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.product.ProductDetails;
 import com.ty.zbpet.bean.product.ProductList;
+import com.ty.zbpet.constant.TipString;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.base.BaseResponse;
 import com.ty.zbpet.constant.CodeConstant;
 
+import java.net.SocketTimeoutException;
 import java.util.List;
 
 import io.reactivex.SingleObserver;
@@ -73,7 +75,7 @@ public class BuyInPresenter {
      *
      * @param sapOrderNo
      */
-    public void fetchBuyInTodoListDetails(String sapOrderNo, String sapFirmNo, String supplierNo) {
+    public void fetchBuyInTodoListDetails(String sign, String sapOrderNo, String sapFirmNo, String supplierNo) {
 
         httpMethods.getBuyInOrderInfo(new SingleObserver<BaseResponse<ProductDetails>>() {
             @Override
@@ -98,7 +100,7 @@ public class BuyInPresenter {
             public void onError(Throwable e) {
                 listInterface.showError(e.getMessage());
             }
-        }, sapOrderNo, sapFirmNo, supplierNo);
+        }, sign, sapOrderNo, sapFirmNo, supplierNo);
     }
 
     /**
@@ -127,7 +129,11 @@ public class BuyInPresenter {
             @Override
             public void onError(Throwable e) {
                 listInterface.hideLoading();
-                listInterface.showError(e.getMessage());
+                if (e instanceof SocketTimeoutException) {
+                    listInterface.showError((TipString.loginRetry));
+                } else {
+                    listInterface.showError(e.getMessage());
+                }
             }
         }, body);
     }
