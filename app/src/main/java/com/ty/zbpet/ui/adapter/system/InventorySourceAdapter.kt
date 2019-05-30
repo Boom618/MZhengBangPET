@@ -1,9 +1,12 @@
 package com.ty.zbpet.ui.adapter.system
 
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.EditText
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.system.PositionCode
-import com.ty.zbpet.bean.system.ProductQuery
+import com.ty.zbpet.util.SimpleCache
 import com.zhy.adapter.recyclerview.CommonAdapter
 import com.zhy.adapter.recyclerview.base.ViewHolder
 
@@ -21,6 +24,21 @@ class InventorySourceAdapter(context: Context, layout: Int, datas: MutableList<P
                 .setText(R.id.tv_supplier_name, "供应商：${list.supplierName}")
                 .setText(R.id.tv_content, "含量：${list.concentration}")
                 .setText(R.id.tv_number, "库存数量：${list.number}")
+
+        holder.itemView.findViewById<EditText>(R.id.edit_number).addTextChangedListener(object :TextWatcher{
+            override fun afterTextChanged(edit: Editable) {
+                if (edit.toString().isNotEmpty()) {
+                    SimpleCache.putNumber(position.toString(),edit.toString())
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+        })
 
     }
 }

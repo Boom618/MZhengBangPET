@@ -1,9 +1,9 @@
 package com.ty.zbpet.ui.activity.wareroom
 
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.KeyEvent
-import android.view.View
 import android.widget.EditText
 import com.pda.scanner.ScanReader
 import com.ty.zbpet.R
@@ -33,6 +33,7 @@ import okhttp3.RequestBody
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import com.ty.zbpet.util.SimpleCache
 
 /**
  * @author TY on 2019/3/31.
@@ -44,6 +45,8 @@ class MaterialsStockActivity : BaseActivity(), ScanBoxInterface {
     private val scan = ScanObservable(this)
     private lateinit var disposable: Disposable
     private lateinit var rawData: PositionCode
+
+    private var layoutManager: LinearLayoutManager? = null
 
     private val presenter: SystemPresenter = SystemPresenter()
 
@@ -59,7 +62,7 @@ class MaterialsStockActivity : BaseActivity(), ScanBoxInterface {
     }
 
     override fun initTwoView() {
-        bt_commit.visibility = View.INVISIBLE
+        bt_commit.isEnabled = false
         ZBUiUtils.showWarning("请扫库位码进行盘点")
         bt_commit.setOnClickListener {
             commitInventor(initDoneBody())
@@ -80,8 +83,11 @@ class MaterialsStockActivity : BaseActivity(), ScanBoxInterface {
         val list = mutableListOf<PositionCode.StockListBean>()
         val size = rawData.list!!.size
         for (i in 0 until size) {
-            val view = recycler.getChildAt(i)
-            val checkNumber = view.findViewById<EditText>(R.id.edit_number).text.toString().trim()
+            // 【 getChildAt 】只能获取到屏幕显示的部分
+            //val view = recycler.getChildAt(i)
+            // val view = layoutManager?.findViewByPosition(i)
+            // val viewHolder = recycler.findViewHolderForAdapterPosition(i)
+            val checkNumber = SimpleCache.getNumber(i.toString())
             if (!TextUtils.isEmpty(checkNumber)) {
                 val stockListBean = rawData.list!!
                 val bean = PositionCode.StockListBean()
@@ -136,15 +142,21 @@ class MaterialsStockActivity : BaseActivity(), ScanBoxInterface {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun queryEvent(event: PositionCode) {
-        bt_commit.visibility = View.VISIBLE
+        bt_commit.isEnabled = true
         rawData = event
 
         val list = event.list!!
         if (list.size == 0) {
             ZBUiUtils.showSuccess(TipString.materialsLocaNot)
-        }else{
-            LayoutInit.initLayoutManager(this, recycler)
-            recycler.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
+        } else {
+            val temp = list.size
+            for (i in 0 until temp){
+                SimpleCache.clearKey(i.toString())
+            }
+            //LayoutInit.initLayoutManager(this, recycler)
+            layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            recycler.layoutManager = layoutManager
+            recycler.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
             val adapter = InventorySourceAdapter(this, R.layout.item_inventory_source, list)
             recycler.adapter = adapter
         }

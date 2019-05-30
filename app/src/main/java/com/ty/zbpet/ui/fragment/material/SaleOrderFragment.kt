@@ -87,12 +87,13 @@ class SaleOrderFragment : BaseFragment(), MaterialUiListInterface<MaterialList.L
 
     override fun showMaterial(list: List<MaterialList.ListBean>) {
 
+        if (list.isEmpty()) {
+            ZBUiUtils.showWarning("销售出库没有找到结果")
+            return
+        }
         LayoutInit.initLayoutManager(ResourceUtil.getContext(), recyclerView)
         if (adapterTodo == null && adapterDone == null) {
             recyclerView.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
-        }
-        if (list.isEmpty()) {
-            ZBUiUtils.showWarning("销售出库没有找到结果")
         }
         when (fragmentType) {
             CodeConstant.FRAGMENT_TODO -> {

@@ -95,6 +95,7 @@ class BuyInFragment : BaseFragment(), ProductUiListInterface<ProductList.ListBea
     override fun showProduct(list: List<ProductList.ListBean>) {
         if (list.isEmpty()) {
             ZBUiUtils.showWarning("外采入库没有找到结果")
+            return
         }
 
         LayoutInit.initLayoutManager(ResourceUtil.getContext(), recyclerView)

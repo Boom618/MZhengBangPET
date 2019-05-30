@@ -36,7 +36,7 @@ import org.greenrobot.eventbus.ThreadMode
  *
  * 待办 （ 入库 ） Fragment
  */
-class ArrivalInFragment : BaseFragment(),MaterialUiListInterface<MaterialList.ListBean> {
+class ArrivalInFragment : BaseFragment(), MaterialUiListInterface<MaterialList.ListBean> {
 
     override val fragmentLayout: Int
         get() = R.layout.zb_content_list_fragment
@@ -65,7 +65,7 @@ class ArrivalInFragment : BaseFragment(),MaterialUiListInterface<MaterialList.Li
     override fun loadData() {
         fragmentType = arguments!!.getString(CodeConstant.FRAGMENT_TYPE)!!
         when (fragmentType) {
-            CodeConstant.FRAGMENT_DONE -> presenter.fetchDoneMaterial(CodeConstant.BUY_IN_TYPE,"","","")
+            CodeConstant.FRAGMENT_DONE -> presenter.fetchDoneMaterial(CodeConstant.BUY_IN_TYPE, "", "", "")
         }
     }
 
@@ -75,7 +75,7 @@ class ArrivalInFragment : BaseFragment(),MaterialUiListInterface<MaterialList.Li
         if (isVisble) {
             when (fragmentType) {
                 CodeConstant.FRAGMENT_TODO -> presenter.fetchTODOMaterial("", "", "")
-                CodeConstant.FRAGMENT_DONE -> presenter.fetchDoneMaterial(CodeConstant.BUY_IN_TYPE,"","","")
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchDoneMaterial(CodeConstant.BUY_IN_TYPE, "", "", "")
             }
         }
     }
@@ -89,7 +89,7 @@ class ArrivalInFragment : BaseFragment(),MaterialUiListInterface<MaterialList.Li
             // 刷新数据
             when (fragmentType) {
                 CodeConstant.FRAGMENT_TODO -> presenter.fetchTODOMaterial("", "", "")
-                CodeConstant.FRAGMENT_DONE -> presenter.fetchDoneMaterial(CodeConstant.BUY_IN_TYPE,"","","")
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchDoneMaterial(CodeConstant.BUY_IN_TYPE, "", "", "")
             }
         }
 //        refreshLayout!!.setOnLoadMoreListener { refreshLayout ->
@@ -100,16 +100,16 @@ class ArrivalInFragment : BaseFragment(),MaterialUiListInterface<MaterialList.Li
     }
 
     override fun showMaterial(list: List<MaterialList.ListBean>) {
-
+        if (list.isEmpty()) {
+            ZBUiUtils.showWarning("采购入库没有找到结果")
+            return
+        }
         LayoutInit.initLayoutManager(ResourceUtil.getContext(), recyclerView)
         if (adapterTodo == null && adapterDone == null) {
             recyclerView.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
         }
-        if (list.isEmpty()) {
-            ZBUiUtils.showWarning("采购入库没有找到结果")
-        }
-        when(fragmentType){
-            CodeConstant.FRAGMENT_TODO ->{
+        when (fragmentType) {
+            CodeConstant.FRAGMENT_TODO -> {
                 adapterTodo = MaterialTodoAdapter(ResourceUtil.getContext(), R.layout.item_material_todo, list)
                 recyclerView.adapter = adapterTodo
 
@@ -131,7 +131,7 @@ class ArrivalInFragment : BaseFragment(),MaterialUiListInterface<MaterialList.Li
                     }
                 })
             }
-            CodeConstant.FRAGMENT_DONE ->{
+            CodeConstant.FRAGMENT_DONE -> {
                 adapterDone = MaterialDoneAdapter(ResourceUtil.getContext(), R.layout.activity_content_list_three, list)
                 recyclerView.adapter = adapterDone
                 adapterDone?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
@@ -159,11 +159,12 @@ class ArrivalInFragment : BaseFragment(),MaterialUiListInterface<MaterialList.Li
             val startTime = event.leftTime()
             val endTime = event.rightTime()
             when (fragmentType) {
-                CodeConstant.FRAGMENT_TODO -> presenter.fetchTODOMaterial(search,startTime,endTime)
-                CodeConstant.FRAGMENT_DONE -> presenter.fetchDoneMaterial(CodeConstant.BUY_IN_TYPE,search,startTime,endTime)
+                CodeConstant.FRAGMENT_TODO -> presenter.fetchTODOMaterial(search, startTime, endTime)
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchDoneMaterial(CodeConstant.BUY_IN_TYPE, search, startTime, endTime)
             }
         }
     }
+
     override fun showLoading() {
 
     }

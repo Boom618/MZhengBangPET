@@ -72,6 +72,7 @@
 
     <TextView
         android:id="@+id/type"
+        android:visibility="gone"
         android:layout_marginTop="@dimen/x20"
         app:layout_constraintTop_toBottomOf="@+id/tv_sap"
         app:layout_constraintStart_toStartOf="@+id/position_no"
@@ -81,6 +82,7 @@
 
     <RadioGroup
         android:id="@+id/radioGroup"
+        android:visibility="gone"
         android:orientation="horizontal"
         app:layout_constraintStart_toEndOf="@+id/type"
         app:layout_constraintBottom_toBottomOf="@+id/type"

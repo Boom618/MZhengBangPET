@@ -47,12 +47,12 @@ android {
             keyPassword "ty.admin.scanner"
         }
 
-        masterRelease {
-            storeFile file("../scanner_activate.jks")
-            storePassword "ty.admin.scanner"
-            keyAlias "key0"
-            keyPassword "ty.admin.scanner"
-        }
+//        masterRelease {
+//            storeFile file("../scanner_activate.jks")
+//            storePassword "ty.admin.scanner"
+//            keyAlias "key0"
+//            keyPassword "ty.admin.scanner"
+//        }
     }
     flavorDimensions "default"
     productFlavors {
@@ -66,15 +66,15 @@ android {
 
         }
 
-        master {
-
-            versionCode ZBConfig.versionCode
-            versionName ZBConfig.versionName
-            signingConfig = signingConfigs.masterRelease
-
-            buildConfigField "String", "SERVICE_URL", ZBConfig.config.serviceMasterUrl
-
-        }
+//        master {
+//
+//            versionCode ZBConfig.versionCode
+//            versionName ZBConfig.versionName
+//            signingConfig = signingConfigs.masterRelease
+//
+//            buildConfigField "String", "SERVICE_URL", ZBConfig.config.serviceMasterUrl
+//
+//        }
     }
     buildTypes {
         release {
