@@ -92,7 +92,7 @@ class BuyInTodoDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
      */
     override fun initTwoView() {
 
-        initToolBar(R.string.label_purchase_in_storage, TipString.save, View.OnClickListener { view ->
+        initToolBar(R.string.label_arrival_storage, TipString.save, View.OnClickListener { view ->
             ZBUiUtils.hideInputWindow(view.context, view)
             buyInTodoSave(initTodoBody())
         })

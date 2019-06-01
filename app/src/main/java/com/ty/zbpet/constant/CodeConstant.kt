@@ -123,4 +123,11 @@ object CodeConstant {
      */
     const val CHECK_STATE_TODO = "01"
     const val CHECK_STATE_DONE = "02"
+
+    // 解决 RecycleView getChildAt 在不可见存值
+    const val M_TODO_1 = "M_TODO_1"
+    const val M_DONE_1 = "M_DONE_1"
+
+    const val M_TODO_2 = "M_TODO_2"
+    const val M_DONE_2 = "M_DONE_2"
 }

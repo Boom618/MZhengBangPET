@@ -25,5 +25,10 @@ class ReceiptList {
         var concentration: String? = null
         var skuName: String? = null
         var supplierName: String? = null
+        // primaryNumber 原数量 checkNumber 盘点数量
+        // sapCheckNo  盘点凭证   sapYear  盘点年度
+        var sapYear: String? = null
+        var checkNumber: String? = null
+        var primaryNumber: String? = null
     }
 }

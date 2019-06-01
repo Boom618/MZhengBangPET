@@ -46,6 +46,8 @@
 
 **困扰**
 
+- RecycleView.getChildAt(position) 只能获取到屏幕显示的子 View
+
 
 ## 待完成 
 

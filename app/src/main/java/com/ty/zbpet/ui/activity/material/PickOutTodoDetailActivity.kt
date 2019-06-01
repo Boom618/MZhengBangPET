@@ -128,10 +128,8 @@ class PickOutTodoDetailActivity : BaseActivity()
         for (i in 0 until size) {
             val view = rv_in_storage_detail.getChildAt(i)
 
-            //val concentration = view.findViewById<EditText>(R.id.bulk_num).text.toString().trim { it <= ' ' }
-            val carCode = view.findViewById<EditText>(R.id.et_code).text.toString().trim { it <= ' ' }
-            val bulkNum = view.findViewById<EditText>(R.id.et_number).text.toString().trim { it <= ' ' }
-            //val batchNo = view.findViewById<EditText>(R.id.et_batch_no).text.toString().trim { it <= ' ' }
+            val carCode = view.findViewById<EditText>(R.id.et_code).text.toString().trim()
+            val bulkNum = view.findViewById<EditText>(R.id.et_number).text.toString().trim()
             val materialId = list[i].materialId
             val supplierNo = list[i].supplierNo
 
@@ -152,11 +150,9 @@ class PickOutTodoDetailActivity : BaseActivity()
                 bean.warehouseNo = no
                 bean.materialNo = list[i].materialNo
                 bean.materialName = list[i].materialName
-                //bean.concentration = concentration
                 // 用户输入数据
                 bean.positionNo = carCode
                 bean.number = bulkNum
-                //bean.sapMaterialBatchNo = batchNo
 
                 detail.add(bean)
             }
@@ -167,12 +163,10 @@ class PickOutTodoDetailActivity : BaseActivity()
             return null
         }
 
-        val remark = et_desc!!.text.toString().trim { it <= ' ' }
-        val time = tv_time!!.text.toString().trim { it <= ' ' }
+        val remark = et_desc.text.toString().trim { it <= ' ' }
+        val time = tv_time.text.toString().trim { it <= ' ' }
 
         requestBody.list = detail
-//        requestBody.warehouseId = warehouseId
-//        requestBody.warehouseNo = warehouseNo
         requestBody.outTime = time
         requestBody.moveType = "261"
         requestBody.sapOrderNo = sapOrderNo
