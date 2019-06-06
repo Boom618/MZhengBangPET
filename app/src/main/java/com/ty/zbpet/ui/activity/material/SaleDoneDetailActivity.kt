@@ -11,10 +11,10 @@ import com.ty.zbpet.bean.material.MaterialDoneSave
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
-import com.ty.zbpet.ui.adapter.material.BackGoodsDoneDetailAdapter
 import com.ty.zbpet.base.BaseActivity
 import com.ty.zbpet.constant.TipString
 import com.ty.zbpet.presenter.material.SaleOrderPresenter
+import com.ty.zbpet.ui.adapter.material.SaleDoneDetailAdapter
 import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils
@@ -31,7 +31,7 @@ import java.util.*
  */
 class SaleDoneDetailActivity : BaseActivity(), MaterialUiListInterface<MaterialDetails.ListBean> {
 
-    lateinit var adapter: BackGoodsDoneDetailAdapter
+    lateinit var adapter: SaleDoneDetailAdapter
 
     /**
      * 仓库 ID
@@ -114,7 +114,7 @@ class SaleDoneDetailActivity : BaseActivity(), MaterialUiListInterface<MaterialD
         val manager = LinearLayoutManager(ResourceUtil.getContext())
         recycler_reversal.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
         recycler_reversal.layoutManager = manager
-        adapter = BackGoodsDoneDetailAdapter(this, R.layout.item_reversal_check, listBean)
+        adapter = SaleDoneDetailAdapter(this, R.layout.item_reversal_check, listBean)
         recycler_reversal.adapter = adapter
 
     }

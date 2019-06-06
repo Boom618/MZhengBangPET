@@ -97,7 +97,6 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
 
         data.list = list
         data.orderId = orderId
-//        data.warehouseId = warehouseId
         data.moveType = "102"
         val json = DataUtils.toJson(data, 1)
 
@@ -112,7 +111,6 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
         val manager = LinearLayoutManager(ResourceUtil.getContext())
         recycler_reversal.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
         recycler_reversal.layoutManager = manager
-        //adapter = BackGoodsDoneDetailAdapter(this, R.layout.item_material_detail_three_done, listBean)
         adapter = BackGoodsDoneDetailAdapter(this, R.layout.item_reversal_check, listBean)
         recycler_reversal.adapter = adapter
 
