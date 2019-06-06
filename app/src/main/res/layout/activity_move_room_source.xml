@@ -95,7 +95,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="100"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         app:layout_constraintStart_toEndOf="@+id/tv_move"
         app:layout_constraintTop_toBottomOf="@+id/tv_sap" />
 

@@ -183,7 +183,7 @@
                 android:layout_weight="1"
                 android:hint="入库数量 : 123"
                 android:imeOptions="actionNext"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:lines="1" />
 
         </LinearLayout>

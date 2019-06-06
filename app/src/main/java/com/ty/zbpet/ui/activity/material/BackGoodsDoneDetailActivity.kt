@@ -13,6 +13,7 @@ import com.ty.zbpet.presenter.material.BackGoodsPresenter
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
 import com.ty.zbpet.ui.adapter.material.BackGoodsDoneDetailAdapter
 import com.ty.zbpet.base.BaseActivity
+import com.ty.zbpet.constant.TipString
 import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils
@@ -122,7 +123,7 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
 
     private var dialog: LoadingDialog? = null
     override fun showLoading() {
-        dialog = ShowDialog.showFullDialog(this@BackGoodsDoneDetailActivity, "保存中")
+        dialog = ShowDialog.showFullDialog(this@BackGoodsDoneDetailActivity, TipString.saveIng)
     }
 
     override fun hideLoading() {
@@ -130,7 +131,7 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
     }
 
     override fun saveSuccess() {
-        ZBUiUtils.showSuccess("成功")
+        ZBUiUtils.showSuccess(TipString.success)
         finish()
     }
 

@@ -91,7 +91,7 @@
             android:layout_marginEnd="@dimen/space_25"
             android:ellipsize="end"
             android:hint="出库数量：2000"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:lines="1"
             style="@style/itemSizeStyle"
             app:layout_constraintHorizontal_chainStyle="packed"
