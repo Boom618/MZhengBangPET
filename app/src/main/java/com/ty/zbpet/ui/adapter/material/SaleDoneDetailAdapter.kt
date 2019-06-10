@@ -1,9 +1,11 @@
 package com.ty.zbpet.ui.adapter.material
 
 import android.content.Context
+import android.widget.CheckBox
 
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.material.MaterialDetails
+import com.ty.zbpet.util.SimpleCache
 import com.zhy.adapter.recyclerview.CommonAdapter
 import com.zhy.adapter.recyclerview.base.ViewHolder
 
@@ -23,6 +25,13 @@ class SaleDoneDetailAdapter(context: Context, layoutId: Int, datas: List<Materia
                 .setText(R.id.tv_number, "发货数量：${listBean.giveNumber}${listBean.unit}")
                 .setText(R.id.tv_solubility, "含量：${listBean.concentration}")
                 .setText(R.id.tv_batch_number, "SAP 批次号：${listBean.sapMaterialBatchNo}")
+
+        holder.itemView.findViewById<CheckBox>(R.id.check).setOnCheckedChangeListener { _, isChecked ->
+            when (isChecked) {
+                true -> SimpleCache.putNumber(position.toString(), "1")
+                false -> SimpleCache.putNumber(position.toString(), "0")
+            }
+        }
 
     }
 

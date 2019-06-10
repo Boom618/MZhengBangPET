@@ -3,7 +3,6 @@ package com.ty.zbpet.ui.activity.material
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import android.widget.CheckBox
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.CarPositionNoData
 import com.ty.zbpet.bean.material.MaterialDetails
@@ -19,6 +18,7 @@ import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ResourceUtil
+import com.ty.zbpet.util.SimpleCache
 import com.ty.zbpet.util.ZBUiUtils
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import kotlinx.android.synthetic.main.activity_content_reversal.*
@@ -83,9 +83,10 @@ class SaleDoneDetailActivity : BaseActivity(), MaterialUiListInterface<MaterialD
         val checked = order_del.isChecked
 
         for (i in 0 until size) {
-            val view = recycler_reversal.getChildAt(i)
-            val checkBox = view.findViewById<CheckBox>(R.id.check)
-            if (checkBox.isChecked) {
+//            val view = recycler_reversal.getChildAt(i)
+//            val checkBox = view.findViewById<CheckBox>(R.id.check)
+            val value = SimpleCache.getNumber(i.toString())
+            if (value == "1") {
                 val bean = MaterialDoneSave.ListBean()
                 bean.id = listBean[i].id
                 list.add(bean)
@@ -110,6 +111,9 @@ class SaleDoneDetailActivity : BaseActivity(), MaterialUiListInterface<MaterialD
 
         listBean = list
         warehouseId = listBean[0].warehouseId!!
+        for (i in 0 until list.size) {
+            SimpleCache.clearKey(i.toString())
+        }
 
         val manager = LinearLayoutManager(ResourceUtil.getContext())
         recycler_reversal.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))

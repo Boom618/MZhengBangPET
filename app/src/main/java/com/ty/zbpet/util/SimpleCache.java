@@ -1,6 +1,7 @@
 package com.ty.zbpet.util;
 
 import com.ty.zbpet.bean.UserInfo;
+import com.ty.zbpet.constant.CodeConstant;
 
 /**
  * @author PVer on 2018/12/15.
@@ -16,7 +17,9 @@ public class SimpleCache {
     }
 
     /**
-     * 盘点 存 position 对应的 数量
+     * 1、盘点 存 position 对应的 数量
+     * 2、领料出库冲销 存 选中的 check 值 0 false  1 true 选中
+     * 3、销售出库冲销 存 选中的 check 值 0 false  1 true 选中
      *
      * @param position 位置
      * @param number   数量
