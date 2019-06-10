@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.InputType
 import android.view.View
 import android.widget.EditText
+import android.widget.RadioButton
 
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.material.MaterialDetails
@@ -24,6 +25,7 @@ class PickingTodoDetailAdapter(private val context: Context, layoutId: Int, data
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: MutableList<Any>) {
         val list = datas[position]
+        val itemView = holder.itemView
 
         // 库位码
         val etCode = holder.itemView.findViewById<EditText>(R.id.et_code)
@@ -37,11 +39,26 @@ class PickingTodoDetailAdapter(private val context: Context, layoutId: Int, data
             SharedP.putHasFocusAndPosition(view.context, hasFocus, position)
         }
         if (payloads.isEmpty()) {
+
+            val rbKG = itemView.findViewById<RadioButton>(R.id.rb_kg)
+            val rbZKG = itemView.findViewById<RadioButton>(R.id.rb_zkg)
+            val rbPC = itemView.findViewById<RadioButton>(R.id.rb_pc)
+            if (list.unit.isNullOrEmpty()) {
+                rbKG.isChecked = true
+            } else {
+                when (list.unit) {
+                    "KG" -> rbKG.isChecked = true
+                    "ZKG" -> rbZKG.isChecked = true
+                    else -> {
+                        rbPC.isChecked = true
+                    }
+                }
+            }
             holder.setText(R.id.tv_name, list.materialName)
                     .setText(R.id.tv_num, list.requireNumber + "  " + list.unit)
                     .setText(R.id.tv_house_no, "仓库编号：${list.warehouseNo}")
                     .setText(R.id.tv_request_number, "需求数量：${list.requireNumber}")
-                    .setText(R.id.tv_box_num_unit, "单位：${list.unit}")
+                    //.setText(R.id.tv_box_num_unit, "单位：${list.unit}")
         } else {
             val bundle = payloads[0] as Bundle
             val positionNo = bundle.getString("positionNo")

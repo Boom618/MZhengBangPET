@@ -2,11 +2,11 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_marginEnd="@dimen/space_10"
+    android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/space_10"
-    android:paddingBottom="@dimen/space_8"
+    android:layout_marginEnd="@dimen/space_10"
     android:background="@drawable/shape_white_min_radius"
-    android:layout_height="wrap_content">
+    android:paddingBottom="@dimen/space_8">
 
 
     <ImageView
@@ -28,10 +28,10 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_toEndOf="@id/iv_tag"
-        android:text="联想台式电脑"
-        android:maxLines="1"
-        android:maxEms="10"
         android:ellipsize="end"
+        android:maxEms="10"
+        android:maxLines="1"
+        android:text="联想台式电脑"
         android:textColor="@color/txt_main_color"
         android:textSize="@dimen/text_14"
         app:layout_constraintStart_toEndOf="@+id/iv_tag"
@@ -68,16 +68,16 @@
         android:id="@+id/gone_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         android:focusable="true"
         android:focusableInTouchMode="true"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/tv_num">
 
         <TextView
             android:id="@+id/tv_house_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
             android:text="仓库编号："
@@ -86,34 +86,65 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_box_num_unit"
+            android:id="@+id/tv_request_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="@dimen/x10"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
-            android:text="单位 ："
+            android:text="需求数量:"
             android:textColor="@color/txt_main_color"
-            android:layout_marginEnd="@dimen/space_30"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_house_no"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_request_number"
-            android:layout_width="match_parent"
+            android:id="@+id/tv_box_num_unit"
+            style="@style/itemSizeStyle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="40dp"
             android:layout_marginBottom="8dp"
-            android:ellipsize="end"
-            android:text="需求数量:"
-            style="@style/itemSizeStyle"
+            android:text="单位 ："
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_house_no" />
 
+        <RadioGroup
+            android:id="@+id/out_radio_group"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_box_num_unit"
+            app:layout_constraintTop_toBottomOf="@+id/tv_house_no">
+
+            <RadioButton
+                android:id="@+id/rb_kg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="KG" />
+
+            <RadioButton
+                android:id="@+id/rb_zkg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="ZKG" />
+
+            <RadioButton
+                android:id="@+id/rb_pc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="PC" />
+
+        </RadioGroup>
+
         <EditText
             android:id="@+id/et_code"
+            style="@style/itemSizeStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -122,15 +153,15 @@
             android:layout_marginBottom="8dp"
             android:ellipsize="end"
             android:hint="库位码"
+            android:imeOptions="actionNext"
             android:inputType="text"
             android:singleLine="true"
-            android:imeOptions="actionNext"
-            style="@style/itemSizeStyle"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_request_number" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_box_num_unit" />
 
         <EditText
             android:id="@+id/et_number"
+            style="@style/itemSizeStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -139,10 +170,9 @@
             android:layout_marginBottom="8dp"
             android:ellipsize="end"
             android:hint="出库数量：20.5"
-            android:singleLine="true"
             android:imeOptions="actionDone"
             android:inputType="numberDecimal"
-            style="@style/itemSizeStyle"
+            android:singleLine="true"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_code" />
@@ -150,13 +180,13 @@
 
         <TextView
             android:id="@+id/tv_batch_no"
+            style="@style/itemSizeStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="40dp"
             android:text="SAP 物料批次号:"
-            style="@style/itemSizeStyle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_number" />

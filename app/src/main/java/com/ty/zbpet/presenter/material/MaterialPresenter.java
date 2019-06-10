@@ -22,6 +22,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.io.File;
 import java.net.SocketTimeoutException;
 import java.util.List;
+import java.util.concurrent.TimeoutException;
 
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
@@ -120,7 +121,11 @@ public class MaterialPresenter {
 
             @Override
             public void onError(Throwable e) {
-                materialListUi.showError(e.getMessage());
+                if (e instanceof SocketTimeoutException) {
+                    materialListUi.showError((TipString.loginRetry));
+                } else {
+                    materialListUi.showError(e.getMessage());
+                }
             }
 
             @Override

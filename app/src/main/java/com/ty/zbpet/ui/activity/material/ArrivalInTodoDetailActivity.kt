@@ -351,6 +351,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
 
     override fun onDestroy() {
         super.onDestroy()
+        materialPresenter.dispose()
         scanner?.close()
         SharedP.clearFocusAndPosition(this)
 

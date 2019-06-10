@@ -9,6 +9,8 @@ import android.view.KeyEvent
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import com.pda.scanner.ScanReader
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.CarPositionNoData
@@ -128,6 +130,15 @@ class PickOutTodoDetailActivity : BaseActivity()
         for (i in 0 until size) {
             val view = rv_in_storage_detail.getChildAt(i)
 
+            var viewUnit = "KG"
+            val radioGroup = view.findViewById<RadioGroup>(R.id.out_radio_group)
+            for (position in 0 until 3) {
+                val radioButton = radioGroup.getChildAt(position) as RadioButton
+                if (radioButton.isChecked) {
+                    viewUnit = radioButton.text.toString()
+                }
+            }
+
             val carCode = view.findViewById<EditText>(R.id.et_code).text.toString().trim()
             val bulkNum = view.findViewById<EditText>(R.id.et_number).text.toString().trim()
             val materialId = list[i].materialId
@@ -143,7 +154,7 @@ class PickOutTodoDetailActivity : BaseActivity()
                 val mergeContent = JsonStringMerge().StringMerge(subContent, content)
 
                 bean.positionId = id
-                bean.unit = list[i].unit
+                bean.unit = viewUnit
                 bean.supplierNo = supplierNo
                 bean.materialId = materialId
                 bean.content = mergeContent
