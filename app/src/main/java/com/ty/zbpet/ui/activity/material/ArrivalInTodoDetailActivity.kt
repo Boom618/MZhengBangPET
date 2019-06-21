@@ -146,6 +146,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
             val viewCode = view.findViewById<EditText>(R.id.et_code).text.toString().trim { it <= ' ' }
             val viewNumber = view.findViewById<EditText>(R.id.et_bulk_num).text.toString().trim { it <= ' ' }
             val viewSap = view.findViewById<EditText>(R.id.et_batch_no).text.toString().trim { it <= ' ' }
+            val remarkSub = view.findViewById<EditText>(R.id.et_remark).text.toString().trim { it <= ' ' }
 
             val id = positionId.get(i)
             val no = houseNo.get(i)
@@ -170,6 +171,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
                 bean.inNumber = list[i].inNumber
                 bean.materialName = list[i].materialName
                 bean.materialNo = list[i].materialNo
+                bean.remarkSub = remarkSub
                 bean.unit = viewUnit
                 // 二期添加 公司间采购、外采
                 val deliveryList = ArrayList<MaterialDetails.OrderList>(5)
@@ -195,8 +197,8 @@ class ArrivalInTodoDetailActivity : BaseActivity()
             ZBUiUtils.showWarning("请完善您要入库的信息")
             return null
         }
-        val remark = et_desc!!.text.toString().trim { it <= ' ' }
-        val time = tv_time!!.text.toString().trim { it <= ' ' }
+        val remark = et_desc.text.toString().trim { it <= ' ' }
+        val time = tv_time.text.toString().trim { it <= ' ' }
 
         requestBody.list = detail
         requestBody.supplierNo = supplierNo

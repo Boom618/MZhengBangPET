@@ -1,11 +1,9 @@
 package com.ty.zbpet.ui;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.multidex.MultiDexApplication;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.billy.android.loading.Gloading;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
@@ -16,9 +14,6 @@ import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.util.ACache;
 import com.xiasuhuei321.loadingdialog.manager.StyleManager;
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
-
-import me.yokeyword.fragmentation.Fragmentation;
-import me.yokeyword.fragmentation.helper.ExceptionHandler;
 
 /**
  * @author TY
