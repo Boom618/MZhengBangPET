@@ -186,10 +186,12 @@ dependencies {
     // light key value 存值
     implementation 'com.horizon.lightkv:lightkv:1.0.7'
     // arouter
-    implementation 'com.alibaba:arouter-api:1.4.1'
-    annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
+    //implementation 'com.alibaba:arouter-api:1.4.1'
+    //annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
     // 沉浸状态栏
     implementation 'com.jaeger.statusbarutil:library:1.5.1'
+    // 数据库
+    implementation 'org.litepal.android:java:3.0.0'
 
     //1.1.0 API改动过大，老用户升级需谨慎 listView 刷新 {ZBConfig.SmartRefreshVersion}
     implementation "com.scwang.smartrefresh:SmartRefreshLayout:${ZBConfig.SmartRefreshVersion}"

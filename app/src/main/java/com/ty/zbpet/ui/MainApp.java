@@ -3,17 +3,17 @@ package com.ty.zbpet.ui;
 import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.crashreport.CrashReport;
-import com.ty.zbpet.BuildConfig;
 import com.ty.zbpet.config.AppInit;
 import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.util.ACache;
 import com.xiasuhuei321.loadingdialog.manager.StyleManager;
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
+
+import org.litepal.LitePal;
 
 /**
  * @author TY
@@ -34,13 +34,7 @@ public class MainApp extends MultiDexApplication {
         context = this;
         AppInit.init(this);
 
-        if (BuildConfig.DEBUG){
-            // 这两行必须写在init之前，否则这些配置在init过程中将无效
-            ARouter.openLog();
-            ARouter.openDebug();
-        }
-        ARouter.init(this);
-
+        LitePal.initialize(this);
         mCache = ACache.get(context);
         // dialog manager
         StyleManager s = new StyleManager();
