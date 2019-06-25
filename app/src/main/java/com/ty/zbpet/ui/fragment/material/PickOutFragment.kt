@@ -106,14 +106,14 @@ class PickOutFragment : BaseFragment(), MaterialUiListInterface<MaterialList.Lis
             ZBUiUtils.showWarning("领料出库没有找到结果")
         }
 
-        LayoutInit.initLayoutManager(ResourceUtil.getContext(), recyclerView)
+        recyclerView?.let { LayoutInit.initLayoutManager(ResourceUtil.getContext(), it) }
         if (adapterTodo == null && adapterDone == null) {
-            recyclerView!!.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
+            recyclerView?.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
         }
         when (fragmentType) {
             CodeConstant.FRAGMENT_TODO -> {
                 adapterTodo = PickOutTodoAdapter(context!!, R.layout.item_pick_out_todo, list)
-                recyclerView.adapter = adapterTodo
+                recyclerView?.adapter = adapterTodo
 
                 adapterTodo?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                     override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
@@ -133,7 +133,7 @@ class PickOutFragment : BaseFragment(), MaterialUiListInterface<MaterialList.Lis
             }
             CodeConstant.FRAGMENT_DONE -> {
                 adapterDone = PickOutDoneAdapter(context!!, R.layout.item_pick_out_done, list)
-                recyclerView.adapter = adapterDone
+                recyclerView?.adapter = adapterDone
 
                 adapterDone?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                     override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
