@@ -20,6 +20,7 @@ public class SimpleCache {
      * 1、盘点 存 position 对应的 数量
      * 2、领料出库冲销 存 选中的 check 值 0 false  1 true 选中
      * 3、销售出库冲销 存 选中的 check 值 0 false  1 true 选中
+     * 4、领料出库（出库、盘点） 存 position 对应的 批次号
      *
      * @param position 位置
      * @param number   数量

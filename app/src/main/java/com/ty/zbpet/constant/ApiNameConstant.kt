@@ -6,12 +6,11 @@ package com.ty.zbpet.constant
 object ApiNameConstant {
 
     /**
-     * 徐坤
+     * 少杰
      */
-//    const val BASE_URL = "http://192.168.6.15:3000/"
-//    const val BASE_URL = "http://192.168.21.65:3000/"
+    const val BASE_URL = "http://192.168.21.65:3000/"
 //    const val BASE_URL = "http://117.40.132.236:3099/"
-    const val BASE_URL = "http://jxsh.zhengbang.com:3000/"
+//    const val BASE_URL = "http://jxsh.zhengbang.com:3000/"
 
     /*--------------------------------- 系统登录 ---------------------------------------- */
 
@@ -40,6 +39,8 @@ object ApiNameConstant {
 
     // 库位码校验
     const val CHECK_CAR_CODE = "resources/warePositionInfo/getPositionList"
+    // 【新加】 获取批次号
+    const val getStock = "stock/materialStock/getStockByPositionNo"
 
     // 扫码解析
     const val URL_ANALYZE = "boxQrCode/boxQrCode/getBoxQrCode"

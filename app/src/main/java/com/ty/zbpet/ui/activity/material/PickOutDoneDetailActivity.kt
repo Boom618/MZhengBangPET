@@ -2,6 +2,8 @@ package com.ty.zbpet.ui.activity.material
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.widget.CheckBox
+import android.widget.EditText
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.CarPositionNoData
 import com.ty.zbpet.bean.material.MaterialDetails
@@ -56,7 +58,10 @@ class PickOutDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Materi
     override fun initTwoView() {
 
         initToolBar(R.string.pick_out_storage_reversal)
-        bt_reversal.setOnClickListener { pickOutDoneSave(initDoneBody()) }
+        bt_reversal.setOnClickListener {
+            ZBUiUtils.hideInputWindow(it.context, it)
+            pickOutDoneSave(initDoneBody())
+        }
 
     }
 
@@ -65,10 +70,7 @@ class PickOutDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Materi
      */
     private fun pickOutDoneSave(body: RequestBody?) {
 
-        if (body == null) {
-            return
-        }
-        presenter.pickOutDoneSave(body)
+        body?.let { presenter.pickOutDoneSave(it) }
     }
 
 
@@ -83,13 +85,31 @@ class PickOutDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Materi
         val size = listBean.size
 
         for (i in 0 until size) {
-//            val view = recycler_reversal.getChildAt(i)
-//            val checkBox = view.findViewById<CheckBox>(R.id.check)
-            val value = SimpleCache.getNumber(i.toString())
-            if (value == "1") {
-                val bean = MaterialDoneSave.ListBean()
-                bean.id = listBean[i].id
-                list.add(bean)
+
+            val view = recycler_reversal.getChildAt(i)
+            if (view != null) {
+                val checkBox = view.findViewById<CheckBox>(R.id.check)
+
+                val backNum = listBean[i].backNum
+                // 已冲销数量
+                val num = view.findViewById<EditText>(R.id.et_back_num).text.toString()
+                val subNumberService = Integer.parseInt(backNum)
+                val subNumber = Integer.parseInt(num)
+                val countNumber = subNumberService + subNumber
+                // 总量
+                val giveNumber = Integer.parseInt(listBean[i].giveNumber)
+                if (giveNumber < countNumber) {
+                    ZBUiUtils.showWarning("冲销数量不能大于总量")
+                    return null
+                }
+                //val value = SimpleCache.getNumber(i.toString())
+                if (checkBox.isChecked && num.isNotEmpty()) {
+                    val bean = MaterialDoneSave.ListBean()
+                    bean.id = listBean[i].id
+                    bean.backNum = num
+                    bean.giveNumber = listBean[i].giveNumber
+                    list.add(bean)
+                }
             }
         }
 
@@ -112,13 +132,15 @@ class PickOutDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Materi
         if (list.isEmpty()) {
             return
         }
-        for (i in 0 until list.size) {
-            SimpleCache.clearKey(i.toString())
-        }
+//        for (i in 0 until list.size) {
+//            SimpleCache.clearKey(i.toString())
+//        }
 
         val manager = LinearLayoutManager(ResourceUtil.getContext())
         recycler_reversal.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
         recycler_reversal.layoutManager = manager
+        // 禁止 RecycleView 回收
+        recycler_reversal.recycledViewPool.setMaxRecycledViews(0, 0)
         adapter = PickingDoneDetailAdapter(this, R.layout.item_reversal_check, list)
         recycler_reversal.adapter = adapter
 

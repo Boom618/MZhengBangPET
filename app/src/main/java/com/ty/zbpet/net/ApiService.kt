@@ -1,5 +1,6 @@
 package com.ty.zbpet.net
 
+import com.ty.zbpet.base.BaseResponse
 import com.ty.zbpet.bean.CarPositionNoData
 import com.ty.zbpet.bean.ResponseInfo
 import com.ty.zbpet.bean.UserInfo
@@ -9,22 +10,12 @@ import com.ty.zbpet.bean.material.MaterialDetails
 import com.ty.zbpet.bean.material.MaterialList
 import com.ty.zbpet.bean.product.ProductDetails
 import com.ty.zbpet.bean.product.ProductList
-import com.ty.zbpet.constant.ApiNameConstant
-import com.ty.zbpet.base.BaseResponse
 import com.ty.zbpet.bean.system.*
-
+import com.ty.zbpet.constant.ApiNameConstant
 import io.reactivex.Single
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.http.Body
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.Multipart
-import retrofit2.http.POST
-import retrofit2.http.Part
-import retrofit2.http.Query
-import java.util.ArrayList
+import retrofit2.http.*
 
 /**
  * @author TY
@@ -126,6 +117,11 @@ interface ApiService {
     @GET(ApiNameConstant.CHECK_CAR_CODE)
     fun checkCarCode(@Query("positionNo") positionNo: String,
                      @Query("warehouseNo") warehouseNo: String): Single<CarPositionNoData>
+
+    @FormUrlEncoded
+    @POST(ApiNameConstant.getStock)
+    fun getStock(@Field("positionNo") positionNo: String,
+                 @Field("materialNo") materialNo: String): Single<BaseResponse<String>>
 
     /**
      * url 解析

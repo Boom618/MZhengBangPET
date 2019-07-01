@@ -39,6 +39,8 @@ class MaterialList {
 
         // 待办
         var orderTime: String? = null
+        // 物料凭证号
+        var materielVoucherNo: String? = null
 
     }
 }

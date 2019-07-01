@@ -1,10 +1,13 @@
 package com.ty.zbpet.util;
 
+import android.util.SparseArray;
+
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author TY
@@ -49,6 +52,23 @@ public class DataUtils {
             e.printStackTrace();
         }
         return temp;
+    }
+
+
+    /**
+     * 保存批次号
+     */
+    private static SparseArray sparseArray = new SparseArray(16);
+
+    public static void saveBatchNo(int position, List<String> list) {
+        sparseArray.put(position, list);
+    }
+
+    public static SparseArray getBatchNo() {
+        if (sparseArray == null) {
+            return new SparseArray(16);
+        }
+        return sparseArray;
     }
 
 

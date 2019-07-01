@@ -1,58 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:background="@drawable/shape_white_min_radius">
 
 
     <TextView
-        android:id="@+id/tv_document_no"
+        android:id="@+id/tv_voucher_no"
+        style="@style/reversalList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="子单号：6789876"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="物料凭证号：" />
+
+    <TextView
+        android:id="@+id/tv_document_no"
         style="@style/reversalList"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tv_voucher_no"
+        tools:text="子单号：6789876" />
 
     <TextView
         android:id="@+id/tv_material_name"
+        style="@style/reversalList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="原辅料名称：汇5"
-        style="@style/reversalList"
-        app:layout_constraintTop_toBottomOf="@+id/tv_document_no"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_document_no"
+        tools:text="原辅料名称：汇5" />
 
     <TextView
         android:id="@+id/tv_number"
+        style="@style/reversalList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="入库数量：5"
-        style="@style/reversalList"
-        app:layout_constraintTop_toBottomOf="@+id/tv_material_name"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_material_name"
+        tools:text="入库数量：5" />
 
     <CheckBox
         android:id="@+id/check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/space_10"
         app:layout_constraintBottom_toBottomOf="@+id/tv_number"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/tv_solubility"
+        style="@style/reversalList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="含量：22%"
-        style="@style/reversalList"
-        app:layout_constraintTop_toBottomOf="@+id/tv_number"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_number"
+        tools:text="含量：22%" />
 
     <TextView
         android:id="@+id/tv_batch_number"
+        style="@style/reversalList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="SAP 批次号：34567876543456"
-        style="@style/reversalList"
-        app:layout_constraintTop_toBottomOf="@+id/tv_solubility"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_solubility"
+        tools:text="SAP 批次号：34567876543456" />
+
+    <EditText
+        android:id="@+id/et_back_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/x10"
+        android:layout_marginEnd="@dimen/x18"
+        android:inputType="numberDecimal"
+        android:maxLength="6"
+        app:layout_constraintTop_toBottomOf="@+id/tv_batch_number"
+        android:hint="数量" />
 
 </android.support.constraint.ConstraintLayout>

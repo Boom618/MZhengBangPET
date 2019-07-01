@@ -37,6 +37,7 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
     private lateinit var orderId: String
     private lateinit var sapOrderNo: String
     private lateinit var supplierName: String
+    private var voucherNo: String? = null
 
     private lateinit var listBean: List<MaterialDetails.ListBean>
 
@@ -52,6 +53,7 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
         sapOrderNo = intent.getStringExtra("sapOrderNo")
         supplierName = intent.getStringExtra("supplierName")
         orderId = intent.getStringExtra("orderId")
+        voucherNo = intent.getStringExtra("voucherNo")
     }
 
     override fun initTwoView() {
@@ -66,10 +68,8 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
      */
     private fun materialDoneInSave(body: RequestBody?) {
 
-        if (body == null) {
-            return
-        }
-        materialPresenter.materialDoneInSave(body)
+        body?.let { materialPresenter.materialDoneInSave(it) }
+        //materialPresenter.materialDoneInSave(body)
 
     }
 

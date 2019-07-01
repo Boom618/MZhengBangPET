@@ -71,6 +71,13 @@ class MaterialDetails {
         // 二版 采购入库类型
         var deliveryOrderList: ArrayList<OrderList>? = null
 
+        // 物料凭证号
+        var materielVoucherNo: String? = null
+        // 原药是否已入库操作
+        var isOut = false
+        // 冲销总量（领料出库）
+        var backNum: String? = null
+
     }
 
     class OrderList {

@@ -7,10 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.View
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.RadioButton
-import android.widget.RadioGroup
+import android.widget.*
 import com.pda.scanner.ScanReader
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.CarPositionNoData
@@ -24,20 +21,24 @@ import com.ty.zbpet.presenter.material.PickOutPresenter
 import com.ty.zbpet.ui.adapter.diffadapter.TodoCarCodeDiffUtil
 import com.ty.zbpet.ui.adapter.material.PickingTodoDetailAdapter
 import com.ty.zbpet.base.BaseActivity
+import com.ty.zbpet.bean.eventbus.SelectBatch
+import com.ty.zbpet.constant.TipString
+import com.ty.zbpet.ui.ActivitiesHelper
 import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
-import com.ty.zbpet.util.DataUtils
-import com.ty.zbpet.util.JsonStringMerge
-import com.ty.zbpet.util.ResourceUtil
-import com.ty.zbpet.util.ZBUiUtils
+import com.ty.zbpet.util.*
 import com.ty.zbpet.util.scan.ScanBoxInterface
 import com.ty.zbpet.util.scan.ScanObservable
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * @author TY on 2018/11/22.
@@ -60,6 +61,7 @@ class PickOutTodoDetailActivity : BaseActivity()
     private lateinit var warehouseId: String
     private lateinit var warehouseNo: String
     private var list: MutableList<MaterialDetails.ListBean> = mutableListOf()
+    private var batchList: List<String> = ArrayList<String>()
 
     private val scanner = ScanReader.getScannerInstance()
     private val scanObservable = ScanObservable(this)
@@ -75,6 +77,7 @@ class PickOutTodoDetailActivity : BaseActivity()
         get() = R.layout.activity_content_row_two
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
+        EventBus.getDefault().register(this)
     }
 
     override fun initOneData() {
@@ -89,7 +92,7 @@ class PickOutTodoDetailActivity : BaseActivity()
 
     override fun initTwoView() {
 
-        initToolBar(R.string.material_pick_out_details, "保存", View.OnClickListener { view ->
+        initToolBar(R.string.material_pick_out_details, TipString.outOfHouse, View.OnClickListener { view ->
             ZBUiUtils.hideInputWindow(view.context, view)
             pickOutTodoSave(initTodoBody())
         })
@@ -148,7 +151,8 @@ class PickOutTodoDetailActivity : BaseActivity()
             val no = houseNo.get(i)
 
             val bean = MaterialDetails.ListBean()
-            if (bulkNum.isNotEmpty() && carCode.isNotEmpty()) {
+            val sap = SimpleCache.getNumber(i.toString())
+            if (bulkNum.isNotEmpty() && carCode.isNotEmpty() && sap.isNotEmpty()) {
 
                 val subContent = list[i].content!!
                 val mergeContent = JsonStringMerge().StringMerge(subContent, content)
@@ -164,6 +168,8 @@ class PickOutTodoDetailActivity : BaseActivity()
                 // 用户输入数据
                 bean.positionNo = carCode
                 bean.number = bulkNum
+                // 【新加】用户选择的批次号
+                bean.sapBatchNo = sap
 
                 detail.add(bean)
             }
@@ -222,7 +228,7 @@ class PickOutTodoDetailActivity : BaseActivity()
         //  服务器校验 库位码
 //        presenter.urlAnalyze(position, positionNo)
         val warehouseNo = list[position].warehouseNo
-        presenter.checkCarCode(position, positionNo,warehouseNo)
+        presenter.checkCarCode(position, positionNo, warehouseNo)
     }
 
 
@@ -245,6 +251,8 @@ class PickOutTodoDetailActivity : BaseActivity()
 
             val diffUtil = DiffUtil.calculateDiff(TodoCarCodeDiffUtil(list, deepCopyList))
             diffUtil.dispatchUpdatesTo(adapter)
+            // 获取批次号
+            presenter.getStock(position, positionNo, list[position].materialNo)
         } else {
             ZBUiUtils.showWarning("请扫正确的库位码")
         }
@@ -283,6 +291,32 @@ class PickOutTodoDetailActivity : BaseActivity()
         })
     }
 
+
+    /**
+     * 点击选择批次号
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun setOnClickBacth(self: SelectBatch) {
+        val activity = ActivitiesHelper.get().lastActivity
+        if (activity is PickOutTodoDetailActivity) {
+            val position = self.getPosition()
+            val textView = self.getTextView()
+
+            val sparseArray = DataUtils.getBatchNo()
+            if (sparseArray[position] == null) {
+                ZBUiUtils.showWarning("请先扫库位码")
+                return
+            }
+            batchList = sparseArray[position] as List<String>
+            if (batchList.isEmpty()) {
+                ZBUiUtils.showWarning("该库位下没有对应的物料")
+                return
+            }
+            ZBUiUtils.selectBatchNo(this, position, batchList, textView)
+        }
+    }
+
+
     private var dialog: LoadingDialog? = null
     override fun showLoading() {
         dialog = ShowDialog.showFullDialog(this@PickOutTodoDetailActivity, "保存中")
@@ -293,7 +327,7 @@ class PickOutTodoDetailActivity : BaseActivity()
     }
 
     override fun saveSuccess() {
-        ZBUiUtils.showSuccess("成功")
+        ZBUiUtils.showSuccess(TipString.success)
         finish()
     }
 
@@ -303,6 +337,7 @@ class PickOutTodoDetailActivity : BaseActivity()
 
     override fun onDestroy() {
         super.onDestroy()
+        EventBus.getDefault().unregister(this)
         SharedP.clearFocusAndPosition(this)
     }
 }

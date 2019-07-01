@@ -140,6 +140,7 @@ class ArrivalInFragment : BaseFragment(), MaterialUiListInterface<MaterialList.L
                         intent.putExtra("sapOrderNo", list[position].sapOrderNo)
                         intent.putExtra("supplierName", list[position].supplierName)
                         intent.putExtra("orderId", list[position].orderId)
+                        intent.putExtra("voucherNo", list[position].materielVoucherNo)
                         startActivity(intent)
                     }
 

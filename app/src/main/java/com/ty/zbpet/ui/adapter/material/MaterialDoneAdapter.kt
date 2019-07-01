@@ -19,6 +19,7 @@ class MaterialDoneAdapter(context: Context, layoutId: Int, datas: List<MaterialL
     override fun convert(holder: ViewHolder, listBean: MaterialList.ListBean, position: Int) {
 
         holder.setText(R.id.tv_no, listBean.sapOrderNo)
+                .setText(R.id.tv_voucher_no, listBean.materielVoucherNo)
                 .setText(R.id.tv_date, listBean.inTime)
                 .setText(R.id.tv_supplier, listBean.supplierName)
 

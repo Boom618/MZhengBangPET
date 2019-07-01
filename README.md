@@ -48,6 +48,18 @@
 
 - RecycleView.getChildAt(position) 只能获取到屏幕显示的子 View
 
+- ```
+  // 方式一 ：在 adapter 中设置不复用
+  holder.setIsRecyclable(false)
+  ```
+
+- 
+
+- ```
+  //方式二： 停止复用 viewType: 值必须和 getItemViewType()的返回值保持一致
+  // rv_in_storage_detail.recycledViewPool.setMaxRecycledViews(0,0)
+  ```
+
 
 ## 待完成 
 

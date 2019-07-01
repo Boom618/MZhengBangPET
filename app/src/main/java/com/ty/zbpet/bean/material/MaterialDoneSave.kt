@@ -22,6 +22,8 @@ class MaterialDoneSave {
     class ListBean{
         var id: String? = null
         var orderId: String? = null
+        var backNum: String? = null
+        var giveNumber: String? = null
     }
 
 

@@ -24,6 +24,7 @@ import com.ty.zbpet.constant.ApiNameConstant;
 import com.ty.zbpet.constant.CodeConstant;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.SingleObserver;
@@ -199,6 +200,20 @@ public class HttpMethods {
      */
     public void checkCarCode(SingleObserver<CarPositionNoData> subscriber, String positionNo, String warehouseNo) {
         mService.checkCarCode(positionNo, warehouseNo)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+
+    }
+
+    /**
+     * 【新加】 获批号号
+     *
+     * @param subscriber subscriber
+     * @param positionNo 库位码编号
+     * @param materialNo 物料编号
+     */
+    public void getStock(SingleObserver<BaseResponse<String>> subscriber, String positionNo, String materialNo) {
+        mService.getStock(positionNo, materialNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
 
@@ -451,8 +466,8 @@ public class HttpMethods {
      * @param subscriber subscriber
      */
     public void getBuyInOrderInfo(SingleObserver<BaseResponse<ProductDetails>> subscriber,
-                                  String sign,String sapOrderNo, String sapFirmNo, String supplierNo) {
-        mService.getBuyInOrderInfo(sign,sapOrderNo, sapFirmNo, supplierNo)
+                                  String sign, String sapOrderNo, String sapFirmNo, String supplierNo) {
+        mService.getBuyInOrderInfo(sign, sapOrderNo, sapFirmNo, supplierNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
