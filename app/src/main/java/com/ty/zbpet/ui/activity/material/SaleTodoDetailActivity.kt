@@ -119,10 +119,7 @@ class SaleTodoDetailActivity : BaseActivity()
      */
     private fun saleTodoSave(body: RequestBody?) {
 
-        if (body == null) {
-            return
-        }
-        presenter.saleOut(body)
+        body?.let { presenter.saleOut(it) }
     }
 
     private fun initTodoBody(): RequestBody? {
@@ -230,7 +227,7 @@ class SaleTodoDetailActivity : BaseActivity()
         //  服务器校验 库位码
 //        presenter.urlAnalyze(position, positionNo)
         val warehouseNo = list[position].warehouseNo
-        presenter.checkCarCode(position, positionNo,warehouseNo)
+        presenter.checkCarCode(position, positionNo, warehouseNo)
     }
 
 

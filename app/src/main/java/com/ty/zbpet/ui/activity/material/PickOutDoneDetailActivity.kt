@@ -93,17 +93,17 @@ class PickOutDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Materi
                 val backNum = listBean[i].backNum
                 // 已冲销数量
                 val num = view.findViewById<EditText>(R.id.et_back_num).text.toString()
-                val subNumberService = Integer.parseInt(backNum)
-                val subNumber = Integer.parseInt(num)
-                val countNumber = subNumberService + subNumber
-                // 总量
-                val giveNumber = Integer.parseInt(listBean[i].giveNumber)
-                if (giveNumber < countNumber) {
-                    ZBUiUtils.showWarning("冲销数量不能大于总量")
-                    return null
-                }
                 //val value = SimpleCache.getNumber(i.toString())
                 if (checkBox.isChecked && num.isNotEmpty()) {
+                    val subNumberService = Integer.parseInt(backNum)
+                    val subNumber = Integer.parseInt(num)
+                    val countNumber = subNumberService + subNumber
+                    // 总量
+                    val giveNumber = Integer.parseInt(listBean[i].giveNumber)
+                    if (giveNumber < countNumber) {
+                        ZBUiUtils.showWarning("冲销数量不能大于总量")
+                        return null
+                    }
                     val bean = MaterialDoneSave.ListBean()
                     bean.id = listBean[i].id
                     bean.backNum = num

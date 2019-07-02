@@ -55,7 +55,7 @@ class SaleOrderFragment : BaseFragment(), MaterialUiListInterface<MaterialList.L
     override fun loadData() {
         fragmentType = arguments!!.getString(CodeConstant.FRAGMENT_TYPE)!!
         when (fragmentType) {
-            CodeConstant.FRAGMENT_TODO -> presenter.getSaleOrderList( "", "", "")
+            CodeConstant.FRAGMENT_TODO -> presenter.getSaleOrderList("", "", "")
             CodeConstant.FRAGMENT_DONE -> presenter.fetchPickOutDoneList(CodeConstant.SALE_ORDER_TYPE, "", "", "")
         }
     }
@@ -65,7 +65,7 @@ class SaleOrderFragment : BaseFragment(), MaterialUiListInterface<MaterialList.L
         if (isVisble) {
             fragmentType = arguments!!.getString(CodeConstant.FRAGMENT_TYPE)!!
             when (fragmentType) {
-                CodeConstant.FRAGMENT_TODO -> presenter.getSaleOrderList(  "","", "")
+                CodeConstant.FRAGMENT_TODO -> presenter.getSaleOrderList("", "", "")
                 CodeConstant.FRAGMENT_DONE -> presenter.fetchPickOutDoneList(CodeConstant.SALE_ORDER_TYPE, "", "", "")
             }
         }
@@ -97,7 +97,8 @@ class SaleOrderFragment : BaseFragment(), MaterialUiListInterface<MaterialList.L
         }
         when (fragmentType) {
             CodeConstant.FRAGMENT_TODO -> {
-                adapterTodo = SaleTodoListAdapter(this.context!!, R.layout.item_material_todo, list)
+                adapterTodo = context?.let { SaleTodoListAdapter(it, R.layout.item_material_todo, list) }
+                //adapterTodo = SaleTodoListAdapter(context, R.layout.item_material_todo, list)
                 recyclerView.adapter = adapterTodo
 
                 adapterTodo?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
@@ -118,7 +119,8 @@ class SaleOrderFragment : BaseFragment(), MaterialUiListInterface<MaterialList.L
                 })
             }
             CodeConstant.FRAGMENT_DONE -> {
-                adapterDone = SaleDoneListAdapter(this.context!!, R.layout.activity_content_list_three, list)
+                adapterDone = context?.let { SaleDoneListAdapter(it, R.layout.activity_content_list_three, list) }
+                //adapterDone = SaleDoneListAdapter(this.context!!, R.layout.activity_content_list_three, list)
                 recyclerView.adapter = adapterDone
 
                 adapterDone?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {

@@ -18,8 +18,9 @@ class BackGoodsDoneDetailAdapter(context: Context, layoutId: Int, datas: List<Ma
 
     override fun convert(holder: ViewHolder, listBean: MaterialDetails.ListBean, position: Int) {
 
-        holder.setText(R.id.tv_document_no, "采购子单号：${listBean.materialNo}")
-                .setText(R.id.tv_material_name,"原辅料名称：${listBean.materialName}")
+        holder.setText(R.id.tv_voucher_no, "物料凭证号：${listBean.materielVoucherNo}")
+                .setText(R.id.tv_document_no, "采购子单号：${listBean.materialNo}")
+                .setText(R.id.tv_material_name, "原辅料名称：${listBean.materialName}")
                 .setText(R.id.tv_number, "退货数量：${listBean.giveNumber}${listBean.unit}")
                 .setText(R.id.tv_solubility, "含量：${listBean.concentration}")
                 .setText(R.id.tv_batch_number, "SAP 批次号：${listBean.sapMaterialBatchNo}")

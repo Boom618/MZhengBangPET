@@ -3,7 +3,7 @@ package com.ty.zbpet.ui.adapter.material
 import android.content.Context
 import android.view.View
 import android.widget.CheckBox
-import android.widget.SimpleAdapter
+import android.widget.EditText
 import android.widget.TextView
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.material.MaterialDetails
@@ -28,6 +28,7 @@ class PickingDoneDetailAdapter(context: Context, layoutId: Int, datas: List<Mate
                 .setText(R.id.tv_number, "出库数量：${listBean.giveNumber}")
                 .setText(R.id.tv_solubility, "含量：${listBean.concentration}")
         holder.itemView.findViewById<TextView>(R.id.tv_batch_number).visibility = View.GONE
+        holder.itemView.findViewById<EditText>(R.id.et_back_num).visibility = View.VISIBLE
 
         holder.itemView.findViewById<CheckBox>(R.id.check).setOnCheckedChangeListener { _, isChecked ->
             when (isChecked) {
