@@ -59,18 +59,9 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
     override fun initTwoView() {
 
         initToolBar(R.string.purchase_house_reversal)
-        bt_reversal.setOnClickListener { materialDoneInSave(initRequestBody()) }
-    }
-
-    /**
-     * 已办 保存
-     * @param body
-     */
-    private fun materialDoneInSave(body: RequestBody?) {
-
-        body?.let { materialPresenter.materialDoneInSave(it) }
-        //materialPresenter.materialDoneInSave(body)
-
+        bt_reversal.setOnClickListener {
+            initRequestBody()?.let { materialPresenter.materialDoneInSave(it) }
+        }
     }
 
     /**

@@ -98,7 +98,6 @@ class SaleOrderFragment : BaseFragment(), MaterialUiListInterface<MaterialList.L
         when (fragmentType) {
             CodeConstant.FRAGMENT_TODO -> {
                 adapterTodo = context?.let { SaleTodoListAdapter(it, R.layout.item_material_todo, list) }
-                //adapterTodo = SaleTodoListAdapter(context, R.layout.item_material_todo, list)
                 recyclerView.adapter = adapterTodo
 
                 adapterTodo?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {

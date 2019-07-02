@@ -58,21 +58,12 @@ class PickOutDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Materi
     override fun initTwoView() {
 
         initToolBar(R.string.pick_out_storage_reversal)
-        bt_reversal.setOnClickListener {
-            ZBUiUtils.hideInputWindow(it.context, it)
-            pickOutDoneSave(initDoneBody())
+        bt_reversal.setOnClickListener { view ->
+            ZBUiUtils.hideInputWindow(view.context, view)
+            initDoneBody()?.let { presenter.pickOutDoneSave(it) }
         }
 
     }
-
-    /**
-     * 出库 保存
-     */
-    private fun pickOutDoneSave(body: RequestBody?) {
-
-        body?.let { presenter.pickOutDoneSave(it) }
-    }
-
 
     /**
      * 构建保存 body

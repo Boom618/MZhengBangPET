@@ -24,6 +24,7 @@ import com.ty.zbpet.presenter.material.MaterialUiListInterface
 import com.ty.zbpet.ui.adapter.diffadapter.TodoCarCodeDiffUtil
 import com.ty.zbpet.ui.adapter.material.BackGoodsTodoDetailAdapter
 import com.ty.zbpet.base.BaseActivity
+import com.ty.zbpet.constant.TipString
 import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils
@@ -96,20 +97,20 @@ class BackGoodsTodoDetailActivity : BaseActivity()
 
     override fun initTwoView() {
 
-        initToolBar(R.string.materials_back_goods_details, "保存", View.OnClickListener { view ->
+        initToolBar(R.string.materials_back_goods_details, TipString.returnGoods, View.OnClickListener { view ->
             ZBUiUtils.hideInputWindow(view.context, view)
-            backTodoSave(initTodoBody())
+            initTodoBody()?.let { presenter.backTodoSave(it) }
         })
 
 
         val format = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
         selectTime = format.format(Date())
 
-        tv_time!!.text = selectTime
-        in_storage_detail!!.text = "退货明细"
+        tv_time.text = selectTime
+        in_storage_detail.text = "退货明细"
 
 
-        tv_time!!.setOnClickListener { v ->
+        tv_time.setOnClickListener { v ->
             ZBUiUtils.showPickDate(v.context) { date, _ ->
                 selectTime = ZBUiUtils.getTime(date)
                 tv_time!!.text = selectTime
@@ -117,17 +118,6 @@ class BackGoodsTodoDetailActivity : BaseActivity()
                 ZBUiUtils.showSuccess(selectTime)
             }
         }
-    }
-
-    /**
-     * 出库 保存
-     */
-    private fun backTodoSave(body: RequestBody?) {
-
-        if (body == null) {
-            return
-        }
-        presenter.backTodoSave(body)
     }
 
     /**
@@ -195,8 +185,6 @@ class BackGoodsTodoDetailActivity : BaseActivity()
         val time = tv_time.text.toString().trim { it <= ' ' }
 
         requestBody.list = detail
-//        requestBody.warehouseId = warehouseId
-//        requestBody.warehouseNo = warehouseNo
         requestBody.sapOrderNo = sapOrderNo
         requestBody.supplierNo = supplierNo
         requestBody.supplierName = supplierName
@@ -316,7 +304,7 @@ class BackGoodsTodoDetailActivity : BaseActivity()
     }
 
     override fun saveSuccess() {
-        ZBUiUtils.showSuccess("成功")
+        ZBUiUtils.showSuccess(TipString.success)
         finish()
     }
 

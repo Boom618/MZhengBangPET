@@ -102,7 +102,7 @@ class SaleTodoDetailActivity : BaseActivity()
 
         initToolBar(R.string.sales_out_of_stock_details, TipString.outOfHouse, View.OnClickListener { view ->
             ZBUiUtils.hideInputWindow(view.context, view)
-            saleTodoSave(initTodoBody())
+            initTodoBody()?.let { presenter.saleOut(it) }
         })
 
         val format = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
@@ -120,14 +120,6 @@ class SaleTodoDetailActivity : BaseActivity()
             }
         }
 
-    }
-
-    /**
-     * 出库 保存
-     */
-    private fun saleTodoSave(body: RequestBody?) {
-
-        body?.let { presenter.saleOut(it) }
     }
 
     private fun initTodoBody(): RequestBody? {

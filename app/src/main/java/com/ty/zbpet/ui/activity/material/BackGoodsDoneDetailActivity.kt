@@ -32,15 +32,10 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
 
     lateinit var adapter: BackGoodsDoneDetailAdapter
 
-    /**
-     * 仓库 ID
-     */
+    // 仓库 ID
     lateinit var warehouseId: String
-
     lateinit var orderId: String
-
-    private var listBean  = mutableListOf<MaterialDetails.ListBean>()
-
+    private var listBean = mutableListOf<MaterialDetails.ListBean>()
     private val presenter = BackGoodsPresenter(this)
 
     override val activityLayout: Int
@@ -53,25 +48,15 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
     override fun initOneData() {
 
         orderId = intent.getStringExtra("orderId")
-
         presenter.fetchBackDoneListInfo(orderId)
     }
 
     override fun initTwoView() {
 
         initToolBar(R.string.purchase_back_goods)
-        bt_reversal.setOnClickListener { backGoodsDoneSave(initDoneBody()) }
-    }
-
-    /**
-     * 出库 保存
-     */
-    private fun backGoodsDoneSave(body: RequestBody?) {
-
-        if (body == null) {
-            return
+        bt_reversal.setOnClickListener {
+            initDoneBody()?.let { presenter.backDoneSave(it) }
         }
-        presenter.backDoneSave(body)
     }
 
     private fun initDoneBody(): RequestBody? {
@@ -138,6 +123,4 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
     override fun showError(msg: String?) {
         ZBUiUtils.showError(msg)
     }
-
-
 }

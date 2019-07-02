@@ -101,9 +101,9 @@ class ArrivalInTodoDetailActivity : BaseActivity()
 
     override fun initTwoView() {
 
-        initToolBar(R.string.label_purchase_detail, TipString.save, View.OnClickListener {
-            ZBUiUtils.hideInputWindow(it.context, it)
-            doPurchaseInRecallOut(initParam())
+        initToolBar(R.string.label_purchase_detail, TipString.save, View.OnClickListener { view ->
+            ZBUiUtils.hideInputWindow(view.context, view)
+            initParam()?.let { materialPresenter.materialTodoInSave(it) }
         })
 
         val titleName = findViewById<TextView>(R.id.in_storage_detail)
@@ -113,7 +113,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
             ZBUiUtils.showPickDate(it.context) { date, _ ->
                 //选中事件回调
                 selectTime = ZBUiUtils.getTime(date)
-                tv_time!!.text = selectTime
+                tv_time.text = selectTime
                 ZBUiUtils.showSuccess(selectTime)
             }
         }
@@ -213,19 +213,6 @@ class ArrivalInTodoDetailActivity : BaseActivity()
 
         val json = DataUtils.toJson(requestBody, 1)
         return RequestBodyJson.requestBody(json)
-    }
-
-    /**
-     * 入库保存
-     *
-     * @param body
-     */
-    private fun doPurchaseInRecallOut(body: RequestBody?) {
-
-        if (body == null) {
-            return
-        }
-        materialPresenter.materialTodoInSave(body)
     }
 
     override fun showMaterial(lists: MutableList<MaterialDetails.ListBean>) {

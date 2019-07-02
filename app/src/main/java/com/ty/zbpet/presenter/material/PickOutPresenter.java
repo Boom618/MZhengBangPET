@@ -17,6 +17,7 @@ import com.ty.zbpet.util.ZBUiUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.SingleObserver;
@@ -191,7 +192,6 @@ public class PickOutPresenter {
 
                     List<String> list = response.getList();
                     DataUtils.saveBatchNo(position, list);
-                    //EventBus.getDefault().post(list);
                 } else {
                     listInterface.showError(response.getMessage());
                 }

@@ -61,18 +61,9 @@ class SaleDoneDetailActivity : BaseActivity(), MaterialUiListInterface<MaterialD
     override fun initTwoView() {
 
         initToolBar(R.string.sales_out_of_stock_details)
-        bt_reversal.setOnClickListener { backGoodsDoneSave(initDoneBody()) }
-    }
-
-    /**
-     * 出库 保存
-     */
-    private fun backGoodsDoneSave(body: RequestBody?) {
-
-        if (body == null) {
-            return
+        bt_reversal.setOnClickListener { _ ->
+            initDoneBody()?.let { presenter.saleInList(it) }
         }
-        presenter.saleInList(body)
     }
 
     private fun initDoneBody(): RequestBody? {
@@ -144,6 +135,4 @@ class SaleDoneDetailActivity : BaseActivity(), MaterialUiListInterface<MaterialD
     override fun showError(msg: String?) {
         ZBUiUtils.showError(msg)
     }
-
-
 }

@@ -95,14 +95,13 @@ class PickOutTodoDetailActivity : BaseActivity()
 
         initToolBar(R.string.material_pick_out_details, TipString.outOfHouse, View.OnClickListener { view ->
             ZBUiUtils.hideInputWindow(view.context, view)
-            pickOutTodoSave(initTodoBody())
+            initTodoBody()?.let { presenter.pickOutTodoSave(it) }
         })
 
         val format = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
         selectTime = format.format(Date())
 
         tv_time.text = selectTime
-
         tv_time.setOnClickListener { v ->
             ZBUiUtils.showPickDate(v.context) { date, _ ->
                 selectTime = ZBUiUtils.getTime(date)
@@ -112,17 +111,6 @@ class PickOutTodoDetailActivity : BaseActivity()
             }
         }
 
-    }
-
-    /**
-     * 出库 保存
-     */
-    private fun pickOutTodoSave(body: RequestBody?) {
-
-        if (body == null) {
-            return
-        }
-        presenter.pickOutTodoSave(body)
     }
 
     private fun initTodoBody(): RequestBody? {

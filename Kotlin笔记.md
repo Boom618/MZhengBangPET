@@ -6,11 +6,11 @@
 Kotlin 使用填坑
 </p>
 
-###内容目录
+### 内容目录
 
 [TOC]
 
-###object 和 companion Object
+### object 和 companion Object
 
 - object 可以定义在全局也可以在类的内部使用
 - object 就是单例模式的化身
@@ -108,6 +108,49 @@ private val age: Int = 10
 ```
 lateinit var name: String
 ```
+### Kotlin 内联函数 let
+
+**在 lambda 表达式，只支持单抽象方法模型，也就是说设计的接口里面只有一个抽象的方法，才符合 lambda表达式的规则，多个回调方法不支持**
+
+- 内联函数 let 
+
+```
+let 扩展函数的实际上是一个作用域函数，当你需要去定义一个变量在一个特定的作用域范围内，let函数的是一个不错的选择；let函数另一个作用就是可以避免写一些判断null的操作。
+```
+
+一般结构
+
+```
+object.let{
+   it.todo()//在函数体内使用it替代object对象去访问其公有的属性和方法
+   ...
+}
+
+// 另一种用途 判断object为null的操作
+object?.let{//表示object不为null的条件下，才会去执行let函数体
+   it.todo()
+}
+```
+
+let 函数使用场景
+
+1. 最常用的场景就是使用 let 函数处理需要针对一个可 null 的对象统一判空处理
+2. 需要去明确一个变量所处特定的作用域范围内可以使用
+
+- 内联函数 with
+
+一般结构
+
+```
+with(object){
+	// todo
+}
+```
+
+
+
+
+
 扩展分析
 
 - 要点1
