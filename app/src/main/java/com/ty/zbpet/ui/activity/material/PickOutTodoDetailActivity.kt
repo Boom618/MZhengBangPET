@@ -86,7 +86,8 @@ class PickOutTodoDetailActivity : BaseActivity()
         orderTime = intent.getStringExtra("orderTime")
         content = intent.getStringExtra("content")
         sign = intent.getStringExtra("sign")
-
+        // 清空批次号
+        DataUtils.clearBatchNo()
         presenter.fetchPickOutTodoListDetails(sign, sapOrderNo, sapFirmNo, orderTime)
     }
 

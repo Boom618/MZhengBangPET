@@ -8,6 +8,7 @@ import com.ty.zbpet.bean.material.MaterialList;
 import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.constant.TipString;
 import com.ty.zbpet.net.HttpMethods;
+import com.ty.zbpet.util.DataUtils;
 
 import java.net.SocketTimeoutException;
 import java.util.List;
@@ -142,7 +143,38 @@ public class SaleOrderPresenter {
             }
         }, positionNo, warehouseNo);
     }
+    /**
+     * 【新增】 获取批次号
+     *
+     * @param position   item 位置
+     * @param positionNo 库位码编号
+     * @param materialNo 物料编号
+     */
+    public void getStock(int position, String positionNo, String materialNo) {
+        httpMethods.getStock(new SingleObserver<BaseResponse<String>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
 
+            @Override
+            public void onSuccess(BaseResponse<String> response) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
+
+                    List<String> list = response.getList();
+                    DataUtils.saveBatchNo(position, list);
+                } else {
+                    view.showError(response.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                view.hideLoading();
+                view.showError(e.getMessage());
+            }
+        }, positionNo, materialNo);
+    }
 
     /**
      * 销售出库保存

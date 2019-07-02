@@ -22,8 +22,10 @@ import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
 import com.ty.zbpet.ui.adapter.diffadapter.TodoCarCodeDiffUtil
 import com.ty.zbpet.base.BaseActivity
+import com.ty.zbpet.bean.eventbus.SelectBatch
 import com.ty.zbpet.constant.TipString
 import com.ty.zbpet.presenter.material.SaleOrderPresenter
+import com.ty.zbpet.ui.ActivitiesHelper
 import com.ty.zbpet.ui.adapter.material.SaleTodoDetailAdapter
 import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
@@ -37,6 +39,9 @@ import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -62,6 +67,7 @@ class SaleTodoDetailActivity : BaseActivity()
     private lateinit var warehouseId: String
     private lateinit var warehouseNo: String
     private var list: MutableList<MaterialDetails.ListBean> = mutableListOf()
+    private var batchList: List<String> = ArrayList<String>()
 
     private val scanner = ScanReader.getScannerInstance()
     private val scanObservable = ScanObservable(this)
@@ -77,6 +83,7 @@ class SaleTodoDetailActivity : BaseActivity()
         get() = R.layout.activity_content_row_two
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
+        EventBus.getDefault().register(this)
     }
 
     override fun initOneData() {
@@ -86,7 +93,8 @@ class SaleTodoDetailActivity : BaseActivity()
         supplierName = intent.getStringExtra("supplierName")
         content = intent.getStringExtra("content")
         sign = intent.getStringExtra("sign")
-
+        // 清空批次号
+        DataUtils.clearBatchNo()
         presenter.saleOrderInfo(sign, sapOrderNo, sapFirmNo, supplierNo)
     }
 
@@ -250,6 +258,8 @@ class SaleTodoDetailActivity : BaseActivity()
 
             val diffUtil = DiffUtil.calculateDiff(TodoCarCodeDiffUtil(list, deepCopyList))
             diffUtil.dispatchUpdatesTo(adapter)
+            // 获取批次号
+            presenter.getStock(position, positionNo, list[position].materialNo)
         } else {
             ZBUiUtils.showWarning("请扫正确的库位码")
         }
@@ -291,6 +301,30 @@ class SaleTodoDetailActivity : BaseActivity()
         })
     }
 
+    /**
+     * 点击选择批次号
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun setOnClickBacth(self: SelectBatch) {
+        val activity = ActivitiesHelper.get().lastActivity
+        if (activity is SaleTodoDetailActivity) {
+            val position = self.getPosition()
+            val textView = self.getTextView()
+
+            val sparseArray = DataUtils.getBatchNo()
+            if (sparseArray[position] == null) {
+                ZBUiUtils.showWarning("请先扫库位码")
+                return
+            }
+            batchList = sparseArray[position] as List<String>
+            if (batchList.isEmpty()) {
+                ZBUiUtils.showWarning("该库位下没有对应的物料")
+                return
+            }
+            ZBUiUtils.selectBatchNo(this, position, batchList, textView)
+        }
+    }
+
     private var dialog: LoadingDialog? = null
     override fun showLoading() {
         dialog = ShowDialog.showFullDialog(this@SaleTodoDetailActivity, "加载中")
@@ -311,6 +345,7 @@ class SaleTodoDetailActivity : BaseActivity()
 
     override fun onDestroy() {
         super.onDestroy()
+        EventBus.getDefault().unregister(this)
         SharedP.clearFocusAndPosition(this)
     }
 }

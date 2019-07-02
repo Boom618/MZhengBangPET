@@ -179,7 +179,7 @@
             app:layout_constraintTop_toBottomOf="@+id/et_code" />
 
 
-        <EditText
+        <TextView
             android:id="@+id/et_batchNo"
             style="@style/itemSizeStyle"
             android:layout_width="match_parent"
@@ -187,9 +187,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="40dp"
-            android:hint="SAP 物料批次号"
-            android:imeOptions="actionDone"
-            android:inputType="none"
+            android:background="@drawable/shape_black_min_radius"
+            android:drawableEnd="@mipmap/ic_bottom"
+            android:padding="@dimen/space_7"
+            android:text="SAP 物料批次号"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_number" />

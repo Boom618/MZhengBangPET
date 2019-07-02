@@ -120,7 +120,6 @@ class SaleOrderFragment : BaseFragment(), MaterialUiListInterface<MaterialList.L
             }
             CodeConstant.FRAGMENT_DONE -> {
                 adapterDone = context?.let { SaleDoneListAdapter(it, R.layout.activity_content_list_three, list) }
-                //adapterDone = SaleDoneListAdapter(this.context!!, R.layout.activity_content_list_three, list)
                 recyclerView.adapter = adapterDone
 
                 adapterDone?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {

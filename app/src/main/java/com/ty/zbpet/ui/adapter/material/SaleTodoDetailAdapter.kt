@@ -6,13 +6,16 @@ import android.text.InputType
 import android.view.View
 import android.widget.EditText
 import android.widget.RadioButton
+import android.widget.TextView
 
 import com.ty.zbpet.R
+import com.ty.zbpet.bean.eventbus.SelectBatch
 import com.ty.zbpet.bean.material.MaterialDetails
 import com.ty.zbpet.data.SharedP
 import com.ty.zbpet.util.ZBUiUtils
 import com.zhy.adapter.recyclerview.CommonAdapter
 import com.zhy.adapter.recyclerview.base.ViewHolder
+import org.greenrobot.eventbus.EventBus
 
 /**
  * @author TY on 2018/11/22.
@@ -29,6 +32,8 @@ class SaleTodoDetailAdapter(private val context: Context, layoutId: Int, datas: 
 
         // 库位码
         val etCode = holder.itemView.findViewById<EditText>(R.id.et_code)
+        // 批次号
+        val batchNo = itemView.findViewById<TextView>(R.id.et_batchNo)
         // TYPE_NULL 禁止手机软键盘  TYPE_CLASS_TEXT : 开启软键盘。
         etCode.inputType = InputType.TYPE_NULL
 
@@ -63,6 +68,8 @@ class SaleTodoDetailAdapter(private val context: Context, layoutId: Int, datas: 
             val positionNo = bundle.getString("positionNo")
             etCode.setText(positionNo)
         }
+        // 选择批次号
+        batchNo.setOnClickListener { EventBus.getDefault().post(SelectBatch(position, batchNo)) }
     }
 
     override fun convert(holder: ViewHolder, list: MaterialDetails.ListBean, position: Int) {

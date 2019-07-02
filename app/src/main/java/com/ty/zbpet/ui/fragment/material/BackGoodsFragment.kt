@@ -124,9 +124,9 @@ class BackGoodsFragment : BaseFragment(), MaterialUiListInterface<MaterialList.L
             }
             CodeConstant.FRAGMENT_DONE -> {
                 adapterDone = BackGoodsDoneListAdapter(this.context!!, R.layout.activity_content_list_three, list)
-                recyclerView!!.adapter = adapterDone
+                recyclerView.adapter = adapterDone
 
-                adapterDone!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+                adapterDone?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                     override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
                         val intent = Intent(activity, BackGoodsDoneDetailActivity::class.java)
                         intent.putExtra("sapOrderNo", list[position].sapOrderNo)

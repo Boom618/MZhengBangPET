@@ -71,6 +71,12 @@ public class DataUtils {
         return sparseArray;
     }
 
+    public static void clearBatchNo() {
+        if (sparseArray != null) {
+            sparseArray.clear();
+        }
+    }
+
 
     /**
      * 质检图片

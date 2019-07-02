@@ -18,7 +18,8 @@ class BackGoodsDoneListAdapter(context: Context, layoutId: Int, datas: List<Mate
     override fun convert(holder: ViewHolder, list: MaterialList.ListBean, position: Int) {
         holder.setText(R.id.tv_operator, "冲销")
                 .setText(R.id.tv_no, list.sapOrderNo)
-                .setText(R.id.tv_supplier, "供应商名称：${list.supplierName}")
+                .setText(R.id.tv_voucher_no, list.materielVoucherNo)
+                .setText(R.id.tv_supplier, list.supplierName)
                 .setText(R.id.tv_date, list.outTime)
     }
 
