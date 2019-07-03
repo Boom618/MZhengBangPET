@@ -112,7 +112,7 @@ lateinit var name: String
 
 **在 lambda 表达式，只支持单抽象方法模型，也就是说设计的接口里面只有一个抽象的方法，才符合 lambda表达式的规则，多个回调方法不支持**
 
-- 内联函数 let 
+>  内联函数 let 
 
 ```
 let 扩展函数的实际上是一个作用域函数，当你需要去定义一个变量在一个特定的作用域范围内，let函数的是一个不错的选择；let函数另一个作用就是可以避免写一些判断null的操作。
@@ -137,7 +137,7 @@ let 函数使用场景
 1. 最常用的场景就是使用 let 函数处理需要针对一个可 null 的对象统一判空处理
 2. 需要去明确一个变量所处特定的作用域范围内可以使用
 
-- 内联函数 with
+> 内联函数 with
 
 一般结构
 
@@ -146,6 +146,43 @@ with(object){
 	// todo
 }
 ```
+
+with 函数的适用场景
+
+- 适用于调用同一个类的多个方法时，可以省去类名的重复，直接调用类的方法，经常用于 Android 中 RecycleView 中 onBinderViewHolder 中，数据 mode 的属性映射到 UI 上
+
+```
+override fun onBindViewHolder(holder: ViewHolder, position: Int){
+   val item = getItem(position)?: return
+   
+   with(item){
+   
+      holder.tvNewsTitle.text = StringUtils.trimToEmpty(titleEn)
+	   holder.tvNewsSummary.text = StringUtils.trimToEmpty(summary)
+	   holder.tvExtraInf.text = "难度：$gradeInfo | 单词数：$length | 读后感: $numReviews"
+       ...   
+   
+   }
+}
+```
+
+> 内联函数 Run
+
+一般结构
+
+```
+object.run{
+	// todo
+}
+```
+
+run 函数实际上可以说是 let 和 with 两个函数的结合体，run 函数只接收一个 lambda 函数，以闭包形式返回，返回值为最后一行的值或者指定的 return 表达式
+
+
+
+run 函数适用场景：适用于 let 和 with 函数的任何场景。
+
+
 
 
 

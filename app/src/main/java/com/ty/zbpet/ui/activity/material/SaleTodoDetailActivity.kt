@@ -7,10 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.View
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.RadioButton
-import android.widget.RadioGroup
+import android.widget.*
 import com.pda.scanner.ScanReader
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.CarPositionNoData
@@ -142,7 +139,7 @@ class SaleTodoDetailActivity : BaseActivity()
 
             val carCode = view.findViewById<EditText>(R.id.et_code).text.toString().trim { it <= ' ' }
             val bulkNum = view.findViewById<EditText>(R.id.et_number).text.toString().trim { it <= ' ' }
-            val batchNo = view.findViewById<EditText>(R.id.et_batchNo).text.toString().trim { it <= ' ' }
+            val batchNo = view.findViewById<TextView>(R.id.et_batchNo).text.toString().trim { it <= ' ' }
             val materialId = list[i].materialId
             val supplierNo = list[i].supplierNo
 
