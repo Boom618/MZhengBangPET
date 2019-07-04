@@ -37,7 +37,7 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
     private lateinit var orderId: String
     private lateinit var sapOrderNo: String
     private lateinit var supplierName: String
-    private var voucherNo: String? = null
+    private var voucherNo: String? = ""
 
     private lateinit var listBean: List<MaterialDetails.ListBean>
 
@@ -114,7 +114,7 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
 
         // TODO 侧滑删除
         // detailRc.addOnItemTouchListener(new SwipeItemLayout.OnSwipeItemTouchListener(this));
-        adapter = MaterialDoneDetailAdapter(this, R.layout.item_reversal_check, list)
+        adapter = MaterialDoneDetailAdapter(this,voucherNo, R.layout.item_reversal_check, list)
         recycler_reversal.adapter = adapter
 
     }

@@ -36,6 +36,7 @@ class PickOutDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Materi
 
     private lateinit var sapOrderNo: String
     private lateinit var orderId: String
+    private var materielVoucherNo: String? = ""
     private lateinit var listBean: List<MaterialDetails.ListBean>
 
     private val presenter = PickOutPresenter(this)
@@ -51,6 +52,7 @@ class PickOutDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Materi
     override fun initOneData() {
         sapOrderNo = intent.getStringExtra("sapOrderNo")
         orderId = intent.getStringExtra("orderId")
+        materielVoucherNo = intent.getStringExtra("materielVoucherNo")
 
         presenter.fetchPickOutDoneListDetails(orderId)
     }
@@ -132,7 +134,7 @@ class PickOutDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Materi
         recycler_reversal.layoutManager = manager
         // 禁止 RecycleView 回收
         recycler_reversal.recycledViewPool.setMaxRecycledViews(0, 0)
-        adapter = PickingDoneDetailAdapter(this, R.layout.item_reversal_check, list)
+        adapter = PickingDoneDetailAdapter(this, materielVoucherNo, R.layout.item_reversal_check, list)
         recycler_reversal.adapter = adapter
 
     }

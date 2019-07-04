@@ -35,6 +35,7 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
     // 仓库 ID
     lateinit var warehouseId: String
     lateinit var orderId: String
+    private var voucherNo: String? = ""
     private var listBean = mutableListOf<MaterialDetails.ListBean>()
     private val presenter = BackGoodsPresenter(this)
 
@@ -48,6 +49,7 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
     override fun initOneData() {
 
         orderId = intent.getStringExtra("orderId")
+        voucherNo = intent.getStringExtra("voucherNo")
         presenter.fetchBackDoneListInfo(orderId)
     }
 
@@ -97,7 +99,7 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
         val manager = LinearLayoutManager(ResourceUtil.getContext())
         recycler_reversal.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
         recycler_reversal.layoutManager = manager
-        adapter = BackGoodsDoneDetailAdapter(this, R.layout.item_reversal_check, listBean)
+        adapter = BackGoodsDoneDetailAdapter(this, voucherNo, R.layout.item_reversal_check, listBean)
         recycler_reversal.adapter = adapter
 
     }

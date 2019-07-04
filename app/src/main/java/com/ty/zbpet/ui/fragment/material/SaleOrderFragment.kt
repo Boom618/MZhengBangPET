@@ -128,6 +128,7 @@ class SaleOrderFragment : BaseFragment(), MaterialUiListInterface<MaterialList.L
                         intent.putExtra("warehouseId", list[position].warehouseId)
                         intent.putExtra("orderId", list[position].orderId)
                         intent.putExtra("sign", list[position].sign)
+                        intent.putExtra("voucherNo", list[position].materielVoucherNo)
                         startActivity(intent)
                     }
 

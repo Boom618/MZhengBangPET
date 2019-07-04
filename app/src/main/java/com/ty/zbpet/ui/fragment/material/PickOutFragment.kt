@@ -140,6 +140,7 @@ class PickOutFragment : BaseFragment(), MaterialUiListInterface<MaterialList.Lis
                         val intent = Intent(activity, PickOutDoneDetailActivity::class.java)
                         intent.putExtra("sapOrderNo", list[position].sapOrderNo)
                         intent.putExtra("orderId", list[position].orderId)
+                        intent.putExtra("materielVoucherNo", list[position].materielVoucherNo)
                         startActivity(intent)
                     }
 

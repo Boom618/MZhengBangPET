@@ -132,6 +132,7 @@ class BackGoodsFragment : BaseFragment(), MaterialUiListInterface<MaterialList.L
                         intent.putExtra("sapOrderNo", list[position].sapOrderNo)
                         intent.putExtra("warehouseId", list[position].warehouseId)
                         intent.putExtra("orderId", list[position].orderId)
+                        intent.putExtra("voucherNo", list[position].materielVoucherNo)
                         startActivity(intent)
                     }
 
