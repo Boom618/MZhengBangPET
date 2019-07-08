@@ -6,13 +6,16 @@ import android.text.InputType
 import android.view.View
 import android.widget.EditText
 import android.widget.RadioButton
+import android.widget.TextView
 
 import com.ty.zbpet.R
+import com.ty.zbpet.bean.eventbus.SelectBatch
 import com.ty.zbpet.bean.material.MaterialDetails
 import com.ty.zbpet.data.SharedP
 import com.ty.zbpet.util.ZBUiUtils
 import com.zhy.adapter.recyclerview.CommonAdapter
 import com.zhy.adapter.recyclerview.base.ViewHolder
+import org.greenrobot.eventbus.EventBus
 
 /**
  * @author TY on 2018/11/22.
@@ -31,6 +34,8 @@ class BackGoodsTodoDetailAdapter(context: Context, layoutId: Int, datas: List<Ma
 
         // 1、库位码
         val etCode = itemView.findViewById<EditText>(R.id.et_code)
+        // 批次号
+        val sapNo = itemView.findViewById<TextView>(R.id.tv_sap_no)
         // TYPE_NULL 禁止手机软键盘  TYPE_CLASS_TEXT : 开启软键盘。
         etCode.inputType = InputType.TYPE_NULL
 
@@ -58,13 +63,14 @@ class BackGoodsTodoDetailAdapter(context: Context, layoutId: Int, datas: List<Ma
             }
             holder.setText(R.id.tv_name, list.materialName)
                     .setText(R.id.tv_num, list.orderNumber + "  " + list.unit)
-                    .setText(R.id.tv_sap_no, "SAP 批次号：${list.sapMaterialBatchNo}")
                     .setText(R.id.tv_house_no, "仓库编号 ：${list.warehouseNo}")
         } else {
             val bundle = payloads[0] as Bundle
             val positionNo = bundle.getString("positionNo")
             etCode.setText(positionNo)
         }
+        // 选择批次号
+        sapNo.setOnClickListener { EventBus.getDefault().post(SelectBatch(position, sapNo)) }
     }
 
     override fun convert(holder: ViewHolder, list: MaterialDetails.ListBean, position: Int) {

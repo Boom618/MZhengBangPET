@@ -9,6 +9,7 @@ import com.ty.zbpet.bean.system.BoxCodeUrl;
 import com.ty.zbpet.net.HttpMethods;
 import com.ty.zbpet.base.BaseResponse;
 import com.ty.zbpet.constant.CodeConstant;
+import com.ty.zbpet.util.DataUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -175,6 +176,39 @@ public class BackGoodsPresenter {
                 }
             }
         }, positionNo,warehouseNo);
+    }
+
+    /**
+     * 【新增】 获取批次号
+     *
+     * @param position   item 位置
+     * @param positionNo 库位码编号
+     * @param materialNo 物料编号
+     */
+    public void getStock(int position, String positionNo, String materialNo) {
+        httpMethods.getStock(new SingleObserver<BaseResponse<String>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                disposable = d;
+            }
+
+            @Override
+            public void onSuccess(BaseResponse<String> response) {
+                if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
+
+                    List<String> list = response.getList();
+                    DataUtils.saveBatchNo(position, list);
+                } else {
+                    materialListUi.showError(response.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                materialListUi.hideLoading();
+                materialListUi.showError(e.getMessage());
+            }
+        }, positionNo, materialNo);
     }
 
     /**

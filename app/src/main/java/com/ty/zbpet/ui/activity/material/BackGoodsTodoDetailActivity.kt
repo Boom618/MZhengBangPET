@@ -24,7 +24,9 @@ import com.ty.zbpet.presenter.material.MaterialUiListInterface
 import com.ty.zbpet.ui.adapter.diffadapter.TodoCarCodeDiffUtil
 import com.ty.zbpet.ui.adapter.material.BackGoodsTodoDetailAdapter
 import com.ty.zbpet.base.BaseActivity
+import com.ty.zbpet.bean.eventbus.SelectBatch
 import com.ty.zbpet.constant.TipString
+import com.ty.zbpet.ui.ActivitiesHelper
 import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils
@@ -36,6 +38,9 @@ import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter
 import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -70,6 +75,7 @@ class BackGoodsTodoDetailActivity : BaseActivity()
      */
     private val positionId: SparseArray<String> = SparseArray(10)
     private val houseNo: SparseArray<String> = SparseArray(10)
+    private var batchList: List<String> = java.util.ArrayList<String>()
 
     /**
      * 仓库 ID
@@ -82,6 +88,7 @@ class BackGoodsTodoDetailActivity : BaseActivity()
 
 
     override fun onBaseCreate(savedInstanceState: Bundle?) {
+        EventBus.getDefault().register(this)
     }
 
     override fun initOneData() {
@@ -91,7 +98,8 @@ class BackGoodsTodoDetailActivity : BaseActivity()
         supplierName = intent.getStringExtra("supplierName")
         creatorNo = intent.getStringExtra("creatorNo")
         content = intent.getStringExtra("content")
-
+        // 清空批次号
+        DataUtils.clearBatchNo()
         presenter.fetchBackTodoListInfo(sapOrderNo, sapFirmNo, supplierNo)
     }
 
@@ -113,7 +121,7 @@ class BackGoodsTodoDetailActivity : BaseActivity()
         tv_time.setOnClickListener { v ->
             ZBUiUtils.showPickDate(v.context) { date, _ ->
                 selectTime = ZBUiUtils.getTime(date)
-                tv_time!!.text = selectTime
+                tv_time.text = selectTime
 
                 ZBUiUtils.showSuccess(selectTime)
             }
@@ -255,15 +263,18 @@ class BackGoodsTodoDetailActivity : BaseActivity()
 
             val diffUtil = DiffUtil.calculateDiff(TodoCarCodeDiffUtil(list, deepCopyList))
             diffUtil.dispatchUpdatesTo(adapter)
+
+            // 获取批次号
+            presenter.getStock(position, positionNo, list[position].materialNo)
         } else {
             ZBUiUtils.showWarning("请扫正确的库位码")
         }
     }
 
 
-    override fun showMaterial(lists: MutableList<MaterialDetails.ListBean>?) {
+    override fun showMaterial(lists: MutableList<MaterialDetails.ListBean>) {
 
-        list = lists!!
+        list = lists
 
         val manager = LinearLayoutManager(ResourceUtil.getContext())
         rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
@@ -294,6 +305,30 @@ class BackGoodsTodoDetailActivity : BaseActivity()
         })
     }
 
+    /**
+     * 点击选择批次号
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun setSelectBatch(self: SelectBatch) {
+        val activity = ActivitiesHelper.get().lastActivity
+        if (activity is BackGoodsTodoDetailActivity) {
+            val position = self.getPosition()
+            val textView = self.getTextView()
+
+            val sparseArray = DataUtils.getBatchNo()
+            if (sparseArray[position] == null) {
+                ZBUiUtils.showWarning("请先扫库位码")
+                return
+            }
+            batchList = sparseArray[position] as List<String>
+            if (batchList.isEmpty()) {
+                ZBUiUtils.showWarning("该库位下没有对应的物料")
+                return
+            }
+            ZBUiUtils.selectBatchNo(this, position, batchList, textView)
+        }
+    }
+
     private var dialog: LoadingDialog? = null
     override fun showLoading() {
         dialog = ShowDialog.showFullDialog(this@BackGoodsTodoDetailActivity, "保存中")
@@ -314,6 +349,7 @@ class BackGoodsTodoDetailActivity : BaseActivity()
 
     override fun onDestroy() {
         super.onDestroy()
+        EventBus.getDefault().unregister(this)
         SharedP.clearFocusAndPosition(this)
     }
 }
