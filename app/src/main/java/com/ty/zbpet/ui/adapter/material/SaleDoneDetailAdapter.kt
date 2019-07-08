@@ -1,6 +1,7 @@
 package com.ty.zbpet.ui.adapter.material
 
 import android.content.Context
+import android.view.View
 import android.widget.CheckBox
 
 import com.ty.zbpet.R
@@ -20,6 +21,7 @@ class SaleDoneDetailAdapter(context: Context, private var voucherNo: String?, la
 
     override fun convert(holder: ViewHolder, listBean: MaterialDetails.ListBean, position: Int) {
 
+        holder.setVisible(R.id.tv_voucher_no, false)
         holder.setText(R.id.tv_voucher_no, "物料凭证号：$voucherNo")
                 .setText(R.id.tv_document_no, "采购子单号：${listBean.sapOrderNo}")
                 .setText(R.id.tv_material_name, "原辅料名称：${listBean.materialName}")

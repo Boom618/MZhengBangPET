@@ -150,7 +150,7 @@ class SaleOrderFragment : BaseFragment(), MaterialUiListInterface<MaterialList.L
             val endTime = event.rightTime()
             when (fragmentType) {
                 CodeConstant.FRAGMENT_TODO -> presenter.getSaleOrderList(search, startTime, endTime)
-                CodeConstant.FRAGMENT_DONE -> presenter.fetchPickOutDoneList(CodeConstant.SALE_ORDER_TYPE, "", "", "")
+                CodeConstant.FRAGMENT_DONE -> presenter.fetchPickOutDoneList(CodeConstant.SALE_ORDER_TYPE, search, startTime, endTime)
             }
         }
     }
