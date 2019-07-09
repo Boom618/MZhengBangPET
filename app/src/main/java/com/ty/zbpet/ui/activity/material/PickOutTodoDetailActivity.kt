@@ -141,7 +141,7 @@ class PickOutTodoDetailActivity : BaseActivity()
 
             val bean = MaterialDetails.ListBean()
             val sap = SimpleCache.getNumber(i.toString())
-            if (bulkNum.isNotEmpty() && carCode.isNotEmpty() && sap.isNotEmpty()) {
+            if (bulkNum.isNotEmpty() && carCode.isNotEmpty() && sap != null) {
 
                 val subContent = list[i].content!!
                 val mergeContent = JsonStringMerge().StringMerge(subContent, content)

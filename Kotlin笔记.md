@@ -180,18 +180,74 @@ run 函数实际上可以说是 let 和 with 两个函数的结合体，run 函�
 
 
 
-run 函数适用场景：适用于 let 和 with 函数的任何场景。run 函数是 let 和 with 函数的结合体，准确来说它弥补了 let 函数在函数体内必须使用`it`参数替代对象，在 run 函数中可以像 with 函数一样可以省略，直接访问实例的共有属性和方法，另一面它弥补了 with 函数传入对象判空问题，在 run 函数中可以像 let 函数一样做判空处理。
+`run` 函数适用场景：适用于 let 和 with 函数的任何场景。run 函数是 let 和 with 函数的结合体，准确来说它弥补了 let 函数在函数体内必须使用`it`参数替代对象，在 run 函数中可以像 with 函数一样可以省略，直接访问实例的共有属性和方法，另一面它弥补了 with 函数传入对象判空问题，在 run 函数中可以像 let 函数一样做判空处理。
+
+> 内联函数 apply
+
+一般结构
+
+```
+object.apply{
+	// todo
+}
+```
+
+从结构上来看 apply 函数和 run 函数很像，唯一的不同就是他们各自返回的值不一样，run 函数是以闭包形式返回最后一行代码的值，apply 函数返回的是传入对象的本身。
 
 
 
+`apply` 函数适用场景：apply 一般用于一个对象实例初始化的时候，需要对对象的属性进行赋值，或者动态 inflate 出一个 XML 的 View 的时候需要给 View 绑定数据也会用到
+
+apply 代码：
+
+```
+mSheetDialogView = View.inflate(activity, R.layout.biz_exam_plan_layout_sheet_inner, null).apply{
+   course_comment_tv_label.paint.isFakeBoldText = true
+   course_comment_tv_score.paint.isFakeBoldText = true
+   course_comment_tv_cancel.paint.isFakeBoldText = true
+   course_comment_tv_confirm.paint.isFakeBoldText = true
+   course_comment_seek_bar.max = 10
+   course_comment_seek_bar.progress = 0
+
+}
+```
+
+**还可以处理多级判空问题**
 
 
 
+> 内联函数 also
 
-扩展分析
+一般结构
 
-- 要点1
-- 要点2
+```
+object.also{
+	// todo
+}
+```
+
+also 函数的结构和 let 很像，唯一的区别就是返回值不一样，let 是以闭包的形式返回，返回函数体内最后一行的值，如果最后一行为空就返回一个 Unit 类型的默认值，而 also 函数返回的则是传入对象的本身
+
+
+
+`also` 函数适用场景：适用于 let 函数的任何场景，also 函数和 let 函数很像，只是唯一的一点不同就是 let 函数返回值是最后一行的返回值而 also 函数的返回值是返回当前的这个对象。一般可用于多个扩展函数链式调用。
+
+
+
+### let with run apply also 函数区别
+
+- let 函数适用于处理不为`null`的操作场景
+- with 函数适用于调用同一个类的多个方法时，可以省去类名重复，直接调用类的方法即可，经常用于Android中RecyclerView中onBinderViewHolder中，数据model的属性映射到UI上
+- run 函数适用于let,with函数任何场景
+- apply 函数
+  - 适用于run函数的任何场景，一般用于初始化一个对象实例的时候，操作对象属性，并最终返回这个对象。
+  - 动态inflate出一个XML的View的时候需要给View绑定数据也会用到
+  - 一般可用于多个扩展函数链式调用 
+  - 数据model多层级包裹判空处理的问题
+
+- also 函数适用于 let 函数的任何场景，一般可用于多个扩展函数链式调用
+
+
 
 
 
