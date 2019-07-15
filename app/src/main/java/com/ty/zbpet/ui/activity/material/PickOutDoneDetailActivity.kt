@@ -1,7 +1,7 @@
 package com.ty.zbpet.ui.activity.material
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.widget.CheckBox
 import android.widget.EditText
 import com.ty.zbpet.R
@@ -129,7 +129,7 @@ class PickOutDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Materi
 //            SimpleCache.clearKey(i.toString())
 //        }
 
-        val manager = LinearLayoutManager(ResourceUtil.getContext())
+        val manager = androidx.recyclerview.widget.LinearLayoutManager(ResourceUtil.getContext())
         recycler_reversal.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
         recycler_reversal.layoutManager = manager
         // 禁止 RecycleView 回收

@@ -1,19 +1,19 @@
 package com.ty.zbpet.ui.activity.material
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import android.widget.CheckBox
 import com.ty.zbpet.R
+import com.ty.zbpet.base.BaseActivity
 import com.ty.zbpet.bean.CarPositionNoData
 import com.ty.zbpet.bean.material.MaterialDetails
 import com.ty.zbpet.bean.material.MaterialDoneSave
 import com.ty.zbpet.constant.CodeConstant
+import com.ty.zbpet.constant.TipString
 import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.material.MaterialPresenter
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
+import com.ty.zbpet.ui.adapter.LayoutInit
 import com.ty.zbpet.ui.adapter.material.MaterialDoneDetailAdapter
-import com.ty.zbpet.base.BaseActivity
-import com.ty.zbpet.constant.TipString
 import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils
@@ -108,13 +108,12 @@ class ArrivalInDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
     override fun showMaterial(list: List<MaterialDetails.ListBean>) {
         listBean = list
 
-        val manager = LinearLayoutManager(ResourceUtil.getContext())
+        recycler_reversal?.let { LayoutInit.initLayoutManager(ResourceUtil.getContext(), it) }
         recycler_reversal.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
-        recycler_reversal.layoutManager = manager
 
         // TODO 侧滑删除
         // detailRc.addOnItemTouchListener(new SwipeItemLayout.OnSwipeItemTouchListener(this));
-        adapter = MaterialDoneDetailAdapter(this,voucherNo, R.layout.item_reversal_check, list)
+        adapter = MaterialDoneDetailAdapter(this, voucherNo, R.layout.item_reversal_check, list)
         recycler_reversal.adapter = adapter
 
     }

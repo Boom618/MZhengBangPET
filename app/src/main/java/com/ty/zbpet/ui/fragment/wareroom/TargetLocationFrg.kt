@@ -1,7 +1,7 @@
 package com.ty.zbpet.ui.fragment.wareroom
 
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.CheckBox
 import com.ty.zbpet.R
@@ -107,11 +107,11 @@ class TargetLocationFrg : BaseSupFragment(), ComplexInterface<PositionCode> {
                 recycler_target.adapter = adapter
 
                 adapter?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
-                    override fun onItemLongClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int): Boolean {
+                    override fun onItemLongClick(view: View?, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder?, position: Int): Boolean {
                         return true
                     }
 
-                    override fun onItemClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int) {
+                    override fun onItemClick(view: View?, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder?, position: Int) {
                         adapter?.setSelection(position)
                         selectPosition = position
                     }

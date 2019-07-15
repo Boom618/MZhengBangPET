@@ -2,19 +2,9 @@ package com.ty.zbpet.net
 
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.util.SimpleCache
-
-import java.io.IOException
-
 import okhttp3.Interceptor
 import okhttp3.Response
-import android.support.v4.content.ContextCompat.startActivity
-import com.ty.zbpet.ui.activity.system.LoginActivity
-import android.content.Intent
-import com.google.gson.Gson
-import com.ty.zbpet.bean.ResponseInfo
-import com.ty.zbpet.constant.TipString
-import com.ty.zbpet.ui.ActivitiesHelper
-import com.ty.zbpet.ui.MainApp
+import java.io.IOException
 
 
 /**

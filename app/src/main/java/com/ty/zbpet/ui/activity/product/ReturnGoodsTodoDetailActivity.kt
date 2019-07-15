@@ -2,8 +2,8 @@ package com.ty.zbpet.ui.activity.product
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.text.TextUtils
 import android.util.SparseArray
 import android.view.View
@@ -218,14 +218,14 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
     override fun showProduct(list: List<ProductDetails.ListBean>) {
         oldList = list
         if (adapter == null) {
-            val manager = LinearLayoutManager(ResourceUtil.getContext())
+            val manager = androidx.recyclerview.widget.LinearLayoutManager(ResourceUtil.getContext())
             rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
             rv_in_storage_detail.layoutManager = manager
             adapter = ReturnGoodsTodoDetailAdapter(this, R.layout.item_product_detail_return_todo, list)
             rv_in_storage_detail.adapter = adapter
 
             adapter?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
-                override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
+                override fun onItemClick(view: View, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
 
                     val rlDetail = holder.itemView.findViewById<View>(R.id.gone_view)
                     val ivArrow = holder.itemView.findViewById<ImageView>(R.id.iv_arrow)
@@ -253,7 +253,7 @@ class ReturnGoodsTodoDetailActivity : BaseActivity(), ProductUiListInterface<Pro
 
                 }
 
-                override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
+                override fun onItemLongClick(view: View, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int): Boolean {
                     return false
                 }
             })

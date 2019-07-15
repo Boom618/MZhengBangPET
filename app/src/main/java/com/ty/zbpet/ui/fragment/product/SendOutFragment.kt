@@ -2,7 +2,7 @@ package com.ty.zbpet.ui.fragment.product
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import com.scwang.smartrefresh.header.MaterialHeader
 import com.ty.zbpet.R
@@ -105,7 +105,7 @@ class SendOutFragment : BaseFragment(), ProductUiListInterface<ProductList.ListB
                 recyclerView.adapter = adapterTodo
 
                 adapterTodo?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
-                    override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
+                    override fun onItemClick(view: View, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
                         val intent = Intent(activity, SendOutTodoDetailActivity2::class.java)
                         intent.putExtra("sapOrderNo", list[position].sapOrderNo)
                         intent.putExtra("sapFirmNo", list[position].sapFirmNo)
@@ -116,7 +116,7 @@ class SendOutFragment : BaseFragment(), ProductUiListInterface<ProductList.ListB
                         startActivity(intent)
                     }
 
-                    override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
+                    override fun onItemLongClick(view: View, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int): Boolean {
                         return false
                     }
                 })
@@ -126,14 +126,14 @@ class SendOutFragment : BaseFragment(), ProductUiListInterface<ProductList.ListB
                 recyclerView.adapter = adapterDone
 
                 adapterDone?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
-                    override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
+                    override fun onItemClick(view: View, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
                         val intent = Intent(activity, SendOutDoneDetailActivity::class.java)
                         intent.putExtra("orderId", list[position].id)
                         intent.putExtra("sapOrderNo", list[position].sapOrderNo)
                         startActivity(intent)
                     }
 
-                    override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
+                    override fun onItemLongClick(view: View, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int): Boolean {
                         return false
                     }
                 })

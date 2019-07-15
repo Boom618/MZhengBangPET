@@ -1,7 +1,7 @@
 package com.ty.zbpet.ui.activity.wareroom
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.KeyEvent
 import android.widget.EditText
@@ -46,7 +46,7 @@ class MaterialsStockActivity : BaseActivity(), ScanBoxInterface {
     private lateinit var disposable: Disposable
     private lateinit var rawData: PositionCode
 
-    private var layoutManager: LinearLayoutManager? = null
+    private var layoutManager: androidx.recyclerview.widget.LinearLayoutManager? = null
 
     private val presenter: SystemPresenter = SystemPresenter()
 
@@ -154,7 +154,7 @@ class MaterialsStockActivity : BaseActivity(), ScanBoxInterface {
                 SimpleCache.clearKey(i.toString())
             }
             //LayoutInit.initLayoutManager(this, recycler)
-            layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL, false)
             recycler.layoutManager = layoutManager
             recycler.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
             val adapter = InventorySourceAdapter(this, R.layout.item_inventory_source, list)

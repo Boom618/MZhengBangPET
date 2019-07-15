@@ -1,7 +1,7 @@
 package com.ty.zbpet.ui.activity
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -42,7 +42,7 @@ class PrimaryActivity : BaseActivity() {
 
         intType = intent.getIntExtra(CodeConstant.ACTIVITY_TYPE, 1)
 
-        val fragmentList = ArrayList<Fragment>()
+        val fragmentList = ArrayList<androidx.fragment.app.Fragment>()
         when (intType) {
             1 -> {
                 initToolBar(R.string.label_purchase_storage)

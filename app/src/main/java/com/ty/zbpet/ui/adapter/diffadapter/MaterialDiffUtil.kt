@@ -1,6 +1,6 @@
 package com.ty.zbpet.ui.adapter.diffadapter
 
-import android.support.v7.util.DiffUtil
+import androidx.recyclerview.widget.DiffUtil
 
 /**
  * @author TY on 2018/11/27.

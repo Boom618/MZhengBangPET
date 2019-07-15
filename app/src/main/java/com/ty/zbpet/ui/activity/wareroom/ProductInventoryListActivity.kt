@@ -2,7 +2,7 @@ package com.ty.zbpet.ui.activity.wareroom
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import com.ty.zbpet.R
@@ -68,11 +68,11 @@ class ProductInventoryListActivity : BaseActivity() {
             recycler_inventory.adapter = adapter
 
             adapter.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
-                override fun onItemLongClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int): Boolean {
+                override fun onItemLongClick(view: View?, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder?, position: Int): Boolean {
                     return true
                 }
 
-                override fun onItemClick(view: View?, holder: RecyclerView.ViewHolder, position: Int) {
+                override fun onItemClick(view: View?, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
                     val intent = Intent(this@ProductInventoryListActivity, ProductInventoryActivity::class.java)
                     intent.putExtra("goodsNo", list[position].goodsNo)
                     intent.putExtra("goodsName", list[position].goodsName)

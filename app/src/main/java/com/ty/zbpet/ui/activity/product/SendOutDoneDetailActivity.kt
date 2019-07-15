@@ -2,8 +2,8 @@ package com.ty.zbpet.ui.activity.product
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.text.InputType
 import android.view.View
 import android.widget.Button
@@ -155,14 +155,14 @@ class SendOutDoneDetailActivity : BaseActivity(), ProductUiListInterface<Product
         list = lists!!
 
         if (adapter == null) {
-            val manager = LinearLayoutManager(ResourceUtil.getContext())
+            val manager = androidx.recyclerview.widget.LinearLayoutManager(ResourceUtil.getContext())
             rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
             rv_in_storage_detail.layoutManager = manager
             adapter = SendOutDoneDetailAdapter(this, R.layout.item_product_detail_send_out_done, list)
             rv_in_storage_detail.adapter = adapter
 
             adapter?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
-                override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
+                override fun onItemClick(view: View, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
 
                     val rlDetail = holder.itemView.findViewById<View>(R.id.gone_view)
                     val ivArrow = holder.itemView.findViewById<ImageView>(R.id.iv_arrow)
@@ -188,7 +188,7 @@ class SendOutDoneDetailActivity : BaseActivity(), ProductUiListInterface<Product
                     }
                 }
 
-                override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
+                override fun onItemLongClick(view: View, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int): Boolean {
                     return false
                 }
             })

@@ -1,9 +1,9 @@
 package com.ty.zbpet.ui.adapter
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
-import android.support.v4.widget.ContentLoadingProgressBar
+import androidx.core.widget.ContentLoadingProgressBar
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
@@ -16,9 +16,9 @@ import com.ty.zbpet.R
  * 添加 加载 Adapter
  */
 class RecyclerViewFoot(private val context: Context, private val data: ArrayList<String>)
-    : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
         return if (viewType == TYPE_FOOTER) {
             val view = LayoutInflater.from(context).inflate(R.layout.activity_recyclerview_foot, parent, false)
             FootViewHolder(view)
@@ -32,7 +32,7 @@ class RecyclerViewFoot(private val context: Context, private val data: ArrayList
         return data.size + 1
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
 
     }
 
@@ -46,7 +46,7 @@ class RecyclerViewFoot(private val context: Context, private val data: ArrayList
         return TYPE_CONTENT
     }
 
-    private class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    private class MainViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView){
 
         init {
             itemView.findViewById<TextView>(R.id.id_ll_ok)
@@ -56,7 +56,7 @@ class RecyclerViewFoot(private val context: Context, private val data: ArrayList
     /**
      * 加载更多 View
      */
-    private inner class FootViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    private inner class FootViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
         internal var contentLoadingProgressBar: ContentLoadingProgressBar = itemView.findViewById(R.id.pb_progress)
 
     }

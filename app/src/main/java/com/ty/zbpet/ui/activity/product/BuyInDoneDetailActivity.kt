@@ -1,7 +1,7 @@
 package com.ty.zbpet.ui.activity.product
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.widget.CheckBox
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.product.ProductDetails
@@ -136,7 +136,7 @@ class BuyInDoneDetailActivity : BaseActivity(), ProductUiListInterface<ProductDe
         list = lists
 
         if (adapter == null) {
-            val manager = LinearLayoutManager(ResourceUtil.getContext())
+            val manager = androidx.recyclerview.widget.LinearLayoutManager(ResourceUtil.getContext())
             recycler_reversal.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(10), false))
             recycler_reversal.layoutManager = manager
             adapter = BuyInDoneDetailAdapter(this, R.layout.item_reversal_check, list)

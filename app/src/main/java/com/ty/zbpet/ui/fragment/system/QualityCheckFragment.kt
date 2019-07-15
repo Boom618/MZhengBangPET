@@ -2,7 +2,7 @@ package com.ty.zbpet.ui.fragment.system
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import com.scwang.smartrefresh.header.MaterialHeader
 import com.ty.zbpet.R
@@ -109,7 +109,7 @@ class QualityCheckFragment : BaseFragment(), SystemUiListInterface<MaterialList.
                 adapterTodo = QuaCheckTodoListAdapter(ResourceUtil.getContext(), R.layout.item_quality_list, list)
                 recyclerView.adapter = adapterTodo
                 adapterTodo?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
-                    override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
+                    override fun onItemClick(view: View, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
                         val intent = Intent(activity, QualityCheckTodoDetailActivity::class.java)
                         intent.putExtra("sapOrderNo", list[position].sapOrderNo)
                         intent.putExtra("sapFirmNo", list[position].sapFirmNo)
@@ -117,7 +117,7 @@ class QualityCheckFragment : BaseFragment(), SystemUiListInterface<MaterialList.
                         startActivity(intent)
                     }
 
-                    override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
+                    override fun onItemLongClick(view: View, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int): Boolean {
                         return false
                     }
                 })
@@ -127,7 +127,7 @@ class QualityCheckFragment : BaseFragment(), SystemUiListInterface<MaterialList.
                 recyclerView.adapter = adapterDone
 
                 adapterDone?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
-                    override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
+                    override fun onItemClick(view: View, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
                         val intent = Intent(activity, QualityCheckDoneDetailActivity::class.java)
                         intent.putExtra("id", list[position].id)
                         intent.putExtra("sapOrderNo", list[position].sapOrderNo)
@@ -137,7 +137,7 @@ class QualityCheckFragment : BaseFragment(), SystemUiListInterface<MaterialList.
                         startActivity(intent)
                     }
 
-                    override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
+                    override fun onItemLongClick(view: View, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int): Boolean {
                         return false
                     }
                 })

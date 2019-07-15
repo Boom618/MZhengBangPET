@@ -17,14 +17,11 @@ import com.ty.zbpet.bean.system.ImageData;
 import com.ty.zbpet.bean.system.PositionCode;
 import com.ty.zbpet.bean.system.ProMoveList;
 import com.ty.zbpet.bean.system.ProductInventorList;
-import com.ty.zbpet.bean.system.ProductMove;
 import com.ty.zbpet.bean.system.ProductQuery;
 import com.ty.zbpet.bean.system.ReceiptList;
 import com.ty.zbpet.constant.ApiNameConstant;
 import com.ty.zbpet.constant.CodeConstant;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.SingleObserver;

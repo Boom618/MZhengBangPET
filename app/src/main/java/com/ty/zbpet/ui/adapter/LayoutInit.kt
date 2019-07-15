@@ -1,8 +1,8 @@
 package com.ty.zbpet.ui.adapter
 
 import android.content.Context
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * @author TY on 2019/1/10.
@@ -10,8 +10,8 @@ import android.support.v7.widget.RecyclerView
 object LayoutInit {
 
     @JvmStatic
-    fun initLayoutManager(context: Context,recycler_view:RecyclerView){
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+    fun initLayoutManager(context: Context, recycler_view: RecyclerView) {
+        val layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         recycler_view.layoutManager = layoutManager
     }
 }

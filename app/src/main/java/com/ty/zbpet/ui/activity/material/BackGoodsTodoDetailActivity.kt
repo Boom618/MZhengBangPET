@@ -1,9 +1,9 @@
 package com.ty.zbpet.ui.activity.material
 
 import android.os.Bundle
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.View
@@ -276,14 +276,14 @@ class BackGoodsTodoDetailActivity : BaseActivity()
 
         list = lists
 
-        val manager = LinearLayoutManager(ResourceUtil.getContext())
+        val manager = androidx.recyclerview.widget.LinearLayoutManager(ResourceUtil.getContext())
         rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
         rv_in_storage_detail.layoutManager = manager
         adapter = BackGoodsTodoDetailAdapter(this, R.layout.item_material_back_detail_todo, list)
         rv_in_storage_detail.adapter = adapter
 
         adapter.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
-            override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
+            override fun onItemClick(view: View, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
 
                 val rlDetail = holder.itemView.findViewById<View>(R.id.gone_view)
                 val ivArrow = holder.itemView.findViewById<ImageView>(R.id.iv_arrow)
@@ -299,7 +299,7 @@ class BackGoodsTodoDetailActivity : BaseActivity()
                 ZBUiUtils.hideInputWindow(view.context, view)
             }
 
-            override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
+            override fun onItemLongClick(view: View, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int): Boolean {
                 return false
             }
         })

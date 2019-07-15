@@ -10,9 +10,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.CursorLoader;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.loader.content.CursorLoader;
 import android.util.TypedValue;
 
 import com.ty.zbpet.ui.MainApp;

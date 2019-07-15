@@ -1,9 +1,9 @@
 package com.ty.zbpet.ui.activity.material
 
 import android.os.Bundle
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.View
@@ -258,7 +258,7 @@ class SaleTodoDetailActivity : BaseActivity()
     override fun showMaterial(lists: MutableList<MaterialDetails.ListBean>) {
 
         list = lists
-        val manager = LinearLayoutManager(ResourceUtil.getContext())
+        val manager = androidx.recyclerview.widget.LinearLayoutManager(ResourceUtil.getContext())
         rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
         rv_in_storage_detail.layoutManager = manager
         adapter = SaleTodoDetailAdapter(this, R.layout.item_material_sale_detail_todo, list)

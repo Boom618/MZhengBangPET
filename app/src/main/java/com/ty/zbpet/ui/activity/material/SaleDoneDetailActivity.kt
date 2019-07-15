@@ -1,7 +1,6 @@
 package com.ty.zbpet.ui.activity.material
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.CarPositionNoData
@@ -108,7 +107,7 @@ class SaleDoneDetailActivity : BaseActivity(), MaterialUiListInterface<MaterialD
             SimpleCache.clearKey(i.toString())
         }
 
-        val manager = LinearLayoutManager(ResourceUtil.getContext())
+        val manager = androidx.recyclerview.widget.LinearLayoutManager(ResourceUtil.getContext())
         recycler_reversal.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
         recycler_reversal.layoutManager = manager
         adapter = SaleDoneDetailAdapter(this, voucherNo, R.layout.item_reversal_check, listBean)

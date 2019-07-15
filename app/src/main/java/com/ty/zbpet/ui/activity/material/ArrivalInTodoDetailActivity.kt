@@ -1,18 +1,18 @@
 package com.ty.zbpet.ui.activity.material
 
 import android.os.Bundle
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.View
 import android.widget.*
+import androidx.recyclerview.widget.DiffUtil
 import com.pda.scanner.ScanReader
 import com.ty.zbpet.R
+import com.ty.zbpet.base.BaseActivity
 import com.ty.zbpet.bean.CarPositionNoData
 import com.ty.zbpet.bean.material.MaterialDetails
 import com.ty.zbpet.constant.CodeConstant
+import com.ty.zbpet.constant.TipString
 import com.ty.zbpet.data.DeepCopyData
 import com.ty.zbpet.data.SharedP
 import com.ty.zbpet.net.RequestBodyJson
@@ -20,8 +20,6 @@ import com.ty.zbpet.presenter.material.MaterialPresenter
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
 import com.ty.zbpet.ui.adapter.diffadapter.TodoCarCodeDiffUtil
 import com.ty.zbpet.ui.adapter.material.MaterialTodoDetailAdapter
-import com.ty.zbpet.base.BaseActivity
-import com.ty.zbpet.constant.TipString
 import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils
@@ -219,14 +217,14 @@ class ArrivalInTodoDetailActivity : BaseActivity()
 
         list = lists
 
-        val manager = LinearLayoutManager(ResourceUtil.getContext())
+        val manager = androidx.recyclerview.widget.LinearLayoutManager(ResourceUtil.getContext())
         rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
         rv_in_storage_detail.layoutManager = manager
         adapter = MaterialTodoDetailAdapter(this, R.layout.item_matterial_todo_detail, list)
         rv_in_storage_detail.adapter = adapter
 
         adapter.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
-            override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
+            override fun onItemClick(view: View, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
 
                 val rlDetail = holder.itemView.findViewById<View>(R.id.rl_detail)
                 val ivArrow = holder.itemView.findViewById<ImageView>(R.id.iv_arrow)
@@ -242,7 +240,7 @@ class ArrivalInTodoDetailActivity : BaseActivity()
                 ZBUiUtils.hideInputWindow(view.context, view)
             }
 
-            override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
+            override fun onItemLongClick(view: View, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int): Boolean {
                 return false
             }
         })

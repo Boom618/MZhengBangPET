@@ -1,7 +1,7 @@
 package com.ty.zbpet.ui.activity.system
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
@@ -24,7 +24,7 @@ import java.util.*
 class QualityCheckTabActivity : BaseActivity() {
 
 
-    private val mFragments = ArrayList<Fragment>()
+    private val mFragments = ArrayList<androidx.fragment.app.Fragment>()
 
     override val activityLayout: Int
         get() = R.layout.activity_quality_check_tab

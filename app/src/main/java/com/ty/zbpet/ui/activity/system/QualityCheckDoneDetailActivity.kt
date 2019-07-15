@@ -3,8 +3,8 @@ package com.ty.zbpet.ui.activity.system
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.View
 import android.widget.EditText
@@ -43,7 +43,7 @@ import kotlin.collections.ArrayList
  */
 class QualityCheckDoneDetailActivity : BaseActivity() {
 
-    private var gridLayoutManager: GridLayoutManager? = null
+    private var gridLayoutManager: androidx.recyclerview.widget.GridLayoutManager? = null
     private var id: String? = null
     private var sapOrderNo: String? = null
     private var supplierName: String? = null
@@ -206,8 +206,8 @@ class QualityCheckDoneDetailActivity : BaseActivity() {
             imageListLocal.add(httpUrlRemote + pathList[i])
         }
 
-        gridLayoutManager = GridLayoutManager(this, 3)
-        gridLayoutManager?.orientation = LinearLayoutManager.VERTICAL
+        gridLayoutManager = androidx.recyclerview.widget.GridLayoutManager(this, 3)
+        gridLayoutManager?.orientation = androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
         recycler_image.layoutManager = gridLayoutManager
 
         imageAdapter = RecyclerImageAdapter(this@QualityCheckDoneDetailActivity, imageListLocal)

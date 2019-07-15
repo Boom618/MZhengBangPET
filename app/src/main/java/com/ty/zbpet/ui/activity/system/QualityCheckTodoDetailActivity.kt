@@ -3,8 +3,8 @@ package com.ty.zbpet.ui.activity.system
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.View
 import android.widget.EditText
@@ -42,7 +42,7 @@ import java.util.*
  */
 class QualityCheckTodoDetailActivity : BaseActivity(), MaterialUiListInterface<MaterialDetails.ListBean> {
 
-    private var gridLayoutManager: GridLayoutManager? = null
+    private var gridLayoutManager: androidx.recyclerview.widget.GridLayoutManager? = null
     private var sapOrderNo: String? = null
     private var sapFirmNo: String? = null
     private var supplierNo: String? = null
@@ -105,8 +105,8 @@ class QualityCheckTodoDetailActivity : BaseActivity(), MaterialUiListInterface<M
         // 质检图片样式
         themeId = R.style.picture_default_style
 
-        gridLayoutManager = GridLayoutManager(this, 3)
-        gridLayoutManager!!.orientation = LinearLayoutManager.VERTICAL
+        gridLayoutManager = androidx.recyclerview.widget.GridLayoutManager(this, 3)
+        gridLayoutManager!!.orientation = androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
 
         recycler_image.layoutManager = gridLayoutManager
         imageAdapter = GridImageAdapter(this@QualityCheckTodoDetailActivity, onAddPicClickListener)

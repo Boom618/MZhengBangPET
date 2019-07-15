@@ -1,7 +1,7 @@
 package com.ty.zbpet.ui.adapter
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.item_box_code.view.*
 /**
  * @author TY
  */
-class BindBoxCodeAdapter(mContext: Context, private val info: MutableList<String>?) : RecyclerView.Adapter<BindBoxCodeAdapter.ItemHolder>() {
+class BindBoxCodeAdapter(mContext: Context, private val info: MutableList<String>?) : androidx.recyclerview.widget.RecyclerView.Adapter<BindBoxCodeAdapter.ItemHolder>() {
     private val mInflater: LayoutInflater = LayoutInflater.from(mContext)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
@@ -34,7 +34,7 @@ class BindBoxCodeAdapter(mContext: Context, private val info: MutableList<String
         return info?.size ?: 0
     }
 
-    class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ItemHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
 
         init {
             ButterKnife.bind(this, itemView)

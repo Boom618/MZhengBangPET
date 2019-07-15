@@ -1,7 +1,7 @@
 package com.ty.zbpet.ui.activity.material
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.widget.CheckBox
 import com.ty.zbpet.R
 import com.ty.zbpet.bean.CarPositionNoData
@@ -96,7 +96,7 @@ class BackGoodsDoneDetailActivity : BaseActivity(), MaterialUiListInterface<Mate
         listBean = list
         warehouseId = listBean[0].warehouseId!!
 
-        val manager = LinearLayoutManager(ResourceUtil.getContext())
+        val manager = androidx.recyclerview.widget.LinearLayoutManager(ResourceUtil.getContext())
         recycler_reversal.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
         recycler_reversal.layoutManager = manager
         adapter = BackGoodsDoneDetailAdapter(this, voucherNo, R.layout.item_reversal_check, listBean)

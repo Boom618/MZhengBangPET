@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/space_10"
@@ -79,7 +79,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/view_gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -139,9 +139,9 @@
                 android:textColor="@color/txt_main_color"
                 app:layout_constraintLeft_toLeftOf="@+id/tv_bulk"
                 app:layout_constraintTop_toBottomOf="@+id/tv_count_number" />
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"

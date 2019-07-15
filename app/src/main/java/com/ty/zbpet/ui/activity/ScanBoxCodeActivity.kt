@@ -2,9 +2,9 @@ package com.ty.zbpet.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 import com.pda.scanner.ScanReader
@@ -72,18 +72,18 @@ class ScanBoxCodeActivity : BaseActivity(), ScanBoxInterface, CommInterface {
             e.printStackTrace()
         }
 
-        val mLayoutManager = LinearLayoutManager(ResourceUtil.getContext())
+        val mLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(ResourceUtil.getContext())
         recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST, ResourceUtil.dip2px(1), ResourceUtil.getColor(R.color.split_line)))
         recyclerView.layoutManager = mLayoutManager
 //        adapter = BindBoxCodeAdapter(ResourceUtil.getContext(), boxCodeList)
         adapter = ScanBoxCodeAdapter(ResourceUtil.getContext(), R.layout.item_box_code, state, boxCodeList)
         recyclerView.adapter = adapter
         adapter?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
-            override fun onItemLongClick(view: View?, holder: RecyclerView.ViewHolder, position: Int): Boolean {
+            override fun onItemLongClick(view: View?, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int): Boolean {
                 return true
             }
 
-            override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
+            override fun onItemClick(view: View, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
                 val imageDel = holder.itemView.findViewById<ImageView>(R.id.iv_del)
                 imageDel.setOnClickListener {
                     val size = boxCodeList.size

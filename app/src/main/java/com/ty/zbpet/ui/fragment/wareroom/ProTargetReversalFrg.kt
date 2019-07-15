@@ -1,7 +1,7 @@
 package com.ty.zbpet.ui.fragment.wareroom
 
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import com.ty.zbpet.R
 import com.ty.zbpet.base.BaseSupFragment
@@ -71,11 +71,11 @@ class ProTargetReversalFrg : BaseSupFragment(), ComplexInterface<ProMoveList.Lis
         recycler_source.adapter = adapter
 
         adapter?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
-            override fun onItemLongClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int): Boolean {
+            override fun onItemLongClick(view: View?, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder?, position: Int): Boolean {
                 return true
             }
 
-            override fun onItemClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int) {
+            override fun onItemClick(view: View?, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder?, position: Int) {
                 adapter?.setSelection(position)
                 selectPost = position
             }

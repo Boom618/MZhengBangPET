@@ -1,9 +1,9 @@
 package com.ty.zbpet.util
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
-import android.support.v4.view.ViewPager
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager.widget.ViewPager
 import com.flyco.tablayout.SegmentTabLayout
 import com.flyco.tablayout.listener.OnTabSelectListener
 
@@ -21,7 +21,7 @@ class TabLayoutViewPage {
      * stl:         tabLayout 关联的标签
      * mFragments:  加载的 Fragments
      */
-     fun setViewPageToTab(fm: FragmentManager, viewpager: ViewPager, stl: SegmentTabLayout, mFragments: List<Fragment>) {
+     fun setViewPageToTab(fm: androidx.fragment.app.FragmentManager, viewpager: androidx.viewpager.widget.ViewPager, stl: SegmentTabLayout, mFragments: List<androidx.fragment.app.Fragment>) {
 
         // TabLayout
         viewpager.adapter = MainListAdapter(fm, mFragments)
@@ -38,7 +38,7 @@ class TabLayoutViewPage {
             }
         })
 
-        viewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        viewpager.addOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
 
             }
@@ -62,7 +62,7 @@ class TabLayoutViewPage {
      *
      * 主页 待办/已办 列表
      */
-    class MainListAdapter(fm: FragmentManager, private val mFragments: List<Fragment>) : FragmentPagerAdapter(fm) {
+    class MainListAdapter(fm: androidx.fragment.app.FragmentManager, private val mFragments: List<androidx.fragment.app.Fragment>) : androidx.fragment.app.FragmentPagerAdapter(fm) {
 
 
         override fun getCount(): Int {
@@ -73,7 +73,7 @@ class TabLayoutViewPage {
             return mTitles[position]
         }
 
-        override fun getItem(position: Int): Fragment {
+        override fun getItem(position: Int): androidx.fragment.app.Fragment {
             return mFragments[position]
         }
     }

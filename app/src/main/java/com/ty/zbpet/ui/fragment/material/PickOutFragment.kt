@@ -3,8 +3,8 @@ package com.ty.zbpet.ui.fragment.material
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.RecyclerView
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import com.scwang.smartrefresh.header.MaterialHeader
 import com.ty.zbpet.R
@@ -116,7 +116,7 @@ class PickOutFragment : BaseFragment(), MaterialUiListInterface<MaterialList.Lis
                 recyclerView?.adapter = adapterTodo
 
                 adapterTodo?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
-                    override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
+                    override fun onItemClick(view: View, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
                         val intent = Intent(activity, PickOutTodoDetailActivity::class.java)
                         intent.putExtra("sapOrderNo", list[position].sapOrderNo)
                         intent.putExtra("sapFirmNo", list[position].sapFirmNo)
@@ -126,7 +126,7 @@ class PickOutFragment : BaseFragment(), MaterialUiListInterface<MaterialList.Lis
                         startActivity(intent)
                     }
 
-                    override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
+                    override fun onItemLongClick(view: View, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int): Boolean {
                         return false
                     }
                 })
@@ -136,7 +136,7 @@ class PickOutFragment : BaseFragment(), MaterialUiListInterface<MaterialList.Lis
                 recyclerView?.adapter = adapterDone
 
                 adapterDone?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
-                    override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
+                    override fun onItemClick(view: View, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
                         val intent = Intent(activity, PickOutDoneDetailActivity::class.java)
                         intent.putExtra("sapOrderNo", list[position].sapOrderNo)
                         intent.putExtra("orderId", list[position].orderId)
@@ -144,7 +144,7 @@ class PickOutFragment : BaseFragment(), MaterialUiListInterface<MaterialList.Lis
                         startActivity(intent)
                     }
 
-                    override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
+                    override fun onItemLongClick(view: View, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int): Boolean {
                         return false
                     }
                 })
