@@ -91,14 +91,14 @@ class SaleOrderFragment : BaseFragment(), MaterialUiListInterface<MaterialList.L
             ZBUiUtils.showWarning("销售出库没有找到结果")
             return
         }
-        LayoutInit.initLayoutManager(ResourceUtil.getContext(), recyclerView)
+        recyclerView?.let { LayoutInit.initLayoutManager(ResourceUtil.getContext(), it) }
         if (adapterTodo == null && adapterDone == null) {
-            recyclerView.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
+            recyclerView?.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
         }
         when (fragmentType) {
             CodeConstant.FRAGMENT_TODO -> {
                 adapterTodo = context?.let { SaleTodoListAdapter(it, R.layout.item_material_todo, list) }
-                recyclerView.adapter = adapterTodo
+                recyclerView?.adapter = adapterTodo
 
                 adapterTodo?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
                     override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
