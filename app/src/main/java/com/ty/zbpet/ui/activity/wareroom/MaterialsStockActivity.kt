@@ -1,28 +1,28 @@
 package com.ty.zbpet.ui.activity.wareroom
 
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.KeyEvent
-import android.widget.EditText
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.pda.scanner.ScanReader
 import com.ty.zbpet.R
+import com.ty.zbpet.base.BaseActivity
 import com.ty.zbpet.bean.eventbus.ErrorMessage
 import com.ty.zbpet.bean.eventbus.SuccessMessage
-import com.ty.zbpet.bean.system.PositionCode
-import com.ty.zbpet.constant.CodeConstant
-import com.ty.zbpet.net.RequestBodyJson
-import com.ty.zbpet.presenter.system.SystemPresenter
-import com.ty.zbpet.ui.adapter.LayoutInit
-import com.ty.zbpet.ui.adapter.system.InventorySourceAdapter
-import com.ty.zbpet.base.BaseActivity
 import com.ty.zbpet.bean.eventbus.system.EndLoadingMessage
 import com.ty.zbpet.bean.eventbus.system.StartLoadingMessage
+import com.ty.zbpet.bean.system.PositionCode
+import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.constant.TipString
+import com.ty.zbpet.net.RequestBodyJson
+import com.ty.zbpet.presenter.system.SystemPresenter
+import com.ty.zbpet.ui.adapter.system.InventorySourceAdapter
 import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ResourceUtil
+import com.ty.zbpet.util.SimpleCache
 import com.ty.zbpet.util.ZBUiUtils
 import com.ty.zbpet.util.scan.ScanBoxInterface
 import com.ty.zbpet.util.scan.ScanObservable
@@ -33,7 +33,6 @@ import okhttp3.RequestBody
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import com.ty.zbpet.util.SimpleCache
 
 /**
  * @author TY on 2019/3/31.
@@ -46,7 +45,7 @@ class MaterialsStockActivity : BaseActivity(), ScanBoxInterface {
     private lateinit var disposable: Disposable
     private lateinit var rawData: PositionCode
 
-    private var layoutManager: androidx.recyclerview.widget.LinearLayoutManager? = null
+    private var layoutManager: LinearLayoutManager? = null
 
     private val presenter: SystemPresenter = SystemPresenter()
 
@@ -154,7 +153,7 @@ class MaterialsStockActivity : BaseActivity(), ScanBoxInterface {
                 SimpleCache.clearKey(i.toString())
             }
             //LayoutInit.initLayoutManager(this, recycler)
-            layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL, false)
+            layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
             recycler.layoutManager = layoutManager
             recycler.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
             val adapter = InventorySourceAdapter(this, R.layout.item_inventory_source, list)

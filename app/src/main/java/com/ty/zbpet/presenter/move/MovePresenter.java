@@ -3,15 +3,14 @@ package com.ty.zbpet.presenter.move;
 import com.ty.zbpet.base.BaseResponse;
 import com.ty.zbpet.bean.ResponseInfo;
 import com.ty.zbpet.bean.system.PositionCode;
+import com.ty.zbpet.bean.system.PositionQuery;
 import com.ty.zbpet.bean.system.ProMoveList;
 import com.ty.zbpet.bean.system.ProductInventorList;
 import com.ty.zbpet.constant.CodeConstant;
 import com.ty.zbpet.constant.TipString;
 import com.ty.zbpet.net.HttpMethods;
-
 import java.net.SocketTimeoutException;
 import java.util.List;
-
 import io.reactivex.SingleObserver;
 import io.reactivex.disposables.Disposable;
 import okhttp3.RequestBody;
@@ -46,18 +45,18 @@ public class MovePresenter {
      */
     public void positionStock(String positionNo) {
         compInterface.showLoading();
-        httpMethods.positionStock(new SingleObserver<BaseResponse<PositionCode>>() {
+        httpMethods.positionStock(new SingleObserver<BaseResponse<PositionQuery>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;
             }
 
             @Override
-            public void onSuccess(BaseResponse<PositionCode> response) {
+            public void onSuccess(BaseResponse<PositionQuery> response) {
                 compInterface.hideLoading();
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
-                    PositionCode data = response.getData();
-                    compInterface.showObjData(data);
+                    List<PositionQuery> list = response.getList();
+                    compInterface.showListData(list);
                 } else {
                     compInterface.showError(response.getMessage());
                 }
@@ -65,6 +64,7 @@ public class MovePresenter {
 
             @Override
             public void onError(Throwable e) {
+                compInterface.hideLoading();
                 compInterface.showError(e.getMessage());
             }
         }, positionNo);

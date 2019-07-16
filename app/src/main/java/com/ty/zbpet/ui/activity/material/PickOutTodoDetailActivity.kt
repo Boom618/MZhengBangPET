@@ -1,29 +1,32 @@
 package com.ty.zbpet.ui.activity.material
 
 import android.os.Bundle
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.View
-import android.widget.*
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.pda.scanner.ScanReader
 import com.ty.zbpet.R
+import com.ty.zbpet.base.BaseActivity
 import com.ty.zbpet.bean.CarPositionNoData
+import com.ty.zbpet.bean.eventbus.SelectBatch
 import com.ty.zbpet.bean.material.MaterialDetails
 import com.ty.zbpet.constant.CodeConstant
+import com.ty.zbpet.constant.TipString
 import com.ty.zbpet.data.DeepCopyData
 import com.ty.zbpet.data.SharedP
 import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
 import com.ty.zbpet.presenter.material.PickOutPresenter
+import com.ty.zbpet.ui.ActivitiesHelper
+import com.ty.zbpet.ui.adapter.LayoutInit
 import com.ty.zbpet.ui.adapter.diffadapter.TodoCarCodeDiffUtil
 import com.ty.zbpet.ui.adapter.material.PickingTodoDetailAdapter
-import com.ty.zbpet.base.BaseActivity
-import com.ty.zbpet.bean.eventbus.SelectBatch
-import com.ty.zbpet.constant.TipString
-import com.ty.zbpet.ui.ActivitiesHelper
 import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.*
@@ -251,14 +254,13 @@ class PickOutTodoDetailActivity : BaseActivity()
     override fun showMaterial(lists: MutableList<MaterialDetails.ListBean>) {
 
         list = lists
-        val manager = androidx.recyclerview.widget.LinearLayoutManager(ResourceUtil.getContext())
+        rv_in_storage_detail?.let { LayoutInit.initLayoutManager(ResourceUtil.getContext(), it) }
         rv_in_storage_detail.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
-        rv_in_storage_detail.layoutManager = manager
         adapter = PickingTodoDetailAdapter(this, R.layout.item_material_detail_three_todo, list)
         rv_in_storage_detail.adapter = adapter
 
         adapter.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
-            override fun onItemClick(view: View, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
+            override fun onItemClick(view: View, holder: RecyclerView.ViewHolder, position: Int) {
 
                 val rlDetail = holder.itemView.findViewById<View>(R.id.gone_view)
                 val ivArrow = holder.itemView.findViewById<ImageView>(R.id.iv_arrow)
@@ -274,7 +276,7 @@ class PickOutTodoDetailActivity : BaseActivity()
                 ZBUiUtils.hideInputWindow(view.context, view)
             }
 
-            override fun onItemLongClick(view: View, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int): Boolean {
+            override fun onItemLongClick(view: View, holder: RecyclerView.ViewHolder, position: Int): Boolean {
                 return false
             }
         })

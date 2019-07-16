@@ -729,7 +729,7 @@ interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiNameConstant.MATERIAL_POSITION_STOCK)
-    fun positionStock(@Field("positionNo") positionNo: String): Single<BaseResponse<PositionCode>>
+    fun positionStock(@Field("positionNo") positionNo: String): Single<BaseResponse<PositionQuery>>
 
     /**
      * 原辅料盘点提交

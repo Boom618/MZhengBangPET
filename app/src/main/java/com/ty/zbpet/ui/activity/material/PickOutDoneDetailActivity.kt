@@ -1,25 +1,23 @@
 package com.ty.zbpet.ui.activity.material
 
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.widget.CheckBox
 import android.widget.EditText
 import com.ty.zbpet.R
+import com.ty.zbpet.base.BaseActivity
 import com.ty.zbpet.bean.CarPositionNoData
 import com.ty.zbpet.bean.material.MaterialDetails
 import com.ty.zbpet.bean.material.MaterialDoneSave
 import com.ty.zbpet.constant.CodeConstant
+import com.ty.zbpet.constant.TipString
 import com.ty.zbpet.net.RequestBodyJson
 import com.ty.zbpet.presenter.material.MaterialUiListInterface
 import com.ty.zbpet.presenter.material.PickOutPresenter
 import com.ty.zbpet.ui.adapter.material.PickingDoneDetailAdapter
-import com.ty.zbpet.base.BaseActivity
-import com.ty.zbpet.constant.TipString
 import com.ty.zbpet.ui.widght.ShowDialog
 import com.ty.zbpet.ui.widght.SpaceItemDecoration
 import com.ty.zbpet.util.DataUtils
 import com.ty.zbpet.util.ResourceUtil
-import com.ty.zbpet.util.SimpleCache
 import com.ty.zbpet.util.ZBUiUtils
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog
 import kotlinx.android.synthetic.main.activity_content_reversal.*

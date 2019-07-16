@@ -23,15 +23,6 @@ class PositionCode {
     var list: MutableList<StockListBean>? = null
 
     class StockListBean {
-        /**
-         * materialName : 原药_阿维菌素
-         * materialNo : 10000066
-         * supplierNo : 121321
-         * supplierName : 测试
-         * concentration : 0.2
-         * number : 478
-         * unit : KG
-         */
 
         var stockId: String? = null
         var positionNo: String? = null

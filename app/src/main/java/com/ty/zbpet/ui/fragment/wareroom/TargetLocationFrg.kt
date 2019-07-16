@@ -3,7 +3,6 @@ package com.ty.zbpet.ui.fragment.wareroom
 import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
-import android.widget.CheckBox
 import com.ty.zbpet.R
 import com.ty.zbpet.base.BaseSupFragment
 import com.ty.zbpet.bean.eventbus.system.FragmentScanEvent
@@ -86,10 +85,10 @@ class TargetLocationFrg : BaseSupFragment(), ComplexInterface<PositionCode> {
         val positionNo = event.getPositionNo()
         if (type.equals("target")) {
             tv_target.text = positionNo
+            // TODO 根据库位码 查询 warehouseNo
+            presenter.positionStock(positionNo)
+            isList = false
         }
-        // TODO 根据库位码 查询 warehouseNo
-        presenter.positionStock(positionNo)
-        isList = false
     }
 
     override fun showListData(list: MutableList<PositionCode>) {
@@ -107,11 +106,11 @@ class TargetLocationFrg : BaseSupFragment(), ComplexInterface<PositionCode> {
                 recycler_target.adapter = adapter
 
                 adapter?.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
-                    override fun onItemLongClick(view: View?, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder?, position: Int): Boolean {
+                    override fun onItemLongClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int): Boolean {
                         return true
                     }
 
-                    override fun onItemClick(view: View?, holder: androidx.recyclerview.widget.RecyclerView.ViewHolder?, position: Int) {
+                    override fun onItemClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int) {
                         adapter?.setSelection(position)
                         selectPosition = position
                     }

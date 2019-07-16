@@ -8,6 +8,7 @@ import com.ty.zbpet.R
 import com.ty.zbpet.base.BaseSupFragment
 import com.ty.zbpet.bean.eventbus.system.FragmentScanEvent
 import com.ty.zbpet.bean.system.PositionCode
+import com.ty.zbpet.bean.system.PositionQuery
 import com.ty.zbpet.constant.CodeConstant
 import com.ty.zbpet.constant.TipString
 import com.ty.zbpet.net.RequestBodyJson
@@ -31,12 +32,12 @@ import org.greenrobot.eventbus.ThreadMode
  * @author TY on 2019/4/24.
  * 源库位
  */
-class SourceLocationFrg : BaseSupFragment(), ComplexInterface<PositionCode> {
+class SourceLocationFrg : BaseSupFragment(), ComplexInterface<PositionQuery> {
 
     private var adapter: SourceAdapter? = null
     private var warehouseNo = ""
     private var positionNo = ""
-    private var list = mutableListOf<PositionCode.StockListBean>()
+    private var list = mutableListOf<PositionQuery>()
     private val presenter: MovePresenter = MovePresenter(this)
 
     override val fragmentLayout: Int
@@ -50,8 +51,8 @@ class SourceLocationFrg : BaseSupFragment(), ComplexInterface<PositionCode> {
 
     override fun onStart() {
         super.onStart()
-        initToolBar(R.string.move_room_source, TipString.submit, View.OnClickListener {
-            createOrder(initReqBody())
+        initToolBar(R.string.move_room_source, TipString.submit, View.OnClickListener { _ ->
+            initReqBody()?.let { presenter.materialMoveOrder(it) }
         })
     }
 
@@ -62,12 +63,12 @@ class SourceLocationFrg : BaseSupFragment(), ComplexInterface<PositionCode> {
         for (i in 0 until size) {
             val view = recycler_source.getChildAt(i)
             val number = view?.edit_number?.text.toString().trim()
-            if (!TextUtils.isEmpty(number) || number != "null") {
+            if (!TextUtils.isEmpty(number) && number != "null") {
                 val bean = PositionCode.StockListBean()
 
                 bean.unit = list[i].unit
-                bean.stockId = list[i].stockId
-                bean.sapOrderNo = list[i].sapOrderNo
+//                bean.stockId = list[i].stockId
+//                bean.sapOrderNo = list[i].sapOrderNo
                 bean.positionNo = list[i].positionNo
                 bean.supplierNo = list[i].supplierNo
                 bean.sapBatchNo = list[i].sapBatchNo
@@ -90,14 +91,6 @@ class SourceLocationFrg : BaseSupFragment(), ComplexInterface<PositionCode> {
         val json = Gson().toJson(data)
         return RequestBodyJson.requestBody(json)
 
-    }
-
-    private fun createOrder(body: RequestBody?) {
-
-        if (body == null) {
-            return
-        }
-        presenter.materialMoveOrder(body)
     }
 
     /**
@@ -123,21 +116,29 @@ class SourceLocationFrg : BaseSupFragment(), ComplexInterface<PositionCode> {
         presenter.dispose()
     }
 
-    override fun showListData(list: MutableList<PositionCode>) {
-
-
-    }
-
-    override fun showObjData(obj: PositionCode) {
+    override fun showListData(lists: MutableList<PositionQuery>) {
         // 接收查询的库位码信息
-        list = obj.list!!
-        warehouseNo = obj.warehouseNo
-        positionNo = obj.positionNo
+        list = lists
+        lists[0].warehouseNo?.let { warehouseNo = it }
+        lists[0].positionNo?.let { positionNo = it }
         context?.let { LayoutInit.initLayoutManager(it, recycler_source) }
         recycler_source.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
 
         adapter = context?.let { SourceAdapter(it, R.layout.item_move_source_frg, list) }
         recycler_source.adapter = adapter
+
+    }
+
+    override fun showObjData(obj: PositionQuery) {
+        // 接收查询的库位码信息
+//        list = obj.list!!
+//        warehouseNo = obj.warehouseNo
+//        positionNo = obj.positionNo
+//        context?.let { LayoutInit.initLayoutManager(it, recycler_source) }
+//        recycler_source.addItemDecoration(SpaceItemDecoration(ResourceUtil.dip2px(CodeConstant.ITEM_DECORATION), false))
+//
+//        adapter = context?.let { SourceAdapter(it, R.layout.item_move_source_frg, list) }
+//        recycler_source.adapter = adapter
     }
 
     override fun responseSuccess() {

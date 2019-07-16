@@ -7,6 +7,7 @@ import com.ty.zbpet.bean.eventbus.system.EndLoadingMessage;
 import com.ty.zbpet.bean.eventbus.system.StartLoadingMessage;
 import com.ty.zbpet.bean.material.MaterialList;
 import com.ty.zbpet.bean.system.PositionCode;
+import com.ty.zbpet.bean.system.PositionQuery;
 import com.ty.zbpet.bean.system.ProductInventorList;
 import com.ty.zbpet.bean.system.ReceiptList;
 import com.ty.zbpet.constant.CodeConstant;
@@ -122,19 +123,19 @@ public class SystemPresenter {
      */
     public void positionStock(String positionNo) {
         EventBus.getDefault().post(new StartLoadingMessage("保存中"));
-        httpMethods.positionStock(new SingleObserver<BaseResponse<PositionCode>>() {
+        httpMethods.positionStock(new SingleObserver<BaseResponse<PositionQuery>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 disposable = d;
             }
 
             @Override
-            public void onSuccess(BaseResponse<PositionCode> response) {
+            public void onSuccess(BaseResponse<PositionQuery> response) {
                 EventBus.getDefault().post(new EndLoadingMessage(""));
                 if (CodeConstant.SERVICE_SUCCESS.equals(response.getTag())) {
-                    PositionCode data = response.getData();
+                    List<PositionQuery> list = response.getList();
 
-                    EventBus.getDefault().post(data);
+                    EventBus.getDefault().post(list);
                 } else {
                     EventBus.getDefault().post(new ErrorMessage(response.getMessage()));
                 }

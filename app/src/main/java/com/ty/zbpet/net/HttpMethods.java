@@ -15,15 +15,14 @@ import com.ty.zbpet.bean.product.ProductList;
 import com.ty.zbpet.bean.system.BoxCodeUrl;
 import com.ty.zbpet.bean.system.ImageData;
 import com.ty.zbpet.bean.system.PositionCode;
+import com.ty.zbpet.bean.system.PositionQuery;
 import com.ty.zbpet.bean.system.ProMoveList;
 import com.ty.zbpet.bean.system.ProductInventorList;
 import com.ty.zbpet.bean.system.ProductQuery;
 import com.ty.zbpet.bean.system.ReceiptList;
 import com.ty.zbpet.constant.ApiNameConstant;
 import com.ty.zbpet.constant.CodeConstant;
-
 import java.util.concurrent.TimeUnit;
-
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -822,7 +821,7 @@ public class HttpMethods {
     /**
      * 原辅料盘点
      */
-    public void positionStock(SingleObserver<BaseResponse<PositionCode>> observer, String positionNo) {
+    public void positionStock(SingleObserver<BaseResponse<PositionQuery>> observer, String positionNo) {
         mService.positionStock(positionNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
