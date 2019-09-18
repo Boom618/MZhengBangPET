@@ -1,10 +1,12 @@
 package com.ty.zbpet.ui.activity.material
 
+import android.os.Build
 import android.os.Bundle
 import android.util.SparseArray
 import android.view.KeyEvent
 import android.view.View
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.DiffUtil
 import com.pda.scanner.ScanReader
 import com.ty.zbpet.R
@@ -34,6 +36,7 @@ import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_content_row_two.*
 import okhttp3.RequestBody
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -77,9 +80,11 @@ class ArrivalInTodoDetailActivity : BaseActivity()
 
     private val materialPresenter = MaterialPresenter(this)
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBaseCreate(savedInstanceState: Bundle?) {
         val sdf = SimpleDateFormat(CodeConstant.DATE_SIMPLE_H_M, Locale.CHINA)
-        selectTime = sdf.format(Date())
+        //selectTime = sdf.format(Date())
+        selectTime = LocalDateTime.now().toString()
         tv_time.text = selectTime
 
     }
